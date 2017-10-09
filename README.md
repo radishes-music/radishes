@@ -1,5 +1,7 @@
 #about music 1.0
 
+#在线预览地址 http://www.linkorg.club/onWeb/public/External/dist/index.html#/
+
 #file
 #------------------------------------------------------------------#
 #  1,src -> vue-cli生成自定义代码块与组件
