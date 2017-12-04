@@ -4,7 +4,7 @@
     <p class="latest_title">最新音乐<a>开发者:Link</a></p>
     
     <div class="latest_music">
-      <p class="main">播放全部</p>
+      <p class="main" @click="addAllSong">播放全部</p>
       <ul>
         <li class="latest_li" v-for="(item,index) in singer" @dblclick="setAudioSrc(singer.indexOf(item))">
           <img class="latest_li_img_on" v-bind:src="img[index]" id="addsong" v-on:mouseenter="enter(index)" v-on:mouseleave="levae(index)" title="添加到播放队列" @click="addSongList(index)">
@@ -42,9 +42,11 @@ export default {
       let temp = []
       temp.push({
         'song_name': this.singer[i].name,
-        'author_name': '',
+        'author_name': this.singer[i].author_name,
         'duration': this.singer[i].timeOut,
-        'url': this.src[i]
+        'url': this.src[i],
+        'lyc': this.singer[i].lyc,
+        'img': this.singer[i].img
       })
       this.__songList.push(temp[0])
       bus.$emit('songlength', this.__songList.length)
@@ -58,6 +60,26 @@ export default {
     // 双击播放
     setAudioSrc: function (i) {
       bus.$emit('AudioSrc', this.src[i])
+      bus.$emit('songControl', {
+        'img': this.singer[i].img,
+        'author_name': this.singer[i].author_name,
+        'song_name': this.singer[i].song_name,
+        'lyc': this.singer[i].lyc
+      })
+    },
+    // 添加所有到播放队列
+    addAllSong: function () {
+      for (let i = 0; i < this.singer.length; i++) {
+        this.__songList.push({
+          'song_name': this.singer[i].name,
+          'author_name': this.singer[i].author_name,
+          'duration': this.singer[i].timeOut,
+          'url': this.src[i],
+          'lyc': this.singer[i].lyc,
+          'img': this.singer[i].img
+        })
+      }
+      bus.$emit('songlength', this.__songList.length)
     }
   },
   mounted: function () {

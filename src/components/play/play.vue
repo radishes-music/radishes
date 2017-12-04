@@ -95,8 +95,16 @@ export default {
       this.src = this.__songList[i].url
       this.index = i
       this.currTime = 0
+      clearInterval(this.t)
       this.time(this.audios, this.currTime)
       this.enend()
+      // 更换歌曲图片
+      bus.$emit('songControl', {
+        'img': this.__songList[i].img,
+        'author_name': this.__songList[i].author_name,
+        'song_name': this.__songList[i].song_name,
+        'lyc': this.__songList[i].lyc
+      })
     },
     next: function () {
       this.currTime = 0
@@ -107,12 +115,21 @@ export default {
       }
       if (this.__songList.length !== 0) {
         this.src = this.__songList[this.index].url
+        this.$set(this.__songState, 0, {
+          'lyc': this.__songList[this.index].lyc,
+          'song_name': this.__songList[this.index].song_name,
+          'author_name': this.__songList[this.index].author_name,
+          'img': this.__songList[this.index].img
+        })
+        bus.$emit('songControl', this.__songState[0])
+        // console.log(this.__songState[0])
+        // console.log(this.__songList[this.index])
         this.audios.addEventListener('loadeddata', () => {
+          clearInterval(this.t)
           this.time(this.audios, this.currTime)
           this.moveCon = true
         }, false)
         console.log(this.index)
-        // console.log(this.src)
       } else {
         console.log('Please add the song to the list')
         this.index = 0
@@ -128,7 +145,15 @@ export default {
       }
       if (this.__songList.length !== 0) {
         this.src = this.__songList[this.index].url
+        this.$set(this.__songState, 0, {
+          'lyc': this.__songList[this.index].lyc,
+          'name': this.__songList[this.index].song_name,
+          'Author': this.__songList[this.index].author_name,
+          'img': this.__songList[this.index].img
+        })
+        bus.$emit('songControl', this.__songState[0])
         this.audios.addEventListener('loadeddata', () => {
+          clearInterval(this.t)
           this.time(this.audios, this.currTime)
           this.moveCon = true
         }, false)
@@ -175,6 +200,10 @@ export default {
         if (this.audios.play && this.isMove) {
           duration = parseInt(audio.duration)
           var currentTime = parseInt(audio.currentTime)
+          // 歌词滚动 false代表缓慢到达指定地点
+          this.__currentTime = currentTime
+          bus.$emit('Scrolling', [this.__currentTime, false])
+          // console.log(this.__currentTime)
           timeStart[1].style.width = (428 * currentTime / duration) + 'px'
           timeStart[2].style.left = (428 * currentTime / duration) + 40 + 'px'
           this.timeChange(currentTime, false)
@@ -193,6 +222,7 @@ export default {
         this.currTime = this.temp
         if (!this.isMove) {
           this.audios.play()
+          clearInterval(this.t)
           this.time(this.audios, this.currTime)
         }
         this.isMove = true
@@ -258,20 +288,30 @@ export default {
         this.temp = this.currTime
         timeStart[1].style.width = l - 40 + 'px'
         this.timeChange(this.currTime, false)
+        // 歌词滚动 true代表直接到达指定地点
+        this.__currentTime = parseInt(this.temp)
+        bus.$emit('Scrolling', [this.__currentTime, true])
       }
     },
     enend: function () {
       this.audios.addEventListener('loadeddata', () => {
         this.audios.play()
+        clearInterval(this.t)
         this.time(this.audios, this.currTime)
         this.moveCon = true
       }, false)
       this.audios.addEventListener('play', () => {
+        this.playSrc = 'http://www.linkorg.club/onWeb/public/External/testImg/pause.png'
+        this.isPlay = false
+        this.currTime = this.audios.currentTime
+        bus.$emit('Scrolling', [this.currTime, true])
         this.time(this.audios, this.currTime)
       }, false)
       this.audios.addEventListener('pause', () => {
+        this.playSrc = 'http://www.linkorg.club/onWeb/public/External/testImg/play.png'
+        this.isPlay = true
         clearInterval(this.t)
-        console.log('over audio')
+        console.log('pause audio')
       }, false)
       this.audios.addEventListener('ended', () => {
         this.playSrc = 'http://www.linkorg.club/onWeb/public/External/testImg/play.png'
@@ -283,7 +323,13 @@ export default {
           this.index ++
         }
         this.src = this.__songList[this.index].url
-        clearInterval(this.t)
+        // clearInterval(this.t)
+        bus.$emit('songControl', {
+          'img': this.__songList[this.index].img,
+          'author_name': this.__songList[this.index].author_name,
+          'song_name': this.__songList[this.index].song_name,
+          'lyc': this.__songList[this.index].lyc
+        })
         console.log('over audio')
       }, false)
     }
@@ -367,7 +413,7 @@ export default {
   width: 100%;
   height: 48px;
   background-color: rgb(246,246,246);
-  border: .5px solid #D3D3D3;
+  border-top: 1px solid #D3D3D3;
 }
 
 .left {

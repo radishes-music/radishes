@@ -30,7 +30,7 @@
 
 <script>
 import publicFn from './Data/getData'
-import bus from '../router/eventBus'
+// import bus from '../router/eventBus'
 
 export default {
   data () {
@@ -45,10 +45,11 @@ export default {
   watch: {
     key: {
       handler: function (val, oldval) {
-        this.cleanResult()
-        publicFn.serch(this.$refs.key.value, 20, this.result)
+        this.cleanResult() // 清除result数据
+        publicFn.serch(this.$refs.key.value, 20, this.result) // 搜索
         this.$refs.key.value === '' ? this.pop.style.display = 'none' : this.pop.style.display = 'block'
         for (let i = 0; i < 20; i++) {
+          // 添加列表图片初始化
           this.img.push('http://www.linkorg.club/onWeb/public/External/testImg/addSong_2.png')
         }
       },
@@ -57,16 +58,7 @@ export default {
   },
   methods: {
     addSongList: function (i) {
-      this.plays(this.result[i].hash)
-      let temp = []
-      temp.push({
-        'song_name': this.result[i].songname,
-        'author_name': this.result[i].name,
-        'duration': this.result[i].duration,
-        'url': this.src
-      })
-      this.__songList.push(temp[0])
-      bus.$emit('songlength', this.__songList.length)
+      publicFn.play(this.result[i].hash, false, this.result[i].duration, this.__songList)
     },
     enter: function (i) {
       this.$set(this.img, i, 'http://www.linkorg.club/onWeb/public/External/testImg/addSong_1.png')
@@ -91,20 +83,6 @@ export default {
     },
     setAudio: function (i) {
       publicFn.play(this.result[i].hash, true)
-    },
-    plays: function (hash) {
-      let r = 'play/getdata'
-      this.$http.get('/search/yy/index.php', {
-        params: {
-          'r': r,
-          'hash': hash
-        }
-      }).then(function (res) {
-        // console.log(res.data.data.play_url)
-        this.src = res.data.data.play_url
-      }, function (e) {
-        console.log(e)
-      })
     }
   },
   mounted: function () {
@@ -126,7 +104,7 @@ export default {
 
 @font-face {
   font-family: black_;
-  src: url('../font/时尚中黑简体.ttf');
+  src: url('../font/LinkBack.ttf');
   font-weight: lighter;
 }
 input::-webkit-input-placeholder{
@@ -138,6 +116,7 @@ input::-webkit-input-placeholder{
   width: 1022px;
   height: 52px;
   background: url(../assets/titleInfo.png) no-repeat center;
+  z-index: 1;
 }
 
 .logo {

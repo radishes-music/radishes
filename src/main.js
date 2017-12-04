@@ -15,3 +15,5 @@ window.vm = new Vue({
   components: { App }
 })
 Vue.prototype.__songList = []
+Vue.prototype.__songState = []
+Vue.prototype.__currentTime = 0

@@ -1,8 +1,9 @@
 <template>
   <div class="hello">
     <ExTitle></ExTitle>
-    <FlexLeft></FlexLeft>
-    <FlexRight></FlexRight>
+    <FlexLeft v-show="isView"></FlexLeft>
+    <FlexRight v-show="isView"></FlexRight>
+    <lyc v-show="!isView"></lyc>
     <play></play>
   </div>
 </template>
@@ -13,20 +14,29 @@ import title from './ExTitle'
 import left from './FlexLeft'
 import right from './foundMusic/FlexRight'
 import play from './play/play'
+import lyc from './lycLayout'
+import bus from '../router/eventBus'
 
 export default {
   name: 'hello',
   data () {
     return {
+      isView: true
     }
   },
   components: {
     'ExTitle': title,
     'FlexLeft': left,
     'FlexRight': right,
-    'play': play
+    'play': play,
+    'lyc': lyc
   },
   methods: {
+  },
+  mounted: function () {
+    bus.$on('isLyc', (e) => {
+      this.isView = e
+    })
   }
 }
 </script>

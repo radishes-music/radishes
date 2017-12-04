@@ -76,11 +76,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@keyframes mymove {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .right {
   position: relative;
   float: right;
   width: 820px;
   height: 520px;
+  opacity: 1;
+  animation: mymove .4s;
   background-color: rgb(250,250,250);
   overflow: auto;
 }

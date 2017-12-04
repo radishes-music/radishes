@@ -117,7 +117,7 @@ export default {
   },
   // 播放
   play: function (hash, c, d, __songList) {
-    console.log(hash)
+    // console.log(hash)
     let r = 'play/getdata'
     Vue.http.get('/search/yy/index.php', {
       params: {
@@ -127,12 +127,20 @@ export default {
     }).then(function (res) {
       if (c) { // 控制不同组件是否添加歌曲队列
         bus.$emit('AudioSrc', res.data.data.play_url)
+        bus.$emit('songControl', {
+          'img': res.data.data.img,
+          'author_name': res.data.data.author_name,
+          'song_name': res.data.data.song_name,
+          'lyc': res.data.data.lyrics
+        })
       } else {
         __songList.push({
+          'img': res.data.data.img,
           'url': res.data.data.play_url,
           'duration': d,
           'song_name': res.data.data.song_name,
-          'author_name': res.data.data.author_name
+          'author_name': res.data.data.author_name,
+          'lyc': res.data.data.lyrics
         })
         bus.$emit('songlength', __songList.length)
       }
@@ -158,7 +166,11 @@ export default {
           'name': array[0],
           'remark': array[1],
           'timeOut': array[2],
-          'src': res.data.data.img
+          'src': res.data.data.img,
+          'img': res.data.data.img,
+          'author_name': res.data.data.author_name,
+          'song_name': res.data.data.song_name,
+          'lyc': res.data.data.lyrics
         }
         singer.push(temp)
         for (let i = 0; i < singer.length - 1; i++) {
@@ -257,7 +269,9 @@ export default {
         'author_name': res.data.data.author_name,
         'album_name': res.data.data.album_name,
         'duration': d,
-        'url': res.data.data.play_url
+        'url': res.data.data.play_url,
+        'img': res.data.data.img,
+        'lyc': res.data.data.lyrics
       })
     })
   }

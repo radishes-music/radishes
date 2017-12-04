@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     addSongAll: function () {
-      let l = this.playlist.length - 1
+      let l = this.playlist.length
       for (let i = 0; i < l; i++) {
         this.__songList.push(this.playlist[i])
       }
@@ -82,6 +82,7 @@ export default {
       this.$set(this.img, i, 'http://www.linkorg.club/onWeb/public/External/testImg/addSong_2.png')
     },
     setAudioSrc: function (i) {
+      bus.$emit('songControl', this.playlist[i])
       bus.$emit('AudioSrc', this.src[i])
     }
   },
