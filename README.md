@@ -2,7 +2,7 @@
 
 最新版本下载地址 https://download.csdn.net/download/chutianwu5552/10292566
 
-在线预览地址 http://www.linkorg.club/onWeb/public/External/dist/index.html#/
+在线预览地址 http://112.74.169.178/#/
 
 ## File
 ### 1,src -> vue-cli生成自定义代码块与组件(在分支中更新仓库SRC即可升级到0.9.0)
