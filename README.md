@@ -2,16 +2,18 @@
 
 最新版本下载地址 https://download.csdn.net/download/chutianwu5552/10292566
 
-## 在线预览地址 http://www.linkorg.club/onWeb/public/External/dist/index.html#/
+在线预览地址 http://www.linkorg.club/onWeb/public/External/dist/index.html#/
 
 ## File
 ### 1,src -> vue-cli生成自定义代码块与组件
+```
 1.1,assets -> 图片
 1.2,components -> 组件
 1.3,font -> 字体
 1.4,router -> 路由与全局交互
 1.5,APP.vue -> 入口
 1.6,main.js -> vue实例化
+```
 
 ### 2,build -> vue-cli生成打包生成文件包括webpack配置(生成环境)
 ### 3,config -> vue-cli生成的配置文件包括webpack配置(开发环境)
@@ -19,6 +21,7 @@
 
 #  -----------------------自定义代码文件介绍-------------------------
 ## components 
+```
  -> Hello.vue 组件入口
  -> ExTitle.vue 上边栏
  -> FlexLeft.vue 左边栏
@@ -37,3 +40,4 @@
 -> SingerList.vue 歌手详情组件
 -> SingerLists.vue 歌手分类下的歌手列表组件
 -> SongListDetails.vue 歌单详情组件
+```
