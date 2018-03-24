@@ -8,6 +8,15 @@
 + 环境 : windows all, node, php
 
 + 请下载 < ### 网易云音乐 API> 地址 : https://binaryify.github.io/NeteaseCloudMusicApi/#/ 感谢作者
+
+* 开始使用
+    > 1, 下载Node.js (安装后会有npm环境,推荐百度关键词'cnpm'下载)
+    > 2, 下载网易云音乐 API,地址: https://binaryify.github.io/NeteaseCloudMusicApi/#/ (同上,已下载请忽略)
+    > 3, 解压后在根目录下使用命令 
+            set port = 8091 & node app.js
+    > 4, 双击打开本文件中的 run dev.bat
+    > 5, 成功
+
 * 详细说明
 ```
 1,项目更新于2018.03.19,后面将继续完善功能.已经完善的功能有 : 
