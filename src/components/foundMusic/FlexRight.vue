@@ -25,9 +25,14 @@ import FlexRightLatestMusic from './FlexRight_latest_music'
 import FlexRightDownFile from '../downFile/downLoad'
 import PersonalList from '../SongListDetails/PersonalList'
 import wyListDetails from '../SongListDetails/wyListDetails'
+import disc from '../disc/disc'
 import Fm from '../FM/Fm'
 import Mv from '../MV/Mv'
 import Friend from '../Friend/Friend'
+import myFm from '../FM/myFm'
+import myFmPlay from '../FM/myFmPlay'
+import Singer from '../Singer/Singer'
+import AlbumList from '../Singer/AlbumList'
 
 import bus from '../../router/eventBus'
 
@@ -56,7 +61,12 @@ export default {
     'wyListDetails': wyListDetails,
     'Fm': Fm,
     'Mv': Mv,
-    'Friend': Friend
+    'Friend': Friend,
+    'disc': disc,
+    'myFm': myFm,
+    'myFmPlay': myFmPlay,
+    'AlbumList': AlbumList,
+    'Singer': Singer
   },
   methods: {
     elect_index: function (i, c) {
@@ -96,32 +106,42 @@ export default {
       this.elect_index(e, false)
     })
     bus.$on('left_listen', (e) => {
+      // console.log(e[0])
       this.isTop = true
-      if (e[0] === 0) {
-        this.views = true
-        this.view = 'FlexRightBottom'
-        // this.index = 0 // 回归到第一个位置
-      } else if (e[0] === 1) {
-        this.views = false
-        this.otherView = 'Fm'
-      } else if (e[0] === 2) {
-        this.views = false
-        this.otherView = 'Mv'
-      } else if (e[0] === 3) {
-        this.views = false
-        this.otherView = 'Friend'
-      } else if (e[0] >= 9) {
-        this.views = false
-        if (e[1]) {
-          console.log(e[2])
-          bus.$emit('Wyindex', e[2])
-          this.otherView = 'wyListDetails'
-        } else {
-          this.otherView = 'PersonalList'
-        }
-      } else {
-        this.views = false
-        this.otherView = 'FlexRightDownFile'
+      switch (e[0]) {
+        case 0 : this.views = true; this.view = 'FlexRightBottom'; break
+        case 1 : this.views = false; this.otherView = 'Fm'; break
+        case 2 : this.views = false; this.otherView = 'Mv'; break
+        case 3 : this.views = false; this.otherView = 'Friend'; break
+        case 4 : this.views = false; this.otherView = 'FlexRightDownFile'; break
+        case 5 : this.views = false; this.otherView = 'disc'; break
+        case 6 : this.views = false; this.otherView = 'myFm'; break
+        case 88 : this.views = false; this.otherView = 'AlbumList'
+          setTimeout(() => {
+            bus.$emit('AlbumList', e[2])
+          }, 300)
+          break
+        case 99 : this.views = false; this.otherView = 'Singer'
+          setTimeout(() => {
+            bus.$emit('Singer', e[2])
+          }, 200)
+          break
+        case 100 : this.views = false; this.otherView = 'myFmPlay'
+          setTimeout(() => {
+            bus.$emit('myFmPlay', e[1])
+          }, 200)
+          break
+        default :
+          this.views = false
+          if (e[1]) {
+            // console.log(e[2])
+            this.otherView = 'wyListDetails'
+            setTimeout(() => {
+              bus.$emit('Wyindex', e[2])
+            }, 300)
+          } else {
+            this.otherView = 'PersonalList'
+          }
       }
     })
     bus.$on('setColor', (e) => {

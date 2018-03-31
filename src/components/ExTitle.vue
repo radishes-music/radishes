@@ -1,6 +1,6 @@
 <template>
   <div class="title">
-    <div class="logo">小何沁</div>
+    <div class="logo" @click="updatePage">小何沁</div>
     <div class="serch">
       <div class="back_next" @click="goBack">
         <span id="back" title="返回" v-bind:class="!back ? 'is' : 'isGo'"></span>
@@ -18,16 +18,20 @@
       <div class="popResults" id="popResultsWy">
         <ul>
           <span id="popResultsWyOnly">单曲</span>
-          <li v-for="(item, index) in result" @click="setAudio(index)"><i>{{ item.name }}</i> - {{ item.auname }}</li>
+          <li v-for="(item, index) in result" @click="setAudio(index)">{{item.name}} - <i>{{ item.auname }}</i></li>
+          <span id="popResultsWySinger" v-if="resultSinger.length===0?false:true">歌手</span>
+          <li v-for="(item, index) in resultSinger" @click="goSinger(index)"><i>{{ item.name }}</i></li>
           <span id="popResultsWyList">歌单</span>
-          <li v-for="(item, index) in resultList" @click="goListDetails(index)">{{ item.name }}</li>
+          <li v-for="(item, index) in resultList" @click="goListDetails(index)" v-html="item.name"></li>
           <span id="popResultsWyMv">视频</span>
-          <li v-for="(item, index) in resultMv" @click="goMv(index)"><i>{{ item.name }}</i> - {{ item.auname }}</li>
+          <li v-for="(item, index) in resultMv" @click="goMv(index)" v-html="item.name"> <i>{{ item.auname }}</i></li>
+          <span id="popResultsWyLyc">歌词</span>
+          <li v-for="(item, index) in resultLyc" @click="goLycList(index)">{{ item.name }} - <i>{{ item.auname }}</i></li>
         </ul>
       </div>
       <div class="popResults" id="popResults">
         <ul>
-          <li v-for="(item, index) in result" @dblclick="setAudio(index)">
+          <li v-for="(item, index) in result" @click="setAudio(index)">
             <!-- <img v-bind:src="img[index]" id="addsong" v-on:mouseenter="enter(index)" v-on:mouseleave="levae(index)" title="添加到播放队列" @click="addSongList(index)"> -->
             <p>{{ item.songname }}</p>
             <a>{{ item.name }}</a>
@@ -52,6 +56,7 @@
       <div class="userDetail_">
         <li>VIP会员<a>{{ userDataDetail.length !== 0 ? (userDataDetail[0].profile.vipType === 0 ? '未订购' : ('LV. ' + userDataDetail[0].profile.vipType)) : '未订购' }}</a></li>
         <li>等级<a>{{ 'LV.' + (userDataDetail.length !== 0 ? userDataDetail[0].level : '0') }}</a></li>
+        <!-- <li>积分<a>{{ (0) + ' 积分' }}</a></li> -->
         <li>积分<a>{{ (userDataDetail.length !== 0 ? userDataDetail[0].userPoint.balance : '0') + ' 积分' }}</a></li>
       </div>
     </div>
@@ -115,6 +120,8 @@ export default {
       result: [],
       resultList: [],
       resultMv: [],
+      resultSinger: [],
+      resultLyc: [],
       isMoveListSerch: false,
       isWyApi: true
     }
@@ -126,6 +133,20 @@ export default {
         this.isWyApi ? WyData.getSearch(this.$refs.key.value, 1, 4, this.result) : publicFn.serch(this.$refs.key.value, 20, this.result) // 搜索
         this.isWyApi ? WyData.getSearch(this.$refs.key.value, 1000, 3, this.resultList) : null
         this.isWyApi ? WyData.getSearch(this.$refs.key.value, 1004, 3, this.resultMv) : null
+        this.isWyApi ? WyData.getSearch(this.$refs.key.value, 100, 1, this.resultSinger) : null
+        this.isWyApi ? WyData.getSearch(this.$refs.key.value, 1006, 10, this.resultLyc) : null
+        // 对歌单列表进行字符提取
+        let t = setInterval(() => {
+          if (this.resultList.length !== 0 && this.resultMv.length !== 0 && this.result.length !== 0) {
+            for (let i = 0; i < this.resultList.length; i++) {
+              this.resultList[i].name = this.resultList[i].name.replace(this.$refs.key.value, '<i>' + this.$refs.key.value + '</i>')
+            }
+            for (let i = 0; i < this.resultMv.length; i++) {
+              this.resultMv[i].name = this.resultMv[i].name.replace(this.$refs.key.value, '<i>' + this.$refs.key.value + '</i>')
+            }
+            clearInterval(t)
+          }
+        }, 200)
         if (this.$refs.key.value !== '') {
           this.isWyApi ? this.popWy.style.display = 'block' : this.pop.style.display = 'block'
           document.querySelector('#choose').style.opacity = '0'
@@ -144,12 +165,45 @@ export default {
     }
   },
   methods: {
+    goLycList: function (index) {
+      this.popWy.style.display = 'none'
+      let lycSrc = []
+      let img = []
+      WyData.Getartists(this.resultLyc[index].auId, img)
+      WyData.SongLyc(this.resultLyc[index].id, lycSrc)
+      let t = setInterval(() => {
+        if (img.length !== 0 && lycSrc.length !== 0) {
+          bus.$emit('songControl', {
+            'img': img[0],
+            'author_name': this.resultLyc[index].auname,
+            'song_name': this.resultLyc[index].name,
+            'duration': this.resultLyc[index].duration / 1000,
+            'id': this.resultLyc[index].id,
+            'lyc': lycSrc[0],
+            'isWy': true
+          })
+          bus.$emit('AudioSrc', 'http://music.163.com/song/media/outer/url?id=' + this.resultLyc[index].id + '.mp3')
+          clearInterval(t)
+        }
+      }, 100)
+    },
+    updatePage: function () {
+      console.log('update')
+      window.location.reload()
+    },
+    goSinger: function (index) {
+      this.popWy.style.display = 'none'
+      // console.log(this.resultSinger[index].id)
+      bus.$emit('left_listen', [99, true, this.resultSinger[index].id])
+    },
     goMv: function (index) {
+      this.popWy.style.display = 'none'
       console.log(this.resultMv[index].id)
       WyData.playMv(this.resultMv[index].id)
       bus.$emit('isMvPlay', true)
     },
     goListDetails: function (index) {
+      this.popWy.style.display = 'none'
       bus.$emit('left_listen', [9, true, this.resultList[index].id])
     },
     shutChoose: function () {
@@ -187,6 +241,8 @@ export default {
             return false
           }
           if (this.userData.length !== 0) {
+            global.userNamePass[0] = user.value
+            global.userNamePass[1] = pass.value
             this.isLong = true
             user.value = pass.value = ''
             this.longState = true
@@ -249,6 +305,8 @@ export default {
       this.cleanResults(this.result)
       this.cleanResults(this.resultList)
       this.cleanResults(this.resultMv)
+      this.cleanResults(this.resultSinger)
+      this.cleanResults(this.resultLyc)
     },
     cleanResults: function (arr) {
       for (let i = arr.length - 1; i >= 0; i--) {
@@ -280,6 +338,7 @@ export default {
       this.pop.style.display = 'none'
       // 是否网易api
       if (this.isWyApi) {
+        this.popWy.style.display = 'none'
         let img = []
         let lycSrc = []
         WyData.Getartists(this.result[i].auId, img)
@@ -290,6 +349,8 @@ export default {
               'img': img[0],
               'author_name': this.result[i].auname,
               'song_name': this.result[i].name,
+              'duration': this.result[i].duration / 1000,
+              'id': this.result[i].id,
               'lyc': lycSrc[0],
               'isWy': true
             })
@@ -558,10 +619,16 @@ export default {
   background: rgb(245,245,245) url('http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/serchMusic.png') no-repeat 12px 6px;
 }
 #popResultsWyList {
-  background: rgb(245,245,245) url('http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/singlist.png') no-repeat 12px 6px;
+  background: rgb(245,245,245) url('http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/singlist.png') no-repeat 8px 6px;
+}
+#popResultsWySinger {
+  background: rgb(245,245,245) url('http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/Singer.png') no-repeat 8px 4px;
 }
 #popResultsWyMv {
-  background: rgb(245,245,245) url('http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/mv.png') no-repeat 12px 6px;
+  background: rgb(245,245,245) url('http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/mv.png') no-repeat 8px 6px;
+}
+#popResultsWyLyc {
+  background: rgb(245,245,245) url('http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/lyc.png') no-repeat 7px 3px;
 }
 
 #popResultsWy li {

@@ -2,7 +2,7 @@
   <div class="lycLayout">
     <img v-bind:src="srcImg" class="blurBg">
     <span class="scaleMin" @click="back"><img src="http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/Min.png"></span>
-    <div class="songImg">
+    <div class="songImg" v-bind:class="pause?'aniamtionPlay':'paused'">
       <div>
         <img v-bind:src="songImg">
       </div>
@@ -35,7 +35,7 @@ export default {
       nowTime: 0,
       isBootm: true,
       pageTimer: {},
-      pause: true
+      pause: false
     }
   },
   watch: {
@@ -92,6 +92,11 @@ export default {
     },
     // 歌词处理
     lycSegmentation: function (lyc, isWy) {
+      if (lyc === null) {
+        this.lycs.push(lyc)
+        this.time = 0
+        return
+      }
       // 防止eval报错
       function evil (fn) {
         var Fn = Function
@@ -147,8 +152,8 @@ export default {
         ESS.push(eS[i])
       }
       if (isWy) {
-        for (var i = 0; i < array.length; i++) {
-          if (array[i] === `\n`) {
+        for (var i = array.length - 1; i > 0; i--) {
+          if (array[i] === `\n` || array[i] === '\r\n' || array[i] === '') {
             array.splice(i, 1)
           }
         }
@@ -184,6 +189,12 @@ export default {
     }
   },
   mounted: function () {
+    this.pause = global.isPlay
+    console.log(this.pause)
+    bus.$on('isRunning', (e) => {
+      this.pause = e
+      // console.log(e)
+    })
     // 滚动歌词
     bus.$on('Scrolling', (e) => {
       let lycP = document.querySelectorAll('.lyc li')
@@ -243,6 +254,7 @@ export default {
       } else {
         this.pause = false
       }
+      this.pause = global.isPlay
     })
     bus.$on('songControl', (e) => {
       this.songImg = e.img
@@ -333,6 +345,13 @@ export default {
 .songImg img {
   width: 216px;
   height: 216px;
+}
+
+.paused {
+  animation-play-state:paused;
+}
+.aniamtionPlay {
+  animation-play-state: running;
 }
 
 .songInfo {

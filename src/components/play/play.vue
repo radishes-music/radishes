@@ -41,20 +41,29 @@
 
     <div class="songList">
       <div class="playList">
-        <div>播放列表</div>
+        <div @click="listPage" v-bind:class="page?'playListClick':'playListNotClick'">播放列表</div>
+        <div @click="listPages" v-bind:class="page?'playListNotClick':'playListClick'">历史记录</div>
         <span></span>
       </div>
-      <div class="songList_control">
+      <div class="songList_control" v-if="page">
         <a>总共 {{ songlength }} 首</a>
         <p>清空</p>
       </div>
       <div class="songlength_info">
-        {{ songlength === 0 ? '列表中还没有歌曲哦!赶快去添加几首吧' : '' }}
+        {{ songlength === 0 && page ? '列表中还没有歌曲哦!赶快去添加几首吧' : '' }}
         <ul>
-          <li v-for="(item, is) in datas" v-bind:class="is === index ? 'state' : 'none'" @click="playLists(is)">
+          <li v-for="(item, is) in datas" v-bind:class="is === index ? 'state' : 'none'" @dblclick="playLists(is)" v-if="page">
             <p>{{ item.song_name }}</p>
             <p>{{ item.author_name }}</p>
             <p>{{ '0'+(item.duration/60).toFixed(2) }}</p>
+            <span @click="songListDelete(is)"></span>
+          </li>
+          <h3 v-if="!page">{{ historySong.length===0?'没有历史记录哦!快去搜索或登录听歌吧!':'' }}</h3>
+          <li v-for="(item, is) in historySong" @dblclick="historyPlay(is)" v-if="!page">
+            <p>{{ item.song_name }}</p>
+            <p>{{ item.author_name }}</p>
+            <p>{{ '0'+(item.duration/60).toFixed(2) }}</p>
+            <span @click="songListDelete(is, false)"></span>
           </li>
         </ul>
       </div>
@@ -67,6 +76,7 @@
 
 <script>
 import bus from '../../router/eventBus'
+import Storage from '../Data/storageIO'
 
 export default {
   name: 'play',
@@ -101,7 +111,9 @@ export default {
       checkIndex: 4,
       testPlay: false,
       isInfo: true,
-      _test: false
+      _test: false,
+      page: true,
+      historySong: []
     }
   },
   watch: {
@@ -115,7 +127,7 @@ export default {
           setTimeout(() => {
             span.style.WebkitAnimationPlayState = 'paused'
             span.style.animationPlayState = 'paused'
-            span.style.zIndex = '0'
+            span.style.zIndex = '-1'
             this._test = false
           }, 3000)
         }
@@ -125,6 +137,35 @@ export default {
     }
   },
   methods: {
+    // 播放列表
+    listPage: function () {
+      this.page = true
+    },
+    // 历史记录
+    listPages: function () {
+      this.page = false
+    },
+    songListDelete: function (index, is) {
+      // 先播放动画
+      let li = document.querySelectorAll('.songlength_info ul li')
+      li[index].style.marginLeft = -30 + 'px'
+      setTimeout(() => {
+        li[index].style.marginLeft = 460 + 'px'
+      }, 200)
+      // 延迟执行删除
+      setTimeout(() => {
+        if (!is) {
+          this.historySong.splice(index, 1)
+          Storage.setStrong('historySong', this.historySong)
+        } else {
+          this.__songList.splice(index, 1)
+          this.songlength = this.__songList.length
+        }
+      }, 800)
+      setTimeout(() => {
+        li[index].style.marginLeft = 0
+      }, 1000)
+    },
     setOrder: function () {
       this.loopControl >= 2 ? this.loopControl = 0 : this.loopControl ++
       switch (this.loopControl) {
@@ -142,6 +183,25 @@ export default {
       this.loopInfo = p
       this.loop = 'http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/' + ad + '.png'
     },
+    // 历史记录中播放歌曲
+    historyPlay: function (index) {
+      this.src = this.historySong[index].url
+      this.currTime = 0
+      clearInterval(this.t)
+      this.time(this.audios, this.currTime)
+      this.enend()
+      bus.$emit('songControl', {
+        'img': this.historySong[index].img,
+        'author_name': this.historySong[index].author_name,
+        'song_name': this.historySong[index].song_name,
+        'lyc': this.historySong[index].lyc,
+        'duration': this.historySong[index].duration,
+        'url': this.historySong[index].url,
+        'id': this.historySong[index].id,
+        'isWy': !!this.historySong[index].isWy
+      })
+      bus.$emit('AudioSrc', 'http://music.163.com/song/media/outer/url?id=' + this.historySong[index].id + '.mp3')
+    },
     // 歌曲列表栏 需要
     playLists: function (i) {
       // console.log(i)
@@ -157,6 +217,8 @@ export default {
         'author_name': this.__songList[i].author_name,
         'song_name': this.__songList[i].song_name,
         'lyc': this.__songList[i].lyc,
+        'duration': this.__songList[i].duration,
+        'id': this.__songList[i].id,
         'isWy': !!this.__songList[i].isWy
       })
     },
@@ -261,11 +323,13 @@ export default {
       // this.currTime = this.audios.currentTime
       if (this.testPlay) {
         if (this.isPlay) {
+          bus.$emit('isRunning', true)
           this.isPlay = false
           this.checkPauseImg()
           this.audios.play()
           this.setInfo('play')
         } else {
+          bus.$emit('isRunning', false)
           this.isPlay = true
           this.checkPlayImg(this.checkIndex)
           this.audios.pause()
@@ -403,6 +467,7 @@ export default {
         this.moveCon = true
       }, false)
       this.audios.addEventListener('play', () => {
+        global.isPlay = true
         this.testPlay = true
         this.checkPauseImg()
         this.isPlay = false
@@ -411,6 +476,7 @@ export default {
         this.time(this.audios, this.currTime)
       }, false)
       this.audios.addEventListener('pause', () => {
+        global.isPlay = false
         this.checkPlayImg(this.checkIndex)
         this.isPlay = true
         clearInterval(this.t)
@@ -454,6 +520,8 @@ export default {
             'img': this.__songList[this.index].img,
             'author_name': this.__songList[this.index].author_name,
             'song_name': this.__songList[this.index].song_name,
+            'duration': this.__songList[this.index].duration,
+            'id': this.__songList[this.index].id,
             'lyc': this.__songList[this.index].lyc
           })
         } catch (e) {}
@@ -510,17 +578,20 @@ export default {
       }
     }
     bus.$on('songlength', (e) => {
-      this.songlength = e
+      this.__songList = unique(this.__songList)
+      this.songlength = this.__songList.length
     })
     this.audios = document.querySelector('#audio')
     this.sounds = document.querySelectorAll('.sounds span')[1]
     this.soundsControl = document.querySelectorAll('.sounds span')[2]
     this.soundsinfo = document.querySelectorAll('.sounds span')[3]
-    this.singControls = document.querySelectorAll('.singControls span')[0]
+    this.singControls = document.querySelector('.singControls')
     this.audios.volume = 1
     this.moveControl()
     let cc = true
     this.singControls.addEventListener('click', () => {
+      this.__songList = unique(this.__songList)
+      this.songlength = this.__songList.length
       this.datas = this.__songList
       let songList = document.querySelector('.songList')
       if (cc) {
@@ -532,13 +603,20 @@ export default {
       }
     })
     document.querySelectorAll('.songList_control p')[0].addEventListener('click', () => {
-      for (let i = this.__songList.length - 1; i >= 0; i--) {
-        this.__songList.splice(i, 1)
-        this.datas.splice(i, 1)
-      }
-      this.songlength = 0
-      this.index = 0
-      this.currTime = 0
+      let ul = document.querySelector('.songlength_info ul')
+      ul.style.marginLeft = -30 + 'px'
+      setTimeout(() => {
+        ul.style.marginLeft = 460 + 'px'
+      }, 200)
+      setTimeout(() => {
+        for (let i = this.__songList.length - 1; i >= 0; i--) {
+          this.__songList.splice(i, 1)
+          this.datas.splice(i, 1)
+        }
+        this.songlength = 0
+        this.index = 0
+        this.currTime = 0
+      }, 800)
     })
     document.querySelectorAll('.playList span')[0].addEventListener('click', () => {
       let songList = document.querySelector('.songList')
@@ -569,10 +647,33 @@ export default {
       this.checkIndex = e
       this.colorss(e)
     })
+    // historySong
+    this.historySong = Storage.getStrong('historySong')
+    bus.$on('songControl', (e) => {
+      // console.log(e)
+      this.historySong = Storage.getStrong('historySong')
+      this.historySong.push(e)
+      this.historySong = unique(this.historySong)
+      // 播放后就设置本地存储 历史记录
+      Storage.setStrong('historySong', this.historySong)
+    })
     this.colorss()
     // set infomationNode position
     document.querySelector('.infomation').style.left = document.body.offsetWidth / 2 - 120 / 2 + 'px'
     document.querySelector('.infomation').style.top = document.body.offsetHeight / 2 - 36 / 2 + 'px'
+    // 播放列表去除重复
+    let unique = (arr1) => {
+      for (var i = 0; i < arr1.length - 1; i++) {
+        for (var j = 1; j < arr1.length; j++) {
+          if (i !== j) {
+            if (arr1[i].song_name === arr1[j].song_name && arr1[i].url === arr1[j].url) {
+              arr1.splice(j, 1)
+            }
+          }
+        }
+      }
+      return arr1
+    }
   }
 }
 </script>
@@ -807,10 +908,10 @@ export default {
   text-indent: 8px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  cursor: pointer;
 }
 .singControls span:nth-child(1) {
   background: rgb(225,225,225) url(http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/singList.jpg) no-repeat left;
-  cursor: pointer;
   z-index: 1;
 }
 @keyframes listAn {
@@ -843,15 +944,26 @@ export default {
   background-color: rgb(244,244,244);
 }
 .playList div {
-  margin: 5px auto 0;
+  position: absolute;
+  left: 135px;
+  top: 5px;
   width: 100px;
   height: 26px;
   line-height: 26px;
   text-align: center;
   font-size: 10pt;
-  color: white;
-  border-radius: 6px;
+  cursor: pointer;
+}
+.playList div:nth-child(2) {
+  left: 235px;
+}
+.playListClick {
   background-color: rgb(124,124,124);
+  color: white;
+}
+.playListNotClick {
+  background-color: white;
+  color: rgb(124,124,124);
 }
 .playList span {
   position: absolute;
@@ -895,10 +1007,21 @@ export default {
   overflow: auto;
   text-align: center;
 }
+.songlength_info span {
+  position: absolute;
+  display: block;
+  width: 24px;
+  height: 24px;
+  right: -24px;
+  background: url(http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/delete.png) no-repeat center;
+  z-index: 99;
+  transition: all .4s;
+}
 .songlength_info ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  transition: all .4s;
 }
 .songlength_info ul li {
   position: relative;
@@ -906,11 +1029,16 @@ export default {
   height: 26px;
   font-size: 8pt;
   margin-top: 2px;
+  margin-right: 12px;
+  transition: all .4s;
   background-color: white;
   cursor: pointer;
 }
 .songlength_info ul li:hover {
   background-color: rgb(235,235,235);
+}
+.songlength_info ul li:hover span {
+  right: 0;
 }
 .state {
   background: url(http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/playState.png) no-repeat;
@@ -931,7 +1059,7 @@ export default {
 }
 .songlength_info ul li p:nth-child(3) {
   position: absolute;
-  right: 4px;
+  left: 400px;
   color: rgb(102,102,102);
 }
 @keyframes info {

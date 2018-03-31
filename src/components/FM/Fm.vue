@@ -1,5 +1,6 @@
 <template>
   <div class="fm">
+    <h3 v-if="lyc.length === 0 ? true : false">请登录</h3>
     <div class="fmImg">
       <span><img v-bind:src="playList.length === 0 ? null : playList[index].img"></span>
       <div class="fmImgControl">
@@ -20,8 +21,8 @@
 
 <script>
 import bus from '../../router/eventBus'
-import publicFn from '../Data/getData'
-// import WyData from '../Data/WyGetData'
+// import publicFn from '../Data/getData'
+import WyData from '../Data/WyGetData'
 
 export default {
   data () {
@@ -29,6 +30,7 @@ export default {
       songSrc: [],
       songName: '',
       songAuName: '',
+      lycs: [],
       lyc: [],
       time: 0,
       index: 0,
@@ -40,9 +42,16 @@ export default {
   watch: {
     index: {
       handler (curVal, oldVal) {
+        this.lycs.splice(0, 1)
+        WyData.SongLyc(this.playList[curVal].id, this.lycs)
+        let t = setInterval(() => {
+          if (this.lycs.length !== 0) {
+            this.lycSegmentation(this.lycs[0])
+            clearInterval(t)
+          }
+        }, 200)
         this.songName = this.playList[curVal].song_name
         this.songAuName = this.playList[curVal].author_name
-        this.lycSegmentation(this.playList[curVal].lyc)
       },
       deep: true
     },
@@ -63,8 +72,8 @@ export default {
       call ? window.open('http://www.kugou.com/yy/html/search.html#searchType=song&searchKeyWord=' + document.querySelector('#songAuName').innerHTML) : null
     },
     Next: function () {
-      if (this.index >= this.playList.length - 2) {
-        this.index = this.playList.length - 2
+      if (this.index >= this.playList.length - 1) {
+        this.index = this.playList.length - 1
       } else {
         let Node = document.querySelector('.fmImg span')
         Node.style.left = '-300px'
@@ -73,6 +82,9 @@ export default {
           Node.style.transition = 'normal'
           Node.style.left = '380px'
           this.index ++
+          if (this.index % 2 === 0) {
+            WyData.getPersonalFm(this.playList)
+          }
           this.setAudioSrc()
         }, 200)
         setTimeout(() => {
@@ -146,9 +158,18 @@ export default {
         }
       }
       array.splice(0, 1)
+      let ESS = []
+      for (let i in eS) {
+        ESS.push(eS[i])
+      }
+      for (var i = 0; i < array.length; i++) {
+        if (array[i] === `\n`) {
+          array.splice(i, 1)
+        }
+      }
       try {
-        for (let i = 0; i < eS[0].length; i++) {
-          let sc = eS[0][i].split(':')
+        for (let i = 0; i < ESS.length; i++) {
+          let sc = ESS[i][0].split(':')
           let time = parseInt(sc[0]) * 60 + parseInt(sc[1])
           newTimems.push(parseInt(time))
         }
@@ -162,8 +183,17 @@ export default {
       this.time = newTimems
     },
     setAudioSrc: function () {
-      bus.$emit('songControl', this.playList[this.index])
-      bus.$emit('AudioSrc', this.songSrc[this.index])
+      bus.$emit('songControl', {
+        'author_name': this.playList[this.index].author_name,
+        'song_name': this.playList[this.index].song_name,
+        'isWy': this.playList[this.index].isWy,
+        'img': this.playList[this.index].img,
+        'id': this.playList[this.index].id,
+        'lyc': this.lycs[0]
+      })
+      // bus.$emit('songControl', this.playList[this.index])
+      bus.$emit('AudioSrc', this.playList[this.index].src)
+      // bus.$emit('AudioSrc', this.songSrc[this.index])
     },
     scolling: function () {
       let isScoll = true
@@ -217,10 +247,10 @@ export default {
             if (scrollTop === null) return false
             let value = scrollTop.scrollTop
             if (e[1]) {
-              scrollTop.scrollTop = i * 30 - 5 * 30
+              scrollTop.scrollTop = i * 22 - 5 * 22
             } else {
               let t = setInterval(() => {
-                let val = i * 30 - 6 * 30
+                let val = i * 22 - 6 * 22
                 if (value >= val) {
                   value -= 1
                   scrollTop.scrollTop = value
@@ -241,21 +271,46 @@ export default {
     }
   },
   mounted: function () {
-    // WyData.getPersonalFm()
+    let t = setInterval(() => {
+      if (global.isLong) {
+        WyData.getPersonalFm(this.playList)
+        let s = setInterval(() => {
+          if (this.playList.length !== 0) {
+            WyData.SongLyc(this.playList[0].id, this.lycs)
+            let j = setInterval(() => {
+              if (this.lycs.length !== 0) {
+                this.songName = this.playList[0].song_name
+                this.songAuName = this.playList[0].author_name
+                this.lycSegmentation(this.lycs[0])
+                this.setAudioSrc()
+                this.scolling()
+                this.isGetData = false
+                clearInterval(j)
+              }
+            }, 200)
+            clearInterval(s)
+          }
+        }, 200)
+        clearInterval(t)
+      }
+    }, 2000)
+    if (!global.isLong) {
+      document.querySelector('.userWindow').style.display = 'block'
+    }
     // console.log(global.fmId)
     console.log('go on')
     if (!this.isGetData) return false
-    for (let i = global.fmId.length - 1; i > 0; i--) {
-      publicFn.setSingLists([global.fmId[i]], this.songSrc, this.playList)
-    }
-    setTimeout(() => {
-      this.songName = this.playList[0].song_name
-      this.songAuName = this.playList[0].author_name
-      this.lycSegmentation(this.playList[0].lyc)
-      this.setAudioSrc()
-      this.scolling()
-      this.isGetData = false
-    }, 1000)
+    // for (let i = global.fmId.length - 1; i > 0; i--) {
+    //   publicFn.setSingLists([global.fmId[i]], this.songSrc, this.playList)
+    // }
+    // setTimeout(() => {
+    //   this.songName = this.playList[0].song_name
+    //   this.songAuName = this.playList[0].author_name
+    //   this.lycSegmentation(this.playList[0].lyc)
+    //   this.setAudioSrc()
+    //   this.scolling()
+    //   this.isGetData = false
+    // }, 1000)
   },
   beforeMount: function () {
   }
@@ -273,6 +328,11 @@ export default {
   margin-top: 36px;
   width: 100%;
   height: 80%;
+}
+.fm h3 {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .fmImg {
   position: relative;

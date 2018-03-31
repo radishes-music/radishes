@@ -4,14 +4,14 @@
       <div class="recommend">
         <p class="reccc">推荐</p>
         <ul>
-          <li class="li" v-for="item in recommend" v-bind:class="all_elect_count===recommend.indexOf(item) ? 'left_border' : 'left_none'" @click="elect(recommend.indexOf(item))"><img v-bind:src="item.src">{{ item.name }}</li>
+          <li class="li" v-for="(item, index) in recommend" v-bind:class="all_elect_count===(index) ? 'left_border' : 'left_none'" @click="elect(index)"><img v-bind:src="item.src">{{ item.name }}</li>
         </ul>
       </div>
 
       <div class="recommend myMusic">
         <p class="reccc">我的音乐</p>
         <ul>
-          <li class="li" v-for="item in myMusic" v-bind:class="all_elect_count===(myMusic.indexOf(item)+myMusic.length-1) ? 'left_border' : 'left_none'" @click="elect(myMusic.indexOf(item)+myMusic.length-1)"><img v-bind:src="item.src">{{ item.name }}
+          <li class="li" v-for="(item, index) in myMusic" v-bind:class="all_elect_count===(index+4) ? 'left_border' : 'left_none'" @click="elect(index + 4)"><img v-bind:src="item.src">{{ item.name }}
           </li>
         </ul>
       </div>
@@ -69,10 +69,6 @@ export default {
       ],
       myMusic: [
         {
-          name: '本地音乐',
-          src: 'http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/lMusic.png'
-        },
-        {
           name: '下载管理',
           src: 'http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/down.png'
         },
@@ -81,11 +77,7 @@ export default {
           src: 'http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/yun.png'
         },
         {
-          name: '我的歌手',
-          src: 'http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/singer.png'
-        },
-        {
-          name: '我的电台',
+          name: '我的(推荐)电台',
           src: 'http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/station.png'
         }
       ],
@@ -206,41 +198,39 @@ export default {
       }
     },
     elect: function (i, index) {
-      if (i === 0 || i === 1 || i === 2 || i === 3 || i === 5 || i >= 9) {
-        this.index = i
-        let list = null
-        let isWyList = false
-        if (i >= 9) {
-          let oLi = document.querySelectorAll('.listConfiram')
-          for (var j = 0; j < this.listSong.length; j++) {
-            if (this.listSong[j].isWy) { // 如果是网易就拿出歌单ID
-              if (oLi[index].innerHTML === this.listSong[j].name) {
-                // console.log(this.listSong[j].id)
-                list = this.listSong[j].id
-                isWyList = true
-                break
-              }
-            } else {
-              isWyList = false
+      this.index = i
+      let list = null
+      let isWyList = false
+      if (i >= 7) {
+        let oLi = document.querySelectorAll('.listConfiram')
+        for (var j = 0; j < this.listSong.length; j++) {
+          if (this.listSong[j].isWy) { // 如果是网易就拿出歌单ID
+            if (oLi[index].innerHTML === this.listSong[j].name) {
+              // console.log(this.listSong[j].id)
+              list = this.listSong[j].id
+              isWyList = true
+              break
             }
-          }
-        }
-        console.log(isWyList)
-        let li = document.querySelectorAll('.left li')
-        for (let j = 0; j < li.length; j++) {
-          if (j === i) {
-            li[j].style.borderLeft = '4px solid ' + global.colors
           } else {
-            li[j].style.borderLeft = 'none'
+            isWyList = false
           }
         }
-        this.all_elect_count = i
-        bus.$emit('left_listen', [i, isWyList, list])
-        if (index >= 0) {
-          let temp = document.querySelectorAll('.listConfiram')
-          global.Initialization = temp[index].innerHTML
-          bus.$emit('left_list', temp[index].innerHTML)
+      }
+      // console.log(isWyList)
+      let li = document.querySelectorAll('.left li')
+      for (let j = 0; j < li.length; j++) {
+        if (j === i) {
+          li[j].style.borderLeft = '4px solid ' + global.colors
+        } else {
+          li[j].style.borderLeft = 'none'
         }
+      }
+      this.all_elect_count = i
+      bus.$emit('left_listen', [i, isWyList, list])
+      if (index >= 0) {
+        let temp = document.querySelectorAll('.listConfiram')
+        global.Initialization = temp[index].innerHTML
+        bus.$emit('left_list', temp[index].innerHTML)
       }
     },
     isLycLayout: function () {
@@ -262,7 +252,7 @@ export default {
       li[this.index].style.borderLeft = '4px solid ' + global.colors
     })
     this.listSong = Storage.getStrong('Loacl')
-    console.log(this.listSong)
+    // console.log(this.listSong)
     let t = setInterval(() => {
       if (global.isLong) {
         wyData.getUserInfos(global.userData[0].profile.userId, this.listSong)
@@ -356,7 +346,7 @@ export default {
 }
 
 .myMusic {
-  height: 218px;
+  height: 148px;
 }
 .listSong {
   height: auto;

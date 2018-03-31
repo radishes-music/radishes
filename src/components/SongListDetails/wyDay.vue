@@ -88,19 +88,24 @@ export default {
       }
     },
     setAudioSrc: function (index) {
-      console.log(this.daySongs[index].id)
+      // console.log(this.daySongs[index])
       this.lycSrc.splice(0, this.lycSrc.length)
       GetMvData.SongLyc(this.daySongs[index].id, this.lycSrc)
-      setTimeout(() => {
-        bus.$emit('songControl', {
-          'img': this.daySongs[index].album.picUrl,
-          'author_name': this.daySongs[index].album.artists[0].name,
-          'song_name': this.daySongs[index].name,
-          'lyc': this.lycSrc[0],
-          'isWy': true
-        })
-        bus.$emit('AudioSrc', 'http://music.163.com/song/media/outer/url?id=' + this.daySongs[index].id + '.mp3')
-      }, 500)
+      let t = setInterval(() => {
+        if (this.lycSrc.length !== 0) {
+          bus.$emit('songControl', {
+            'img': this.daySongs[index].album.picUrl,
+            'author_name': this.daySongs[index].album.artists[0].name,
+            'song_name': this.daySongs[index].name,
+            'duration': this.daySongs[index].duration / 1000,
+            'id': this.daySongs[index].id,
+            'lyc': this.lycSrc[0],
+            'isWy': true
+          })
+          bus.$emit('AudioSrc', 'http://music.163.com/song/media/outer/url?id=' + this.daySongs[index].id + '.mp3')
+          clearInterval(t)
+        }
+      }, 200)
     }
   },
   mounted: function () {

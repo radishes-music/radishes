@@ -17,3 +17,6 @@ global.isLong = false
 global.userData = []
 global.userDataDetail = []
 global.isKeyBord = true
+global.myFmID = 0
+global.isPlay = false
+global.userNamePass = []

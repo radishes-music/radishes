@@ -394,7 +394,8 @@ export default {
 .right_recommend_title {
   text-align: left;
   color: rgb(51,51,51);
-  font-size: 12pt;
+  font-size: 1.2rem;
+  font-weight: bold;
   padding-bottom: 8px;
   border-bottom: .5px solid #D3D3D3;
 }

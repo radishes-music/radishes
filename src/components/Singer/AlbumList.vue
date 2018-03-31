@@ -3,16 +3,15 @@
 
     <img src="http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/Loading.gif" v-show="!isLoad && !isTimed">
 
-    <h1 v-if="isTimed">获取超时或者没有数据</h1>
+    <h1 v-if="isTimed">获取超时</h1>
 
     <div class="dyn_top" v-show="isShow & isLoad">
-      <img v-bind:src="data.length !== 0 ? data[0].img : ''">
+      <img v-bind:src="data.length!==0?data[0].picUrl:null">
       <div class="dynR">
-        <strong>歌单</strong><a class="dynTit">{{ data.length !== 0 ? data[0].name : '' }}</a>
-        <p class="dynUs"><img v-bind:src="data.length !== 0 ? data[0].userImg : ''"><a>{{ data.length !== 0 ? data[0].userName : '' }}</a><a>{{data.length !== 0 ? new Date(parseInt(data[0].createTime)).toLocaleString().replace(/:\d{1,2}$/,' ') : '' }}</a></p>
+        <strong>专辑</strong><a class="dynTit">{{ data.length!==0?data[0].name:null }}</a>
         <span @click="addSongAll">播放全部</span>
-        <p class="dynTab">标签: <i><a v-for="item in (data.length !== 0 ? data[0].tags : '')">{{ item }}</a></i></p>
-        <p class="dynAb">简介: {{ data.length !== 0 ? data[0].description : '' }}</p>
+        <p class="dynTab">歌手: <i>{{ data.length!==0?data[0].auname:null }}</i></p>
+        <p class="dynTabs">时间: <i>{{ data.length!==0?(1990+new Date(data[0].publishTime).getYear()+'-'+(new Date(data[0].publishTime).getMonth()+1)+'-'+new Date(data[0].publishTime).getDate()):null }}</i></p>
       </div>
     </div>
 
@@ -32,8 +31,8 @@
           <li v-for="(item, index) in playlist" @dblclick="setAudioSrc(index)" v-on:mouseup="doBox(index)" class="dobox">
             <a class="l">{{ index + 1 }}</a>
             <p class="la">{{ item.name }}</p>
-            <p class="RE">{{ item.ar[0].name }}</p>
-            <p class="re">{{ item.al.name }}</p>
+            <p class="RE">{{ item.auname }}</p>
+            <p class="re">{{ item.aubumName }}</p>
             <a class="r">{{ (item.dt / 1000 / 60 ).toFixed(2) + '分' }}</a>
           </li>
         </ul>
@@ -103,8 +102,8 @@ export default {
           if (this.lycSrc.length !== 0) {
             clearInterval(t)
             publicBox.creat(pos.x, pos.y, {
-              'img': this.playlist[index].al.picUrl,
-              'author_name': this.playlist[index].ar[0].name,
+              'img': this.data[0].picUrl,
+              'author_name': this.playlist[index].auname,
               'song_name': this.playlist[index].name,
               'lyc': this.lycSrc[0],
               'duration': this.playlist[index].dt / 1000,
@@ -176,9 +175,9 @@ export default {
       let t = setInterval(() => {
         if (this.lycSrc.length !== 0) {
           bus.$emit('songControl', {
-            'img': this.playlist[index].al.picUrl,
-            'author_name': this.playlist[index].ar[0].name,
-            'song_name': this.playlist[index].al.name,
+            'img': this.data[0].picUrl,
+            'author_name': this.playlist[index].auname,
+            'song_name': this.playlist[index].name,
             'duration': this.playlist[index].dt / 1000,
             'id': this.playlist[index].id,
             'lyc': this.lycSrc[0],
@@ -196,11 +195,11 @@ export default {
     }
   },
   mounted: function () {
-    bus.$on('Wyindex', (id) => {
+    bus.$on('AlbumList', (id) => {
       this.isTimed = false
       this.isLoad = false
       setTimeout(() => {
-        if (this.playlist.length === 0) {
+        if (this.playlist.length === 0 && this.data.length === 0) {
           this.isTimed = true
         } else {
           this.isLoad = true
@@ -210,7 +209,7 @@ export default {
         this.playlist.splice(i, 1)
       }
       this.data.splice(0, 1)
-      GetMvData.ListSongDetail(id, this.playlist, this.data)
+      GetMvData.getAublmContent(id, this.playlist, this.data)
     })
     bus.$on('updataPlay', () => {
       try {
@@ -285,7 +284,7 @@ export default {
 .dynR span {
   position: absolute;
   left: 0;
-  top: 92px;
+  top: 42px;
   width: 146px;
   height: 32px;
   line-height: 32px;
@@ -402,28 +401,37 @@ export default {
   font-size: 10pt;
 }
 
-.dynTab {
+.dynTab{
   position: absolute;
   left: 0;
-  top: 136px;
+  top: 106px;
   width: 100%;
   height: 24px;
   line-height: 24px;
   text-align: left;
   margin: 0;
+  font-size: .8rem;
+  font-weight: bold;
+}
+.dynTabs {
+  position: absolute;
+  left: 0;
+  top: 118px;
+  font-size: .8rem;
+  font-weight: bold;
+}
+.dynTabs i {
+  font-weight: normal;
+  font-style: normal;
+  color: rgb(102,102,102);
 }
 .dynTab i {
   position: absolute;
   left: 42px;
   top: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 120px;
-  height: 24px;
+  font-weight: normal;
   font-style: normal;
-  font-weight: bold;
-  font-size: 10pt;
+  color: rgb(102,102,102);
 }
 .dynTab a {
   color: rgb(12,115,194);

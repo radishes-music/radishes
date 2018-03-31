@@ -18,7 +18,10 @@ export default {
 ::-moz-scrollbar{width:6px;height:4px}
 ::-moz-scrollbar-track{background-color: rgb(245,245,247);}
 ::-moz-scrollbar-thumb{background-color: rgb(200,200,200)}
-
+i {
+  color: rgb(12,115,194);
+  font-style: normal;
+}
 #app {
   font-family: 'FangSong', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
