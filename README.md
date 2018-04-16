@@ -1,4 +1,4 @@
-##  About music 1.0.0
+##  About music 1.0.0 (由于服务器高频访问,在线预览功能下线)
 
 - 最新版本下载地址 https://download.csdn.net/download/chutianwu5552/10292566
 
