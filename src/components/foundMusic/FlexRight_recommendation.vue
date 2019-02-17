@@ -17,9 +17,15 @@
     <div class="right_recommend" v-show="isView & !isWyView">
       <p class="right_recommend_title">推荐歌单</p>
       <div class="recommend">
-          <li class="recommend_li" v-for="item in recommend" @click="backChild(recommend.indexOf(item))">
+          <li class="recommend_li" v-for="item in recommend" :key="item" @click="backChild(recommend.indexOf(item))">
             <img class="reImg" v-bind:src="item.user_avatar" alt="图片拉取失败" v-bind:title="item.intro">
             <p>{{ item.specialname }}</p>
+          </li>
+          <li class="recommend_li" v-for="(item, index) in recommendList" :key="index" @click="wyList(index)">
+            <strong>{{ item.copywriter }}</strong>
+            <img class="reImg" v-bind:src="item.picUrl" alt="图片拉取失败" v-bind:title="item.copywriter">
+            <a><img class="reRT" src="http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/linear-black.png"><p>{{ parseInt(item.playCount / 10000) + '万' }}</p></a>
+            <p>{{ item.name }}</p>
           </li>
       </div>
     </div>
@@ -34,7 +40,7 @@
             <span>{{ new Date().getDate() }}</span>
             <p>每日歌曲推荐</p>
           </li>
-          <li class="recommend_li" v-for="(item, index) in recommendList" @click="wyList(index)">
+          <li class="recommend_li" v-for="(item, index) in recommendList" :key="index" @click="wyList(index)">
             <strong>{{ item.copywriter }}</strong>
             <img class="reImg" v-bind:src="item.picUrl" alt="图片拉取失败" v-bind:title="item.copywriter">
             <a><img class="reRT" src="http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/linear-black.png"><p>{{ parseInt(item.playCount / 10000) + '万' }}</p></a>
@@ -57,7 +63,7 @@ import bus from '../../router/eventBus'
 import SongListDetails from '../SongListDetails/SongListDetails'
 import WyListDetails from '../SongListDetails/wyListDetails'
 import WyDay from '../SongListDetails/wyDay'
-import publicFn from '../Data/getData'
+// import publicFn from '../Data/getData'
 import GetMvData from '../Data/WyGetData'
 
 export default {
@@ -102,6 +108,12 @@ export default {
         let alignLi = document.querySelectorAll('.align_li')
         alignLi[oldVal].style.background = '#cccccc'
         alignLi[curVal].style.background = global.colors
+      },
+      deep: true
+    },
+    recommendList: {
+      handler (curVal, oldVal) {
+        console.log(curVal)
       },
       deep: true
     }
@@ -201,7 +213,7 @@ export default {
     },
     wyGetData: function () {
       // 获取每日推荐歌单
-      GetMvData.dayRecommendList()
+      // GetMvData.dayRecommendList()
       // 获取推荐歌单
       GetMvData.reCommendListSong(this.recommendList)
     }
@@ -220,10 +232,10 @@ export default {
     if (global.isLong) {
       this.isWyView = true
       this.isImg = true
-      this.wyGetData()
     } else {
       this.isImg = false
     }
+    this.wyGetData()
     // 轮播
     setTimeout(() => {
       this.fuck(0)
@@ -241,7 +253,7 @@ export default {
       this.recommend.splice(i, 1)
     }
     // 封装获取歌单函数
-    publicFn.getPlaylist(this.recommend, this.playlistId, true)
+    // publicFn.getPlaylist(this.recommend, this.playlistId, true)
     setTimeout(() => {
       global.fmId = this.playlistId
     }, 500)

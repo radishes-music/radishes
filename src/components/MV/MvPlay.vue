@@ -1,9 +1,9 @@
 <template>
   <div class="mvplay">
     <div class="mvSrc">
-      <span @click="scale">{{ '< ' + (mvData.length !== 0 ? mvData[0].name : '默认值') }}<a>{{ mvData.length !== 0 ? mvData[0].artistName : '默认值'}}</a></span>
+      <span @click="scale">{{mvData.name }}<a>{{ mvData.artistName}}</a></span>
       <div id="mv">
-        <iframe v-bind:src="'http://localhost:8091/mv/url?url=' + mvSrc"></iframe>
+        <iframe v-bind:src="mvSrc"></iframe>
       </div>
     </div>
 
@@ -11,10 +11,10 @@
       <div class="mvD_">
         <h1>MV介绍</h1>
         <span>
-          <li>{{ '发布时间: ' + (mvData.length !== 0 ? mvData[0].publishTime : '默认值') }}</li>
-          <li>{{ '播放次数: ' + (mvData.length !== 0 ? mvData[0].playCount : '默认值') }}</li>
-          <li>{{ mvData.length !== 0 ? mvData[0].briefDesc : '默认值' }}</li>
-          <li>{{ '简介: ' + (mvData.length !== 0 ? mvData[0].desc : '默认值') }}</li>
+          <li>{{ '发布时间: ' + (mvData.publishTime) }}</li>
+          <li>{{ '播放次数: ' + (mvData.playCount) }}</li>
+          <li>{{ mvData.briefDesc}}</li>
+          <li>{{ '简介: ' + (mvData.desc) }}</li>
         </span>
       </div>
 
@@ -69,7 +69,7 @@ export default {
       isSLoad: true,
       index_odd: null,
       index1_odd: null,
-      mvData: [],
+      mvData: {},
       reLevant: [],
       commentCount: 20,
       comment: [],
@@ -119,12 +119,12 @@ export default {
         id === 1 ? this.comment[index].likedCount -= 1 : this.hotComment[index].likedCount -= 1
         document.querySelectorAll(n)[index].querySelector('span').style.color = 'rgb(136,136,136)'
         id === 1 ? this.index1_odd = null : this.index_odd = null
-        GetMvData.goodComment(this.mvData[0].id, this.hotComment[index].commentId, s_, 1)
+        GetMvData.goodComment(this.mvData.id, this.hotComment[index].commentId, s_, 1)
       } else {
         id === 1 ? this.comment[index].likedCount += 1 : this.hotComment[index].likedCount += 1
         document.querySelectorAll(n)[index].querySelector('span').style.color = global.colors
         id === 1 ? this.index1_odd = index : this.index_odd = index
-        GetMvData.goodComment(this.mvData[0].id, this.comment[index].commentId, s_, 1)
+        GetMvData.goodComment(this.mvData.id, this.comment[index].commentId, s_, 1)
       }
     },
     scale: function () {
@@ -135,7 +135,7 @@ export default {
       this.reLevant.splice(0, this.reLevant.length)
       this.comment.splice(0, this.comment.length)
       this.hotComment.splice(0, this.hotComment.length)
-      this.mvData.splice(0, this.mvData.length)
+      this.mvData = {}
       this.isSLoad = true
       this.isLoad = true
     },
@@ -144,15 +144,18 @@ export default {
       let mvid = this.reLevant[index].id
       this.clearData()
       bus.$emit('setMv', GetMvData.playMv(mvid))
+      bus.$emit('mvDetails', GetMvData.getMvDetails(mvid))
     }
   },
   mounted: function () {
+    bus.$on('mvDetails', e => {
+      this.mvData = e
+    })
     bus.$on('setMv', (e) => {
       if (typeof e === 'undefined') {
         return
       }
-      this.mvData.push(e)
-      this.mvSrc = e.brs['720']
+      this.mvSrc = e['url']
       // 获取相似MV
       GetMvData.resemble(e.id, this.reLevant)
       // 获取mv评论

@@ -6,7 +6,8 @@
         <span id="back" title="返回" v-bind:class="!back ? 'is' : 'isGo'"></span>
         <span id="go" title="前进" v-bind:class="!go ? 'is' : 'isGo'"></span>
       </div>
-      <input type="text" id="input" placeholder="搜索音乐，歌手，歌词，用户" v-model="key" ref="key" @blur="blur" @focus="focus">
+      <input type="text" style="width: 0;height: 0;position: absolute; z-index: 9999">
+      <input type="text" id="input" placeholder="搜索音乐，歌手，歌词，用户" v-model="key" ref="key" @blur="blur" @focus="focus" autocomplete="off">
       <span id="choose">
         <p @click="changeApi">
           <a id="choise" v-bind:class="isWyApi ? 'choiseWy' : 'choiseKg'">{{ isWyApi ? '网易' : '酷狗' }}</a>
@@ -62,9 +63,10 @@
     </div>
 
     <div class="userWindow">
+      <h2>默认填充为我的网易账号</h2>
       <span @click="shutWin">×</span>
-      <input type="text" placeholder="请输入手机号" class="longInput">
-      <input type="password" placeholder="请输入密码" class="longInput">
+      <input type="text" placeholder="请输入手机号" value="18574850529" class="longInput">
+      <input type="password" placeholder="请输入密码" class="longInput" value="wwbtf1314Lyx">
       <strong>{{ LongInfo }}</strong>
       <a @click="longIn">登录</a>
       <p>目前只能使用手机登录,邮箱接口被和谐</p>

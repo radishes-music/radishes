@@ -115,6 +115,7 @@ export default {
       // console.log(data[index].id)
       // playMv
       GetMvData.playMv(data[index].id)
+      GetMvData.getMvDetails(data[index].id)
       bus.$emit('isMvPlay', true)
     },
     tabSwitch: function (e) {

@@ -3,10 +3,12 @@
 
     <p class="right_playlist_title" v-show="isView">歌单</p>
     <div class="recommend" v-show="isView">
-        <li class="recommend_li" v-for="item in recommend" @click="goList(recommend.indexOf(item))">
-          <img v-bind:src="item.user_avatar" alt="图片拉取失败" v-bind:title="item.intro">
-          <p>{{ item.specialname }}</p>
-        </li>
+        <li class="recommend_li" v-for="(item, index) in recommendList" :key="index" @click="wyList(index)">
+            <strong>{{ item.copywriter }}</strong>
+            <img class="reImg" v-bind:src="item.picUrl" alt="图片拉取失败" v-bind:title="item.copywriter">
+            <a><img class="reRT" src="http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/linear-black.png"><p>{{ parseInt(item.playCount / 10000) + '万' }}</p></a>
+            <p>{{ item.name }}</p>
+          </li>
     </div>
 
     <SongListDetails v-show="!isView"></SongListDetails>
@@ -18,17 +20,19 @@
 import bus from '../../router/eventBus'
 import SongListDetails from '../SongListDetails/SongListDetails'
 import publicFn from '../Data/getData'
+import GetMvData from '../Data/WyGetData'
 
 export default {
   data () {
     return {
       isView: true,
       recommend: [],
-      spaceId: []
+      spaceId: [],
+      recommendList: []
     }
   },
   methods: {
-    goList: function (i) {
+    wyList: function (i) {
       this.isView = false
       this.$emit('hideTop', true)
       // 取消顶部导航栏
@@ -53,6 +57,7 @@ export default {
         this.isView = true
       }
     })
+    GetMvData.reCommendListSong(this.recommendList)
   }
 }
 </script>
@@ -88,12 +93,61 @@ export default {
   width: 100%;
 }
 .recommend_li {
+  position: relative;
   width: 140px;
-  height: 198px;
-  cursor: pointer;
+  height: 178px;
+  margin-top: 24px;
   list-style-type: none;
+  cursor: pointer;
+  overflow: hidden;
 }
-.recommend_li img {
+.recommend_li strong {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: 138.5px;
+  height: 52px;
+  top: -52px;
+  left: 0;
+  color: white;
+  font-weight: normal;
+  font-size: 10pt;
+  text-align: left;
+  transition: top .5s;
+  background-image: url('http://linkorg.oss-cn-beijing.aliyuncs.com/musicRec/listBg.png');
+}
+.recommend_li a {
+  position: absolute;
+  right: 1px;
+  top: 0;
+  transition: all .5s;
+}
+.recommend_li a img {
+  display: inline;
+}
+.recommend_li a p {
+  position: absolute;
+  right: 12px;
+  top: 4px;
+  display: inline;
+  color: white;
+  margin: 0;
+}
+.recommend_li:hover strong {
+  top: 0;
+}
+.recommend_li:hover a {
+  opacity: 0;
+}
+.recommend_li span {
+  color: rgb(198,47,47);
+  font-size: 5rem;
+  font-weight: bold;
+  letter-spacing: 4px;
+  line-height: 138px;
+}
+.recommend_li .reImg, span {
+  display: block;
   width: 138px;
   height: 138px;
   border: .5px solid #D3D3D3;

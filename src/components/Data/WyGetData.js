@@ -297,7 +297,7 @@ export default {
     }).then((res) => {
       // d.push(res.data.banners)
       for (let i = 0; i < res.data.banners.length; i++) {
-        d.push(res.data.banners[i].pic)
+        d.push(res.data.banners[i].imageUrl)
       }
       // console.log(res)
     })
@@ -334,6 +334,19 @@ export default {
         mvList.push(res.data.data[i])
       }
       // this.playMv(res.data.data[0].id)
+    })
+  },
+  getMvDetails: function (id) {
+    Vue.http.get('/Node/mv/detail', {
+      params: {
+        mvid: id
+      },
+      xhrFields: {
+        withCredentials: true
+      }
+    }).then((res) => {
+      bus.$emit('mvDetails', res.data.data)
+      console.log(res.data)
     })
   },
   recommenMv: function (count, mvPList) {
@@ -406,9 +419,9 @@ export default {
   },
   playMv: function (id) {
     // 播放MV
-    Vue.http.get('/Node/mv', {
+    Vue.http.get('/Node/mv/url', {
       params: {
-        'mvid': id
+        'id': id
       },
       xhrFields: {
         withCredentials: true
