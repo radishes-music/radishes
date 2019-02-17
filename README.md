@@ -2,7 +2,7 @@
 
 - 最新版本下载地址 https://download.csdn.net/download/chutianwu5552/10292566
 
-- 在线预览地址 http://www.linkorg.club:8000/#/
+- 在线预览地址 https://linkorg.club/music/
 
 ### 说明
 + 环境 : windows all, node, php
