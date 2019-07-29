@@ -1,3 +1,3 @@
 ##  About music 2.0.0
 
-### 正在使用 `TypeScript` 重构中...
+### 等待 `vue3.x`发布，使用 `TypeScript` 进行重构
