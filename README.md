@@ -1,5 +1,7 @@
 ##  About music 2.0.0
 
+### 在线API [NeteaseCloudMusicApi](https://music.linkorg.club/)
+
 ### 等待 `vue3.x`发布，使用 `TypeScript` 进行重构
 
 ### 邀请前端开发人员进行重构
