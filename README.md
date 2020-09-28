@@ -1,8 +1,8 @@
 ##  About music 2.0.0
 
-### 在线API [NeteaseCloudMusicApi](https://music.linkorg.club/)
+### ~~在线API [NeteaseCloudMusicApi](https://music.linkorg.club/)~~
 
-### `vue3.x`已发布，正在搭建基本架构
+### `vue3.x`已发布，音乐项目正在搭建基本架构
 
 目前会利用闲暇时间进行重构，如果你也想参与进来，可以发邮件或在[这里](https://github.com/Linkontoask/radishes/issues/6)告诉我
 
