@@ -2,7 +2,9 @@
 
 ### 在线API [NeteaseCloudMusicApi](https://music.linkorg.club/)
 
-### 等待 `vue3.x`发布，使用 `TypeScript` 进行重构
+### `vue3.x`已发布，正在搭建基本架构
+
+目前会利用闲暇时间进行重构，如果你也想参与进来，可以发邮件或在[这里](https://github.com/Linkontoask/radishes/issues/6)告诉我
 
 ### 邀请前端开发人员进行重构
 
