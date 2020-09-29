@@ -1,0 +1,71 @@
+{
+  "name": "radishes",
+  "version": "2.0.0-alpha.1",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "vue": "^3.0.0-0",
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.0-0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@storybook/addon-actions": "^6.0.22",
+    "@storybook/addon-essentials": "^6.0.22",
+    "@storybook/addon-links": "^6.0.22",
+    "@storybook/vue": "^6.0.22",
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^5.2.4",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-plugin-unit-mocha": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0-0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "@vue/test-utils": "^2.0.0-0",
+    "axios": "^0.20.0",
+    "babel-loader": "^8.1.0",
+    "chai": "^4.1.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-vue": "^7.0.0-0",
+    "husky": "^4.3.0",
+    "less": "^3.0.4",
+    "less-loader": "^5.0.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "react-is": "^16.13.1",
+    "typescript": "~3.9.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  }
+}
