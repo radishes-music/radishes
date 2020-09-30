@@ -8,5 +8,6 @@ module.exports = {
       .rule('images')
       .test(/.otf|ttf|png|jpg|gif$/)
       .use('url-loader')
+    config.resolve.extensions.add('less').add('css')
   }
 }
