@@ -51,6 +51,7 @@
 - [prettier](https://prettier.io/)
 - [webpack-chain](https://github.com/neutrinojs/webpack-chain#getting-started)
 - [storybook](https://github.com/storybookjs/storybook/tree/next/app/vue)
+- [vue-cli-plugin-electron-builder](https://github.com/nklayman/vue-cli-plugin-electron-builder)
 
 ### Electron
 

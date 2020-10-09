@@ -21,3 +21,7 @@ pnpm-debug.log*
 *.sln
 *.sw?
 /storybook-static
+
+#Electron-builder output
+/dist_electron
+/src/stories
