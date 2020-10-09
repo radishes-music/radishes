@@ -34,17 +34,20 @@
   - 辅助线文件夹默认导出为 `index.ts` ，所有界面相关的 `code` 放置在 `pages` 下。
   - `script`: 打包部署脚本
   - `src`：
+    - `app` 项目运行主要文件夹。
     - `interface` 主要编写类型推断 code 。
     - `theme` 存放主题相关的配置，使用 `index.ts` 进行主题切换。
     - `router` 主要用于配置前端页面路由。
     - `utils` 用于编写公共无副作用函数。
     - `components` 为页面可重用组件，主要从 `pages` 中抽离可复用的代码或 UI 组件。
+    - `modules` 文件夹是收集索有 `pages` 下的 store ，有效的分离 store ，避免了 `vuex` 的 state 过多影响阅读。
     - 其它文件暂不做说明。
 - 代码规范：
   - 暂无
 
 相关链接：
 
+- [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
 - [vuejs](https://v3.vuejs.org/)
 - [commitlint](https://commitlint.js.org/#/)
 - [vue-cli](https://cli.vuejs.org/zh/)
