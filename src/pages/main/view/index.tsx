@@ -6,6 +6,9 @@ export const Main = defineComponent({
     return (
       <main>
         <Sidebar></Sidebar>
+        <div class="main">
+          <router-view></router-view>
+        </div>
       </main>
     )
   }

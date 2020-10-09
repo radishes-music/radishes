@@ -12,7 +12,7 @@
 
 项目目前的情况：
 
-目前没有开发者全职投入到此项目（其实目前就我一个人），都是利用闲暇时间进行 coding 和 ponder 。  
+目前没有开发者全职投入到此项目，都是利用闲暇时间进行 coding 和 ponder 。  
 项目是一个浏览器应用，后期考虑会迁移到原生应用上（类似于 RN、 flutter ）
 
 ### PR 说明
@@ -48,7 +48,6 @@
 - [vuejs](https://v3.vuejs.org/)
 - [commitlint](https://commitlint.js.org/#/)
 - [vue-cli](https://cli.vuejs.org/zh/)
-- [prettier](https://prettier.io/)
 - [prettier](https://prettier.io/)
 - [webpack-chain](https://github.com/neutrinojs/webpack-chain#getting-started)
 - [storybook](https://github.com/storybookjs/storybook/tree/next/app/vue)

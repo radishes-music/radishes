@@ -1,4 +1,3 @@
-import router from '@/router'
 import { defineComponent } from 'vue'
 
 export const FullScreen = defineComponent({

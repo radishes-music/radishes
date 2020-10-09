@@ -1,8 +1,8 @@
 import { defineComponent } from 'vue'
 
 export const TestFull = defineComponent({
-  full: true,
   render() {
+    throw 'runtime error tarck'
     return (
       <div class="test-full">
         <h1>TestFull</h1>

@@ -8,8 +8,8 @@ export default defineComponent({
   render() {
     const { meta } = this.$route
     return (
-      <ErrorBoundary>
-        <Container>{meta.full && <FullScreen></FullScreen>}</Container>
+      <ErrorBoundary ref="ErrorBoundary">
+        {meta.full ? <FullScreen></FullScreen> : <Container></Container>}
       </ErrorBoundary>
     )
   }

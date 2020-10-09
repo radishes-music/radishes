@@ -6,18 +6,11 @@ import './container.less'
 
 export const Container = defineComponent({
   render() {
-    console.log(this)
     return (
       <div class="container">
-        {this.$slots.default ? (
-          this.$slots.default()
-        ) : (
-          <span>
-            <Header></Header>
-            <Main></Main>
-            <Footer></Footer>
-          </span>
-        )}
+        <Header></Header>
+        <Main></Main>
+        <Footer></Footer>
       </div>
     )
   }
