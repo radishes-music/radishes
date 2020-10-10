@@ -69,3 +69,21 @@
 ### 邀请前端开发人员进行重构
 
 > 请在 issues 中留下你的想法，或者给我发送邮件告诉我你的想法 [linkorgs@163.com](linkorgs@163.com)，我会及时回复您
+
+### 项目运行
+
+```
+1、 克隆项目
+  git clone https://github.com/Linkontoask/radishes.git
+
+2、 拉取子模块
+  git submodule update --init --recursive
+
+3、 安装npm包
+  yarn || npm i
+  cd NeteaseCloudMusicApi/
+  yarn || npm i
+
+4、运行项目
+  在主目录下运行 yarn dev
+```
