@@ -1,0 +1,4 @@
+export const SHRINK = 'SHRINK'
+export const MAXIMIZE_WINDOW = 'MAXIMIZE_WINDOW'
+export const MINIMIZE_WINDOW = 'MINIMIZE_WINDOW'
+export const RESTORE_WINDOW = 'RESTORE_WINDOW'

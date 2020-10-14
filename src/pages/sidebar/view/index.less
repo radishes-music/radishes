@@ -1,0 +1,35 @@
+@import '~@/theme/color.less';
+
+.sidebar {
+  padding: 10px;
+  border-right: @base-border;
+  &-nav {
+    &-active {
+      .sidebar-nav-name {
+        background-color: #f3f3f3;
+        color: @secondary-theme-text;
+        &:hover {
+          color: darken(@secondary-theme-text, 20%);
+        }
+      }
+    }
+    &-header {
+      margin-top: 16px;
+      padding: 0 6px;
+      color: #c8c8c8;
+    }
+    &-name {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      margin: 2px 0;
+      padding: 0 6px;
+      height: 40px;
+      color: @secondary-text;
+      &:hover {
+        background-color: #f3f3f3;
+        color: darken(@secondary-text, 30%);
+      }
+    }
+  }
+}
