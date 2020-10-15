@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import {
   MINIMIZE_WINDOW,
   MAXIMIZE_WINDOW,
@@ -6,6 +6,12 @@ import {
 } from '@/electron/event/actionTypes'
 import { ENV } from '@/interface/app'
 import './index.less'
+
+export enum Action {
+  MINIMIZE_WINDOW = 'MINIMIZE_WINDOW',
+  MAXIMIZE_WINDOW = 'MAXIMIZE_WINDOW',
+  RESTORE_WINDOW = 'RESTORE_WINDOW'
+}
 
 const { VUE_APP_PLATFORM } = window as ENV
 
@@ -19,47 +25,53 @@ const importIpc = () => {
 }
 
 export const Header = defineComponent({
+  setup() {
+    const windowSize = ref('enlarge')
+    return {
+      windowSize
+    }
+  },
   methods: {
-    handleMini(e: Event) {
+    handleWindowControl(action: Action) {
       if (VUE_APP_PLATFORM === 'browser') {
         // TODO Browser zoom out to be determined
-        console.log(e)
+        console.log(action)
       }
       if (VUE_APP_PLATFORM === 'electron') {
         importIpc().then(event => {
-          event.sendAsyncIpcRendererEvent(MINIMIZE_WINDOW, '')
+          event.sendAsyncIpcRendererEvent(action, '')
         })
       }
     },
-    handleMax(e: Event) {
-      if (VUE_APP_PLATFORM === 'browser') {
-        // TODO Browser zoom out to be determined
-        console.log(e)
+    windowsChangeSize() {
+      const { windowSize } = this
+      if (windowSize === 'shrink') {
+        this.windowSize = 'enlarge'
+        this.handleWindowControl(Action.RESTORE_WINDOW)
+      } else {
+        this.windowSize = 'shrink'
+        this.handleWindowControl(Action.MAXIMIZE_WINDOW)
       }
-      if (VUE_APP_PLATFORM === 'electron') {
-        importIpc().then(event => {
-          event.sendAsyncIpcRendererEvent(MAXIMIZE_WINDOW, '')
-        })
-      }
-    },
-    handleRestore(e: Event) {
-      if (VUE_APP_PLATFORM === 'browser') {
-        // TODO Browser zoom out to be determined
-        console.log(e)
-      }
-      if (VUE_APP_PLATFORM === 'electron') {
-        importIpc().then(event => {
-          event.sendAsyncIpcRendererEvent(RESTORE_WINDOW, '')
-        })
-      }
+      this.windowSize = windowSize === 'shrink' ? 'enlarge' : 'shrink'
     }
   },
   render() {
+    const { windowSize } = this
     return (
       <header class="header">
-        <button onClick={this.handleRestore}>恢复</button>
-        <button onClick={this.handleMax}>放大</button>
-        <button onClick={this.handleMini}>缩小到任务栏</button>
+        <div class="header-window">
+          <icon
+            icon="shrink-taskbar"
+            size={20}
+            onClick={() => this.handleWindowControl(Action.MINIMIZE_WINDOW)}
+          ></icon>
+          <icon
+            icon={windowSize}
+            onClick={this.windowsChangeSize}
+            size={20}
+          ></icon>
+          <icon icon="cross" size={24}></icon>
+        </div>
       </header>
     )
   }

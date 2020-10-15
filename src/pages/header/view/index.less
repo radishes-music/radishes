@@ -2,6 +2,18 @@
   -webkit-user-select: none;
   -webkit-app-region: drag;
   background-color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  &-window {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    svg {
+      cursor: pointer;
+      margin-right: 20px;
+      -webkit-app-region: no-drag;
+    }
+  }
   button {
     -webkit-app-region: no-drag;
   }

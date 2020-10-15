@@ -2476,6 +2476,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/scriptjs@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.npm.taobao.org/@types/scriptjs/download/@types/scriptjs-0.0.2.tgz#09a2287221a7a341fc6b95b005e4bfb2a5403538"
+  integrity sha1-CaIociGno0H8a5WwBeS/sqVANTg=
+
 "@types/serve-static@*":
   version "1.13.5"
   resolved "https://registry.npm.taobao.org/@types/serve-static/download/@types/serve-static-1.13.5.tgz#3d25d941a18415d3ab092def846e135a08bbcf53"
@@ -13306,6 +13311,11 @@ schema-utils@^2.0.0, schema-utils@^2.5.0, schema-utils@^2.6.5, schema-utils@^2.6
     "@types/json-schema" "^7.0.5"
     ajv "^6.12.4"
     ajv-keywords "^3.5.2"
+
+scriptjs@^2.5.9:
+  version "2.5.9"
+  resolved "https://registry.npm.taobao.org/scriptjs/download/scriptjs-2.5.9.tgz#343915cd2ec2ed9bfdde2b9875cd28f59394b35f"
+  integrity sha1-NDkVzS7C7Zv93iuYdc0o9ZOUs18=
 
 scroll-into-view-if-needed@^2.2.25:
   version "2.2.26"
