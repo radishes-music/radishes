@@ -1,9 +1,13 @@
-export type Size = 'sm' | 'md' | 'lg'
+export const enum Size {
+  SM = 'sm',
+  MD = 'md',
+  LG = 'lg'
+}
 
 export interface State {
   screenSize: Size
 }
 
 export const state: State = {
-  screenSize: 'md'
+  screenSize: Size.MD
 }

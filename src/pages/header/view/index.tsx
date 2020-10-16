@@ -1,9 +1,16 @@
 import { defineComponent, ref } from 'vue'
 import { Action } from '@/electron/event/actionTypes'
 import { ENV } from '@/interface/app'
+import { mapMutations, LayoutActions, Mutations } from '@/layout/module'
 import './index.less'
 
 const { VUE_APP_PLATFORM } = window as ENV
+const actionToClass = {
+  [Action.CLOSE_WINDOW]: '',
+  [Action.MAXIMIZE_WINDOW]: 'lg',
+  [Action.MINIMIZE_WINDOW]: 'sm',
+  [Action.RESTORE_WINDOW]: 'md'
+}
 
 const importIpc = () => {
   return import('@/electron/event/ipc-renderer').then((v: any) => {
@@ -22,10 +29,12 @@ export const Header = defineComponent({
     }
   },
   methods: {
+    ...mapMutations({
+      changeWindowSize: LayoutActions.CHANGE_WINDOW_SIZE
+    }),
     handleWindowControl(action: Action) {
       if (VUE_APP_PLATFORM === 'browser') {
-        // TODO Browser zoom out to be determined
-        console.log(action)
+        this.changeWindowSize(actionToClass[action])
       }
       if (VUE_APP_PLATFORM === 'electron') {
         importIpc().then(event => {
@@ -64,13 +73,15 @@ export const Header = defineComponent({
           >
             <icon icon={windowSize} size={20}></icon>
           </ve-button>
-          <ve-button
-            type="text"
-            class="header-window-btn"
-            onClick={() => this.handleWindowControl(Action.CLOSE_WINDOW)}
-          >
-            <icon icon="cross" size={20}></icon>
-          </ve-button>
+          {VUE_APP_PLATFORM !== 'browser' && (
+            <ve-button
+              type="text"
+              class="header-window-btn"
+              onClick={() => this.handleWindowControl(Action.CLOSE_WINDOW)}
+            >
+              <icon icon="cross" size={20}></icon>
+            </ve-button>
+          )}
         </div>
       </header>
     )
