@@ -1,7 +1,9 @@
 import Axios, { AxiosInstance } from 'axios'
 import { HttpGet, HttpPost } from '@/interface'
 
-const http: AxiosInstance = Axios.create()
+const http: AxiosInstance = Axios.create({
+  timeout: 5000
+})
 
 http.interceptors.request.use(
   config => {

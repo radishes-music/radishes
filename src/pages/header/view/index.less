@@ -1,0 +1,27 @@
+.header {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  background-color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  &-window {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: auto;
+    & button&-btn {
+      height: 100%;
+      padding: 0 14px;
+      margin: 0 !important;
+      border-radius: 0;
+      transition: all 0.2s;
+      -webkit-app-region: no-drag;
+      &:hover {
+        background-color: #e2c9c940;
+      }
+    }
+  }
+  button {
+    -webkit-app-region: no-drag;
+  }
+}

@@ -1,13 +1,16 @@
+/* global __static */
 'use strict'
 
-import { app, protocol, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, screen } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import { eventInit } from '@/electron/event/index'
+import path from 'path'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 let win: BrowserWindow | null
+
+export const App = app
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -15,15 +18,22 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 function createWindow() {
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize
   // Create the browser window.
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: width / 1.5,
+    height: height / 1.5,
+    frame: false,
+    resizable: false,
+    backgroundColor: '#ffffff',
+    icon: path.join(__static, 'icon.png'),
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: (process.env
         .ELECTRON_NODE_INTEGRATION as unknown) as boolean
+      // https://github.com/electron/electron/issues/9920
+      // preload: __dirname + '/electron/preload/index.js'
     }
   })
 
@@ -40,6 +50,8 @@ function createWindow() {
   win.on('closed', () => {
     win = null
   })
+
+  eventInit(win)
 }
 
 // Quit when all windows are closed.

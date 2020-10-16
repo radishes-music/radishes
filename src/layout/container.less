@@ -1,5 +1,27 @@
+@import '~@/config/style.config.less';
+
 .container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 60px 1fr 60px;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  box-shadow: -1px 2px 6px 2px #dcdcdc;
+  transition: all 0.2s;
+  &-md {
+    width: @md-width;
+    height: @md-height;
+  }
+  &-sm {
+    width: 100%;
+    height: 62px;
+    position: absolute;
+    bottom: 0;
+  }
+  &-electron {
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+  }
 }
