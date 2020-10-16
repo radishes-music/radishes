@@ -12,15 +12,10 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
     win.maximize()
   })
   ipcMain.on(Action.RESTORE_WINDOW, (event: IpcMainEvent, arg) => {
-    win.setBounds(bounds)
+    win.setBounds(bounds, true)
     bounds = win.getBounds()
   })
   ipcMain.on(Action.CLOSE_WINDOW, (event: IpcMainEvent, arg) => {
     win.close()
   })
 }
-
-ipcMain.on('synchronous-message', (event: IpcMainEvent, arg) => {
-  console.log(arg)
-  event.returnValue = 'pong'
-})
