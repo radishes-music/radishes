@@ -7,11 +7,18 @@
   &-window {
     display: flex;
     align-items: center;
+    height: 100%;
     margin-left: auto;
-    svg {
-      cursor: pointer;
-      margin-right: 20px;
+    & button&-btn {
+      height: 100%;
+      padding: 0 14px;
+      margin: 0 !important;
+      border-radius: 0;
+      transition: all 0.2s;
       -webkit-app-region: no-drag;
+      &:hover {
+        background-color: #e2c9c940;
+      }
     }
   }
   button {

@@ -12,8 +12,8 @@ const app = createApp(App)
   .use(store)
   .use(router)
   .use(Antd)
-  .use(GlobalComponent)
   .use(EasyComponents)
+  .use(GlobalComponent)
 
 errorHandle(app)
 

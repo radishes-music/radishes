@@ -1,17 +1,7 @@
 import { defineComponent, ref } from 'vue'
-import {
-  MINIMIZE_WINDOW,
-  MAXIMIZE_WINDOW,
-  RESTORE_WINDOW
-} from '@/electron/event/actionTypes'
+import { Action } from '@/electron/event/actionTypes'
 import { ENV } from '@/interface/app'
 import './index.less'
-
-export enum Action {
-  MINIMIZE_WINDOW = 'MINIMIZE_WINDOW',
-  MAXIMIZE_WINDOW = 'MAXIMIZE_WINDOW',
-  RESTORE_WINDOW = 'RESTORE_WINDOW'
-}
 
 const { VUE_APP_PLATFORM } = window as ENV
 
@@ -60,17 +50,27 @@ export const Header = defineComponent({
     return (
       <header class="header">
         <div class="header-window">
-          <icon
-            icon="shrink-taskbar"
-            size={20}
+          <ve-button
+            type="text"
+            class="header-window-btn"
             onClick={() => this.handleWindowControl(Action.MINIMIZE_WINDOW)}
-          ></icon>
-          <icon
-            icon={windowSize}
+          >
+            <icon icon="shrink-taskbar" size={20}></icon>
+          </ve-button>
+          <ve-button
+            type="text"
+            class="header-window-btn"
             onClick={this.windowsChangeSize}
-            size={20}
-          ></icon>
-          <icon icon="cross" size={24}></icon>
+          >
+            <icon icon={windowSize} size={20}></icon>
+          </ve-button>
+          <ve-button
+            type="text"
+            class="header-window-btn"
+            onClick={() => this.handleWindowControl(Action.CLOSE_WINDOW)}
+          >
+            <icon icon="cross" size={20}></icon>
+          </ve-button>
         </div>
       </header>
     )
