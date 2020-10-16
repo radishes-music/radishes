@@ -1,7 +1,8 @@
 import { defineComponent, ref } from 'vue'
 import { Action } from '@/electron/event/actionTypes'
 import { ENV } from '@/interface/app'
-import { mapMutations, LayoutActions, Mutations } from '@/layout/module'
+import { mapMutations, LayoutActions } from '@/layout/module'
+import { IpcRenderer } from '@/electron/event/ipc-renderer'
 import './index.less'
 
 const { VUE_APP_PLATFORM } = window as ENV
@@ -13,7 +14,7 @@ const actionToClass = {
 }
 
 const importIpc = () => {
-  return import('@/electron/event/ipc-renderer').then((v: any) => {
+  return import('@/electron/event/ipc-renderer').then((v: IpcRenderer) => {
     return {
       sendAsyncIpcRendererEvent: v.sendAsyncIpcRendererEvent,
       sendSyncIpcRendererEvent: v.sendSyncIpcRendererEvent
@@ -38,7 +39,7 @@ export const Header = defineComponent({
       }
       if (VUE_APP_PLATFORM === 'electron') {
         importIpc().then(event => {
-          event.sendAsyncIpcRendererEvent(action, '')
+          event.sendAsyncIpcRendererEvent(action)
         })
       }
     },
