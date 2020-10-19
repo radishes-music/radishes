@@ -7,9 +7,8 @@ import './index.less'
 export const FindMusic = defineComponent({
   name: 'FindMusic',
   methods: {
-    handleChangeRoute(route: RouteRecordRaw) {
-      console.log(route)
-    }
+    // eslint-disable-next-line
+    handleChangeRoute(route: RouteRecordRaw) {}
   },
   render() {
     let nav = navRouter.filter(item => item.name === FindMusic.name)

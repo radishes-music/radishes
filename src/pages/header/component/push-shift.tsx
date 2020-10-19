@@ -27,7 +27,6 @@ export const PushShift = defineComponent({
   watch: {
     $route(this: This, route, oldRoute) {
       const { historyRoute } = this.$store.state
-      console.log(historyRoute.canBeCollect)
       if (!historyRoute.canBeCollect) {
         this.routeCanBeCollect(true)
       } else {
@@ -52,7 +51,6 @@ export const PushShift = defineComponent({
       }
       nextTick(() => {
         const { historyRoute } = this.$store.state
-        console.log(historyRoute)
         this.$router
           .replace({
             path: historyRoute.needRoute
