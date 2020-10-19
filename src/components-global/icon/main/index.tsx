@@ -19,24 +19,18 @@ export default defineComponent({
     size: {
       type: Number,
       default: 24
-    }
-  },
-  setup(props) {
-    const sizeOM = computed(() => {
-      return props.size + 'px'
-    })
-    return {
-      sizeOM
+    },
+    height: {
+      type: Number
     }
   },
   render() {
-    const { icon, color } = this.$props
-    const { sizeOM } = this
+    const { icon, color, height, size } = this.$props
     return (
       <svg
         class="icon"
         aria-hidden="true"
-        style={{ width: sizeOM, height: sizeOM, fill: color }}
+        style={{ width: size, height: height || size, fill: color }}
       >
         <use href={'#icon-' + icon}></use>
       </svg>

@@ -1,6 +1,5 @@
 import { ipcMain, IpcMainEvent, BrowserWindow } from 'electron'
-import { App } from '@/background'
-import { Action } from '../actionTypes'
+import { Action } from '../action-types'
 
 export const onIpcMainEvent = (win: BrowserWindow) => {
   let bounds = win.getBounds()

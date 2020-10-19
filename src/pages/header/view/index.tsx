@@ -1,8 +1,10 @@
 import { defineComponent, ref } from 'vue'
-import { Action } from '@/electron/event/actionTypes'
+import { Action } from '@/electron/event/action-types'
 import { ENV } from '@/interface/app'
 import { mapMutations, LayoutActions } from '@/layout/module'
 import { IpcRenderer } from '@/electron/event/ipc-renderer'
+import { Logo } from '../component/logo'
+import { PushShift } from '../component/push-shift'
 import './index.less'
 
 const { VUE_APP_PLATFORM } = window as ENV
@@ -59,30 +61,34 @@ export const Header = defineComponent({
     const { windowSize } = this
     return (
       <header class="header">
-        <div class="header-window">
-          <ve-button
-            type="text"
-            class="header-window-btn"
-            onClick={() => this.handleWindowControl(Action.MINIMIZE_WINDOW)}
-          >
-            <icon icon="shrink-taskbar" size={20}></icon>
-          </ve-button>
-          <ve-button
-            type="text"
-            class="header-window-btn"
-            onClick={this.windowsChangeSize}
-          >
-            <icon icon={windowSize} size={20}></icon>
-          </ve-button>
-          {VUE_APP_PLATFORM !== 'browser' && (
+        <Logo></Logo>
+        <div class="header-right">
+          <PushShift></PushShift>
+          <div class="header-window">
             <ve-button
               type="text"
               class="header-window-btn"
-              onClick={() => this.handleWindowControl(Action.CLOSE_WINDOW)}
+              onClick={() => this.handleWindowControl(Action.MINIMIZE_WINDOW)}
             >
-              <icon icon="cross" size={20}></icon>
+              <icon icon="shrink-taskbar" size={20}></icon>
             </ve-button>
-          )}
+            <ve-button
+              type="text"
+              class="header-window-btn"
+              onClick={this.windowsChangeSize}
+            >
+              <icon icon={windowSize} size={20}></icon>
+            </ve-button>
+            {VUE_APP_PLATFORM !== 'browser' && (
+              <ve-button
+                type="text"
+                class="header-window-btn"
+                onClick={() => this.handleWindowControl(Action.CLOSE_WINDOW)}
+              >
+                <icon icon="cross" size={22}></icon>
+              </ve-button>
+            )}
+          </div>
         </div>
       </header>
     )
