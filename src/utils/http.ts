@@ -16,6 +16,9 @@ http.interceptors.request.use(
 
 http.interceptors.response.use(
   response => {
+    if (response.status === 200) {
+      return response.data
+    }
     return response
   },
   error => {

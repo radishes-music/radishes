@@ -46,11 +46,12 @@ export function errorHandle(app: App): void {
 export const RuntimeErrorComponent = defineComponent({
   props: ['title', 'message'],
   render(this: RuntimeErrorComponentProps & ComponentOptions) {
-    const { title, message } = this
+    const { title, message } = this.$props
     return (
       <div class="error-boundary">
         <h1 class="error-boundary-title">{title}</h1>
-        <div class="error-boundary-content">{message}</div>
+        <div class="error-boundary-content">{message.message}</div>
+        <pre class="error-boundary-content">{message.stack}</pre>
       </div>
     )
   }
@@ -81,7 +82,12 @@ export const ErrorBoundary = defineComponent<Options>({
   render(this: This) {
     const { error, runtimeProps } = this
     if (error) {
-      return <RuntimeErrorComponent {...runtimeProps}></RuntimeErrorComponent>
+      return (
+        <RuntimeErrorComponent
+          title={runtimeProps.title}
+          message={runtimeProps.message}
+        ></RuntimeErrorComponent>
+      )
     }
     return this.$slots.default && this.$slots.default()
   }
