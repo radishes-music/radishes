@@ -1,5 +1,6 @@
 {
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
-  "merge-conflict.autoNavigateNextConflict.enabled": true
+  "merge-conflict.autoNavigateNextConflict.enabled": true,
+  "stylelint.packageManager": "yarn"
 }

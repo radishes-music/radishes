@@ -33,6 +33,26 @@
 2020.10.31 之前完成基本架构（可能更早）。  
 因为时间安排，只会在业余时间去重构，所以时间上没有具体安排。如果你也是如此，希望在业余时间做一些或学一些东西，我觉得这个重构计划很适合你，参与方式在下面。
 
+### Git 提交规范
+
+- build 版本发布
+- feat 增加新功能
+- fix 修复问题/BUG
+- style 代码风格相关无影响运行结果的
+- perf 优化/性能提升
+- refactor 重构
+- revert 撤销修改
+- test 测试相关
+- docs 文档/注释
+- chore 依赖更新/脚手架配置修改等
+- workflow 工作流改进
+- ci 持续集成
+
+提交模式如下：  
+`type(scope?): subject`
+
+更多规则参考[https://github.com/conventional-changelog/commitlint](https://github.com/conventional-changelog/commitlint)
+
 ### 快速 PR
 
 规则：

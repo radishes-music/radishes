@@ -5,6 +5,8 @@
   "scripts": {
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
+    "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less}\"",
+    "lint:style": "stylelint --fix \"**/*.{less,css}\" --cache --cache-location node_modules/.cache/stylelint/",
     "build": "vue-cli-service build --mode browser",
     "build-storybook": "build-storybook",
     "build:electron": "vue-cli-service electron:build --mode electron",
@@ -71,6 +73,10 @@
     "react-is": "^16.13.1",
     "scriptjs": "^2.5.9",
     "spectron": "^12.0.0",
+    "stylelint": "^13.7.2",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-prettier": "^1.1.2",
     "typescript": "^4.0.3",
     "v-easy-components": "^2.0.0-beta.3",
     "vue-cli-plugin-electron-builder": "~2.0.0-rc.4"
@@ -87,6 +93,10 @@
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
       "vue-cli-service lint",
+      "git add"
+    ],
+    "*.{css,less}": [
+      "stylelint --fix",
       "git add"
     ]
   }
