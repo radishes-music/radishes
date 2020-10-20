@@ -1,0 +1,122 @@
+@import '~@/theme/color.less';
+
+.show() {
+  transition: all 0.5s;
+  opacity: 1;
+}
+
+@keyframes spanScale {
+  0% {
+    transform: translateX(-50%) scale(1.2);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.1);
+  }
+  100% {
+    transform: translateX(-50%) scale(1.2);
+  }
+}
+
+.prevActiveFn(@position: 50%) {
+  @keyframes prevActive {
+    0% {
+      left: @position;
+    }
+    100% {
+      left: 0;
+    }
+  }
+
+  animation: prevActive 0.5s;
+}
+
+.nextActiveFn(@position: 50%) {
+  @keyframes nextActive {
+    0% {
+      right: @position;
+    }
+    100% {
+      right: 0;
+    }
+  }
+
+  animation: nextActive 0.5s;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  margin: 20px 0;
+  &-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: calc(90% - 20px);
+    li {
+      position: absolute;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      opacity: 0;
+      will-change: left, right, transform;
+      div {
+        height: 100%;
+        border-radius: 8px;
+        background-size: cover;
+      }
+    }
+    .prev,
+    .next {
+      .show();
+    }
+    .prev {
+      &-active {
+        .prevActiveFn(50%);
+      }
+      &-span {
+        transition: none;
+        .prevActiveFn(10%);
+      }
+    }
+    .next {
+      left: auto;
+      right: 0;
+      &-active {
+        .nextActiveFn(50%);
+      }
+      &-span {
+        transition: none;
+        .nextActiveFn(10%);
+      }
+    }
+    .current {
+      left: 50%;
+      transform: translateX(-50%) scale(1.2);
+      z-index: 1;
+      .show();
+    }
+    .current-span {
+      animation: spanScale 0.5s cubic-bezier(0, 0, 0.05, 0.58);
+    }
+    .span-current {
+      transition: none;
+    }
+  }
+  &-pagination {
+    height: 10%;
+    width: 240px;
+    margin: 20px auto;
+    li {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: @background-lighter;
+      margin: 0 6px;
+    }
+    li&-active {
+      background-color: @base-color;
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { defineComponent, onBeforeMount } from 'vue'
 import { Swiper } from '@/components/swiper/index'
 import { mapState, mapActions } from '../module'
 import { Actions } from '../sage'
+import './index.less'
 
 export const Recommend = defineComponent({
   name: 'Recommend',
@@ -20,7 +21,9 @@ export const Recommend = defineComponent({
     const { banners } = this
     return (
       <div class="find-music-recommend">
-        <Swiper banners={banners}></Swiper>
+        <div class="swiper-box">
+          <Swiper banners={banners}></Swiper>
+        </div>
       </div>
     )
   }
