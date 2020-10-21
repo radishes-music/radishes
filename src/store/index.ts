@@ -29,8 +29,8 @@ const state: RootState = {
 }
 
 const mutations: MutationTree<RootState> = {
-  [Mutations.SET_HISTORY_ROUTE](state, route: string) {
-    state.historyRoute.before.push(route)
+  [Mutations.SET_HISTORY_ROUTE](state, { oldRoute, route }) {
+    state.historyRoute.before.push(oldRoute)
   },
   [Mutations.BACK_HISTORY_ROUTE](state, route: string) {
     const before = state.historyRoute.before.pop() as string

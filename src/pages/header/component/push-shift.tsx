@@ -30,7 +30,19 @@ export const PushShift = defineComponent({
       if (!historyRoute.canBeCollect) {
         this.routeCanBeCollect(true)
       } else {
-        this.setHistoryRoute(oldRoute.path)
+        const { historyRoute } = this.$store.state
+        const backRoute = historyRoute.after[historyRoute.after.length - 1]
+        const forwardRoute = historyRoute.before[historyRoute.before.length - 1]
+        if (route.path === backRoute) {
+          this.routeForward(oldRoute.path)
+        } else if (route.path === forwardRoute) {
+          this.routeBack(oldRoute.path)
+        } else {
+          this.setHistoryRoute({
+            oldRoute: oldRoute.path,
+            route: route.path
+          })
+        }
       }
     }
   },
@@ -42,6 +54,7 @@ export const PushShift = defineComponent({
       routeCanBeCollect: Mutations.CAN_BE_COLLECT
     }),
     handleRouteCommand(this: This, payload: string) {
+      const { historyRoute } = this.$store.state
       this.routeCanBeCollect(false)
       if (payload === COMMAND.FORWARD) {
         this.routeForward(this.$route.path)
@@ -50,7 +63,6 @@ export const PushShift = defineComponent({
         this.routeBack(this.$route.path)
       }
       nextTick(() => {
-        const { historyRoute } = this.$store.state
         this.$router
           .replace({
             path: historyRoute.needRoute
