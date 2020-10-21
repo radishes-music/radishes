@@ -5,6 +5,7 @@ import { mapMutations, LayoutActions } from '@/layout/module'
 import { IpcRenderer } from '@/electron/event/ipc-renderer'
 import { Logo } from '../component/logo'
 import { PushShift } from '../component/push-shift'
+import { Setting } from '../component/setting'
 import './index.less'
 
 const { VUE_APP_PLATFORM } = window as ENV
@@ -64,6 +65,7 @@ export const Header = defineComponent({
         <Logo></Logo>
         <div class="header-right">
           <PushShift></PushShift>
+          <Setting></Setting>
           <div class="header-window">
             <ve-button
               type="text"

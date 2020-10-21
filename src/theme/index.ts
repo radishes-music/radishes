@@ -1,1 +1,2 @@
-import './index.less'
+import './color.less'
+import './index.css'

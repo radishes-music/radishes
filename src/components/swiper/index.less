@@ -1,5 +1,3 @@
-@import '~@/theme/color.less';
-
 .show() {
   transition: all 0.5s;
   opacity: 1;
@@ -112,11 +110,11 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background-color: @background-lighter;
+      background-color: var(--background-lighter);
       margin: 0 6px;
     }
     li&-active {
-      background-color: @base-color;
+      background-color: var(--base-color);
     }
   }
 }

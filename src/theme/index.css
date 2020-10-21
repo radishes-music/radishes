@@ -1,0 +1,16 @@
+:root {
+  --background-lighter: #f8f8f9;
+  --base-color: #ef4a4a;
+  --primary-theme-text: #ef4a4a;
+  --normal-theme-text: #f37979;
+  --secondary-theme-text: #f7a8a8;
+  --base-text-color: #303133;
+  --primary-text: #303133;
+  --normal-text: #494a4d;
+  --secondary-text: #616368;
+  --placeholder-text: #7a7d82;
+  --secondary-text-hover: #171819;
+  --placeholder-text-hover: #303133;
+  --active-color: #353535;
+  --secondary-active-color: #4f4f4f;
+}

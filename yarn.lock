@@ -3766,11 +3766,6 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.npm.taobao.org/alphanum-sort/download/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-animate.css@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.npm.taobao.org/animate.css/download/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
-  integrity sha1-YU7FqBEx1+TcNipYFD90BqvWgHU=
-
 ansi-align@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/ansi-align/download/ansi-align-3.0.0.tgz#b536b371cf687caaef236c18d3e21fe3797467cb"
@@ -16297,10 +16292,10 @@ uuid@^8.0.0:
   resolved "https://registry.npm.taobao.org/uuid/download/uuid-8.3.0.tgz#ab738085ca22dc9a8c92725e459b1d507df5d6ea"
   integrity sha1-q3OAhcoi3JqMknJeRZsdUH311uo=
 
-v-easy-components@^2.0.0-beta.3:
-  version "2.0.0-beta.3"
-  resolved "https://registry.npm.taobao.org/v-easy-components/download/v-easy-components-2.0.0-beta.3.tgz#e0cea4c2ba05e1c3596dbfb700f3841381ef6091"
-  integrity sha1-4M6kwroF4cNZbb+3APOEE4HvYJE=
+v-easy-components@2.0.0-beta.4:
+  version "2.0.0-beta.4"
+  resolved "https://registry.npm.taobao.org/v-easy-components/download/v-easy-components-2.0.0-beta.4.tgz?cache=0&sync_timestamp=1603258945743&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fv-easy-components%2Fdownload%2Fv-easy-components-2.0.0-beta.4.tgz#6a3cc585050cdfd31c9852093d614f623be6e49d"
+  integrity sha1-ajzFhQUM39McmFIJPWFPYjvm5J0=
   dependencies:
     "@popperjs/core" "^2.4.4"
     core-js "^3.6.5"

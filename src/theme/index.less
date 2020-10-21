@@ -1,10 +1,7 @@
-@import './color.less';
+@base-border-color: #dcdfe6;
+@base-border: 0.5px solid @base-border-color;
+@light-border: 0.5px solid lighten(@base-border-color, 2%);
+@lighter-border: 0.5px solid lighten(@base-border-color, 4%);
+@extra-light-border: 0.5px solid lighten(@base-border-color, 6%);
 
-:root {
-  --color-primary: @china-red;
-  --color-background-lighter: @background-lighter;
-  --color-primary-text: @primary-text;
-  --color-normal-text: @normal-text;
-  --color-secondary-text: @secondary-text;
-  --color-placeholder-text: @placeholder-text;
-}
+@drank-border: 0.5px solid darken(@base-border-color, 40%);

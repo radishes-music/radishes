@@ -1,4 +1,4 @@
-import { defineComponent, ref, watch, onMounted } from 'vue'
+import { defineComponent, ref, watch, onMounted, onUnmounted } from 'vue'
 import { State } from '@/pages/find-new-music/children/recommend/state'
 import classnames from 'classnames'
 import './index.less'
@@ -39,6 +39,10 @@ export const Swiper = defineComponent({
       timer = internalHook(4000)
     })
 
+    onUnmounted(() => {
+      clearInterval(timer)
+    })
+
     watch(current, (modern, history) => {
       nextActive.value =
         (modern > history ||
@@ -67,6 +71,7 @@ export const Swiper = defineComponent({
         index === current + 1 || (current === banners.length - 1 && index === 0)
       const prev =
         index === current - 1 || (current === 0 && index === banners.length - 1)
+
       return classnames({
         prev: prev,
         'prev-active': prev && !nextActive && !spanCurrent,

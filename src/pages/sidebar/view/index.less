@@ -1,4 +1,4 @@
-@import '~@/theme/color.less';
+@import '~@/theme/index.less';
 
 .sidebar {
   padding: 10px;
@@ -11,19 +11,19 @@
       margin: 2px 0;
       padding: 0 6px;
       height: 40px;
-      color: @secondary-text;
+      color: var(--secondary-text);
       &:hover {
         background-color: #f3f3f3;
-        color: darken(@secondary-text, 30%);
+        color: var(--secondary-text-hover);
       }
     }
     &-active {
       .sidebar-nav-name {
         background-color: #f3f3f3;
         font-weight: bold;
-        color: @active-color;
+        color: var(--active-color);
         &:hover {
-          color: @active-color;
+          color: var(--active-color);
         }
       }
     }

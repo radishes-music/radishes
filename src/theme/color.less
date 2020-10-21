@@ -1,12 +1,9 @@
-@china-red: #ef4a4a;
 @background-lighter: #f8f8f9;
 
 @base-color: #ef4a4a;
-
-@base-theme-text-color: #ef4a4a;
-@primary-theme-text: @base-theme-text-color;
-@normal-theme-text: lighten(@base-theme-text-color, 10%);
-@secondary-theme-text: lighten(@base-theme-text-color, 20%);
+@primary-theme-text: @base-color;
+@normal-theme-text: lighten(@base-color, 10%);
+@secondary-theme-text: lighten(@base-color, 20%);
 
 @base-text-color: #303133;
 @primary-text: @base-text-color;
@@ -14,11 +11,8 @@
 @secondary-text: lighten(@base-text-color, 20%);
 @placeholder-text: lighten(@base-text-color, 30%);
 
+@secondary-text-hover: darken(@secondary-text, 30%);
+@placeholder-text-hover: darken(@placeholder-text, 30%);
+
 @active-color: #353535;
 @secondary-active-color: lighten(@active-color, 10%);
-
-@base-border-color: #dcdfe6;
-@base-border: 0.5px solid @base-border-color;
-@light-border: 0.5px solid lighten(@base-border-color, 2%);
-@lighter-border: 0.5px solid lighten(@base-border-color, 4%);
-@extra-light-border: 0.5px solid lighten(@base-border-color, 6%);
