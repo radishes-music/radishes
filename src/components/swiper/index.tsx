@@ -27,7 +27,6 @@ export const Swiper = defineComponent({
 
     const handleChangeBanner = (index: number) => {
       current.value = index
-      stopInternal()
     }
 
     const handleMouseEnter = () => {
@@ -83,19 +82,11 @@ export const Swiper = defineComponent({
       })
     }
     const nextAction = () => {
-      this.stopInternal()
       this.current = this.current >= banners.length - 1 ? 0 : this.current + 1
-      nextTick(() => {
-        this.startInternal()
-      })
     }
 
     const prevAction = () => {
-      this.stopInternal()
       this.current = this.current <= 0 ? banners.length - 1 : this.current - 1
-      nextTick(() => {
-        this.startInternal()
-      })
     }
 
     return (
