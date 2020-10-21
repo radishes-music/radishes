@@ -1,7 +1,7 @@
 import { createNamespacedHelpers } from 'vuex'
 import { state } from './state'
 import { actions, mutations } from './sage'
-export { LayoutActions, Mutations } from './sage'
+export { LayoutActions } from './sage'
 
 export const NAMESPACED = 'Layout'
 

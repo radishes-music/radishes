@@ -1,6 +1,14 @@
-import { defineComponent, ref, watch, onMounted, onUnmounted } from 'vue'
+import {
+  defineComponent,
+  ref,
+  watch,
+  nextTick,
+  onUnmounted,
+  onMounted
+} from 'vue'
 import { State } from '@/pages/find-new-music/children/recommend/state'
 import classnames from 'classnames'
+import { internalHook } from '@/utils/hook'
 import './index.less'
 
 // Internal management current
@@ -12,43 +20,33 @@ export const Swiper = defineComponent({
     const nextActive = ref(true)
     const spanCurrent = ref(false)
 
-    let timer: NodeJS.Timeout
-
-    const internalHook = (ms: number): NodeJS.Timeout => {
-      const t = setInterval(() => {
-        current.value =
-          current.value >= props.banners.length - 1 ? 0 : current.value + 1
-      }, ms)
-      return t
-    }
+    const { startInternal, stopInternal } = internalHook(4000, () => {
+      current.value =
+        current.value >= props.banners.length - 1 ? 0 : current.value + 1
+    })
 
     const handleChangeBanner = (index: number) => {
       current.value = index
-      clearInterval(timer)
+      stopInternal()
     }
 
     const handleMouseEnter = () => {
-      clearInterval(timer)
+      stopInternal()
     }
 
     const handleMouseLeave = () => {
-      timer = internalHook(4000)
+      startInternal()
     }
 
     onMounted(() => {
-      timer = internalHook(4000)
+      startInternal()
     })
 
     onUnmounted(() => {
-      clearInterval(timer)
+      stopInternal()
     })
 
     watch(current, (modern, history) => {
-      nextActive.value =
-        (modern > history ||
-          (modern === 0 && history === props.banners.length - 1)) &&
-        !(modern === props.banners.length - 1 && history === 0)
-
       spanCurrent.value =
         Math.abs(modern - history) > 1 &&
         Math.abs(modern - history) !== props.banners.length - 1
@@ -60,42 +58,64 @@ export const Swiper = defineComponent({
       spanCurrent,
       handleChangeBanner,
       handleMouseEnter,
-      handleMouseLeave
+      handleMouseLeave,
+      startInternal,
+      stopInternal
     }
   },
   render() {
     const { banners } = this.$props as State
-    const { current, nextActive, spanCurrent } = this
+    const { current, spanCurrent } = this
     const renderClass = (index: number) => {
       const next =
         index === current + 1 || (current === banners.length - 1 && index === 0)
       const prev =
         index === current - 1 || (current === 0 && index === banners.length - 1)
 
-      return classnames({
+      return classnames('normal-item', {
         prev: prev,
-        'prev-active': prev && !nextActive && !spanCurrent,
         'prev-span': prev && spanCurrent,
         current: index === current,
         'current-span': index === current && spanCurrent,
         next: next,
-        'next-active': nextActive && next && !spanCurrent,
         'next-span': next && spanCurrent,
         'span-current': spanCurrent
       })
     }
+    const nextAction = () => {
+      this.stopInternal()
+      this.current = this.current >= banners.length - 1 ? 0 : this.current + 1
+      nextTick(() => {
+        this.startInternal()
+      })
+    }
+
+    const prevAction = () => {
+      this.stopInternal()
+      this.current = this.current <= 0 ? banners.length - 1 : this.current - 1
+      nextTick(() => {
+        this.startInternal()
+      })
+    }
+
     return (
-      <div class="swiper">
+      <div
+        class="swiper"
+        onMouseenter={this.handleMouseEnter}
+        onMouseleave={this.handleMouseLeave}
+      >
         <ul class="swiper-container">
+          <div class="swiper-container-left" onClick={prevAction}>
+            <icon icon="toLeft" size={42}></icon>
+          </div>
           {banners.map((item, index: number) => (
-            <li
-              class={renderClass(index)}
-              onMouseenter={this.handleMouseEnter}
-              onMouseleave={this.handleMouseLeave}
-            >
+            <li class={renderClass(index)}>
               <div style={{ backgroundImage: `url(${item.imageUrl})` }}></div>
             </li>
           ))}
+          <div class="swiper-container-right" onClick={nextAction}>
+            <icon icon="toRight" size={42}></icon>
+          </div>
         </ul>
         <ul class="swiper-pagination">
           {banners.map((item, index) => (
@@ -104,7 +124,6 @@ export const Swiper = defineComponent({
                 'swiper-pagination-active': index === current
               })}
               onMouseenter={() => this.handleChangeBanner(index)}
-              onMouseleave={this.handleMouseLeave}
             ></li>
           ))}
         </ul>

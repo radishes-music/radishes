@@ -41,6 +41,8 @@
   animation: nextActive 0.5s;
 }
 
+@radius: 8px;
+
 .swiper {
   width: 100%;
   height: 100%;
@@ -51,24 +53,64 @@
     position: relative;
     width: 100%;
     height: calc(90% - 20px);
+
+    &-left,
+    &-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 80px;
+      height: 100%;
+      top: 0;
+      z-index: 2;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    &-left {
+      border-top-left-radius: @radius;
+      border-bottom-left-radius: @radius;
+      left: 0;
+      background-image: linear-gradient(to right, #000000bf, #0000000f);
+    }
+    &-right {
+      border-top-right-radius: @radius;
+      border-bottom-right-radius: @radius;
+      right: 0;
+      background-image: linear-gradient(to left, #000000bf, #0000000f);
+    }
+    &:hover {
+      .swiper-container-left,
+      .swiper-container-right {
+        opacity: 1;
+      }
+    }
+
     li {
       position: absolute;
-      left: 0;
       width: 50%;
       height: 100%;
       opacity: 0;
       will-change: left, right, transform;
       div {
         height: 100%;
-        border-radius: 8px;
+        border-radius: @radius;
         background-size: cover;
       }
+    }
+    .normal-item {
+      left: 50%;
+      transform: translateX(-50%);
+      transition: all 0.5s;
     }
     .prev,
     .next {
       .show();
     }
     .prev {
+      left: 0;
+      transform: translateX(0);
       &-active {
         .prevActiveFn(50%);
       }
@@ -80,6 +122,7 @@
     .next {
       left: auto;
       right: 0;
+      transform: translateX(0);
       &-active {
         .nextActiveFn(50%);
       }
