@@ -1,0 +1,37 @@
+.song-list {
+  height: 520px;
+  padding: 10px 0;
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(200px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(180px, 1fr));
+    grid-gap: 20px;
+    height: 100%;
+  }
+  &-container {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    .song-pic {
+      position: relative;
+      height: 0;
+      flex: 1;
+      &-count {
+        position: absolute;
+        right: 6px;
+        top: 2px;
+        color: white;
+      }
+      &-img {
+        height: 100%;
+        border-radius: 4px;
+        background-size: cover;
+      }
+    }
+    .song-title {
+      height: 44px;
+      margin-top: 10px;
+    }
+  }
+}

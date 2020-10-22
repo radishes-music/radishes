@@ -5,27 +5,36 @@ import {
   ActionPayload,
   ActionTree
 } from 'vuex'
-import { State, Banners } from './state'
+import { State, Banners, Song } from './state'
 import { RootState } from '@/store/index'
-import { getRecommend, getBanner } from './api/index'
+import { getSongList, getBanner } from './api/index'
 
 export const enum Mutations {
-  SET_RESOURCE = 'SET_RESOURCE'
+  SET_BANNERS = 'SET_BANNERS',
+  SET_SONG_LIST = 'SET_SONG_LIST'
 }
 
 export const enum Actions {
-  SET_ACTION_RESOURCE = 'SET_ACTION_RESOURCE'
+  SET_ACTION_BANNERS = 'SET_ACTION_BANNERS',
+  SET_ACTION_SONG_LIST = 'SET_ACTION_SONG_LIST'
 }
 
 export const actions: ActionTree<State, RootState> = {
-  async [Actions.SET_ACTION_RESOURCE]({ commit }) {
+  async [Actions.SET_ACTION_BANNERS]({ commit }) {
     const data = await getBanner(0)
-    commit(Mutations.SET_RESOURCE, data.banners)
+    commit(Mutations.SET_BANNERS, data.banners)
+  },
+  async [Actions.SET_ACTION_SONG_LIST]({ commit }) {
+    const data = await getSongList(10)
+    commit(Mutations.SET_SONG_LIST, data.result)
   }
 }
 
 export const mutations: MutationTree<State> = {
-  [Mutations.SET_RESOURCE](state, banners: Banners[]) {
+  [Mutations.SET_BANNERS](state, banners: Banners[]) {
     state.banners = banners
+  },
+  [Mutations.SET_SONG_LIST](state, song: Song[]) {
+    state.songList = song
   }
 }

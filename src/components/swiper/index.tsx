@@ -6,7 +6,7 @@ import {
   onUnmounted,
   onMounted
 } from 'vue'
-import { State } from '@/pages/find-new-music/children/recommend/state'
+import { FindMusicInteface } from '@/interface/index'
 import classnames from 'classnames'
 import { internalHook } from '@/utils/hook'
 import './index.less'
@@ -63,7 +63,7 @@ export const Swiper = defineComponent({
     }
   },
   render() {
-    const { banners } = this.$props as State
+    const { banners } = this.$props as FindMusicInteface.State
     const { current, spanCurrent } = this
     const renderClass = (index: number) => {
       const next =

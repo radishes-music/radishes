@@ -1,7 +1,28 @@
 .find-music-recommend {
-  height: 100%;
+  flex: 1;
+  height: 0;
+  overflow: auto;
+  padding-right: 10px;
 
   .swiper-box {
     height: 220px;
+  }
+
+  .recommend-song {
+    margin-top: 20px;
+    h2 {
+      font-size: 16px;
+      font-weight: bold;
+      color: #383838;
+    }
+  }
+}
+
+.container-lg {
+  .swiper-box {
+    height: 320px;
+    .swiper-pagination {
+      margin-top: 30px;
+    }
   }
 }

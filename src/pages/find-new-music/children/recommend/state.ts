@@ -1,6 +1,10 @@
-export interface Resource {
+export interface Song {
   id: number
+  type: number
+  playCount: number
+  trackCount: number
   name: string
+  copywriter: string
   picUrl: string
 }
 
@@ -12,10 +16,10 @@ export interface Banners {
 
 export interface State {
   banners: Banners[]
-  resource: Resource[]
+  songList: Song[]
 }
 
 export const state: State = {
-  resource: [],
+  songList: [],
   banners: []
 }

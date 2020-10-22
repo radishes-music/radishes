@@ -80,6 +80,7 @@ export const PushShift = defineComponent({
     return (
       <div class="push-shift">
         <ve-button
+          disabled={!historyRoute.before.length}
           class={classnames({
             'push-shift-disabled': !historyRoute.before.length
           })}
@@ -90,6 +91,7 @@ export const PushShift = defineComponent({
           <icon icon="toLeft" size={16}></icon>
         </ve-button>
         <ve-button
+          disabled={!historyRoute.after.length}
           class={classnames({
             'push-shift-disabled': !historyRoute.after.length
           })}

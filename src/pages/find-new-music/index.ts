@@ -1,3 +1,4 @@
-export { FindMusic } from './view/index'
-export { Recommend } from './children/recommend/view/index'
-export { SongList } from './children/song-list/view/index'
+export * from './view/index'
+export * from './children/recommend/view/index'
+export * from './children/song-list/view/index'
+export * from './children/recommend/state'

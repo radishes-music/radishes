@@ -1,2 +1,3 @@
-export { HttpGet, HttpPost } from './http'
-export { Music } from './app'
+export * from './http'
+export * from './app'
+export { FindMusicInteface } from '../pages/index'

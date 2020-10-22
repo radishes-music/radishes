@@ -9,3 +9,9 @@ export const getBanner = (type: number) => {
     type
   })
 }
+
+export const getSongList = (limit = 30) => {
+  return get('/api/personalized', {
+    limit
+  })
+}
