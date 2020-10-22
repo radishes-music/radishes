@@ -15764,6 +15764,17 @@ ts-loader@^6.2.2:
     micromatch "^4.0.0"
     semver "^6.0.0"
 
+ts-loader@^8.0.6:
+  version "8.0.6"
+  resolved "https://registry.npm.taobao.org/ts-loader/download/ts-loader-8.0.6.tgz?cache=0&sync_timestamp=1603169638366&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fts-loader%2Fdownload%2Fts-loader-8.0.6.tgz#8f47d203ef8fc95826a292a09f97a02bf1f57565"
+  integrity sha1-j0fSA++PyVgmopKgn5egK/H1dWU=
+  dependencies:
+    chalk "^2.3.0"
+    enhanced-resolve "^4.0.0"
+    loader-utils "^1.0.2"
+    micromatch "^4.0.0"
+    semver "^6.0.0"
+
 ts-map@^1.0.3:
   version "1.0.3"
   resolved "https://registry.npm.taobao.org/ts-map/download/ts-map-1.0.3.tgz#1c4d218dec813d2103b7e04e4bcf348e1471c1ff"
