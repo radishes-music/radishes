@@ -30,8 +30,8 @@ export const allInject = () => {
 type ModalCall = (options: ModalOptions) => ModalConfirm
 
 export { useStore, useRoute, useRouter }
-export const useError = () => inject($ERROR)
-export const useInfo = () => inject($INFO)
+export const useError = () => inject($ERROR) as ModalCall
+export const useInfo = () => inject($INFO) as ModalCall
 export const useSuccess = () => inject($SUCCESS) as ModalCall
 export const useWarning = () => inject($WARNING) as ModalCall
 export const useConfirm = () => inject($CONFIRM) as ModalCall
