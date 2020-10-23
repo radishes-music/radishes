@@ -1,17 +1,16 @@
 .song-list {
-  height: 520px;
   padding: 10px 0;
 
   ul {
     display: grid;
-    grid-template-columns: repeat(5, minmax(200px, 1fr));
-    grid-template-rows: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 20px;
     height: 100%;
   }
   &-container {
     display: flex;
     flex-direction: column;
+    min-height: 180px;
     cursor: pointer;
     .song-pic {
       position: relative;

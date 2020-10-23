@@ -64,32 +64,39 @@ export const Header = defineComponent({
       <header class="header">
         <Logo></Logo>
         <div class="header-right">
-          <PushShift></PushShift>
-          <Setting></Setting>
-          <div class="header-window">
-            <ve-button
-              type="text"
-              class="header-window-btn"
-              onClick={() => this.handleWindowControl(Action.MINIMIZE_WINDOW)}
-            >
-              <icon icon="shrink-taskbar" size={20}></icon>
-            </ve-button>
-            <ve-button
-              type="text"
-              class="header-window-btn"
-              onClick={this.windowsChangeSize}
-            >
-              <icon icon={windowSize} size={20}></icon>
-            </ve-button>
-            {VUE_APP_PLATFORM !== 'browser' && (
+          <div class="header-right-left" onMousedown={e => e.stopPropagation()}>
+            <PushShift></PushShift>
+          </div>
+          <div
+            class="header-right-right"
+            onMousedown={e => e.stopPropagation()}
+          >
+            <Setting></Setting>
+            <div class="header-window">
               <ve-button
                 type="text"
                 class="header-window-btn"
-                onClick={() => this.handleWindowControl(Action.CLOSE_WINDOW)}
+                onClick={() => this.handleWindowControl(Action.MINIMIZE_WINDOW)}
               >
-                <icon icon="cross" size={22}></icon>
+                <icon icon="shrink-taskbar" size={20}></icon>
               </ve-button>
-            )}
+              <ve-button
+                type="text"
+                class="header-window-btn"
+                onClick={this.windowsChangeSize}
+              >
+                <icon icon={windowSize} size={20}></icon>
+              </ve-button>
+              {VUE_APP_PLATFORM !== 'browser' && (
+                <ve-button
+                  type="text"
+                  class="header-window-btn"
+                  onClick={() => this.handleWindowControl(Action.CLOSE_WINDOW)}
+                >
+                  <icon icon="cross" size={22}></icon>
+                </ve-button>
+              )}
+            </div>
           </div>
         </div>
       </header>
