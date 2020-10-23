@@ -1,10 +1,4 @@
-import {
-  MutationTree,
-  Action,
-  ActionContext,
-  ActionPayload,
-  ActionTree
-} from 'vuex'
+import { MutationTree, ActionTree } from 'vuex'
 import { State, Banners, Song } from './state'
 import { RootState } from '@/store/index'
 import { getSongList, getBanner } from './api/index'

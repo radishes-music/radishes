@@ -1,36 +1,34 @@
-import { defineComponent } from 'vue'
-import { RouterLink } from 'vue-router'
-import { RouterChildren } from '@/router/index'
-import classnames from 'classnames'
+import { defineComponent, toRefs } from 'vue'
+import { RouterLink, RouteRecordRaw } from 'vue-router'
 import './index.less'
 
+const prefix = 'secondary'
+
+interface Props {
+  nav: RouteRecordRaw[]
+  onChange: (route: RouteRecordRaw) => void
+}
+
 export const SecondaryBar = defineComponent({
+  name: 'SecondaryBar',
   props: {
     nav: {
-      type: Array,
-      default: () => []
-    },
-    onChange: Function
+      type: Object as () => RouteRecordRaw[],
+      required: true
+    }
   },
-  emits: ['change'],
-  render() {
-    const nav = (this.$props.nav as unknown) as RouterChildren[]
-    const {
-      $router: {
-        currentRoute: { value }
-      }
-    } = this
-    return (
-      <div class="secondary-bar">
+  setup(props) {
+    const { nav } = toRefs(props)
+    return () => (
+      <div class={`${prefix}-bar`}>
         <ul>
-          {nav.map(link => (
+          {nav.value?.map(link => (
             <RouterLink
-              class={classnames('secondary-bar-link', {
-                'secondary-bar-link-active': value.path.includes(link.path)
-              })}
+              class={`${prefix}-bar-link`}
+              activeClass={`${prefix}-bar-link-active`}
               to={link.path}
             >
-              {link?.meta?.name}
+              {link.meta?.name}
             </RouterLink>
           ))}
         </ul>

@@ -1,16 +1,22 @@
-import { Container } from '@/layout/container'
-
 interface InternalHook {
   startInternal: () => void
   stopInternal: () => void
 }
 
-export const internalHook = (ms: number, cb: () => void): InternalHook => {
+export const useInternal = (ms: number, cb: () => void): InternalHook => {
   let t: NodeJS.Timeout
+  let running = false
   const startInternal = () => {
+    if (running) {
+      return console.error(
+        'The timer has started, use stopInternal to stop the timer'
+      )
+    }
+    running = true
     t = setInterval(cb, ms)
   }
   const stopInternal = () => {
+    running = false
     t && clearInterval(t)
   }
   return {
@@ -22,22 +28,22 @@ export const internalHook = (ms: number, cb: () => void): InternalHook => {
 export const dragHook = (container: HTMLElement, target: HTMLElement) => {
   let forcedStop = false
 
-  const boxClient = {
-    w: document.documentElement.offsetWidth,
-    h: document.documentElement.offsetHeight
-  }
+  // const boxClient = {
+  //   w: document.documentElement.offsetWidth,
+  //   h: document.documentElement.offsetHeight
+  // }
 
   const cache = {
     x: 0,
     y: 0
   }
 
-  const containerClient = {
-    grapX: container.offsetLeft,
-    grapY: container.offsetTop,
-    w: container.offsetWidth,
-    h: container.offsetHeight
-  }
+  // const containerClient = {
+  //   grapX: container.offsetLeft,
+  //   grapY: container.offsetTop,
+  //   w: container.offsetWidth,
+  //   h: container.offsetHeight
+  // }
 
   let clickPosition: {
     x: number
@@ -58,7 +64,7 @@ export const dragHook = (container: HTMLElement, target: HTMLElement) => {
     }
     target.style.cursor = 'grabbing'
   }
-  const mouseup = (e: MouseEvent) => {
+  const mouseup = () => {
     canMove = false
     if (!forcedStop) {
       const matrix = window

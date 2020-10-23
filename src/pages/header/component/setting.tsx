@@ -1,5 +1,4 @@
-import { defineComponent, h, VNode, ref } from 'vue'
-import { ColorPicker } from 'v-easy-components'
+import { defineComponent, ref } from 'vue'
 import './setting.less'
 
 export const Setting = defineComponent({

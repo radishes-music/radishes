@@ -8,6 +8,8 @@ import {
 } from 'vue'
 import './index.less'
 
+const prefix = 'error'
+
 type This = Options & ComponentOptions
 
 interface Options {
@@ -48,10 +50,10 @@ export const RuntimeErrorComponent = defineComponent({
   render(this: RuntimeErrorComponentProps & ComponentOptions) {
     const { title, message } = this.$props
     return (
-      <div class="error-boundary">
-        <h1 class="error-boundary-title">{title}</h1>
-        <div class="error-boundary-content">{message.message}</div>
-        <pre class="error-boundary-content">{message.stack}</pre>
+      <div class={`${prefix}-boundary`}>
+        <h1 class={`${prefix}-boundary-title`}>{title}</h1>
+        <div class={`${prefix}-boundary-content`}>{message.message}</div>
+        <pre class={`${prefix}-boundary-content`}>{message.stack}</pre>
       </div>
     )
   }

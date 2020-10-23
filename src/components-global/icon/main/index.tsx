@@ -1,4 +1,4 @@
-import { defineComponent, computed } from 'vue'
+import { defineComponent } from 'vue'
 import './index.less'
 
 export interface IconProps {

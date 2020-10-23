@@ -9,11 +9,9 @@ export const { mapState, mapActions, mapMutations } = createNamespacedHelpers(
   NAMESPACED
 )
 
-const layout = {
+export default {
   namespaced: true,
   state,
   actions,
   mutations
 }
-
-export default layout

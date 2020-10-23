@@ -5,13 +5,9 @@ export interface Component {
   name: string
 }
 
-export interface Option {
-  [key: string]: any
-}
-
 export const components: Component[] = [Icon]
 
-const install = (app: App, option: Option) => {
+const install = (app: App) => {
   components.forEach(component => {
     app.component(component.name, component)
   })

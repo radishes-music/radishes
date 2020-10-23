@@ -1,3 +1,5 @@
+@prefix: ~'swiper';
+
 .show() {
   transition: all 0.5s;
   opacity: 1;
@@ -43,7 +45,7 @@
 
 @radius: 8px;
 
-.swiper {
+.@{prefix} {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -75,17 +77,17 @@
       border-top-left-radius: @radius;
       border-bottom-left-radius: @radius;
       left: 0;
-      background-image: linear-gradient(to right, #000000bf, #0000000f);
+      background-image: linear-gradient(to right, #000000bf, transparent);
     }
     &-right {
       border-top-right-radius: @radius;
       border-bottom-right-radius: @radius;
       right: 0;
-      background-image: linear-gradient(to left, #000000bf, #0000000f);
+      background-image: linear-gradient(to left, #000000bf, transparent);
     }
     &:hover {
-      .swiper-container-left,
-      .swiper-container-right {
+      .@{prefix}-container-left,
+      .@{prefix}-container-right {
         opacity: 1;
       }
     }
@@ -102,48 +104,42 @@
         background-size: cover;
       }
     }
-    .normal-item {
+    .@{prefix}-normal-item {
       left: 50%;
       transform: translateX(-50%);
       transition: all 0.5s;
     }
-    .prev,
-    .next {
+    .@{prefix}-prev,
+    .@{prefix}-next {
       .show();
     }
-    .prev {
+    .@{prefix}-prev {
       left: 0;
       transform: translateX(0);
-      &-active {
-        .prevActiveFn(50%);
-      }
       &-span {
         transition: none;
         .prevActiveFn(10%);
       }
     }
-    .next {
+    .@{prefix}-next {
       left: auto;
       right: 0;
       transform: translateX(0);
-      &-active {
-        .nextActiveFn(50%);
-      }
       &-span {
         transition: none;
         .nextActiveFn(10%);
       }
     }
-    .current {
+    .@{prefix}-current {
       left: 50%;
       transform: translateX(-50%) scale(1.2);
       z-index: 1;
       .show();
     }
-    .current-span {
+    .@{prefix}-current-span {
       animation: spanScale 0.5s cubic-bezier(0, 0, 0.05, 0.58);
     }
-    .span-current {
+    .@{prefix}-span-current {
       transition: none;
     }
   }

@@ -1,4 +1,4 @@
-import { defineComponent, onBeforeMount } from 'vue'
+import { defineComponent } from 'vue'
 import { Swiper } from '@/components/swiper/index'
 import { mapState, mapActions } from '../module'
 import { Actions } from '../sage'

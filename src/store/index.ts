@@ -1,4 +1,4 @@
-import { createStore, MutationTree } from 'vuex'
+import { createStore, MutationTree, createLogger } from 'vuex'
 import modules from '../modules/index'
 
 export const enum Mutations {
@@ -29,7 +29,7 @@ const state: RootState = {
 }
 
 const mutations: MutationTree<RootState> = {
-  [Mutations.SET_HISTORY_ROUTE](state, { oldRoute, route }) {
+  [Mutations.SET_HISTORY_ROUTE](state, { oldRoute }) {
     state.historyRoute.before.push(oldRoute)
   },
   [Mutations.BACK_HISTORY_ROUTE](state, route: string) {
@@ -51,5 +51,6 @@ export default createStore<RootState>({
   state,
   mutations,
   actions: {},
-  modules: modules
+  modules: modules,
+  plugins: [createLogger()]
 })

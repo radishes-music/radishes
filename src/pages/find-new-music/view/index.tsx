@@ -4,23 +4,20 @@ import { SecondaryBar } from '@/components/secondary-bar/index'
 import { navRouter } from '@/router/index'
 import './index.less'
 
+export const navKey = Symbol('nav')
+
 export const FindMusic = defineComponent({
   name: 'FindMusic',
-  methods: {
-    // eslint-disable-next-line
-    handleChangeRoute(route: RouteRecordRaw) {}
-  },
-  render() {
+  setup() {
     let nav = navRouter.filter(item => item.name === FindMusic.name)
     if (nav.length) {
       nav = nav[0].children?.filter(item => item.meta?.name) as RouteRecordRaw[]
     }
-    return (
+    // eslint-disable-next-line
+    const handleChangeRoute = (route: RouteRecordRaw) => {}
+    return () => (
       <div class="find-music">
-        <SecondaryBar
-          nav={nav}
-          onChange={this.handleChangeRoute}
-        ></SecondaryBar>
+        <SecondaryBar nav={nav}></SecondaryBar>
         <router-view></router-view>
       </div>
     )

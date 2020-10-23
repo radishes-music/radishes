@@ -1,23 +1,19 @@
 import { defineComponent } from 'vue'
-import { RouteRecordRaw, RouterLink } from 'vue-router'
+import { RouteRecordRaw, RouterLink, useRoute } from 'vue-router'
 import classnames from 'classnames'
 import { navRouter } from '@/router/index'
 import './index.less'
 
 export const Sidebar = defineComponent({
-  render() {
-    const {
-      $router: {
-        currentRoute: { value }
-      }
-    } = this
-    return (
+  setup() {
+    const route = useRoute()
+    return () => (
       <aside class="sidebar">
         {navRouter.map((routerGroup: RouteRecordRaw) => {
           return (
             <div
               class={classnames('sidebar-nav', {
-                'sidebar-nav-active': value.path.includes(routerGroup.path)
+                'sidebar-nav-active': route.path.includes(routerGroup.path)
               })}
             >
               {routerGroup.meta?.beforeHeader && (

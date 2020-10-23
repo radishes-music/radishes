@@ -2,25 +2,31 @@ import {
   defineComponent,
   ref,
   watch,
-  nextTick,
   onUnmounted,
-  onMounted
+  onMounted,
+  toRefs
 } from 'vue'
 import { FindMusicInteface } from '@/interface/index'
 import classnames from 'classnames'
-import { internalHook } from '@/utils/hook'
+import { useInternal } from '@/utils/hook'
 import './index.less'
+
+const prefix = 'swiper'
 
 // Internal management current
 // Logic to be optimized
 export const Swiper = defineComponent({
-  props: ['banners'],
+  props: {
+    banners: {
+      type: Object as () => FindMusicInteface.Banners[],
+      required: true
+    }
+  },
   setup(props) {
     const current = ref(0)
-    const nextActive = ref(true)
     const spanCurrent = ref(false)
 
-    const { startInternal, stopInternal } = internalHook(4000, () => {
+    const { startInternal, stopInternal } = useInternal(4000, () => {
       current.value =
         current.value >= props.banners.length - 1 ? 0 : current.value + 1
     })
@@ -51,70 +57,62 @@ export const Swiper = defineComponent({
         Math.abs(modern - history) !== props.banners.length - 1
     })
 
-    return {
-      current,
-      nextActive,
-      spanCurrent,
-      handleChangeBanner,
-      handleMouseEnter,
-      handleMouseLeave,
-      startInternal,
-      stopInternal
-    }
-  },
-  render() {
-    const { banners } = this.$props as FindMusicInteface.State
-    const { current, spanCurrent } = this
+    const { banners } = toRefs(props)
     const renderClass = (index: number) => {
       const next =
-        index === current + 1 || (current === banners.length - 1 && index === 0)
+        index === current.value + 1 ||
+        (current.value === banners.value.length - 1 && index === 0)
       const prev =
-        index === current - 1 || (current === 0 && index === banners.length - 1)
+        index === current.value - 1 ||
+        (current.value === 0 && index === banners.value.length - 1)
 
-      return classnames('normal-item', {
-        prev: prev,
-        'prev-span': prev && spanCurrent,
-        current: index === current,
-        'current-span': index === current && spanCurrent,
-        next: next,
-        'next-span': next && spanCurrent,
-        'span-current': spanCurrent
+      return classnames(`${prefix}-normal-item`, {
+        [`${prefix}-prev`]: prev,
+        [`${prefix}-prev-span`]: prev && spanCurrent.value,
+        [`${prefix}-current`]: index === current.value,
+        [`${prefix}-current-span`]:
+          index === current.value && spanCurrent.value,
+        [`${prefix}-next`]: next,
+        [`${prefix}-next-span`]: next && spanCurrent.value,
+        [`${prefix}-span-current`]: spanCurrent.value
       })
     }
     const nextAction = () => {
-      this.current = this.current >= banners.length - 1 ? 0 : this.current + 1
+      current.value =
+        current.value >= banners.value.length - 1 ? 0 : current.value + 1
     }
 
     const prevAction = () => {
-      this.current = this.current <= 0 ? banners.length - 1 : this.current - 1
+      current.value =
+        current.value <= 0 ? banners.value.length - 1 : current.value - 1
     }
 
-    return (
+    return () => (
       <div
-        class="swiper"
-        onMouseenter={this.handleMouseEnter}
-        onMouseleave={this.handleMouseLeave}
+        class={`${prefix}`}
+        onMouseenter={handleMouseEnter}
+        onMouseleave={handleMouseLeave}
       >
-        <ul class="swiper-container">
-          <div class="swiper-container-left" onClick={prevAction}>
+        <ul class={`${prefix}-container`}>
+          <div class={`${prefix}-container-left`} onClick={prevAction}>
             <icon icon="toLeft" size={42}></icon>
           </div>
-          {banners.map((item, index: number) => (
+          {banners.value.map((item, index: number) => (
             <li class={renderClass(index)}>
               <div style={{ backgroundImage: `url(${item.imageUrl})` }}></div>
             </li>
           ))}
-          <div class="swiper-container-right" onClick={nextAction}>
+          <div class={`${prefix}-container-right`} onClick={nextAction}>
             <icon icon="toRight" size={42}></icon>
           </div>
         </ul>
-        <ul class="swiper-pagination">
-          {banners.map((item, index) => (
+        <ul class={`${prefix}-pagination`}>
+          {banners.value.map((item, index) => (
             <li
               class={classnames({
-                'swiper-pagination-active': index === current
+                [`${prefix}-pagination-active`]: index === current.value
               })}
-              onMouseenter={() => this.handleChangeBanner(index)}
+              onMouseenter={() => handleChangeBanner(index)}
             ></li>
           ))}
         </ul>

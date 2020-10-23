@@ -1,29 +1,32 @@
-import { defineComponent, onBeforeMount } from 'vue'
+import { defineComponent, toRefs } from 'vue'
 import { FindMusicInteface } from '@/interface/index'
 import './index.less'
 
-interface Props {
-  songData: FindMusicInteface.Song[]
-}
+const prefix = 'song'
 
 export const SongList = defineComponent({
   name: 'SongList',
-  props: ['songData'],
-  render() {
-    const { songData } = this.$props as Props
-    return (
-      <div class="song-list">
+  props: {
+    songData: {
+      type: Object as () => FindMusicInteface.Song[],
+      required: true
+    }
+  },
+  setup(props) {
+    const { songData } = toRefs(props)
+    return () => (
+      <div class={`${prefix}-list`}>
         <ul>
-          {songData.map(song => (
-            <li class="song-list-container">
-              <div class="song-pic">
+          {songData.value.map(song => (
+            <li class={`${prefix}-list-container`}>
+              <div class={`${prefix}-pic`}>
                 <div
-                  class="song-pic-img"
+                  class={`${prefix}-pic-img`}
                   style={{ backgroundImage: `url(${song.picUrl})` }}
                 ></div>
-                <div class="song-pic-count">{song.playCount}</div>
+                <div class={`${prefix}-pic-count`}>{song.playCount}</div>
               </div>
-              <div class="song-title">{song.name}</div>
+              <div class={`${prefix}-title`}>{song.name}</div>
             </li>
           ))}
         </ul>
