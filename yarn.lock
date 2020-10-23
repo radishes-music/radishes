@@ -12458,6 +12458,11 @@ pkg-up@3.1.0, pkg-up@^3.1.0:
   dependencies:
     find-up "^3.0.0"
 
+plain-draggable@^2.5.12:
+  version "2.5.12"
+  resolved "https://registry.npm.taobao.org/plain-draggable/download/plain-draggable-2.5.12.tgz#d97c6d91740c0afd6c9738245efd2698ddf56a66"
+  integrity sha1-2XxtkXQMCv1slzgkXv0mmN31amY=
+
 please-upgrade-node@^3.1.1, please-upgrade-node@^3.2.0:
   version "3.2.0"
   resolved "https://registry.npm.taobao.org/please-upgrade-node/download/please-upgrade-node-3.2.0.tgz#aeddd3f994c933e4ad98b99d9a556efa0e2fe942"

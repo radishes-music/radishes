@@ -26,12 +26,12 @@ http.interceptors.response.use(
   }
 )
 
-export const get = (url: string, params?: any): Promise<HttpGet> =>
+export const get = (url: string, params?: unknown): Promise<HttpGet> =>
   http.get(url, {
     params
   })
 
-export const post = (url: string, data?: any): Promise<HttpPost> =>
+export const post = (url: string, data?: unknown): Promise<HttpPost> =>
   http.post(url, {
     data
   })
