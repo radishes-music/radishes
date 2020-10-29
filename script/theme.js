@@ -11,7 +11,7 @@ console.log(
 )
 
 fs.watchFile(path.resolve(themePath, 'color.less'), (curr, prev) => {
-  if (curr.size === prev.size) return
+  if (curr.mtimeMs <= prev.mtimeMs) return
   fs.readFile(
     path.resolve(themePath, 'color.less'),
     'utf8',
@@ -67,7 +67,7 @@ ${content}}\n`
           if (err) {
             console.log(err)
           }
-          console.log(chalk.green('File updated successfully'))
+          console.log(chalk.green('[Theme]: File updated successfully'))
         })
       }
     }
