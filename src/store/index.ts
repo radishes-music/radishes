@@ -47,10 +47,16 @@ const mutations: MutationTree<RootState> = {
   }
 }
 
+const plugins = []
+
+if (process.env.NODE_ENV === 'development') {
+  plugins.push(createLogger())
+}
+
 export default createStore<RootState>({
   state,
   mutations,
   actions: {},
-  modules: modules,
-  plugins: [createLogger()]
+  modules,
+  plugins
 })

@@ -1,0 +1,48 @@
+@import '~@/theme/index.less';
+
+.search {
+  margin-left: 10px;
+  &-popper {
+    height: 240px;
+    font-size: 13px;
+    &-title {
+      padding: 4px 10px;
+      background-color: var(--background-lighter);
+    }
+    &-group {
+      li {
+        display: flex;
+        align-items: center;
+        height: 30px;
+        padding: 0 20px;
+        user-select: none;
+        cursor: pointer;
+        &:hover {
+          background-color: #eaeaea;
+        }
+      }
+    }
+    &-last {
+      margin-bottom: 10px !important;
+    }
+  }
+
+  div&-input {
+    input {
+      border-radius: 8px;
+      background-color: #0000000f;
+      border: none;
+      color: white;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+div.auto-complete-template {
+  width: 300px;
+  border-radius: 4px;
+  padding: 0;
+  box-shadow: 0 0 2px 0 #c7c7c7;
+}

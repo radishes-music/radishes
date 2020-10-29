@@ -1,5 +1,4 @@
 import Axios, { AxiosInstance } from 'axios'
-import { HttpGet, HttpPost } from '@/interface'
 
 const http: AxiosInstance = Axios.create({
   timeout: 5000
@@ -26,14 +25,16 @@ http.interceptors.response.use(
   }
 )
 
-export const get = (url: string, params?: unknown): Promise<HttpGet> =>
-  http.get(url, {
+export function get<T>(url: string, params?: unknown): Promise<T> {
+  return http.get(url, {
     params
   })
+}
 
-export const post = (url: string, data?: unknown): Promise<HttpPost> =>
-  http.post(url, {
+export function post<T>(url: string, data?: unknown): Promise<T> {
+  return http.post(url, {
     data
   })
+}
 
 export default http

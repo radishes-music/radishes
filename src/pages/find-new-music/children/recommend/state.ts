@@ -1,5 +1,6 @@
-export interface Song {
-  id: number
+import { Song as RootSong } from '@/interface/index'
+
+export interface Song extends RootSong {
   type: number
   playCount: number
   trackCount: number

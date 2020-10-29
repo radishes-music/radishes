@@ -17,7 +17,11 @@ module.exports = {
     })
     config.module
       .rule('images')
-      .test(/.otf|ttf|png|jpg|gif$/)
+      .test(/.png|jpg|gif$/)
+      .use('url-loader')
+    config.module
+      .rule('fonts')
+      .test(/.otf|ttf$/)
       .use('url-loader')
     config.resolve.extensions.add('less').add('css')
   },

@@ -1,3 +1,6 @@
 export * from './http'
 export * from './app'
+export * from './albums'
+export * from './artists'
+export * from './song'
 export { FindMusicInteface } from '../pages/index'

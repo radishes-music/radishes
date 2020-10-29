@@ -5,6 +5,7 @@ import { navRouter } from '@/router/index'
 import './index.less'
 
 export const Sidebar = defineComponent({
+  name: 'Sidebar',
   setup() {
     const route = useRoute()
     return () => (

@@ -60,6 +60,7 @@ export const RuntimeErrorComponent = defineComponent({
 })
 
 export const ErrorBoundary = defineComponent<Options>({
+  name: 'ErrorBoundary',
   setup() {
     const error = ref(false)
     const runtimeProps = reactive({})

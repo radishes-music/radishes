@@ -6,6 +6,7 @@ import { IpcRenderer } from '@/electron/event/ipc-renderer'
 import { Logo } from '../component/logo'
 import { PushShift } from '../component/push-shift'
 import { Setting } from '../component/setting'
+import { Search } from '../component/search'
 import './index.less'
 
 const { VUE_APP_PLATFORM } = window as ENV
@@ -26,6 +27,7 @@ const importIpc = () => {
 }
 
 export const Header = defineComponent({
+  name: 'Header',
   setup() {
     const windowSize = ref('enlarge')
     return {
@@ -66,6 +68,7 @@ export const Header = defineComponent({
         <div class="header-right">
           <div class="header-right-left" onMousedown={e => e.stopPropagation()}>
             <PushShift></PushShift>
+            <Search></Search>
           </div>
           <div
             class="header-right-right"

@@ -15,12 +15,12 @@ export const enum Actions {
 
 export const actions: ActionTree<State, RootState> = {
   async [Actions.SET_ACTION_BANNERS]({ commit }) {
-    const data = await getBanner(0)
-    commit(Mutations.SET_BANNERS, data.banners)
+    const banners = await getBanner(0)
+    commit(Mutations.SET_BANNERS, banners)
   },
   async [Actions.SET_ACTION_SONG_LIST]({ commit }) {
-    const data = await getSongList(10)
-    commit(Mutations.SET_SONG_LIST, data.result)
+    const result = await getSongList(10)
+    commit(Mutations.SET_SONG_LIST, result)
   }
 }
 

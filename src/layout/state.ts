@@ -6,8 +6,10 @@ export const enum Size {
 
 export interface State {
   screenSize: Size
+  rebackSize: Size
 }
 
 export const state: State = {
-  screenSize: Size.MD
+  screenSize: Size.MD,
+  rebackSize: Size.MD
 }

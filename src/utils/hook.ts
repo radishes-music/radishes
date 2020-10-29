@@ -1,3 +1,5 @@
+import { on, off } from './index'
+
 interface InternalHook {
   startInternal: () => void
   stopInternal: () => void
@@ -26,8 +28,6 @@ export const useInternal = (ms: number, cb: () => void): InternalHook => {
 }
 
 export const dragHook = (container: HTMLElement, target: HTMLElement) => {
-  let forcedStop = false
-
   // const boxClient = {
   //   w: document.documentElement.offsetWidth,
   //   h: document.documentElement.offsetHeight
@@ -66,24 +66,20 @@ export const dragHook = (container: HTMLElement, target: HTMLElement) => {
   }
   const mouseup = () => {
     canMove = false
-    if (!forcedStop) {
-      const matrix = window
-        .getComputedStyle(container)
-        .transform.match(/-?\d+/g)
-      if (matrix) {
-        cache.x = +matrix[4]
-        cache.y = +matrix[5]
-      }
+    const matrix = window.getComputedStyle(container).transform.match(/-?\d+/g)
+    if (matrix) {
+      cache.x = +matrix[4]
+      cache.y = +matrix[5]
     }
     target.style.cursor = 'grab'
   }
   const mousemove = (e: MouseEvent) => {
-    if (canMove && !forcedStop) {
+    if (canMove) {
       const { clientX, clientY } = e
       const left = clientX - clickPosition.x + cache.x
       const top = clientY - clickPosition.y + cache.y
       requestAnimationFrame(() => {
-        container.style.transform = `matrix(1, 0, 0, 1, ${left}, ${top})`
+        container.style.transform = `matrix(1, 0, 0, 1, ${left}, ${top}) translateZ(0)`
       })
       // if (left >= 0 && left + containerClient.w <= boxClient.w) {
 
@@ -96,12 +92,23 @@ export const dragHook = (container: HTMLElement, target: HTMLElement) => {
       // }
     }
   }
-  target.addEventListener('mousedown', mousedown)
-  document.documentElement.addEventListener('mouseup', mouseup)
-  document.documentElement.addEventListener('mousemove', mousemove)
+
+  const stop = () => {
+    off(container, 'mousedown', mousedown)
+    off(document.documentElement, 'mouseup', mouseup)
+    off(document.documentElement, 'mousemove', mousemove)
+  }
+
+  const start = () => {
+    on(container, 'mousedown', mousedown)
+    on(document.documentElement, 'mouseup', mouseup)
+    on(document.documentElement, 'mousemove', mousemove)
+  }
+
+  start()
 
   return {
-    stop: () => (forcedStop = true),
-    start: () => (forcedStop = false)
+    start,
+    stop
   }
 }

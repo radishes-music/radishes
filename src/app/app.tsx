@@ -7,21 +7,16 @@ import { allInject, useRoute } from '@/hooks'
 import '../theme/index'
 import './app.less'
 
-const App = () => {
-  const { meta } = useRoute()
-
-  return (
-    <ErrorBoundary ref="ErrorBoundary">
-      {meta.full ? <FullScreen></FullScreen> : <Container></Container>}
-    </ErrorBoundary>
-  )
-}
-
 /* Global Setup */
 export default defineComponent({
+  name: 'APP',
   setup() {
     allInject()
-
-    return () => <App />
+    const { meta } = useRoute()
+    return () => (
+      <ErrorBoundary ref="ErrorBoundary">
+        {meta.full ? <FullScreen></FullScreen> : <Container></Container>}
+      </ErrorBoundary>
+    )
   }
 })

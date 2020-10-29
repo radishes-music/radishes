@@ -11,6 +11,7 @@ export interface Mutations {
 export const actions = {}
 export const mutations: MutationTree<State> = {
   [LayoutActions.CHANGE_WINDOW_SIZE](state, size: Size) {
+    state.rebackSize = state.screenSize
     state.screenSize = size
   }
 }

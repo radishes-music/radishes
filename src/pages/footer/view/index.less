@@ -1,3 +1,20 @@
 .footer {
+  position: relative;
   background-color: var(--background-lighter);
+  &-reduction {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: -38px;
+  }
+}
+
+.container {
+  &-sm {
+    .footer {
+      &-reduction {
+        display: block;
+      }
+    }
+  }
 }
