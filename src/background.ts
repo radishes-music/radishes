@@ -24,6 +24,8 @@ function createWindow() {
     width: width / 1.5,
     height: height / 1.5,
     frame: false,
+    titleBarStyle: 'hidden',
+    show: false,
     resizable: false,
     backgroundColor: '#ffffff',
     icon: path.join(__static, 'icon.png'),
@@ -46,6 +48,10 @@ function createWindow() {
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
   }
+
+  win.once('ready-to-show', () => {
+    win && win.show()
+  })
 
   win.on('closed', () => {
     win = null

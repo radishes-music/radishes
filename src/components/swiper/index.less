@@ -1,19 +1,21 @@
 @prefix: ~'swiper';
 
+@duaring: 0.8s;
+
 .show() {
-  transition: all 0.5s;
+  transition: all @duaring;
   opacity: 1;
 }
 
 @keyframes spanScale {
   0% {
-    transform: translateX(-50%) scale(1.2);
+    transform: translateX(-50%) translateZ(0) scale(1.2);
   }
   50% {
-    transform: translateX(-50%) scale(1.1);
+    transform: translateX(-50%) translateZ(0) scale(1.1);
   }
   100% {
-    transform: translateX(-50%) scale(1.2);
+    transform: translateX(-50%) translateZ(0) scale(1.2);
   }
 }
 
@@ -27,7 +29,7 @@
     }
   }
 
-  animation: prevActive 0.5s;
+  animation: prevActive @duaring;
 }
 
 .nextActiveFn(@position: 50%) {
@@ -40,7 +42,7 @@
     }
   }
 
-  animation: nextActive 0.5s;
+  animation: nextActive @duaring;
 }
 
 @radius: 8px;
@@ -106,8 +108,8 @@
     }
     .@{prefix}-normal-item {
       left: 50%;
-      transform: translateX(-50%);
-      transition: all 0.5s;
+      transform: translateX(-50%) translateZ(0);
+      transition: all @duaring;
     }
     .@{prefix}-prev,
     .@{prefix}-next {
@@ -115,7 +117,7 @@
     }
     .@{prefix}-prev {
       left: 0;
-      transform: translateX(0);
+      transform: translateX(0) translateZ(0);
       &-span {
         transition: none;
         .prevActiveFn(10%);
@@ -124,7 +126,7 @@
     .@{prefix}-next {
       left: auto;
       right: 0;
-      transform: translateX(0);
+      transform: translateX(0) translateZ(0);
       &-span {
         transition: none;
         .nextActiveFn(10%);
@@ -132,12 +134,12 @@
     }
     .@{prefix}-current {
       left: 50%;
-      transform: translateX(-50%) scale(1.2);
+      transform: translateX(-50%) translateZ(0) scale(1.2);
       z-index: 1;
       .show();
     }
     .@{prefix}-current-span {
-      animation: spanScale 0.5s cubic-bezier(0, 0, 0.05, 0.58);
+      animation: spanScale @duaring cubic-bezier(0, 0, 0.05, 0.58);
     }
     .@{prefix}-span-current {
       transition: none;
