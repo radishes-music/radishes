@@ -1,4 +1,4 @@
-import { Song as RootSong } from '@/interface/index'
+import { Songs as RootSong } from '@/interface/index'
 
 export interface Song extends RootSong {
   type: number

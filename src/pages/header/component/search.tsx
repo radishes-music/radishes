@@ -3,6 +3,12 @@ import { debounce } from 'lodash'
 import { Actions } from '../sage'
 import { uesModuleStore } from '@/hooks/index'
 import { NAMESPACED, State } from '../module'
+import { FooterNameSpaced } from '@/modules/index'
+import {
+  State as FooterState,
+  Actions as FooterActions,
+  Mutations as FooterMutations
+} from '@/pages/footer/module'
 import './search.less'
 
 interface Context {
@@ -32,6 +38,7 @@ export const Search = defineComponent({
   },
   setup() {
     const { useActions, useState } = uesModuleStore<State>(NAMESPACED)
+    const footerStore = uesModuleStore<FooterState>(FooterNameSpaced)
 
     const words = ref('')
     const loading = ref(false)
@@ -41,18 +48,20 @@ export const Search = defineComponent({
       return searchSuggest.order || []
     })
 
-    const handleSearch = debounce(async (keywords: string) => {
-      if (keywords) {
+    const handleSearch = debounce(async () => {
+      if (words.value) {
         loading.value = true
-        await useActions(Actions.GET_SEARCH_SUGGEST, keywords)
+        await useActions(Actions.GET_SEARCH_SUGGEST, words.value)
         loading.value = false
       }
       const { searchSuggest } = useState()
       console.log(searchSuggest)
     }, 200)
 
-    const handleSelect = (v: number) => {
+    const handleSelect = async (v: number) => {
       console.log(v)
+      await footerStore.useActions(FooterActions.SET_MUSIC, v)
+      footerStore.useMutations(FooterMutations.PLAY_MUSIC)
     }
 
     const { searchSuggest } = toRefs(useState())
@@ -107,7 +116,7 @@ export const Search = defineComponent({
           size="small"
           v-model={[words.value, 'value']}
           data-source={source.value}
-          onSearch={handleSearch}
+          onCompositionEnd={handleSearch}
           loading={loading.value}
           v-slots={Slot}
         ></ve-auto-complete>

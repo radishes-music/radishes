@@ -1,6 +1,9 @@
 .main-container {
   display: grid;
-  grid-template-columns: 180px minmax(calc(100% - 180px), 1fr);
+  grid-template-columns: var(--sidebar-width) minmax(
+      calc(100% - var(--sidebar-width)),
+      1fr
+    );
   grid-template-rows: 100%;
   height: 100%;
   .content {

@@ -1,9 +1,9 @@
-import { Albums, Song, Artists } from '@/interface/index'
+import { Albums, Songs, Artists } from '@/interface/index'
 
 export interface SearchSuggest {
   albums?: Albums[]
   artists?: Artists[]
-  songs?: Song[]
+  songs?: Songs[]
   order?: string[]
 }
 

@@ -1,6 +1,18 @@
 .footer {
+  display: flex;
+  align-items: center;
   position: relative;
   background-color: var(--background-lighter);
+  &-left {
+    width: var(--sidebar-width);
+    height: 100%;
+  }
+  &-right {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+  }
   &-reduction {
     display: none;
     position: absolute;

@@ -1,5 +1,6 @@
 import { createStore, MutationTree, createLogger } from 'vuex'
 import modules from '../modules/index'
+import { Mutations as FooterMutations } from '@/pages/footer/module'
 
 export const enum Mutations {
   SET_HISTORY_ROUTE = 'SET_HISTORY_ROUTE',
@@ -50,7 +51,13 @@ const mutations: MutationTree<RootState> = {
 const plugins = []
 
 if (process.env.NODE_ENV === 'development') {
-  plugins.push(createLogger())
+  plugins.push(
+    createLogger({
+      filter(mutation) {
+        return !mutation.type.includes(FooterMutations.CURRENT_TIME)
+      }
+    })
+  )
 }
 
 export default createStore<RootState>({

@@ -1,6 +1,8 @@
 import { defineComponent, toRefs } from 'vue'
 import { NAMESPACED, State, LayoutActions } from '@/layout/module'
 import { uesModuleStore } from '@/hooks/index'
+import { MusicControl } from '../component/music-controller'
+import { VolumeAndHistory } from '../component/volume-history/index'
 import './index.less'
 
 export const Footer = defineComponent({
@@ -12,6 +14,13 @@ export const Footer = defineComponent({
 
     return () => (
       <footer class="footer">
+        <div class="footer-left">
+          <div class="footer-music-thumbnail"></div>
+        </div>
+        <div class="footer-right">
+          <MusicControl></MusicControl>
+          <VolumeAndHistory></VolumeAndHistory>
+        </div>
         <div class="footer-reduction">
           <ve-button
             size="small"

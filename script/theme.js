@@ -45,12 +45,12 @@ fs.watchFile(path.resolve(themePath, 'color.less'), (curr, prev) => {
         const v = css[i]
         if (v.includes(':')) {
           let name = v.match(/[(a-zA-Z)|-]+:/)
-          let value = v.match(/#[a-z0-9]+/)
+          let value = v.match(/:\s?#?[a-z0-9]+/)
           if (name) {
             name = name[0].slice(0, -1)
           }
           if (value) {
-            value = value[0]
+            value = value[0].slice(1).trim()
           }
           content += `  --${name}: ${value};\n`
         }

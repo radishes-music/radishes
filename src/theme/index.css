@@ -1,5 +1,6 @@
 :root {
   --background-lighter: #f8faff;
+  --background-darken: #e4ebff;
   --base-color: #ef4a4a;
   --primary-theme-text: #ef4a4a;
   --normal-theme-text: #f37979;
@@ -13,4 +14,5 @@
   --placeholder-text-hover: #303133;
   --active-color: #353535;
   --secondary-active-color: #4f4f4f;
+  --sidebar-width: 180px;
 }
