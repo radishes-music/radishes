@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, toRefs } from 'vue'
 import './index.less'
 
 export interface IconProps {
@@ -24,13 +24,17 @@ export default defineComponent({
       type: Number
     }
   },
-  render() {
-    const { icon, color, height, size } = this.$props
-    return (
+  setup(props) {
+    const { icon, color, height, size } = toRefs(props)
+    return () => (
       <svg
         class="icon"
         aria-hidden="true"
-        style={{ width: size, height: height || size, fill: color }}
+        style={{
+          width: size.value,
+          height: height?.value || size.value,
+          fill: color.value
+        }}
       >
         <use href={'#icon-' + icon}></use>
       </svg>
