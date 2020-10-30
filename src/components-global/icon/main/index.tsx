@@ -36,7 +36,7 @@ export default defineComponent({
           fill: color.value
         }}
       >
-        <use href={'#icon-' + icon}></use>
+        <use href={'#icon-' + icon.value}></use>
       </svg>
     )
   }
