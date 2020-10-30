@@ -1,11 +1,34 @@
-import { defineComponent, ref, computed, toRefs } from 'vue'
+import { defineComponent, ref, computed, toRefs, VNode } from 'vue'
 import { debounce } from 'lodash'
 import { Actions } from '../sage'
 import { createUesHook } from '../module'
 import './search.less'
 
+interface Context {
+  default: () => VNode
+}
+
+const Option = defineComponent({
+  name: 'Option',
+  props: ['value', 'onSelect'],
+  setup(props, context) {
+    const { value, onSelect } = toRefs(props)
+    const handleSelect = () => {
+      onSelect?.value(value?.value)
+    }
+    return () => (
+      <li onClick={handleSelect}>
+        {((context.slots as unknown) as Context).default()}
+      </li>
+    )
+  }
+})
+
 export const Search = defineComponent({
   name: 'Search',
+  components: {
+    Option
+  },
   setup() {
     const { useActions, useState } = createUesHook()
 
@@ -27,6 +50,10 @@ export const Search = defineComponent({
       console.log(searchSuggest)
     }, 200)
 
+    const handleSelect = (v: number) => {
+      console.log(v)
+    }
+
     const { searchSuggest } = toRefs(useState())
     const Slot = {
       popper: () => (
@@ -36,7 +63,12 @@ export const Search = defineComponent({
           </div>
           <ul class="search-popper-group">
             {searchSuggest.value.songs?.map(song => {
-              return <li>{song.name}</li>
+              return (
+                <Option value={song.id} onSelect={handleSelect}>
+                  {song.name} -{' '}
+                  {song.artists.map(artist => artist.name).join(' ')}
+                </Option>
+              )
             })}
           </ul>
           <div class="search-popper-title" v-show={searchSuggest.value.artists}>
@@ -44,7 +76,11 @@ export const Search = defineComponent({
           </div>
           <ul class="search-popper-group">
             {searchSuggest.value.artists?.map(artist => {
-              return <li>{artist.name}</li>
+              return (
+                <Option value={artist.id} onSelect={handleSelect}>
+                  {artist.name}
+                </Option>
+              )
             })}
           </ul>
           <div class="search-popper-title" v-show={searchSuggest.value.albums}>
@@ -52,7 +88,11 @@ export const Search = defineComponent({
           </div>
           <ul class="search-popper-group search-popper-last">
             {searchSuggest.value.albums?.map(album => {
-              return <li>{album.name}</li>
+              return (
+                <Option value={album.id} onSelect={handleSelect}>
+                  {album.name} - {album.artist.name}
+                </Option>
+              )
             })}
           </ul>
         </div>

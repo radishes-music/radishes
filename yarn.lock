@@ -16389,10 +16389,10 @@ uuid@^8.0.0:
   resolved "https://registry.npm.taobao.org/uuid/download/uuid-8.3.0.tgz#ab738085ca22dc9a8c92725e459b1d507df5d6ea"
   integrity sha1-q3OAhcoi3JqMknJeRZsdUH311uo=
 
-v-easy-components@^2.0.0-beta.8:
-  version "2.0.0-beta.8"
-  resolved "https://registry.npm.taobao.org/v-easy-components/download/v-easy-components-2.0.0-beta.8.tgz?cache=0&sync_timestamp=1603958907147&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fv-easy-components%2Fdownload%2Fv-easy-components-2.0.0-beta.8.tgz#9b653f3c519a07733702f56fd7e5dde531e2ca11"
-  integrity sha1-m2U/PFGaB3M3AvVv1+Xd5THiyhE=
+v-easy-components@2.0.0-beta.9:
+  version "2.0.0-beta.9"
+  resolved "https://registry.npm.taobao.org/v-easy-components/download/v-easy-components-2.0.0-beta.9.tgz#60dd87618cd98843801eb34971632fd452a750cb"
+  integrity sha1-YN2HYYzZiEOAHrNJcWMv1FKnUMs=
   dependencies:
     "@popperjs/core" "^2.4.4"
     core-js "^3.6.5"
