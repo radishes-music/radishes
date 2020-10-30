@@ -18,9 +18,11 @@ export interface Banners {
 export interface State {
   banners: Banners[]
   songList: Song[]
+  runningSwiper: boolean
 }
 
 export const state: State = {
   songList: [],
-  banners: []
+  banners: [],
+  runningSwiper: true
 }

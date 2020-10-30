@@ -1,35 +1,63 @@
-import { defineComponent } from 'vue'
+import {
+  defineComponent,
+  toRefs,
+  onBeforeMount,
+  onActivated,
+  onDeactivated,
+  onMounted,
+  ref
+} from 'vue'
 import { Swiper } from '@/components/swiper/index'
-import { mapState, mapActions } from '../module'
+import { State, NAMESPACED } from '../module'
 import { Actions } from '../sage'
 import { SongList } from '@/components/song-list/index'
+import { uesModuleStore } from '@/hooks/index'
 import './index.less'
 
 export const Recommend = defineComponent({
   name: 'Recommend',
-  computed: {
-    ...mapState(['banners', 'songList'])
-  },
-  beforeMount() {
-    this.setBanner()
-    this.setSongList()
-  },
-  methods: {
-    ...mapActions({
-      setBanner: Actions.SET_ACTION_BANNERS,
-      setSongList: Actions.SET_ACTION_SONG_LIST
+  setup() {
+    const { useState, useActions } = uesModuleStore<State>(NAMESPACED)
+    const { banners, songList, runningSwiper } = toRefs(useState())
+
+    const getBanner = () => {
+      useActions(Actions.SET_ACTION_BANNERS)
+    }
+    const getSongList = () => {
+      useActions(Actions.SET_ACTION_SONG_LIST)
+    }
+
+    onActivated(() => {
+      console.log('onActivated')
+      // getBanner()
+      // getSongList()
     })
-  },
-  render() {
-    const { banners } = this
-    return (
+
+    onDeactivated(() => {
+      console.log('onDeactivated')
+    })
+
+    onBeforeMount(() => {
+      console.log('onBeforeMount')
+      getBanner()
+      getSongList()
+    })
+
+    onMounted(() => {
+      console.log('onMounted')
+    })
+
+    return () => (
       <div class="find-music-recommend">
         <div class="swiper-box">
-          <Swiper banners={banners}></Swiper>
+          <Swiper
+            banners={banners.value}
+            running={runningSwiper.value}
+          ></Swiper>
         </div>
         <div class="recommend-song">
           <h2>推荐歌单</h2>
-          <SongList songData={this.songList}></SongList>
+          <SongList songData={songList.value}></SongList>
         </div>
       </div>
     )

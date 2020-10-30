@@ -6,6 +6,8 @@ interface InternalHook {
   stopInternal: () => void
 }
 
+type Noop = () => void
+
 export const useInternal = (ms: number, cb: () => void): InternalHook => {
   let t: NodeJS.Timeout
   let running = false
@@ -28,7 +30,12 @@ export const useInternal = (ms: number, cb: () => void): InternalHook => {
   }
 }
 
-export const useDrag = (container: HTMLElement, target: HTMLElement) => {
+export const useDrag = (
+  container: HTMLElement,
+  target: HTMLElement,
+  moveCb?: Noop,
+  stopCb?: Noop
+) => {
   const cache = {
     x: 0,
     y: 0
@@ -52,6 +59,7 @@ export const useDrag = (container: HTMLElement, target: HTMLElement) => {
       y: clientY
     }
     target.style.cursor = 'grabbing'
+    moveCb && moveCb()
   }
   const mouseup = () => {
     canMove = false
@@ -73,14 +81,20 @@ export const useDrag = (container: HTMLElement, target: HTMLElement) => {
     }
   }
 
+  const targetMouseUp = () => {
+    stopCb && stopCb()
+  }
+
   const stop = () => {
-    off(container, 'mousedown', mousedown)
+    off(target, 'mousedown', mousedown)
+    off(target, 'mouseup', targetMouseUp)
     off(document.documentElement, 'mouseup', mouseup)
     off(document.documentElement, 'mousemove', mousemove)
   }
 
   const start = () => {
-    on(container, 'mousedown', mousedown)
+    on(target, 'mousedown', mousedown)
+    on(target, 'mouseup', targetMouseUp)
     on(document.documentElement, 'mouseup', mouseup)
     on(document.documentElement, 'mousemove', mousemove)
   }
@@ -95,13 +109,13 @@ export const useDrag = (container: HTMLElement, target: HTMLElement) => {
 
 export function uesModuleStore<S>(NAMESPACED: string) {
   const store = useStore()
-  const useActions = (type: string, payload: string) => {
+  const useActions = (type: string, payload?: unknown) => {
     return store.dispatch(NAMESPACED + '/' + type, payload)
   }
   const useState = (): S => {
     return store.state[NAMESPACED]
   }
-  const useMutations = (type: string, payload: string): void => {
+  const useMutations = (type: string, payload?: unknown): void => {
     store.commit(NAMESPACED + '/' + type, payload)
   }
   return {

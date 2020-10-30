@@ -2,6 +2,7 @@ import {
   defineComponent,
   ref,
   watch,
+  watchEffect,
   onUnmounted,
   onMounted,
   toRefs
@@ -20,11 +21,16 @@ export const Swiper = defineComponent({
     banners: {
       type: Object as () => FindMusicInteface.Banners[],
       required: true
+    },
+    running: {
+      type: Boolean as () => boolean
     }
   },
   setup(props) {
     const current = ref(0)
     const spanCurrent = ref(false)
+
+    const { running } = toRefs(props)
 
     const { startInternal, stopInternal } = useInternal(4000, () => {
       current.value =
@@ -43,12 +49,16 @@ export const Swiper = defineComponent({
       startInternal()
     }
 
-    onMounted(() => {
-      startInternal()
-    })
-
     onUnmounted(() => {
       stopInternal()
+    })
+
+    watchEffect(() => {
+      if (running?.value) {
+        startInternal()
+      } else {
+        stopInternal()
+      }
     })
 
     watch(current, (modern, history) => {

@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, KeepAlive } from 'vue'
 import { Sidebar } from '@/pages/sidebar/view/index'
 import './index.less'
 

@@ -13,6 +13,11 @@ import { Footer } from '@/pages/footer/view/index'
 import { ENV } from '@/interface/app'
 import { useDrag, uesModuleStore } from '@/hooks/index'
 import { State, Size, NAMESPACED } from './module'
+import { RecommendNameSpaced } from '@/modules/index'
+import {
+  State as RecommendState,
+  Mutations
+} from '@/pages/find-new-music/children/recommend/module'
 import './container.less'
 
 const { VUE_APP_PLATFORM } = window as ENV
@@ -26,6 +31,7 @@ export const Container = defineComponent({
     const target = ref()
 
     const { useState } = uesModuleStore<State>(NAMESPACED)
+    const RecommendStore = uesModuleStore<RecommendState>(RecommendNameSpaced)
 
     const { screenSize } = toRefs(useState())
 
@@ -41,7 +47,13 @@ export const Container = defineComponent({
       if (VUE_APP_PLATFORM === 'browser') {
         const { start, stop } = useDrag(
           container.value as HTMLElement,
-          (target.value as ComponentPublicInstance).$el
+          (target.value as ComponentPublicInstance).$el,
+          () => {
+            RecommendStore.useMutations(Mutations.SET_SWIPER_RINNING, false)
+          },
+          () => {
+            RecommendStore.useMutations(Mutations.SET_SWIPER_RINNING, true)
+          }
         )
         startDrag.value = start
         stopDrag.value = stop

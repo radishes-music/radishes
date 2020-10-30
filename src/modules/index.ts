@@ -4,6 +4,8 @@ import Recommend, {
 } from '@/pages/find-new-music/children/recommend/module'
 import Header, { NAMESPACED as HeaderNameSpaced } from '@/pages/header/module'
 
+export { LayoutNameSpaced, RecommendNameSpaced, HeaderNameSpaced }
+
 const modules = {
   [LayoutNameSpaced]: Layout,
   [RecommendNameSpaced]: Recommend,
