@@ -85,7 +85,7 @@
     "ts-loader": "^8.0.6",
     "typescript": "^4.0.3",
     "url-loader": "^4.1.1",
-    "v-easy-components": "2.0.0-beta.9",
+    "v-easy-components": "^2.0.0-beta.10",
     "vue-cli-plugin-electron-builder": "~2.0.0-rc.4"
   },
   "gitHooks": {

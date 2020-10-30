@@ -1,4 +1,5 @@
-import { on, off } from './index'
+import { useStore } from 'vuex'
+import { on, off } from '@/utils/index'
 
 interface InternalHook {
   startInternal: () => void
@@ -27,23 +28,11 @@ export const useInternal = (ms: number, cb: () => void): InternalHook => {
   }
 }
 
-export const dragHook = (container: HTMLElement, target: HTMLElement) => {
-  // const boxClient = {
-  //   w: document.documentElement.offsetWidth,
-  //   h: document.documentElement.offsetHeight
-  // }
-
+export const useDrag = (container: HTMLElement, target: HTMLElement) => {
   const cache = {
     x: 0,
     y: 0
   }
-
-  // const containerClient = {
-  //   grapX: container.offsetLeft,
-  //   grapY: container.offsetTop,
-  //   w: container.offsetWidth,
-  //   h: container.offsetHeight
-  // }
 
   let clickPosition: {
     x: number
@@ -81,15 +70,6 @@ export const dragHook = (container: HTMLElement, target: HTMLElement) => {
       requestAnimationFrame(() => {
         container.style.transform = `matrix(1, 0, 0, 1, ${left}, ${top}) translateZ(0)`
       })
-      // if (left >= 0 && left + containerClient.w <= boxClient.w) {
-
-      // }
-      // if (top >= 0 && top + containerClient.h <= boxClient.h) {
-      //   requestAnimationFrame(() => {
-      //     cache.y = top
-      //     container.style.transform = `matrix(1, 0, 0, 1, ${cache.x}, ${cache.y})`
-      //   })
-      // }
     }
   }
 
@@ -110,5 +90,23 @@ export const dragHook = (container: HTMLElement, target: HTMLElement) => {
   return {
     start,
     stop
+  }
+}
+
+export function uesModuleStore<S>(NAMESPACED: string) {
+  const store = useStore()
+  const useActions = (type: string, payload: string) => {
+    return store.dispatch(NAMESPACED + '/' + type, payload)
+  }
+  const useState = (): S => {
+    return store.state[NAMESPACED]
+  }
+  const useMutations = (type: string, payload: string): void => {
+    store.commit(NAMESPACED + '/' + type, payload)
+  }
+  return {
+    useActions: useActions,
+    useMutations: useMutations,
+    useState: useState
   }
 }

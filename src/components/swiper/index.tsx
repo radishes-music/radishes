@@ -8,7 +8,7 @@ import {
 } from 'vue'
 import { FindMusicInteface } from '@/interface/index'
 import classnames from 'classnames'
-import { useInternal } from '@/utils/hook'
+import { useInternal } from '@/hooks/index'
 import './index.less'
 
 const prefix = 'swiper'

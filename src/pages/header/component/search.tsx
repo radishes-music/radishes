@@ -1,7 +1,8 @@
 import { defineComponent, ref, computed, toRefs, VNode } from 'vue'
 import { debounce } from 'lodash'
 import { Actions } from '../sage'
-import { createUesHook } from '../module'
+import { uesModuleStore } from '@/hooks/index'
+import { NAMESPACED, State } from '../module'
 import './search.less'
 
 interface Context {
@@ -30,7 +31,7 @@ export const Search = defineComponent({
     Option
   },
   setup() {
-    const { useActions, useState } = createUesHook()
+    const { useActions, useState } = uesModuleStore<State>(NAMESPACED)
 
     const words = ref('')
     const loading = ref(false)

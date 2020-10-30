@@ -1,12 +1,13 @@
 import { defineComponent, ref } from 'vue'
 import { Action } from '@/electron/event/action-types'
 import { ENV } from '@/interface/app'
-import { mapMutations, LayoutActions } from '@/layout/module'
 import { IpcRenderer } from '@/electron/event/ipc-renderer'
 import { Logo } from '../component/logo'
 import { PushShift } from '../component/push-shift'
 import { Setting } from '../component/setting'
 import { Search } from '../component/search'
+import { uesModuleStore } from '@/hooks/index'
+import { NAMESPACED, State, LayoutActions } from '@/layout/module'
 import './index.less'
 
 const { VUE_APP_PLATFORM } = window as ENV
@@ -30,39 +31,31 @@ export const Header = defineComponent({
   name: 'Header',
   setup() {
     const windowSize = ref('enlarge')
-    return {
-      windowSize
-    }
-  },
-  methods: {
-    ...mapMutations({
-      changeWindowSize: LayoutActions.CHANGE_WINDOW_SIZE
-    }),
-    handleWindowControl(action: Action) {
+
+    const { useMutations } = uesModuleStore<State>(NAMESPACED)
+
+    const handleWindowControl = (action: Action) => {
       if (VUE_APP_PLATFORM === 'browser') {
-        this.changeWindowSize(actionToClass[action])
+        useMutations(LayoutActions.CHANGE_WINDOW_SIZE, actionToClass[action])
       }
       if (VUE_APP_PLATFORM === 'electron') {
         importIpc().then(event => {
           event.sendAsyncIpcRendererEvent(action)
         })
       }
-    },
-    windowsChangeSize() {
-      const { windowSize } = this
-      if (windowSize === 'shrink') {
-        this.windowSize = 'enlarge'
-        this.handleWindowControl(Action.RESTORE_WINDOW)
-      } else {
-        this.windowSize = 'shrink'
-        this.handleWindowControl(Action.MAXIMIZE_WINDOW)
-      }
-      this.windowSize = windowSize === 'shrink' ? 'enlarge' : 'shrink'
     }
-  },
-  render() {
-    const { windowSize } = this
-    return (
+
+    const windowsChangeSize = () => {
+      if (windowSize.value === 'shrink') {
+        windowSize.value = 'enlarge'
+        handleWindowControl(Action.RESTORE_WINDOW)
+      } else {
+        windowSize.value = 'shrink'
+        handleWindowControl(Action.MAXIMIZE_WINDOW)
+      }
+    }
+
+    return () => (
       <header class="header">
         <Logo></Logo>
         <div class="header-right">
@@ -79,22 +72,22 @@ export const Header = defineComponent({
               <ve-button
                 type="text"
                 class="header-window-btn"
-                onClick={() => this.handleWindowControl(Action.MINIMIZE_WINDOW)}
+                onClick={() => handleWindowControl(Action.MINIMIZE_WINDOW)}
               >
                 <icon icon="shrink-taskbar" size={20}></icon>
               </ve-button>
               <ve-button
                 type="text"
                 class="header-window-btn"
-                onClick={this.windowsChangeSize}
+                onClick={windowsChangeSize}
               >
-                <icon icon={windowSize} size={20}></icon>
+                <icon icon={windowSize.value} size={20}></icon>
               </ve-button>
               {VUE_APP_PLATFORM !== 'browser' && (
                 <ve-button
                   type="text"
                   class="header-window-btn"
-                  onClick={() => this.handleWindowControl(Action.CLOSE_WINDOW)}
+                  onClick={() => handleWindowControl(Action.CLOSE_WINDOW)}
                 >
                   <icon icon="cross" size={22}></icon>
                 </ve-button>

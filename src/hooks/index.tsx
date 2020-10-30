@@ -1,3 +1,4 @@
+export * from './hook'
 import { inject, provide } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'

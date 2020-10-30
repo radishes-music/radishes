@@ -1,83 +1,79 @@
-import { defineComponent, ComponentPublicInstance, nextTick } from 'vue'
-import { mapMutations, Store, MutationMethod } from 'vuex'
+import { defineComponent, nextTick, watch, toRefs } from 'vue'
 import { Mutations } from '@/store/index'
-import { RootState } from '@/store/index'
 import classnames from 'classnames'
+import { useRoute, useStore, useRouter } from '@/hooks/index'
 import './puah-shift.less'
-
-interface Mtehods {
-  routeForward: MutationMethod
-  routeBack: MutationMethod
-  setHistoryRoute: MutationMethod
-  routeCanBeCollect: MutationMethod
-  handleRouteCommand: (payload: string) => void
-}
 
 enum COMMAND {
   FORWARD = 'FORWARD',
   BACK = 'BACK'
 }
 
-type This = ComponentPublicInstance & {
-  $store: Store<RootState>
-} & Mtehods
-
 export const PushShift = defineComponent({
   name: 'Logo',
-  watch: {
-    $route(this: This, route, oldRoute) {
-      const { historyRoute } = this.$store.state
+  setup() {
+    const store = useStore()
+    const setHistoryRoute = (routeObj: { oldRoute: string }) => {
+      store.commit(Mutations.SET_HISTORY_ROUTE, { oldRoute: routeObj.oldRoute })
+    }
+    const routeCanBeCollect = (isCollect: boolean) => {
+      store.commit(Mutations.CAN_BE_COLLECT, isCollect)
+    }
+    const routeForward = (path: string) => {
+      store.commit(Mutations.FORWARD_HISTORY_ROUTE, path)
+    }
+    const routeBack = (path: string) => {
+      store.commit(Mutations.BACK_HISTORY_ROUTE, path)
+    }
+
+    const { path } = toRefs(useRoute())
+
+    watch(path, (route, oldRoute) => {
+      const { historyRoute } = store.state
       if (!historyRoute.canBeCollect) {
-        this.routeCanBeCollect(true)
+        routeCanBeCollect(true)
       } else {
-        const { historyRoute } = this.$store.state
+        const { historyRoute } = store.state
         const backRoute = historyRoute.after[historyRoute.after.length - 1]
         const forwardRoute = historyRoute.before[historyRoute.before.length - 1]
-        if (route.path === backRoute) {
-          this.routeForward(oldRoute.path)
-        } else if (route.path === forwardRoute) {
-          this.routeBack(oldRoute.path)
+        if (route === backRoute) {
+          routeForward(oldRoute)
+        } else if (route === forwardRoute) {
+          routeBack(oldRoute)
         } else {
-          this.setHistoryRoute({
-            oldRoute: oldRoute.path,
-            route: route.path
+          setHistoryRoute({
+            oldRoute: oldRoute
           })
         }
       }
-    }
-  },
-  methods: {
-    ...mapMutations({
-      setHistoryRoute: Mutations.SET_HISTORY_ROUTE,
-      routeBack: Mutations.BACK_HISTORY_ROUTE,
-      routeForward: Mutations.FORWARD_HISTORY_ROUTE,
-      routeCanBeCollect: Mutations.CAN_BE_COLLECT
-    }),
-    handleRouteCommand(this: This, payload: string) {
-      const { historyRoute } = this.$store.state
-      this.routeCanBeCollect(false)
+    })
+
+    const router = useRouter()
+    const handleRouteCommand = (payload: string) => {
+      const { historyRoute } = store.state
+      routeCanBeCollect(false)
       if (payload === COMMAND.FORWARD) {
-        this.routeForward(this.$route.path)
+        routeForward(path.value)
       }
       if (payload === COMMAND.BACK) {
-        this.routeBack(this.$route.path)
+        routeBack(path.value)
       }
       nextTick(() => {
-        this.$router
+        router
           .replace({
             path: historyRoute.needRoute
           })
           .then(() => {
-            this.routeCanBeCollect(true)
+            routeCanBeCollect(true)
           })
       })
     }
-  },
-  render(this: This) {
-    const { historyRoute } = this.$store.state
-    const forward = () => this.handleRouteCommand(COMMAND.FORWARD)
-    const back = () => this.handleRouteCommand(COMMAND.BACK)
-    return (
+
+    const { historyRoute } = store.state
+    const forward = () => handleRouteCommand(COMMAND.FORWARD)
+    const back = () => handleRouteCommand(COMMAND.BACK)
+
+    return () => (
       <div class="push-shift">
         <ve-button
           disabled={!historyRoute.before.length}

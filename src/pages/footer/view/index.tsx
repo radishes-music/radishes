@@ -1,24 +1,23 @@
-import { defineComponent } from 'vue'
-import { mapMutations, LayoutActions, mapState } from '@/layout/module'
+import { defineComponent, toRefs } from 'vue'
+import { NAMESPACED, State, LayoutActions } from '@/layout/module'
+import { uesModuleStore } from '@/hooks/index'
 import './index.less'
 
 export const Footer = defineComponent({
   name: 'Footer',
-  computed: {
-    ...mapState(['rebackSize'])
-  },
-  methods: {
-    ...mapMutations({
-      changeWindowSize: LayoutActions.CHANGE_WINDOW_SIZE
-    })
-  },
-  render() {
-    return (
+  setup() {
+    const { useState, useMutations } = uesModuleStore<State>(NAMESPACED)
+
+    const { rebackSize } = toRefs(useState())
+
+    return () => (
       <footer class="footer">
         <div class="footer-reduction">
           <ve-button
             size="small"
-            onClick={() => this.changeWindowSize(this.rebackSize)}
+            onClick={() =>
+              useMutations(LayoutActions.CHANGE_WINDOW_SIZE, rebackSize.value)
+            }
           >
             <icon icon="fullscreen2" color="#000"></icon>
           </ve-button>
