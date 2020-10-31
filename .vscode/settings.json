@@ -16,5 +16,10 @@
   "prettier.disableLanguages": [
     "json",
     "md"
-  ]
+  ],
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "stylelint.enable": true,
+  "[less]": {
+    "editor.formatOnSave": true
+  }
 }
