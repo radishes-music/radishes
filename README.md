@@ -102,16 +102,13 @@
 
 ```
 1、 克隆项目
-  git clone https://github.com/Linkontoask/radishes.git
+  git clone --recurse-submodules https://github.com/Linkontoask/radishes.git
 
-2、 拉取子模块
-  git submodule update --init --recursive
-
-3、 安装npm包
+2、 安装npm包
   yarn || npm i
   cd NeteaseCloudMusicApi/
   yarn || npm i
 
-4、运行项目
+3、运行项目
   在主目录下运行 yarn dev
 ```
