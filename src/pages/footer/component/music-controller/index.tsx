@@ -39,17 +39,21 @@ export const MusicControl = defineComponent({
             </ve-button>
             <div class={`${prefix}-command-group--function`}>
               <ve-button type="text">
-                <icon icon="qianjin" color="#333" aria-title="上一首"></icon>
+                <icon
+                  icon="shangyishou"
+                  color="#333"
+                  aria-title="上一首"
+                ></icon>
               </ve-button>
               <ve-button type="text">
-                <icon icon="qianjin" color="#333" aria-title="播放/暂停"></icon>
+                <icon icon="bofang" color="#333" aria-title="播放/暂停"></icon>
               </ve-button>
               <ve-button type="text">
-                <icon icon="qianjin" color="#333" aria-title="下一首"></icon>
+                <icon icon="xiayishou" color="#333" aria-title="下一首"></icon>
               </ve-button>
             </div>
             <ve-button type="text">
-              <icon icon="doc" color="#333" aria-title="词"></icon>
+              <icon icon="lyrics" color="#333" aria-title="词"></icon>
             </ve-button>
           </div>
           <div class={`${prefix}-command-progress`}></div>

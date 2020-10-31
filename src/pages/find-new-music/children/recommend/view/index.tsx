@@ -28,23 +28,16 @@ export const Recommend = defineComponent({
     }
 
     onActivated(() => {
-      console.log('onActivated')
-      // getBanner()
-      // getSongList()
+      runningSwiper.value = true
     })
 
     onDeactivated(() => {
-      console.log('onDeactivated')
+      runningSwiper.value = false
     })
 
     onBeforeMount(() => {
-      console.log('onBeforeMount')
       getBanner()
       getSongList()
-    })
-
-    onMounted(() => {
-      console.log('onMounted')
     })
 
     return () => (

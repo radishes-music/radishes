@@ -4,4 +4,4 @@ import $script from 'scriptjs'
 const noop = () => {}
 
 // repair electron packaging '//' protocol problem
-$script('https://at.alicdn.com/t/font_2132275_0g7fwtczh3vd.js', noop)
+$script('https://at.alicdn.com/t/font_2132275_7rquswozi8.js', noop)
