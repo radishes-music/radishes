@@ -1,6 +1,20 @@
 {
-  "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "merge-conflict.autoNavigateNextConflict.enabled": true,
-  "stylelint.packageManager": "yarn"
+  "stylelint.packageManager": "yarn",
+  "prettier.packageManager": "yarn",
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "typescriptreact"
+  ],
+  "prettier.disableLanguages": [
+    "json",
+    "md"
+  ]
 }
