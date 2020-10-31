@@ -45,8 +45,6 @@
 - test 测试相关
 - docs 文档/注释
 - chore 依赖更新/脚手架配置修改等
-- workflow 工作流改进
-- ci 持续集成
 
 提交模式如下：  
 `type(scope?): subject`
