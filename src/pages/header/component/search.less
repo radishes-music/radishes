@@ -12,14 +12,20 @@
     }
     &-group {
       li {
-        display: flex;
-        align-items: center;
+        line-height: 30px;
         height: 30px;
         padding: 0 20px;
         user-select: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         cursor: pointer;
         &:hover {
           background-color: #eaeaea;
+        }
+        .keyword {
+          font-weight: normal;
+          color: var(--primary-theme-text);
         }
       }
     }

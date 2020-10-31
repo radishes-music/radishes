@@ -10,7 +10,8 @@ export const enum Actions {
 export const enum Mutations {
   PLAY_MUSIC = 'PLAY_MUSIC',
   PAUES_MUSIC = 'PAUES_MUSIC',
-  CURRENT_TIME = 'CURRENT_TIME'
+  CURRENT_TIME = 'CURRENT_TIME',
+  CAN_PLAY = 'CAN_PLAY'
 }
 
 export const actions: ActionTree<State, RootState> = {
@@ -27,18 +28,21 @@ export const actions: ActionTree<State, RootState> = {
 
 export const mutations: MutationTree<State> = {
   [Mutations.PLAY_MUSIC](state) {
-    if (state.audioElement) {
+    if (state.audioElement && !state.playing && state.canplay) {
       state.audioElement.play()
       state.playing = true
     }
   },
   [Mutations.PAUES_MUSIC](state) {
-    if (state.audioElement) {
+    if (state.audioElement && state.playing && state.canplay) {
       state.audioElement.pause()
       state.playing = false
     }
   },
   [Mutations.CURRENT_TIME](state, time: number) {
     state.currentTime = time
+  },
+  [Mutations.CAN_PLAY](state) {
+    state.canplay = true
   }
 }

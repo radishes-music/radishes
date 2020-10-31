@@ -17,17 +17,34 @@ interface Context {
 
 const Option = defineComponent({
   name: 'Option',
-  props: ['value', 'onSelect'],
-  setup(props, context) {
-    const { value, onSelect } = toRefs(props)
+  props: {
+    value: {
+      type: Number as () => number,
+      required: true
+    },
+    detail: {
+      type: String as () => string,
+      required: true
+    },
+    keyword: {
+      type: String as () => string,
+      required: true
+    },
+    onSelect: {
+      type: Function,
+      required: true
+    }
+  },
+  setup(props) {
+    const { value, onSelect, detail, keyword } = toRefs(props)
+    const html = detail?.value.replace(
+      keyword.value,
+      `<strong class="keyword">${keyword.value}</strong>`
+    )
     const handleSelect = () => {
       onSelect?.value(value?.value)
     }
-    return () => (
-      <li onClick={handleSelect}>
-        {((context.slots as unknown) as Context).default()}
-      </li>
-    )
+    return () => <li onClick={handleSelect} v-html={html}></li>
   }
 })
 
@@ -59,9 +76,8 @@ export const Search = defineComponent({
     }, 200)
 
     const handleSelect = async (v: number) => {
-      console.log(v)
+      footerStore.useMutations(FooterMutations.PAUES_MUSIC)
       await footerStore.useActions(FooterActions.SET_MUSIC, v)
-      footerStore.useMutations(FooterMutations.PLAY_MUSIC)
     }
 
     const { searchSuggest } = toRefs(useState())
@@ -74,10 +90,14 @@ export const Search = defineComponent({
           <ul class="search-popper-group">
             {searchSuggest.value.songs?.map(song => {
               return (
-                <Option value={song.id} onSelect={handleSelect}>
-                  {song.name} -{' '}
-                  {song.artists.map(artist => artist.name).join(' ')}
-                </Option>
+                <Option
+                  value={song.id}
+                  onSelect={handleSelect}
+                  keyword={words.value}
+                  detail={`${song.name} - ${song.artists
+                    .map(artist => artist.name)
+                    .join(' ')}`}
+                ></Option>
               )
             })}
           </ul>
@@ -87,9 +107,12 @@ export const Search = defineComponent({
           <ul class="search-popper-group">
             {searchSuggest.value.artists?.map(artist => {
               return (
-                <Option value={artist.id} onSelect={handleSelect}>
-                  {artist.name}
-                </Option>
+                <Option
+                  value={artist.id}
+                  onSelect={handleSelect}
+                  keyword={words.value}
+                  detail={artist.name}
+                ></Option>
               )
             })}
           </ul>
@@ -99,9 +122,12 @@ export const Search = defineComponent({
           <ul class="search-popper-group search-popper-last">
             {searchSuggest.value.albums?.map(album => {
               return (
-                <Option value={album.id} onSelect={handleSelect}>
-                  {album.name} - {album.artist.name}
-                </Option>
+                <Option
+                  value={album.id}
+                  onSelect={handleSelect}
+                  keyword={words.value}
+                  detail={`${album.name} - ${album.artist.name}`}
+                ></Option>
               )
             })}
           </ul>

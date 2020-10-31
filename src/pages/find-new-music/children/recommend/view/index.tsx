@@ -3,9 +3,7 @@ import {
   toRefs,
   onBeforeMount,
   onActivated,
-  onDeactivated,
-  onMounted,
-  ref
+  onDeactivated
 } from 'vue'
 import { Swiper } from '@/components/swiper/index'
 import { State, NAMESPACED } from '../module'

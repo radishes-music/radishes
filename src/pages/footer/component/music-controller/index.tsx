@@ -1,4 +1,4 @@
-import { defineComponent, ref, toRefs, onMounted } from 'vue'
+import { defineComponent, ref, toRefs, onMounted, watchEffect } from 'vue'
 import { uesModuleStore } from '@/hooks/index'
 import { NAMESPACED, State, Mutations } from '../../module'
 import './index.less'
@@ -9,10 +9,23 @@ export const MusicControl = defineComponent({
   name: 'MusicControl',
   setup() {
     const playMode = ref('turn')
+    const playingIcon = ref('play')
 
     const { useState, useMutations } = uesModuleStore<State>(NAMESPACED)
 
-    const { audioElement, sourceElement } = toRefs(useState())
+    const { audioElement, sourceElement, playing } = toRefs(useState())
+
+    watchEffect(() => {
+      playingIcon.value = playing.value ? 'pause' : 'play'
+    })
+
+    const handlePlayPaues = () => {
+      if (playing.value) {
+        useMutations(Mutations.PAUES_MUSIC)
+      } else {
+        useMutations(Mutations.PLAY_MUSIC)
+      }
+    }
 
     const timeUpdate = () => {
       if (audioElement.value) {
@@ -24,6 +37,10 @@ export const MusicControl = defineComponent({
     onMounted(() => {
       if (audioElement.value) {
         audioElement.value.addEventListener('timeupdate', timeUpdate)
+        audioElement.value.addEventListener('canplay', () => {
+          useMutations(Mutations.CAN_PLAY)
+          useMutations(Mutations.PLAY_MUSIC)
+        })
       }
     })
 
@@ -35,23 +52,26 @@ export const MusicControl = defineComponent({
         <div class={`${prefix}-command-center`}>
           <div class={`${prefix}-command-group`}>
             <ve-button type="text">
-              <icon icon={playMode} color="#333" aria-title="播放顺序"></icon>
+              <icon
+                icon={playMode.value}
+                color="#333"
+                aria-title="播放顺序"
+              ></icon>
             </ve-button>
-            <div class={`${prefix}-command-group--function`}>
-              <ve-button type="text">
-                <icon
-                  icon="shangyishou"
-                  color="#333"
-                  aria-title="上一首"
-                ></icon>
-              </ve-button>
-              <ve-button type="text">
-                <icon icon="bofang" color="#333" aria-title="播放/暂停"></icon>
-              </ve-button>
-              <ve-button type="text">
-                <icon icon="xiayishou" color="#333" aria-title="下一首"></icon>
-              </ve-button>
-            </div>
+            <ve-button type="text">
+              <icon icon="shangyishou" color="#333" aria-title="上一首"></icon>
+            </ve-button>
+            <ve-button type="text" onClick={handlePlayPaues}>
+              <icon
+                icon={playingIcon.value}
+                color="#333"
+                size={44}
+                aria-title="播放/暂停"
+              ></icon>
+            </ve-button>
+            <ve-button type="text">
+              <icon icon="xiayishou" color="#333" aria-title="下一首"></icon>
+            </ve-button>
             <ve-button type="text">
               <icon icon="lyrics" color="#333" aria-title="词"></icon>
             </ve-button>

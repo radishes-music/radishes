@@ -15,6 +15,7 @@ export const Setting = defineComponent({
     const clickHandler = (value: string) => {
       this.visibleColor = false
       document.documentElement.style.setProperty('--base-color', value)
+      document.documentElement.style.setProperty('--primary-theme-text', value)
     }
     const { color } = this
     const ColorPicker = {
