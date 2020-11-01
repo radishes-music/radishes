@@ -6,7 +6,13 @@ interface InternalHook {
   stopInternal: () => void
 }
 
-type Noop = () => void
+type Noop = (x: number, y: number) => void
+
+interface DragOptions {
+  startCB?: Noop
+  stopCB?: Noop
+  moveCB?: (x: number, y: number) => void
+}
 
 export const useInternal = (ms: number, cb: () => void): InternalHook => {
   let t: NodeJS.Timeout
@@ -33,18 +39,16 @@ export const useInternal = (ms: number, cb: () => void): InternalHook => {
 export const useDrag = (
   container: HTMLElement,
   target: HTMLElement,
-  moveCb?: Noop,
-  stopCb?: Noop
+  options?: DragOptions
 ) => {
   const cache = {
     x: 0,
-    y: 0
+    y: 0,
+    left: 0,
+    top: 0
   }
 
-  let clickPosition: {
-    x: number
-    y: number
-  } = {
+  let clickPosition = {
     x: 0,
     y: 0
   }
@@ -58,48 +62,49 @@ export const useDrag = (
       x: clientX,
       y: clientY
     }
-    target.style.cursor = 'grabbing'
-    moveCb && moveCb()
-  }
-  const mouseup = () => {
-    canMove = false
-    const matrix = window.getComputedStyle(container).transform.match(/-?\d+/g)
+    const computedStyle = window.getComputedStyle(container)
+    const width = computedStyle.width.match(/\d+/)
+    const height = computedStyle.height.match(/\d+/)
+    const matrix = computedStyle.transform.match(/-?\d+/g)
     if (matrix) {
       cache.x = +matrix[4]
       cache.y = +matrix[5]
+    } else if (width && height) {
+      cache.x = +width[0]
+      cache.y = +height[0]
     }
+    target.style.cursor = 'grabbing'
+    options?.startCB && options.startCB(cache.left, cache.top)
+  }
+  const mouseup = () => {
     target.style.cursor = 'grab'
+    if (canMove) {
+      options?.stopCB && options.stopCB(cache.left, cache.top)
+    }
+    canMove = false
   }
   const mousemove = (e: MouseEvent) => {
     if (canMove) {
       const { clientX, clientY } = e
       const left = clientX - clickPosition.x + cache.x
       const top = clientY - clickPosition.y + cache.y
-      requestAnimationFrame(() => {
-        container.style.transform = `matrix(1, 0, 0, 1, ${left}, ${top}) translateZ(0)`
-      })
+      cache.left = left
+      cache.top = top
+      options?.moveCB && options.moveCB(left, top)
     }
-  }
-
-  const targetMouseUp = () => {
-    stopCb && stopCb()
   }
 
   const stop = () => {
     off(target, 'mousedown', mousedown)
-    off(target, 'mouseup', targetMouseUp)
     off(document.documentElement, 'mouseup', mouseup)
     off(document.documentElement, 'mousemove', mousemove)
   }
 
   const start = () => {
     on(target, 'mousedown', mousedown)
-    on(target, 'mouseup', targetMouseUp)
     on(document.documentElement, 'mouseup', mouseup)
     on(document.documentElement, 'mousemove', mousemove)
   }
-
-  start()
 
   return {
     start,
@@ -107,20 +112,28 @@ export const useDrag = (
   }
 }
 
-export function uesModuleStore<S>(NAMESPACED: string) {
+export function uesModuleStore<S, G = Record<string, string>>(
+  NAMESPACED: string
+) {
   const store = useStore()
-  const useActions = (type: string, payload?: unknown) => {
-    return store.dispatch(NAMESPACED + '/' + type, payload)
-  }
+
   const useState = (): S => {
     return store.state[NAMESPACED]
+  }
+  const useGetter = <key extends keyof G>(value: key): G[key] => {
+    return store.getters[NAMESPACED + '/' + value]
+  }
+  const useActions = (type: string, payload?: unknown) => {
+    return store.dispatch(NAMESPACED + '/' + type, payload)
   }
   const useMutations = (type: string, payload?: unknown): void => {
     store.commit(NAMESPACED + '/' + type, payload)
   }
+
   return {
     useActions: useActions,
     useMutations: useMutations,
-    useState: useState
+    useState: useState,
+    useGetter: useGetter
   }
 }

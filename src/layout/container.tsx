@@ -1,6 +1,5 @@
 import {
   defineComponent,
-  nextTick,
   ComponentPublicInstance,
   ref,
   toRefs,
@@ -48,13 +47,21 @@ export const Container = defineComponent({
         const { start, stop } = useDrag(
           container.value as HTMLElement,
           (target.value as ComponentPublicInstance).$el,
-          () => {
-            RecommendStore.useMutations(Mutations.SET_SWIPER_RINNING, false)
-          },
-          () => {
-            RecommendStore.useMutations(Mutations.SET_SWIPER_RINNING, true)
+          {
+            moveCB(x, y) {
+              requestAnimationFrame(() => {
+                container.value.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y}) translateZ(0)`
+              })
+            },
+            startCB() {
+              RecommendStore.useMutations(Mutations.SET_SWIPER_RINNING, false)
+            },
+            stopCB() {
+              RecommendStore.useMutations(Mutations.SET_SWIPER_RINNING, true)
+            }
           }
         )
+        start()
         startDrag.value = start
         stopDrag.value = stop
       }

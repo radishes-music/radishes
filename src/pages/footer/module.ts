@@ -1,4 +1,4 @@
-import { actions, mutations } from './sage'
+import { actions, mutations, getters } from './sage'
 import { state } from './state'
 
 export * from './state'
@@ -9,6 +9,7 @@ export const NAMESPACED = 'Footer'
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations
 }

@@ -59,6 +59,7 @@ export const Search = defineComponent({
 
     const words = ref('')
     const loading = ref(false)
+    const zh = ref(false)
 
     const source = computed(() => {
       const { searchSuggest } = useState()
@@ -66,13 +67,11 @@ export const Search = defineComponent({
     })
 
     const handleSearch = debounce(async () => {
-      if (words.value) {
+      if (words.value && !zh.value) {
         loading.value = true
         await useActions(Actions.GET_SEARCH_SUGGEST, words.value)
         loading.value = false
       }
-      const { searchSuggest } = useState()
-      console.log(searchSuggest)
     }, 200)
 
     const handleSelect = async (v: number) => {
@@ -142,7 +141,9 @@ export const Search = defineComponent({
           size="small"
           v-model={[words.value, 'value']}
           data-source={source.value}
-          onCompositionEnd={handleSearch}
+          onSearch={handleSearch}
+          onCompositionStart={() => (zh.value = true)}
+          onCompositionEnd={() => (zh.value = false)}
           loading={loading.value}
           v-slots={Slot}
         ></ve-auto-complete>

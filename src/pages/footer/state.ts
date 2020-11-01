@@ -1,4 +1,4 @@
-import { Artists, Albums } from '@/interface/index'
+import { Artists, Albums, SongsDetail } from '@/interface/index'
 
 export interface Music {
   id: number
@@ -10,6 +10,7 @@ export interface Music {
 }
 
 export interface State {
+  music?: SongsDetail
   musicUrl: string
   musciHistory: Music[]
   musicStack: Music[]
@@ -29,4 +30,10 @@ export const state: State = {
   currentTime: 0,
   audioElement: new Audio(),
   sourceElement: null
+}
+
+export interface Getter {
+  musicDetail: {
+    url: string
+  } & SongsDetail
 }
