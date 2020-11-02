@@ -5,18 +5,18 @@ export function hasOwnProperty<X extends {}, Y extends PropertyKey>(
   return Reflect.hasOwnProperty.call(obj, prop)
 }
 
-export function on(
+export function on<T extends keyof HTMLElementEventMap>(
   container: HTMLElement,
-  type: string,
-  listener: (e: any) => void
+  type: T,
+  listener: (ev: HTMLElementEventMap[T]) => void
 ) {
   container.addEventListener(type, listener)
 }
 
-export function off(
+export function off<T extends keyof HTMLElementEventMap>(
   container: HTMLElement,
-  type: string,
-  listener: (e: any) => void
+  type: T,
+  listener: (ev: HTMLElementEventMap[T]) => void
 ) {
   container.removeEventListener(type, listener)
 }

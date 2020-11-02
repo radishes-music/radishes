@@ -8,6 +8,7 @@ import {
 } from 'vue'
 import classnames from 'classnames'
 import { uesModuleStore, useDrag } from '@/hooks/index'
+import { on } from '@/utils/index'
 import { NAMESPACED, State, Getter, Mutations } from '../../module'
 import './index.less'
 
@@ -66,6 +67,20 @@ export const MusicControl = defineComponent({
       }
     }
 
+    const setAudioCurrent = (indicatorX: number, indicatorW: number) => {
+      const musicDetail = useGetter('musicDetail')
+      const time = toFixed(
+        (musicDetail.dt / 1000) * (indicatorX / indicatorW),
+        6
+      )
+      useMutations(Mutations.SET_CURRENT_TIME, time)
+    }
+
+    const setIndicatorX = (x: number, w: number) => {
+      const width = toFixed((x / w) * 100, 6)
+      currentIndicator.value = (width > 100 ? 100 : width) + '%'
+    }
+
     const ended = () => {
       useMutations(Mutations.ENDED_MUSIC)
     }
@@ -79,32 +94,39 @@ export const MusicControl = defineComponent({
           useMutations(Mutations.PLAY_MUSIC)
         })
       }
+
       const { offsetWidth } = container.value as HTMLElement
-      const { start, stop } = useDrag(
+      const handleClick = (e: MouseEvent) => {
+        const { offsetX } = e
+        requestAnimationFrame(() => {
+          setIndicatorX(offsetX, offsetWidth)
+          setAudioCurrent(offsetX, offsetWidth)
+        })
+      }
+
+      const { start } = useDrag(
         indicator.value as HTMLElement,
         indicator.value as HTMLElement,
         {
           moveCB(x) {
             requestAnimationFrame(() => {
-              const w = toFixed((x / offsetWidth) * 100, 6)
-              currentIndicator.value = (w > 100 ? 100 : w) + '%'
+              setIndicatorX(x, offsetWidth)
             })
           },
           startCB() {
             draging.value = true
           },
           stopCB(x) {
-            const musicDetail = useGetter('musicDetail')
             draging.value = false
-            const time = toFixed((musicDetail.dt / 1000) * (x / offsetWidth), 6)
-            useMutations(Mutations.SET_CURRENT_TIME, time)
+            setAudioCurrent(x, offsetWidth)
           }
         }
       )
-      watch(canplay, canplay => {
+      const unwatch = watch(canplay, canplay => {
         if (canplay) {
-          stop()
+          on(container.value as HTMLElement, 'click', handleClick)
           start()
+          unwatch()
         }
       })
     })

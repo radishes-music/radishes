@@ -1,6 +1,6 @@
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { getSongUrl, getSongDetail } from './api/index'
-import { State, Getter } from './state'
+import { State } from './state'
 import { RootState } from '@/store/index'
 
 export const enum Actions {

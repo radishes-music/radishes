@@ -1,5 +1,5 @@
 import { Artists } from './artists'
-import { GlobalBase } from './app'
+import { GlobalBase } from '../app'
 
 export interface Songs extends GlobalBase {
   artists: Artists[]

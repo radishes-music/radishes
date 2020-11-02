@@ -9,4 +9,3 @@ declare module '@vue/runtime-core' {
 }
 
 declare module '*.png'
-declare const __static = 'build'
