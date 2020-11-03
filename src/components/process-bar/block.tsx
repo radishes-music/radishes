@@ -1,0 +1,26 @@
+import { defineComponent, toRefs } from 'vue'
+import './block.less'
+
+export interface Block {
+  left: number
+  width: number
+}
+
+export const BufferBlock = defineComponent({
+  name: 'BufferBlock',
+  props: {
+    block: {
+      type: Array as () => Block[]
+    }
+  },
+  setup(props) {
+    const { block } = toRefs(props)
+    return () => (
+      <div class="buffer-block">
+        {block?.value?.map(b => (
+          <div style={{ left: b.left + '%', width: b.width + '%' }}></div>
+        ))}
+      </div>
+    )
+  }
+})

@@ -1,4 +1,4 @@
-import Axios, { AxiosInstance } from 'axios'
+import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 
 const http: AxiosInstance = Axios.create({
   timeout: 5000
@@ -25,9 +25,14 @@ http.interceptors.response.use(
   }
 )
 
-export function get<T>(url: string, params?: unknown): Promise<T> {
+export function get<T>(
+  url: string,
+  params?: unknown,
+  options?: AxiosRequestConfig
+): Promise<T> {
   return http.get(url, {
-    params
+    params,
+    ...options
   })
 }
 

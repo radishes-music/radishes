@@ -20,3 +20,11 @@ export function off<T extends keyof HTMLElementEventMap>(
 ) {
   container.removeEventListener(type, listener)
 }
+
+export const isNumber = (n: unknown) => {
+  return Object.prototype.toString.call(n) === '[object Number]'
+}
+
+export const toFixed = (n: number, m: number) => {
+  return Number(n.toFixed(m))
+}

@@ -1,4 +1,5 @@
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
+import { isNumber } from '@/utils/index'
 import { getSongUrl, getSongDetail } from './api/index'
 import { State } from './state'
 import { RootState } from '@/store/index'
@@ -13,7 +14,6 @@ export const enum Mutations {
   PAUES_MUSIC = 'PAUES_MUSIC',
   ENDED_MUSIC = 'ENDED_MUSIC',
   CURRENT_TIME = 'CURRENT_TIME',
-  SET_CURRENT_TIME = 'SET_CURRENT_TIME',
   CAN_PLAY = 'CAN_PLAY'
 }
 
@@ -22,17 +22,22 @@ export const getters: GetterTree<State, RootState> = {
     return Object.assign(state.music || {}, {
       url: state.musicUrl
     })
+  },
+  currentTime(state) {
+    return state.audioElement?.currentTime
   }
 }
 
 export const actions: ActionTree<State, RootState> = {
-  async [Actions.SET_MUSIC]({ state, dispatch }, id: number) {
+  async [Actions.SET_MUSIC]({ state, dispatch, commit }, id: number) {
     const data = await getSongUrl(id)
     if (state.sourceElement && state.audioElement) {
       if (data.length) {
-        state.musicUrl = data[0].url
-        state.sourceElement.src = data[0].url
+        const url = data[0].url
+        state.musicUrl = url
+        state.sourceElement.src = url
         state.audioElement.load()
+        commit(Mutations.CAN_PLAY, false)
         dispatch(Actions.SET_MUSIC_DEFAILT, id)
       }
     }
@@ -62,14 +67,11 @@ export const mutations: MutationTree<State> = {
     state.playing = false
   },
   [Mutations.CURRENT_TIME](state, time: number) {
-    state.currentTime = time
-  },
-  [Mutations.SET_CURRENT_TIME](state, time: number) {
-    if (state.audioElement) {
+    if (state.audioElement && isNumber(time)) {
       state.audioElement.currentTime = time
     }
   },
-  [Mutations.CAN_PLAY](state) {
-    state.canplay = true
+  [Mutations.CAN_PLAY](state, can: boolean) {
+    state.canplay = can
   }
 }
