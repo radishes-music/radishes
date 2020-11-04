@@ -10,10 +10,16 @@ export interface Music {
   albums: Albums
 }
 
+export interface Lyrics {
+  time: number
+  lyric: string
+}
+
 export interface State {
   audio: AudioType
   music?: SongsDetail
   musicUrl: string
+  musicLyricsOrigin: string
   musciHistory: Music[]
   musicStack: Music[]
   currentTime: number
@@ -26,6 +32,7 @@ export interface State {
 export const state: State = {
   audio: new BackgroundAudio(),
   musicUrl: '',
+  musicLyricsOrigin: '',
   musciHistory: [],
   musicStack: [],
   currentTime: 0,
@@ -39,7 +46,7 @@ export interface Getter {
   musicDetail: {
     url: string
   } & SongsDetail
-  currentTime: number
   volume: number
   duration: number
+  musicLyrics: Lyrics[]
 }

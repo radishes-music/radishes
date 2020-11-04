@@ -1,12 +1,13 @@
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
-import { isNumber } from '@/utils/index'
-import { getSongUrl, getSongDetail } from './api/index'
+import { isNumber, timeTos } from '@/utils/index'
+import { getSongUrl, getSongDetail, getLyric } from './api/index'
 import { State, Getter } from './state'
 import { RootState } from '@/store/index'
 
 export const enum Actions {
   SET_MUSIC = 'SET_MUSIC_URL',
-  SET_MUSIC_DEFAILT = 'SET_MUSIC_DEFAILT'
+  SET_MUSIC_DEFAILT = 'SET_MUSIC_DEFAILT',
+  SET_MUSIC_LYRICS = 'SET_MUSIC_LYRICS'
 }
 
 export const enum Mutations {
@@ -34,6 +35,19 @@ export const getters: GetterTree<State, RootState> = {
       return dt / 1000
     }
     return state.audioElement?.duration
+  },
+  musicLyrics(state) {
+    const temp = (state.musicLyricsOrigin || '')
+      .trim()
+      .split('\n')
+      .map(item => {
+        return {
+          time: timeTos(item.slice(1, 10)),
+          lyric: item.slice(12)
+        }
+      })
+    console.log(temp)
+    return temp
   }
 }
 
@@ -48,6 +62,7 @@ export const actions: ActionTree<State, RootState> = {
         state.audioElement.load()
         commit(Mutations.CAN_PLAY, false)
         dispatch(Actions.SET_MUSIC_DEFAILT, id)
+        dispatch(Actions.SET_MUSIC_LYRICS, id)
       }
     }
   },
@@ -56,6 +71,10 @@ export const actions: ActionTree<State, RootState> = {
     if (data.length) {
       state.music = data[0]
     }
+  },
+  async [Actions.SET_MUSIC_LYRICS]({ state }, id: number) {
+    const lyrics = await getLyric(id)
+    state.musicLyricsOrigin = lyrics
   }
 }
 

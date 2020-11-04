@@ -16,3 +16,10 @@ export const getSongDetail = async (
   })
   return data.songs
 }
+
+export const getLyric = async (id: number): Promise<string> => {
+  const data = await get<SongsDetail>('/api/lyric', {
+    id
+  })
+  return data.lrc.lyric
+}

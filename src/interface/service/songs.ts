@@ -27,4 +27,8 @@ export interface SongsDetail extends GlobalBase {
   }
   ar: Record<string, string> & GlobalBase
   mv: number // mv id
+  lrc: {
+    version: number
+    lyric: string
+  }
 }
