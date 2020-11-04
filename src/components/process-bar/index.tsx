@@ -3,6 +3,7 @@ import {
   onMounted,
   ref,
   toRefs,
+  VNode,
   watch,
   watchEffect
 } from 'vue'
@@ -14,50 +15,59 @@ import './index.less'
 
 const prefix = 'progress'
 
+interface Slots {
+  prefix?: () => VNode
+  suffix?: () => VNode
+}
+
 export const ProgressBar = defineComponent({
   name: 'ProgressBar',
+  emits: ['update:draging'],
   props: {
     canDrage: {
       type: Boolean as () => boolean,
       required: true
     },
     onChange: {
-      type: (Function as unknown) as () => (x: number, w: number) => void,
-      required: true
+      type: (Function as unknown) as () => (x: number, w: number) => void
     },
-    onDraging: {
-      type: (Function as unknown) as () => (v: boolean) => void,
-      required: true
+    current: {
+      type: Number as () => number,
+      default: 0
     },
-    automatic: {
-      type: String as () => string,
-      required: true
+    onCurrent: {
+      type: (Function as unknown) as () => (v: number) => void
+    },
+    draging: {
+      type: Boolean as () => boolean
     },
     block: {
       type: Array as () => Block[]
     }
   },
-  setup(props) {
-    const { canDrage, onChange, onDraging, automatic, block } = toRefs(props)
+  setup(props, context) {
+    const { canDrage, onChange, draging, block, current, onCurrent } = toRefs(
+      props
+    )
 
     const container = ref()
     const indicatorContainer = ref()
     const indicator = ref()
-    const draging = ref(false)
-    const currentIndicator = ref('0%')
+    const visibleTip = ref(false)
 
     const setIndicatorX = (x: number, w: number) => {
       const width = toFixed((x / w) * 100, 6)
-      currentIndicator.value = (width > 100 ? 100 : width) + '%'
+      const format = width > 100 ? 100 : width < 0 ? 0 : width
+      if (onCurrent?.value) {
+        onCurrent.value(format)
+      }
     }
 
     const setAudioCurrent = (indicatorX: number, indicatorW: number) => {
-      onChange.value(indicatorX, indicatorW)
+      if (onChange?.value) {
+        onChange.value(indicatorX, indicatorW)
+      }
     }
-
-    watchEffect(() => {
-      currentIndicator.value = automatic.value
-    })
 
     onMounted(() => {
       const {
@@ -66,7 +76,7 @@ export const ProgressBar = defineComponent({
       } = (container.value as HTMLElement).getBoundingClientRect()
 
       const handleClick = (e: MouseEvent) => {
-        if (!draging.value) {
+        if (!draging?.value) {
           const { clientX } = e
           requestAnimationFrame(() => {
             setIndicatorX(clientX - x, width)
@@ -75,7 +85,7 @@ export const ProgressBar = defineComponent({
         }
       }
 
-      const { start } = useDrag(
+      const { start, stop } = useDrag(
         indicatorContainer.value as HTMLElement,
         indicator.value as HTMLElement,
         {
@@ -85,41 +95,64 @@ export const ProgressBar = defineComponent({
             })
           },
           startCB() {
-            draging.value = true
-            onDraging.value(true)
+            visibleTip.value = true
+            context.emit('update:draging', true)
           },
           stopCB(x) {
-            draging.value = false
-            onDraging.value(false)
+            visibleTip.value = false
+            context.emit('update:draging', false)
             setAudioCurrent(x, width)
           }
         }
       )
 
-      const unwatch = watch(canDrage, canDrage => {
-        if (canDrage) {
-          on(container.value as HTMLElement, 'click', handleClick)
-          start()
-          unwatch()
-        }
-      })
+      watch(
+        canDrage,
+        canDrage => {
+          if (canDrage) {
+            on(indicator.value as HTMLElement, 'click', e =>
+              e.stopPropagation()
+            )
+            on(container.value as HTMLElement, 'click', handleClick)
+            start()
+          } else {
+            stop()
+          }
+        },
+        { immediate: true }
+      )
     })
 
+    const slot = context.slots as Slots
+
     return () => (
-      <div
-        ref={container}
-        class={classnames(`${prefix}-command`, {
-          [`${prefix}-command-active`]: draging.value
-        })}
-      >
-        <BufferBlock block={block?.value}></BufferBlock>
+      <div class={prefix}>
+        {slot.prefix ? slot.prefix() : ''}
         <div
-          ref={indicatorContainer}
-          class={`${prefix}-command--indicator`}
-          style={{ width: currentIndicator.value }}
+          ref={container}
+          class={classnames(`${prefix}-command`, {
+            [`${prefix}-command-active`]: draging?.value
+          })}
         >
-          <div ref={indicator}></div>
+          <BufferBlock block={block?.value}></BufferBlock>
+          <div
+            ref={indicatorContainer}
+            class={`${prefix}-command--indicator`}
+            style={{ width: current.value + '%' }}
+          >
+            <a-tooltip
+              v-model={[visibleTip.value, 'visible']}
+              trigger="focus"
+              v-slots={{
+                title: () => (
+                  <div class={`${prefix}-tip`}>{current.value | 0}</div>
+                ),
+                default: () => <button ref={indicator}></button>
+              }}
+            ></a-tooltip>
+          </div>
         </div>
+        {slot.suffix ? slot.suffix() : ''}
       </div>
     )
   }

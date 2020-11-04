@@ -38,4 +38,5 @@ export interface Getter {
     url: string
   } & SongsDetail
   currentTime: number
+  volume: number
 }

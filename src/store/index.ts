@@ -1,6 +1,7 @@
 import { createStore, MutationTree, createLogger } from 'vuex'
 import modules from '../modules/index'
 import { Mutations as FooterMutations } from '@/pages/footer/module'
+import { AllMutations } from '@/interface/index'
 
 export const enum Mutations {
   SET_HISTORY_ROUTE = 'SET_HISTORY_ROUTE',
@@ -54,7 +55,10 @@ if (process.env.NODE_ENV === 'development') {
   plugins.push(
     createLogger({
       filter(mutation) {
-        return !mutation.type.includes(FooterMutations.CURRENT_TIME)
+        return [
+          FooterMutations.CURRENT_TIME,
+          FooterMutations.SET_VOLUME
+        ].includes(mutation.type as AllMutations)
       }
     })
   )

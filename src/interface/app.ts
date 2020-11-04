@@ -1,4 +1,5 @@
 import { ComponentPublicInstance, App } from 'vue'
+import { FooterInteface, FindMusicInteface } from '@/pages/index'
 
 export interface Music extends ComponentPublicInstance {
   $app: App
@@ -13,3 +14,6 @@ export interface GlobalBase {
   id: number
   name: string
 }
+
+export type AllMutations = FooterInteface.Mutations &
+  FindMusicInteface.Mutations

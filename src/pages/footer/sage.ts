@@ -14,7 +14,8 @@ export const enum Mutations {
   PAUES_MUSIC = 'PAUES_MUSIC',
   ENDED_MUSIC = 'ENDED_MUSIC',
   CURRENT_TIME = 'CURRENT_TIME',
-  CAN_PLAY = 'CAN_PLAY'
+  CAN_PLAY = 'CAN_PLAY',
+  SET_VOLUME = 'SET_VOLUME'
 }
 
 export const getters: GetterTree<State, RootState> = {
@@ -25,6 +26,9 @@ export const getters: GetterTree<State, RootState> = {
   },
   currentTime(state) {
     return state.audioElement?.currentTime
+  },
+  volume(state) {
+    return state.audioElement?.volume
   }
 }
 
@@ -73,5 +77,10 @@ export const mutations: MutationTree<State> = {
   },
   [Mutations.CAN_PLAY](state, can: boolean) {
     state.canplay = can
+  },
+  [Mutations.SET_VOLUME](state, volume: number) {
+    if (state.audioElement) {
+      state.audioElement.volume = volume
+    }
   }
 }

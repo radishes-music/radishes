@@ -13,7 +13,7 @@ export const MusicControl = defineComponent({
   setup() {
     const playMode = ref('turn')
     const playingIcon = ref('play')
-    const currentIndicator = ref('0%')
+    const currentIndicator = ref(0)
     const draging = ref(false)
     const block = ref<Block[]>([])
 
@@ -26,10 +26,6 @@ export const MusicControl = defineComponent({
     watchEffect(() => {
       playingIcon.value = playing.value ? 'pause' : 'play'
     })
-
-    const changeDrag = (v: boolean) => {
-      draging.value = v
-    }
 
     const handlePlayPaues = () => {
       if (playing.value) {
@@ -62,7 +58,7 @@ export const MusicControl = defineComponent({
       if (audioElement.value && musicDetail.dt && !draging.value) {
         const time = audioElement.value.currentTime
         const width = toFixed((time / musicDetail.dt) * 100 * 1000, 6)
-        currentIndicator.value = (width > 100 ? 100 : width) + '%'
+        currentIndicator.value = width > 100 ? 100 : width
       }
     }
 
@@ -143,10 +139,11 @@ export const MusicControl = defineComponent({
           </div>
           <div class={`${prefix}-command-bottom`}>
             <ProgressBar
+              v-model={[draging.value, 'draging']}
+              current={currentIndicator.value}
+              onCurrent={(v: number) => (currentIndicator.value = v)}
               canDrage={canplay.value}
               onChange={setAudioCurrent}
-              onDraging={changeDrag}
-              automatic={currentIndicator.value}
               block={block.value}
             ></ProgressBar>
           </div>

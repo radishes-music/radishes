@@ -28,3 +28,6 @@ export const isNumber = (n: unknown) => {
 export const toFixed = (n: number, m: number) => {
   return Number(n.toFixed(m))
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export const noop = () => {}
