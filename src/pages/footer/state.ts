@@ -16,6 +16,7 @@ export interface State {
   musicUrl: string
   musciHistory: Music[]
   musicStack: Music[]
+  currentTime: number
   playing: boolean
   canplay: boolean
   audioElement: HTMLAudioElement | null
@@ -27,6 +28,7 @@ export const state: State = {
   musicUrl: '',
   musciHistory: [],
   musicStack: [],
+  currentTime: 0,
   playing: false,
   canplay: false,
   audioElement: new Audio(),
@@ -39,4 +41,5 @@ export interface Getter {
   } & SongsDetail
   currentTime: number
   volume: number
+  duration: number
 }

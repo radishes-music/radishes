@@ -1,6 +1,13 @@
-import { defineComponent, ref, toRefs, onMounted, watchEffect } from 'vue'
+import {
+  defineComponent,
+  ref,
+  toRefs,
+  onMounted,
+  watchEffect,
+  computed
+} from 'vue'
 import { uesModuleStore } from '@/hooks/index'
-import { toFixed } from '@/utils/index'
+import { toFixed, formatTime } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
 import { NAMESPACED, State, Getter, Mutations } from '../../module'
@@ -21,7 +28,22 @@ export const MusicControl = defineComponent({
       NAMESPACED
     )
 
-    const { audioElement, sourceElement, playing, canplay } = toRefs(useState())
+    const {
+      audioElement,
+      sourceElement,
+      playing,
+      canplay,
+      currentTime
+    } = toRefs(useState())
+
+    const durationTime = computed(() => {
+      const duration = useGetter('duration')
+      return formatTime(duration || 0, 's')
+    })
+
+    const currentTimeFormat = computed(() => {
+      return formatTime(currentTime.value, 's')
+    })
 
     watchEffect(() => {
       playingIcon.value = playing.value ? 'pause' : 'play'
@@ -59,6 +81,7 @@ export const MusicControl = defineComponent({
         const time = audioElement.value.currentTime
         const width = toFixed((time / musicDetail.dt) * 100 * 1000, 6)
         currentIndicator.value = width > 100 ? 100 : width
+        useMutations(Mutations.UPDATE_CURRENT_TIME, time)
       }
     }
 
@@ -68,11 +91,7 @@ export const MusicControl = defineComponent({
 
     const progress = () => {
       if (audioElement.value) {
-        const musicDetail = useGetter('musicDetail')
-        let duration = musicDetail.dt / 1000
-        if (!duration) {
-          duration = audioElement.value.duration
-        }
+        const duration = useGetter('duration')
         const timeRanges = audioElement.value.buffered
         const start = timeRanges.start(timeRanges.length - 1)
         const end = timeRanges.end(timeRanges.length - 1)
@@ -145,6 +164,15 @@ export const MusicControl = defineComponent({
               canDrage={canplay.value}
               onChange={setAudioCurrent}
               block={block.value}
+              showTooltip={false}
+              v-slots={{
+                prefix: () => (
+                  <div class={`${prefix}-time`}>{currentTimeFormat.value}</div>
+                ),
+                suffix: () => (
+                  <div class={`${prefix}-time`}>{durationTime.value}</div>
+                )
+              }}
             ></ProgressBar>
           </div>
         </div>

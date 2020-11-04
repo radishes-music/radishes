@@ -1,12 +1,4 @@
-import {
-  defineComponent,
-  onMounted,
-  ref,
-  toRefs,
-  VNode,
-  watch,
-  watchEffect
-} from 'vue'
+import { defineComponent, onMounted, ref, toRefs, VNode, watch } from 'vue'
 import classnames from 'classnames'
 import { BufferBlock, Block } from '@/components/process-bar/block'
 import { useDrag } from '@/hooks/index'
@@ -43,12 +35,22 @@ export const ProgressBar = defineComponent({
     },
     block: {
       type: Array as () => Block[]
+    },
+    showTooltip: {
+      type: Boolean as () => boolean,
+      default: true
     }
   },
   setup(props, context) {
-    const { canDrage, onChange, draging, block, current, onCurrent } = toRefs(
-      props
-    )
+    const {
+      canDrage,
+      onChange,
+      draging,
+      block,
+      current,
+      onCurrent,
+      showTooltip
+    } = toRefs(props)
 
     const container = ref()
     const indicatorContainer = ref()
@@ -140,16 +142,20 @@ export const ProgressBar = defineComponent({
             class={`${prefix}-command--indicator`}
             style={{ width: current.value + '%' }}
           >
-            <a-tooltip
-              v-model={[visibleTip.value, 'visible']}
-              trigger="focus"
-              v-slots={{
-                title: () => (
-                  <div class={`${prefix}-tip`}>{current.value | 0}</div>
-                ),
-                default: () => <button ref={indicator}></button>
-              }}
-            ></a-tooltip>
+            {showTooltip.value ? (
+              <a-tooltip
+                v-model={[visibleTip.value, 'visible']}
+                trigger="focus"
+                v-slots={{
+                  title: () => (
+                    <div class={`${prefix}-tip`}>{current.value | 0}</div>
+                  ),
+                  default: () => <button ref={indicator}></button>
+                }}
+              ></a-tooltip>
+            ) : (
+              <button ref={indicator}></button>
+            )}
           </div>
         </div>
         {slot.suffix ? slot.suffix() : ''}

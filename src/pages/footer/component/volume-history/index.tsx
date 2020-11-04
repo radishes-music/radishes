@@ -1,4 +1,4 @@
-import { defineComponent, ref, toRefs } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { ProgressBar as VolumeBar } from '@/components/process-bar/index'
 import { uesModuleStore } from '@/hooks/index'
 import { toFixed } from '@/utils/index'
@@ -15,7 +15,7 @@ export const VolumeAndHistory = defineComponent({
     )
 
     const volume = useGetter('volume')
-    const current = ref(volume)
+    const current = ref(volume * 100)
 
     const slots = {
       prefix: () => (

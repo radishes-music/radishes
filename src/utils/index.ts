@@ -1,3 +1,14 @@
+import dayjs, { OpUnitType } from 'dayjs'
+import UTC from 'dayjs/plugin/utc'
+
+export const formatTime = (time: number, unit: OpUnitType): string => {
+  dayjs.extend(UTC)
+  return dayjs
+    .utc(new Date(0))
+    .add(time, unit)
+    .format('mm:ss')
+}
+
 export function hasOwnProperty<X extends {}, Y extends PropertyKey>(
   obj: X,
   prop: Y

@@ -4,7 +4,6 @@ import {
   watch,
   watchEffect,
   onUnmounted,
-  onMounted,
   toRefs
 } from 'vue'
 import { FindMusicInteface } from '@/interface/index'
