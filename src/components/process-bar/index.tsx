@@ -72,13 +72,11 @@ export const ProgressBar = defineComponent({
     }
 
     onMounted(() => {
-      const {
-        x,
-        width
-      } = (container.value as HTMLElement).getBoundingClientRect()
+      const { width } = (container.value as HTMLElement).getBoundingClientRect()
 
       const handleClick = (e: MouseEvent) => {
         if (!draging?.value) {
+          const { x } = (container.value as HTMLElement).getBoundingClientRect()
           const { clientX } = e
           requestAnimationFrame(() => {
             setIndicatorX(clientX - x, width)
