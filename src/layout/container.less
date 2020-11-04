@@ -8,17 +8,9 @@
   height: 100%;
   box-shadow: -1px 2px 6px 2px #dcdcdc;
   transform: matrix(1, 0, 0, 1, 0, 0);
-  transition: width 0.2s, height 0.2s;
+  transition: width 0.2s, height 0.2s, transform 0.2s;
   will-change: transform;
   backface-visibility: hidden;
-  &-md {
-    width: @md-width;
-    height: @md-height;
-  }
-  &-lg {
-    transform: matrix(1, 0, 0, 1, 0, 0) !important;
-    transition: transform 0.2s;
-  }
   &-sm {
     grid-template-rows: 80px;
     width: 100%;
@@ -26,6 +18,16 @@
     position: absolute;
     bottom: 0;
     transform: matrix(1, 0, 0, 1, 0, 0) !important;
+  }
+  &-md {
+    width: @md-width;
+    height: @md-height;
+  }
+  &-lg {
+    transform: matrix(1, 0, 0, 1, 0, 0) !important;
+  }
+  &-draging {
+    transition: none;
   }
   &-electron {
     width: 100%;

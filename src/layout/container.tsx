@@ -6,6 +6,7 @@ import {
   onMounted,
   watch
 } from 'vue'
+import classnames from 'classnames'
 import { Header } from '@/pages/header/view/index'
 import { Main } from '@/pages/main/view/index'
 import { Footer } from '@/pages/footer/view/index'
@@ -26,6 +27,7 @@ export const Container = defineComponent({
   setup() {
     const startDrag = ref()
     const stopDrag = ref()
+    const draging = ref(false)
     const container = ref()
     const target = ref()
 
@@ -54,9 +56,11 @@ export const Container = defineComponent({
               })
             },
             startCB() {
+              draging.value = true
               RecommendStore.useMutations(Mutations.SET_SWIPER_RINNING, false)
             },
             stopCB() {
+              draging.value = false
               RecommendStore.useMutations(Mutations.SET_SWIPER_RINNING, true)
             }
           }
@@ -70,12 +74,17 @@ export const Container = defineComponent({
     return () => (
       <div
         ref={container}
-        class={[
-          'container',
-          'container-' + screenSize.value,
-          'container-' + VUE_APP_PLATFORM,
-          'container-' + VUE_APP_PLATFORM + '-' + screenSize.value
-        ]}
+        class={classnames(
+          [
+            'container',
+            'container-' + screenSize.value,
+            'container-' + VUE_APP_PLATFORM,
+            'container-' + VUE_APP_PLATFORM + '-' + screenSize.value
+          ],
+          {
+            'container-draging': draging.value
+          }
+        )}
       >
         <Header ref={target}></Header>
         <Main></Main>
