@@ -3,10 +3,13 @@ import {
   ref,
   toRefs,
   resolveDynamicComponent,
-  resolveComponent
+  resolveComponent,
+  watchEffect,
+  computed
 } from 'vue'
 import { NAMESPACED, State, LayoutActions } from '@/layout/module'
 import { uesModuleStore } from '@/hooks/index'
+import { timeTos } from '@/utils/index'
 import { MusicControl } from '../component/music-controller'
 import { VolumeAndHistory } from '../component/volume-history/index'
 import {
@@ -37,6 +40,7 @@ export const Footer = defineComponent({
     const MainModule = uesModuleStore<MainState>(MainNamespace)
 
     const footerState = FooterModule.useState()
+    const lyrice = computed(() => FooterModule.useGetter('musicLyrics'))
 
     const { rebackSize } = toRefs(useState())
 
@@ -64,7 +68,7 @@ export const Footer = defineComponent({
               onClick={unfoldLyrice}
             ></div>
           </div>
-          <Com visible={visibleLyrice.value}></Com>
+          <Com visible={visibleLyrice.value} lyrice={lyrice.value}></Com>
           {/* Failed to locate Teleport target with selector "#cover-container" */}
           {/* {<PlayLyrice visible={visibleLyrice.value}></PlayLyrice>} */}
         </div>

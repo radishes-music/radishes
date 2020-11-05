@@ -2,8 +2,11 @@ import {
   defineComponent,
   PropType,
   toRefs,
+  ref,
   Transition,
-  defineAsyncComponent
+  defineAsyncComponent,
+  watch,
+  watchEffect
 } from 'vue'
 import { uesModuleStore } from '@/hooks/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
@@ -19,12 +22,15 @@ export const PlayLyrice = defineComponent({
       type: Boolean as PropType<boolean>,
       required: true,
       default: false
+    },
+    lyrice: {
+      type: Array as PropType<Getter['musicLyrics']>,
+      required: true,
+      default: []
     }
   },
   setup(props) {
-    const { visible } = toRefs(props)
-    const { useGetter } = uesModuleStore<State, Getter>(NAMESPACED)
-    const lyrice = useGetter('musicLyrics')
+    const { visible, lyrice } = toRefs(props)
 
     return () => (
       <TeleportToAny
@@ -38,7 +44,7 @@ export const PlayLyrice = defineComponent({
                   <div class={`${prefix}-right--lyrice`}>
                     <ve-scroll>
                       <ul class={`${prefix}-right--lyrice-contanier`}>
-                        {lyrice.map(item => (
+                        {lyrice.value.map(item => (
                           <div data-time={item.time}>{item.lyric}</div>
                         ))}
                       </ul>

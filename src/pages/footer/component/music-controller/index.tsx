@@ -36,8 +36,9 @@ export const MusicControl = defineComponent({
       currentTime
     } = toRefs(useState())
 
+    const duration = useGetter('duration')
+
     const durationTime = computed(() => {
-      const duration = useGetter('duration')
       return formatTime(duration || 0, 's')
     })
 
@@ -91,7 +92,6 @@ export const MusicControl = defineComponent({
 
     const progress = () => {
       if (audioElement.value) {
-        const duration = useGetter('duration')
         const timeRanges = audioElement.value.buffered
         const start = timeRanges.start(timeRanges.length - 1)
         const end = timeRanges.end(timeRanges.length - 1)

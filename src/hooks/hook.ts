@@ -120,6 +120,7 @@ export function uesModuleStore<S, G = Record<string, string>>(
   const useState = (): S => {
     return store.state[NAMESPACED]
   }
+  // Note that dependency tracking cannot be added to the getter in the asynchronous rendering function
   const useGetter = <key extends keyof G>(value: key): G[key] => {
     return store.getters[NAMESPACED + '/' + value]
   }
