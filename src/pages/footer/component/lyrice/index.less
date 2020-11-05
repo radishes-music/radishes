@@ -1,0 +1,61 @@
+@prefix: ~'song-details';
+
+.@{prefix} {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  &-left {
+    width: 50%;
+    height: 100%;
+  }
+  &-right {
+    flex: 1;
+    height: 100%;
+    &--lyrice {
+      width: 76%;
+      height: 100%;
+      overflow: hidden;
+      &-contanier {
+        padding: 10px;
+        div {
+          height: 50px;
+          line-height: 50px;
+        }
+      }
+      .v-easy-scroll {
+        height: 100%;
+        &-wrap {
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+.visible {
+  &-enter,
+  &-leave {
+    &-active {
+      transition: transform 0.3s;
+      transform-origin: left bottom;
+    }
+  }
+  &-enter {
+    &-from {
+      transform: scale(0);
+    }
+    &-to {
+      transform: scale(1);
+    }
+  }
+  &-leave {
+    &-from {
+      transform: scale(1);
+    }
+    &-to {
+      transform: scale(0);
+    }
+  }
+}

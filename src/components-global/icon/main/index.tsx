@@ -1,4 +1,4 @@
-import { defineComponent, toRefs } from 'vue'
+import { defineComponent, toRefs, PropType } from 'vue'
 import './index.less'
 
 export interface IconProps {
@@ -9,19 +9,19 @@ export default defineComponent({
   name: 'Icon',
   props: {
     icon: {
-      type: String,
+      type: String as PropType<string>,
       required: true
     },
     color: {
-      type: String,
+      type: String as PropType<string>,
       default: '#ffffff'
     },
     size: {
-      type: Number,
+      type: Number as PropType<number>,
       default: 24
     },
     height: {
-      type: Number
+      type: Number as PropType<number>
     }
   },
   setup(props) {

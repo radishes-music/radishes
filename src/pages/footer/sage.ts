@@ -3,6 +3,7 @@ import { isNumber, timeTos } from '@/utils/index'
 import { getSongUrl, getSongDetail, getLyric } from './api/index'
 import { State, Getter } from './state'
 import { RootState } from '@/store/index'
+import { stat } from 'fs'
 
 export const enum Actions {
   SET_MUSIC = 'SET_MUSIC_URL',
@@ -37,7 +38,7 @@ export const getters: GetterTree<State, RootState> = {
     return state.audioElement?.duration
   },
   musicLyrics(state) {
-    const temp = (state.musicLyricsOrigin || '')
+    return (state.musicLyricsOrigin || '')
       .trim()
       .split('\n')
       .map(item => {
@@ -46,8 +47,7 @@ export const getters: GetterTree<State, RootState> = {
           lyric: item.slice(12)
         }
       })
-    console.log(temp)
-    return temp
+      .filter(item => item.time)
   }
 }
 

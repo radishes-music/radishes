@@ -4,6 +4,9 @@
   position: relative;
   background-color: var(--background-lighter);
   &-left {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
     width: var(--sidebar-width);
     height: 100%;
   }
@@ -18,6 +21,16 @@
     position: absolute;
     right: 10px;
     top: -38px;
+  }
+  &-music-thumbnail {
+    .music-pic {
+      width: 62px;
+      height: 62px;
+      background-size: contain;
+      &-active {
+        cursor: pointer;
+      }
+    }
   }
 }
 

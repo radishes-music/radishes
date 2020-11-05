@@ -4,7 +4,8 @@ import {
   watch,
   watchEffect,
   onUnmounted,
-  toRefs
+  toRefs,
+  PropType
 } from 'vue'
 import { FindMusicInteface } from '@/interface/index'
 import classnames from 'classnames'
@@ -18,11 +19,11 @@ const prefix = 'swiper'
 export const Swiper = defineComponent({
   props: {
     banners: {
-      type: Object as () => FindMusicInteface.Banners[],
+      type: Object as PropType<FindMusicInteface.Banners[]>,
       required: true
     },
     running: {
-      type: Boolean as () => boolean
+      type: Boolean as PropType<boolean>
     }
   },
   setup(props) {

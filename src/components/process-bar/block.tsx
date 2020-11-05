@@ -1,4 +1,4 @@
-import { defineComponent, toRefs } from 'vue'
+import { defineComponent, toRefs, PropType } from 'vue'
 import './block.less'
 
 export interface Block {
@@ -10,7 +10,7 @@ export const BufferBlock = defineComponent({
   name: 'BufferBlock',
   props: {
     block: {
-      type: Array as () => Block[]
+      type: Array as PropType<Block[]>
     }
   },
   setup(props) {

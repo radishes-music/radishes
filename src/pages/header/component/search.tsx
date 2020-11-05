@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed, toRefs, VNode } from 'vue'
+import { defineComponent, ref, computed, toRefs, VNode, PropType } from 'vue'
 import { debounce } from 'lodash'
 import { Actions } from '../sage'
 import { uesModuleStore } from '@/hooks/index'
@@ -19,15 +19,15 @@ const Option = defineComponent({
   name: 'Option',
   props: {
     value: {
-      type: Number as () => number,
+      type: Number as PropType<number>,
       required: true
     },
     detail: {
-      type: String as () => string,
+      type: String as PropType<string>,
       required: true
     },
     keyword: {
-      type: String as () => string,
+      type: String as PropType<string>,
       required: true
     },
     onSelect: {

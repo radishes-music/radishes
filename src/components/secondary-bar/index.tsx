@@ -1,4 +1,4 @@
-import { defineComponent, toRefs } from 'vue'
+import { defineComponent, toRefs, PropType } from 'vue'
 import { RouterLink, RouteRecordRaw } from 'vue-router'
 import './index.less'
 
@@ -13,7 +13,7 @@ export const SecondaryBar = defineComponent({
   name: 'SecondaryBar',
   props: {
     nav: {
-      type: Object as () => RouteRecordRaw[],
+      type: Object as PropType<RouteRecordRaw[]>,
       required: true
     }
   },

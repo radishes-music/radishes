@@ -1,5 +1,6 @@
 import dayjs, { OpUnitType } from 'dayjs'
 import UTC from 'dayjs/plugin/utc'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 export const formatTime = (time: number, unit: OpUnitType): string => {
   dayjs.extend(UTC)
@@ -10,6 +11,7 @@ export const formatTime = (time: number, unit: OpUnitType): string => {
 }
 
 export const timeTos = (time: string): number => {
+  dayjs.extend(customParseFormat)
   return dayjs(time, 'mm:ss.SSS').diff(dayjs('00:00.000', 'mm:ss.SSS')) / 1000
 }
 
@@ -42,6 +44,14 @@ export const isNumber = (n: unknown) => {
 
 export const toFixed = (n: number, m: number) => {
   return Number(n.toFixed(m))
+}
+
+export const sleep = (n: number) => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, n)
+  })
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function

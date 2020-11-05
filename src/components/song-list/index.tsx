@@ -1,4 +1,4 @@
-import { defineComponent, toRefs } from 'vue'
+import { defineComponent, toRefs, PropType } from 'vue'
 import { FindMusicInteface } from '@/interface/index'
 import './index.less'
 
@@ -8,7 +8,7 @@ export const SongList = defineComponent({
   name: 'SongList',
   props: {
     songData: {
-      type: Object as () => FindMusicInteface.Song[],
+      type: Object as PropType<FindMusicInteface.Song[]>,
       required: true
     }
   },

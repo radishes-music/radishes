@@ -1,4 +1,12 @@
-import { defineComponent, onMounted, ref, toRefs, VNode, watch } from 'vue'
+import {
+  defineComponent,
+  onMounted,
+  ref,
+  toRefs,
+  VNode,
+  watch,
+  PropType
+} from 'vue'
 import classnames from 'classnames'
 import { BufferBlock, Block } from '@/components/process-bar/block'
 import { useDrag } from '@/hooks/index'
@@ -17,27 +25,27 @@ export const ProgressBar = defineComponent({
   emits: ['update:draging'],
   props: {
     canDrage: {
-      type: Boolean as () => boolean,
+      type: Boolean as PropType<boolean>,
       required: true
     },
     onChange: {
-      type: (Function as unknown) as () => (x: number, w: number) => void
+      type: Function as PropType<(x: number, w: number) => void>
     },
     current: {
-      type: Number as () => number,
+      type: Number as PropType<number>,
       default: 0
     },
     onCurrent: {
-      type: (Function as unknown) as () => (v: number) => void
+      type: Function as PropType<(v: number) => void>
     },
     draging: {
-      type: Boolean as () => boolean
+      type: Boolean as PropType<boolean>
     },
     block: {
-      type: Array as () => Block[]
+      type: Array as PropType<Block[]>
     },
     showTooltip: {
-      type: Boolean as () => boolean,
+      type: Boolean as PropType<boolean>,
       default: true
     }
   },
