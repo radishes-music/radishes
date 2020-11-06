@@ -36,18 +36,13 @@ export const MusicControl = defineComponent({
       currentTime
     } = toRefs(useState())
 
-    const duration = useGetter('duration')
-
     const durationTime = computed(() => {
+      const duration = useGetter('duration')
       return formatTime(duration || 0, 's')
     })
 
     const currentTimeFormat = computed(() => {
       return formatTime(currentTime.value, 's')
-    })
-
-    watchEffect(() => {
-      playingIcon.value = playing.value ? 'pause' : 'play'
     })
 
     const handlePlayPaues = () => {
@@ -92,6 +87,7 @@ export const MusicControl = defineComponent({
 
     const progress = () => {
       if (audioElement.value) {
+        const duration = useGetter('duration')
         const timeRanges = audioElement.value.buffered
         const start = timeRanges.start(timeRanges.length - 1)
         const end = timeRanges.end(timeRanges.length - 1)
@@ -113,6 +109,12 @@ export const MusicControl = defineComponent({
         audioElement.value.addEventListener('progress', progress)
         audioElement.value.addEventListener('timeupdate', timeUpdate)
         audioElement.value.addEventListener('ended', ended)
+        audioElement.value.addEventListener('playing', () => {
+          playingIcon.value = 'pause'
+        })
+        audioElement.value.addEventListener('pause', () => {
+          playingIcon.value = 'play'
+        })
         audioElement.value.addEventListener('canplay', () => {
           useMutations(Mutations.CAN_PLAY, true)
           useMutations(Mutations.PLAY_MUSIC)

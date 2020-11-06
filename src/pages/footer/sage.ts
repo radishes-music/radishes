@@ -42,9 +42,17 @@ export const getters: GetterTree<State, RootState> = {
       .trim()
       .split('\n')
       .map(item => {
+        let time: RegExpMatchArray | null | string = item.match(/\[.+\]/)
+        let lyric: RegExpMatchArray | null | string = item.match(/\].+/)
+        if (time) {
+          time = time[0].slice(1, -1)
+        }
+        if (lyric) {
+          lyric = lyric[0].slice(1).trim()
+        }
         return {
-          time: timeTos(item.slice(1, 10)),
-          lyric: item.slice(12)
+          time: timeTos(time as string),
+          lyric: lyric
         }
       })
       .filter(item => item.time)

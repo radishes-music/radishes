@@ -9,7 +9,6 @@ import {
 } from 'vue'
 import { NAMESPACED, State, LayoutActions } from '@/layout/module'
 import { uesModuleStore } from '@/hooks/index'
-import { timeTos } from '@/utils/index'
 import { MusicControl } from '../component/music-controller'
 import { VolumeAndHistory } from '../component/volume-history/index'
 import {
@@ -22,6 +21,11 @@ import {
   State as MainState,
   Mutations as MainMutations
 } from '@/pages/main/module'
+import {
+  NAMESPACED as LayoutNamespace,
+  State as LayoutState,
+  Size
+} from '@/layout/module'
 import { AsyncComponent } from '../component/lyrice/index'
 import classnames from 'classnames'
 import './index.less'
@@ -33,19 +37,25 @@ export const Footer = defineComponent({
   name: 'Footer',
   setup() {
     const visibleLyrice = ref(false)
+
     const { useState, useMutations } = uesModuleStore<State>(NAMESPACED)
     const FooterModule = uesModuleStore<FooterState, FooterGetter>(
       FooterNamespace
     )
     const MainModule = uesModuleStore<MainState>(MainNamespace)
+    const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
 
     const footerState = FooterModule.useState()
-    const lyrice = computed(() => FooterModule.useGetter('musicLyrics'))
+    const layoutState = LayoutModule.useState()
 
     const { rebackSize } = toRefs(useState())
 
+    const canShowSongDetail = computed(
+      () => footerState.music && layoutState.screenSize !== Size.SM
+    )
+
     const unfoldLyrice = () => {
-      if (footerState.music) {
+      if (canShowSongDetail.value) {
         visibleLyrice.value = !visibleLyrice.value
         MainModule.useMutations(
           MainMutations.IS_SHOW_COVER_CONTAINER,
@@ -60,7 +70,7 @@ export const Footer = defineComponent({
           <div class="footer-music-thumbnail">
             <div
               class={classnames('music-pic', {
-                'music-pic-active': footerState.music
+                'music-pic-active': canShowSongDetail.value
               })}
               style={{
                 backgroundImage: `url(${footerState.music?.al.picUrl})`
@@ -68,7 +78,7 @@ export const Footer = defineComponent({
               onClick={unfoldLyrice}
             ></div>
           </div>
-          <Com visible={visibleLyrice.value} lyrice={lyrice.value}></Com>
+          <Com visible={visibleLyrice.value}></Com>
           {/* Failed to locate Teleport target with selector "#cover-container" */}
           {/* {<PlayLyrice visible={visibleLyrice.value}></PlayLyrice>} */}
         </div>

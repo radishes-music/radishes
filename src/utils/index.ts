@@ -12,7 +12,11 @@ export const formatTime = (time: number, unit: OpUnitType): string => {
 
 export const timeTos = (time: string): number => {
   dayjs.extend(customParseFormat)
-  return dayjs(time, 'mm:ss.SSS').diff(dayjs('00:00.000', 'mm:ss.SSS')) / 1000
+  return (
+    dayjs(time, ['mm:ss.SSS', 'mm:ss.SS']).diff(
+      dayjs('00:00.000', 'mm:ss.SSS')
+    ) / 1000
+  )
 }
 
 export function hasOwnProperty<X extends {}, Y extends PropertyKey>(
