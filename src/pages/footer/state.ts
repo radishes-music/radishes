@@ -49,4 +49,8 @@ export interface Getter {
   volume: number
   duration: number
   musicLyrics: Lyrics[]
+  musicDes: {
+    author: string
+    title: string
+  }
 }

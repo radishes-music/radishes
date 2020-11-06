@@ -28,20 +28,27 @@
     display: flex;
     align-items: center;
     height: 100%;
-    & button&-btn {
-      height: 100%;
-      padding: 0 20px;
-      margin: 0 !important;
-      border-radius: 0;
-      transition: all 0.2s;
-      -webkit-app-region: no-drag;
-      &:hover {
-        background-color: #e2c9c940;
-      }
-    }
+    padding-left: 20px;
   }
   button {
     -webkit-app-region: no-drag;
+  }
+}
+
+button.v-easy-button.header-window-btn {
+  padding: 0 10px;
+  margin: 0 !important;
+  border-radius: 0;
+  transition: all 0.2s;
+  opacity: 0.6;
+  outline: none;
+  -webkit-app-region: no-drag;
+  &:hover {
+    opacity: 1;
+  }
+  &:focus {
+    outline: none;
+    box-shadow: none;
   }
 }
 

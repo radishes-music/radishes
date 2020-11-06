@@ -22,13 +22,28 @@
     right: 10px;
     top: -38px;
   }
-  &-music-thumbnail {
-    .music-pic {
-      width: 62px;
-      height: 62px;
-      background-size: contain;
-      &-active {
-        cursor: pointer;
+  &-music {
+    &-thumbnail {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      .music-pic {
+        width: 62px;
+        height: 62px;
+        margin-right: 10px;
+        border-radius: 4px;
+        background-size: contain;
+        &-active {
+          cursor: pointer;
+        }
+      }
+    }
+    &-des {
+      &--title {
+        font-size: 16px;
+      }
+      &--author {
+        font-size: 13px;
       }
     }
   }

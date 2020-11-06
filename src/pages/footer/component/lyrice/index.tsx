@@ -7,8 +7,11 @@ import {
   watchEffect,
   computed,
   ref,
-  nextTick
+  nextTick,
+  onMounted,
+  onBeforeUnmount
 } from 'vue'
+import { on, off } from '@/utils/index'
 import { uesModuleStore } from '@/hooks/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
 import { NAMESPACED, State, Getter } from '../../module'
@@ -43,25 +46,43 @@ export const PlayLyrice = defineComponent({
     })
 
     const index = computed(() => {
+      const len = lyrice.value.length
       return lyrice.value.findIndex((value, index) => {
-        return (
-          currentTime.value >= value.time &&
-          currentTime.value < lyrice.value[index + 1]?.time
-        )
+        return currentTime.value >= value.time && len - 1 === index
+          ? true
+          : currentTime.value < lyrice.value[index + 1]?.time
       })
     })
 
+    const updateOffset = () => {
+      nextTick(() => {
+        offset.value = contanier.value.clientHeight / 2 - 50
+        disabled.value = !visible.value
+        console.log(offset.value, disabled.value)
+      })
+    }
+
     watchEffect(() => {
       if (visible.value) {
-        nextTick(() => {
-          offset.value = contanier.value.clientHeight / 2 - 50
-          disabled.value = false
-        })
+        updateOffset()
       }
+    })
+
+    const resize = () => {
+      updateOffset()
+    }
+
+    onMounted(() => {
+      on(window, 'resize', resize)
+    })
+
+    onBeforeUnmount(() => {
+      off(window, 'resize', resize)
     })
 
     return () => (
       <TeleportToAny
+        visible={visible.value}
         v-slots={{
           default: () => (
             <Transition name="visible">

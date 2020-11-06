@@ -1,4 +1,5 @@
 import { defineComponent, VNode, Teleport, PropType } from 'vue'
+import classnames from 'classnames'
 import './index.less'
 
 interface Slots {
@@ -11,13 +12,23 @@ export const TeleportToAny = defineComponent({
     container: {
       type: String as PropType<string>,
       default: '#cover-container'
+    },
+    visible: {
+      type: Boolean as PropType<boolean>,
+      default: false
     }
   },
   setup(props, context) {
     const slot = (context.slots as unknown) as Slots
     return () => (
       <Teleport to={props.container}>
-        <div class="cover-container">{slot.default()}</div>
+        <div
+          class={classnames('cover-container', {
+            'cover-container-show': props.visible
+          })}
+        >
+          {slot.default()}
+        </div>
       </Teleport>
     )
   }

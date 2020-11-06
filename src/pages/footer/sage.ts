@@ -20,6 +20,33 @@ export const enum Mutations {
   CAN_PLAY = 'CAN_PLAY',
   SET_VOLUME = 'SET_VOLUME'
 }
+const dominateMediaSession = (
+  title: string,
+  artist: string,
+  album: string,
+  pic: string
+) => {
+  interface MyNav extends Navigator {
+    mediaSession: {
+      metadata: MediaMetadataTypeParams
+    }
+  }
+  const nav = navigator as MyNav
+  if (nav.mediaSession) {
+    nav.mediaSession.metadata = new MediaMetadata({
+      title,
+      artist,
+      album,
+      artwork: [
+        {
+          src: pic,
+          sizes: '256x256', // mediaSession will automatically adjust the picture to the appropriate size
+          type: 'image/jpeg'
+        }
+      ]
+    })
+  }
+}
 
 export const getters: GetterTree<State, RootState> = {
   musicDetail(state) {
@@ -56,6 +83,26 @@ export const getters: GetterTree<State, RootState> = {
         }
       })
       .filter(item => item.time)
+  },
+  musicDes(state) {
+    if (state.music) {
+      if (state.music) {
+        const author = state.music.ar
+        if (author[0]) {
+          const title = state.music.name
+          dominateMediaSession(title, author[0].name, '', state.music.al.picUrl)
+          return {
+            author: author[0].name,
+            title: title
+          }
+        }
+      }
+    }
+
+    return {
+      author: '',
+      title: ''
+    }
   }
 }
 

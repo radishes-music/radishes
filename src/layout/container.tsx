@@ -18,6 +18,8 @@ import {
   State as RecommendState,
   Mutations
 } from '@/pages/find-new-music/children/recommend/module'
+import { Platform } from '@/config/build'
+import { on } from '@/utils'
 import './container.less'
 
 const { VUE_APP_PLATFORM } = window as ENV
@@ -45,7 +47,7 @@ export const Container = defineComponent({
     })
 
     onMounted(() => {
-      if (VUE_APP_PLATFORM === 'browser') {
+      if (VUE_APP_PLATFORM === Platform.BROWSER) {
         const { start, stop } = useDrag(
           container.value as HTMLElement,
           (target.value as ComponentPublicInstance).$el,
@@ -68,6 +70,9 @@ export const Container = defineComponent({
         start()
         startDrag.value = start
         stopDrag.value = stop
+      }
+      if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+        // TODO
       }
     })
 

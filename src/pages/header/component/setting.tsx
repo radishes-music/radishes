@@ -31,10 +31,10 @@ export const Setting = defineComponent({
 
     return (
       <div class="setting">
-        <ve-button type="text">
+        <ve-button type="text" class="header-window-btn">
           <icon icon="setting"></icon>
         </ve-button>
-        <ve-button type="text">
+        <ve-button type="text" class="header-window-btn">
           <a-popover
             v-model={[this.visibleColor, 'visible']}
             trigger="click"

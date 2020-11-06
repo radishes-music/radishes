@@ -48,6 +48,8 @@ export const Footer = defineComponent({
     const footerState = FooterModule.useState()
     const layoutState = LayoutModule.useState()
 
+    const musicDes = computed(() => FooterModule.useGetter('musicDes'))
+
     const { rebackSize } = toRefs(useState())
 
     const canShowSongDetail = computed(
@@ -77,6 +79,12 @@ export const Footer = defineComponent({
               }}
               onClick={unfoldLyrice}
             ></div>
+            <div class="footer-music-des">
+              <div class="footer-music-des--title">{musicDes.value.title}</div>
+              <div class="footer-music-des--author">
+                {musicDes.value.author}
+              </div>
+            </div>
           </div>
           <Com visible={visibleLyrice.value}></Com>
           {/* Failed to locate Teleport target with selector "#cover-container" */}

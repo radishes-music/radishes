@@ -25,7 +25,7 @@ export interface SongsDetail extends GlobalBase {
   al: {
     picUrl: string
   }
-  ar: Record<string, string> & GlobalBase
+  ar: GlobalBase[]
   mv: number // mv id
   lrc: {
     version: number

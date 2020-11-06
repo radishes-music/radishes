@@ -8,6 +8,7 @@ import { Setting } from '../component/setting'
 import { Search } from '../component/search'
 import { uesModuleStore } from '@/hooks/index'
 import { NAMESPACED, State, LayoutActions } from '@/layout/module'
+import { Platform } from '@/config/build'
 import './index.less'
 
 const { VUE_APP_PLATFORM } = window as ENV
@@ -35,10 +36,10 @@ export const Header = defineComponent({
     const { useMutations } = uesModuleStore<State>(NAMESPACED)
 
     const handleWindowControl = (action: Action) => {
-      if (VUE_APP_PLATFORM === 'browser') {
+      if (VUE_APP_PLATFORM === Platform.BROWSER) {
         useMutations(LayoutActions.CHANGE_WINDOW_SIZE, actionToClass[action])
       }
-      if (VUE_APP_PLATFORM === 'electron') {
+      if (VUE_APP_PLATFORM === Platform.ELECTRON) {
         importIpc().then(event => {
           event.sendAsyncIpcRendererEvent(action)
         })

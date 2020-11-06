@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import dayjs, { OpUnitType } from 'dayjs'
 import UTC from 'dayjs/plugin/utc'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+import { ElectronWindowEventMap } from '@/interface/app'
 
 export const formatTime = (time: number, unit: OpUnitType): string => {
   dayjs.extend(UTC)
@@ -26,19 +29,36 @@ export function hasOwnProperty<X extends {}, Y extends PropertyKey>(
   return Reflect.hasOwnProperty.call(obj, prop)
 }
 
+export function on<T extends keyof ElectronWindowEventMap>(
+  container: Window,
+  type: T,
+  listener: (ev: ElectronWindowEventMap[T]) => void
+): void
+export function on<T extends keyof WindowEventMap>(
+  container: Window,
+  type: T,
+  listener: (ev: WindowEventMap[T]) => void
+): void
 export function on<T extends keyof HTMLElementEventMap>(
   container: HTMLElement,
   type: T,
   listener: (ev: HTMLElementEventMap[T]) => void
-) {
+): void
+export function on(container: any, type: any, listener: any): void {
   container.addEventListener(type, listener)
 }
 
+export function off<T extends keyof WindowEventMap>(
+  container: Window,
+  type: T,
+  listener: (ev: WindowEventMap[T]) => void
+): void
 export function off<T extends keyof HTMLElementEventMap>(
   container: HTMLElement,
   type: T,
   listener: (ev: HTMLElementEventMap[T]) => void
-) {
+): void
+export function off(container: any, type: any, listener: (ev: any) => void) {
   container.removeEventListener(type, listener)
 }
 

@@ -36,6 +36,8 @@ export const MusicControl = defineComponent({
       currentTime
     } = toRefs(useState())
 
+    const musicDes = computed(() => useGetter('musicDes'))
+
     const durationTime = computed(() => {
       const duration = useGetter('duration')
       return formatTime(duration || 0, 's')
@@ -124,7 +126,12 @@ export const MusicControl = defineComponent({
 
     return () => (
       <div class={`${prefix}-command`}>
-        <audio class="audio-background" ref={audioElement}>
+        <audio
+          class="audio-background"
+          aria-title={musicDes.value.title}
+          aria-author={musicDes.value.author}
+          ref={audioElement}
+        >
           <source ref={sourceElement} type="audio/mpeg" />
         </audio>
         <div class={`${prefix}-command-center`}>
