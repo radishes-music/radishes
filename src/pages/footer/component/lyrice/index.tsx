@@ -14,8 +14,14 @@ import {
 import { on, off } from '@/utils/index'
 import { uesModuleStore } from '@/hooks/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
+import {
+  NAMESPACED as LayoutNamespace,
+  State as LayoutState,
+  Size
+} from '@/layout/module'
 import { NAMESPACED, State, Getter } from '../../module'
 import classnams from 'classnames'
+import { debounce } from 'lodash'
 import './index.less'
 
 const prefix = 'song-details'
@@ -36,6 +42,9 @@ export const PlayLyrice = defineComponent({
     const offset = ref(0)
 
     const { useState, useGetter } = uesModuleStore<State, Getter>(NAMESPACED)
+    const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
+
+    const { screenSize } = toRefs(LayoutModule.useState())
 
     const lyrice = computed(() => useGetter('musicLyrics'))
     const { currentTime } = toRefs(useState())
@@ -60,6 +69,7 @@ export const PlayLyrice = defineComponent({
       nextTick(() => {
         offset.value = contanier.value.clientHeight / 2 - 50
         disabled.value = !visible.value
+        console.log(offset.value, disabled.value)
       })
     }
 
@@ -69,11 +79,11 @@ export const PlayLyrice = defineComponent({
       }
     })
 
-    const resize = () => {
-      if (visible.value) {
+    const resize = debounce(() => {
+      if (visible.value && screenSize.value !== Size.SM) {
         updateOffset()
       }
-    }
+    }, 100)
 
     onMounted(() => {
       on(window, 'resize', resize)

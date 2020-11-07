@@ -27,6 +27,7 @@ export const TeleportToAny = defineComponent({
     return () => (
       <Teleport to={props.container}>
         <div
+          v-show={props.visible}
           class={
             props.class ||
             classnames('cover-container', {

@@ -38,8 +38,12 @@ export const LyriceFlash = defineComponent({
     })
 
     return () => (
-      <TeleportToAny container="body" class="lyrice-flash-contanier">
-        <div v-show={visible.value} class="lyrice-flash">
+      <TeleportToAny
+        container="body"
+        class="lyrice-flash-contanier"
+        visible={visible.value}
+      >
+        <div class="lyrice-flash">
           {lyrice.value.map((item, i) => (
             <div
               data-time={item.time}
