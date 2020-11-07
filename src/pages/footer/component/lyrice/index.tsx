@@ -69,7 +69,6 @@ export const PlayLyrice = defineComponent({
       nextTick(() => {
         offset.value = contanier.value.clientHeight / 2 - 50
         disabled.value = !visible.value
-        console.log(offset.value, disabled.value)
       })
     }
 

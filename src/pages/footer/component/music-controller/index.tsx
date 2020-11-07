@@ -11,6 +11,11 @@ import { toFixed, formatTime } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
 import { NAMESPACED, State, Getter, Mutations } from '../../module'
+import {
+  NAMESPACED as LayoutNamespace,
+  State as LayoutState,
+  Size
+} from '@/layout/module'
 import './index.less'
 
 const prefix = 'music'
@@ -27,13 +32,17 @@ export const MusicControl = defineComponent({
     const { useState, useMutations, useGetter } = uesModuleStore<State, Getter>(
       NAMESPACED
     )
+    const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
+
+    const { screenSize } = toRefs(LayoutModule.useState())
 
     const {
       audioElement,
       sourceElement,
       playing,
       canplay,
-      currentTime
+      currentTime,
+      visibleFlash
     } = toRefs(useState())
 
     const musicDes = computed(() => useGetter('musicDes'))
@@ -52,6 +61,12 @@ export const MusicControl = defineComponent({
         useMutations(Mutations.PAUES_MUSIC)
       } else {
         useMutations(Mutations.PLAY_MUSIC)
+      }
+    }
+
+    const handleVisibleFlash = () => {
+      if (screenSize.value === Size.SM) {
+        useMutations(Mutations.VISIBLE_FLASH, !visibleFlash.value)
       }
     }
 
@@ -162,7 +177,13 @@ export const MusicControl = defineComponent({
               <icon icon="xiayishou" aria-title="下一首"></icon>
             </ve-button>
             <ve-button type="text">
-              <icon icon="lyrics" color="#333" size={16} aria-title="词"></icon>
+              <icon
+                icon="lyrics"
+                color="#333"
+                size={16}
+                aria-title="词"
+                onClick={handleVisibleFlash}
+              ></icon>
             </ve-button>
           </div>
           <div class={`${prefix}-command-bottom`}>

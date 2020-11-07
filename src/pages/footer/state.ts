@@ -13,6 +13,7 @@ export interface Music {
 export interface Lyrics {
   time: number
   lyric: string
+  duration: number
 }
 
 export interface State {
@@ -27,6 +28,7 @@ export interface State {
   canplay: boolean
   audioElement: HTMLAudioElement | null
   sourceElement: HTMLSourceElement | null
+  visibleFlash: boolean
 }
 
 export const state: State = {
@@ -39,7 +41,8 @@ export const state: State = {
   playing: false,
   canplay: false,
   audioElement: new Audio(),
-  sourceElement: null
+  sourceElement: null,
+  visibleFlash: false
 }
 
 export interface Getter {

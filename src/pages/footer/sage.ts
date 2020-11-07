@@ -1,9 +1,8 @@
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
-import { isNumber, timeTos } from '@/utils/index'
+import { isNumber, timeTos, toFixed } from '@/utils/index'
 import { getSongUrl, getSongDetail, getLyric } from './api/index'
 import { State, Getter } from './state'
 import { RootState } from '@/store/index'
-import { stat } from 'fs'
 
 export const enum Actions {
   SET_MUSIC = 'SET_MUSIC_URL',
@@ -18,7 +17,8 @@ export const enum Mutations {
   CURRENT_TIME = 'CURRENT_TIME',
   UPDATE_CURRENT_TIME = 'UPDATE_CURRENT_TIME',
   CAN_PLAY = 'CAN_PLAY',
-  SET_VOLUME = 'SET_VOLUME'
+  SET_VOLUME = 'SET_VOLUME',
+  VISIBLE_FLASH = 'VISIBLE_FLASH'
 }
 const dominateMediaSession = (
   title: string,
@@ -64,22 +64,36 @@ export const getters: GetterTree<State, RootState> = {
     }
     return state.audioElement?.duration
   },
-  musicLyrics(state) {
-    return (state.musicLyricsOrigin || '')
-      .trim()
-      .split('\n')
-      .map(item => {
-        let time: RegExpMatchArray | null | string = item.match(/\[.+\]/)
-        let lyric: RegExpMatchArray | null | string = item.match(/\].+/)
+  musicLyrics(state, getter: Getter) {
+    const allDt = getter.duration
+    const tp1 = (state.musicLyricsOrigin || '').trim().split('\n')
+    const len = tp1.length
+    return tp1
+      .map((item, index) => {
+        type RegResult = RegExpMatchArray | null | string | number
+        let nextTime: RegResult = tp1[index + 1]?.match(/\[.+\]/)
+        let time: RegResult = item.match(/\[.+\]/)
+        let lyric: RegResult = item.match(/\].+/)
+        if (nextTime) {
+          nextTime = timeTos(nextTime[0].slice(1, -1) as string)
+        }
         if (time) {
-          time = time[0].slice(1, -1)
+          time = timeTos(time[0].slice(1, -1) as string)
         }
         if (lyric) {
           lyric = lyric[0].slice(1).trim()
         }
+        let duration = 0
+        if (nextTime && time) {
+          duration = nextTime - time
+        }
+        if (index === len - 1 && time) {
+          duration = allDt - time
+        }
         return {
-          time: timeTos(time as string),
-          lyric: lyric
+          time: time,
+          lyric: lyric,
+          duration: toFixed(duration, 3)
         }
       })
       .filter(item => item.time)
@@ -166,5 +180,8 @@ export const mutations: MutationTree<State> = {
     if (state.audioElement) {
       state.audioElement.volume = volume
     }
+  },
+  [Mutations.VISIBLE_FLASH](state, visible: boolean) {
+    state.visibleFlash = visible
   }
 }
