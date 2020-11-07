@@ -1,12 +1,4 @@
-import {
-  defineComponent,
-  ref,
-  toRefs,
-  resolveDynamicComponent,
-  resolveComponent,
-  watchEffect,
-  computed
-} from 'vue'
+import { defineComponent, ref, toRefs, computed } from 'vue'
 import { NAMESPACED, State, LayoutActions } from '@/layout/module'
 import { uesModuleStore } from '@/hooks/index'
 import { MusicControl } from '../component/music-controller'
@@ -27,6 +19,7 @@ import {
   Size
 } from '@/layout/module'
 import { AsyncComponent } from '../component/lyrice/index'
+import { LyriceFlash } from '../component/lyrice-flash/index'
 import classnames from 'classnames'
 import './index.less'
 
@@ -87,6 +80,7 @@ export const Footer = defineComponent({
             </div>
           </div>
           <Com visible={visibleLyrice.value}></Com>
+          <LyriceFlash></LyriceFlash>
           {/* Failed to locate Teleport target with selector "#cover-container" */}
           {/* {<PlayLyrice visible={visibleLyrice.value}></PlayLyrice>} */}
         </div>

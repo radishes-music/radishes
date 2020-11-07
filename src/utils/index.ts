@@ -48,6 +48,11 @@ export function on(container: any, type: any, listener: any): void {
   container.addEventListener(type, listener)
 }
 
+export function off<T extends keyof ElectronWindowEventMap>(
+  container: Window,
+  type: T,
+  listener: (ev: ElectronWindowEventMap[T]) => void
+): void
 export function off<T extends keyof WindowEventMap>(
   container: Window,
   type: T,

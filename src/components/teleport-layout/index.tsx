@@ -16,6 +16,10 @@ export const TeleportToAny = defineComponent({
     visible: {
       type: Boolean as PropType<boolean>,
       default: false
+    },
+    class: {
+      type: String as PropType<string>,
+      default: ''
     }
   },
   setup(props, context) {
@@ -23,9 +27,12 @@ export const TeleportToAny = defineComponent({
     return () => (
       <Teleport to={props.container}>
         <div
-          class={classnames('cover-container', {
-            'cover-container-show': props.visible
-          })}
+          class={
+            props.class ||
+            classnames('cover-container', {
+              'cover-container-show': props.visible
+            })
+          }
         >
           {slot.default()}
         </div>

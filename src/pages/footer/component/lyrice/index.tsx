@@ -47,18 +47,19 @@ export const PlayLyrice = defineComponent({
 
     const index = computed(() => {
       const len = lyrice.value.length
-      return lyrice.value.findIndex((value, index) => {
-        return currentTime.value >= value.time && len - 1 === index
-          ? true
-          : currentTime.value < lyrice.value[index + 1]?.time
-      })
+      return (
+        lyrice.value.findIndex((value, index) => {
+          return currentTime.value >= value.time && len - 1 === index
+            ? true
+            : currentTime.value < lyrice.value[index + 1]?.time
+        }) || 0
+      )
     })
 
     const updateOffset = () => {
       nextTick(() => {
         offset.value = contanier.value.clientHeight / 2 - 50
         disabled.value = !visible.value
-        console.log(offset.value, disabled.value)
       })
     }
 
@@ -69,7 +70,9 @@ export const PlayLyrice = defineComponent({
     })
 
     const resize = () => {
-      updateOffset()
+      if (visible.value) {
+        updateOffset()
+      }
     }
 
     onMounted(() => {

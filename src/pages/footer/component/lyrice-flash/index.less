@@ -1,0 +1,24 @@
+.lyrice-flash {
+  height: 100%;
+  width: 100%;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+  text-align: center;
+  > div {
+    position: absolute;
+    left: 100%;
+    width: 100%;
+  }
+  div&-active {
+    left: 0;
+  }
+  &-contanier {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 120px;
+    height: 100px;
+    width: 784px;
+    font-size: 56px;
+    overflow: hidden;
+  }
+}
