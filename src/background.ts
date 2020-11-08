@@ -20,6 +20,7 @@ function createWindow() {
   win = new BrowserWindow({
     width: width / 1.5,
     height: height / 1.5,
+    useContentSize: true,
     frame: false,
     titleBarStyle: 'hidden',
     show: false,
@@ -52,6 +53,10 @@ function createWindow() {
 
   win.on('closed', () => {
     win = null
+  })
+
+  win.on('unresponsive', (e: any) => {
+    console.log(e)
   })
 
   eventInit(win)

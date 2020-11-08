@@ -30,6 +30,7 @@
       .music-pic {
         width: 62px;
         height: 62px;
+        min-width: 62px;
         margin-right: 10px;
         border-radius: 4px;
         background-size: contain;
@@ -39,6 +40,9 @@
       }
     }
     &-des {
+      > div {
+        white-space: nowrap;
+      }
       &--title {
         font-size: 16px;
       }

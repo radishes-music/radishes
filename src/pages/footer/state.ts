@@ -1,5 +1,7 @@
 import { Artists, Albums, SongsDetail } from '@/interface/index'
 import { AudioType, BackgroundAudio } from './component/music-controller/audio'
+import { PostData } from './component/lyrice-flash/electron-lyrice'
+import { Size } from '@/layout/module'
 
 export interface Music {
   id: number
@@ -29,6 +31,7 @@ export interface State {
   audioElement: HTMLAudioElement | null
   sourceElement: HTMLSourceElement | null
   visibleFlash: boolean
+  electronLyrice: PostData
 }
 
 export const state: State = {
@@ -42,7 +45,17 @@ export const state: State = {
   canplay: false,
   audioElement: new Audio(),
   sourceElement: null,
-  visibleFlash: false
+  visibleFlash: false,
+  electronLyrice: {
+    screenSize: Size.SM,
+    visibleFlash: true,
+    lyrice: [],
+    index: 0,
+    playing: true,
+    flashMagic: {
+      animationDuration: ''
+    }
+  }
 }
 
 export interface Getter {

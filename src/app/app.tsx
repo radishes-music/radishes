@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, toRefs } from 'vue'
 import { ErrorBoundary } from '@/components/error-boundary/index'
 import { Container } from '@/layout/container'
 import { FullScreen } from '@/components/full-screen'
@@ -11,10 +11,10 @@ import './app.less'
 export default defineComponent({
   name: 'APP',
   setup() {
-    const { meta } = useRoute()
+    const { meta } = toRefs(useRoute())
     return () => (
       <ErrorBoundary ref="ErrorBoundary">
-        {meta.full ? <FullScreen></FullScreen> : <Container></Container>}
+        {meta.value.full ? <FullScreen></FullScreen> : <Container></Container>}
       </ErrorBoundary>
     )
   }

@@ -3,6 +3,9 @@ import { isNumber, timeTos, toFixed } from '@/utils/index'
 import { getSongUrl, getSongDetail, getLyric } from './api/index'
 import { State, Getter } from './state'
 import { RootState } from '@/store/index'
+import { PostData } from './component/lyrice-flash/electron-lyrice'
+import { importIpc } from '@/electron/event/ipc-browser'
+import { Lyrice } from '@/electron/event/action-types'
 
 export const enum Actions {
   SET_MUSIC = 'SET_MUSIC_URL',
@@ -18,7 +21,8 @@ export const enum Mutations {
   UPDATE_CURRENT_TIME = 'UPDATE_CURRENT_TIME',
   CAN_PLAY = 'CAN_PLAY',
   SET_VOLUME = 'SET_VOLUME',
-  VISIBLE_FLASH = 'VISIBLE_FLASH'
+  VISIBLE_FLASH = 'VISIBLE_FLASH',
+  UPDATE_ELECTRON_LYRICE = 'UPDATE_electron_Lyrice'
 }
 const dominateMediaSession = (
   title: string,
@@ -183,5 +187,18 @@ export const mutations: MutationTree<State> = {
   },
   [Mutations.VISIBLE_FLASH](state, visible: boolean) {
     state.visibleFlash = visible
+  },
+  [Mutations.UPDATE_ELECTRON_LYRICE](state, playond: PostData) {
+    state.electronLyrice = {
+      ...state.electronLyrice,
+      ...playond
+    }
+    importIpc().then(event => {
+      console.log('主窗口发送数据')
+      event.sendAsyncIpcRendererEvent(
+        Lyrice.LYRICE_UPDATE,
+        state.electronLyrice
+      )
+    })
   }
 }

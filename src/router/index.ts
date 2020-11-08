@@ -16,6 +16,8 @@ export interface RouterChildren {
   meta?: Meta
 }
 
+export const LYRICE_PATH = '/electron-lyrice-flash'
+
 // Internationalization is not currently supported
 const baseRouter: RouteRecordRaw[] = [
   {
@@ -23,8 +25,11 @@ const baseRouter: RouteRecordRaw[] = [
     redirect: '/music'
   },
   {
-    path: '/test',
-    component: TestFull,
+    path: LYRICE_PATH,
+    component: () =>
+      import(
+        /* webpackChunkName: "layrice" */ '@/pages/footer/component/lyrice-flash/electron-lyrice'
+      ),
     meta: {
       full: true
     }

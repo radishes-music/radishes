@@ -1,82 +1,81 @@
-import { defineComponent, computed, toRefs, ref, onMounted, watch } from 'vue'
-import { uesModuleStore, useDrag } from '@/hooks/index'
-import { toFixed } from '@/utils/index'
+import { defineComponent, toRefs, ref, onMounted, PropType } from 'vue'
+import { useDrag } from '@/hooks/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
-import {
-  NAMESPACED as LayoutNamespace,
-  State as LayoutState,
-  Size
-} from '@/layout/module'
+import { ENV } from '@/interface/app'
+import { Size } from '@/layout/module'
+import { Getter } from '@/pages/footer/module'
 import classnames from 'classnames'
-import { NAMESPACED, State, Getter, Mutations } from '../../module'
 import './index.less'
+import { Platform } from '@/config/build'
+
+const { VUE_APP_PLATFORM } = window as ENV
 
 export const LyriceFlash = defineComponent({
   name: 'LyriceFlash',
-  setup() {
+  props: {
+    screenSize: {
+      type: String as PropType<Size>,
+      required: true
+    },
+    visibleFlash: {
+      type: Boolean as PropType<boolean>,
+      required: true
+    },
+    lyrice: {
+      type: Array as PropType<Getter['musicLyrics']>,
+      required: true
+    },
+    index: {
+      type: Number as PropType<number>,
+      required: true
+    },
+    playing: {
+      type: Boolean as PropType<boolean>,
+      required: true
+    },
+    flashMagic: {
+      type: Object as PropType<{
+        animationDuration: string
+      }>,
+      required: true
+    }
+  },
+  setup(props) {
     const lyriceEl = ref()
 
-    const { useState, useGetter, useMutations } = uesModuleStore<State, Getter>(
-      NAMESPACED
-    )
-    const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
-
-    const { currentTime, playing, visibleFlash, musicUrl } = toRefs(useState())
-    const { screenSize } = toRefs(LayoutModule.useState())
-
-    const lyrice = computed(() =>
-      useGetter('musicLyrics').filter(value => value.lyric)
-    )
-
-    watch(screenSize, v => {
-      if (musicUrl.value) {
-        useMutations(Mutations.VISIBLE_FLASH, v === Size.SM)
-      }
-    })
-
-    const index = computed(() => {
-      if (visibleFlash.value) {
-        const len = lyrice.value.length
-        return (
-          lyrice.value.findIndex((value, index) => {
-            return currentTime.value >= value.time && len - 1 === index
-              ? true
-              : currentTime.value < lyrice.value[index + 1]?.time
-          }) || 0
-        )
-      }
-      return 0
-    })
-
-    const flashMagic = computed(() => {
-      if (visibleFlash.value) {
-        const cur = lyrice.value[index.value]
-        // const schedule = cur.duration - (currentTime.value - cur.time)
-        return {
-          animationDuration: `${toFixed(cur.duration, 2)}s`
-        }
-      }
-    })
+    const {
+      screenSize,
+      visibleFlash,
+      lyrice,
+      index,
+      playing,
+      flashMagic
+    } = toRefs(props)
 
     onMounted(() => {
-      const { start } = useDrag(
-        lyriceEl.value as HTMLElement,
-        lyriceEl.value as HTMLElement,
-        {
-          moveCB(x, y) {
-            requestAnimationFrame(() => {
-              lyriceEl.value.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y}) translateZ(0)`
-            })
+      if (VUE_APP_PLATFORM === Platform.BROWSER) {
+        const { start } = useDrag(
+          lyriceEl.value as HTMLElement,
+          lyriceEl.value as HTMLElement,
+          {
+            moveCB(x, y) {
+              requestAnimationFrame(() => {
+                lyriceEl.value.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y}) translateZ(0)`
+              })
+            }
           }
-        }
-      )
-      start()
+        )
+        start()
+      }
     })
 
     return () => (
       <TeleportToAny
         container="body"
-        class="lyrice-flash-contanier"
+        class={classnames('lyrice-flash-contanier', [
+          'lyrice-flash-' + screenSize.value,
+          'lyrice-flash-' + VUE_APP_PLATFORM
+        ])}
         visible={visibleFlash.value}
       >
         <div ref={lyriceEl} class="lyrice-flash">
@@ -99,3 +98,5 @@ export const LyriceFlash = defineComponent({
     )
   }
 })
+
+export default LyriceFlash

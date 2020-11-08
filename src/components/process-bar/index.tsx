@@ -67,9 +67,11 @@ export const ProgressBar = defineComponent({
 
     const setIndicatorX = (x: number, w: number) => {
       const width = toFixed((x / w) * 100, 6)
-      const format = width > 100 ? 100 : width < 0 ? 0 : width
-      if (onCurrent?.value) {
-        onCurrent.value(format)
+      if (width) {
+        const format = width > 100 ? 100 : width < 0 ? 0 : width
+        if (onCurrent?.value) {
+          onCurrent.value(format)
+        }
       }
     }
 

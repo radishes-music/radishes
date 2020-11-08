@@ -5,3 +5,8 @@ export const enum Action {
   CLOSE_WINDOW = 'CLOSE_WINDOW',
   CREATE_WINDOW = 'CREATE_WINDOW'
 }
+
+export const enum Lyrice {
+  LYRICE_UPDATE = 'LYRICE_UPDATE',
+  LYRICE_UPDATE_RENDER = 'LYRICE_UPDATE_RENDER'
+}

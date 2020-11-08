@@ -72,7 +72,10 @@ export const isNumber = (n: unknown) => {
 }
 
 export const toFixed = (n: number, m: number) => {
-  return Number(n.toFixed(m))
+  if (typeof n === 'number') {
+    return Number(n.toFixed(m))
+  }
+  return null
 }
 
 export const sleep = (n: number) => {

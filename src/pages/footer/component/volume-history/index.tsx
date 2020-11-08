@@ -28,7 +28,9 @@ export const VolumeAndHistory = defineComponent({
     const updateCurrent = (v: number) => {
       current.value = v
       const volume = toFixed(v / 100, 2)
-      useMutations(Mutations.SET_VOLUME, volume < 0 ? 0 : volume)
+      if (volume) {
+        useMutations(Mutations.SET_VOLUME, volume < 0 ? 0 : volume)
+      }
     }
 
     return () => (

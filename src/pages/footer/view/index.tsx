@@ -1,4 +1,4 @@
-import { defineComponent, ref, toRefs, computed } from 'vue'
+import { defineComponent, ref, toRefs, computed, onMounted } from 'vue'
 import { NAMESPACED, State, LayoutActions } from '@/layout/module'
 import { uesModuleStore } from '@/hooks/index'
 import { MusicControl } from '../component/music-controller'
@@ -19,12 +19,15 @@ import {
   Size
 } from '@/layout/module'
 import { AsyncComponent } from '../component/lyrice/index'
-import { LyriceFlash } from '../component/lyrice-flash/index'
+import { BrowserLyriceFlash } from '../component/lyrice-flash/browser-lyrice'
+import { ENV } from '@/interface/app'
 import classnames from 'classnames'
+import { Platform } from '@/config/build'
 import './index.less'
 
 // Fix JSX element type "AsyncComponent" does not have any construction signature or call signature.
 const Com = AsyncComponent as any
+const { VUE_APP_PLATFORM } = window as ENV
 
 export const Footer = defineComponent({
   name: 'Footer',
@@ -79,8 +82,8 @@ export const Footer = defineComponent({
               </div>
             </div>
           </div>
-          <Com visible={visibleLyrice.value}></Com>
-          <LyriceFlash></LyriceFlash>
+          <Com visible={visibleLyrice.value} />
+          <BrowserLyriceFlash />
           {/* Failed to locate Teleport target with selector "#cover-container" */}
           {/* {<PlayLyrice visible={visibleLyrice.value}></PlayLyrice>} */}
         </div>

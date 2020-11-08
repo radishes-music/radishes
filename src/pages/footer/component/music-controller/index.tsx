@@ -1,11 +1,4 @@
-import {
-  defineComponent,
-  ref,
-  toRefs,
-  onMounted,
-  watchEffect,
-  computed
-} from 'vue'
+import { defineComponent, ref, toRefs, onMounted, computed } from 'vue'
 import { uesModuleStore } from '@/hooks/index'
 import { toFixed, formatTime } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
@@ -17,8 +10,13 @@ import {
   Size
 } from '@/layout/module'
 import './index.less'
+import { Platform } from '@/config/build'
+import { importIpc } from '@/electron/event/ipc-browser'
+import { Action } from '@/electron/event/action-types'
+import { ENV } from '@/interface/app'
 
 const prefix = 'music'
+const { VUE_APP_PLATFORM } = window as ENV
 
 export const MusicControl = defineComponent({
   name: 'MusicControl',
@@ -65,8 +63,19 @@ export const MusicControl = defineComponent({
     }
 
     const handleVisibleFlash = () => {
-      if (screenSize.value === Size.SM) {
-        useMutations(Mutations.VISIBLE_FLASH, !visibleFlash.value)
+      if (VUE_APP_PLATFORM === Platform.BROWSER) {
+        if (screenSize.value === Size.SM) {
+          useMutations(Mutations.VISIBLE_FLASH, !visibleFlash.value)
+        }
+      }
+      if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+        importIpc()
+          .then(event => {
+            event.sendSyncIpcRendererEvent<Window>(Action.CREATE_WINDOW)
+          })
+          .catch(e => {
+            console.log(e)
+          })
       }
     }
 
@@ -93,7 +102,9 @@ export const MusicControl = defineComponent({
       if (audioElement.value && musicDetail.dt && !draging.value) {
         const time = audioElement.value.currentTime
         const width = toFixed((time / musicDetail.dt) * 100 * 1000, 6)
-        currentIndicator.value = width > 100 ? 100 : width
+        if (width) {
+          currentIndicator.value = width > 100 ? 100 : width
+        }
         useMutations(Mutations.UPDATE_CURRENT_TIME, time)
       }
     }
