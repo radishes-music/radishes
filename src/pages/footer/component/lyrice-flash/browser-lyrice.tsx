@@ -1,4 +1,4 @@
-import { defineComponent, computed, toRefs, watch, watchEffect } from 'vue'
+import { defineComponent, computed, toRefs, watch } from 'vue'
 import { uesModuleStore } from '@/hooks/index'
 import { toFixed } from '@/utils/index'
 import { ENV } from '@/interface/app'
@@ -10,6 +10,8 @@ import {
 import { NAMESPACED, State, Getter, Mutations } from '../../module'
 import { Platform } from '@/config/build'
 import LyriceFlash from './index'
+import { ipcUpdateLyrice } from './electron-lyrice'
+import { UpdateType } from '@/electron/event/action-types'
 import './index.less'
 
 const { VUE_APP_PLATFORM } = window as ENV
@@ -73,13 +75,17 @@ export const BrowserLyriceFlash = defineComponent({
       }
     })
 
-    watchEffect(() => {
-      useMutations(Mutations.UPDATE_ELECTRON_LYRICE, {
-        flashMagic: flashMagic.value,
-        index: index.value,
-        playing: playing.value,
-        lyrice: lyrice.value
-      })
+    watch(flashMagic, v => {
+      ipcUpdateLyrice(UpdateType.UPDATE_MAGIC, v)
+    })
+    watch(index, v => {
+      ipcUpdateLyrice(UpdateType.UPDATE_INDEX, v)
+    })
+    watch(lyrice, v => {
+      ipcUpdateLyrice(UpdateType.UPDATE_LYRICE, v)
+    })
+    watch(playing, v => {
+      ipcUpdateLyrice(UpdateType.UPDATE_PLAYING, v)
     })
 
     return () => (

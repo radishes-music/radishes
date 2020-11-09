@@ -1,9 +1,11 @@
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, toRaw } from 'vue'
 import LyriceFlash from './index'
 import { Size } from '@/layout/module'
 import { Lyrics } from '@/pages/footer/module'
+import { LyriceAction, UpdateType } from '@/electron/event/action-types'
+import { ErrorBoundary } from '@/components/error-boundary/index'
+import { importIpc } from '@/electron/event/ipc-browser'
 import { ipcRenderer } from 'electron'
-import { Lyrice } from '@/electron/event/action-types'
 
 export interface PostData {
   screenSize: Size
@@ -14,6 +16,15 @@ export interface PostData {
   flashMagic: {
     animationDuration: string
   }
+}
+
+export const ipcUpdateLyrice = (type: UpdateType, payload?: any) => {
+  importIpc().then(event => {
+    event.sendAsyncIpcRendererEvent(LyriceAction.LYRICE_UPDATE, {
+      type: type,
+      payload: toRaw(payload)
+    })
+  })
 }
 
 export default defineComponent({
@@ -36,24 +47,49 @@ export default defineComponent({
       }
     })
 
-    ipcRenderer.on(Lyrice.LYRICE_UPDATE_RENDER, (event, any) => {
-      postData.index = any.index
-      if (any.lyrice?.length) {
-        postData.lyrice = any.lyrice
+    ipcRenderer.on(
+      LyriceAction.LYRICE_UPDATE_RENDER,
+      (
+        event,
+        arg: {
+          type: UpdateType
+          payload: any
+        }
+      ) => {
+        const { type, payload } = arg
+        if (payload === undefined) return
+        switch (type) {
+          case UpdateType.UPDATE_INDEX:
+            postData.index = payload
+            break
+          case UpdateType.UPDATE_LYRICE:
+            if (payload.length) {
+              postData.lyrice = payload
+            }
+            break
+          case UpdateType.UPDATE_MAGIC:
+            postData.flashMagic = payload
+            break
+          case UpdateType.UPDATE_PLAYING:
+            postData.playing = payload
+            break
+          default:
+            break
+        }
       }
-      postData.playing = any.playing
-      postData.flashMagic = any.flashMagic
-    })
+    )
 
     return () => (
-      <LyriceFlash
-        screenSize={postData.screenSize}
-        visibleFlash={postData.visibleFlash}
-        lyrice={postData.lyrice}
-        index={postData.index}
-        playing={postData.playing}
-        flashMagic={postData.flashMagic}
-      ></LyriceFlash>
+      <ErrorBoundary ref="ErrorBoundary">
+        <LyriceFlash
+          screenSize={postData.screenSize}
+          visibleFlash={postData.visibleFlash}
+          lyrice={postData.lyrice}
+          index={postData.index}
+          playing={postData.playing}
+          flashMagic={postData.flashMagic}
+        ></LyriceFlash>
+      </ErrorBoundary>
     )
   }
 })

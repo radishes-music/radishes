@@ -1,9 +1,9 @@
 import { ipcMain, IpcMainEvent, BrowserWindow, screen } from 'electron'
-import { Action, Lyrice } from '../action-types'
+import { Action, LyriceAction, UpdateType } from '../action-types'
 
 export const onIpcMainEvent = (win: BrowserWindow) => {
   let bounds = win.getBounds()
-  let syrice: BrowserWindow
+  let syrice: null | BrowserWindow
   ipcMain.on(Action.MINIMIZE_WINDOW, (event: IpcMainEvent, arg) => {
     win.minimize()
   })
@@ -47,11 +47,23 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
         syrice.loadURL(process.env.WEBPACK_DEV_SERVER_URL + 'lyrice')
       }
       syrice.once('ready-to-show', () => {
-        syrice.show()
+        syrice && syrice.show()
+      })
+      syrice.once('closed', () => {
+        syrice = null
       })
     }
   })
-  ipcMain.on(Lyrice.LYRICE_UPDATE, (event: IpcMainEvent, arg) => {
-    syrice && syrice.webContents.send(Lyrice.LYRICE_UPDATE_RENDER, arg)
-  })
+  ipcMain.on(
+    LyriceAction.LYRICE_UPDATE,
+    (
+      event: IpcMainEvent,
+      arg: {
+        type: UpdateType
+        payload: any
+      }
+    ) => {
+      syrice && syrice.webContents.send(LyriceAction.LYRICE_UPDATE_RENDER, arg)
+    }
+  )
 }

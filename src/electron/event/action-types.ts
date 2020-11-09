@@ -6,7 +6,14 @@ export const enum Action {
   CREATE_WINDOW = 'CREATE_WINDOW'
 }
 
-export const enum Lyrice {
+export const enum LyriceAction {
   LYRICE_UPDATE = 'LYRICE_UPDATE',
   LYRICE_UPDATE_RENDER = 'LYRICE_UPDATE_RENDER'
+}
+
+export const enum UpdateType {
+  UPDATE_INDEX = 'UPDATE_INDEX',
+  UPDATE_LYRICE = 'UPDATE_LYRICE',
+  UPDATE_PLAYING = 'UPDATE_PLAYING',
+  UPDATE_MAGIC = 'UPDATE_MAGIC'
 }
