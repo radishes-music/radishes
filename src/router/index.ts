@@ -1,9 +1,18 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory,
+  createWebHashHistory,
+  RouteRecordRaw
+} from 'vue-router'
 import { ComponentPublicInstance } from 'vue'
 import { hook } from './hook'
 import { TestFull } from '@/pages/test/view/index'
 import { FindMusic, Recommend, SongList } from '@/pages/find-new-music/index'
 import { Video, Mv } from '@/pages/video/index'
+import { ENV } from '@/interface/app'
+import { Platform } from '@/config/build'
+
+const { VUE_APP_PLATFORM, VUE_APP_BUILD_BASE_URL } = window as ENV
 
 export interface Meta {
   name?: string
@@ -158,7 +167,10 @@ export const navRouter: RouteRecordRaw[] = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history:
+    VUE_APP_PLATFORM === Platform.BROWSER
+      ? createWebHistory(process.env.BASE_URL)
+      : createWebHashHistory(process.env.BASE_URL),
   routes: baseRouter.concat(navRouter)
 })
 

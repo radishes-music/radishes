@@ -1,10 +1,10 @@
-import { defineComponent, reactive, toRaw } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import LyriceFlash from './index'
 import { Size } from '@/layout/module'
 import { Lyrics } from '@/pages/footer/module'
 import { LyriceAction, UpdateType } from '@/electron/event/action-types'
 import { ErrorBoundary } from '@/components/error-boundary/index'
-import { importIpc } from '@/electron/event/ipc-browser'
+
 import { ipcRenderer } from 'electron'
 
 export interface PostData {
@@ -16,15 +16,6 @@ export interface PostData {
   flashMagic: {
     animationDuration: string
   }
-}
-
-export const ipcUpdateLyrice = (type: UpdateType, payload?: any) => {
-  importIpc().then(event => {
-    event.sendAsyncIpcRendererEvent(LyriceAction.LYRICE_UPDATE, {
-      type: type,
-      payload: toRaw(payload)
-    })
-  })
 }
 
 export default defineComponent({

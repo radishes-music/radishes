@@ -9,7 +9,7 @@
     "lint:style": "stylelint --fix \"**/*.{less,css}\" --cache --cache-location node_modules/.cache/stylelint/",
     "build": "vue-cli-service build --mode browser",
     "build-storybook": "build-storybook",
-    "build:electron": "vue-cli-service electron:build --mode electron",
+    "build:electron": "cross-env BUILDER_NODE_ENV=production vue-cli-service electron:build --mode electron --win nsis",
     "dev": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"vue-cli-service serve --mode browser\"",
     "dev:api": "node NeteaseCloudMusicApi/app.js",
     "dev:electron": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"vue-cli-service electron:serve --mode electron\"",
@@ -21,6 +21,7 @@
     "storybook": "start-storybook -p 6006"
   },
   "main": "background.js",
+  "sideEffects": false,
   "dependencies": {
     "chai-as-promised": "^7.1.1",
     "core-js": "^3.6.5",
@@ -71,6 +72,8 @@
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-vue": "^7.0.0-0",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.6",
     "husky": "^4.3.0",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",

@@ -1,3 +1,4 @@
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import { ipcMain, IpcMainEvent, BrowserWindow, screen } from 'electron'
 import { Action, LyriceAction, UpdateType } from '../action-types'
 
@@ -45,11 +46,14 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
       })
       if (process.env.WEBPACK_DEV_SERVER_URL) {
         syrice.loadURL(process.env.WEBPACK_DEV_SERVER_URL + 'lyrice')
+      } else {
+        createProtocol('app')
+        syrice.loadFile('app://./lyrice.html')
       }
       syrice.once('ready-to-show', () => {
         syrice && syrice.show()
       })
-      syrice.once('closed', () => {
+      syrice.on('closed', () => {
         syrice = null
       })
     }
