@@ -20,14 +20,11 @@ import {
 } from '@/layout/module'
 import { AsyncComponent } from '../component/lyrice/index'
 import { BrowserLyriceFlash } from '../component/lyrice-flash/browser-lyrice'
-import { ENV } from '@/interface/app'
 import classnames from 'classnames'
-import { Platform } from '@/config/build'
 import './index.less'
 
 // Fix JSX element type "AsyncComponent" does not have any construction signature or call signature.
 const Com = AsyncComponent as any
-const { VUE_APP_PLATFORM } = window as ENV
 
 export const Footer = defineComponent({
   name: 'Footer',

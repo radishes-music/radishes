@@ -3,6 +3,7 @@ import { Action, Lyrice } from '../action-types'
 
 export const onIpcMainEvent = (win: BrowserWindow) => {
   let bounds = win.getBounds()
+  let syrice: BrowserWindow
   ipcMain.on(Action.MINIMIZE_WINDOW, (event: IpcMainEvent, arg) => {
     win.minimize()
   })
@@ -16,34 +17,41 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
   })
   ipcMain.on(Action.CLOSE_WINDOW, (event: IpcMainEvent, arg) => {
     win.close()
+    syrice && syrice.close()
   })
   ipcMain.on(Action.CREATE_WINDOW, (event: IpcMainEvent, arg) => {
-    const { width, height } = screen.getPrimaryDisplay().workAreaSize
-    const syrice = new BrowserWindow({
-      width: 724,
-      height: 100,
-      x: width / 2 - 724 / 2,
-      y: height - 100 * 2,
-      show: false,
-      // frame: false,
-      titleBarStyle: 'hidden',
-      webPreferences: {
-        nodeIntegration: true
+    if (syrice) {
+      if (syrice.isVisible()) {
+        syrice.hide()
+      } else {
+        syrice.show()
       }
-    })
-    if (process.env.WEBPACK_DEV_SERVER_URL) {
-      console.log(process.env.WEBPACK_DEV_SERVER_URL)
-      syrice.loadURL(
-        process.env.WEBPACK_DEV_SERVER_URL + 'electron-lyrice-flash'
-      )
+    } else {
+      const { width, height } = screen.getPrimaryDisplay().workAreaSize
+      syrice = new BrowserWindow({
+        width: 724,
+        height: 100,
+        x: width / 2 - 724 / 2,
+        y: height - 100,
+        show: false,
+        frame: false,
+        titleBarStyle: 'hidden',
+        transparent: true,
+        resizable: false,
+        alwaysOnTop: true,
+        webPreferences: {
+          nodeIntegration: true
+        }
+      })
+      if (process.env.WEBPACK_DEV_SERVER_URL) {
+        syrice.loadURL(process.env.WEBPACK_DEV_SERVER_URL + 'lyrice')
+      }
+      syrice.once('ready-to-show', () => {
+        syrice.show()
+      })
     }
-    syrice.once('ready-to-show', () => {
-      syrice && syrice.show()
-    })
   })
-  // ipcMain.on(Lyrice.LYRICE_UPDATE, (event: IpcMainEvent, arg) => {
-  //   console.log('主窗口接受到数据')
-  //   console.log('主窗口发送数据到子窗口')
-  //   event.reply(Lyrice.LYRICE_UPDATE_RENDER, arg)
-  // })
+  ipcMain.on(Lyrice.LYRICE_UPDATE, (event: IpcMainEvent, arg) => {
+    syrice && syrice.webContents.send(Lyrice.LYRICE_UPDATE_RENDER, arg)
+  })
 }

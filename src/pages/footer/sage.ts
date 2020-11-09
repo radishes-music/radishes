@@ -1,3 +1,4 @@
+import { toRaw } from 'vue'
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { isNumber, timeTos, toFixed } from '@/utils/index'
 import { getSongUrl, getSongDetail, getLyric } from './api/index'
@@ -6,6 +7,10 @@ import { RootState } from '@/store/index'
 import { PostData } from './component/lyrice-flash/electron-lyrice'
 import { importIpc } from '@/electron/event/ipc-browser'
 import { Lyrice } from '@/electron/event/action-types'
+import { ENV } from '@/interface/app'
+import { Platform } from '@/config/build'
+
+const { VUE_APP_PLATFORM } = window as ENV
 
 export const enum Actions {
   SET_MUSIC = 'SET_MUSIC_URL',
@@ -193,12 +198,13 @@ export const mutations: MutationTree<State> = {
       ...state.electronLyrice,
       ...playond
     }
-    importIpc().then(event => {
-      console.log('主窗口发送数据')
-      event.sendAsyncIpcRendererEvent(
-        Lyrice.LYRICE_UPDATE,
-        state.electronLyrice
-      )
-    })
+    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+      importIpc().then(event => {
+        event.sendAsyncIpcRendererEvent(
+          Lyrice.LYRICE_UPDATE,
+          toRaw(state.electronLyrice)
+        )
+      })
+    }
   }
 }

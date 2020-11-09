@@ -1,4 +1,14 @@
 module.exports = {
+  pages: {
+    index: {
+      entry: 'src/main.ts',
+      template: 'public/index.html'
+    },
+    lyrice: {
+      entry: 'src/electron/pages/index.ts',
+      template: 'public/index.html'
+    }
+  },
   devServer: {
     proxy: {
       '/api': {
@@ -11,7 +21,8 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    config.plugin('html').tap(args => {
+    // https://github.com/vuejs/vue-cli/issues/1729#issuecomment-402217659
+    config.plugin('html-index').tap(args => {
       args[0].title = 'music'
       return args
     })

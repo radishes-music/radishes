@@ -4,7 +4,7 @@ import { Container } from '@/layout/container'
 import { FullScreen } from '@/components/full-screen'
 import { useRoute } from '@/hooks'
 
-import '../theme/index'
+import '@/theme/index'
 import './app.less'
 
 /* Global Setup */

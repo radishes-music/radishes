@@ -25,16 +25,6 @@ const baseRouter: RouteRecordRaw[] = [
     redirect: '/music'
   },
   {
-    path: LYRICE_PATH,
-    component: () =>
-      import(
-        /* webpackChunkName: "layrice" */ '@/pages/footer/component/lyrice-flash/electron-lyrice'
-      ),
-    meta: {
-      full: true
-    }
-  },
-  {
     path: '/403',
     component: TestFull
   }

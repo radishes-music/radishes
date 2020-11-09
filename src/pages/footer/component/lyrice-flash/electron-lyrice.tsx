@@ -22,7 +22,13 @@ export default defineComponent({
     const postData: PostData = reactive({
       screenSize: Size.SM,
       visibleFlash: true,
-      lyrice: [],
+      lyrice: [
+        {
+          lyric: 'Radishes Music @Link',
+          time: 0,
+          duration: 0
+        }
+      ],
       index: 0,
       playing: true,
       flashMagic: {
@@ -31,8 +37,12 @@ export default defineComponent({
     })
 
     ipcRenderer.on(Lyrice.LYRICE_UPDATE_RENDER, (event, any) => {
-      console.log('子窗口接受到主窗口的数据')
-      console.log(any)
+      postData.index = any.index
+      if (any.lyrice?.length) {
+        postData.lyrice = any.lyrice
+      }
+      postData.playing = any.playing
+      postData.flashMagic = any.flashMagic
     })
 
     return () => (

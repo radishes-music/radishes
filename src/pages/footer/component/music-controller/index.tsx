@@ -71,7 +71,7 @@ export const MusicControl = defineComponent({
       if (VUE_APP_PLATFORM === Platform.ELECTRON) {
         importIpc()
           .then(event => {
-            event.sendSyncIpcRendererEvent<Window>(Action.CREATE_WINDOW)
+            event.sendAsyncIpcRendererEvent(Action.CREATE_WINDOW)
           })
           .catch(e => {
             console.log(e)
