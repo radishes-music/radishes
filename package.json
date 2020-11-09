@@ -10,6 +10,7 @@
     "build": "vue-cli-service build --mode browser",
     "build-storybook": "build-storybook",
     "build:electron": "cross-env BUILDER_NODE_ENV=production vue-cli-service electron:build --mode electron --win nsis",
+    "build:api": "concurrently -r \"cross-env PORT=3001 yarn dev:api\" \"node script/server-local.js\"",
     "dev": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"vue-cli-service serve --mode browser\"",
     "dev:api": "node NeteaseCloudMusicApi/app.js",
     "dev:electron": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"vue-cli-service electron:serve --mode electron\"",

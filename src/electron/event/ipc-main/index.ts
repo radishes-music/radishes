@@ -47,8 +47,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
       if (process.env.WEBPACK_DEV_SERVER_URL) {
         syrice.loadURL(process.env.WEBPACK_DEV_SERVER_URL + 'lyrice')
       } else {
-        createProtocol('app')
-        syrice.loadFile('app://./lyrice.html')
+        syrice.loadURL('app://./lyrice.html')
       }
       syrice.once('ready-to-show', () => {
         syrice && syrice.show()
