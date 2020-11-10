@@ -4,7 +4,7 @@ import { Platform } from '@/config/build'
 
 // https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/guide.html#serve-command
 // The electron build process is in development mode
-const isDevelopment = process.env.BUILDER_NODE_ENV === 'development'
+const isDevelopment = process.env.VUE_APP_NODE_ENV === 'development'
 const { VUE_APP_PLATFORM, VUE_APP_BUILD_BASE_URL } = window as ENV
 
 const baseURL =
@@ -13,7 +13,7 @@ const baseURL =
       ? ''
       : VUE_APP_BUILD_BASE_URL
     : ''
-console.log(baseURL)
+
 const http: AxiosInstance = Axios.create({
   baseURL: baseURL,
   timeout: 5000

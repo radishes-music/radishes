@@ -5,7 +5,7 @@ const chalk = require('chalk')
 const app = express()
 
 const options = {
-  target: 'http://localhost:3001',
+  target: 'http://localhost:3000',
   pathRewrite: {
     '^/api': ''
   }
@@ -14,6 +14,6 @@ const options = {
 const apiProxy = createProxyMiddleware('/api', options)
 
 app.use('/api', apiProxy)
-app.listen(3000)
+app.listen(3001)
 
-console.log(chalk.green('listen 3000'))
+console.log(chalk.green('listen 3001'))
