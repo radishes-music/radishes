@@ -1,26 +1,26 @@
 .footer {
+  position: relative;
   display: flex;
   align-items: center;
-  position: relative;
   background-color: var(--background-lighter);
   &-left {
+    display: flex;
+    align-items: center;
     width: var(--sidebar-width);
     height: 100%;
     padding: 0 20px;
-    display: flex;
-    align-items: center;
   }
   &-right {
     display: flex;
-    align-items: center;
     flex: 1;
+    align-items: center;
     height: 100%;
   }
   &-reduction {
-    display: none;
     position: absolute;
-    right: 10px;
     top: -38px;
+    right: 10px;
+    display: none;
   }
   &-music {
     &-thumbnail {
@@ -29,11 +29,11 @@
       width: 100%;
       .music-pic {
         width: 62px;
-        height: 62px;
         min-width: 62px;
+        height: 62px;
         margin-right: 10px;
-        border-radius: 4px;
         background-size: contain;
+        border-radius: 4px;
         &-active {
           cursor: pointer;
         }

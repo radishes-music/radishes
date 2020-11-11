@@ -6,7 +6,6 @@ module.exports = {
     'stylelint-config-recess-order'
   ],
   rules: {
-    'prettier/prettier': true,
-    'order/properties-order': ['width', 'height', 'padding', 'margin']
+    'prettier/prettier': true
   }
 }

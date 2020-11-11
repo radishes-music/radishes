@@ -1,14 +1,14 @@
 .header {
-  -webkit-user-select: none;
-  -webkit-app-region: drag;
-  background-color: var(--base-color);
   display: flex;
   align-items: center;
   padding: 0 16px;
+  -webkit-user-select: none;
+  background-color: var(--base-color);
+  -webkit-app-region: drag;
 
   &-right {
-    flex: 1;
     display: flex;
+    flex: 1;
     align-items: center;
     justify-content: space-between;
     height: 100%;
@@ -18,9 +18,9 @@
       align-items: center;
     }
     &-right {
-      height: 100%;
       display: flex;
       align-items: center;
+      height: 100%;
       cursor: auto;
     }
   }
@@ -39,9 +39,9 @@ button.v-easy-button.header-window-btn {
   padding: 0 10px;
   margin: 0 !important;
   border-radius: 0;
-  transition: all 0.2s;
-  opacity: 0.6;
   outline: none;
+  opacity: 0.6;
+  transition: all 0.2s;
   -webkit-app-region: no-drag;
   &:hover {
     opacity: 1;
