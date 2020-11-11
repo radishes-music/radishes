@@ -1,4 +1,4 @@
-import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ipcMain, IpcMainEvent, BrowserWindow, screen } from 'electron'
 import { Action, LyriceAction, UpdateType } from '../action-types'
 
@@ -63,7 +63,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
       event: IpcMainEvent,
       arg: {
         type: UpdateType
-        payload: any
+        payload: unknown
       }
     ) => {
       syrice && syrice.webContents.send(LyriceAction.LYRICE_UPDATE_RENDER, arg)

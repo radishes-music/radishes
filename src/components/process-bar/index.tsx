@@ -10,7 +10,7 @@ import {
 import classnames from 'classnames'
 import { BufferBlock, Block } from '@/components/process-bar/block'
 import { useDrag } from '@/hooks/index'
-import { on, toFixed } from '@/utils/index'
+import { on, toFixed, noop } from '@/utils/index'
 import './index.less'
 
 const prefix = 'progress'
@@ -22,33 +22,37 @@ interface Slots {
 
 export const ProgressBar = defineComponent({
   name: 'ProgressBar',
-  emits: ['update:draging'],
   props: {
     canDrage: {
       type: Boolean as PropType<boolean>,
       required: true
     },
-    onChange: {
-      type: Function as PropType<(x: number, w: number) => void>
+    showTooltip: {
+      type: Boolean as PropType<boolean>,
+      default: true
     },
     current: {
       type: Number as PropType<number>,
       default: 0
     },
-    onCurrent: {
-      type: Function as PropType<(v: number) => void>
-    },
     draging: {
-      type: Boolean as PropType<boolean>
+      type: Boolean as PropType<boolean>,
+      default: false
     },
     block: {
-      type: Array as PropType<Block[]>
+      type: Array as PropType<Block[]>,
+      default: []
     },
-    showTooltip: {
-      type: Boolean as PropType<boolean>,
-      default: true
+    onChange: {
+      type: Function as PropType<(x: number, w: number) => void>,
+      default: noop
+    },
+    onCurrent: {
+      type: Function as PropType<(v: number) => void>,
+      default: noop
     }
   },
+  emits: ['update:draging'],
   setup(props, context) {
     const {
       canDrage,

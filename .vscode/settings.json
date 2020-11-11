@@ -8,15 +8,8 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.validate": [
-    "javascript",
-    "typescript",
-    "typescriptreact"
-  ],
-  "prettier.disableLanguages": [
-    "json",
-    "md"
-  ],
+  "eslint.validate": ["javascript", "typescript", "typescriptreact", "vue"],
+  "prettier.disableLanguages": ["json", "md"],
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "stylelint.enable": true,
   "[less]": {

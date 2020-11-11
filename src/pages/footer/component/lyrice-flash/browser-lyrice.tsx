@@ -16,7 +16,7 @@ import './index.less'
 
 const { VUE_APP_PLATFORM } = window as ENV
 
-export const ipcUpdateLyrice = (type: UpdateType, payload?: any) => {
+export const ipcUpdateLyrice = (type: UpdateType, payload?: unknown) => {
   importIpc().then(event => {
     event.sendAsyncIpcRendererEvent(LyriceAction.LYRICE_UPDATE, {
       type: type,

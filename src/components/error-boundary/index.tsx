@@ -4,7 +4,8 @@ import {
   defineComponent,
   nextTick,
   ref,
-  reactive
+  reactive,
+  PropType
 } from 'vue'
 import './index.less'
 
@@ -46,7 +47,16 @@ export function errorHandle(app: App): void {
 }
 
 export const RuntimeErrorComponent = defineComponent({
-  props: ['title', 'message'],
+  props: {
+    title: {
+      type: String as PropType<string>,
+      required: true
+    },
+    message: {
+      type: Object as PropType<RuntimeErrorComponentProps>,
+      required: true
+    }
+  },
   render(this: RuntimeErrorComponentProps & ComponentOptions) {
     const { title, message } = this.$props
     return (
@@ -61,6 +71,9 @@ export const RuntimeErrorComponent = defineComponent({
 
 export const ErrorBoundary = defineComponent<Options>({
   name: 'ErrorBoundary',
+  components: {
+    RuntimeErrorComponent
+  },
   setup() {
     const error = ref(false)
     const runtimeProps = reactive({})
@@ -68,9 +81,6 @@ export const ErrorBoundary = defineComponent<Options>({
       error,
       runtimeProps
     }
-  },
-  components: {
-    RuntimeErrorComponent
   },
   methods: {
     handleError(

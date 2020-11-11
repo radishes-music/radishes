@@ -1,4 +1,4 @@
-import { defineComponent, ref, toRefs, computed, onMounted } from 'vue'
+import { defineComponent, ref, toRefs, computed } from 'vue'
 import { NAMESPACED, State, LayoutActions } from '@/layout/module'
 import { uesModuleStore } from '@/hooks/index'
 import { MusicControl } from '../component/music-controller'
@@ -24,6 +24,7 @@ import classnames from 'classnames'
 import './index.less'
 
 // Fix JSX element type "AsyncComponent" does not have any construction signature or call signature.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Com = AsyncComponent as any
 
 export const Footer = defineComponent({

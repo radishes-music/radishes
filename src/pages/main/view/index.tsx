@@ -1,15 +1,10 @@
-import { defineComponent, toRefs } from 'vue'
+import { defineComponent } from 'vue'
 import { Sidebar } from '@/pages/sidebar/view/index'
-import { uesModuleStore } from '@/hooks/index'
-import { NAMESPACED, State } from '../module'
 import './index.less'
 
 export const Main = defineComponent({
   name: 'Main',
   setup() {
-    const { useState } = uesModuleStore<State>(NAMESPACED)
-    const { isCoverContainer } = toRefs(useState())
-
     return () => (
       <div class="main-container" id="cover-container">
         <Sidebar></Sidebar>

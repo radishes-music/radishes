@@ -55,10 +55,6 @@ function createWindow() {
     win = null
   })
 
-  win.on('unresponsive', (e: any) => {
-    console.log(e)
-  })
-
   eventInit(win)
 }
 

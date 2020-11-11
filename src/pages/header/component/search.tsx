@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed, toRefs, VNode, PropType } from 'vue'
+import { defineComponent, ref, computed, toRefs, PropType } from 'vue'
 import { debounce } from 'lodash'
 import { Actions } from '../sage'
 import { uesModuleStore } from '@/hooks/index'
@@ -10,10 +10,6 @@ import {
   Mutations as FooterMutations
 } from '@/pages/footer/module'
 import './search.less'
-
-interface Context {
-  default: () => VNode
-}
 
 const Option = defineComponent({
   name: 'Option',

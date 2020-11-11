@@ -12,7 +12,7 @@ import { Video, Mv } from '@/pages/video/index'
 import { ENV } from '@/interface/app'
 import { Platform } from '@/config/build'
 
-const { VUE_APP_PLATFORM, VUE_APP_BUILD_BASE_URL } = window as ENV
+const { VUE_APP_PLATFORM } = window as ENV
 
 export interface Meta {
   name?: string

@@ -44,25 +44,25 @@ export default defineComponent({
         event,
         arg: {
           type: UpdateType
-          payload: any
+          payload: unknown
         }
       ) => {
         const { type, payload } = arg
         if (payload === undefined) return
         switch (type) {
           case UpdateType.UPDATE_INDEX:
-            postData.index = payload
+            postData.index = payload as PostData['index']
             break
           case UpdateType.UPDATE_LYRICE:
-            if (payload.length) {
-              postData.lyrice = payload
+            if ((payload as PostData['lyrice']).length !== 0) {
+              postData.lyrice = payload as PostData['lyrice']
             }
             break
           case UpdateType.UPDATE_MAGIC:
-            postData.flashMagic = payload
+            postData.flashMagic = payload as PostData['flashMagic']
             break
           case UpdateType.UPDATE_PLAYING:
-            postData.playing = payload
+            postData.playing = payload as PostData['playing']
             break
           default:
             break

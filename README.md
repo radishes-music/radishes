@@ -14,7 +14,7 @@
 
 ### PR 说明
 
-以 next 分支为默认分支，请基于 next 创建自己的分支，在提交之前请同步 next 分支，尽量避免代码冲突。
+以 next 分支为默认分支，请基于 next 分支 fock 自己的仓库，在提交之前请同步 next 分支，尽量避免代码冲突。
 
 在基本架构完成之后我会创建一些基本的编码规则和提交规则，也欢迎大家参与进来一起制定。
 
@@ -63,45 +63,13 @@
 
 更多规则参考[https://github.com/conventional-changelog/commitlint](https://github.com/conventional-changelog/commitlint)
 
-### 快速 PR
-
-规则：
-
-- 目录原则：
-  - 辅助线文件夹默认导出为 `index.ts` ，所有界面相关的 `code` 放置在 `pages` 下。
-  - `script`: 打包部署脚本
-  - `src`：
-    - `app` 项目运行主要文件夹。
-    - `interface` 主要编写类型推断 code 。
-    - `theme` 存放主题相关的配置，使用 `index.ts` 进行主题切换。
-    - `router` 主要用于配置前端页面路由。
-    - `utils` 用于编写公共无副作用函数。
-    - `components` 为页面可重用组件，主要从 `pages` 中抽离可复用的代码或 UI 组件。
-    - `modules` 文件夹是收集索有 `pages` 下的 store ，有效的分离 store ，以页面的角度分离 store。
-    - 其它文件暂不做说明。
-- 代码规范：
-  - 暂无
-
-相关链接：
-
-- [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
-- [vuejs](https://v3.vuejs.org/)
-- [commitlint](https://commitlint.js.org/#/)
-- [vue-cli](https://cli.vuejs.org/zh/)
-- [prettier](https://prettier.io/)
-- [webpack-chain](https://github.com/neutrinojs/webpack-chain#getting-started)
-- [storybook](https://github.com/storybookjs/storybook/tree/next/app/vue)
-- [vue-cli-plugin-electron-builder](https://github.com/nklayman/vue-cli-plugin-electron-builder)
-- [vue-cli jsx](https://github.com/vuejs/jsx-next/blob/dev/packages/babel-plugin-jsx/README-zh_CN.md)
-- [nativescript vue 3 issues](https://github.com/nativescript-vue/nativescript-vue/issues/583)
-
 ### Electron
 
-在开发的同时会快速兼容 Electron 。所谓的快速就是调用很少的 API 实现 PC 端的功能，比如放大、缩小、通知、音乐拖放上传。
+在开发的同时会快速兼容 Electron 。所谓的快速就是调用很少的 API 实现 PC 端的功能，比如放大、缩小、通知、歌词、音乐拖放上传。
 
 ### ~~在线 API [NeteaseCloudMusicApi](https://music.linkorg.club/)~~
 
-### `vue3.x`已发布，音乐项目正在搭建基本架构
+### `vue3.x`已发布，音乐项目已完成基本架构
 
 目前会利用闲暇时间进行重构，如果你也想参与进来，可以发邮件或在[这里](https://github.com/Linkontoask/radishes/issues/6)告诉我
 
@@ -123,3 +91,17 @@
 3、运行项目
   在主目录下运行 yarn dev
 ```
+
+相关链接：
+
+- [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
+- [vuejs](https://v3.vuejs.org/)
+- [commitlint](https://commitlint.js.org/#/)
+- [vue-cli](https://cli.vuejs.org/zh/)
+- [prettier](https://prettier.io/)
+- [webpack-chain](https://github.com/neutrinojs/webpack-chain#getting-started)
+- [storybook](https://github.com/storybookjs/storybook/tree/next/app/vue)
+- [vue-cli-plugin-electron-builder](https://github.com/nklayman/vue-cli-plugin-electron-builder)
+- [vue-cli jsx](https://github.com/vuejs/jsx-next/blob/dev/packages/babel-plugin-jsx/README-zh_CN.md)
+- [nativescript vue 3 issues](https://github.com/nativescript-vue/nativescript-vue/issues/583)
+- [browser module](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)

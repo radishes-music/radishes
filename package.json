@@ -80,7 +80,6 @@
     "less-loader": "^5.0.0",
     "lint-staged": "^9.5.0",
     "lodash": "^4.17.20",
-    "plain-draggable": "^2.5.12",
     "prettier": "^1.19.1",
     "react-is": "^16.13.1",
     "scriptjs": "^2.5.9",
