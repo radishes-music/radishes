@@ -1,7 +1,6 @@
 import { defineComponent, computed, toRefs, watch, toRaw } from 'vue'
 import { uesModuleStore } from '@/hooks/index'
 import { toFixed } from '@/utils/index'
-import { ENV } from '@/interface/app'
 import {
   NAMESPACED as LayoutNamespace,
   State as LayoutState,
@@ -14,7 +13,7 @@ import { importIpc } from '@/electron/event/ipc-browser'
 import { LyriceAction, UpdateType } from '@/electron/event/action-types'
 import './index.less'
 
-const { VUE_APP_PLATFORM } = window as ENV
+const { VUE_APP_PLATFORM } = process.env
 
 export const ipcUpdateLyrice = (type: UpdateType, payload?: unknown) => {
   importIpc().then(event => {

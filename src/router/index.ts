@@ -9,10 +9,9 @@ import { hook } from './hook'
 import { TestFull } from '@/pages/test/view/index'
 import { FindMusic, Recommend, SongList } from '@/pages/find-new-music/index'
 import { Video, Mv } from '@/pages/video/index'
-import { ENV } from '@/interface/app'
 import { Platform } from '@/config/build'
 
-const { VUE_APP_PLATFORM } = window as ENV
+const { VUE_APP_PLATFORM } = process.env
 
 export interface Meta {
   name?: string

@@ -13,10 +13,9 @@ import './index.less'
 import { Platform } from '@/config/build'
 import { importIpc } from '@/electron/event/ipc-browser'
 import { Action } from '@/electron/event/action-types'
-import { ENV } from '@/interface/app'
 
 const prefix = 'music'
-const { VUE_APP_PLATFORM } = window as ENV
+const { VUE_APP_PLATFORM } = process.env
 
 export const MusicControl = defineComponent({
   name: 'MusicControl',

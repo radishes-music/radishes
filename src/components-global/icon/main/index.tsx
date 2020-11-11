@@ -20,9 +20,9 @@ export default defineComponent({
       type: Number as PropType<number>,
       default: 24
     },
+    // eslint-disable-next-line vue/require-default-prop
     height: {
-      type: Number as PropType<number>,
-      default: 24
+      type: Number as PropType<number>
     }
   },
   setup(props) {
