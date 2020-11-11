@@ -4,12 +4,12 @@
   "private": false,
   "scripts": {
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint && stylelint \"**/*.{css,less}\"",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less}\"",
-    "lint:style": "stylelint --fix \"**/*.{less,css}\" --cache --cache-location node_modules/.cache/stylelint/",
-    "build": "vue-cli-service build --mode browser --modern",
+    "lint:style": "stylelint --fix \"**/*.{css,less}\" --cache --cache-location node_modules/.cache/stylelint/",
+    "build": "yarn lint && vue-cli-service build --mode browser --modern",
     "build-storybook": "build-storybook",
-    "build:electron": "vue-cli-service electron:build --mode electron.build --win nsis",
+    "build:electron": "yarn lint && vue-cli-service electron:build --mode electron.build --win nsis",
     "build:api": "concurrently -r \"yarn dev:api\" \"node script/server-local.js\"",
     "dev": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"vue-cli-service serve --mode browser\"",
     "dev:api": "node NeteaseCloudMusicApi/app.js",
@@ -111,7 +111,7 @@
       "git add"
     ],
     "*.{css,less}": [
-      "stylelint --fix",
+      "stylelint \"**/*.{css,less}\"",
       "git add"
     ]
   }
