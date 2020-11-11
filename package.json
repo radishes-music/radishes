@@ -21,8 +21,25 @@
     "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten",
     "storybook": "start-storybook -p 6006"
   },
-  "main": "background.js",
-  "sideEffects": false,
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "license": "MIT",
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "vue-cli-service lint",
+      "git add"
+    ],
+    "*.{css,less}": [
+      "stylelint \"**/*.{css,less}\"",
+      "git add"
+    ]
+  },
   "dependencies": {
     "chai-as-promised": "^7.1.1",
     "core-js": "^3.6.5",
@@ -95,24 +112,5 @@
     "url-loader": "^4.1.1",
     "v-easy-components": "2.0.0-beta.12",
     "vue-cli-plugin-electron-builder": "^2.0.0-rc.5"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "license": "MIT",
-  "lint-staged": {
-    "*.{js,jsx,vue,ts,tsx}": [
-      "vue-cli-service lint",
-      "git add"
-    ],
-    "*.{css,less}": [
-      "stylelint \"**/*.{css,less}\"",
-      "git add"
-    ]
   }
 }
