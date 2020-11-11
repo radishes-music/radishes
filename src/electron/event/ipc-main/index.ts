@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ipcMain, IpcMainEvent, BrowserWindow, screen } from 'electron'
-import { Action, LyriceAction, UpdateType } from '../action-types'
+import {
+  Action,
+  MiddlewareView,
+  LyriceAction,
+  UpdateType
+} from '../action-types'
 
 export const onIpcMainEvent = (win: BrowserWindow) => {
   let bounds = win.getBounds()
@@ -20,7 +25,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
     win.close()
     syrice && syrice.close()
   })
-  ipcMain.on(Action.CREATE_WINDOW, (event: IpcMainEvent, arg) => {
+  ipcMain.on(MiddlewareView.CREATE_WINDOW, (event: IpcMainEvent, arg) => {
     if (syrice) {
       if (syrice.isVisible()) {
         syrice.hide()
@@ -56,6 +61,9 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
         syrice = null
       })
     }
+  })
+  ipcMain.on(MiddlewareView.UPDATE_THEME_COLOR, (event, arg) => {
+    syrice && syrice.webContents.send(MiddlewareView.UPDATE_THEME_COLOR, arg)
   })
   ipcMain.on(
     LyriceAction.LYRICE_UPDATE,

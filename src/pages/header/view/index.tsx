@@ -13,7 +13,6 @@ import './index.less'
 const { VUE_APP_PLATFORM } = process.env
 const actionToClass = {
   [Action.CLOSE_WINDOW]: '',
-  [Action.CREATE_WINDOW]: '',
   [Action.MAXIMIZE_WINDOW]: 'lg',
   [Action.MINIMIZE_WINDOW]: 'sm',
   [Action.RESTORE_WINDOW]: 'md'

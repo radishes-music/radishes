@@ -2,7 +2,11 @@ import { defineComponent, reactive } from 'vue'
 import LyriceFlash from './index'
 import { Size } from '@/layout/module'
 import { Lyrics } from '@/pages/footer/module'
-import { LyriceAction, UpdateType } from '@/electron/event/action-types'
+import {
+  MiddlewareView,
+  LyriceAction,
+  UpdateType
+} from '@/electron/event/action-types'
 import { ErrorBoundary } from '@/components/error-boundary/index'
 
 import { ipcRenderer } from 'electron'
@@ -36,6 +40,11 @@ export default defineComponent({
       flashMagic: {
         animationDuration: ''
       }
+    })
+
+    ipcRenderer.on(MiddlewareView.UPDATE_THEME_COLOR, (event, arg) => {
+      document.documentElement.style.setProperty('--base-color', arg)
+      document.documentElement.style.setProperty('--primary-theme-text', arg)
     })
 
     ipcRenderer.on(
