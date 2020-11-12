@@ -12,7 +12,7 @@ import {
   onBeforeUnmount
 } from 'vue'
 import { on, off } from '@/utils/index'
-import { uesModuleStore } from '@/hooks/index'
+import { uesModuleStore, useRoute } from '@/hooks/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
 import {
   NAMESPACED as LayoutNamespace,

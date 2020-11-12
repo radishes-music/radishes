@@ -89,9 +89,9 @@ export const Container = defineComponent({
           }
         )}
       >
-        <Header ref={target}></Header>
-        <Main></Main>
-        <Footer></Footer>
+        <Header ref={target} />
+        <Main />
+        <Footer />
       </div>
     )
   }

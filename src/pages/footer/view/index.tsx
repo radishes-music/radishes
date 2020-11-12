@@ -25,7 +25,7 @@ import './index.less'
 
 // Fix JSX element type "AsyncComponent" does not have any construction signature or call signature.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Com = AsyncComponent as any
+const BrowserLyrice = AsyncComponent as any
 
 export const Footer = defineComponent({
   name: 'Footer',
@@ -80,7 +80,7 @@ export const Footer = defineComponent({
               </div>
             </div>
           </div>
-          <Com visible={visibleLyrice.value} />
+          <BrowserLyrice visible={visibleLyrice.value} />
           <BrowserLyriceFlash />
           {/* Failed to locate Teleport target with selector "#cover-container" */}
           {/* {<PlayLyrice visible={visibleLyrice.value}></PlayLyrice>} */}
