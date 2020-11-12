@@ -7,7 +7,7 @@ import {
 import { ComponentPublicInstance } from 'vue'
 import { hook } from './hook'
 import { TestFull } from '@/pages/test/view/index'
-import { FindMusic, Recommend, SongList } from '@/pages/find-new-music/index'
+import { FindMusic, Recommend, SongList } from '@/pages/news/index'
 import { Video, Mv } from '@/pages/video/index'
 import { Platform } from '@/config/build'
 

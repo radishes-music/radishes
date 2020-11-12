@@ -16,7 +16,7 @@ import { RecommendNameSpaced } from '@/modules/index'
 import {
   State as RecommendState,
   Mutations
-} from '@/pages/find-new-music/children/recommend/module'
+} from '@/pages/news/children/recommend/module'
 import { Platform } from '@/config/build'
 import './container.less'
 

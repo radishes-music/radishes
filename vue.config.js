@@ -40,7 +40,7 @@ module.exports = {
     electronBuilder: {
       nodeIntegration: true,
       mainProcessFile: 'src/electron/main.ts',
-      outputDir: 'radishes-build'
+      outputDir: 'dist-electron'
     }
   }
 }
