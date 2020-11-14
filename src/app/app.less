@@ -29,3 +29,45 @@ li {
   border-radius: 2px;
   background-color: #e2e2e2;
 }
+
+.absoluteFill {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.mask-wrapper {
+  &:extend(.absoluteFill);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.vh-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vchj {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cursor-pointer {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

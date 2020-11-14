@@ -1,3 +1,4 @@
+import { Profile } from './../pages/auth/Profile'
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { ComponentPublicInstance } from 'vue'
 import { hook } from './hook'
@@ -31,6 +32,15 @@ const baseRouter: RouteRecordRaw[] = [
 ]
 
 export const navRouter: RouteRecordRaw[] = [
+  {
+    path: '/profile',
+    component: Profile,
+    name: Profile.name,
+    meta: {
+      auth: true,
+      nonav: true
+    }
+  },
   {
     path: '/music',
     component: FindMusic,

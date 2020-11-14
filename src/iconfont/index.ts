@@ -1,5 +1,7 @@
 import $script from 'scriptjs'
-import { noop } from '@/utils/index'
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = () => {}
 
 // repair electron packaging '//' protocol problem
-$script('https://at.alicdn.com/t/font_2132275_jbky0lkgftf.js', noop)
+$script('https://at.alicdn.com/t/font_2132275_kem20imtbs.js', noop)

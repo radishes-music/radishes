@@ -32,5 +32,27 @@
       padding: 0 6px;
       color: #c8c8c8;
     }
+    &-login {
+      display: flex;
+      align-items: center;
+      color: var(--secondary-text);
+      padding: 10px 0;
+      &:hover {
+        color: var(--secondary-text-hover);
+      }
+      &:after {
+        content: '';
+        display: block;
+        height: 0;
+        width: 0;
+        border-left: 6px solid #8e8e8e;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        margin-left: 6px;
+      }
+      > span {
+        padding-left: 8px;
+      }
+    }
   }
 }

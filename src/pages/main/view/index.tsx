@@ -3,6 +3,7 @@ import { Sidebar } from '@/pages/sidebar/view/index'
 import { uesModuleStore } from '@/hooks/index'
 import { NAMESPACED, State } from '../module'
 import './index.less'
+import { AuthBox } from '../../auth'
 
 export const Main = defineComponent({
   name: 'Main',
@@ -17,6 +18,7 @@ export const Main = defineComponent({
           <router-view></router-view>
         </div>
         {/* Store the content that needs to be displayed in the main content area, and cover the default content */}
+        <AuthBox></AuthBox>
       </div>
     )
   }

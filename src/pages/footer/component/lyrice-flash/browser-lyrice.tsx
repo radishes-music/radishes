@@ -10,7 +10,7 @@ import {
 import { NAMESPACED, State, Getter, Mutations } from '../../module'
 import { Platform } from '@/config/build'
 import LyriceFlash from './index'
-import { ipcUpdateLyrice } from './electron-lyrice'
+// import { ipcUpdateLyrice } from './electron-lyrice'
 import { UpdateType } from '@/electron/event/action-types'
 import './index.less'
 
@@ -75,18 +75,18 @@ export const BrowserLyriceFlash = defineComponent({
       }
     })
 
-    watch(flashMagic, v => {
-      ipcUpdateLyrice(UpdateType.UPDATE_MAGIC, v)
-    })
-    watch(index, v => {
-      ipcUpdateLyrice(UpdateType.UPDATE_INDEX, v)
-    })
-    watch(lyrice, v => {
-      ipcUpdateLyrice(UpdateType.UPDATE_LYRICE, v)
-    })
-    watch(playing, v => {
-      ipcUpdateLyrice(UpdateType.UPDATE_PLAYING, v)
-    })
+    // watch(flashMagic, v => {
+    //   ipcUpdateLyrice(UpdateType.UPDATE_MAGIC, v)
+    // })
+    // watch(index, v => {
+    //   ipcUpdateLyrice(UpdateType.UPDATE_INDEX, v)
+    // })
+    // watch(lyrice, v => {
+    //   ipcUpdateLyrice(UpdateType.UPDATE_LYRICE, v)
+    // })
+    // watch(playing, v => {
+    //   ipcUpdateLyrice(UpdateType.UPDATE_PLAYING, v)
+    // })
 
     return () => (
       <>
