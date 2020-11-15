@@ -23,5 +23,5 @@ pnpm-debug.log*
 /storybook-static
 
 #Electron-builder output
-/dist_electron
+/radishes-build
 /src/stories

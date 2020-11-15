@@ -39,7 +39,8 @@ module.exports = {
   pluginOptions: {
     electronBuilder: {
       nodeIntegration: true,
-      builderOptions: {}
+      mainProcessFile: 'src/electron/main.ts',
+      outputDir: 'radishes-build'
     }
   }
 }

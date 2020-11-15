@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ipcMain, IpcMainEvent, BrowserWindow, screen } from 'electron'
 import { Action, LyriceAction, UpdateType } from '../action-types'
 
@@ -45,11 +46,13 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
       })
       if (process.env.WEBPACK_DEV_SERVER_URL) {
         syrice.loadURL(process.env.WEBPACK_DEV_SERVER_URL + 'lyrice')
+      } else {
+        syrice.loadURL('app://./lyrice.html')
       }
       syrice.once('ready-to-show', () => {
         syrice && syrice.show()
       })
-      syrice.once('closed', () => {
+      syrice.on('closed', () => {
         syrice = null
       })
     }
@@ -60,7 +63,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
       event: IpcMainEvent,
       arg: {
         type: UpdateType
-        payload: any
+        payload: unknown
       }
     ) => {
       syrice && syrice.webContents.send(LyriceAction.LYRICE_UPDATE_RENDER, arg)

@@ -3,8 +3,8 @@
 @duaring: 0.6s;
 
 .show() {
-  transition: all @duaring;
   opacity: 1;
+  transition: all @duaring;
 }
 
 @keyframes spanScale {
@@ -55,37 +55,37 @@
   height: 100%;
   margin: 20px 0;
   &-container {
+    position: relative;
     display: flex;
     align-items: center;
-    position: relative;
     width: 100%;
     height: calc(90% - 20px);
 
     &-left,
     &-right {
+      position: absolute;
+      top: 0;
+      z-index: 2;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: absolute;
       width: 80px;
       height: 100%;
-      top: 0;
-      z-index: 2;
       cursor: pointer;
       opacity: 0;
       transition: opacity 0.2s;
     }
     &-left {
-      border-top-left-radius: @radius;
-      border-bottom-left-radius: @radius;
       left: 0;
       background-image: linear-gradient(to right, #000000bf, transparent);
+      border-top-left-radius: @radius;
+      border-bottom-left-radius: @radius;
     }
     &-right {
-      border-top-right-radius: @radius;
-      border-bottom-right-radius: @radius;
       right: 0;
       background-image: linear-gradient(to left, #000000bf, transparent);
+      border-top-right-radius: @radius;
+      border-bottom-right-radius: @radius;
     }
     &:hover {
       .@{prefix}-container-left,
@@ -102,14 +102,14 @@
       will-change: left, right, transform;
       div {
         height: 100%;
-        border-radius: @radius;
         background-size: cover;
+        border-radius: @radius;
       }
     }
     .@{prefix}-normal-item {
       left: 50%;
-      transform: translateX(-50%) translateZ(0);
       transition: all @duaring;
+      transform: translateX(-50%) translateZ(0);
     }
     .@{prefix}-prev,
     .@{prefix}-next {
@@ -124,8 +124,8 @@
       }
     }
     .@{prefix}-next {
-      left: auto;
       right: 0;
+      left: auto;
       transform: translateX(0) translateZ(0);
       &-span {
         transition: none;
@@ -134,8 +134,8 @@
     }
     .@{prefix}-current {
       left: 50%;
-      transform: translateX(-50%) translateZ(0) scale(1.2);
       z-index: 1;
+      transform: translateX(-50%) translateZ(0) scale(1.2);
       .show();
     }
     .@{prefix}-current-span {
@@ -152,9 +152,9 @@
       display: inline-block;
       width: 8px;
       height: 8px;
-      border-radius: 50%;
-      background-color: var(--background-lighter);
       margin: 0 6px;
+      background-color: var(--background-lighter);
+      border-radius: 50%;
     }
     li&-active {
       background-color: var(--base-color);

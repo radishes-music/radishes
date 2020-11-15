@@ -1,4 +1,4 @@
-import { defineComponent, computed, toRefs, watch } from 'vue'
+import { defineComponent, computed, toRefs, watch, toRaw } from 'vue'
 import { uesModuleStore } from '@/hooks/index'
 import { toFixed } from '@/utils/index'
 import { ENV } from '@/interface/app'
@@ -10,11 +10,20 @@ import {
 import { NAMESPACED, State, Getter, Mutations } from '../../module'
 import { Platform } from '@/config/build'
 import LyriceFlash from './index'
-// import { ipcUpdateLyrice } from './electron-lyrice'
-import { UpdateType } from '@/electron/event/action-types'
+import { importIpc } from '@/electron/event/ipc-browser'
+import { LyriceAction, UpdateType } from '@/electron/event/action-types'
 import './index.less'
 
 const { VUE_APP_PLATFORM } = window as ENV
+
+export const ipcUpdateLyrice = (type: UpdateType, payload?: unknown) => {
+  importIpc().then(event => {
+    event.sendAsyncIpcRendererEvent(LyriceAction.LYRICE_UPDATE, {
+      type: type,
+      payload: toRaw(payload)
+    })
+  })
+}
 
 export const BrowserLyriceFlash = defineComponent({
   name: 'BrowserLyriceFlash',
@@ -75,18 +84,20 @@ export const BrowserLyriceFlash = defineComponent({
       }
     })
 
-    // watch(flashMagic, v => {
-    //   ipcUpdateLyrice(UpdateType.UPDATE_MAGIC, v)
-    // })
-    // watch(index, v => {
-    //   ipcUpdateLyrice(UpdateType.UPDATE_INDEX, v)
-    // })
-    // watch(lyrice, v => {
-    //   ipcUpdateLyrice(UpdateType.UPDATE_LYRICE, v)
-    // })
-    // watch(playing, v => {
-    //   ipcUpdateLyrice(UpdateType.UPDATE_PLAYING, v)
-    // })
+    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+      watch(flashMagic, v => {
+        ipcUpdateLyrice(UpdateType.UPDATE_MAGIC, v)
+      })
+      watch(index, v => {
+        ipcUpdateLyrice(UpdateType.UPDATE_INDEX, v)
+      })
+      watch(lyrice, v => {
+        ipcUpdateLyrice(UpdateType.UPDATE_LYRICE, v)
+      })
+      watch(playing, v => {
+        ipcUpdateLyrice(UpdateType.UPDATE_PLAYING, v)
+      })
+    }
 
     return () => (
       <>

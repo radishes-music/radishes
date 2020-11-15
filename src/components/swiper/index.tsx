@@ -23,7 +23,8 @@ export const Swiper = defineComponent({
       required: true
     },
     running: {
-      type: Boolean as PropType<boolean>
+      type: Boolean as PropType<boolean>,
+      default: false
     }
   },
   setup(props) {
@@ -54,7 +55,7 @@ export const Swiper = defineComponent({
     })
 
     watchEffect(() => {
-      if (running?.value) {
+      if (running.value) {
         startInternal()
       } else {
         stopInternal()

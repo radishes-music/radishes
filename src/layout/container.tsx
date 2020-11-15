@@ -19,7 +19,6 @@ import {
   Mutations
 } from '@/pages/find-new-music/children/recommend/module'
 import { Platform } from '@/config/build'
-import { on } from '@/utils'
 import './container.less'
 
 const { VUE_APP_PLATFORM } = window as ENV

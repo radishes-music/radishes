@@ -1,11 +1,11 @@
 .main-container {
   position: relative;
   display: grid;
+  grid-template-rows: 100%;
   grid-template-columns: var(--sidebar-width) minmax(
       calc(100% - var(--sidebar-width)),
       1fr
     );
-  grid-template-rows: 100%;
   height: 100%;
   .content {
     height: 100%;

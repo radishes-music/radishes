@@ -8,7 +8,7 @@ and then process some things that the main process can handle (for example, chan
 import { ipcRenderer } from 'electron'
 import { Action, LyriceAction, UpdateType } from '../action-types'
 
-type Message = any
+type Message = unknown
 type ActionType = Action | LyriceAction | UpdateType
 
 export function sendAsyncIpcRendererEvent(
@@ -27,5 +27,5 @@ export function sendSyncIpcRendererEvent(
 
 export interface IpcRenderer {
   sendAsyncIpcRendererEvent: (action: ActionType, ...message: Message[]) => void
-  sendSyncIpcRendererEvent: <T>(action: ActionType, ...message: Message) => T
+  sendSyncIpcRendererEvent: <T>(action: ActionType, ...message: Message[]) => T
 }

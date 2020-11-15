@@ -21,7 +21,8 @@ export default defineComponent({
       default: 24
     },
     height: {
-      type: Number as PropType<number>
+      type: Number as PropType<number>,
+      default: 24
     }
   },
   setup(props) {

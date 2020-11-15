@@ -9,6 +9,8 @@ export interface Music extends ComponentPublicInstance {
 export type ENV = Window &
   typeof globalThis & {
     VUE_APP_PLATFORM: Platform
+    VUE_APP_IS_DEVELOPMENT: string
+    VUE_APP_BUILD_BASE_URL: string
   }
 
 export interface GlobalBase {

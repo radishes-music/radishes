@@ -26,7 +26,7 @@ function createWindow() {
     show: false,
     resizable: false,
     backgroundColor: '#ffffff',
-    icon: path.join('build', 'icon.png'),
+    icon: path.join('build', '1024x1024.png'),
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
@@ -53,10 +53,6 @@ function createWindow() {
 
   win.on('closed', () => {
     win = null
-  })
-
-  win.on('unresponsive', (e: any) => {
-    console.log(e)
   })
 
   eventInit(win)
