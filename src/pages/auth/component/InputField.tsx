@@ -1,4 +1,4 @@
-import { defineComponent, InputHTMLAttributes } from 'vue'
+import { defineComponent } from 'vue'
 import './input.less'
 
 export const InputField = defineComponent({
@@ -25,6 +25,7 @@ export const InputField = defineComponent({
     },
     modelValue: String
   },
+  emits: ['update:modelValue'],
   setup(props, { emit }) {
     const onInput = (e: any) => {
       emit('update:modelValue', e.target.value)
