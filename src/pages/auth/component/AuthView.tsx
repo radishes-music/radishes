@@ -23,6 +23,7 @@ export const AuthView = defineComponent({
       )
     })
 
+    // TODO 怎么操作呢??
     return () => {
       return (
         <MaskView class="vh-center">
@@ -34,6 +35,7 @@ export const AuthView = defineComponent({
               class="auth-view__close"
               onClick={doClose}
             />
+            {/* 想在这里加一个动画效果，让它做一个类似页面翻转的动画 */}
             <div class="auth-view__box">{slots.default?.()}</div>
           </div>
         </MaskView>

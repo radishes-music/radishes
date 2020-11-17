@@ -1,16 +1,25 @@
-import { defineComponent, reactive } from 'vue'
-import { AuthView } from './component/AuthView'
+import { defineComponent, inject, reactive } from 'vue'
 import { Button } from './component/Button'
 import './component/auth.less'
-import { Link, LightLink, AuthLink } from './component/Link'
 import { InputField } from './component/InputField'
+import { AUTH_TYPE } from './constant'
 
 // TODO As there is no plug-in for area code selection in line with Chinese values, only + 86 is supported for the moment
 export const EmailLogin = defineComponent({
   name: 'EmailLogin',
   setup() {
+    const state = reactive({
+      errorMsg: ''
+    })
+
+    const leakThemeColor = '#f29c9f'
+    const inputColor = '#b8b8b8'
+    const themeColor = '#d33a31'
+
+    const authUtil: any = inject('authUtil')
+
     return () => (
-      <AuthView>
+      <>
         <div class="vh-center auth-view__icon">
           <icon icon="mail" color="rgb(242,156,159)" size="96" />
         </div>
@@ -41,6 +50,15 @@ export const EmailLogin = defineComponent({
             }}
           ></InputField>
         </div>
+        <div class="auth-view__error">
+          <icon
+            icon="warning"
+            color={themeColor}
+            v-show={state.errorMsg !== ''}
+            size={18}
+          />
+          <span v-show={state.errorMsg !== ''}>{state.errorMsg}</span>
+        </div>
 
         <Button
           class="bd-button__auth"
@@ -50,8 +68,11 @@ export const EmailLogin = defineComponent({
         >
           登 录
         </Button>
-        <div class="auth-back">{`<返回其他登录`}</div>
-      </AuthView>
+        <div
+          class="auth-back"
+          onClick={() => authUtil.to(AUTH_TYPE.PHONE_LOGIN)}
+        >{`<返回其他登录`}</div>
+      </>
     )
   }
 })

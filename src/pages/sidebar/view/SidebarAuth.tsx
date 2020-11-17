@@ -7,11 +7,23 @@ export const SidebarAuth = defineComponent({
   setup() {
     const { isLogin, profile } = useAuth()
 
-    return () => (
-      <RouterLink class="sidebar-nav-login" to="/profile">
-        <icon icon="denglu" color="#e0e0e0" size={40} />
-        <span>{isLogin.value ? profile.value.nickname : '未登录'}</span>
-      </RouterLink>
-    )
+    return () => {
+      const text = isLogin.value ? profile.value.nickname : '未登录'
+      const head = isLogin.value
+        ? profile.value.avatarUrl
+        : 'https://p4.music.126.net/VnZiScyynLG7atLIZ2YPkw==/18686200114669622.jpg'
+      return (
+        <RouterLink class="sidebar-nav-login" to="/profile">
+          <van-image
+            width="40"
+            height="40"
+            src={head}
+            round
+            fit="cover"
+          ></van-image>
+          <span>{text}</span>
+        </RouterLink>
+      )
+    }
   }
 })

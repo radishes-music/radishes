@@ -1,4 +1,4 @@
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, inject } from 'vue'
 import { Toast } from 'vant'
 import Md5 from 'md5'
 import { AuthView } from './component/AuthView'
@@ -9,6 +9,7 @@ import { InputField } from './component/InputField'
 import http from '@/utils/http'
 import { useAuthView, useLogin } from '@/hooks/auth'
 import { useRouter } from 'vue-router'
+import { AUTH_TYPE } from './constant'
 
 const clause = [
   {
@@ -91,8 +92,10 @@ export const PhoneLogin = defineComponent({
       state.errorMsg = ''
     }
 
+    const authUtil = inject('authUtil') as any
+
     return () => (
-      <AuthView>
+      <>
         <div class="vh-center auth-view__icon">
           <icon icon="diepian" color={leakThemeColor} size={96} />
         </div>
@@ -127,7 +130,13 @@ export const PhoneLogin = defineComponent({
                 </div>
               ),
               right: () => (
-                <div class="cursor-pointer" style="padding:0 16px 0 8px;">
+                <div
+                  class="cursor-pointer"
+                  style="padding:0 16px 0 8px;"
+                  onClick={() => {
+                    authUtil.to(AUTH_TYPE.RESET_PWD)
+                  }}
+                >
                   重设密码
                 </div>
               )
@@ -155,11 +164,21 @@ export const PhoneLogin = defineComponent({
         >
           登 录
         </Button>
-        <div class="register">
+        <div
+          class="register"
+          onClick={() => {
+            authUtil.to(AUTH_TYPE.REGISTER)
+          }}
+        >
           <Link to="/">注册</Link>
         </div>
 
-        <div class="others">
+        <div
+          class="others"
+          onClick={() => {
+            authUtil.to(AUTH_TYPE.EMAIL_LOGIN)
+          }}
+        >
           <AuthLink to="/" icon="wangyi"></AuthLink>
         </div>
 
@@ -182,7 +201,7 @@ export const PhoneLogin = defineComponent({
         <div class="auth-view__clause">
           <ExternalLightLink to="/">《radishes条款》</ExternalLightLink>
         </div>
-      </AuthView>
+      </>
     )
   }
 })
