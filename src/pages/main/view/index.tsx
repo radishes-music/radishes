@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 import { Sidebar } from '@/pages/sidebar/view/index'
 import './index.less'
-import { AuthBox } from '../../auth'
+import { AuthBox } from '../../auth/views'
 
 export const Main = defineComponent({
   name: 'Main',

@@ -11,8 +11,8 @@ import { PhoneLogin } from './PhoneLogin'
 import { ResetPwd } from './ResetPwd'
 import { Signup } from './Signup'
 import { EmailLogin } from './EmailLogin'
-import { AuthView } from './component/AuthView'
-import { AUTH_TYPE } from './constant'
+import { AuthView } from '../component/auth-view'
+import { AUTH_TYPE, PROVIDER_AUTH_UTIL } from '../constant'
 
 const authComponent = [PhoneLogin, EmailLogin, Signup, ResetPwd]
 
@@ -25,10 +25,10 @@ export const AuthBox = defineComponent({
       authType: AUTH_TYPE.PHONE_LOGIN
     })
 
-    const Component: any = computed(() => authComponent[state.authType as any])
+    const Component: any = computed(() => authComponent[state.authType])
 
-    provide('authUtil', {
-      to: (type: any) => {
+    provide(PROVIDER_AUTH_UTIL, {
+      to: (type: number) => {
         state.authType = type
       }
     })

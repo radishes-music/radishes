@@ -1,30 +1,19 @@
 import { defineComponent, reactive, inject } from 'vue'
-import { Toast } from 'vant'
-import Md5 from 'md5'
-import { AuthView } from './component/AuthView'
-import { Button } from './component/Button'
-import './component/auth.less'
-import { Link, ExternalLightLink, AuthLink } from './component/Link'
-import { InputField } from './component/InputField'
-import http from '@/utils/http'
-import { useAuthView, useLogin } from '@/hooks/auth'
 import { useRouter } from 'vue-router'
-import { AUTH_TYPE } from './constant'
+import { Toast } from 'vant'
+import { Button } from '../component/button'
 
-const clause = [
-  {
-    name: '《服务条款》',
-    link: 'https://st.music.163.com/official-terms/service'
-  },
-  {
-    name: '《隐私政策》',
-    link: 'https://st.music.163.com/official-terms/privacy'
-  },
-  {
-    name: '《儿童隐私政策》',
-    link: 'https://st.music.163.com/official-terms/children'
-  }
-]
+import { Link, ExternalLightLink, AuthLink } from '../component/link'
+import { InputField } from '../component/input-field'
+import { AUTH_TYPE, PROVIDER_AUTH_UTIL, TERMS } from '../constant'
+import { doPhoneLogin, LoginRes } from '../api'
+
+import { useLogin } from '@/hooks/auth'
+import { useHttp } from '@/hooks'
+
+import '../component/auth-view/index.less'
+import { useText } from '../hooks'
+import { inputColor, leakThemeColor, themeColor } from '../theme'
 
 /* 
   As there is no plug-in for area code selection in line with Chinese values,
@@ -37,62 +26,65 @@ export const PhoneLogin = defineComponent({
     const state = reactive({
       checked: false,
       phone: '',
-      password: '',
-      errorMsg: ''
+      password: ''
     })
 
-    const leakThemeColor = '#f29c9f'
-    const inputColor = '#b8b8b8'
-    const themeColor = '#d33a31'
+    const [errorMsg, setErrorMsg, isNullMsg] = useText()
 
     const commitLogin = useLogin()
 
     const $router = useRouter()
 
+    // TODO ->  用来判断请求的状态
+    const [httpStatus, httpPhoneLogin] = useHttp(doPhoneLogin)
+
+    const checkTip = () =>
+      Toast(
+        '请先勾选同意《服务条款》、《隐私政策》\n《儿童隐私政策》、《radishes条款》'
+      )
+
     const doLogin = () => {
       if (!state.checked) {
-        Toast(
-          '请先勾选同意《服务条款》、《隐私政策》\n《儿童隐私政策》、《radishes条款》'
-        )
+        checkTip()
         return
       }
       if (!state.phone) {
-        state.errorMsg = '请输入手机号'
+        setErrorMsg('请输入手机号')
       } else if (!state.password) {
-        state.errorMsg = '请输入登录密码'
-      } else if (!/\d+/.test(state.phone)) {
-        state.errorMsg = '请输入正确的手机号'
+        setErrorMsg('请输入登录密码')
+      } else if (!/\d{11}/.test(state.phone)) {
+        setErrorMsg('请输入正确的手机号')
       } else {
-        http
-          .get('/api/login/cellphone', {
-            params: {
-              phone: state.phone,
-              // eslint-disable-next-line
-            md5_password: Md5(state.password),
-            }
+        httpPhoneLogin(state.phone, state.password)
+          .then((res: LoginRes) => {
+            commitLogin(res)
+            $router.back()
           })
-          .then((res: any) => {
-            if (res.code !== 200) {
-              state.errorMsg = res.msg
-            } else {
-              // TODO 记录用户信息,把这段信息放到 vuex 中就完成了登录状态
-              commitLogin(res)
-              $router.back()
-            }
-          })
-          .catch(e => {
+          .catch((e: any) => {
             if (e.response.status === 400) {
-              state.errorMsg = '该手机号尚未注册'
+              setErrorMsg('该手机号尚未注册')
+            } else if (e.code !== 200) {
+              setErrorMsg(e.msg)
             }
           })
       }
     }
 
     const onFocus = () => {
-      state.errorMsg = ''
+      setErrorMsg('')
     }
 
-    const authUtil = inject('authUtil') as any
+    const withChecked = (fn: Function) => {
+      return (...args: any[]) => {
+        if (!state.checked) {
+          checkTip()
+          return
+        }
+        return fn(...args)
+      }
+    }
+
+    const authUtil = inject(PROVIDER_AUTH_UTIL) as any
 
     return () => (
       <>
@@ -133,9 +125,9 @@ export const PhoneLogin = defineComponent({
                 <div
                   class="cursor-pointer"
                   style="padding:0 16px 0 8px;"
-                  onClick={() => {
+                  onClick={withChecked(() => {
                     authUtil.to(AUTH_TYPE.RESET_PWD)
-                  }}
+                  })}
                 >
                   重设密码
                 </div>
@@ -150,36 +142,36 @@ export const PhoneLogin = defineComponent({
           <icon
             icon="warning"
             color={themeColor}
-            v-show={state.errorMsg !== ''}
+            v-show={!isNullMsg.value}
             size={18}
           />
-          <span v-show={state.errorMsg !== ''}>{state.errorMsg}</span>
+          <span v-show={!isNullMsg.value}>{errorMsg.text}</span>
         </div>
 
         <Button
+          disabled={httpStatus.loading}
           class="bd-button__auth"
-          onClick={() => {
-            doLogin()
-          }}
+          onClick={doLogin}
         >
           登 录
         </Button>
-        <div
-          class="register"
-          onClick={() => {
-            authUtil.to(AUTH_TYPE.REGISTER)
-          }}
-        >
-          <Link to="/">注册</Link>
+        <div class="register vh-center">
+          <Link
+            onClick={withChecked(() => {
+              authUtil.to(AUTH_TYPE.REGISTER)
+            })}
+          >
+            注册
+          </Link>
         </div>
 
-        <div
-          class="others"
-          onClick={() => {
-            authUtil.to(AUTH_TYPE.EMAIL_LOGIN)
-          }}
-        >
-          <AuthLink to="/" icon="wangyi"></AuthLink>
+        <div class="others">
+          <AuthLink
+            icon="wangyi"
+            onClick={withChecked(() => {
+              authUtil.to(AUTH_TYPE.EMAIL_LOGIN)
+            })}
+          ></AuthLink>
         </div>
 
         <div class="auth-view__clause">
@@ -191,7 +183,7 @@ export const PhoneLogin = defineComponent({
           ></van-checkbox>
           <span>同意</span>
           <div class="vchj">
-            {clause.map((info: any) => (
+            {TERMS.map((info: any) => (
               <ExternalLightLink to={info.link} key={info.name}>
                 {info.name}
               </ExternalLightLink>
@@ -199,7 +191,9 @@ export const PhoneLogin = defineComponent({
           </div>
         </div>
         <div class="auth-view__clause">
-          <ExternalLightLink to="/">《radishes条款》</ExternalLightLink>
+          <ExternalLightLink to="https://github.com/Linkontoask/radishes">
+            《radishes条款》
+          </ExternalLightLink>
         </div>
       </>
     )

@@ -2,17 +2,24 @@ import { AuthState } from './state'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 
+export const AUTH_MUTATIONS = {
+  LOGIN: 'LOGIN',
+  LOGOUT: 'LOGOUT',
+  SHOW_VIEW: 'SHOW_VIEW',
+  HIDE_VIEW: 'HIDE_VIEW'
+}
+
 export const mutations = {
-  ['LOGIN']: (state: AuthState, info: AuthState['user']) => {
+  [AUTH_MUTATIONS.LOGIN]: (state: AuthState, info: AuthState['user']) => {
     state.user = info
   },
-  ['LOGOUT']: (state: AuthState) => {
+  [AUTH_MUTATIONS.LOGOUT]: (state: AuthState) => {
     state.user = null
   },
-  ['SHOW_VIEW']: (state: AuthState) => {
+  [AUTH_MUTATIONS.SHOW_VIEW]: (state: AuthState) => {
     state.show = true
   },
-  ['HIDE_VIEW']: (state: AuthState) => {
+  [AUTH_MUTATIONS.HIDE_VIEW]: (state: AuthState) => {
     state.show = false
   }
 }

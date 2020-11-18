@@ -1,16 +1,17 @@
 import { defineComponent } from 'vue'
-import './button.less'
+import './index.less'
 
 export const Button = defineComponent({
   setup(props: any, { slots }) {
     return () => (
-      <div onClick={props.onClick} class="bd-button">
+      <van-button
+        onClick={props.onClick}
+        class="auth-button"
+        type="primary"
+        block
+      >
         {slots.default?.()}
-      </div>
+      </van-button>
     )
   }
 })
-
-Button.props = {
-  onClick: Function
-}

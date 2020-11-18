@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import './input.less'
+import './index.less'
 
 export const InputField = defineComponent({
   props: {

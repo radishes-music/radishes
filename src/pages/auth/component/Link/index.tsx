@@ -1,14 +1,24 @@
 import { defineComponent } from 'vue'
 import { RouterLink } from 'vue-router'
-import './link.less'
+import './index.less'
 
 export const Link = defineComponent({
-  setup(props: any, { slots }) {
-    return () => (
-      <RouterLink {...props} class="link-line">
-        {slots.default?.()}
-      </RouterLink>
-    )
+  props: {
+    onClick: {
+      type: Function,
+      default: () => {
+        /*  */
+      }
+    }
+  },
+  setup() {
+    return function(this: any) {
+      return (
+        <div onClick={this.onClick} class="link-line">
+          {this.$slots.default?.()}
+        </div>
+      )
+    }
   }
 })
 
@@ -41,18 +51,27 @@ export const ExternalLightLink = defineComponent({
 })
 
 export const AuthLink = defineComponent({
+  props: {
+    onClick: {
+      type: Function,
+      default: () => {
+        /*  */
+      }
+    },
+    icon: String
+  },
   setup(props: any, { slots }) {
     return () => (
-      <RouterLink {...props} class="link-auth" tag="div">
+      <div {...props} class="link-auth" tag="div" onClick={props.onClick}>
         <div class="link-auth__icon">
           <icon icon={props.icon} color="#666" size={22}></icon>
         </div>
         <span>{slots.default?.()}</span>
-      </RouterLink>
+      </div>
     )
   }
 })
-;[Link, LightLink, AuthLink].forEach(component => {
+;[LightLink, AuthLink].forEach(component => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   component.props = { ...RouterLink.props, type: String }

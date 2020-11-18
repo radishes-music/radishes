@@ -1,13 +1,12 @@
-import { defineComponent, inject, reactive } from 'vue'
-import { Button } from './component/Button'
-import './component/auth.less'
-import { AuthLink } from './component/Link'
-import { InputField } from './component/InputField'
-import { AUTH_TYPE } from './constant'
+import { defineComponent, reactive, inject } from 'vue'
+import { Button } from '../component/button'
+import '../component/auth-view/index.less'
+import { InputField } from '../component/input-field'
+import { AUTH_TYPE } from '../constant'
 
 // TODO As there is no plug-in for area code selection in line with Chinese values, only + 86 is supported for the moment
-export const Signup = defineComponent({
-  name: 'Signup',
+export const ResetPwd = defineComponent({
+  name: 'ResetPwd',
   setup() {
     const state = reactive({
       errorMsg: ''
@@ -67,24 +66,12 @@ export const Signup = defineComponent({
             console.log('click')
           }}
         >
-          注册
+          下一步
         </Button>
 
-        <div class="signup-others">
-          <div class="signup-others__label">
-            <span>其他注册方式</span>
-          </div>
-          <div class="others">
-            <AuthLink to="/" icon="wangyi">
-              网易邮箱
-            </AuthLink>
-          </div>
-        </div>
         <div
-          style={{ textAlign: 'center', color: '#333' }}
-          onClick={() => {
-            authUtil.to(AUTH_TYPE.PHONE_LOGIN)
-          }}
+          class="auth-back"
+          onClick={() => authUtil.to(AUTH_TYPE.PHONE_LOGIN)}
         >{`< 返回登录`}</div>
       </>
     )
