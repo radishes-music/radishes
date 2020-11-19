@@ -58,6 +58,8 @@
 - docs 文档/注释
 - chore 依赖更新/脚手架配置修改等
 
+[rules](https://github.com/conventional-changelog/commitlint/blob/master/%40commitlint/config-conventional/index.js)
+
 提交模式如下：  
 `type(scope?): subject`
 
