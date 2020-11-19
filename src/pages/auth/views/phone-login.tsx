@@ -2,8 +2,7 @@ import { defineComponent, reactive, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import { Toast } from 'vant'
 import { Button } from '../component/button'
-
-import { Link, ExternalLightLink, AuthLink } from '../component/link'
+import { Link, AuthLink } from '../component/link'
 import { InputField } from '../component/input-field'
 import { AUTH_TYPE, PROVIDER_AUTH_UTIL, TERMS } from '../constant'
 import { doPhoneLogin, LoginRes } from '../api'
@@ -184,16 +183,20 @@ export const PhoneLogin = defineComponent({
           <span>同意</span>
           <div class="vchj">
             {TERMS.map((info: any) => (
-              <ExternalLightLink to={info.link} key={info.name}>
+              <Link to={info.link} key={info.name} external type="light">
                 {info.name}
-              </ExternalLightLink>
+              </Link>
             ))}
           </div>
         </div>
         <div class="auth-view__clause">
-          <ExternalLightLink to="https://github.com/Linkontoask/radishes">
+          <Link
+            to="https://github.com/Linkontoask/radishes"
+            external
+            type="light"
+          >
             《radishes条款》
-          </ExternalLightLink>
+          </Link>
         </div>
       </>
     )

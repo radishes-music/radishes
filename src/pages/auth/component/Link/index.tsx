@@ -1,52 +1,71 @@
 import { defineComponent } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, RouteLocationRaw } from 'vue-router'
 import './index.less'
+
+const RouterLinkProps = {
+  to: {
+    type: [String, Object],
+    default: ''
+  },
+  activeClass: String,
+  // inactiveClass: String,
+  exactActiveClass: String,
+  custom: Boolean,
+  ariaCurrentValue: {
+    type: String,
+    default: 'page'
+  }
+}
 
 export const Link = defineComponent({
   props: {
+    ...RouterLinkProps,
+    external: {
+      type: Boolean,
+      default: false
+    },
+    type: {
+      type: String,
+      default: 'line'
+    },
     onClick: {
       type: Function,
-      default: () => {
-        /*  */
+      default: null
+    }
+  },
+  render() {
+    const classText = `link-${this.type}`
+
+    const onClick = (e: any) => {
+      if (this.onClick) {
+        e.preventDefault()
+        this.onClick()
       }
     }
-  },
-  setup() {
-    return function(this: any) {
+
+    if (this.external) {
       return (
-        <div onClick={this.onClick} class="link-line">
+        <a
+          href={this.to as string}
+          class={classText}
+          target="_blank"
+          onClick={onClick}
+        >
           {this.$slots.default?.()}
-        </div>
-      )
-    }
-  }
-})
-
-// TODO 突然觉得这么写毫无意义，返回的就是一个纯粹的render 函数...，它依旧可以绑定上下文
-export const LightLink = defineComponent({
-  setup(props: any) {
-    return function(this: any) {
-      return (
-        <RouterLink {...props} class="link-light">
-          {this.$slots.default()}
-        </RouterLink>
-      )
-    }
-  }
-})
-
-export const ExternalLightLink = defineComponent({
-  props: {
-    to: String
-  },
-  setup(props) {
-    return function(this: any) {
-      return (
-        <a href={this.to} class="link-light" target="_blank">
-          {this.$slots.default()}
         </a>
       )
     }
+    return (
+      <RouterLink
+        to={this.to as RouteLocationRaw}
+        class={classText}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        onClick={onClick}
+      >
+        {this.$slots.default?.()}
+      </RouterLink>
+    )
   }
 })
 
@@ -71,9 +90,5 @@ export const AuthLink = defineComponent({
     )
   }
 })
-;[LightLink, AuthLink].forEach(component => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
-  component.props = { ...RouterLink.props, type: String }
-})
+
 AuthLink.props = { ...AuthLink.props, icon: String }

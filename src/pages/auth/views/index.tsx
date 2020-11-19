@@ -4,13 +4,14 @@ import {
   reactive,
   Transition,
   provide,
-  watch
+  watch,
+  KeepAlive
 } from 'vue'
 import { useAuth } from '@/hooks/auth'
-import { PhoneLogin } from './PhoneLogin'
-import { ResetPwd } from './ResetPwd'
-import { Signup } from './Signup'
-import { EmailLogin } from './EmailLogin'
+import { PhoneLogin } from './phone-login'
+import { ResetPwd } from './reset-pwd'
+import { Signup } from './signup'
+import { EmailLogin } from './email-login'
 import { AuthView } from '../component/auth-view'
 import { AUTH_TYPE, PROVIDER_AUTH_UTIL } from '../constant'
 
@@ -46,9 +47,11 @@ export const AuthBox = defineComponent({
       <Transition name="fade">
         {isShow.value ? (
           <AuthView>
-            <Transition name="fade">
+            {/* <Transition name="fade"> */}
+            <KeepAlive>
               <Component.value></Component.value>
-            </Transition>
+            </KeepAlive>
+            {/* </Transition> */}
           </AuthView>
         ) : null}
       </Transition>

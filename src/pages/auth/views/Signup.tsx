@@ -22,7 +22,7 @@ export const Signup = defineComponent({
     return () => (
       <>
         <div class="vh-center auth-view__icon">
-          <icon icon="diepian" color="rgb(242,156,159)" size="96" />
+          <icon icon="diepian" color="rgb(242,156,159)" size={96} />
         </div>
         <div class="auth-view__inputbox">
           <InputField

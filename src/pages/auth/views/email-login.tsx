@@ -53,7 +53,7 @@ export const EmailLogin = defineComponent({
     return () => (
       <>
         <div class="vh-center auth-view__icon">
-          <icon icon="mail" color={leakThemeColor} size="96" />
+          <icon icon="mail" color={leakThemeColor} size={96} />
         </div>
         <div class="auth-view__inputbox">
           <InputField

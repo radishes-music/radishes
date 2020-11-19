@@ -9,7 +9,7 @@ import { hook } from './hook'
 import { $404 } from '@/pages/404/view/index'
 import { FindMusic, Recommend, SongList } from '@/pages/news/index'
 import { Video, Mv } from '@/pages/video/index'
-import { Profile } from './../pages/auth/views/Profile'
+import { Profile } from './../pages/auth/views/profile'
 import { ENV } from '@/interface/app'
 import { Platform } from '@/config/build'
 
