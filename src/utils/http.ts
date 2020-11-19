@@ -1,11 +1,15 @@
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { ENV } from '@/interface/app'
 import { Platform } from '@/config/build'
 
 // https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/guide.html#serve-command
 // The electron build process is in development mode
-const isDevelopment = process.env.VUE_APP_NODE_ENV === 'development'
-const { VUE_APP_PLATFORM, VUE_APP_BUILD_BASE_URL } = window as ENV
+const {
+  VUE_APP_PLATFORM,
+  VUE_APP_BUILD_BASE_URL,
+  VUE_APP_NODE_ENV
+} = process.env
+
+const isDevelopment = VUE_APP_NODE_ENV === 'development'
 
 const baseURL =
   VUE_APP_PLATFORM === Platform.ELECTRON

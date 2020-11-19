@@ -10,18 +10,17 @@ import classnames from 'classnames'
 import { Header } from '@/pages/header/view/index'
 import { Main } from '@/pages/main/view/index'
 import { Footer } from '@/pages/footer/view/index'
-import { ENV } from '@/interface/app'
 import { useDrag, uesModuleStore } from '@/hooks/index'
 import { State, Size, NAMESPACED } from './module'
 import { RecommendNameSpaced } from '@/modules/index'
 import {
   State as RecommendState,
   Mutations
-} from '@/pages/find-new-music/children/recommend/module'
+} from '@/pages/news/children/recommend/module'
 import { Platform } from '@/config/build'
 import './container.less'
 
-const { VUE_APP_PLATFORM } = window as ENV
+const { VUE_APP_PLATFORM } = process.env
 
 export const Container = defineComponent({
   name: 'Container',
@@ -90,9 +89,9 @@ export const Container = defineComponent({
           }
         )}
       >
-        <Header ref={target}></Header>
-        <Main></Main>
-        <Footer></Footer>
+        <Header ref={target} />
+        <Main />
+        <Footer />
       </div>
     )
   }

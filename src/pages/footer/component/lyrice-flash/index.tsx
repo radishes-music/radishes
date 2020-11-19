@@ -1,14 +1,13 @@
 import { defineComponent, toRefs, ref, onMounted, PropType } from 'vue'
 import { useDrag } from '@/hooks/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
-import { ENV } from '@/interface/app'
 import { Size } from '@/layout/module'
 import { Getter } from '@/pages/footer/module'
 import classnames from 'classnames'
 import './index.less'
 import { Platform } from '@/config/build'
 
-const { VUE_APP_PLATFORM } = window as ENV
+const { VUE_APP_PLATFORM } = process.env
 
 export const LyriceFlash = defineComponent({
   name: 'LyriceFlash',

@@ -1,6 +1,5 @@
 import { defineComponent, ref } from 'vue'
 import { Action } from '@/electron/event/action-types'
-import { ENV } from '@/interface/app'
 import { importIpc } from '@/electron/event/ipc-browser'
 import { Logo } from '../component/logo'
 import { PushShift } from '../component/push-shift'
@@ -11,10 +10,9 @@ import { NAMESPACED, State, LayoutActions } from '@/layout/module'
 import { Platform } from '@/config/build'
 import './index.less'
 
-const { VUE_APP_PLATFORM } = window as ENV
+const { VUE_APP_PLATFORM } = process.env
 const actionToClass = {
   [Action.CLOSE_WINDOW]: '',
-  [Action.CREATE_WINDOW]: '',
   [Action.MAXIMIZE_WINDOW]: 'lg',
   [Action.MINIMIZE_WINDOW]: 'sm',
   [Action.RESTORE_WINDOW]: 'md'

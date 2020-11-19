@@ -1,7 +1,7 @@
 import Layout, { NAMESPACED as LayoutNameSpaced } from '@/layout/module'
 import Recommend, {
   NAMESPACED as RecommendNameSpaced
-} from '@/pages/find-new-music/children/recommend/module'
+} from '@/pages/news/children/recommend/module'
 import Header, { NAMESPACED as HeaderNameSpaced } from '@/pages/header/module'
 import Footer, { NAMESPACED as FooterNameSpaced } from '@/pages/footer/module'
 import Main, { NAMESPACED as MainNameSpaced } from '@/pages/main/module'

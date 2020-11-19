@@ -43,10 +43,8 @@ export const EmailLogin = defineComponent({
             $router.back()
           })
           .catch((e: any) => {
-            if (e.response?.status === 400) {
-              setErrorMsg('该手机号尚未注册')
-            } else if (e.code !== 200) {
-              setErrorMsg(e.msg)
+            if (e.code !== 200) {
+              setErrorMsg(e.msg || 'Invalid request')
             }
           })
       }

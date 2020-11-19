@@ -6,14 +6,14 @@ import {
 } from 'vue-router'
 import { ComponentPublicInstance } from 'vue'
 import { hook } from './hook'
-import { TestFull } from '@/pages/test/view/index'
-import { FindMusic, Recommend, SongList } from '@/pages/find-new-music/index'
+import { $404 } from '@/pages/404/view/index'
+import { FindMusic, Recommend, SongList } from '@/pages/news/index'
 import { Video, Mv } from '@/pages/video/index'
 import { Profile } from './../pages/auth/views/Profile'
 import { ENV } from '@/interface/app'
 import { Platform } from '@/config/build'
 
-const { VUE_APP_PLATFORM } = window as ENV
+const { VUE_APP_PLATFORM } = process.env
 
 export interface Meta {
   name?: string
@@ -31,12 +31,16 @@ export const LYRICE_PATH = '/electron-lyrice-flash'
 // Internationalization is not currently supported
 const baseRouter: RouteRecordRaw[] = [
   {
-    path: '/',
-    redirect: '/music'
+    path: '/:pathMatch(.*)', // https://next.router.vuejs.org/guide/migration/#removed-star-or-catch-all-routes
+    name: $404.name,
+    meta: {
+      full: true
+    },
+    component: $404
   },
   {
-    path: '/403',
-    component: TestFull
+    path: '/',
+    redirect: '/music'
   }
 ]
 
@@ -81,7 +85,6 @@ export const navRouter: RouteRecordRaw[] = [
   {
     path: '/video',
     component: Video,
-    name: Video.name,
     meta: {
       name: '视频'
     },

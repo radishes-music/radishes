@@ -12,11 +12,10 @@ import {
 import './index.less'
 import { Platform } from '@/config/build'
 import { importIpc } from '@/electron/event/ipc-browser'
-import { Action } from '@/electron/event/action-types'
-import { ENV } from '@/interface/app'
+import { MiddlewareView } from '@/electron/event/action-types'
 
 const prefix = 'music'
-const { VUE_APP_PLATFORM } = window as ENV
+const { VUE_APP_PLATFORM } = process.env
 
 export const MusicControl = defineComponent({
   name: 'MusicControl',
@@ -71,7 +70,7 @@ export const MusicControl = defineComponent({
       if (VUE_APP_PLATFORM === Platform.ELECTRON) {
         importIpc()
           .then(event => {
-            event.sendAsyncIpcRendererEvent(Action.CREATE_WINDOW)
+            event.sendAsyncIpcRendererEvent(MiddlewareView.CREATE_WINDOW)
           })
           .catch(e => {
             console.log(e)

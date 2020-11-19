@@ -6,10 +6,15 @@ and then process some things that the main process can handle (for example, chan
 */
 
 import { ipcRenderer } from 'electron'
-import { Action, LyriceAction, UpdateType } from '../action-types'
+import {
+  Action,
+  MiddlewareView,
+  LyriceAction,
+  UpdateType
+} from '../action-types'
 
 type Message = unknown
-type ActionType = Action | LyriceAction | UpdateType
+type ActionType = Action | MiddlewareView | LyriceAction | UpdateType
 
 export function sendAsyncIpcRendererEvent(
   action: ActionType,
