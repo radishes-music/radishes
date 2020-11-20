@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { reactive } from 'vue'
 export const useHttp = (fetchFn: Function): any => {
   const state = reactive({

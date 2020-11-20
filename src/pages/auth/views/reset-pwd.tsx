@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/camelcase,vue/require-default-prop,@typescript-eslint/ban-ts-ignore*/
 import { defineComponent, reactive, inject } from 'vue'
 import { Button } from '../component/button'
 import '../component/auth-view/index.less'
 import { InputField } from '../component/input-field'
 import { AUTH_TYPE } from '../constant'
+import { inputColor, leakThemeColor, themeColor } from '../theme'
 
 // TODO As there is no plug-in for area code selection in line with Chinese values, only + 86 is supported for the moment
 export const ResetPwd = defineComponent({
@@ -12,16 +14,12 @@ export const ResetPwd = defineComponent({
       errorMsg: ''
     })
 
-    const leakThemeColor = '#f29c9f'
-    const inputColor = '#b8b8b8'
-    const themeColor = '#d33a31'
-
     const authUtil: any = inject('authUtil')
 
     return () => (
       <>
         <div class="vh-center auth-view__icon">
-          <icon icon="diepian" color="rgb(242,156,159)" size={96} />
+          <icon icon="diepian" color={leakThemeColor} size={96} />
         </div>
         <div class="auth-view__inputbox">
           <InputField
@@ -30,7 +28,7 @@ export const ResetPwd = defineComponent({
             v-slots={{
               left: () => (
                 <div class="country-code">
-                  <icon icon="shouji" size={18} color="#b8b8b8"></icon>
+                  <icon icon="shouji" size={18} color={inputColor}></icon>
                   <div class="country-code__num">+86</div>
                 </div>
               )
@@ -38,13 +36,12 @@ export const ResetPwd = defineComponent({
           ></InputField>
           <InputField
             placeholder="设置登陆密码，不少于6位"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             type="password"
             v-slots={{
               left: () => (
                 <div style="padding-left:8px;">
-                  <icon icon="suodakaimima" size={18} color="#b8b8b8"></icon>
+                  <icon icon="suodakaimima" size={18} color={inputColor}></icon>
                 </div>
               )
             }}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/camelcase,vue/require-default-prop,@typescript-eslint/ban-ts-ignore*/
 import { defineComponent, inject, reactive } from 'vue'
 import { Button } from '../component/button'
 import '../component/auth-view/index.less'
@@ -67,13 +68,11 @@ export const EmailLogin = defineComponent({
               )
             }}
             v-model={state.email}
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             onFocus={onFocus}
           ></InputField>
           <InputField
             placeholder="密码"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             type="password"
             v-slots={{

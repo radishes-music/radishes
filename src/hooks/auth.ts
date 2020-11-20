@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/camelcase */
 import { useRouter } from 'vue-router'
 import { computed } from 'vue'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore

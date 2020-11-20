@@ -7,25 +7,25 @@
     font-size: 16px;
     color: white;
     background-color: @auth-theme-color;
-    border-radius: 4px;
     border: none;
-    &:before {
+    border-radius: 4px;
+    &::before {
       position: absolute;
       top: 50%;
       left: 50%;
       width: 100%;
       height: 100%;
+      content: ' ';
       background-color: #000;
       border: inherit;
       border-color: #000;
       border-radius: inherit;
+      opacity: 0;
       -webkit-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-      opacity: 0;
-      content: ' ';
     }
     &:hover {
-      &:before {
+      &::before {
         opacity: 0.05;
       }
     }

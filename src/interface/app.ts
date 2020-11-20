@@ -1,6 +1,5 @@
 import { ComponentPublicInstance, App } from 'vue'
 import { FooterInteface, FindMusicInteface } from '@/pages/index'
-import { Platform } from '@/config/build'
 
 export interface Music extends ComponentPublicInstance {
   $app: App

@@ -35,20 +35,20 @@
     &-login {
       display: flex;
       align-items: center;
-      color: var(--secondary-text);
       padding: 10px 0;
+      color: var(--secondary-text);
       &:hover {
         color: var(--secondary-text-hover);
       }
-      &:after {
-        content: '';
+      &::after {
         display: block;
-        height: 0;
         width: 0;
-        border-left: 6px solid #8e8e8e;
+        height: 0;
+        margin-left: 6px;
+        content: '';
         border-top: 4px solid transparent;
         border-bottom: 4px solid transparent;
-        margin-left: 6px;
+        border-left: 6px solid #8e8e8e;
       }
       > span {
         padding-left: 8px;

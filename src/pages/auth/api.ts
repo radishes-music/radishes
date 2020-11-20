@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/camelcase */
 import Md5 from 'md5'
 import http from '@/utils/http'
 
@@ -18,7 +19,6 @@ export const doPhoneLogin = (
   http.get('/api/login/cellphone', {
     params: {
       phone: phone,
-      // eslint-disable-next-line
       md5_password: Md5(password)
     }
   })
@@ -29,7 +29,6 @@ export const doEmailLogin = (
   http.get('/api/login', {
     params: {
       email,
-      // eslint-disable-next-line @typescript-eslint/camelcase
       md5_password: Md5(password)
     }
   })

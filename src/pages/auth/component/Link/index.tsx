@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/camelcase,vue/require-default-prop,@typescript-eslint/ban-ts-ignore*/
 import { defineComponent } from 'vue'
 import { RouterLink, RouteLocationRaw } from 'vue-router'
 import './index.less'
@@ -59,7 +60,6 @@ export const Link = defineComponent({
       <RouterLink
         to={this.to as RouteLocationRaw}
         class={classText}
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         onClick={onClick}
       >

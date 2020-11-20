@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/camelcase */
 import { defineComponent } from 'vue'
 import './index.less'
 
