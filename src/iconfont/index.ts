@@ -2,4 +2,4 @@ import $script from 'scriptjs'
 import { noop } from '@/utils/index'
 
 // repair electron packaging '//' protocol problem
-$script('https://at.alicdn.com/t/font_2132275_qly69ylkk2.js', noop)
+$script('//at.alicdn.com/t/font_2132275_4xqehsvj03i.js', noop)

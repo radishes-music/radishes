@@ -22,7 +22,18 @@ export interface State {
 }
 
 export const state: State = {
-  songList: [],
+  songList: [
+    {
+      id: -1,
+      type: -1,
+      playCount: 0,
+      trackCount: 0,
+      name: '每日歌曲推荐',
+      copywriter: '每日歌曲推荐',
+      picUrl: '',
+      artists: []
+    }
+  ],
   banners: [],
   runningSwiper: true
 }

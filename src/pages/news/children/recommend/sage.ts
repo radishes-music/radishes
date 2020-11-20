@@ -20,7 +20,7 @@ export const actions: ActionTree<State, RootState> = {
     commit(Mutations.SET_BANNERS, banners)
   },
   async [Actions.SET_ACTION_SONG_LIST]({ commit }) {
-    const result = await getSongList(10)
+    const result = await getSongList(14)
     commit(Mutations.SET_SONG_LIST, result)
   }
 }
@@ -30,7 +30,7 @@ export const mutations: MutationTree<State> = {
     state.banners = banners
   },
   [Mutations.SET_SONG_LIST](state, song: Song[]) {
-    state.songList = song
+    state.songList = state.songList.slice(0, 1).concat(song)
   },
   [Mutations.SET_SWIPER_RINNING](state, running: boolean) {
     state.runningSwiper = running

@@ -1,5 +1,6 @@
 import { defineComponent, toRefs, PropType } from 'vue'
 import { FindMusicInteface } from '@/interface/index'
+import dayjs from 'dayjs'
 import './index.less'
 
 const prefix = 'song'
@@ -23,8 +24,20 @@ export const SongList = defineComponent({
                 <div
                   class={`${prefix}-pic-img`}
                   style={{ backgroundImage: `url(${song.picUrl})` }}
-                ></div>
-                <div class={`${prefix}-pic-count`}>{song.playCount}</div>
+                >
+                  {song.picUrl === '' && (
+                    <div class={`${prefix}-pic-img--date`}>
+                      <icon icon="rili" size={78}></icon>
+                      <div>{dayjs().date()}</div>
+                    </div>
+                  )}
+                </div>
+                <div
+                  v-show={song.playCount !== 0}
+                  class={`${prefix}-pic-count`}
+                >
+                  {song.playCount}
+                </div>
               </div>
               <div class={`${prefix}-title`}>{song.name}</div>
             </li>

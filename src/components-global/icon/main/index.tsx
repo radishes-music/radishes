@@ -28,17 +28,19 @@ export default defineComponent({
   setup(props) {
     const { icon, color, height, size } = toRefs(props)
     return () => (
-      <svg
-        class="icon"
-        aria-hidden="true"
-        style={{
-          width: size.value,
-          height: height?.value || size.value,
-          fill: color.value
-        }}
-      >
-        <use href={'#icon-' + icon.value}></use>
-      </svg>
+      <>
+        <svg
+          class="icon"
+          aria-hidden="true"
+          style={{
+            width: size.value,
+            height: height?.value || size.value,
+            fill: color.value
+          }}
+        >
+          <use href={'#icon-' + icon.value}></use>
+        </svg>
+      </>
     )
   }
 })

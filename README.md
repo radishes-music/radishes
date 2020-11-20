@@ -107,3 +107,4 @@
 - [vue-cli jsx](https://github.com/vuejs/jsx-next/blob/dev/packages/babel-plugin-jsx/README-zh_CN.md)
 - [nativescript vue 3 issues](https://github.com/nativescript-vue/nativescript-vue/issues/583)
 - [browser module](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)
+- [dayjs](https://day.js.org/docs/zh-CN/installation/installation)
