@@ -26,7 +26,7 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "commit-msg": "yarn lint && commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "license": "MIT",
