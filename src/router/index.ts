@@ -9,6 +9,7 @@ import { hook } from './hook'
 import { $404 } from '@/pages/404/view/index'
 import { FindMusic, Recommend, SongList } from '@/pages/news/index'
 import { Video, Mv } from '@/pages/video/index'
+import { Profile } from './../pages/auth/views/profile'
 import { Platform } from '@/config/build'
 
 const { VUE_APP_PLATFORM } = process.env
@@ -43,6 +44,15 @@ const baseRouter: RouteRecordRaw[] = [
 ]
 
 export const navRouter: RouteRecordRaw[] = [
+  {
+    path: '/profile',
+    component: Profile,
+    name: Profile.name,
+    meta: {
+      auth: true,
+      nonav: true
+    }
+  },
   {
     path: '/music',
     component: FindMusic,

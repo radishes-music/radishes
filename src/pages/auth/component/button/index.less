@@ -1,0 +1,33 @@
+@auth-theme-color: #d33a31;
+
+.van-button {
+  &.auth-button {
+    height: auto;
+    padding: 10px 0;
+    font-size: 16px;
+    color: white;
+    background-color: @auth-theme-color;
+    border: none;
+    border-radius: 4px;
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      content: ' ';
+      background-color: #000;
+      border: inherit;
+      border-color: #000;
+      border-radius: inherit;
+      opacity: 0;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+    &:hover {
+      &::before {
+        opacity: 0.05;
+      }
+    }
+  }
+}

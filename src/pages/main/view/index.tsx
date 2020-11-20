@@ -1,6 +1,7 @@
 import { defineComponent } from 'vue'
 import { Sidebar } from '@/pages/sidebar/view/index'
 import './index.less'
+import { AuthBox } from '../../auth/views'
 
 export const Main = defineComponent({
   name: 'Main',
@@ -12,6 +13,7 @@ export const Main = defineComponent({
           <router-view></router-view>
         </div>
         {/* Store the content that needs to be displayed in the main content area, and cover the default content */}
+        <AuthBox></AuthBox>
       </div>
     )
   }
