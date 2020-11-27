@@ -2,6 +2,9 @@ import { defineComponent, ref } from 'vue'
 import { importIpc } from '@/electron/event/ipc-browser'
 import { MiddlewareView } from '@/electron/event/action-types'
 import './setting.less'
+import { Platform } from '@/config/build'
+
+const { VUE_APP_PLATFORM } = process.env
 
 export const Setting = defineComponent({
   name: 'Setting',
@@ -18,12 +21,14 @@ export const Setting = defineComponent({
       this.visibleColor = false
       document.documentElement.style.setProperty('--base-color', value)
       document.documentElement.style.setProperty('--primary-theme-text', value)
-      importIpc().then(event => {
-        event.sendAsyncIpcRendererEvent(
-          MiddlewareView.UPDATE_THEME_COLOR,
-          value
-        )
-      })
+      if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+        importIpc().then(event => {
+          event.sendAsyncIpcRendererEvent(
+            MiddlewareView.UPDATE_THEME_COLOR,
+            value
+          )
+        })
+      }
     }
     const { color } = this
     const ColorPicker = {

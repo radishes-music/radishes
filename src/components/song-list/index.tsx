@@ -1,9 +1,12 @@
 import { defineComponent, toRefs, PropType } from 'vue'
 import { FindMusicInteface } from '@/interface/index'
+import { formatCount } from '@/utils/index'
 import dayjs from 'dayjs'
 import './index.less'
 
 const prefix = 'song'
+
+export type Handle = 'click' | 'mouseenter'
 
 export const SongList = defineComponent({
   name: 'SongList',
@@ -11,15 +14,25 @@ export const SongList = defineComponent({
     songData: {
       type: Object as PropType<FindMusicInteface.Song[]>,
       required: true
+    },
+    handle: {
+      type: Function as PropType<(type: Handle, payload?: unknown) => void>,
+      required: true
     }
   },
   setup(props) {
-    const { songData } = toRefs(props)
+    const { songData, handle } = toRefs(props)
+    const clickHandle = (song: FindMusicInteface.Song) => {
+      handle.value('click', song)
+    }
     return () => (
       <div class={`${prefix}-list`}>
         <ul>
           {songData.value.map(song => (
-            <li class={`${prefix}-list-container`}>
+            <li
+              class={`${prefix}-list-container`}
+              onClick={() => clickHandle(song)}
+            >
               <div class={`${prefix}-pic`}>
                 <div
                   class={`${prefix}-pic-img`}
@@ -36,7 +49,7 @@ export const SongList = defineComponent({
                   v-show={song.playCount !== 0}
                   class={`${prefix}-pic-count`}
                 >
-                  {song.playCount}
+                  {formatCount(song.playCount)}
                 </div>
               </div>
               <div class={`${prefix}-title`}>{song.name}</div>

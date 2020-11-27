@@ -78,6 +78,17 @@ export const toFixed = (n: number, m: number) => {
   return null
 }
 
+export const formatCount = (count: number): string => {
+  let res = count,
+    n = 0
+  const unit = ['', '万', '亿']
+  while (res > 1e4) {
+    res /= 1e4
+    n++
+  }
+  return (res | 0) + unit[n]
+}
+
 export const sleep = (n: number) => {
   return new Promise(resolve => {
     setTimeout(() => {

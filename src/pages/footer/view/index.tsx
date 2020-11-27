@@ -86,8 +86,8 @@ export const Footer = defineComponent({
           {/* {<PlayLyrice visible={visibleLyrice.value}></PlayLyrice>} */}
         </div>
         <div class="footer-right">
-          <MusicControl></MusicControl>
-          <VolumeAndHistory></VolumeAndHistory>
+          <MusicControl />
+          <VolumeAndHistory />
         </div>
         <div class="footer-reduction">
           <ve-button

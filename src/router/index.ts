@@ -43,6 +43,13 @@ const baseRouter: RouteRecordRaw[] = [
   }
 ]
 
+const contentRouter: RouteRecordRaw[] = [
+  {
+    path: '/song-list/:playlist',
+    component: () => import('@/pages/song/view/index')
+  }
+]
+
 export const navRouter: RouteRecordRaw[] = [
   {
     path: '/profile',
@@ -183,7 +190,7 @@ const router = createRouter({
     VUE_APP_PLATFORM === Platform.BROWSER
       ? createWebHistory(process.env.BASE_URL)
       : createWebHashHistory(process.env.BASE_URL),
-  routes: baseRouter.concat(navRouter)
+  routes: baseRouter.concat(navRouter, contentRouter)
 })
 
 hook(router)
