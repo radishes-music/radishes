@@ -46,6 +46,20 @@ export const Header = defineComponent({
       }
     }
 
+    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+      window.addEventListener('resize', () => {
+        importIpc().then(event => {
+          const win = event.getWindow()
+          if (win) {
+            const isMax = win.isMaximized()
+            isMax
+              ? (windowSize.value = 'shrink')
+              : (windowSize.value = 'enlarge')
+          }
+        })
+      })
+    }
+
     return () => (
       <header class="header">
         <Logo></Logo>

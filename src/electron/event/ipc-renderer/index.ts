@@ -5,13 +5,15 @@ Usually used in the rendering process to send information to the main process,
 and then process some things that the main process can handle (for example, changing the window, reading notifications)
 */
 
-import { ipcRenderer } from 'electron'
+import { ipcRenderer, remote, BrowserWindow } from 'electron'
 import {
   Action,
   MiddlewareView,
   LyriceAction,
   UpdateType
 } from '../action-types'
+
+export const getWindow = () => remote.BrowserWindow.getFocusedWindow()
 
 type Message = unknown
 type ActionType = Action | MiddlewareView | LyriceAction | UpdateType
@@ -33,4 +35,5 @@ export function sendSyncIpcRendererEvent<T>(
 export interface IpcRenderer {
   sendAsyncIpcRendererEvent: (action: ActionType, ...message: Message[]) => void
   sendSyncIpcRendererEvent: <T>(action: ActionType, ...message: Message[]) => T
+  getWindow: () => BrowserWindow | null
 }

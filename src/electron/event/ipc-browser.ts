@@ -4,7 +4,8 @@ export const importIpc = () => {
   return import('@/electron/event/ipc-renderer').then((v: IpcRenderer) => {
     return {
       sendAsyncIpcRendererEvent: v.sendAsyncIpcRendererEvent,
-      sendSyncIpcRendererEvent: v.sendSyncIpcRendererEvent
+      sendSyncIpcRendererEvent: v.sendSyncIpcRendererEvent,
+      getWindow: v.getWindow
     }
   })
 }
