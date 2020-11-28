@@ -24,9 +24,9 @@ export interface SongsDetail extends GlobalBase {
   dt: number // duration
   al: {
     picUrl: string
-  }
-  ar: GlobalBase[]
+  } & GlobalBase
   mv: number // mv id
+  ar: Artists[]
   lrc: {
     version: number
     lyric: string

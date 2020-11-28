@@ -1,16 +1,12 @@
-import { Artists, Albums, SongsDetail } from '@/interface/index'
-import { AudioType, BackgroundAudio } from './component/music-controller/audio'
+import { SongsDetail } from '@/interface/index'
 import { PostData } from './component/lyrice-flash/electron-lyrice'
 import { Size } from '@/layout/module'
+import { storage } from '@/utils/index'
+import { LocalKey } from './sage'
 
-export interface Music {
-  id: number
-  name: string
-  url: string
-  picUrl: string
-  artists: Artists
-  albums: Albums
-}
+const { get } = storage()
+
+export type Music = SongsDetail
 
 export interface Lyrics {
   time: number
@@ -19,12 +15,12 @@ export interface Lyrics {
 }
 
 export interface State {
-  audio: AudioType
+  // audio: AudioType
   music?: SongsDetail
   musicUrl: string
   musicLyricsOrigin: string
-  musciHistory: Music[]
-  musicStack: Music[]
+  musciHistory: SongsDetail[]
+  musicStack: SongsDetail[]
   currentTime: number
   playing: boolean
   canplay: boolean
@@ -35,15 +31,21 @@ export interface State {
 }
 
 export const state: State = {
-  audio: new BackgroundAudio(),
+  // audio: new BackgroundAudio(),
   musicUrl: '',
   musicLyricsOrigin: '',
-  musciHistory: [],
-  musicStack: [],
+  musciHistory:
+    ((get(LocalKey.MUSIC_HISTORY, {
+      parser: 'object'
+    }) as unknown) as SongsDetail[]) || [],
+  musicStack:
+    ((get(LocalKey.MUSIC_HISTORY, {
+      parser: 'object'
+    }) as unknown) as SongsDetail[]) || [],
   currentTime: 0,
   playing: false,
   canplay: false,
-  audioElement: new Audio(),
+  audioElement: null,
   sourceElement: null,
   visibleFlash: false,
   electronLyrice: {

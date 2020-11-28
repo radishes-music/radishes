@@ -96,7 +96,9 @@ export const BrowserLyriceFlash = defineComponent({
       })
       watch(index, v => {
         ipcUpdateLyrice(UpdateType.UPDATE_INDEX, v)
-        ipcUpdateLyrice(UpdateType.UPDATE_LYRICE, lyrice.value)
+      })
+      watch(lyrice, v => {
+        ipcUpdateLyrice(UpdateType.UPDATE_LYRICE, v)
       })
       watch(playing, v => {
         ipcUpdateLyrice(UpdateType.UPDATE_PLAYING, v)

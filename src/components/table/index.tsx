@@ -10,12 +10,16 @@ export const Table = defineComponent({
   name: 'Table',
   props: {
     list: {
-      type: Array as PropType<SongInteface.Tracks[]>,
+      type: Array as PropType<unknown[]>,
       required: true
     },
     columns: {
       type: Array as PropType<{}[]>,
       required: true
+    },
+    showHeader: {
+      type: Boolean as PropType<boolean>,
+      default: true
     },
     onDblClick: {
       type: Function as PropType<(item: SongInteface.Tracks) => void>,
@@ -23,7 +27,7 @@ export const Table = defineComponent({
     }
   },
   setup(props) {
-    const { list, columns, onDblClick } = toRefs(props)
+    const { list, columns, onDblClick, showHeader } = toRefs(props)
 
     return () => (
       <div class={`${prefix}`}>
@@ -32,6 +36,7 @@ export const Table = defineComponent({
           <ATable
             rowKey="id"
             pagination={false}
+            showHeader={showHeader.value}
             columns={columns.value}
             dataSource={list.value}
             customRow={record => {

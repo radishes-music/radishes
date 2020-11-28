@@ -9,6 +9,7 @@ import {
 } from '@/electron/event/action-types'
 import { ErrorBoundary } from '@/components/error-boundary/index'
 import { isEqual } from 'lodash'
+import './electron-lyrice.less'
 
 import { ipcRenderer } from 'electron'
 
@@ -68,7 +69,6 @@ export default defineComponent({
               (payload as PostData['lyrice']).length !== 0 &&
               !isEqual(payload, postData.lyrice)
             ) {
-              console.log(payload)
               postData.lyrice = payload as PostData['lyrice']
             }
             break
@@ -86,14 +86,16 @@ export default defineComponent({
 
     return () => (
       <ErrorBoundary ref="ErrorBoundary">
-        <LyriceFlash
-          screenSize={postData.screenSize}
-          visibleFlash={postData.visibleFlash}
-          lyrice={postData.lyrice}
-          index={postData.index}
-          playing={postData.playing}
-          flashMagic={postData.flashMagic}
-        ></LyriceFlash>
+        <div class="lyrice" onClick={() => console.log('click')}>
+          <LyriceFlash
+            screenSize={postData.screenSize}
+            visibleFlash={postData.visibleFlash}
+            lyrice={postData.lyrice}
+            index={postData.index}
+            playing={postData.playing}
+            flashMagic={postData.flashMagic}
+          ></LyriceFlash>
+        </div>
       </ErrorBoundary>
     )
   }

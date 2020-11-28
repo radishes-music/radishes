@@ -54,6 +54,11 @@ function createWindow() {
     win && win.show()
   })
 
+  // https://github.com/electron/electron/issues/26726
+  win.on('system-context-menu', e => {
+    e.preventDefault()
+  })
+
   win.on('closed', () => {
     win = null
   })

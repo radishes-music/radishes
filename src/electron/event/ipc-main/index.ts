@@ -42,6 +42,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
         transparent: true,
         resizable: false,
         alwaysOnTop: true,
+        acceptFirstMouse: true,
         webPreferences: {
           nodeIntegration: true
         }
@@ -52,7 +53,13 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
         syrice.loadURL('app://./lyrice.html')
       }
       syrice.once('ready-to-show', () => {
-        syrice && syrice.show()
+        if (syrice) {
+          syrice.show()
+          syrice.webContents.send(LyriceAction.LYRICE_UPDATE_RENDER, {
+            type: UpdateType.UPDATE_LYRICE,
+            payload: arg
+          })
+        }
       })
       syrice.on('closed', () => {
         syrice = null

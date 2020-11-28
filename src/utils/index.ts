@@ -22,11 +22,78 @@ export const timeTos = (time: string): number => {
   )
 }
 
-export function hasOwnProperty<X extends {}, Y extends PropertyKey>(
+export const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
   obj: X,
   prop: Y
-): obj is X & Record<Y, unknown> {
+): obj is X & Record<Y, unknown> => {
   return Reflect.hasOwnProperty.call(obj, prop)
+}
+
+export const isNumber = (n: unknown) => {
+  return Object.prototype.toString.call(n) === '[object Number]'
+}
+
+export const toFixed = (n: number, m: number) => {
+  if (typeof n === 'number') {
+    return Number(n.toFixed(m))
+  }
+  return null
+}
+
+export const formatCount = (count: number): string => {
+  let res = count,
+    n = 0
+  const unit = ['', '万', '亿']
+  while (res > 1e4) {
+    res /= 1e4
+    n++
+  }
+  return (res | 0) + unit[n]
+}
+
+export const sleep = (n: number) => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, n)
+  })
+}
+
+export type Reverse<T> = (arg: any) => T
+export type ParserTarget = string | boolean | number | null | 'object'
+export interface StorageOption {
+  parser: ParserTarget
+}
+
+export const parserData = (target: string | null, type: ParserTarget) => {
+  if (target) {
+    switch (type) {
+      case 'number':
+        return +target
+      case 'object':
+        return JSON.parse(target)
+    }
+
+    return target
+  }
+  return null
+}
+
+export const storage = () => {
+  return {
+    get: (key: string, option?: StorageOption) => {
+      if (option?.parser) {
+        return parserData(window.localStorage.getItem(key), option.parser)
+      }
+      return window.localStorage.getItem(key)
+    },
+    set: (key: string, value: string | number) => {
+      if (typeof value === 'number') {
+        value = value.toString()
+      }
+      window.localStorage.setItem(key, value)
+    }
+  }
 }
 
 export function on<T extends keyof ElectronWindowEventMap>(
@@ -65,36 +132,6 @@ export function off<T extends keyof HTMLElementEventMap>(
 ): void
 export function off(container: any, type: any, listener: (ev: any) => void) {
   container.removeEventListener(type, listener)
-}
-
-export const isNumber = (n: unknown) => {
-  return Object.prototype.toString.call(n) === '[object Number]'
-}
-
-export const toFixed = (n: number, m: number) => {
-  if (typeof n === 'number') {
-    return Number(n.toFixed(m))
-  }
-  return null
-}
-
-export const formatCount = (count: number): string => {
-  let res = count,
-    n = 0
-  const unit = ['', '万', '亿']
-  while (res > 1e4) {
-    res /= 1e4
-    n++
-  }
-  return (res | 0) + unit[n]
-}
-
-export const sleep = (n: number) => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve()
-    }, n)
-  })
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function

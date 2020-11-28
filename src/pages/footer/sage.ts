@@ -1,8 +1,16 @@
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
-import { isNumber, timeTos, toFixed } from '@/utils/index'
+import { isNumber, timeTos, toFixed, storage } from '@/utils/index'
 import { getSongUrl, getSongDetail, getLyric } from './api/index'
 import { State, Getter } from './state'
 import { RootState } from '@/store/index'
+import { toRaw } from 'vue'
+
+const { get, set } = storage()
+
+export const enum LocalKey {
+  VOLUME = 'volume',
+  MUSIC_HISTORY = 'music_history'
+}
 
 export const enum Actions {
   SET_MUSIC = 'SET_MUSIC_URL',
@@ -55,7 +63,10 @@ export const getters: GetterTree<State, RootState> = {
     })
   },
   volume(state) {
-    return state.audioElement?.volume
+    const volume = get(LocalKey.VOLUME, {
+      parser: 'number'
+    })
+    return volume || state.audioElement?.volume
   },
   duration(state, getter: Getter) {
     const dt = getter.musicDetail.dt
@@ -104,7 +115,12 @@ export const getters: GetterTree<State, RootState> = {
         const author = state.music.ar
         if (author[0]) {
           const title = state.music.name
-          dominateMediaSession(title, author[0].name, '', state.music.al.picUrl)
+          dominateMediaSession(
+            title,
+            author.map(o => o.name).join(' / '),
+            '',
+            state.music.al.picUrl
+          )
           return {
             author: author[0].name,
             title: title
@@ -139,11 +155,25 @@ export const actions: ActionTree<State, RootState> = {
     const data = await getSongDetail(id)
     if (data.length) {
       state.music = data[0]
+      const isRepeat = state.musicStack.find(
+        music => music.id === state.music?.id
+      )
+      if (!isRepeat) {
+        state.musicStack.push(state.music)
+        state.musciHistory.push(state.music)
+        set(LocalKey.MUSIC_HISTORY, JSON.stringify(toRaw(state.musciHistory)))
+      }
+
+      console.log(state.music)
     }
   },
   async [Actions.SET_MUSIC_LYRICS]({ state }, id: number) {
-    const lyrics = await getLyric(id)
-    state.musicLyricsOrigin = lyrics
+    try {
+      const lyrics = await getLyric(id)
+      state.musicLyricsOrigin = lyrics
+    } catch (e) {
+      console.warn(e)
+    }
   }
 }
 
@@ -179,6 +209,7 @@ export const mutations: MutationTree<State> = {
   [Mutations.SET_VOLUME](state, volume: number) {
     if (state.audioElement) {
       state.audioElement.volume = volume
+      set(LocalKey.VOLUME, volume)
     }
   },
   [Mutations.VISIBLE_FLASH](state, visible: boolean) {

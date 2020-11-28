@@ -1,22 +1,14 @@
-import { Avatar, GlobalBase } from '@/interface/index'
+import { Avatar, GlobalBase, SongsDetail } from '@/interface/index'
 
 type Merage<P, T = {}> = P & T
 export type RequiredPartial<P, T> = Merage<Required<P>, Partial<T>>
 
-export interface Tracks extends GlobalBase {
-  al: Merage<
-    {
-      picUrl: string
-    },
-    GlobalBase
-  >
-  ar: Merage<GlobalBase>[]
-}
+export type Tracks = SongsDetail
 
 export interface State {
   playlist: RequiredPartial<
     {
-      tracks: Tracks[]
+      tracks: SongsDetail[]
       tags: string[]
       description: string
     },

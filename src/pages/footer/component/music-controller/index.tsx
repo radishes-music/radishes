@@ -70,7 +70,10 @@ export const MusicControl = defineComponent({
       if (VUE_APP_PLATFORM === Platform.ELECTRON) {
         importIpc()
           .then(event => {
-            event.sendAsyncIpcRendererEvent(MiddlewareView.CREATE_WINDOW)
+            event.sendAsyncIpcRendererEvent(
+              MiddlewareView.CREATE_WINDOW,
+              useGetter('musicLyrics').filter(value => value.lyric)
+            )
           })
           .catch(e => {
             console.log(e)
