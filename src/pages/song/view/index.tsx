@@ -60,6 +60,15 @@ export default defineComponent({
 
     useActions(Actions.GET_PLAYLIST, route.params.playlist)
 
+    watch(
+      () => route.params.playlist,
+      v => {
+        if (v) {
+          useActions(Actions.GET_PLAYLIST, v)
+        }
+      }
+    )
+
     const { playlist } = toRefs(useState())
 
     const handleDbClick = (item: Tracks) => {

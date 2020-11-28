@@ -1,10 +1,10 @@
 :root {
   --background-lighter: #f8faff;
   --background-darken: #eceef2;
-  --base-color: #ef4a4a;
-  --primary-theme-text: #ef4a4a;
-  --normal-theme-text: #f37979;
-  --secondary-theme-text: #f7a8a8;
+  --base-color: #4a6eef;
+  --primary-theme-text: #4a6eef;
+  --normal-theme-text: #7994f3;
+  --secondary-theme-text: #a8b9f7;
   --link-color: #409eff;
   --base-text-color: #303133;
   --primary-text: #303133;
@@ -15,5 +15,6 @@
   --placeholder-text-hover: #303133;
   --active-color: #353535;
   --secondary-active-color: #4f4f4f;
+  --null: null;
   --sidebar-width: 180px;
 }

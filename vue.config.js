@@ -35,6 +35,9 @@ module.exports = {
       .test(/.otf|ttf$/)
       .use('url-loader')
     config.resolve.extensions.add('less').add('css')
+    config.target(
+      process.env.VUE_APP_PLATFORM === 'electron' ? 'electron-renderer' : 'web'
+    )
   },
   pluginOptions: {
     electronBuilder: {

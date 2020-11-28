@@ -18,13 +18,15 @@ function createWindow() {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
   // Create the browser window.
   win = new BrowserWindow({
-    width: width / 1.5,
+    width: width / 1.7,
     height: height / 1.5,
+    minWidth: width / 2,
+    minHeight: height / 2,
     useContentSize: true,
     frame: false,
     titleBarStyle: 'hidden',
     show: false,
-    resizable: false,
+    resizable: true,
     backgroundColor: '#ffffff',
     icon: path.join('build', '1024x1024.png'),
     webPreferences: {
