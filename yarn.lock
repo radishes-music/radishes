@@ -7129,7 +7129,7 @@ ejs@^3.1.2, ejs@^3.1.5:
   dependencies:
     jake "^10.6.1"
 
-electron-builder@^22.2.0:
+electron-builder@^22.2.0, electron-builder@^22.9.1:
   version "22.9.1"
   resolved "https://registry.npm.taobao.org/electron-builder/download/electron-builder-22.9.1.tgz#a2962db6f2757bc01d02489f38fafe0809f68f60"
   integrity sha1-opYttvJ1e8AdAkifOPr+CAn2j2A=
