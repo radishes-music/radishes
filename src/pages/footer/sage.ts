@@ -163,8 +163,6 @@ export const actions: ActionTree<State, RootState> = {
         state.musciHistory.push(state.music)
         set(LocalKey.MUSIC_HISTORY, JSON.stringify(toRaw(state.musciHistory)))
       }
-
-      console.log(state.music)
     }
   },
   async [Actions.SET_MUSIC_LYRICS]({ state }, id: number) {

@@ -10,9 +10,11 @@ import {
 } from '../../module'
 import { Table } from '@/components/table'
 import { formatTime } from '@/utils/index'
+import classnames from 'classnames'
 import './history.less'
 
 const prefix = 'history-music'
+const { VUE_APP_PLATFORM } = process.env
 
 const columns = [
   {
@@ -56,7 +58,7 @@ export const MusicHistory = defineComponent({
     }
 
     return () => (
-      <div class={prefix}>
+      <div class={classnames(prefix, `${prefix}-${VUE_APP_PLATFORM}`)}>
         <div class={`${prefix}-control`}>
           <a-button-group>
             <a-button

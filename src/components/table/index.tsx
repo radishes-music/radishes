@@ -35,6 +35,7 @@ export const Table = defineComponent({
         <div class={`${prefix}-body`}>
           <ATable
             rowKey="id"
+            rowClassName={() => 'row-music'}
             pagination={false}
             showHeader={showHeader.value}
             columns={columns.value}
