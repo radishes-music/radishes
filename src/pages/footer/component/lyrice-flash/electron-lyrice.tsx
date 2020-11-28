@@ -8,6 +8,7 @@ import {
   UpdateType
 } from '@/electron/event/action-types'
 import { ErrorBoundary } from '@/components/error-boundary/index'
+import { isEqual } from 'lodash'
 
 import { ipcRenderer } from 'electron'
 
@@ -63,7 +64,11 @@ export default defineComponent({
             postData.index = payload as PostData['index']
             break
           case UpdateType.UPDATE_LYRICE:
-            if ((payload as PostData['lyrice']).length !== 0) {
+            if (
+              (payload as PostData['lyrice']).length !== 0 &&
+              !isEqual(payload, postData.lyrice)
+            ) {
+              console.log(payload)
               postData.lyrice = payload as PostData['lyrice']
             }
             break

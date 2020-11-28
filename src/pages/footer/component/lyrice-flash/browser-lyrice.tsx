@@ -1,4 +1,11 @@
-import { defineComponent, computed, toRefs, watch, toRaw } from 'vue'
+import {
+  defineComponent,
+  computed,
+  toRefs,
+  watch,
+  toRaw,
+  watchEffect
+} from 'vue'
 import { uesModuleStore } from '@/hooks/index'
 import { toFixed } from '@/utils/index'
 import {
@@ -89,9 +96,7 @@ export const BrowserLyriceFlash = defineComponent({
       })
       watch(index, v => {
         ipcUpdateLyrice(UpdateType.UPDATE_INDEX, v)
-      })
-      watch(lyrice, v => {
-        ipcUpdateLyrice(UpdateType.UPDATE_LYRICE, v)
+        ipcUpdateLyrice(UpdateType.UPDATE_LYRICE, lyrice.value)
       })
       watch(playing, v => {
         ipcUpdateLyrice(UpdateType.UPDATE_PLAYING, v)

@@ -23,10 +23,10 @@ export function sendAsyncIpcRendererEvent(
   ipcRenderer.send(action, message)
 }
 
-export function sendSyncIpcRendererEvent(
+export function sendSyncIpcRendererEvent<T>(
   action: ActionType,
   message?: Message
-) {
+): T {
   return ipcRenderer.sendSync(action, message)
 }
 
