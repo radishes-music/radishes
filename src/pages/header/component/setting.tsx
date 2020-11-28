@@ -9,16 +9,11 @@ const { VUE_APP_PLATFORM } = process.env
 export const Setting = defineComponent({
   name: 'Setting',
   setup() {
-    const color = ref('#ef4a4a')
+    const color = ref('#4a6eef')
     const visibleColor = ref(false)
-    return {
-      color,
-      visibleColor
-    }
-  },
-  render() {
+
     const clickHandler = (value: string) => {
-      this.visibleColor = false
+      visibleColor.value = false
       document.documentElement.style.setProperty('--base-color', value)
       document.documentElement.style.setProperty('--primary-theme-text', value)
       if (VUE_APP_PLATFORM === Platform.ELECTRON) {
@@ -30,26 +25,26 @@ export const Setting = defineComponent({
         })
       }
     }
-    const { color } = this
+
     const ColorPicker = {
       content: () => (
         <ve-color-picker
           simple
-          v-model={color}
+          v-model={color.value}
           onChange={clickHandler}
         ></ve-color-picker>
       ),
       default: () => <icon icon="skin"></icon>
     }
 
-    return (
+    return () => (
       <div class="setting">
         <ve-button type="text" class="header-window-btn">
           <icon icon="setting"></icon>
         </ve-button>
         <ve-button type="text" class="header-window-btn">
           <a-popover
-            v-model={[this.visibleColor, 'visible']}
+            v-model={[visibleColor.value, 'visible']}
             trigger="click"
             v-slots={ColorPicker}
           ></a-popover>
