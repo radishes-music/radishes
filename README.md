@@ -12,6 +12,31 @@
 - [TypeScript 4.x](https://github.com/Microsoft/TypeScript) 已经发布，它的好处已经足够明显，故借此项目深入学习。
 - 使用前沿技术让一个项目从 0 到 1 的过程不仅可以提升我们的 coding 水平，还可以提升非 coding （设计、 git 、 nginx 等）的能力。
 
+### 项目运行
+
++ 克隆项目
+
+`git clone --recurse-submodules https://github.com/Linkontoask/radishes.git`
+
++ 安装依赖
+
+``` shell
+# 安装前端项目依赖
+cd radishes/
+yarn
+# 安装后端项目依赖
+cd NeteaseCloudMusicApi/
+yarn
+```
+
++ 运行项目  
+web: `yarn dev`  
+electron: `yarn dev:electron`
+
++ 构建项目  
+web: `yarn build`  
+electron: `yarn build:electron`
+
 ### PR 说明
 
 以 next 分支为默认分支，请基于 next 分支 fock 自己的仓库，在提交之前请同步 next 分支，尽量避免代码冲突。
@@ -79,20 +104,6 @@
 
 > 请在 issues 中留下你的想法，或者给我发送邮件告诉我你的想法 [linkorgs@163.com](linkorgs@163.com)，我会及时回复您
 
-### 项目运行
-
-```
-1、 克隆项目
-  git clone --recurse-submodules https://github.com/Linkontoask/radishes.git
-
-2、 安装npm包
-  yarn || npm i
-  cd NeteaseCloudMusicApi/
-  yarn || npm i
-
-3、运行项目
-  在主目录下运行 yarn dev
-```
 
 相关链接：
 
