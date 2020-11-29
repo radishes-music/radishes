@@ -1,5 +1,5 @@
 import { defineComponent, PropType, toRefs, ref } from 'vue'
-import { SongInteface } from '@/interface/index'
+import { SongInteface, SongsDetail } from '@/interface/index'
 import { Table as ATable } from 'ant-design-vue'
 import { noop } from '@/utils/index'
 import './index.less'
@@ -24,10 +24,16 @@ export const Table = defineComponent({
     onDblClick: {
       type: Function as PropType<(item: SongInteface.Tracks) => void>,
       default: noop
+    },
+    rowClassName: {
+      type: Function as PropType<(item: SongsDetail) => void>,
+      default: () => 'row-music'
     }
   },
   setup(props) {
-    const { list, columns, onDblClick, showHeader } = toRefs(props)
+    const { list, columns, onDblClick, showHeader, rowClassName } = toRefs(
+      props
+    )
 
     return () => (
       <div class={`${prefix}`}>
@@ -35,7 +41,7 @@ export const Table = defineComponent({
         <div class={`${prefix}-body`}>
           <ATable
             rowKey="id"
-            rowClassName={() => 'row-music'}
+            rowClassName={rowClassName.value}
             pagination={false}
             showHeader={showHeader.value}
             columns={columns.value}

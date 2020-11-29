@@ -1,4 +1,4 @@
-import { defineComponent, toRefs, watch } from 'vue'
+import { defineComponent, toRaw, toRefs, watch } from 'vue'
 import { uesModuleStore, useRoute } from '@/hooks/index'
 import { NAMESPACED, State, Actions, Tracks } from '../module'
 import { Table } from '@/components/table'
@@ -11,6 +11,7 @@ import {
   Actions as FooterActions,
   Mutations as FooterMutations
 } from '@/pages/footer/module'
+import { getSongUrl } from '@/api/index'
 import './index.less'
 
 const renderClass = (name: string) => `song-list-${name}`
@@ -76,6 +77,23 @@ export default defineComponent({
       footerStore.useActions(FooterActions.SET_MUSIC, item.id)
     }
 
+    const playAll = async () => {
+      const tracks = toRaw(playlist.value.tracks)
+      const tracksDetail = await getSongUrl(tracks.map(item => item.id))
+      const stack = tracks.map(item => ({
+        ...item,
+        url: tracksDetail.find(o => o.id === item.id)?.url
+      }))
+      footerStore.useMutations(FooterMutations.SET_PLAYLIST_TO_STACK, stack)
+
+      const { music } = footerStore.useState()
+      if (music?.id !== stack[0].id) {
+        footerStore.useMutations(FooterMutations.PAUES_MUSIC)
+        await footerStore.useActions(FooterActions.SET_MUSIC, stack[0].id)
+        footerStore.useMutations(FooterMutations.PLAY_MUSIC)
+      }
+    }
+
     return () => (
       <div class={renderClass('details')}>
         <div class={renderClass('details-contanier')}>
@@ -102,6 +120,7 @@ export default defineComponent({
                 class="play-all"
                 shape="round"
                 v-slots={{ icon: () => <icon icon="play-copy" size={18} /> }}
+                onClick={playAll}
               >
                 播放全部
               </a-button>

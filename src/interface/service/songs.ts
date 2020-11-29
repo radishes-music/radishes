@@ -31,4 +31,5 @@ export interface SongsDetail extends GlobalBase {
     version: number
     lyric: string
   }
+  url: string
 }

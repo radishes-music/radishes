@@ -12,6 +12,7 @@ import { Table } from '@/components/table'
 import { formatTime } from '@/utils/index'
 import classnames from 'classnames'
 import './history.less'
+import { SongsDetail } from '@/interface'
 
 const prefix = 'history-music'
 const { VUE_APP_PLATFORM } = process.env
@@ -86,6 +87,12 @@ export const MusicHistory = defineComponent({
               columns={columns}
               showHeader={false}
               onDblClick={handleDbClick}
+              rowClassName={(record: SongsDetail) => {
+                const { music } = useState()
+                if (record.id === music?.id) {
+                  return 'active-play'
+                }
+              }}
             />
           </div>
         ) : (

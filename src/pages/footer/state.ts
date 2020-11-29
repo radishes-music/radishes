@@ -2,7 +2,6 @@ import { SongsDetail } from '@/interface/index'
 import { PostData } from './component/lyrice-flash/electron-lyrice'
 import { Size } from '@/layout/module'
 import { storage } from '@/utils/index'
-import { LocalKey } from './sage'
 
 const { get } = storage()
 
@@ -14,8 +13,18 @@ export interface Lyrics {
   duration: number
 }
 
+export const enum PlayMode {
+  TURN = 'turn'
+}
+
+export const enum LocalKey {
+  VOLUME = 'volume',
+  MUSIC_HISTORY = 'music_history'
+}
+
 export interface State {
   // audio: AudioType
+  playMode: PlayMode
   music?: SongsDetail
   musicUrl: string
   musicLyricsOrigin: string
@@ -28,26 +37,26 @@ export interface State {
   sourceElement: HTMLSourceElement | null
   visibleFlash: boolean
   electronLyrice: PostData
+  duration: number
 }
 
 export const state: State = {
   // audio: new BackgroundAudio(),
+  playMode: PlayMode.TURN,
   musicUrl: '',
   musicLyricsOrigin: '',
   musciHistory:
     ((get(LocalKey.MUSIC_HISTORY, {
       parser: 'object'
     }) as unknown) as SongsDetail[]) || [],
-  musicStack:
-    ((get(LocalKey.MUSIC_HISTORY, {
-      parser: 'object'
-    }) as unknown) as SongsDetail[]) || [],
+  musicStack: [],
   currentTime: 0,
   playing: false,
   canplay: false,
   audioElement: null,
   sourceElement: null,
   visibleFlash: false,
+  duration: 0,
   electronLyrice: {
     screenSize: Size.SM,
     visibleFlash: true,
@@ -65,7 +74,6 @@ export interface Getter {
     url: string
   } & SongsDetail
   volume: number
-  duration: number
   musicLyrics: Lyrics[]
   musicDes: {
     author: string

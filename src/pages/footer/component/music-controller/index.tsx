@@ -3,7 +3,15 @@ import { uesModuleStore } from '@/hooks/index'
 import { toFixed, formatTime } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
-import { NAMESPACED, State, Getter, Mutations } from '../../module'
+import {
+  NAMESPACED,
+  State,
+  Getter,
+  Actions,
+  Mutations,
+  findMusicIndex,
+  PlayMode
+} from '../../module'
 import {
   NAMESPACED as LayoutNamespace,
   State as LayoutState,
@@ -17,41 +25,79 @@ import { MiddlewareView } from '@/electron/event/action-types'
 const prefix = 'music'
 const { VUE_APP_PLATFORM } = process.env
 
+const enum Direction {
+  FORWARD = 'FORWARD',
+  BACK = 'BACK'
+}
+
 export const MusicControl = defineComponent({
   name: 'MusicControl',
   setup() {
-    const playMode = ref('turn')
     const playingIcon = ref('play')
     const currentIndicator = ref(0)
     const draging = ref(false)
     const block = ref<Block[]>([])
 
-    const { useState, useMutations, useGetter } = uesModuleStore<State, Getter>(
-      NAMESPACED
-    )
+    const { useState, useMutations, useGetter, useActions } = uesModuleStore<
+      State,
+      Getter
+    >(NAMESPACED)
     const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
 
     const { screenSize } = toRefs(LayoutModule.useState())
 
     const {
+      musicStack,
+      playMode,
       audioElement,
       sourceElement,
       playing,
       canplay,
       currentTime,
-      visibleFlash
+      visibleFlash,
+      duration
     } = toRefs(useState())
 
     const musicDes = computed(() => useGetter('musicDes'))
 
     const durationTime = computed(() => {
-      const duration = useGetter('duration')
-      return formatTime(duration || 0, 's')
+      return formatTime(duration.value || 0, 's')
     })
 
     const currentTimeFormat = computed(() => {
       return formatTime(currentTime.value, 's')
     })
+
+    const switchMusic = async (direction: Direction) => {
+      const { music } = useState()
+
+      if (music && musicStack.value.length > 1) {
+        const index = findMusicIndex(musicStack.value, music)
+        let next
+        switch (playMode.value) {
+          case PlayMode.TURN:
+            if (direction === Direction.BACK) {
+              next = index <= 0 ? musicStack.value.length - 1 : index - 1
+            } else {
+              next = index === musicStack.value.length - 1 ? 0 : index + 1
+            }
+            break
+        }
+        const nextMusic = musicStack.value[next]
+
+        await useActions(Actions.SET_MUSIC_LYRICS, nextMusic.id)
+        useMutations(Mutations.SET_MUSIC_URL, nextMusic)
+        useMutations(Mutations.PAUES_MUSIC)
+        useMutations(Mutations.PLAY_MUSIC)
+      }
+    }
+
+    const prevMusic = () => {
+      switchMusic(Direction.BACK)
+    }
+    const nextMusic = () => {
+      switchMusic(Direction.FORWARD)
+    }
 
     const handlePlayPaues = () => {
       if (playing.value) {
@@ -90,6 +136,12 @@ export const MusicControl = defineComponent({
       useMutations(Mutations.CURRENT_TIME, time)
     }
 
+    const loadedmetadata = () => {
+      if (audioElement.value) {
+        useMutations(Mutations.SET_DURATION, audioElement.value.duration)
+      }
+    }
+
     const canplaythrough = () => {
       block.value = [
         {
@@ -100,10 +152,9 @@ export const MusicControl = defineComponent({
     }
 
     const timeUpdate = () => {
-      const musicDetail = useGetter('musicDetail')
-      if (audioElement.value && musicDetail.dt && !draging.value) {
+      if (audioElement.value && duration.value && !draging.value) {
         const time = audioElement.value.currentTime
-        const width = toFixed((time / musicDetail.dt) * 100 * 1000, 6)
+        const width = toFixed((time / (duration.value * 1000)) * 100 * 1000, 6)
         if (width) {
           currentIndicator.value = width > 100 ? 100 : width
         }
@@ -117,23 +168,28 @@ export const MusicControl = defineComponent({
 
     const progress = () => {
       if (audioElement.value) {
-        const duration = useGetter('duration')
         const timeRanges = audioElement.value.buffered
-        const start = timeRanges.start(timeRanges.length - 1)
-        const end = timeRanges.end(timeRanges.length - 1)
-        block.value[timeRanges.length - 1] = {
-          left: (start / duration) * 100,
-          width: ((end - start) / duration) * 100
+        try {
+          const start = timeRanges.start(timeRanges.length - 1)
+          const end = timeRanges.end(timeRanges.length - 1)
+          block.value[timeRanges.length - 1] = {
+            left: (start / duration.value) * 100,
+            width: ((end - start) / duration.value) * 100
+          }
+        } catch (e) {
+          console.warn(e)
         }
       }
     }
 
-    const ended = () => {
+    const ended = async () => {
       useMutations(Mutations.ENDED_MUSIC)
+      switchMusic(Direction.FORWARD)
     }
 
     onMounted(() => {
       if (audioElement.value && sourceElement.value) {
+        audioElement.value.addEventListener('loadedmetadata', loadedmetadata)
         audioElement.value.addEventListener('canplaythrough', canplaythrough)
         audioElement.value.addEventListener('loadstart', loadstart)
         audioElement.value.addEventListener('progress', progress)
@@ -173,7 +229,11 @@ export const MusicControl = defineComponent({
               ></icon>
             </ve-button>
             <ve-button type="text" class="theme-btn-color">
-              <icon icon="shangyishou" aria-title="上一首"></icon>
+              <icon
+                icon="shangyishou"
+                aria-title="上一首"
+                onClick={prevMusic}
+              ></icon>
             </ve-button>
             <ve-button
               type="text"
@@ -186,7 +246,7 @@ export const MusicControl = defineComponent({
                 aria-title="播放/暂停"
               ></icon>
             </ve-button>
-            <ve-button type="text" class="theme-btn-color">
+            <ve-button type="text" class="theme-btn-color" onClick={nextMusic}>
               <icon icon="xiayishou" aria-title="下一首"></icon>
             </ve-button>
             <ve-button type="text">
