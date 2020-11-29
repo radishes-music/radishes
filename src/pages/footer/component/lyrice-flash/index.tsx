@@ -54,12 +54,12 @@ export const LyriceFlash = defineComponent({
     onMounted(() => {
       if (VUE_APP_PLATFORM === Platform.BROWSER) {
         const { start } = useDrag(
-          lyriceEl.value as HTMLElement,
+          lyriceEl.value.parentElement as HTMLElement,
           lyriceEl.value as HTMLElement,
           {
             moveCB(x, y) {
               requestAnimationFrame(() => {
-                lyriceEl.value.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y}) translateZ(0)`
+                lyriceEl.value.parentElement.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y}) translateZ(0)`
               })
             }
           }

@@ -16894,15 +16894,16 @@ uuid@^8.0.0:
   resolved "https://registry.npm.taobao.org/uuid/download/uuid-8.3.1.tgz?cache=0&sync_timestamp=1601826526166&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fuuid%2Fdownload%2Fuuid-8.3.1.tgz#2ba2e6ca000da60fce5a196954ab241131e05a31"
   integrity sha1-K6LmygANpg/OWhlpVKskETHgWjE=
 
-v-easy-components@2.0.0-beta.12:
-  version "2.0.0-beta.12"
-  resolved "https://registry.npm.taobao.org/v-easy-components/download/v-easy-components-2.0.0-beta.12.tgz?cache=0&sync_timestamp=1604651612960&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fv-easy-components%2Fdownload%2Fv-easy-components-2.0.0-beta.12.tgz#c2ad99cb164cd15d5af8db4555418ec350871cb4"
-  integrity sha1-wq2ZyxZM0V1a+NtFVUGOw1CHHLQ=
+v-easy-components@2.0.0-beta.13:
+  version "2.0.0-beta.13"
+  resolved "https://registry.npm.taobao.org/v-easy-components/download/v-easy-components-2.0.0-beta.13.tgz#a4cdd3dd9c35422718761e029d9b500ca45d4440"
+  integrity sha1-pM3T3Zw1QicYdh4CnZtQDKRdREA=
   dependencies:
     "@popperjs/core" "^2.4.4"
     core-js "^3.6.5"
     deepmerge "^3.1.0"
     regenerator-runtime "^0.13.3"
+    vue "3.0.2"
 
 v8-compile-cache@^2.0.3, v8-compile-cache@^2.1.1:
   version "2.2.0"
@@ -17107,7 +17108,7 @@ vue-types@^3.0.0:
   dependencies:
     is-plain-object "3.0.1"
 
-vue@^3.0.2:
+vue@3.0.2, vue@^3.0.2:
   version "3.0.2"
   resolved "https://registry.npm.taobao.org/vue/download/vue-3.0.2.tgz#9d5b7b2983f35e64a34d13c7c9d6831239feca3c"
   integrity sha1-nVt7KYPzXmSjTRPHydaDEjn+yjw=

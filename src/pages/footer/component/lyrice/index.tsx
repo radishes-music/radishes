@@ -95,6 +95,7 @@ export const PlayLyrice = defineComponent({
     return () => (
       <TeleportToAny
         visible={visible.value}
+        haveAnimation={true}
         v-slots={{
           default: () => (
             <Transition name="visible">
