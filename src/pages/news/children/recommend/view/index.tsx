@@ -3,14 +3,16 @@ import {
   toRefs,
   onBeforeMount,
   onActivated,
-  onDeactivated
+  onDeactivated,
+  inject
 } from 'vue'
 import { Swiper } from '@/components/swiper/index'
 import { RecommendState, NAMESPACED } from '../module'
 import { RecommendActions } from '../sage'
 import { SongList } from '@/components/song-list/index'
 import { uesModuleStore } from '@/hooks/index'
-import { toPlaylist } from '@/pages/news/utils'
+import { ProvideInject } from '@/pages/news/constant'
+import { noop } from '@/utils/index'
 import './index.less'
 
 export const Recommend = defineComponent({
@@ -25,6 +27,7 @@ export const Recommend = defineComponent({
     const getSongList = () => {
       useActions(RecommendActions.SET_ACTION_SONG_LIST)
     }
+    const toPlaylist = inject(ProvideInject.TO_PLAYLIST_DETAILS, noop)
 
     onActivated(() => {
       runningSwiper.value = true

@@ -122,7 +122,7 @@ export const MusicControl = defineComponent({
             )
           })
           .catch(e => {
-            console.log(e)
+            console.warn(e)
           })
       }
     }

@@ -7,6 +7,7 @@ import { getHighqualityPl, getHighqualityTags, getHotTags } from './api/index'
 export interface Pagination {
   limit: number
   before: number
+  cat: string
 }
 
 export const enum SongListMutations {

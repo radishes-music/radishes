@@ -26,9 +26,9 @@ export const PushShift = defineComponent({
       store.commit(Mutations.BACK_HISTORY_ROUTE, path)
     }
 
-    const { path } = toRefs(useRoute())
+    const { fullPath } = toRefs(useRoute())
 
-    watch(path, (route, oldRoute) => {
+    watch(fullPath, (route, oldRoute) => {
       const { historyRoute } = store.state
       if (!historyRoute.canBeCollect) {
         routeCanBeCollect(true)
@@ -53,15 +53,23 @@ export const PushShift = defineComponent({
       const { historyRoute } = store.state
       routeCanBeCollect(false)
       if (payload === COMMAND.FORWARD) {
-        routeForward(path.value)
+        routeForward(fullPath.value)
       }
       if (payload === COMMAND.BACK) {
-        routeBack(path.value)
+        routeBack(fullPath.value)
       }
       nextTick(() => {
+        // TODO Needs optimization
+        const path = historyRoute.needRoute.split('?')
+        const params = new URLSearchParams(path[1])
+        const query = {} as Record<string, string>
+        for (const [key, value] of params.entries()) {
+          query[key] = value
+        }
         router
           .replace({
-            path: historyRoute.needRoute
+            path: path[0],
+            query: query
           })
           .then(() => {
             routeCanBeCollect(true)

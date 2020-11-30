@@ -131,6 +131,9 @@ export default defineComponent({
               <div>歌曲：{playlist.value.trackCount}</div>
               <div>播放：{playlist.value.playCount}</div>
             </div>
+            <div class="a-tracks-count">
+              标签：{playlist.value.tags.join('/')}
+            </div>
 
             <div class="a-description">
               <div>简介：</div>

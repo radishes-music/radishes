@@ -14,6 +14,7 @@ export const SecondaryBar = defineComponent({
   },
   setup(props) {
     const { nav } = toRefs(props)
+
     return () => (
       <div class={`${prefix}-bar`}>
         <ul>
@@ -21,7 +22,7 @@ export const SecondaryBar = defineComponent({
             <RouterLink
               class={`${prefix}-bar-link`}
               activeClass={`${prefix}-bar-link-active`}
-              to={link.path}
+              to={link.meta?.path}
             >
               {link.meta?.name}
             </RouterLink>

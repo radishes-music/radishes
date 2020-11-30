@@ -75,15 +75,24 @@ export const navRouter: RouteRecordRaw[] = [
       {
         path: '/music/recommend',
         component: Recommend,
+        name: 'recommend',
         meta: {
-          name: '个性推荐'
+          name: '个性推荐',
+          path: '/music/recommend'
         }
       },
       {
         path: '/music/songlist',
         component: SongList,
+        name: 'songlist',
         meta: {
-          name: '歌单'
+          name: '歌单',
+          path: {
+            name: 'songlist',
+            query: {
+              tag: 'all'
+            }
+          }
         }
       }
     ]
