@@ -29,8 +29,7 @@ function createWindow() {
     titleBarStyle: 'hidden',
     show: false,
     resizable: true,
-    backgroundColor: '#ffffff',
-    icon: path.join('build', '1024x1024.png'),
+    icon: path.join(__dirname, 'build/1024x1024.png'),
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
