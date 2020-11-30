@@ -4,6 +4,7 @@ import { uesModuleStore, useRoute, useRouter } from '@/hooks/index'
 import { ProvideInject } from '@/pages/news/constant'
 import { noop } from '@/utils/index'
 import { SongListState, NAMESPACED, SongListActions, Tags } from '../module'
+import classnames from 'classnames'
 import './index.less'
 
 export const SongList = defineComponent({
@@ -16,7 +17,8 @@ export const SongList = defineComponent({
     const { songList, tagsHot } = toRefs(useState())
 
     useActions(SongListActions.SET_ACTION_SONG_LIST, {
-      limit: 30
+      limit: 30,
+      cat: route.query.tag
     })
     useActions(SongListActions.SET_ACTION_TAGS)
     useActions(SongListActions.SET_ACTION_HOT_TAGS)
@@ -49,9 +51,16 @@ export const SongList = defineComponent({
           <a-button shape="round">全部歌单</a-button>
           <div class="find-music-songlist--hot">
             <ul>
-              {tagsHot.value.map(tag => {
-                return <li onClick={() => switchPlaylist(tag)}>{tag.name}</li>
-              })}
+              {tagsHot.value.map(tag => (
+                <li
+                  class={classnames({
+                    'active-tag': route.query.tag === tag.name
+                  })}
+                  onClick={() => switchPlaylist(tag)}
+                >
+                  {tag.name}
+                </li>
+              ))}
             </ul>
           </div>
         </div>

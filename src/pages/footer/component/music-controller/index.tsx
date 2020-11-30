@@ -109,9 +109,7 @@ export const MusicControl = defineComponent({
 
     const handleVisibleFlash = () => {
       if (VUE_APP_PLATFORM === Platform.BROWSER) {
-        if (screenSize.value === Size.SM) {
-          useMutations(Mutations.VISIBLE_FLASH, !visibleFlash.value)
-        }
+        useMutations(Mutations.VISIBLE_FLASH, !visibleFlash.value)
       }
       if (VUE_APP_PLATFORM === Platform.ELECTRON) {
         importIpc()

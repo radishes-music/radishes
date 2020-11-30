@@ -39,7 +39,7 @@ export const BrowserLyriceFlash = defineComponent({
     )
     const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
 
-    const { currentTime, playing, visibleFlash, musicUrl } = toRefs(useState())
+    const { currentTime, playing, visibleFlash } = toRefs(useState())
     const { screenSize } = toRefs(LayoutModule.useState())
 
     if (VUE_APP_PLATFORM === Platform.ELECTRON) {
@@ -49,12 +49,6 @@ export const BrowserLyriceFlash = defineComponent({
     const lyrice = computed(() =>
       useGetter('musicLyrics').filter(value => value.lyric)
     )
-
-    watch(screenSize, v => {
-      if (musicUrl.value) {
-        useMutations(Mutations.VISIBLE_FLASH, v === Size.SM)
-      }
-    })
 
     const index = computed(() => {
       if (visibleFlash.value) {

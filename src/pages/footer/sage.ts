@@ -144,7 +144,9 @@ export const actions: ActionTree<State, RootState> = {
     const data = await getSongUrl(id)
     if (state.sourceElement && state.audioElement) {
       if (data.length) {
-        const url = data[0].url
+        const url =
+          data[0].url ||
+          `https://music.163.com/song/media/outer/url?id=${id}.mp3`
         state.musicUrl = url
         commit(Mutations.CAN_PLAY, false)
         await dispatch(Actions.SET_MUSIC_DEFAILT, id)

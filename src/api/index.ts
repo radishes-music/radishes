@@ -5,7 +5,8 @@ export const getSongUrl = async (
   id: number | number[]
 ): Promise<SongsBase[]> => {
   const data = await get<{ data: SongsBase[] }>('/api/song/url', {
-    id: typeof id === 'number' ? id : id.join(',')
+    id: typeof id === 'number' ? id : id.join(','),
+    br: 3.2e5
   })
   return data.data
 }

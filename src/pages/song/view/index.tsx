@@ -13,6 +13,7 @@ import {
 } from '@/pages/footer/module'
 import { getSongUrl } from '@/api/index'
 import './index.less'
+import { RouterLink } from 'vue-router'
 
 const renderClass = (name: string) => `song-list-${name}`
 
@@ -80,10 +81,16 @@ export default defineComponent({
     const playAll = async () => {
       const tracks = toRaw(playlist.value.tracks)
       const tracksDetail = await getSongUrl(tracks.map(item => item.id))
-      const stack = tracks.map(item => ({
-        ...item,
-        url: tracksDetail.find(o => o.id === item.id)?.url
-      }))
+      const stack = tracks.map(item => {
+        const urlItem = tracksDetail.find(o => o.id === item.id)
+        const url = urlItem
+          ? urlItem.url
+          : ` https://music.163.com/song/media/outer/url?${item.id}=id.mp3`
+        return {
+          ...item,
+          url: url
+        }
+      })
       footerStore.useMutations(FooterMutations.SET_PLAYLIST_TO_STACK, stack)
 
       const { music } = footerStore.useState()
@@ -132,7 +139,19 @@ export default defineComponent({
               <div>播放：{playlist.value.playCount}</div>
             </div>
             <div class="a-tracks-count">
-              标签：{playlist.value.tags.join('/')}
+              标签：
+              {playlist.value.tags.map(tag => (
+                <RouterLink
+                  to={{
+                    name: 'songlist',
+                    query: {
+                      tag: tag
+                    }
+                  }}
+                >
+                  {tag}
+                </RouterLink>
+              ))}
             </div>
 
             <div class="a-description">
