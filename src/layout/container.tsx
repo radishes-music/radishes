@@ -13,10 +13,7 @@ import { Footer } from '@/pages/footer/view/index'
 import { useDrag, uesModuleStore } from '@/hooks/index'
 import { State, Size, NAMESPACED } from './module'
 import { RecommendNameSpaced } from '@/modules/index'
-import {
-  State as RecommendState,
-  Mutations
-} from '@/pages/news/children/recommend/module'
+import { FindMusicInteface } from '@/interface/index'
 import { Platform } from '@/config/build'
 import './container.less'
 
@@ -32,7 +29,9 @@ export const Container = defineComponent({
     const target = ref()
 
     const { useState } = uesModuleStore<State>(NAMESPACED)
-    const RecommendStore = uesModuleStore<RecommendState>(RecommendNameSpaced)
+    const RecommendStore = uesModuleStore<FindMusicInteface.RecommendState>(
+      RecommendNameSpaced
+    )
 
     const { screenSize } = toRefs(useState())
 
@@ -57,11 +56,17 @@ export const Container = defineComponent({
             },
             startCB() {
               draging.value = true
-              RecommendStore.useMutations(Mutations.SET_SWIPER_RINNING, false)
+              RecommendStore.useMutations(
+                FindMusicInteface.RecommendMutations.SET_SWIPER_RINNING,
+                false
+              )
             },
             stopCB() {
               draging.value = false
-              RecommendStore.useMutations(Mutations.SET_SWIPER_RINNING, true)
+              RecommendStore.useMutations(
+                FindMusicInteface.RecommendMutations.SET_SWIPER_RINNING,
+                true
+              )
             }
           }
         )

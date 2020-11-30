@@ -5,6 +5,16 @@ export interface Songs extends GlobalBase {
   artists: Artists[]
 }
 
+export interface Song extends Songs {
+  type: number
+  playCount: number
+  trackCount: number
+  name: string
+  copywriter: string
+  picUrl: string
+  coverImgUrl: string
+}
+
 export interface FreeTrialInfo {
   start: number
   end: number

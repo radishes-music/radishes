@@ -4,11 +4,6 @@ import './index.less'
 
 const prefix = 'secondary'
 
-interface Props {
-  nav: RouteRecordRaw[]
-  onChange: (route: RouteRecordRaw) => void
-}
-
 export const SecondaryBar = defineComponent({
   name: 'SecondaryBar',
   props: {

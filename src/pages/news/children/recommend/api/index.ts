@@ -1,5 +1,6 @@
 import { get } from '@/utils/http'
-import { Banners, Song } from '../state'
+import { Banners } from '../state'
+import { Song } from '@/interface/index'
 
 export const getRecommend = () => {
   return get('/api/recommend/resource')

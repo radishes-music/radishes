@@ -1,13 +1,4 @@
-import { Songs as RootSong } from '@/interface/index'
-
-export interface Song extends RootSong {
-  type: number
-  playCount: number
-  trackCount: number
-  name: string
-  copywriter: string
-  picUrl: string
-}
+import { Song } from '@/interface/index'
 
 export interface Banners {
   imageUrl: string
@@ -15,13 +6,13 @@ export interface Banners {
   targetId: string
 }
 
-export interface State {
+export interface RecommendState {
   banners: Banners[]
   songList: Song[]
   runningSwiper: boolean
 }
 
-export const state: State = {
+export const state: RecommendState = {
   songList: [
     {
       id: -1,
@@ -31,6 +22,7 @@ export const state: State = {
       name: '每日歌曲推荐',
       copywriter: '每日歌曲推荐',
       picUrl: '',
+      coverImgUrl: '',
       artists: []
     }
   ],

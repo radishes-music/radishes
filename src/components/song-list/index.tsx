@@ -1,5 +1,5 @@
 import { defineComponent, toRefs, PropType } from 'vue'
-import { FindMusicInteface } from '@/interface/index'
+import { Song } from '@/interface/index'
 import { formatCount } from '@/utils/index'
 import dayjs from 'dayjs'
 import './index.less'
@@ -12,17 +12,17 @@ export const SongList = defineComponent({
   name: 'SongList',
   props: {
     songData: {
-      type: Object as PropType<FindMusicInteface.Song[]>,
+      type: Object as PropType<Song[]>,
       required: true
     },
     handle: {
-      type: Function as PropType<(type: Handle, payload?: unknown) => void>,
+      type: Function as PropType<(type: Handle, payload: Song) => void>,
       required: true
     }
   },
   setup(props) {
     const { songData, handle } = toRefs(props)
-    const clickHandle = (song: FindMusicInteface.Song) => {
+    const clickHandle = (song: Song) => {
       handle.value('click', song)
     }
     return () => (
@@ -36,7 +36,9 @@ export const SongList = defineComponent({
               <div class={`${prefix}-pic`}>
                 <div
                   class={`${prefix}-pic-img`}
-                  style={{ backgroundImage: `url(${song.picUrl})` }}
+                  style={{
+                    backgroundImage: `url(${song.picUrl || song.coverImgUrl})`
+                  }}
                 >
                   {song.picUrl === '' && (
                     <div class={`${prefix}-pic-img--date`}>

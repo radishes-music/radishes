@@ -18,8 +18,10 @@ export const FindMusic = defineComponent({
     if (nav.length) {
       nav = nav[0].children?.filter(item => item.meta?.name) as RouteRecordRaw[]
     }
+
     // eslint-disable-next-line
     const handleChangeRoute = (route: RouteRecordRaw) => {}
+
     const Slots = {
       default: (component: { Component: Component }) => (
         <KeepAlive>{resolveDynamicComponent(component.Component)}</KeepAlive>
