@@ -77,7 +77,7 @@ export const Search = defineComponent({
 
     const { searchSuggest } = toRefs(useState())
     const Slot = {
-      prefix: () => <icon icon="search"></icon>,
+      prefix: () => <icon icon="search" color="#ffffff61" size={18}></icon>,
       popper: () => (
         <div class="search-popper">
           <div class="search-popper-title" v-show={searchSuggest.value.songs}>

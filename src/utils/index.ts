@@ -5,8 +5,10 @@ import UTC from 'dayjs/plugin/utc'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { ElectronWindowEventMap } from '@/interface/app'
 
+dayjs.extend(UTC)
+dayjs.extend(customParseFormat)
+
 export const formatTime = (time: number, unit: OpUnitType): string => {
-  dayjs.extend(UTC)
   return dayjs
     .utc(new Date(0))
     .add(time, unit)
@@ -14,7 +16,6 @@ export const formatTime = (time: number, unit: OpUnitType): string => {
 }
 
 export const timeTos = (time: string): number => {
-  dayjs.extend(customParseFormat)
   return (
     dayjs(time, ['mm:ss.SSS', 'mm:ss.SS']).diff(
       dayjs('00:00.000', 'mm:ss.SSS')
