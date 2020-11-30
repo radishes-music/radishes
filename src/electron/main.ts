@@ -15,13 +15,15 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 function createWindow() {
-  const { width, height } = screen.getPrimaryDisplay().workAreaSize
+  const { workAreaSize, scaleFactor } = screen.getPrimaryDisplay()
+  const { width, height } = workAreaSize
+  const [w, h] = [width * scaleFactor, height * scaleFactor]
   // Create the browser window.
   win = new BrowserWindow({
-    width: width / 1.7,
-    height: height / 1.5,
-    minWidth: width / 2,
-    minHeight: height / 2,
+    width: w / 1.7,
+    height: h / 1.5,
+    minWidth: w / 2,
+    minHeight: h / 2,
     useContentSize: true,
     frame: false,
     titleBarStyle: 'hidden',
