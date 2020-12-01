@@ -1,5 +1,5 @@
 import { SongsDetail } from '@/interface/index'
-import { PostData } from './component/lyrice-flash/electron-lyrice'
+import { PostData } from './component/lyrice-float/electron-lyrice'
 import { Size } from '@/layout/module'
 import { storage } from '@/utils/index'
 

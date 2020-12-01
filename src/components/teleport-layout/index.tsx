@@ -28,10 +28,6 @@ export const TeleportToAny = defineComponent({
     class: {
       type: String as PropType<string>,
       default: ''
-    },
-    haveAnimation: {
-      type: Boolean as PropType<boolean>,
-      default: false
     }
   },
   setup(props, context) {
@@ -40,28 +36,7 @@ export const TeleportToAny = defineComponent({
     const teleportContanier = ref<HTMLElement | null>(null)
 
     watchEffect(() => {
-      if (props.haveAnimation) {
-        if (props.visible) {
-          visible.value = true
-        } else {
-          if (teleportContanier.value) {
-            const children = teleportContanier.value.children[0]
-            nextTick(() => {
-              children.addEventListener(
-                'transitionend',
-                () => {
-                  visible.value = props.visible
-                },
-                {
-                  once: true
-                }
-              )
-            })
-          }
-        }
-      } else {
-        visible.value = props.visible
-      }
+      visible.value = props.visible
     })
 
     return () => (

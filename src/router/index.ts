@@ -25,7 +25,7 @@ export interface RouterChildren {
   meta?: Meta
 }
 
-export const LYRICE_PATH = '/electron-lyrice-flash'
+export const LYRICE_PATH = '/electron-lyrice-float'
 
 // Internationalization is not currently supported
 const baseRouter: RouteRecordRaw[] = [

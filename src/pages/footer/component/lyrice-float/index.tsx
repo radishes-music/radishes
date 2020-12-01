@@ -71,20 +71,20 @@ export const LyriceFlash = defineComponent({
     return () => (
       <TeleportToAny
         container="body"
-        class={classnames('lyrice-flash-contanier', [
-          'lyrice-flash-' + screenSize.value,
-          'lyrice-flash-' + VUE_APP_PLATFORM
+        class={classnames('lyrice-float-contanier', [
+          'lyrice-float-' + screenSize.value,
+          'lyrice-float-' + VUE_APP_PLATFORM
         ])}
         visible={visibleFlash.value}
       >
-        <div ref={lyriceEl} class="lyrice-flash">
+        <div ref={lyriceEl} class="lyrice-float">
           {lyrice.value.map((item, i) => (
             <div
               data-time={item.time}
               data-duration={item.duration}
               class={classnames({
-                'lyrice-flash-active': index.value === i,
-                'lyrice-flash-pause': !playing.value && index.value === i
+                'lyrice-float-active': index.value === i,
+                'lyrice-float-pause': !playing.value && index.value === i
               })}
             >
               <div style={index.value === i ? flashMagic.value : ''}>

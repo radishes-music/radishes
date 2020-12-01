@@ -18,8 +18,8 @@ import {
   State as LayoutState,
   Size
 } from '@/layout/module'
-import { AsyncComponent } from '../component/lyrice/index'
-import { BrowserLyriceFlash } from '../component/lyrice-flash/browser-lyrice'
+import { AsyncComponent } from '../component/lyrice-embed/index'
+import { BrowserLyriceFlash } from '../component/lyrice-float/browser-lyrice'
 import classnames from 'classnames'
 import './index.less'
 

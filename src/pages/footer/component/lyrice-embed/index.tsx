@@ -40,6 +40,7 @@ export const PlayLyrice = defineComponent({
     const disabled = ref(true)
     const contanier = ref()
     const offset = ref(0)
+    const transition = ref(visible.value)
 
     const { useState, useGetter } = uesModuleStore<State, Getter>(NAMESPACED)
     const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
@@ -94,11 +95,14 @@ export const PlayLyrice = defineComponent({
 
     return () => (
       <TeleportToAny
-        visible={visible.value}
-        haveAnimation={true}
+        visible={transition.value}
         v-slots={{
           default: () => (
-            <Transition name="visible">
+            <Transition
+              name="visible"
+              onBeforeEnter={() => (transition.value = true)}
+              onAfterLeave={() => (transition.value = false)}
+            >
               <div v-show={visible.value} class={`${prefix}`}>
                 <div class={`${prefix}-left`}>
                   <div class={`${prefix}-left-pic`}>
