@@ -17,8 +17,39 @@
       li {
         margin: 0 4px;
         cursor: pointer;
-        &.active-tag {
-          color: var(--base-color);
+        &:hover:not(.active-tag) {
+          color: var(--secondary-text-hover);
+        }
+      }
+    }
+  }
+}
+
+.active-tag {
+  color: var(--base-color);
+}
+
+.highquality-tags {
+  padding: 20px;
+  font-weight: 300;
+  &-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    &--type {
+      width: 100px;
+      color: var(--placeholder-text);
+    }
+    &--tags {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: 20px;
+      width: 460px;
+      cursor: pointer;
+      div {
+        &:hover:not(.active-tag) {
+          color: var(--secondary-text-hover);
         }
       }
     }

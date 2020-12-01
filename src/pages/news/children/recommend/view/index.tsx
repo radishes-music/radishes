@@ -27,7 +27,7 @@ export const Recommend = defineComponent({
     const getSongList = () => {
       useActions(RecommendActions.SET_ACTION_SONG_LIST)
     }
-    const toPlaylist = inject(ProvideInject.TO_PLAYLIST_DETAILS, noop)
+    const toPlaylistDetails = inject(ProvideInject.TO_PLAYLIST_DETAILS, noop)
 
     onActivated(() => {
       runningSwiper.value = true
@@ -52,7 +52,10 @@ export const Recommend = defineComponent({
         </div>
         <div class="recommend-song">
           <h2>推荐歌单</h2>
-          <SongList songData={songList.value} handle={toPlaylist}></SongList>
+          <SongList
+            songData={songList.value}
+            handle={toPlaylistDetails}
+          ></SongList>
         </div>
       </div>
     )

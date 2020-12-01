@@ -10,11 +10,10 @@
   --primary-text: #303133;
   --normal-text: #494a4d;
   --secondary-text: #616368;
-  --placeholder-text: #7a7d82;
+  --placeholder-text: #afb0b3;
   --secondary-text-hover: #171819;
-  --placeholder-text-hover: #303133;
+  --placeholder-text-hover: #616368;
   --active-color: #353535;
   --secondary-active-color: #4f4f4f;
-  --null: null;
   --sidebar-width: 180px;
 }

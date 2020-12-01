@@ -1,3 +1,5 @@
 import './color.less'
 import './index.less'
 import './index.css'
+import './cover.less'
+import './global.less'
