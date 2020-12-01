@@ -4,8 +4,7 @@ import {
   Teleport,
   PropType,
   watchEffect,
-  ref,
-  nextTick
+  ref
 } from 'vue'
 import classnames from 'classnames'
 import './index.less'
