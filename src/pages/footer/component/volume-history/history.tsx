@@ -1,4 +1,14 @@
-import { defineComponent, ref, toRefs } from 'vue'
+import {
+  defineComponent,
+  defineAsyncComponent,
+  PropType,
+  ref,
+  toRefs,
+  onMounted,
+  onUnmounted,
+  watch,
+  nextTick
+} from 'vue'
 import { uesModuleStore } from '@/hooks/index'
 import {
   NAMESPACED,
@@ -11,8 +21,10 @@ import {
 import { Table } from '@/components/table'
 import { formatTime } from '@/utils/index'
 import classnames from 'classnames'
-import './history.less'
 import { SongsDetail } from '@/interface'
+import { TeleportToAny } from '@/components/teleport-layout/index'
+import { on, off } from '@/utils/index'
+import './history.less'
 
 const prefix = 'history-music'
 const { VUE_APP_PLATFORM } = process.env
@@ -43,7 +55,15 @@ const columns = [
 
 export const MusicHistory = defineComponent({
   name: 'MusicHistory',
-  setup() {
+  props: {
+    visible: {
+      type: Boolean as PropType<boolean>,
+      default: false
+    }
+  },
+  emits: ['update:visible'],
+  setup(props, { emit }) {
+    const { visible } = toRefs(props)
     const isPlayListVisible = ref(true)
 
     const { useState, useActions, useMutations } = uesModuleStore<
@@ -58,54 +78,83 @@ export const MusicHistory = defineComponent({
       useActions(Actions.SET_MUSIC, item.id)
     }
 
+    const trigger = () => {
+      emit('update:visible', false)
+    }
+
+    const unWatch = watch(visible, v => {
+      if (v) {
+        on(document.documentElement, 'click', trigger)
+      } else {
+        off(document.documentElement, 'click', trigger)
+      }
+    })
+
+    onUnmounted(() => {
+      unWatch()
+    })
+
     return () => (
-      <div class={classnames(prefix, `${prefix}-${VUE_APP_PLATFORM}`)}>
-        <div class={`${prefix}-control`}>
-          <a-button-group>
-            <a-button
-              type={isPlayListVisible.value ? 'primary' : 'default'}
-              onClick={() =>
-                (isPlayListVisible.value = !isPlayListVisible.value)
-              }
-            >
-              播放列表
-            </a-button>
-            <a-button
-              type={!isPlayListVisible.value ? 'primary' : 'default'}
-              onClick={() =>
-                (isPlayListVisible.value = !isPlayListVisible.value)
-              }
-            >
-              历史记录
-            </a-button>
-          </a-button-group>
-        </div>
-        {isPlayListVisible.value ? (
-          <div class={`${prefix}-content`}>
-            <Table
-              list={musicStack.value}
-              columns={columns}
-              showHeader={false}
-              onDblClick={handleDbClick}
-              rowClassName={(record: SongsDetail) => {
-                const { music } = useState()
-                if (record.id === music?.id) {
-                  return 'active-play'
+      <TeleportToAny visible={visible.value}>
+        <div
+          class={classnames(prefix, `${prefix}-${VUE_APP_PLATFORM}`)}
+          onClick={e => e.stopPropagation()}
+        >
+          <div class={`${prefix}-control`}>
+            <a-button-group>
+              <a-button
+                type={isPlayListVisible.value ? 'primary' : 'default'}
+                onClick={() =>
+                  (isPlayListVisible.value = !isPlayListVisible.value)
                 }
-              }}
-            />
+              >
+                播放列表
+              </a-button>
+              <a-button
+                type={!isPlayListVisible.value ? 'primary' : 'default'}
+                onClick={() =>
+                  (isPlayListVisible.value = !isPlayListVisible.value)
+                }
+              >
+                历史记录
+              </a-button>
+            </a-button-group>
           </div>
-        ) : (
-          <div class={`${prefix}-content`}>
-            <Table
-              list={musciHistory.value}
-              columns={columns}
-              showHeader={false}
-              onDblClick={handleDbClick}
-            />
-          </div>
-        )}
-      </div>
+          {isPlayListVisible.value ? (
+            <div class={`${prefix}-content`}>
+              <Table
+                list={musicStack.value}
+                columns={columns}
+                showHeader={false}
+                onDblClick={handleDbClick}
+                rowClassName={(record: SongsDetail) => {
+                  const { music } = useState()
+                  if (record.id === music?.id) {
+                    return 'active-play'
+                  }
+                }}
+              />
+            </div>
+          ) : (
+            <div class={`${prefix}-content`}>
+              <Table
+                list={musciHistory.value}
+                columns={columns}
+                showHeader={false}
+                onDblClick={handleDbClick}
+              />
+            </div>
+          )}
+        </div>
+      </TeleportToAny>
     )
+  }
+})
+
+// Fixed the to property of Teleport component could not find Element
+export const AsyncComponent = defineAsyncComponent({
+  loader: async () => {
+    // Parameter penetration
+    return <MusicHistory></MusicHistory>
   }
 })

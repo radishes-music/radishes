@@ -1,17 +1,9 @@
-import {
-  defineComponent,
-  computed,
-  toRefs,
-  watch,
-  toRaw,
-  watchEffect
-} from 'vue'
+import { defineComponent, computed, toRefs, watch, toRaw } from 'vue'
 import { uesModuleStore } from '@/hooks/index'
 import { toFixed } from '@/utils/index'
 import {
   NAMESPACED as LayoutNamespace,
-  State as LayoutState,
-  Size
+  State as LayoutState
 } from '@/layout/module'
 import { NAMESPACED, State, Getter, Mutations } from '../../module'
 import { Platform } from '@/config/build'

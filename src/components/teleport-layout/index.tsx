@@ -4,12 +4,10 @@ import {
   Teleport,
   PropType,
   watchEffect,
-  ref,
-  onMounted
+  ref
 } from 'vue'
 import classnames from 'classnames'
 import './index.less'
-import { sleep } from '@/utils'
 
 interface Slots {
   default: () => VNode

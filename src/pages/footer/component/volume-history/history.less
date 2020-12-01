@@ -1,26 +1,18 @@
 .history-music {
   width: 420px;
-  height: calc(100vh - 160px);
+  height: 100%;
+  padding: 10px;
+  margin-left: auto;
+  background-color: white;
+  box-shadow: -2px 0 6px 0 #dfdfdf;
   &-control {
     width: 40%;
     margin: 0 auto;
     margin-bottom: 10px;
   }
   &-content {
-    height: 100%;
-    .ant-table:not(.ant-table-empty) {
-      height: calc(100vh - 210px);
-      .ant-table-content {
-        height: 100%;
-        .ant-table-body {
-          height: 100% !important;
-          overflow-y: auto;
-        }
-        .ant-table-placeholder {
-          height: 100%;
-        }
-      }
-    }
+    height: calc(100% - 50px);
+    overflow: auto;
     .active-play {
       color: white;
       background-color: #9faaaf;
@@ -28,15 +20,5 @@
         background-color: #9faaaf !important;
       }
     }
-  }
-}
-
-.history-music-browser {
-  height: calc(100vh - 400px);
-  .history-music-content {
-    height: calc(100% - 44px);
-  }
-  .ant-table:not(.ant-table-empty) {
-    height: calc(100vh - 450px);
   }
 }

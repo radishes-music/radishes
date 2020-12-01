@@ -3,8 +3,11 @@ import { ProgressBar as VolumeBar } from '@/components/process-bar/index'
 import { uesModuleStore } from '@/hooks/index'
 import { toFixed } from '@/utils/index'
 import { NAMESPACED, State, Getter, Mutations } from '../../module'
-import { MusicHistory } from './history'
+import { AsyncComponent } from './history'
 import './index.less'
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const MusicHistory = AsyncComponent as any
 
 export const VolumeAndHistory = defineComponent({
   name: 'VolumeAndHistory',
@@ -54,19 +57,16 @@ export const VolumeAndHistory = defineComponent({
           ></VolumeBar>
         </div>
         <div>
-          <a-popover
-            placement="topRight"
-            v-model={[visible.value, 'visible']}
-            trigger="click"
-            v-slots={{
-              default: () => (
-                <ve-button type="text">
-                  <icon icon="play-list-fill" color="#333"></icon>
-                </ve-button>
-              ),
-              content: () => <MusicHistory />
+          <MusicHistory v-model={[visible.value, 'visible']} />
+          <ve-button
+            type="text"
+            onClick={(e: Event) => {
+              e.stopPropagation()
+              visible.value = !visible.value
             }}
-          />
+          >
+            <icon icon="play-list-fill" color="#333"></icon>
+          </ve-button>
         </div>
       </div>
     )
