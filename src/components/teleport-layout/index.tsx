@@ -4,7 +4,8 @@ import {
   Teleport,
   PropType,
   watchEffect,
-  ref
+  ref,
+  nextTick
 } from 'vue'
 import classnames from 'classnames'
 import './index.less'
@@ -45,15 +46,17 @@ export const TeleportToAny = defineComponent({
         } else {
           if (teleportContanier.value) {
             const children = teleportContanier.value.children[0]
-            children.addEventListener(
-              'transitionend',
-              () => {
-                visible.value = props.visible
-              },
-              {
-                once: true
-              }
-            )
+            nextTick(() => {
+              children.addEventListener(
+                'transitionend',
+                () => {
+                  visible.value = props.visible
+                },
+                {
+                  once: true
+                }
+              )
+            })
           }
         }
       } else {
