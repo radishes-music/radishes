@@ -1,5 +1,4 @@
 import { defineComponent } from 'vue'
-export { Mv } from '../children/mv/view/index'
 
 export const Video = defineComponent({
   name: 'Video',

@@ -10,6 +10,10 @@ import { $404 } from '@/pages/404/view/index'
 import { FindMusic, Recommend, SongList } from '@/pages/news/index'
 import { Video, Mv } from '@/pages/video/index'
 import { Profile } from './../pages/auth/views/profile'
+import { Moments } from '@/pages/moments/index'
+import { LocalMusic } from '@/pages/music/index'
+import { Download } from '@/pages/download/index'
+import { Cloud } from '@/pages/cloud/index'
 import { Platform } from '@/config/build'
 
 const { VUE_APP_PLATFORM } = process.env
@@ -118,79 +122,34 @@ export const navRouter: RouteRecordRaw[] = [
     ]
   },
   {
-    path: '/friend',
-    component: FindMusic,
+    path: '/moments',
+    component: Moments,
     meta: {
       name: '朋友'
-    },
-    children: [
-      {
-        path: '',
-        redirect: '/friend/dynamic'
-      },
-      {
-        path: '/friend/dynamic',
-        component: Recommend,
-        meta: {
-          name: '动态'
-        }
-      }
-    ]
+    }
   },
   {
     path: '/local-music',
-    component: FindMusic,
+    component: LocalMusic,
     meta: {
       name: '本地音乐',
       beforeHeader: '我的音乐'
-    },
-    children: [
-      {
-        path: '',
-        redirect: '/local-music/song'
-      },
-      {
-        path: '/local-music/song',
-        component: Recommend,
-        meta: {
-          name: '歌曲'
-        }
-      },
-      {
-        path: '/local-music/singer',
-        component: Recommend,
-        meta: {
-          name: '歌手'
-        }
-      }
-    ]
+    }
   },
   {
     path: '/download-manage',
-    component: FindMusic,
+    component: Download,
     meta: {
       name: '下载管理'
-    },
-    children: [
-      {
-        path: '',
-        redirect: '/download-manage/single'
-      },
-      {
-        path: '/download-manage/single',
-        component: Recommend,
-        meta: {
-          name: '已下载单曲'
-        }
-      },
-      {
-        path: '/download-manage/mv',
-        component: Recommend,
-        meta: {
-          name: '已下载MV'
-        }
-      }
-    ]
+    }
+  },
+  {
+    path: '/cloud',
+    component: Cloud,
+    meta: {
+      name: '我的音乐云盘',
+      auth: true
+    }
   }
 ]
 

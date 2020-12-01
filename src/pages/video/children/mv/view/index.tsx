@@ -4,7 +4,7 @@ export const Mv = defineComponent({
   render() {
     return (
       <div class="video-mv">
-        <router-view></router-view>
+        <h1>MV</h1>
       </div>
     )
   }
