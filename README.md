@@ -8,19 +8,21 @@
 
 项目成立原因：
 
-- 通过完成此项目，接触 vue3 以及周边生态。
+- 打造一款跨端播放器，减低用户学习成本。
+- 希望完成全音乐播放，避免版权问题不能播放。
+- 通过完成此项目，接触 vue3 新功能以及周边生态。
 - [TypeScript 4.x](https://github.com/Microsoft/TypeScript) 已经发布，它的好处已经足够明显，故借此项目深入学习。
 - 使用前沿技术让一个项目从 0 到 1 的过程不仅可以提升我们的 coding 水平，还可以提升非 coding （设计、 git 、 nginx 等）的能力。
 
 ### 项目运行
 
-+ 克隆项目
+- 克隆项目
 
 `git clone --recurse-submodules https://github.com/Linkontoask/radishes.git`
 
-+ 安装依赖
+- 安装依赖
 
-``` shell
+```shell
 # 安装前端项目依赖
 cd radishes/
 yarn
@@ -29,13 +31,13 @@ cd NeteaseCloudMusicApi/
 yarn
 ```
 
-+ 运行项目  
-web: `yarn dev`  
-electron: `yarn dev:electron`
+- 运行项目  
+  web: `yarn dev`  
+  electron: `yarn dev:electron`
 
-+ 构建项目  
-web: `yarn build`  
-electron: `yarn build:electron`
+- 构建项目  
+  web: `yarn build`  
+  electron: `yarn build:electron`
 
 ### PR 说明
 
@@ -58,7 +60,7 @@ electron: `yarn build:electron`
 
 | 功能                                                            | browser | electron | mobile |
 | :-------------------------------------------------------------- | :-----: | :------: | :----: |
-| 登录支持，邮箱、手机号                                          |         |          |        |
+| 登录支持，邮箱、手机号                                          |    √    |    √     |        |
 | 朋友动态查看、点赞等                                            |         |          |        |
 | 视频播放、收藏                                                  |         |          |        |
 | 歌单列表、全部播放、收藏、添加待播放队列                        |         |          |        |
@@ -103,7 +105,6 @@ electron: `yarn build:electron`
 ### 邀请前端开发人员进行重构
 
 > 请在 issues 中留下你的想法，或者给我发送邮件告诉我你的想法 [linkorgs@163.com](linkorgs@163.com)，我会及时回复您
-
 
 相关链接：
 
