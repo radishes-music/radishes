@@ -18,7 +18,7 @@
 
 - 克隆项目
 
-`git clone --recurse-submodules https://github.com/Linkontoask/radishes.git`
+`git clone https://github.com/Linkontoask/radishes.git`
 
 - 安装依赖
 
@@ -26,9 +26,8 @@
 # 安装前端项目依赖
 cd radishes/
 yarn
-# 安装后端项目依赖
-cd NeteaseCloudMusicApi/
-yarn
+# 安装 api 依赖
+yarn bootstrap
 ```
 
 - 运行项目  

@@ -1,9 +1,10 @@
 {
   "name": "radishes",
   "version": "2.0.0-alpha.1",
-  "private": false,
+  "private": true,
   "main": "./background.js",
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint && stylelint \"**/*.{css,less}\"",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less}\"",
@@ -13,7 +14,7 @@
     "build:electron": "yarn lint && vue-cli-service electron:build --mode electron.build --win nsis",
     "build:api": "concurrently -r \"yarn dev:api\" \"node script/server-local.js\"",
     "dev": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"vue-cli-service serve --mode browser\"",
-    "dev:api": "node NeteaseCloudMusicApi/app.js",
+    "dev:api": "node packages/api/app.js",
     "dev:electron": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"vue-cli-service electron:serve --mode electron.dev\"",
     "generate:theme": "node ./script/theme.js",
     "postinstall": "electron-builder install-app-deps",
@@ -41,6 +42,9 @@
       "git add"
     ]
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
     "chai-as-promised": "^7.1.1",
     "core-js": "^3.6.5",
@@ -99,6 +103,7 @@
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.6",
     "husky": "^4.3.0",
+    "lerna": "^3.22.1",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "lint-staged": "^9.5.0",
@@ -116,7 +121,7 @@
     "ts-loader": "^8.0.6",
     "typescript": "^4.0.3",
     "url-loader": "^4.1.1",
-    "v-easy-components": "2.0.0-beta.13",
+    "v-easy-components": "2.0.0-beta.14",
     "vue-cli-plugin-electron-builder": "^2.0.0-rc.5"
   }
 }

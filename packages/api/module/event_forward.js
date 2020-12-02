@@ -1,4 +1,4 @@
-﻿// 转发动态
+// 转发动态
 
 module.exports = (query, request) => {
   query.cookie.os = 'pc'

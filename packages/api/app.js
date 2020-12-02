@@ -8,17 +8,6 @@ const exec = require('child_process').exec
 const cache = require('./util/apicache').middleware
 const { cookieToJson } = require('./util/index')
 const fileUpload = require('express-fileupload')
-// version check
-exec('npm info NeteaseCloudMusicApi version', (err, stdout, stderr) => {
-  if (!err) {
-    let version = stdout.trim()
-    if (packageJSON.version < version) {
-      console.log(
-        `最新版本: ${version}, 当前版本: ${packageJSON.version}, 请及时更新`,
-      )
-    }
-  }
-})
 
 const app = express()
 

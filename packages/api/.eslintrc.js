@@ -35,6 +35,7 @@ module.exports = {
         allowTemplateLiterals: true,
       },
     ],
+    'prettier/prettier': 'off',
   },
   overrides: [
     {
