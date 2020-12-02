@@ -22,14 +22,6 @@ export const VolumeAndHistory = defineComponent({
     const volume = useGetter('volume')
     const current = ref(volume * 100)
 
-    const slots = {
-      prefix: () => (
-        <ve-button type="text">
-          <icon icon="volume" color="#333"></icon>
-        </ve-button>
-      )
-    }
-
     const updateCurrent = (v: number) => {
       current.value = v
       const volume = toFixed(v / 100, 2)
@@ -42,6 +34,14 @@ export const VolumeAndHistory = defineComponent({
       const volume = useGetter('volume')
       volume && useMutations(Mutations.SET_VOLUME, volume < 0 ? 0 : volume)
     })
+
+    const slots = {
+      prefix: () => (
+        <ve-button type="text">
+          <icon icon="volume" color="#333" size={26}></icon>
+        </ve-button>
+      )
+    }
 
     return () => (
       <div class="volume">
@@ -65,7 +65,7 @@ export const VolumeAndHistory = defineComponent({
               visible.value = !visible.value
             }}
           >
-            <icon icon="play-list-fill" color="#333"></icon>
+            <icon icon="play-list-fill" color="#333" size={20}></icon>
           </ve-button>
         </div>
       </div>

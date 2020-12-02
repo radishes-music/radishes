@@ -40,6 +40,7 @@ fs.watchFile(path.resolve(themePath, 'color.less'), (curr, prev) => {
       }`
       let { css } = await less.render(lessSource)
       css = css.split('\n')
+
       content = ''
       for (let i = 0; i < css.length; i++) {
         const v = css[i]
