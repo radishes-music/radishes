@@ -1,3 +1,4 @@
+@import '~@/theme/index.less';
 @prefix: ~'song-details';
 
 .@{prefix} {
@@ -59,28 +60,9 @@
   }
 }
 
-.visible {
-  &-enter,
-  &-leave {
-    &-active {
-      transition: transform 0.3s;
-      transform-origin: left bottom;
-    }
-  }
-  &-enter {
-    &-from {
-      transform: scale(0);
-    }
-    &-to {
-      transform: scale(1);
-    }
-  }
-  &-leave {
-    &-from {
-      transform: scale(1);
-    }
-    &-to {
-      transform: scale(0);
-    }
-  }
+.visible-left-bottom {
+  @origin: {
+    transform-origin: left bottom;
+  };
+  .visible(@origin);
 }

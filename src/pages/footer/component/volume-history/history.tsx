@@ -4,10 +4,9 @@ import {
   PropType,
   ref,
   toRefs,
-  onMounted,
   onUnmounted,
   watch,
-  nextTick
+  Transition
 } from 'vue'
 import { uesModuleStore } from '@/hooks/index'
 import {
@@ -64,6 +63,8 @@ export const MusicHistory = defineComponent({
   emits: ['update:visible'],
   setup(props, { emit }) {
     const { visible } = toRefs(props)
+
+    const transition = ref(visible.value)
     const isPlayListVisible = ref(true)
 
     const { useState, useActions, useMutations } = uesModuleStore<
@@ -95,57 +96,64 @@ export const MusicHistory = defineComponent({
     })
 
     return () => (
-      <TeleportToAny visible={visible.value}>
-        <div
-          class={classnames(prefix, `${prefix}-${VUE_APP_PLATFORM}`)}
-          onClick={e => e.stopPropagation()}
+      <TeleportToAny visible={transition.value}>
+        <Transition
+          name="visible-right-bottom"
+          onBeforeEnter={() => (transition.value = true)}
+          onAfterLeave={() => (transition.value = false)}
         >
-          <div class={`${prefix}-control`}>
-            <a-button-group>
-              <a-button
-                type={isPlayListVisible.value ? 'primary' : 'default'}
-                onClick={() =>
-                  (isPlayListVisible.value = !isPlayListVisible.value)
-                }
-              >
-                播放列表
-              </a-button>
-              <a-button
-                type={!isPlayListVisible.value ? 'primary' : 'default'}
-                onClick={() =>
-                  (isPlayListVisible.value = !isPlayListVisible.value)
-                }
-              >
-                历史记录
-              </a-button>
-            </a-button-group>
-          </div>
-          {isPlayListVisible.value ? (
-            <div class={`${prefix}-content`}>
-              <Table
-                list={musicStack.value}
-                columns={columns}
-                showHeader={false}
-                onDblClick={handleDbClick}
-                rowClassName={(record: SongsDetail) => {
-                  const { music } = useState()
-                  if (record.id === music?.id) {
-                    return 'active-play'
+          <div
+            v-show={visible.value}
+            class={classnames(prefix, `${prefix}-${VUE_APP_PLATFORM}`)}
+            onClick={e => e.stopPropagation()}
+          >
+            <div class={`${prefix}-control`}>
+              <a-button-group>
+                <a-button
+                  type={isPlayListVisible.value ? 'primary' : 'default'}
+                  onClick={() =>
+                    (isPlayListVisible.value = !isPlayListVisible.value)
                   }
-                }}
-              />
+                >
+                  播放列表
+                </a-button>
+                <a-button
+                  type={!isPlayListVisible.value ? 'primary' : 'default'}
+                  onClick={() =>
+                    (isPlayListVisible.value = !isPlayListVisible.value)
+                  }
+                >
+                  历史记录
+                </a-button>
+              </a-button-group>
             </div>
-          ) : (
-            <div class={`${prefix}-content`}>
-              <Table
-                list={musciHistory.value}
-                columns={columns}
-                showHeader={false}
-                onDblClick={handleDbClick}
-              />
-            </div>
-          )}
-        </div>
+            {isPlayListVisible.value ? (
+              <div class={`${prefix}-content`}>
+                <Table
+                  list={musicStack.value}
+                  columns={columns}
+                  showHeader={false}
+                  onDblClick={handleDbClick}
+                  rowClassName={(record: SongsDetail) => {
+                    const { music } = useState()
+                    if (record.id === music?.id) {
+                      return 'active-play'
+                    }
+                  }}
+                />
+              </div>
+            ) : (
+              <div class={`${prefix}-content`}>
+                <Table
+                  list={musciHistory.value}
+                  columns={columns}
+                  showHeader={false}
+                  onDblClick={handleDbClick}
+                />
+              </div>
+            )}
+          </div>
+        </Transition>
       </TeleportToAny>
     )
   }

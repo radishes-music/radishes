@@ -99,7 +99,7 @@ export const PlayLyrice = defineComponent({
         v-slots={{
           default: () => (
             <Transition
-              name="visible"
+              name="visible-left-bottom"
               onBeforeEnter={() => (transition.value = true)}
               onAfterLeave={() => (transition.value = false)}
             >
