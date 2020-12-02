@@ -11,11 +11,11 @@ import {
 import { uesModuleStore } from '@/hooks/index'
 import {
   NAMESPACED,
-  State,
+  FooterState,
   Getter,
   Music,
-  Mutations,
-  Actions
+  FooterMutations,
+  FooterActions
 } from '../../module'
 import { Table } from '@/components/table'
 import { formatTime } from '@/utils/index'
@@ -68,15 +68,15 @@ export const MusicHistory = defineComponent({
     const isPlayListVisible = ref(true)
 
     const { useState, useActions, useMutations } = uesModuleStore<
-      State,
+      FooterState,
       Getter
     >(NAMESPACED)
 
     const { musicStack, musciHistory } = toRefs(useState())
 
     const handleDbClick = (item: Music) => {
-      useMutations(Mutations.PAUES_MUSIC)
-      useActions(Actions.SET_MUSIC, item.id)
+      useMutations(FooterMutations.PAUES_MUSIC)
+      useActions(FooterActions.SET_MUSIC, item.id)
     }
 
     const trigger = () => {

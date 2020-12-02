@@ -2,12 +2,12 @@ import { defineComponent, ref, computed, toRefs, PropType } from 'vue'
 import { debounce } from 'lodash'
 import { Actions } from '../sage'
 import { uesModuleStore } from '@/hooks/index'
-import { NAMESPACED, State } from '../module'
+import { NAMESPACED, HeaderState } from '../module'
 import { FooterNameSpaced } from '@/modules/index'
 import {
-  State as FooterState,
-  Actions as FooterActions,
-  Mutations as FooterMutations
+  FooterState,
+  FooterActions,
+  FooterMutations
 } from '@/pages/footer/module'
 import './search.less'
 
@@ -50,7 +50,7 @@ export const Search = defineComponent({
     Option
   },
   setup() {
-    const { useActions, useState } = uesModuleStore<State>(NAMESPACED)
+    const { useActions, useState } = uesModuleStore<HeaderState>(NAMESPACED)
     const footerStore = uesModuleStore<FooterState>(FooterNameSpaced)
 
     const words = ref('')

@@ -1,15 +1,15 @@
 import { defineComponent, toRaw, toRefs, watch } from 'vue'
 import { uesModuleStore, useRoute } from '@/hooks/index'
-import { NAMESPACED, State, Actions, Tracks } from '../module'
+import { NAMESPACED, SongState, Actions, Tracks } from '../module'
 import { Table } from '@/components/table'
 import { formatTime } from '@/utils/index'
 import { MoreThen } from '@/components/more-then/index'
 import dayjs from 'dayjs'
 import { FooterNameSpaced } from '@/modules/index'
 import {
-  State as FooterState,
-  Actions as FooterActions,
-  Mutations as FooterMutations
+  FooterState,
+  FooterActions,
+  FooterMutations
 } from '@/pages/footer/module'
 import { getSongUrl } from '@/api/index'
 import './index.less'
@@ -57,7 +57,7 @@ export default defineComponent({
   name: 'SongListDetails',
   setup() {
     const route = useRoute()
-    const { useActions, useState } = uesModuleStore<State>(NAMESPACED)
+    const { useActions, useState } = uesModuleStore<SongState>(NAMESPACED)
     const footerStore = uesModuleStore<FooterState>(FooterNameSpaced)
 
     useActions(Actions.GET_PLAYLIST, route.params.playlist)

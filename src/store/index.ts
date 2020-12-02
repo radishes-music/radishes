@@ -1,6 +1,6 @@
 import { createStore, MutationTree, createLogger } from 'vuex'
 import modules from '../modules/index'
-import { Mutations as FooterMutations } from '@/pages/footer/module'
+import { FooterMutations } from '@/pages/footer/module'
 import { AllMutations } from '@/interface/index'
 
 export const enum Mutations {

@@ -19,7 +19,7 @@ import {
   State as LayoutState,
   Size
 } from '@/layout/module'
-import { NAMESPACED, State, Getter } from '../../module'
+import { NAMESPACED, FooterState, Getter } from '../../module'
 import classnams from 'classnames'
 import { debounce } from 'lodash'
 import './index.less'
@@ -42,7 +42,9 @@ export const PlayLyrice = defineComponent({
     const offset = ref(0)
     const transition = ref(visible.value)
 
-    const { useState, useGetter } = uesModuleStore<State, Getter>(NAMESPACED)
+    const { useState, useGetter } = uesModuleStore<FooterState, Getter>(
+      NAMESPACED
+    )
     const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
 
     const { screenSize } = toRefs(LayoutModule.useState())

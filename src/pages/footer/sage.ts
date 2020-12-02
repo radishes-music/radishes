@@ -2,20 +2,20 @@ import { toRaw } from 'vue'
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { isNumber, timeTos, toFixed, storage } from '@/utils/index'
 import { getSongUrl, getSongDetail, getLyric } from './api/index'
-import { State, LocalKey } from './state'
+import { FooterState, LocalKey } from './state'
 import { RootState } from '@/store/index'
 import { SongsDetail } from '@/interface'
 import { cloneDeep } from 'lodash'
 
 const { get, set } = storage()
 
-export const enum Actions {
+export const enum FooterActions {
   SET_MUSIC = 'SET_MUSIC_URL',
   SET_MUSIC_DEFAILT = 'SET_MUSIC_DEFAILT',
   SET_MUSIC_LYRICS = 'SET_MUSIC_LYRICS'
 }
 
-export const enum Mutations {
+export const enum FooterMutations {
   SET_MUSIC_URL = 'SET_MUSIC_URL',
   PLAY_MUSIC = 'PLAY_MUSIC',
   PAUES_MUSIC = 'PAUES_MUSIC',
@@ -63,7 +63,7 @@ export const findMusicIndex = (
   return contanier.findIndex(music => music.id === target.id)
 }
 
-export const getters: GetterTree<State, RootState> = {
+export const getters: GetterTree<FooterState, RootState> = {
   musicDetail(state) {
     const base = cloneDeep(toRaw(state.music)) || {}
     return {
@@ -139,8 +139,8 @@ export const getters: GetterTree<State, RootState> = {
   }
 }
 
-export const actions: ActionTree<State, RootState> = {
-  async [Actions.SET_MUSIC]({ state, dispatch, commit }, id: number) {
+export const actions: ActionTree<FooterState, RootState> = {
+  async [FooterActions.SET_MUSIC]({ state, dispatch, commit }, id: number) {
     const data = await getSongUrl(id)
     if (state.sourceElement && state.audioElement) {
       if (data.length) {
@@ -148,20 +148,20 @@ export const actions: ActionTree<State, RootState> = {
           data[0].url ||
           `https://music.163.com/song/media/outer/url?id=${id}.mp3`
         state.musicUrl = url
-        commit(Mutations.CAN_PLAY, false)
-        await dispatch(Actions.SET_MUSIC_DEFAILT, id)
-        await dispatch(Actions.SET_MUSIC_LYRICS, id)
-        commit(Mutations.SET_MUSIC_URL, url)
+        commit(FooterMutations.CAN_PLAY, false)
+        await dispatch(FooterActions.SET_MUSIC_DEFAILT, id)
+        await dispatch(FooterActions.SET_MUSIC_LYRICS, id)
+        commit(FooterMutations.SET_MUSIC_URL, url)
       }
     }
   },
-  async [Actions.SET_MUSIC_DEFAILT]({ state }, id: number | number[]) {
+  async [FooterActions.SET_MUSIC_DEFAILT]({ state }, id: number | number[]) {
     const data = await getSongDetail(id)
     if (data.length) {
       state.music = data[0]
     }
   },
-  async [Actions.SET_MUSIC_LYRICS]({ state }, id: number) {
+  async [FooterActions.SET_MUSIC_LYRICS]({ state }, id: number) {
     try {
       const lyrics = await getLyric(id)
       state.musicLyricsOrigin = lyrics
@@ -171,11 +171,11 @@ export const actions: ActionTree<State, RootState> = {
   }
 }
 
-export const mutations: MutationTree<State> = {
-  [Mutations.SET_DURATION](state, duration: number) {
+export const mutations: MutationTree<FooterState> = {
+  [FooterMutations.SET_DURATION](state, duration: number) {
     state.duration = duration
   },
-  [Mutations.SET_PLAYLIST_TO_STACK](state, payload: SongsDetail[]) {
+  [FooterMutations.SET_PLAYLIST_TO_STACK](state, payload: SongsDetail[]) {
     payload.forEach(item => {
       const isExist = findMusicIndex(state.musicStack, item) === -1
       if (isExist) {
@@ -183,7 +183,7 @@ export const mutations: MutationTree<State> = {
       }
     })
   },
-  [Mutations.SET_MUSIC_URL](state, payload: string | SongsDetail) {
+  [FooterMutations.SET_MUSIC_URL](state, payload: string | SongsDetail) {
     if (state.sourceElement && state.audioElement && state.music) {
       let music = toRaw(state.music)
       if (typeof payload === 'string') {
@@ -206,41 +206,41 @@ export const mutations: MutationTree<State> = {
       }
     }
   },
-  [Mutations.PLAY_MUSIC](state) {
+  [FooterMutations.PLAY_MUSIC](state) {
     if (state.audioElement && !state.playing && state.canplay) {
       state.audioElement.play()
       state.playing = true
     }
   },
-  [Mutations.PAUES_MUSIC](state) {
+  [FooterMutations.PAUES_MUSIC](state) {
     if (state.audioElement && state.playing && state.canplay) {
       state.audioElement.pause()
       state.playing = false
     }
   },
-  [Mutations.ENDED_MUSIC](state) {
+  [FooterMutations.ENDED_MUSIC](state) {
     state.playing = false
   },
-  [Mutations.CURRENT_TIME](state, time: number) {
+  [FooterMutations.CURRENT_TIME](state, time: number) {
     if (state.audioElement && isNumber(time)) {
       state.audioElement.currentTime = time
     }
   },
-  [Mutations.UPDATE_CURRENT_TIME](state, time: number) {
+  [FooterMutations.UPDATE_CURRENT_TIME](state, time: number) {
     if (isNumber(time)) {
       state.currentTime = time
     }
   },
-  [Mutations.CAN_PLAY](state, can: boolean) {
+  [FooterMutations.CAN_PLAY](state, can: boolean) {
     state.canplay = can
   },
-  [Mutations.SET_VOLUME](state, volume: number) {
+  [FooterMutations.SET_VOLUME](state, volume: number) {
     if (state.audioElement) {
       state.audioElement.volume = volume
       set(LocalKey.VOLUME, volume)
     }
   },
-  [Mutations.VISIBLE_FLASH](state, visible: boolean) {
+  [FooterMutations.VISIBLE_FLASH](state, visible: boolean) {
     state.visibleFlash = visible
   }
 }

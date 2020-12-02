@@ -5,7 +5,7 @@ export type RequiredPartial<P, T> = Merage<Required<P>, Partial<T>>
 
 export type Tracks = SongsDetail
 
-export interface State {
+export interface SongState {
   playlist: RequiredPartial<
     {
       tracks: SongsDetail[]
@@ -30,7 +30,7 @@ export interface State {
   >
 }
 
-export const state: State = {
+export const state: SongState = {
   playlist: {
     tracks: [],
     tags: [],

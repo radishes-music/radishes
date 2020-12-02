@@ -5,10 +5,10 @@ import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
 import {
   NAMESPACED,
-  State,
+  FooterState,
   Getter,
-  Actions,
-  Mutations,
+  FooterActions,
+  FooterMutations,
   findMusicIndex,
   PlayMode
 } from '../../module'
@@ -34,7 +34,7 @@ export const MusicControl = defineComponent({
     const block = ref<Block[]>([])
 
     const { useState, useMutations, useGetter, useActions } = uesModuleStore<
-      State,
+      FooterState,
       Getter
     >(NAMESPACED)
 
@@ -77,10 +77,10 @@ export const MusicControl = defineComponent({
         }
         const nextMusic = musicStack.value[next]
 
-        await useActions(Actions.SET_MUSIC_LYRICS, nextMusic.id)
-        useMutations(Mutations.SET_MUSIC_URL, nextMusic)
-        useMutations(Mutations.PAUES_MUSIC)
-        useMutations(Mutations.PLAY_MUSIC)
+        await useActions(FooterActions.SET_MUSIC_LYRICS, nextMusic.id)
+        useMutations(FooterMutations.SET_MUSIC_URL, nextMusic)
+        useMutations(FooterMutations.PAUES_MUSIC)
+        useMutations(FooterMutations.PLAY_MUSIC)
       }
     }
 
@@ -93,15 +93,15 @@ export const MusicControl = defineComponent({
 
     const handlePlayPaues = () => {
       if (playing.value) {
-        useMutations(Mutations.PAUES_MUSIC)
+        useMutations(FooterMutations.PAUES_MUSIC)
       } else {
-        useMutations(Mutations.PLAY_MUSIC)
+        useMutations(FooterMutations.PLAY_MUSIC)
       }
     }
 
     const handleVisibleFlash = () => {
       if (VUE_APP_PLATFORM === Platform.BROWSER) {
-        useMutations(Mutations.VISIBLE_FLASH, !visibleFlash.value)
+        useMutations(FooterMutations.VISIBLE_FLASH, !visibleFlash.value)
       }
       if (VUE_APP_PLATFORM === Platform.ELECTRON) {
         importIpc()
@@ -123,12 +123,12 @@ export const MusicControl = defineComponent({
         (musicDetail.dt / 1000) * (indicatorX / indicatorW),
         6
       )
-      useMutations(Mutations.CURRENT_TIME, time)
+      useMutations(FooterMutations.CURRENT_TIME, time)
     }
 
     const loadedmetadata = () => {
       if (audioElement.value) {
-        useMutations(Mutations.SET_DURATION, audioElement.value.duration)
+        useMutations(FooterMutations.SET_DURATION, audioElement.value.duration)
       }
     }
 
@@ -148,7 +148,7 @@ export const MusicControl = defineComponent({
         if (width) {
           currentIndicator.value = width > 100 ? 100 : width
         }
-        useMutations(Mutations.UPDATE_CURRENT_TIME, time)
+        useMutations(FooterMutations.UPDATE_CURRENT_TIME, time)
       }
     }
 
@@ -173,7 +173,7 @@ export const MusicControl = defineComponent({
     }
 
     const ended = async () => {
-      useMutations(Mutations.ENDED_MUSIC)
+      useMutations(FooterMutations.ENDED_MUSIC)
       switchMusic(Direction.FORWARD)
     }
 
@@ -192,8 +192,8 @@ export const MusicControl = defineComponent({
           playingIcon.value = 'play'
         })
         audioElement.value.addEventListener('canplay', () => {
-          useMutations(Mutations.CAN_PLAY, true)
-          useMutations(Mutations.PLAY_MUSIC)
+          useMutations(FooterMutations.CAN_PLAY, true)
+          useMutations(FooterMutations.PLAY_MUSIC)
         })
       }
     })

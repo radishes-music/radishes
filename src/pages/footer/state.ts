@@ -22,7 +22,7 @@ export const enum LocalKey {
   MUSIC_HISTORY = 'music_history'
 }
 
-export interface State {
+export interface FooterState {
   // audio: AudioType
   playMode: PlayMode
   music?: SongsDetail
@@ -40,7 +40,7 @@ export interface State {
   duration: number
 }
 
-export const state: State = {
+export const state: FooterState = {
   // audio: new BackgroundAudio(),
   playMode: PlayMode.TURN,
   musicUrl: '',

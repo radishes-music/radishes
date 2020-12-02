@@ -1,5 +1,5 @@
 import { get } from '@/utils/http'
-import { SongsBase, SongsDetail } from '@/interface/index'
+import { SongsBase, SongsDetail, SongInteface } from '@/interface/index'
 
 export const getSongUrl = async (
   id: number | number[]
@@ -18,4 +18,16 @@ export const getSongDetail = async (
     ids: typeof id === 'number' ? id : id.join(',')
   })
   return data.songs
+}
+
+export const getPlayList = async (
+  id: number
+): Promise<SongInteface.SongState['playlist'][]> => {
+  const data = await get<{ playlist: SongInteface.SongState['playlist'][] }>(
+    '/api/playlist/detail',
+    {
+      id
+    }
+  )
+  return data.playlist
 }

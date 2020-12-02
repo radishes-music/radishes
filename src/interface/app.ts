@@ -19,5 +19,5 @@ export interface ElectronWindowEventMap extends WindowEventMap {
   restore: Event
 }
 
-export type AllMutations = FooterInteface.Mutations &
+export type AllMutations = FooterInteface.FooterMutations &
   FindMusicInteface.RecommendMutations

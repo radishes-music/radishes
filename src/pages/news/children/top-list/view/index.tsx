@@ -4,19 +4,42 @@ import { uesModuleStore } from '@/hooks/index'
 import { NAMESPACED, TopListState, TopListActions, Top } from '../module'
 import { ProvideInject } from '@/pages/news/constant'
 import { noop } from '@/utils/index'
+import { SongsDetail } from '@/interface/index'
+import { getPlayList } from '@/api/index'
+import {
+  NAMESPACED as FooterNamespaced,
+  FooterMutations,
+  FooterActions,
+  FooterState
+} from '@/pages/footer/module'
 import './index.less'
 
 export const TopList = defineComponent({
   name: 'TopList',
   setup() {
     const { useState, useActions } = uesModuleStore<TopListState>(NAMESPACED)
+    const footer = uesModuleStore<FooterState>(FooterNamespaced)
 
     const { top } = toRefs(useState())
+
+    const cacheSongListDetail = new Map()
 
     const toPlaylistDetails = inject<(n?: Top) => void>(
       ProvideInject.TO_PLAYLIST_DETAILS,
       noop
     )
+    const playMusic = async (songlistID: number, index: number) => {
+      footer.useMutations(FooterMutations.PAUES_MUSIC)
+      let songlist
+      if (cacheSongListDetail.has(songlistID)) {
+        songlist = cacheSongListDetail.get(songlistID)
+      } else {
+        songlist = await getPlayList(songlistID)
+        cacheSongListDetail.set(songlistID, songlist)
+      }
+
+      footer.useActions(FooterActions.SET_MUSIC, songlist.tracks[index].id)
+    }
     const expan = computed(() => top.value.slice(0, 4))
     const shrink = computed(() => top.value.slice(4))
 
@@ -34,8 +57,11 @@ export const TopList = defineComponent({
                 onClick={() => toPlaylistDetails(item)}
               ></div>
               <div class="toplist-expansion-contanier--song">
-                {item.tracks.map(song => (
-                  <div>
+                {item.tracks.map((song, index) => (
+                  <div
+                    class="none-select"
+                    onDblclick={() => playMusic(item.id, index)}
+                  >
                     <div>{song.first}</div>
                     <div>{song.second}</div>
                   </div>

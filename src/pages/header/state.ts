@@ -7,10 +7,10 @@ export interface SearchSuggest {
   order?: string[]
 }
 
-export interface State {
+export interface HeaderState {
   searchSuggest: SearchSuggest
 }
 
-export const state: State = {
+export const state: HeaderState = {
   searchSuggest: {}
 }

@@ -5,7 +5,7 @@ import {
   NAMESPACED as LayoutNamespace,
   State as LayoutState
 } from '@/layout/module'
-import { NAMESPACED, State, Getter, Mutations } from '../../module'
+import { NAMESPACED, FooterState, Getter, FooterMutations } from '../../module'
 import { Platform } from '@/config/build'
 import LyriceFlash from './index'
 import { importIpc } from '@/electron/event/ipc-browser'
@@ -26,16 +26,17 @@ export const ipcUpdateLyrice = (type: UpdateType, payload?: unknown) => {
 export const BrowserLyriceFlash = defineComponent({
   name: 'BrowserLyriceFlash',
   setup() {
-    const { useState, useGetter, useMutations } = uesModuleStore<State, Getter>(
-      NAMESPACED
-    )
+    const { useState, useGetter, useMutations } = uesModuleStore<
+      FooterState,
+      Getter
+    >(NAMESPACED)
     const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
 
     const { currentTime, playing, visibleFlash } = toRefs(useState())
     const { screenSize } = toRefs(LayoutModule.useState())
 
     if (VUE_APP_PLATFORM === Platform.ELECTRON) {
-      useMutations(Mutations.VISIBLE_FLASH, true)
+      useMutations(FooterMutations.VISIBLE_FLASH, true)
     }
 
     const lyrice = computed(() =>

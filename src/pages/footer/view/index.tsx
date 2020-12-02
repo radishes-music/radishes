@@ -5,7 +5,7 @@ import { MusicControl } from '../component/music-controller'
 import { VolumeAndHistory } from '../component/volume-history/index'
 import {
   NAMESPACED as FooterNamespace,
-  State as FooterState,
+  FooterState,
   Getter as FooterGetter
 } from '../module'
 import {
