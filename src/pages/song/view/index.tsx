@@ -105,7 +105,7 @@ export default defineComponent({
       <div class={renderClass('details')}>
         <div class={renderClass('details-contanier')}>
           <div
-            class={renderClass('details-contanier--coverimg')}
+            class={renderClass('details-contanier--coverimg bg-img')}
             style={{ backgroundImage: `url("${playlist.value.coverImgUrl}")` }}
           ></div>
           <div class={renderClass('details-contanier--des')}>

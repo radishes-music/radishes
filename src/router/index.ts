@@ -7,7 +7,7 @@ import {
 import { ComponentPublicInstance } from 'vue'
 import { hook } from './hook'
 import { $404 } from '@/pages/404/view/index'
-import { FindMusic, Recommend, SongList } from '@/pages/news/index'
+import { News, Recommend, SongList, TopList, Artists } from '@/pages/news/index'
 import { Video, Mv } from '@/pages/video/index'
 import { Profile } from './../pages/auth/views/profile'
 import { Moments } from '@/pages/moments/index'
@@ -66,8 +66,8 @@ export const navRouter: RouteRecordRaw[] = [
   },
   {
     path: '/music',
-    component: FindMusic,
-    name: FindMusic.name,
+    component: News,
+    name: News.name,
     meta: {
       name: '发现音乐'
     },
@@ -97,6 +97,24 @@ export const navRouter: RouteRecordRaw[] = [
               tag: 'all'
             }
           }
+        }
+      },
+      {
+        path: '/music/toplist',
+        component: TopList,
+        name: 'toplist',
+        meta: {
+          name: '排行榜',
+          path: '/music/toplist'
+        }
+      },
+      {
+        path: '/music/artists',
+        component: Artists,
+        name: 'artists',
+        meta: {
+          name: '歌手',
+          path: '/music/artists'
         }
       }
     ]

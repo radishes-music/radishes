@@ -119,7 +119,7 @@ export const SongList = defineComponent({
         </div>
         <ListComponent
           songData={songList.value}
-          handle={toPlaylistDetails}
+          onClick={toPlaylistDetails}
         ></ListComponent>
       </div>
     )

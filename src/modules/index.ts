@@ -1,10 +1,14 @@
+import {
+  Recommend,
+  RecommendNameSpaced,
+  SongList,
+  SongListNameSpaced,
+  TopList,
+  TopListNameSpaced,
+  Artists,
+  ArtistsNameSpaced
+} from '@/pages/news/children/module'
 import Layout, { NAMESPACED as LayoutNameSpaced } from '@/layout/module'
-import Recommend, {
-  NAMESPACED as RecommendNameSpaced
-} from '@/pages/news/children/recommend/module'
-import SongList, {
-  NAMESPACED as SongListNameSpaced
-} from '@/pages/news/children/song-list/module'
 import Header, { NAMESPACED as HeaderNameSpaced } from '@/pages/header/module'
 import Footer, { NAMESPACED as FooterNameSpaced } from '@/pages/footer/module'
 import Main, { NAMESPACED as MainNameSpaced } from '@/pages/main/module'
@@ -15,6 +19,8 @@ export {
   LayoutNameSpaced,
   RecommendNameSpaced,
   SongListNameSpaced,
+  TopListNameSpaced,
+  ArtistsNameSpaced,
   HeaderNameSpaced,
   FooterNameSpaced,
   AuthNameSpaced,
@@ -25,6 +31,8 @@ const modules = {
   [LayoutNameSpaced]: Layout,
   [RecommendNameSpaced]: Recommend,
   [SongListNameSpaced]: SongList,
+  [TopListNameSpaced]: TopList,
+  [ArtistsNameSpaced]: Artists,
   [HeaderNameSpaced]: Header,
   [FooterNameSpaced]: Footer,
   [MainNameSpaced]: Main,

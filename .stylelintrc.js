@@ -6,6 +6,7 @@ module.exports = {
     'stylelint-config-recess-order'
   ],
   rules: {
-    'prettier/prettier': true
+    'prettier/prettier': true,
+    'font-family-no-missing-generic-family-keyword': null
   }
 }

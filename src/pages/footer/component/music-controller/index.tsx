@@ -12,11 +12,6 @@ import {
   findMusicIndex,
   PlayMode
 } from '../../module'
-import {
-  NAMESPACED as LayoutNamespace,
-  State as LayoutState,
-  Size
-} from '@/layout/module'
 import './index.less'
 import { Platform } from '@/config/build'
 import { importIpc } from '@/electron/event/ipc-browser'
@@ -42,9 +37,6 @@ export const MusicControl = defineComponent({
       State,
       Getter
     >(NAMESPACED)
-    const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
-
-    const { screenSize } = toRefs(LayoutModule.useState())
 
     const {
       musicStack,
@@ -250,7 +242,7 @@ export const MusicControl = defineComponent({
             <ve-button type="text">
               <icon
                 icon="lyrics"
-                color="#333"
+                color={visibleFlash.value ? 'var(--base-color)' : '#333'}
                 size={16}
                 aria-title="词"
                 onClick={handleVisibleFlash}

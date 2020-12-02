@@ -6,8 +6,6 @@ import './index.less'
 
 const prefix = 'song'
 
-export type Handle = 'click' | 'mouseenter'
-
 export const SongList = defineComponent({
   name: 'SongList',
   props: {
@@ -15,15 +13,16 @@ export const SongList = defineComponent({
       type: Object as PropType<Song[]>,
       required: true
     },
-    handle: {
-      type: Function as PropType<(type: Handle, payload: Song) => void>,
+    onClick: {
+      type: Function as PropType<() => void>,
       required: true
     }
   },
-  setup(props) {
-    const { songData, handle } = toRefs(props)
+  emits: ['click'],
+  setup(props, { emit }) {
+    const { songData } = toRefs(props)
     const clickHandle = (song: Song) => {
-      handle.value('click', song)
+      emit('click', song)
     }
     return () => (
       <div class={`${prefix}-list`}>
@@ -35,12 +34,12 @@ export const SongList = defineComponent({
             >
               <div class={`${prefix}-pic`}>
                 <div
-                  class={`${prefix}-pic-img`}
+                  class={`${prefix}-pic-img bg-img`}
                   style={{
                     backgroundImage: `url(${song.picUrl || song.coverImgUrl})`
                   }}
                 >
-                  {song.picUrl === '' && (
+                  {song.coverImgUrl === '' && (
                     <div class={`${prefix}-pic-img--date`}>
                       <icon icon="rili" size={78}></icon>
                       <div>{dayjs().date()}</div>

@@ -52,10 +52,7 @@ export const Recommend = defineComponent({
         </div>
         <div class="recommend-song">
           <h2>推荐歌单</h2>
-          <SongList
-            songData={songList.value}
-            handle={toPlaylistDetails}
-          ></SongList>
+          <SongList songData={songList.value} onClick={toPlaylistDetails} />
         </div>
       </div>
     )
