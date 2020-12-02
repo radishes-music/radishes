@@ -22,8 +22,8 @@ export const getSongDetail = async (
 
 export const getPlayList = async (
   id: number
-): Promise<SongInteface.SongState['playlist'][]> => {
-  const data = await get<{ playlist: SongInteface.SongState['playlist'][] }>(
+): Promise<SongInteface.SongState['playlist']> => {
+  const data = await get<{ playlist: SongInteface.SongState['playlist'] }>(
     '/api/playlist/detail',
     {
       id

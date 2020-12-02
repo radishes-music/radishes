@@ -4,7 +4,7 @@ import { uesModuleStore } from '@/hooks/index'
 import { NAMESPACED, TopListState, TopListActions, Top } from '../module'
 import { ProvideInject } from '@/pages/news/constant'
 import { noop } from '@/utils/index'
-import { SongsDetail } from '@/interface/index'
+import { SongState } from '@/pages/song/module'
 import { getPlayList } from '@/api/index'
 import {
   NAMESPACED as FooterNamespaced,
@@ -30,7 +30,7 @@ export const TopList = defineComponent({
     )
     const playMusic = async (songlistID: number, index: number) => {
       footer.useMutations(FooterMutations.PAUES_MUSIC)
-      let songlist
+      let songlist: SongState['playlist']
       if (cacheSongListDetail.has(songlistID)) {
         songlist = cacheSongListDetail.get(songlistID)
       } else {

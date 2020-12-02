@@ -2,6 +2,7 @@ import { createStore, MutationTree, createLogger } from 'vuex'
 import modules from '../modules/index'
 import { FooterMutations } from '@/pages/footer/module'
 import { AllMutations } from '@/interface/index'
+import { Platform } from '@/config/build'
 
 export const enum Mutations {
   SET_HISTORY_ROUTE = 'SET_HISTORY_ROUTE',
@@ -51,7 +52,11 @@ const mutations: MutationTree<RootState> = {
 
 const plugins = []
 
-if (process.env.NODE_ENV === 'development') {
+let NODE_ENV = process.env.NODE_ENV
+if (process.env.VUE_APP_PLATFORM === Platform.ELECTRON) {
+  NODE_ENV = process.env.VUE_APP_NODE_ENV
+}
+if (NODE_ENV === 'development') {
   plugins.push(
     createLogger({
       filter(mutation) {
