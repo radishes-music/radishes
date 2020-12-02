@@ -1,13 +1,4 @@
-import {
-  defineComponent,
-  nextTick,
-  onMounted,
-  onUpdated,
-  PropType,
-  ref,
-  toRefs,
-  watch
-} from 'vue'
+import { defineComponent, nextTick, PropType, ref, toRefs, watch } from 'vue'
 import './index.less'
 
 const prefix = 'more-then'

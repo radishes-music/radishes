@@ -1,4 +1,4 @@
-import { defineComponent, PropType, toRefs, ref } from 'vue'
+import { defineComponent, PropType, toRefs } from 'vue'
 import { SongInteface, SongsDetail } from '@/interface/index'
 import { Table as ATable } from 'ant-design-vue'
 import { noop } from '@/utils/index'
