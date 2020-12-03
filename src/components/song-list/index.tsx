@@ -33,17 +33,19 @@ export const SongList = defineComponent({
               onClick={() => clickHandle(song)}
             >
               <div class={`${prefix}-pic`}>
-                <div
-                  class={`${prefix}-pic-img bg-img`}
-                  style={{
-                    backgroundImage: `url(${song.picUrl || song.coverImgUrl})`
-                  }}
-                >
-                  {song.coverImgUrl === '' && (
+                <div class={`${prefix}-pic-img bg-img`}>
+                  {!song.picUrl && !song.coverImgUrl ? (
                     <div class={`${prefix}-pic-img--date`}>
                       <icon icon="rili" size={78}></icon>
                       <div>{dayjs().date()}</div>
                     </div>
+                  ) : (
+                    <img
+                      src={song.picUrl || song.coverImgUrl}
+                      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+                      // @ts-ignore
+                      loading="lazy"
+                    />
                   )}
                 </div>
                 <div

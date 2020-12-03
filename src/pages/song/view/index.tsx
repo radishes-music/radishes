@@ -104,10 +104,10 @@ export default defineComponent({
     return () => (
       <div class={renderClass('details')}>
         <div class={renderClass('details-contanier')}>
-          <div
-            class={renderClass('details-contanier--coverimg bg-img')}
-            style={{ backgroundImage: `url("${playlist.value.coverImgUrl}")` }}
-          ></div>
+          <div class={renderClass('details-contanier--coverimg bg-img')}>
+            {/* @ts-ignore */}
+            <img src={playlist.value.coverImgUrl} loading="lazy" />
+          </div>
           <div class={renderClass('details-contanier--des')}>
             <h1>{playlist.value.name}</h1>
             <div class="a-author">

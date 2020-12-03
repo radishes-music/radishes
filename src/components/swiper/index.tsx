@@ -110,10 +110,10 @@ export const Swiper = defineComponent({
           </div>
           {banners.value.map((item, index: number) => (
             <li class={renderClass(index)}>
-              <div
-                class="bg-img"
-                style={{ backgroundImage: `url(${item.imageUrl})` }}
-              ></div>
+              <div class="bg-img">
+                {/* @ts-ignore */}
+                <img src={item.imageUrl} loading="lazy" />
+              </div>
             </li>
           ))}
           <div class={`${prefix}-container-right`} onClick={nextAction}>

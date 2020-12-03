@@ -53,9 +53,11 @@ export const TopList = defineComponent({
             <div class="toplist-expansion-contanier">
               <div
                 class="toplist-expansion-contanier--coverimg bg-img"
-                style={{ backgroundImage: `url("${item.coverImgUrl}")` }}
                 onClick={() => toPlaylistDetails(item)}
-              ></div>
+              >
+                {/* @ts-ignore */}
+                <img src={item.coverImgUrl} loading="lazy" />
+              </div>
               <div class="toplist-expansion-contanier--song">
                 {item.tracks.map((song, index) => (
                   <div

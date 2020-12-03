@@ -14,7 +14,9 @@ export const PushShift = defineComponent({
   setup() {
     const store = useStore()
     const setHistoryRoute = (routeObj: { oldRoute: string }) => {
-      store.commit(Mutations.SET_HISTORY_ROUTE, { oldRoute: routeObj.oldRoute })
+      store.commit(Mutations.SET_HISTORY_ROUTE, {
+        oldRoute: routeObj.oldRoute
+      })
     }
     const routeCanBeCollect = (isCollect: boolean) => {
       store.commit(Mutations.CAN_BE_COLLECT, isCollect)

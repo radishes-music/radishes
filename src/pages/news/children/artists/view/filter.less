@@ -1,0 +1,33 @@
+.filter {
+  margin-bottom: 10px;
+  &-group {
+    display: flex;
+    align-items: flex-start;
+    font-size: 13px;
+    > div {
+      min-width: 40px;
+    }
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      li {
+        min-width: 56px;
+        margin: 0 8px 10px;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 8px;
+        &:hover:not(.filter-active) {
+          color: var(--secondary-text-hover);
+        }
+      }
+    }
+  }
+  &-active {
+    color: var(--base-color);
+    background-color: var(--base-color-background);
+    &:hover {
+      background-color: var(--secondary-theme-text);
+    }
+  }
+}
