@@ -26,7 +26,7 @@ const format = song => ({
   artists: song.singer.map(({ mid, name }) => ({ id: mid, name }))
 })
 
-const search = info => {
+const search = (info, multiple) => {
   const url =
     'https://c.y.qq.com/soso/fcgi-bin/client_search_cp?' +
     'ct=24&qqmusic_ver=1298&new_json=1&remoteplace=txt.yqq.song&' +
@@ -41,6 +41,9 @@ const search = info => {
     .then(response => response.json())
     .then(jsonBody => {
       const list = jsonBody.data.song.list.map(format)
+      if (multiple) {
+        return list
+      }
       const matched = select(list, info)
       const id = matched ? matched.id : Promise.reject()
       return id
@@ -52,19 +55,19 @@ const single = (id, format) => {
   // id = id || classic[Math.floor(classic.length * Math.random())]
   const uin = ((headers.cookie || '').match(/uin=(\d+)/) || [])[1] || '0'
 
-  const concatenate = vkey => {
-    if (!vkey) return Promise.reject()
-    const host = [
-      'streamoc.music.tc.qq.com',
-      'mobileoc.music.tc.qq.com',
-      'isure.stream.qqmusic.qq.com',
-      'dl.stream.qqmusic.qq.com',
-      'aqqmusic.tc.qq.com/amobile.music.tc.qq.com'
-    ][3]
-    return `http://${host}/${format.join(
-      id.file
-    )}?vkey=${vkey}&uin=0&fromtag=8&guid=7332953645`
-  }
+  // const concatenate = vkey => {
+  //   if (!vkey) return Promise.reject()
+  //   const host = [
+  //     'streamoc.music.tc.qq.com',
+  //     'mobileoc.music.tc.qq.com',
+  //     'isure.stream.qqmusic.qq.com',
+  //     'dl.stream.qqmusic.qq.com',
+  //     'aqqmusic.tc.qq.com/amobile.music.tc.qq.com'
+  //   ][3]
+  //   return `http://${host}/${format.join(
+  //     id.file
+  //   )}?vkey=${vkey}&uin=0&fromtag=8&guid=7332953645`
+  // }
 
   // const url =
   // 	'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg' +
@@ -174,4 +177,4 @@ const track = id => {
 
 const check = info => cache(search, info).then(track)
 
-module.exports = { check, track }
+module.exports = { check, track, search }

@@ -1,4 +1,6 @@
 // 搜索建议
+// 增加QQ音乐搜索结果，网易云版权太少了
+const { search } = require('@radishes/unblock/src/provider/qq')
 
 module.exports = (query, request) => {
   const data = {
@@ -15,5 +17,14 @@ module.exports = (query, request) => {
       proxy: query.proxy,
       realIP: query.realIP,
     },
-  )
+  ).then(async (v) => {
+    const url = await search(
+      {
+        keyword: query.keywords,
+      },
+      true,
+    ).catch(() => {})
+    v.body.qq = url
+    return v
+  })
 }
