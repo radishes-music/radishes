@@ -2,22 +2,22 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  overflow: auto;
+  transform: translateZ(0);
   &-group {
     margin-bottom: 20px;
   }
   &-content {
     flex: 1;
     height: 0;
-    overflow: hidden;
     ul {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       grid-gap: 20px;
       height: 100%;
-      overflow: auto;
-      transform: translateZ(0);
       li {
         cursor: pointer;
+        opacity: 1;
         .artist-pic {
           width: 160px;
           height: 160px;

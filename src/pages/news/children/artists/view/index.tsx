@@ -1,4 +1,4 @@
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, reactive, ref, toRaw } from 'vue'
 import { Filter } from './filter'
 import { uesModuleStore } from '@/hooks/index'
 import { NAMESPACED, ArtistsState, ArtistsActions, Artist } from '../module'
@@ -13,7 +13,7 @@ export const Artists = defineComponent({
       offsets: 1,
       limit: 30
     })
-    const filter = reactive({
+    const filter = ref({
       type: -1,
       area: -1,
       initial: '-1'
@@ -23,7 +23,7 @@ export const Artists = defineComponent({
     const state = useState()
 
     const getArtists = () => {
-      const params = merge(pagination, filter)
+      const params = merge(pagination, toRaw(filter.value))
       useActions(ArtistsActions.SET_ACTION_ARTISTS, params)
     }
 
@@ -61,12 +61,12 @@ export const Artists = defineComponent({
     }
 
     return () => (
-      <div class="artists">
+      <div class="artists" ref={wrap} onScroll={throttle(scroll(), 200)}>
         <div class="artists-group">
-          <Filter v-model={[filter, 'value']} onChange={changeHandle} />
+          <Filter v-model={[filter.value, 'value']} onChange={changeHandle} />
         </div>
         <div class="artists-content">
-          <ul ref={wrap} onScroll={throttle(scroll(), 200)}>
+          <ul>
             {state.artists.map(artist => (
               <li onClick={() => toArtist(artist)}>
                 <div class="artist-pic bg-img">
