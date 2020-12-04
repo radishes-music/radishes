@@ -20,7 +20,7 @@ const baseURL =
 
 const http: AxiosInstance = Axios.create({
   baseURL: baseURL,
-  timeout: 5000
+  timeout: 20000
 })
 
 http.interceptors.request.use(

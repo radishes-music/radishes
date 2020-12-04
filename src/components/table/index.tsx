@@ -40,6 +40,7 @@ export const Table = defineComponent({
         <div class={`${prefix}-header`}></div>
         <div class={`${prefix}-body`}>
           <ATable
+            size="small"
             rowKey="id"
             rowClassName={rowClassName.value}
             pagination={false}

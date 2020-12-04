@@ -45,7 +45,8 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.9",
     "pac-proxy-agent": "^4.0.0",
-    "tunnel": "^0.0.6"
+    "tunnel": "^0.0.6",
+    "@nondanee/unblockneteasemusic": "file:../unblock"
   },
   "devDependencies": {
     "@types/node": "14.11.10",

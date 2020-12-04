@@ -76,7 +76,10 @@ export const MusicHistory = defineComponent({
 
     const handleDbClick = (item: Music) => {
       useMutations(FooterMutations.PAUES_MUSIC)
-      useActions(FooterActions.SET_MUSIC, item.id)
+      useActions(FooterActions.SET_MUSIC, {
+        url: item.url,
+        id: item.id
+      })
     }
 
     const trigger = () => {

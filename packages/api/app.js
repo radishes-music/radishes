@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 // cookie parser
 app.use((req, res, next) => {
   req.cookies = {}
-  ;(req.headers.cookie || '').split(/\s*;\s*/).forEach(pair => {
+  ;(req.headers.cookie || '').split(/\s*;\s*/).forEach((pair) => {
     let crack = pair.indexOf('=')
     if (crack < 1 || crack == pair.length - 1) return
     req.cookies[
@@ -56,7 +56,7 @@ const special = {
 
 fs.readdirSync(path.join(__dirname, 'module'))
   .reverse()
-  .forEach(file => {
+  .forEach((file) => {
     if (!file.endsWith('.js')) return
     let route =
       file in special
@@ -77,12 +77,12 @@ fs.readdirSync(path.join(__dirname, 'module'))
       )
 
       question(query, request)
-        .then(answer => {
+        .then((answer) => {
           console.log('[OK]', decodeURIComponent(req.originalUrl))
           res.append('Set-Cookie', answer.cookie)
           res.status(answer.status).send(answer.body)
         })
-        .catch(answer => {
+        .catch((answer) => {
           console.log('[ERR]', decodeURIComponent(req.originalUrl), {
             status: answer.status,
             body: answer.body,

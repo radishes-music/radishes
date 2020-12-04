@@ -19,10 +19,26 @@ const renderClass = (name: string) => `song-list-${name}`
 
 const columns = [
   {
+    width: 80,
+    align: 'center',
+    customRender: ({ index }: { index: number }) => (
+      <div>{++index < 10 ? '0' + index : index}</div>
+    )
+  },
+  {
     title: '音乐标题',
-    dataIndex: 'name',
-    key: 'name',
-    ellipsis: true
+    ellipsis: true,
+    customRender: ({ text }: { text: Tracks }) => {
+      return (
+        <div
+          style={{
+            color: text.noCopyrightRcmd?.typeDesc ? '#eee' : ''
+          }}
+        >
+          {text.name}
+        </div>
+      )
+    }
   },
   {
     title: '歌手',
@@ -83,12 +99,9 @@ export default defineComponent({
       const tracksDetail = await getSongUrl(tracks.map(item => item.id))
       const stack = tracks.map(item => {
         const urlItem = tracksDetail.find(o => o.id === item.id)
-        const url = urlItem
-          ? urlItem.url
-          : ` https://music.163.com/song/media/outer/url?${item.id}=id.mp3`
         return {
           ...item,
-          url: url
+          url: urlItem?.url
         }
       })
       footerStore.useMutations(FooterMutations.SET_PLAYLIST_TO_STACK, stack)
@@ -96,7 +109,10 @@ export default defineComponent({
       const { music } = footerStore.useState()
       if (music?.id !== stack[0].id) {
         footerStore.useMutations(FooterMutations.PAUES_MUSIC)
-        await footerStore.useActions(FooterActions.SET_MUSIC, stack[0].id)
+        await footerStore.useActions(FooterActions.SET_MUSIC, {
+          id: stack[0].id,
+          url: stack[0].url
+        })
         footerStore.useMutations(FooterMutations.PLAY_MUSIC)
       }
     }

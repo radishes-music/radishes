@@ -1,6 +1,27 @@
 // 歌曲链接
 
+// 从 packages/unblock 中解析网易云音乐ID的播放链接，突破灰色歌曲限制
+const match = require('@nondanee/unblockneteasemusic')
 const crypto = require('crypto')
+
+const find = async (id) => {
+  await match(id, [
+    'qq',
+    // 'xiami',
+    // 'baidu',
+    'kugou',
+    'kuwo',
+    // 'joox',
+    // 'youtube',
+    'migu',
+  ])
+    .then((url) => {
+      return url.url
+    })
+    .catch((e) => {
+      return ''
+    })
+}
 
 module.exports = (query, request) => {
   if (!('MUSIC_U' in query.cookie))
@@ -22,4 +43,22 @@ module.exports = (query, request) => {
       url: '/api/song/enhance/player/url',
     },
   )
+    .then(async (v) => {
+      const { body } = v
+      let i = 0
+      while (i < body.data.length) {
+        if (!body.data[i].url) {
+          const url = await find(body.data[i].id)
+          v.body.data[i].url = url
+        }
+        i++
+      }
+      return v
+    })
+    .catch((e) => {
+      return {
+        status: 500,
+        body: e,
+      }
+    })
 }

@@ -140,20 +140,24 @@ export const getters: GetterTree<FooterState, RootState> = {
 }
 
 export const actions: ActionTree<FooterState, RootState> = {
-  async [FooterActions.SET_MUSIC]({ state, dispatch, commit }, id: number) {
-    const data = await getSongUrl(id)
-    if (state.sourceElement && state.audioElement) {
-      if (data.length) {
-        const url =
-          data[0].url ||
-          `https://music.163.com/song/media/outer/url?id=${id}.mp3`
-        state.musicUrl = url
-        commit(FooterMutations.CAN_PLAY, false)
-        await dispatch(FooterActions.SET_MUSIC_DEFAILT, id)
-        await dispatch(FooterActions.SET_MUSIC_LYRICS, id)
-        commit(FooterMutations.SET_MUSIC_URL, url)
-      }
+  async [FooterActions.SET_MUSIC](
+    { state, dispatch, commit },
+    payload: number | { url: string; id: number }
+  ) {
+    let id, url
+    if (typeof payload === 'number') {
+      const data = await getSongUrl(payload)
+      id = payload
+      url = data[0].url
+    } else {
+      id = payload.id
+      url = payload.url
     }
+    state.musicUrl = url
+    commit(FooterMutations.CAN_PLAY, false)
+    await dispatch(FooterActions.SET_MUSIC_DEFAILT, id)
+    await dispatch(FooterActions.SET_MUSIC_LYRICS, id)
+    commit(FooterMutations.SET_MUSIC_URL, url)
   },
   async [FooterActions.SET_MUSIC_DEFAILT]({ state }, id: number | number[]) {
     const data = await getSongDetail(id)

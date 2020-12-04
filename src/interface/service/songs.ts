@@ -42,4 +42,9 @@ export interface SongsDetail extends GlobalBase {
     lyric: string
   }
   url: string
+  copyright: number
+  noCopyrightRcmd?: {
+    type: number
+    typeDesc: string
+  }
 }
