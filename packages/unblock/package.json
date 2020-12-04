@@ -1,5 +1,5 @@
 {
-  "name": "@nondanee/unblockneteasemusic",
+  "name": "@radishes/unblock",
   "version": "0.25.3",
   "description": "Revive unavailable songs for Netease Cloud Music",
   "main": "src/provider/match.js",
@@ -7,7 +7,8 @@
     "unblockneteasemusic": "app.js"
   },
   "scripts": {
-    "pkg": "pkg . --out-path=dist/"
+    "pkg": "pkg . --out-path=dist/",
+    "test": "jest"
   },
   "pkg": {
     "assets": [
@@ -21,8 +22,13 @@
   },
   "author": "nondanee",
   "license": "MIT",
-  "dependencies": {},
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "babel-jest": "^26.6.3"
   }
 }

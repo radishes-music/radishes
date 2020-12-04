@@ -12,7 +12,7 @@ export const MoreThen = defineComponent({
       required: true
     },
     rely: {
-      type: [String] as PropType<string>,
+      type: String as PropType<string>,
       required: true
     }
   },

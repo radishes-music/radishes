@@ -1,5 +1,5 @@
 {
-  "name": "NeteaseCloudMusicApi",
+  "name": "@radishes/api",
   "version": "3.45.2",
   "description": "网易云音乐 NodeJS 版 API",
   "scripts": {
@@ -41,12 +41,12 @@
     "module_types"
   ],
   "dependencies": {
+    "@radishes/unblock": "^0.25.3",
     "axios": "^0.20.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.9",
     "pac-proxy-agent": "^4.0.0",
-    "tunnel": "^0.0.6",
-    "@nondanee/unblockneteasemusic": "file:../unblock"
+    "tunnel": "^0.0.6"
   },
   "devDependencies": {
     "@types/node": "14.11.10",

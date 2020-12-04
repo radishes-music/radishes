@@ -31,7 +31,7 @@ const match = (id, source) => {
     })
     .then(songs => {
       songs = songs.filter(song => song.url)
-      if (!songs.length) return Promise.reject()
+      if (!songs.length) return Promise.reject('未获取到任何播放源')
       return songs[0]
     })
 }
