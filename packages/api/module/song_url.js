@@ -1,20 +1,11 @@
 // 歌曲链接
 
 // 从 packages/unblock 中解析网易云音乐ID的播放链接，突破灰色歌曲限制
-const match = require('@nondanee/unblockneteasemusic')
+const match = require('@radishes/unblock')
 const crypto = require('crypto')
 
-const find = async (id) => {
-  await match(id, [
-    'qq',
-    // 'xiami',
-    // 'baidu',
-    'kugou',
-    'kuwo',
-    // 'joox',
-    // 'youtube',
-    'migu',
-  ])
+const find = (id) => {
+  return match(id)
     .then((url) => {
       return url.url
     })
