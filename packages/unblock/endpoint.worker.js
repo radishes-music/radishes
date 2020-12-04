@@ -10,7 +10,11 @@ const handleRequest = async request => {
   const [matched, base64Url, fileName] = pattern.exec(path || '') || []
   if (!matched) return notFound
   let url = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-  try { url = new URL(atob(url)) } catch(_) { url = null }
+  try {
+    url = new URL(atob(url))
+  } catch (_) {
+    url = null
+  }
   if (!url) return notFound
   const headers = new Headers(request.headers)
   headers.set('host', url.host)

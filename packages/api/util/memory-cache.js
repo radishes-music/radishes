@@ -3,14 +3,14 @@ function MemoryCache() {
   this.size = 0
 }
 
-MemoryCache.prototype.add = function (key, value, time, timeoutCallback) {
+MemoryCache.prototype.add = function(key, value, time, timeoutCallback) {
   var old = this.cache[key]
   var instance = this
 
   var entry = {
     value: value,
     expire: time + Date.now(),
-    timeout: setTimeout(function () {
+    timeout: setTimeout(function() {
       instance.delete(key)
       return (
         timeoutCallback &&
@@ -26,7 +26,7 @@ MemoryCache.prototype.add = function (key, value, time, timeoutCallback) {
   return entry
 }
 
-MemoryCache.prototype.delete = function (key) {
+MemoryCache.prototype.delete = function(key) {
   var entry = this.cache[key]
 
   if (entry) {
@@ -40,20 +40,20 @@ MemoryCache.prototype.delete = function (key) {
   return null
 }
 
-MemoryCache.prototype.get = function (key) {
+MemoryCache.prototype.get = function(key) {
   var entry = this.cache[key]
 
   return entry
 }
 
-MemoryCache.prototype.getValue = function (key) {
+MemoryCache.prototype.getValue = function(key) {
   var entry = this.get(key)
 
   return entry && entry.value
 }
 
-MemoryCache.prototype.clear = function () {
-  Object.keys(this.cache).forEach(function (key) {
+MemoryCache.prototype.clear = function() {
+  Object.keys(this.cache).forEach(function(key) {
     this.delete(key)
   }, this)
 

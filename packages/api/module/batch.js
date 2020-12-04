@@ -4,7 +4,7 @@ module.exports = (query, request) => {
   const data = {
     e_r: true,
   }
-  Object.keys(query).forEach((i) => {
+  Object.keys(query).forEach(i => {
     if (/^\/api\//.test(i)) {
       data[i] = query[i]
     }

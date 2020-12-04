@@ -20,11 +20,11 @@ const rsaEncrypt = (buffer, key) => {
   )
 }
 
-const weapi = (object) => {
+const weapi = object => {
   const text = JSON.stringify(object)
   const secretKey = crypto
     .randomBytes(16)
-    .map((n) => base62.charAt(n % 62).charCodeAt())
+    .map(n => base62.charAt(n % 62).charCodeAt())
   return {
     params: aesEncrypt(
       Buffer.from(
@@ -38,7 +38,7 @@ const weapi = (object) => {
   }
 }
 
-const linuxapi = (object) => {
+const linuxapi = object => {
   const text = JSON.stringify(object)
   return {
     eparams: aesEncrypt(Buffer.from(text), 'ecb', linuxapiKey, '')
@@ -50,7 +50,10 @@ const linuxapi = (object) => {
 const eapi = (url, object) => {
   const text = typeof object === 'object' ? JSON.stringify(object) : object
   const message = `nobody${url}use${text}md5forencrypt`
-  const digest = crypto.createHash('md5').update(message).digest('hex')
+  const digest = crypto
+    .createHash('md5')
+    .update(message)
+    .digest('hex')
   const data = `${url}-36cd479b6b5-${text}-36cd479b6b5-${digest}`
   return {
     params: aesEncrypt(Buffer.from(data), 'ecb', eapiKey, '')
@@ -59,7 +62,7 @@ const eapi = (url, object) => {
   }
 }
 
-const decrypt = (cipherBuffer) => {
+const decrypt = cipherBuffer => {
   const decipher = crypto.createDecipheriv('aes-128-ecb', eapiKey, '')
   return Buffer.concat([decipher.update(cipherBuffer), decipher.final()])
 }

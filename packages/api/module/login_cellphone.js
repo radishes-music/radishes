@@ -9,7 +9,10 @@ module.exports = async (query, request) => {
     countrycode: query.countrycode || '86',
     password:
       query.md5_password ||
-      crypto.createHash('md5').update(query.password).digest('hex'),
+      crypto
+        .createHash('md5')
+        .update(query.password)
+        .digest('hex'),
     rememberLogin: 'true',
   }
   let result = await request(

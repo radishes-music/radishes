@@ -5,42 +5,51 @@ const crypto = require('../crypto')
 const request = require('../request')
 
 const headers = {
-	// 'origin': 'http://www.xiami.com/',
-	// 'referer': 'http://www.xiami.com/'
-	'referer': 'https://h.xiami.com/'
+  // 'origin': 'http://www.xiami.com/',
+  // 'referer': 'http://www.xiami.com/'
+  referer: 'https://h.xiami.com/'
 }
 
 const format = song => ({
-	id: song.song_id,
-	name: song.song_name,
-	album: {id: song.album_id, name: song.album_name},
-	artists: [{id: song.artist_id, name: song.artist_name}]
+  id: song.song_id,
+  name: song.song_name,
+  album: { id: song.album_id, name: song.album_name },
+  artists: [{ id: song.artist_id, name: song.artist_name }]
 })
 
 const caesar = pattern => {
-	const height = parseInt(pattern[0])
-	pattern = pattern.slice(1)
-	const width = Math.ceil(pattern.length / height)
-	const unpad = height - (width * height - pattern.length)
+  const height = parseInt(pattern[0])
+  pattern = pattern.slice(1)
+  const width = Math.ceil(pattern.length / height)
+  const unpad = height - (width * height - pattern.length)
 
-	const matrix = Array.from(Array(height).keys()).map(i =>
-		pattern.slice(i < unpad ? i * width : unpad * width + (i - unpad) * (width - 1)).slice(0, i < unpad ? width : width - 1)
-	)
+  const matrix = Array.from(Array(height).keys()).map(i =>
+    pattern
+      .slice(i < unpad ? i * width : unpad * width + (i - unpad) * (width - 1))
+      .slice(0, i < unpad ? width : width - 1)
+  )
 
-	const transpose = Array.from(Array(width).keys()).map(x =>
-		Array.from(Array(height).keys()).map(y => matrix[y][x]).join('')
-	)
+  const transpose = Array.from(Array(width).keys()).map(x =>
+    Array.from(Array(height).keys())
+      .map(y => matrix[y][x])
+      .join('')
+  )
 
-	return unescape(transpose.join('')).replace(/\^/g, '0')
+  return unescape(transpose.join('')).replace(/\^/g, '0')
 }
 
 const token = () => {
-	return request('GET', 'https://www.xiami.com')
-	.then(response =>
-		response.headers['set-cookie'].map(line => line.replace(/;.+$/, '')).reduce(
-			(cookie, line) => (line = line.split(/\s*=\s*/).map(decodeURIComponent), Object.assign(cookie, {[line[0]]: line[1]})), {}
-		)
-	)
+  return request('GET', 'https://www.xiami.com').then(response =>
+    response.headers['set-cookie']
+      .map(line => line.replace(/;.+$/, ''))
+      .reduce(
+        (cookie, line) => (
+          (line = line.split(/\s*=\s*/).map(decodeURIComponent)),
+          Object.assign(cookie, { [line[0]]: line[1] })
+        ),
+        {}
+      )
+  )
 }
 
 // const search = info => {
@@ -64,18 +73,20 @@ const token = () => {
 // }
 
 const search = info => {
-	const url =
-		'http://api.xiami.com/web?v=2.0&app_key=1' +
-		'&key=' + encodeURIComponent(info.keyword) + '&page=1' +
-		'&limit=20&callback=jsonp&r=search/songs'
+  const url =
+    'http://api.xiami.com/web?v=2.0&app_key=1' +
+    '&key=' +
+    encodeURIComponent(info.keyword) +
+    '&page=1' +
+    '&limit=20&callback=jsonp&r=search/songs'
 
-	return request('GET', url, headers)
-	.then(response => response.jsonp())
-	.then(jsonBody => {
-		const list = jsonBody.data.songs.map(format)
-		const matched = select(list, info)
-		return matched ? matched.id : Promise.reject()
-	})
+  return request('GET', url, headers)
+    .then(response => response.jsonp())
+    .then(jsonBody => {
+      const list = jsonBody.data.songs.map(format)
+      const matched = select(list, info)
+      return matched ? matched.id : Promise.reject()
+    })
 }
 
 // const track = id => {
@@ -105,18 +116,18 @@ const search = info => {
 // }
 
 const track = id => {
-	const url =
-		'https://api.xiami.com/web?v=2.0&app_key=1' +
-		'&id=' + id + '&callback=jsonp&r=song/detail'
+  const url =
+    'https://api.xiami.com/web?v=2.0&app_key=1' +
+    '&id=' +
+    id +
+    '&callback=jsonp&r=song/detail'
 
-	return request('GET', url, headers)
-	.then(response => response.jsonp())
-	.then(jsonBody =>
-		jsonBody.data.song.listen_file || Promise.reject()
-	)
-	.catch(() => insure().xiami.track(id))
+  return request('GET', url, headers)
+    .then(response => response.jsonp())
+    .then(jsonBody => jsonBody.data.song.listen_file || Promise.reject())
+    .catch(() => insure().xiami.track(id))
 }
 
 const check = info => cache(search, info).then(track)
 
-module.exports = {check, track}
+module.exports = { check, track }

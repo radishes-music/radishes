@@ -6,10 +6,10 @@ const { cookieToJson } = require('./util/index')
 let obj = {}
 fs.readdirSync(path.join(__dirname, 'module'))
   .reverse()
-  .forEach((file) => {
+  .forEach(file => {
     if (!file.endsWith('.js')) return
     let fileModule = require(path.join(__dirname, 'module', file))
-    obj[file.split('.').shift()] = function (data) {
+    obj[file.split('.').shift()] = function(data) {
       if (typeof data.cookie === 'string') {
         data.cookie = cookieToJson(data.cookie)
       }

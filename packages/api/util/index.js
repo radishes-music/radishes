@@ -8,7 +8,7 @@ module.exports = {
     if (!cookie) return {}
     let cookieArr = cookie.split(';')
     let obj = {}
-    cookieArr.forEach((i) => {
+    cookieArr.forEach(i => {
       let arr = i.split('=')
       obj[arr[0]] = arr[1]
     })

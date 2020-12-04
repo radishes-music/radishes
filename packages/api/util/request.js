@@ -54,7 +54,7 @@ const createRequest = (method, url, data, options) => {
     if (typeof options.cookie === 'object')
       headers['Cookie'] = Object.keys(options.cookie)
         .map(
-          (key) =>
+          key =>
             encodeURIComponent(key) +
             '=' +
             encodeURIComponent(options.cookie[key]),
@@ -88,7 +88,11 @@ const createRequest = (method, url, data, options) => {
         appver: cookie.appver || '6.1.1', // app版本
         versioncode: cookie.versioncode || '140', //版本号
         mobilename: cookie.mobilename, //设备model
-        buildver: cookie.buildver || Date.now().toString().substr(0, 10),
+        buildver:
+          cookie.buildver ||
+          Date.now()
+            .toString()
+            .substr(0, 10),
         resolution: cookie.resolution || '1920x1080', //设备分辨率
         __csrf: csrfToken,
         os: cookie.os || 'android',
@@ -101,7 +105,7 @@ const createRequest = (method, url, data, options) => {
       if (cookie.MUSIC_A) header['MUSIC_A'] = cookie.MUSIC_A
       headers['Cookie'] = Object.keys(header)
         .map(
-          (key) =>
+          key =>
             encodeURIComponent(key) + '=' + encodeURIComponent(header[key]),
         )
         .join('; ')
@@ -145,9 +149,9 @@ const createRequest = (method, url, data, options) => {
     }
 
     axios(settings)
-      .then((res) => {
+      .then(res => {
         const body = res.data
-        answer.cookie = (res.headers['set-cookie'] || []).map((x) =>
+        answer.cookie = (res.headers['set-cookie'] || []).map(x =>
           x.replace(/\s*Domain=[^(;|$)]+;*/, ''),
         )
         try {
@@ -166,7 +170,7 @@ const createRequest = (method, url, data, options) => {
         if (answer.status == 200) resolve(answer)
         else reject(answer)
       })
-      .catch((err) => {
+      .catch(err => {
         answer.status = 502
         answer.body = { code: 502, msg: err }
         reject(answer)

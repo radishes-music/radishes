@@ -4,7 +4,7 @@ module.exports = async (query, request) => {
   const data = {
     id: query.pid,
     tracks: JSON.stringify(
-      query.ids.split(',').map((item) => {
+      query.ids.split(',').map(item => {
         return { type: 3, id: item }
       }),
     ),

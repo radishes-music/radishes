@@ -9,9 +9,8 @@ module.exports = (query, request) => {
   }
   return request(
     'POST',
-    `https://music.163.com/weapi/radio/like?alg=${
-      query.alg || 'itembased'
-    }&trackId=${query.id}&time=${query.time || 25}`,
+    `https://music.163.com/weapi/radio/like?alg=${query.alg ||
+      'itembased'}&trackId=${query.id}&time=${query.time || 25}`,
     data,
     {
       crypto: 'weapi',
