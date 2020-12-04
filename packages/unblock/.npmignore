@@ -1,0 +1,10 @@
+.npmignore
+.gitignore
+.dockerignore
+
+Dockerfile*
+*.yml
+
+src/browser/
+ca.*
+*.worker.js

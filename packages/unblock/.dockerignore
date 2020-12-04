@@ -1,0 +1,17 @@
+.git
+.npmignore
+.gitignore
+.dockerignore
+
+LICENSE
+*.md
+
+node_modules
+npm-debug.log
+
+Dockerfile*
+*.yml
+
+src/browser/
+ca.*
+*.worker.js
