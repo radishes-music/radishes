@@ -115,12 +115,14 @@ const single = (id, format) => {
   return request('GET', url, headers)
     .then(response => response.json())
     .then(jsonBody => {
-      const { sip, midurlinfo } = jsonBody.req_0.data
+      const { sip, midurlinfo, msg } = jsonBody.req_0.data
       // const vkey =
       // 	jsonBody.req_0.data.midurlinfo[0].vkey ||
       // 	(jsonBody.req_0.data.testfile2g.match(/vkey=(\w+)/) || [])[1]
       // return concatenate(vkey)
-      return midurlinfo[0].purl ? sip[0] + midurlinfo[0].purl : Promise.reject()
+      return midurlinfo[0].purl
+        ? sip[0] + midurlinfo[0].purl
+        : Promise.reject(msg)
     })
 }
 
@@ -177,4 +179,4 @@ const track = id => {
 
 const check = info => cache(search, info).then(track)
 
-module.exports = { check, track, search }
+module.exports = { check, track, search, single }

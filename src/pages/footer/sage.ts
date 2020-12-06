@@ -4,7 +4,7 @@ import { isNumber, timeTos, toFixed, storage } from '@/utils/index'
 import { getSongUrl, getSongDetail, getLyric } from './api/index'
 import { FooterState, LocalKey } from './state'
 import { RootState } from '@/store/index'
-import { SongsDetail } from '@/interface'
+import { SongsDetail, SongsBase } from '@/interface'
 import { cloneDeep } from 'lodash'
 
 const { get, set } = storage()
@@ -104,12 +104,13 @@ export const getters: GetterTree<FooterState, RootState> = {
           duration = allDt - time
         }
         return {
-          time: time,
+          time: time || 0,
           lyric: lyric,
           duration: toFixed(duration, 3)
         }
       })
       .filter(item => item.time)
+      .sort((a, b) => a.time - b.time)
     return lyrices
   },
   musicDes(state) {
@@ -146,7 +147,7 @@ export const actions: ActionTree<FooterState, RootState> = {
   ) {
     let id, url
     if (typeof payload === 'number') {
-      const data = await getSongUrl(payload)
+      const data = await getSongUrl<SongsBase[]>(payload)
       id = payload
       url = data[0].url
     } else {

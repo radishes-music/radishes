@@ -1,5 +1,11 @@
 @import '~@/theme/index.less';
 
+li.qq-song {
+  strong.keyword {
+    color: #31c27c;
+  }
+}
+
 .search {
   -webkit-app-region: no-drag;
   margin-left: 10px;
@@ -8,7 +14,7 @@
     font-size: 13px;
     &-title {
       padding: 4px 10px;
-      background-color: var(--background-lighter);
+      background-color: #e7e7e7;
     }
     &-group {
       li {
@@ -53,4 +59,7 @@ div.auto-complete-template {
   padding: 0;
   border-radius: 4px;
   box-shadow: 0 0 2px 0 #c7c7c7;
+  ul {
+    max-height: max-content;
+  }
 }

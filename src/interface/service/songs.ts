@@ -29,6 +29,14 @@ export interface SongsBase {
   freeTrialInfo: FreeTrialInfo
 }
 
+export interface PlayLists extends GlobalBase {
+  playCount: number
+  trackCount: number
+  highQuality: boolean
+  subscribed: boolean
+  coverImgUrl: string
+}
+
 export interface SongsDetail extends GlobalBase {
   alia: string[]
   dt: number // duration

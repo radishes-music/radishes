@@ -1,9 +1,10 @@
 import { defineComponent, ref, computed, toRefs, PropType } from 'vue'
 import { debounce } from 'lodash'
 import { Actions } from '../sage'
-import { uesModuleStore } from '@/hooks/index'
-import { NAMESPACED, HeaderState } from '../module'
+import { uesModuleStore, useRouter } from '@/hooks/index'
+import { NAMESPACED, HeaderState, SearchSuggest } from '../module'
 import { FooterNameSpaced } from '@/modules/index'
+import { Songs } from '@/interface/index'
 import {
   FooterState,
   FooterActions,
@@ -15,7 +16,7 @@ const Option = defineComponent({
   name: 'Option',
   props: {
     value: {
-      type: Number as PropType<number>,
+      type: [Number, String] as PropType<number | string>,
       required: true
     },
     detail: {
@@ -29,10 +30,14 @@ const Option = defineComponent({
     onSelect: {
       type: Function,
       required: true
+    },
+    className: {
+      type: String as PropType<string>,
+      default: ''
     }
   },
   setup(props) {
-    const { value, onSelect, detail, keyword } = toRefs(props)
+    const { value, onSelect, detail, keyword, className } = toRefs(props)
     const html = detail?.value.replace(
       keyword.value,
       `<strong class="keyword">${keyword.value}</strong>`
@@ -40,26 +45,76 @@ const Option = defineComponent({
     const handleSelect = () => {
       onSelect?.value(value?.value)
     }
-    return () => <li onClick={handleSelect} v-html={html}></li>
+    return () => (
+      <li class={className.value} onClick={handleSelect} v-html={html}></li>
+    )
+  }
+})
+
+const Group = defineComponent({
+  name: 'Group',
+  props: {
+    words: {
+      type: String as PropType<string>,
+      required: true
+    },
+    item: {
+      type: Array as PropType<Required<SearchSuggest>['songs']>,
+      required: true
+    },
+    onSelect: {
+      type: Function as PropType<() => void>,
+      required: true
+    }
+  },
+  emits: ['select'],
+  setup(props, { emit }) {
+    const { words, item } = toRefs(props)
+    const handleSelect = () => {
+      emit('select')
+    }
+    return () => (
+      <>
+        <div class="search-popper-title" v-show={item.value}>
+          <icon icon="facebook" color="#333" size={14}></icon>单曲
+        </div>
+        <ul class="search-popper-group">
+          {item.value.map(song => {
+            return (
+              <Option
+                value={song.id}
+                onSelect={handleSelect}
+                keyword={words.value}
+                detail={`${song.name} - ${song.artists
+                  .map(artist => artist.name)
+                  .join(' ')}`}
+              ></Option>
+            )
+          })}
+        </ul>
+      </>
+    )
   }
 })
 
 export const Search = defineComponent({
   name: 'Search',
   components: {
-    Option
+    Option,
+    Group
   },
   setup() {
+    const router = useRouter()
     const { useActions, useState } = uesModuleStore<HeaderState>(NAMESPACED)
     const footerStore = uesModuleStore<FooterState>(FooterNameSpaced)
 
+    const state = useState()
     const words = ref('')
     const loading = ref(false)
     const zh = ref(false)
 
     const source = computed(() => {
-      const { searchSuggest } = useState()
-      return searchSuggest.order || []
+      return state.searchSuggest.order || []
     })
 
     const handleSearch = debounce(async () => {
@@ -70,25 +125,40 @@ export const Search = defineComponent({
       }
     }, 200)
 
-    const handleSelect = async (v: number) => {
-      footerStore.useMutations(FooterMutations.PAUES_MUSIC)
-      await footerStore.useActions(FooterActions.SET_MUSIC, v)
+    const enum SearchType {
+      SONGS = 'SONGS',
+      ARTISTS = 'ARTISTS',
+      ALBUMS = 'ALBUMS',
+      PLAYLISTS = 'PLAYLISTS'
     }
 
-    const { searchSuggest } = toRefs(useState())
+    const handleSelect = async (type: SearchType, id: unknown) => {
+      switch (type) {
+        case SearchType.SONGS:
+          footerStore.useMutations(FooterMutations.PAUES_MUSIC)
+          footerStore.useActions(FooterActions.SET_MUSIC, (id as Songs).id)
+          break
+        case SearchType.PLAYLISTS:
+          router.push({
+            path: '/song-list/' + id
+          })
+          break
+      }
+    }
+
     const Slot = {
       prefix: () => <icon icon="search" color="#ffffff61" size={18}></icon>,
       popper: () => (
         <div class="search-popper">
-          <div class="search-popper-title" v-show={searchSuggest.value.songs}>
+          <div class="search-popper-title" v-show={state.searchSuggest.songs}>
             <icon icon="facebook" color="#333" size={14}></icon>单曲
           </div>
           <ul class="search-popper-group">
-            {searchSuggest.value.songs?.map(song => {
+            {state.searchSuggest.songs?.map(song => {
               return (
                 <Option
                   value={song.id}
-                  onSelect={handleSelect}
+                  onSelect={() => handleSelect(SearchType.SONGS, song)}
                   keyword={words.value}
                   detail={`${song.name} - ${song.artists
                     .map(artist => artist.name)
@@ -97,32 +167,50 @@ export const Search = defineComponent({
               )
             })}
           </ul>
-          <div class="search-popper-title" v-show={searchSuggest.value.artists}>
+          <div class="search-popper-title" v-show={state.searchSuggest.artists}>
             <icon icon="facebook" color="#333" size={14}></icon>歌手
           </div>
           <ul class="search-popper-group">
-            {searchSuggest.value.artists?.map(artist => {
+            {state.searchSuggest.artists?.map(artist => {
               return (
                 <Option
                   value={artist.id}
-                  onSelect={handleSelect}
+                  onSelect={() => handleSelect(SearchType.SONGS, artist.id)}
                   keyword={words.value}
                   detail={artist.name}
                 ></Option>
               )
             })}
           </ul>
-          <div class="search-popper-title" v-show={searchSuggest.value.albums}>
+          <div class="search-popper-title" v-show={state.searchSuggest.albums}>
             <icon icon="facebook" color="#333" size={14}></icon>专辑
           </div>
           <ul class="search-popper-group search-popper-last">
-            {searchSuggest.value.albums?.map(album => {
+            {state.searchSuggest.albums?.map(album => {
               return (
                 <Option
                   value={album.id}
-                  onSelect={handleSelect}
+                  onSelect={() => handleSelect(SearchType.ALBUMS, album.id)}
                   keyword={words.value}
                   detail={`${album.name} - ${album.artist.name}`}
+                ></Option>
+              )
+            })}
+          </ul>
+          <div
+            class="search-popper-title"
+            v-show={state.searchSuggest.playlists}
+          >
+            <icon icon="facebook" color="#333" size={14}></icon>歌单
+          </div>
+          <ul class="search-popper-group search-popper-last">
+            {state.searchSuggest.playlists?.map(list => {
+              return (
+                <Option
+                  value={list.id}
+                  onSelect={() => handleSelect(SearchType.PLAYLISTS, list.id)}
+                  keyword={words.value}
+                  detail={list.name}
                 ></Option>
               )
             })}

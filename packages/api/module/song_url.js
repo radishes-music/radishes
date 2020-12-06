@@ -33,23 +33,16 @@ module.exports = (query, request) => {
       realIP: query.realIP,
       url: '/api/song/enhance/player/url',
     },
-  )
-    .then(async (v) => {
-      const { body } = v
-      let i = 0
-      while (i < body.data.length) {
-        if (!body.data[i].url) {
-          const url = await find(body.data[i].id)
-          v.body.data[i].url = url
-        }
-        i++
+  ).then(async (v) => {
+    const { body } = v
+    let i = 0
+    while (i < body.data.length) {
+      if (!body.data[i].url) {
+        const url = await find(body.data[i].id)
+        v.body.data[i].url = url
       }
-      return v
-    })
-    .catch((e) => {
-      return {
-        status: 500,
-        body: e,
-      }
-    })
+      i++
+    }
+    return v
+  })
 }

@@ -14,6 +14,7 @@ import {
 import { getSongUrl } from '@/api/index'
 import './index.less'
 import { RouterLink } from 'vue-router'
+import { SongsBase } from '@/interface'
 
 const renderClass = (name: string) => `song-list-${name}`
 
@@ -96,7 +97,9 @@ export default defineComponent({
 
     const playAll = async () => {
       const tracks = toRaw(playlist.value.tracks)
-      const tracksDetail = await getSongUrl(tracks.map(item => item.id))
+      const tracksDetail = await getSongUrl<SongsBase[]>(
+        tracks.map(item => item.id)
+      )
       const stack = tracks.map(item => {
         const urlItem = tracksDetail.find(o => o.id === item.id)
         return {

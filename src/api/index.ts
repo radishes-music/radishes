@@ -1,12 +1,10 @@
 import { get } from '@/utils/http'
-import { SongsBase, SongsDetail, SongInteface } from '@/interface/index'
+import { SongsDetail, SongInteface } from '@/interface/index'
 
-export const getSongUrl = async (
-  id: number | number[]
-): Promise<SongsBase[]> => {
-  const data = await get<{ data: SongsBase[] }>('/api/song/url', {
-    id: typeof id === 'number' ? id : id.join(','),
-    br: 3.2e5
+export const getSongUrl = async <T>(id: number | number[]): Promise<T> => {
+  const data = await get<{ data: T }>('/api/song/url', {
+    id: Array.isArray(id) ? id.join(',') : id,
+    br: 9.99e5
   })
   return data.data
 }
