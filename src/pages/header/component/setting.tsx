@@ -1,8 +1,9 @@
 import { defineComponent, ref } from 'vue'
 import { importIpc } from '@/electron/event/ipc-browser'
 import { MiddlewareView } from '@/electron/event/action-types'
-import './setting.less'
 import { Platform } from '@/config/build'
+import { shade } from '@/theme/color'
+import './setting.less'
 
 const { VUE_APP_PLATFORM } = process.env
 
@@ -14,8 +15,19 @@ export const Setting = defineComponent({
 
     const clickHandler = (value: string) => {
       visibleColor.value = false
-      document.documentElement.style.setProperty('--base-color', value)
-      document.documentElement.style.setProperty('--primary-theme-text', value)
+
+      const color = {
+        'base-color': value.toLocaleLowerCase(),
+        'normal-theme-text': shade(value, 0.1),
+        'primary-theme-text': value.toLocaleLowerCase(),
+        'base-color-background': shade(value, 0.4),
+        'secondary-theme-text': shade(value, 0.2)
+      }
+
+      for (const [key, value] of Object.entries(color)) {
+        document.documentElement.style.setProperty('--' + key, value)
+      }
+
       if (VUE_APP_PLATFORM === Platform.ELECTRON) {
         importIpc().then(event => {
           event.sendAsyncIpcRendererEvent(
