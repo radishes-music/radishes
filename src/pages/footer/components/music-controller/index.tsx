@@ -1,6 +1,6 @@
-import { defineComponent, ref, toRefs, onMounted, computed } from 'vue'
+import { defineComponent, ref, toRefs, onMounted, computed, watch } from 'vue'
 import { uesModuleStore } from '@/hooks/index'
-import { toFixed, formatTime } from '@/utils/index'
+import { toFixed, formatTime, sleep } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
 import {
@@ -141,7 +141,9 @@ export const MusicControl = defineComponent({
       ]
     }
 
-    const timeUpdate = () => {
+    const timeUpdate = async () => {
+      if (!playing.value) return false
+      await sleep(1000)
       if (audioElement.value && duration.value && !draging.value) {
         const time = audioElement.value.currentTime
         const width = toFixed((time / (duration.value * 1000)) * 100 * 1000, 6)
@@ -150,7 +152,17 @@ export const MusicControl = defineComponent({
         }
         useMutations(FooterMutations.UPDATE_CURRENT_TIME, time)
       }
+      requestAnimationFrame(timeUpdate)
     }
+
+    watch(
+      () => playing.value,
+      play => {
+        if (play) {
+          timeUpdate()
+        }
+      }
+    )
 
     const loadstart = () => {
       block.value = []
@@ -183,7 +195,7 @@ export const MusicControl = defineComponent({
         audioElement.value.addEventListener('canplaythrough', canplaythrough)
         audioElement.value.addEventListener('loadstart', loadstart)
         audioElement.value.addEventListener('progress', progress)
-        audioElement.value.addEventListener('timeupdate', timeUpdate)
+        // audioElement.value.addEventListener('timeupdate', timeUpdate)
         audioElement.value.addEventListener('ended', ended)
         audioElement.value.addEventListener('playing', () => {
           playingIcon.value = 'pause'
