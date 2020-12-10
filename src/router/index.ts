@@ -8,6 +8,8 @@ import { ComponentPublicInstance } from 'vue'
 import { hook } from './hook'
 import { $404 } from '@/pages/404/view/index'
 import { News, Recommend, SongList, TopList, Artists } from '@/pages/news/index'
+// Use this method when you need to load dynamically
+// const video = () => import(/* webpackChunkName: "video" */ '@/pages/video/index')
 import { Video, Mv } from '@/pages/video/index'
 import { Profile } from './../pages/auth/views/profile'
 import { Moments } from '@/pages/moments/index'
@@ -47,10 +49,75 @@ const baseRouter: RouteRecordRaw[] = [
   }
 ]
 
-const contentRouter: RouteRecordRaw[] = [
+export const contentRouter: RouteRecordRaw[] = [
   {
     path: '/song-list/:playlist',
     component: () => import('@/pages/song/view/index')
+  },
+  {
+    path: '/artist/:id',
+    component: () =>
+      import(/* webpackChunkName: "artist" */ '@/pages/artist/view/index'),
+    name: 'Artist',
+    beforeEnter: (to, from, next) => {
+      if (to.params.id) {
+        next()
+      } else {
+        next({
+          path: '/'
+        })
+      }
+    },
+    children: [
+      {
+        path: '',
+        redirect: route => {
+          return {
+            path: '/artist/' + route.params.id + '/albume'
+          }
+        }
+      },
+      {
+        path: '/artist/:id/albume',
+        component: () =>
+          import(/* webpackChunkName: "artist" */ '@/pages/artist/index').then(
+            component => component.Albume
+          ),
+        meta: {
+          name: '专辑'
+        }
+      },
+      {
+        path: '/artist/:id/mv',
+        component: () =>
+          import(/* webpackChunkName: "artist" */ '@/pages/artist/index').then(
+            component => component.Mv
+          ),
+        meta: {
+          name: 'MV'
+        }
+      },
+      {
+        path: '/artist/:id/detail',
+        component: () =>
+          import(/* webpackChunkName: "artist" */ '@/pages/artist/index').then(
+            component => component.Desc
+          ),
+        meta: {
+          name: '歌手详情'
+        }
+      },
+      {
+        path: '/artist/:id/similar',
+        component: () =>
+          import(/* webpackChunkName: "artist" */ '@/pages/artist/index').then(
+            component => component.Similar
+          ),
+        meta: {
+          name: '相似歌手'
+        }
+      }
+    ]
   }
 ]
 

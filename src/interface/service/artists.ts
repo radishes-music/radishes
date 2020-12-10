@@ -3,4 +3,5 @@ export interface Artists {
   name: string
   alias: unknown[]
   img1v1Url: string
+  picUrl: string
 }

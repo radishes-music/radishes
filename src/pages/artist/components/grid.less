@@ -1,0 +1,15 @@
+.grid-contanier {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-gap: 20px;
+  li {
+    cursor: pointer;
+    div {
+      margin-top: 10px;
+    }
+  }
+  &-picurl {
+    width: 180px;
+    height: 180px;
+  }
+}

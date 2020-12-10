@@ -2,6 +2,7 @@ import { defineComponent, toRaw, toRefs, watch } from 'vue'
 import { uesModuleStore, useRoute } from '@/hooks/index'
 import { NAMESPACED, SongState, Actions, Tracks } from '../module'
 import { Table } from '@/components/table'
+import { Image } from '@/components/image/index'
 import { formatTime } from '@/utils/index'
 import { MoreThen } from '@/components/more-then/index'
 import dayjs from 'dayjs'
@@ -12,9 +13,9 @@ import {
   FooterMutations
 } from '@/pages/footer/module'
 import { getSongUrl } from '@/api/index'
-import './index.less'
 import { RouterLink } from 'vue-router'
 import { SongsBase } from '@/interface'
+import './index.less'
 
 const renderClass = (name: string) => `song-list-${name}`
 
@@ -123,10 +124,10 @@ export default defineComponent({
     return () => (
       <div class={renderClass('details')}>
         <div class={renderClass('details-contanier')}>
-          <div class={renderClass('details-contanier--coverimg bg-img')}>
-            {/* @ts-ignore */}
-            <img src={playlist.value.coverImgUrl} loading="lazy" />
-          </div>
+          <Image
+            src={playlist.value.coverImgUrl}
+            name={renderClass('details-contanier--coverimg')}
+          />
           <div class={renderClass('details-contanier--des')}>
             <h1>{playlist.value.name}</h1>
             <div class="a-author">

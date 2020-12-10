@@ -5,7 +5,7 @@ export interface Artist extends Artists {
 }
 
 export interface ArtistsState {
-  artists: Partial<Artist[]>
+  artists: Artist[]
   completed: boolean
 }
 

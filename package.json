@@ -15,7 +15,7 @@
     "build:electron": "yarn lint && vue-cli-service electron:build --mode electron.build --win nsis",
     "build:api": "concurrently -r \"yarn dev:api\" \"node script/server-local.js\"",
     "dev": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"vue-cli-service serve --mode browser\"",
-    "dev:api": "lerna exec --scope @radishes/api -- yarn run start",
+    "dev:api": "lerna exec --scope @radishes/api -- yarn run dev",
     "dev:electron": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"vue-cli-service electron:serve --mode electron.dev\"",
     "generate:theme": "node ./script/theme.js",
     "postinstall": "electron-builder install-app-deps",

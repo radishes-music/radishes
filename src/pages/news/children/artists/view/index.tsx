@@ -1,8 +1,9 @@
 import { defineComponent, reactive, ref, toRaw } from 'vue'
 import { Filter } from './filter'
-import { uesModuleStore } from '@/hooks/index'
+import { uesModuleStore, useRouter } from '@/hooks/index'
 import { NAMESPACED, ArtistsState, ArtistsActions, Artist } from '../module'
 import { throttle, merge } from 'lodash'
+import { Image } from '@/components/image/index'
 import './index.less'
 
 export const Artists = defineComponent({
@@ -18,6 +19,7 @@ export const Artists = defineComponent({
       area: -1,
       initial: '-1'
     })
+    const router = useRouter()
     const { useActions, useState } = uesModuleStore<ArtistsState>(NAMESPACED)
 
     const state = useState()
@@ -36,8 +38,10 @@ export const Artists = defineComponent({
       getArtists()
     }
 
-    const toArtist = (artist?: Artist) => {
-      console.log(artist)
+    const toArtist = (artist: Artist) => {
+      router.push({
+        path: '/artist/' + artist.id + '/albume'
+      })
     }
 
     const scroll = () => {
@@ -69,10 +73,7 @@ export const Artists = defineComponent({
           <ul>
             {state.artists.map(artist => (
               <li onClick={() => toArtist(artist)}>
-                <div class="artist-pic bg-img">
-                  {/* @ts-ignore */}
-                  <img src={artist?.picUrl} loading="lazy" />
-                </div>
+                <Image name="artist-pic" src={artist?.picUrl} />
                 <div class="artist-name">{artist?.name}</div>
               </li>
             ))}

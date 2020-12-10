@@ -1,8 +1,8 @@
 import { defineComponent, ref, toRefs, computed } from 'vue'
 import { NAMESPACED, State, LayoutActions } from '@/layout/module'
 import { uesModuleStore } from '@/hooks/index'
-import { MusicControl } from '../component/music-controller'
-import { VolumeAndHistory } from '../component/volume-history/index'
+import { MusicControl } from '../components/music-controller'
+import { VolumeAndHistory } from '../components/volume-history/index'
 import {
   NAMESPACED as FooterNamespace,
   FooterState,
@@ -18,8 +18,8 @@ import {
   State as LayoutState,
   Size
 } from '@/layout/module'
-import { AsyncComponent } from '../component/lyrice-embed/index'
-import { BrowserLyriceFlash } from '../component/lyrice-float/browser-lyrice'
+import { AsyncComponent } from '../components/lyrice-embed/index'
+import { BrowserLyriceFlash } from '../components/lyrice-float/browser-lyrice'
 import classnames from 'classnames'
 import './index.less'
 

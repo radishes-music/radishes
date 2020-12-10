@@ -143,6 +143,11 @@ export const Search = defineComponent({
             path: '/song-list/' + id
           })
           break
+        case SearchType.ARTISTS:
+          router.push({
+            path: '/artist/' + id
+          })
+          break
       }
     }
 
@@ -175,7 +180,7 @@ export const Search = defineComponent({
               return (
                 <Option
                   value={artist.id}
-                  onSelect={() => handleSelect(SearchType.SONGS, artist.id)}
+                  onSelect={() => handleSelect(SearchType.ARTISTS, artist.id)}
                   keyword={words.value}
                   detail={artist.name}
                 ></Option>

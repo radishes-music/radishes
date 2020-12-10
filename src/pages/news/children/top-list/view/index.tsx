@@ -12,6 +12,7 @@ import {
   FooterActions,
   FooterState
 } from '@/pages/footer/module'
+import { Image } from '@/components/image/index'
 import './index.less'
 
 export const TopList = defineComponent({
@@ -51,13 +52,11 @@ export const TopList = defineComponent({
         <div class="toplist-expansion">
           {expan.value.map(item => (
             <div class="toplist-expansion-contanier">
-              <div
-                class="toplist-expansion-contanier--coverimg bg-img"
+              <Image
+                src={item.coverImgUrl}
                 onClick={() => toPlaylistDetails(item)}
-              >
-                {/* @ts-ignore */}
-                <img src={item.coverImgUrl} loading="lazy" />
-              </div>
+                name="toplist-expansion-contanier--coverimg"
+              />
               <div class="toplist-expansion-contanier--song">
                 {item.tracks.map((song, index) => (
                   <div
