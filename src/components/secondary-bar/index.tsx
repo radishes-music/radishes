@@ -10,10 +10,14 @@ export const SecondaryBar = defineComponent({
     nav: {
       type: Object as PropType<RouteRecordRaw[]>,
       required: true
+    },
+    size: {
+      type: String as PropType<'small' | 'default'>,
+      default: 'default'
     }
   },
   setup(props) {
-    const { nav } = toRefs(props)
+    const { nav, size } = toRefs(props)
 
     return () => (
       <div class={`${prefix}-bar`}>
@@ -21,7 +25,7 @@ export const SecondaryBar = defineComponent({
           {nav.value?.map(link => (
             <RouterLink
               class={`${prefix}-bar-link`}
-              activeClass={`${prefix}-bar-link-active`}
+              activeClass={`${prefix}-bar-link-active ${prefix}-bar-link-active--${size.value}`}
               to={link.meta?.path}
             >
               {link.meta?.name}

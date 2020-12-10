@@ -10,6 +10,7 @@ import {
 import { FindMusicInteface } from '@/interface/index'
 import classnames from 'classnames'
 import { useInternal } from '@/hooks/index'
+import { Image } from '@/components/image/index'
 import './index.less'
 
 const prefix = 'swiper'
@@ -110,10 +111,7 @@ export const Swiper = defineComponent({
           </div>
           {banners.value.map((item, index: number) => (
             <li class={renderClass(index)}>
-              <div class="bg-img">
-                {/* @ts-ignore */}
-                <img src={item.imageUrl} loading="lazy" />
-              </div>
+              <Image src={item.imageUrl} />
             </li>
           ))}
           <div class={`${prefix}-container-right`} onClick={nextAction}>
