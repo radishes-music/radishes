@@ -55,4 +55,6 @@ export interface SongsDetail extends GlobalBase {
     type: number
     typeDesc: string
   }
+  fee: number
+  no: number
 }

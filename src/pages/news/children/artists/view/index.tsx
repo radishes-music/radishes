@@ -40,7 +40,7 @@ export const Artists = defineComponent({
 
     const toArtist = (artist: Artist) => {
       router.push({
-        path: '/artist/' + artist.id + '/albume'
+        path: '/artist/' + artist.id + '/album'
       })
     }
 

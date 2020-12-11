@@ -4,7 +4,7 @@ import { uesModuleStore } from '@/hooks/index'
 import { NAMESPACED, TopListState, TopListActions, Top } from '../module'
 import { ProvideInject } from '@/pages/news/constant'
 import { noop } from '@/utils/index'
-import { SongState } from '@/pages/song/module'
+import { SongState } from '@/pages/list/module'
 import { getPlayList } from '@/api/index'
 import {
   NAMESPACED as FooterNamespaced,

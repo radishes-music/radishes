@@ -37,7 +37,8 @@ module.exports = {
         allowProps: true
       }
     ],
-    'vue/one-component-per-file': 'off'
+    'vue/one-component-per-file': 'off',
+    'vue/custom-event-name-casing': 'off'
   },
   overrides: [
     {

@@ -140,14 +140,18 @@ export const Search = defineComponent({
           break
         case SearchType.PLAYLISTS:
           router.push({
-            path: '/song-list/' + id
+            path: '/list/song/' + id
           })
           break
         case SearchType.ARTISTS:
           router.push({
-            path: '/artist/' + id
+            path: '/artist/' + id + '/album'
           })
           break
+        case SearchType.ALBUMS:
+          router.push({
+            path: '/list/album/' + id
+          })
       }
     }
 

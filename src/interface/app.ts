@@ -19,5 +19,26 @@ export interface ElectronWindowEventMap extends WindowEventMap {
   restore: Event
 }
 
+export interface ListFormat extends GlobalBase {
+  ar: GlobalBase[]
+  al: GlobalBase
+  noCopyright: boolean
+  dt: number
+}
+
+export interface FormatSource extends GlobalBase {
+  src: string
+  type: 'album' | 'song'
+  author: {
+    src: string
+  } & GlobalBase
+  time: number
+  trackCount: number
+  playCount: number
+  description: string
+  tags?: string[]
+  list: ListFormat[]
+}
+
 export type AllMutations = FooterInteface.FooterMutations &
   FindMusicInteface.RecommendMutations

@@ -1,20 +1,24 @@
-import { defineComponent, onActivated } from 'vue'
-import { ArtistActions } from '../module'
+import { defineComponent } from 'vue'
+import { Album } from '../module'
 import { Grid } from '../components/grid'
 import { parentAP } from '../logic/ap'
 
 export const Albume = defineComponent({
   name: 'ArtistAlbume',
   setup() {
-    const { state, route, useActions } = parentAP()
+    const { state, router } = parentAP()
 
-    onActivated(() => {
-      useActions(ArtistActions.SET_ACTION_ARTIST_ALBUM, route.params.id)
-    })
+    // Directly coming from search will not trigger the activated event
+
+    const handleClick = (item: Album) => {
+      router.push({
+        path: '/list/album/' + item.id
+      })
+    }
 
     return () => (
       <div class="artist-albume">
-        <Grid source={state.album} />
+        <Grid source={state.album} onClick={handleClick} />
       </div>
     )
   }
