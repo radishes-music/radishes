@@ -107,7 +107,7 @@ export default defineComponent({
     }
 
     const handlePlayAll = async () => {
-      const tracks = toRaw(playlist.value.tracks)
+      const tracks = toRaw(rawData.value.list)
       const tracksDetail = await getSongUrl<SongsBase[]>(
         tracks.map(item => item.id)
       )
