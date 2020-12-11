@@ -38,3 +38,14 @@ button.easy-button-text {
     text-overflow: ellipsis;
   }
 }
+
+.ant-table-content .ant-table-tbody > tr {
+  & > td {
+    transition: none;
+  }
+  &:hover {
+    & > td {
+      background-color: var(--background-darken) !important;
+    }
+  }
+}

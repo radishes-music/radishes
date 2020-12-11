@@ -51,8 +51,8 @@ const baseRouter: RouteRecordRaw[] = [
 
 export const contentRouter: RouteRecordRaw[] = [
   {
-    path: '/song-list/:playlist',
-    component: () => import('@/pages/song/view/index')
+    path: '/list/:type/:playlist',
+    component: () => import('@/pages/list/view/index')
   },
   {
     path: '/artist/:id',
@@ -70,15 +70,7 @@ export const contentRouter: RouteRecordRaw[] = [
     },
     children: [
       {
-        path: '',
-        redirect: route => {
-          return {
-            path: '/artist/' + route.params.id + '/albume'
-          }
-        }
-      },
-      {
-        path: '/artist/:id/albume',
+        path: 'album',
         component: () =>
           import(/* webpackChunkName: "artist" */ '@/pages/artist/index').then(
             component => component.Albume
@@ -88,7 +80,7 @@ export const contentRouter: RouteRecordRaw[] = [
         }
       },
       {
-        path: '/artist/:id/mv',
+        path: 'mv',
         component: () =>
           import(/* webpackChunkName: "artist" */ '@/pages/artist/index').then(
             component => component.Mv
@@ -98,7 +90,7 @@ export const contentRouter: RouteRecordRaw[] = [
         }
       },
       {
-        path: '/artist/:id/detail',
+        path: 'detail',
         component: () =>
           import(/* webpackChunkName: "artist" */ '@/pages/artist/index').then(
             component => component.Desc
@@ -108,7 +100,7 @@ export const contentRouter: RouteRecordRaw[] = [
         }
       },
       {
-        path: '/artist/:id/similar',
+        path: 'similar',
         component: () =>
           import(/* webpackChunkName: "artist" */ '@/pages/artist/index').then(
             component => component.Similar

@@ -1,5 +1,5 @@
 import { defineComponent, PropType, toRefs } from 'vue'
-import { SongInteface, SongsDetail } from '@/interface/index'
+import { SongInteface } from '@/interface/index'
 import { Table as ATable } from 'ant-design-vue'
 import { noop } from '@/utils/index'
 import './index.less'
@@ -26,7 +26,7 @@ export const Table = defineComponent({
       default: noop
     },
     rowClassName: {
-      type: Function as PropType<(item: SongsDetail) => void>,
+      type: Function as PropType<(item: any) => void>,
       default: () => 'row-music'
     }
   },

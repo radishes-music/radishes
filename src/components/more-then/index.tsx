@@ -13,7 +13,7 @@ export const MoreThen = defineComponent({
     },
     rely: {
       type: String as PropType<string>,
-      required: true
+      default: ''
     }
   },
   setup(props, context) {

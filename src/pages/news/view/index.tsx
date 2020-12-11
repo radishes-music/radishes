@@ -26,7 +26,7 @@ export const News = defineComponent({
     const router = useRouter()
     function toPlaylist(payload: Song) {
       router.push({
-        path: '/song-list/' + payload.id
+        path: '/list/song/' + payload.id
       })
     }
 
