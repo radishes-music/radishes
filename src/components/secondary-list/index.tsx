@@ -3,18 +3,39 @@ import { Secondary } from '@/layout/secondary/secondary'
 import { Image } from '@/components/image/index'
 import { MoreThen } from '@/components/more-then/index'
 import { Table } from '@/components/table'
-import { FormatSource, ListFormat } from '@/interface/index'
-import { formatTime, noop } from '@/utils/index'
+import { FormatSource, ListFormat, SongsBase } from '@/interface/index'
+import { formatTime, noop, download } from '@/utils/index'
+import { getSongUrl } from '@/api/index'
 import { RouterLink, useRouter } from 'vue-router'
 import dayjs from 'dayjs'
 import './index.less'
 
 const columns = [
   {
-    width: 80,
+    width: 40,
     align: 'center',
     customRender: ({ index }: { index: number }) => (
-      <div>{++index < 10 ? '0' + index : index}</div>
+      <div class="gay no-hover">{++index < 10 ? '0' + index : index}</div>
+    )
+  },
+  {
+    width: 70,
+    align: 'center',
+    customRender: ({ text }: { text: ListFormat }) => (
+      <div>
+        <ve-button type="text">
+          <icon icon="shoucang" className="gay" size={20} />
+        </ve-button>
+        <ve-button
+          type="text"
+          onClick={async () => {
+            const url = await getSongUrl<SongsBase[]>(text.id)
+            download(url[0].url, text.name)
+          }}
+        >
+          <icon icon="icondownload" className="gay" size={22} />
+        </ve-button>
+      </div>
     )
   },
   {

@@ -215,7 +215,7 @@ export const MusicControl = defineComponent({
         <audio
           class="audio-background"
           aria-title={musicDes.value.title}
-          aria-author={musicDes.value.author}
+          aria-author={musicDes.value.author.map(o => o.name).join(' / ')}
           ref={audioElement}
         >
           <source ref={sourceElement} type="audio/mpeg" />

@@ -2,8 +2,9 @@
 // example @Link
 // @a: #fff; -> :root{ --a: #fff; }
 
-@background-lighter: #f8faff;
-@background-darken: shade(@background-lighter, 5%);
+@background-lighter: #f3f3f3;
+@background-darken: darken(@background-lighter, 2%);
+@background-darken-hover: darken(@background-lighter, 5%);
 
 @base-color: #4a6eef;
 @base-color-background: lighten(@base-color, 30%);
@@ -25,5 +26,8 @@
 
 @active-color: #353535;
 @secondary-active-color: lighten(@active-color, 10%);
+
+@gay-color: #d2d2d2;
+@gay-hover-color: darken(@gay-color, 40%);
 
 @sidebar-width: 180px;

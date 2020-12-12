@@ -23,24 +23,26 @@ export default defineComponent({
     // eslint-disable-next-line vue/require-default-prop
     height: {
       type: Number as PropType<number>
+    },
+    className: {
+      type: String as PropType<string>,
+      default: ''
     }
   },
   setup(props) {
-    const { icon, color, height, size } = toRefs(props)
+    const { icon, color, height, size, className } = toRefs(props)
     return () => (
-      <>
-        <svg
-          class="icon"
-          aria-hidden="true"
-          style={{
-            width: size.value,
-            height: height?.value || size.value,
-            fill: color.value
-          }}
-        >
-          <use href={'#icon-' + icon.value}></use>
-        </svg>
-      </>
+      <svg
+        class={'icon ' + className.value}
+        aria-hidden="true"
+        style={{
+          width: size.value,
+          height: height?.value || size.value,
+          fill: color.value
+        }}
+      >
+        <use href={'#icon-' + icon.value}></use>
+      </svg>
     )
   }
 })

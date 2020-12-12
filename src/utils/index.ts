@@ -4,6 +4,7 @@ import dayjs, { OpUnitType } from 'dayjs'
 import UTC from 'dayjs/plugin/utc'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { ElectronWindowEventMap } from '@/interface/app'
+import { saveAs } from 'file-saver'
 
 dayjs.extend(UTC)
 dayjs.extend(customParseFormat)
@@ -21,6 +22,10 @@ export const timeTos = (time: string): number => {
       dayjs('00:00.000', 'mm:ss.SSS')
     ) / 1000
   )
+}
+
+export const download = (url: string, filename: string) => {
+  saveAs(url, filename)
 }
 
 export const hasOwnProperty = <X extends {}, Y extends PropertyKey>(

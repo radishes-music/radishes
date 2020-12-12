@@ -124,3 +124,4 @@ yarn bootstrap
 - [nativescript-vue](https://github.com/nativescript-vue/nativescript-vue)
 - [browser module](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)
 - [dayjs](https://day.js.org/docs/zh-CN/installation/installation)
+- [lerna](https://github.com/lerna/lerna)
