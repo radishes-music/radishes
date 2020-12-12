@@ -115,26 +115,24 @@ export const getters: GetterTree<FooterState, RootState> = {
   },
   musicDes(state) {
     if (state.music) {
-      if (state.music) {
-        const author = state.music.ar
-        if (author[0]) {
-          const title = state.music.name
-          dominateMediaSession(
-            title,
-            author.map(o => o.name).join(' / '),
-            '',
-            state.music.al.picUrl
-          )
-          return {
-            author: author.map(o => o.name).join(' / '),
-            title: title
-          }
+      const author = state.music.ar
+      if (author.length) {
+        const title = state.music.name
+        dominateMediaSession(
+          title,
+          author.map(o => o.name).join(' / '),
+          '',
+          state.music.al.picUrl
+        )
+        return {
+          author: author,
+          title: title
         }
       }
     }
 
     return {
-      author: '',
+      author: [],
       title: ''
     }
   }

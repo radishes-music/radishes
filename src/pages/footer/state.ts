@@ -1,4 +1,4 @@
-import { SongsDetail } from '@/interface/index'
+import { Albums, Artists, SongsDetail } from '@/interface/index'
 import { PostData } from './components/lyrice-float/electron-lyrice'
 import { Size } from '@/layout/module'
 import { storage } from '@/utils/index'
@@ -76,7 +76,7 @@ export interface Getter {
   volume: number
   musicLyrics: Lyrics[]
   musicDes: {
-    author: string
+    author: Artists[]
     title: string
   }
 }

@@ -1,6 +1,6 @@
 import { defineComponent, ref, toRefs, computed } from 'vue'
 import { NAMESPACED, State, LayoutActions } from '@/layout/module'
-import { uesModuleStore } from '@/hooks/index'
+import { uesModuleStore, useRouter } from '@/hooks/index'
 import { MusicControl } from '../components/music-controller'
 import { VolumeAndHistory } from '../components/volume-history/index'
 import {
@@ -22,6 +22,7 @@ import { AsyncComponent } from '../components/lyrice-embed/index'
 import { BrowserLyriceFlash } from '../components/lyrice-float/browser-lyrice'
 import classnames from 'classnames'
 import './index.less'
+import { Artists } from '@/interface'
 
 // Fix JSX element type "AsyncComponent" does not have any construction signature or call signature.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,6 +33,7 @@ export const Footer = defineComponent({
   setup() {
     const visibleLyrice = ref(false)
 
+    const router = useRouter()
     const { useState, useMutations } = uesModuleStore<State>(NAMESPACED)
     const FooterModule = uesModuleStore<FooterState, FooterGetter>(
       FooterNamespace
@@ -60,6 +62,12 @@ export const Footer = defineComponent({
       }
     }
 
+    const toArtist = (artist: Artists) => {
+      router.push({
+        path: '/artist/' + artist.id + '/album'
+      })
+    }
+
     return () => (
       <footer class="footer">
         <div class="footer-left">
@@ -76,7 +84,9 @@ export const Footer = defineComponent({
             <div class="footer-music-des">
               <div class="footer-music-des--title">{musicDes.value.title}</div>
               <div class="footer-music-des--author">
-                {musicDes.value.author}
+                {musicDes.value.author.map(artist => (
+                  <div onClick={() => toArtist(artist)}>{artist.name}</div>
+                ))}
               </div>
             </div>
           </div>
