@@ -13,12 +13,16 @@ export const Desc = defineComponent({
 
     return () => (
       <div class="artist-desc">
-        <h2>{state.artist.name}简介</h2>
+        <h2 v-show={!!state.briefDesc}>{state.artist.name}简介</h2>
         <div>{state.briefDesc}</div>
         {state.introduction.map(item => (
           <>
             <h2>{item.ti}</h2>
-            <div v-html={item.txt.replace(/(.+)\n/g, '<div>$1</div>')}></div>
+            <div
+              v-html={item.txt.replace(/(.+\n)|(.+$)/g, (ment: string) => {
+                return `<div>${ment}</div>`
+              })}
+            ></div>
           </>
         ))}
       </div>

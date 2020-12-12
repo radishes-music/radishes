@@ -149,7 +149,7 @@ export const navRouter: RouteRecordRaw[] = [
         component: SongList,
         name: 'songlist',
         meta: {
-          name: '歌单',
+          name: '精品歌单',
           path: {
             name: 'songlist',
             query: {
