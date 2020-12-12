@@ -15,9 +15,15 @@ import {
   FooterMutations
 } from '@/pages/footer/module'
 import { getSongUrl } from '@/api/index'
-import { SongsBase, FormatSource } from '@/interface'
+import { SongsBase, FormatSource, SongsDetail } from '@/interface'
 import { SecondaryList } from '@/components/secondary-list'
 import './index.less'
+
+const isCopyright = (song: SongsDetail) => {
+  // Currently does not clear which values are used to determine whether there is copyright
+  // return song.fee === 0 && song.no === 1
+  return true
+}
 
 const formatPlayListData = (item: SongState['playlist']): FormatSource => {
   return {
@@ -38,7 +44,7 @@ const formatPlayListData = (item: SongState['playlist']): FormatSource => {
     list: [
       ...item.tracks.map(o => ({
         ...o,
-        noCopyright: !(o.fee === 8 && o.no === 2)
+        noCopyright: !isCopyright(o)
       }))
     ]
   }
@@ -62,7 +68,7 @@ const formatAlbumListData = (item: SongState['albumList']): FormatSource => {
     list: [
       ...item.song.map(o => ({
         ...o,
-        noCopyright: !(o.fee === 8 && o.no === 2)
+        noCopyright: !isCopyright(o)
       }))
     ]
   }
