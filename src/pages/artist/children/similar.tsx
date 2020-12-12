@@ -15,7 +15,7 @@ export const Similar = defineComponent({
 
     const handleClick = (item: Artists) => {
       router.push({
-        path: '/artist/' + item.id + '/albume'
+        path: '/artist/' + item.id + '/album'
       })
     }
 
