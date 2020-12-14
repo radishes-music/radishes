@@ -24,6 +24,7 @@ interface Methods extends Options {
     error: boolean,
     runtimeProps: RuntimeErrorComponentProps
   ) => void
+  close: () => void
 }
 
 interface RuntimeErrorComponentProps {
@@ -60,10 +61,20 @@ export const RuntimeErrorComponent = defineComponent({
   render(this: RuntimeErrorComponentProps & ComponentOptions) {
     const { title, message } = this.$props
     return (
-      <div class={`${prefix}-boundary`}>
-        <h1 class={`${prefix}-boundary-title`}>{title}</h1>
-        <div class={`${prefix}-boundary-content`}>{message.message}</div>
-        <pre class={`${prefix}-boundary-content`}>{message.stack}</pre>
+      <div class={`${prefix}`}>
+        <div class={`${prefix}-boundary`}>
+          <h1 class={`${prefix}-boundary-title`}>{title}</h1>
+          <div class={`${prefix}-boundary-content`}>{message.message}</div>
+          <pre class={`${prefix}-boundary-content`}>{message.stack}</pre>
+        </div>
+        <div
+          class={`${prefix}-close`}
+          onClick={() => {
+            this.$parent.close()
+          }}
+        >
+          <icon icon="cross" size={24}></icon>
+        </div>
       </div>
     )
   }
@@ -90,18 +101,25 @@ export const ErrorBoundary = defineComponent<Options>({
     ) {
       this.error = error
       this.runtimeProps = runtimeProps
+    },
+    close() {
+      this.error = false
     }
   } as Methods,
   render(this: This) {
     const { error, runtimeProps } = this
-    if (error) {
-      return (
-        <RuntimeErrorComponent
-          title={runtimeProps.title}
-          message={runtimeProps.message}
-        ></RuntimeErrorComponent>
-      )
-    }
-    return this.$slots.default && this.$slots.default()
+    return (
+      <>
+        {error && (
+          <RuntimeErrorComponent
+            title={runtimeProps.title}
+            message={runtimeProps.message}
+          >
+            {this.$slots.default && this.$slots.default()}
+          </RuntimeErrorComponent>
+        )}
+        {this.$slots.default && this.$slots.default()}
+      </>
+    )
   }
 })
