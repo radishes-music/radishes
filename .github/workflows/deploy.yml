@@ -19,6 +19,7 @@ jobs:
       - run: yarn
       - run: yarn lint
       - run: yarn build
+      - name: run deploy.sh
       - run: ./script/deploy.sh
       - env: 
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
