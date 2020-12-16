@@ -5,6 +5,7 @@ import UTC from 'dayjs/plugin/utc'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { ElectronWindowEventMap } from '@/interface/app'
 import { saveAs } from 'file-saver'
+import { Platform } from '@/config/build'
 
 dayjs.extend(UTC)
 dayjs.extend(customParseFormat)
@@ -60,7 +61,7 @@ export const formatCount = (count: number): string => {
 export const sleep = (n: number) => {
   return new Promise(resolve => {
     setTimeout(() => {
-      resolve()
+      resolve(true)
     }, n)
   })
 }
@@ -142,3 +143,11 @@ export function off(container: any, type: any, listener: (ev: any) => void) {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export const noop = () => {}
+
+export const getNodeEnv = (): string => {
+  let NODE_ENV = process.env.NODE_ENV as string
+  if (process.env.VUE_APP_PLATFORM === Platform.ELECTRON) {
+    NODE_ENV = process.env.VUE_APP_NODE_ENV as string
+  }
+  return NODE_ENV
+}

@@ -1,4 +1,4 @@
-import { Albums, Artists, SongsDetail } from '@/interface/index'
+import { Artists, SongsDetail } from '@/interface/index'
 import { PostData } from './components/lyrice-float/electron-lyrice'
 import { Size } from '@/layout/module'
 import { storage } from '@/utils/index'

@@ -114,9 +114,7 @@ export const ErrorBoundary = defineComponent<Options>({
           <RuntimeErrorComponent
             title={runtimeProps.title}
             message={runtimeProps.message}
-          >
-            {this.$slots.default && this.$slots.default()}
-          </RuntimeErrorComponent>
+          ></RuntimeErrorComponent>
         )}
         {this.$slots.default && this.$slots.default()}
       </>
