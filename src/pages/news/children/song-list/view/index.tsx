@@ -4,6 +4,7 @@ import { uesModuleStore, useRoute, useRouter } from '@/hooks/index'
 import { ProvideInject } from '@/pages/news/constant'
 import { noop } from '@/utils/index'
 import { SongListState, NAMESPACED, SongListActions, Tags } from '../module'
+import { Popover, Button } from 'ant-design-vue'
 import classnames from 'classnames'
 import './index.less'
 
@@ -70,7 +71,7 @@ export const SongList = defineComponent({
     return () => (
       <div class="find-music-songlist">
         <div class="find-music-songlist--tags">
-          <a-popover
+          <Popover
             v-model={[visible.value, 'visible']}
             placement="rightTop"
             trigger="click"
@@ -98,9 +99,9 @@ export const SongList = defineComponent({
                   })}
                 </div>
               ),
-              default: () => <a-button shape="round">全部歌单</a-button>
+              default: () => <Button shape="round">全部歌单</Button>
             }}
-          ></a-popover>
+          ></Popover>
 
           <div class="find-music-songlist--hot">
             <ul>

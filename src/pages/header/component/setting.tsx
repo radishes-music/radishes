@@ -3,6 +3,7 @@ import { importIpc } from '@/electron/event/ipc-browser'
 import { MiddlewareView } from '@/electron/event/action-types'
 import { Platform } from '@/config/build'
 import { shade } from '@/theme/color'
+import { Popover } from 'ant-design-vue'
 import './setting.less'
 
 const { VUE_APP_PLATFORM } = process.env
@@ -55,11 +56,11 @@ export const Setting = defineComponent({
           <icon icon="setting"></icon>
         </ve-button>
         <ve-button type="text" class="header-window-btn">
-          <a-popover
+          <Popover
             v-model={[visibleColor.value, 'visible']}
             trigger="click"
             v-slots={ColorPicker}
-          ></a-popover>
+          ></Popover>
         </ve-button>
       </div>
     )

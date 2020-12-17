@@ -11,6 +11,7 @@ import classnames from 'classnames'
 import { BufferBlock, Block } from '@/components/process-bar/block'
 import { useDrag } from '@/hooks/index'
 import { on, toFixed, noop } from '@/utils/index'
+import { Tooltip } from 'ant-design-vue'
 import './index.less'
 
 const prefix = 'progress'
@@ -155,7 +156,7 @@ export const ProgressBar = defineComponent({
             style={{ width: current.value + '%' }}
           >
             {showTooltip.value ? (
-              <a-tooltip
+              <Tooltip
                 v-model={[visibleTip.value, 'visible']}
                 trigger="focus"
                 v-slots={{
@@ -164,7 +165,7 @@ export const ProgressBar = defineComponent({
                   ),
                   default: () => <button ref={indicator}></button>
                 }}
-              ></a-tooltip>
+              ></Tooltip>
             ) : (
               <button ref={indicator}></button>
             )}

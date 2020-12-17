@@ -1,3 +1,5 @@
+const webpack = require('webpack')
+
 module.exports = {
   pages: {
     index: {
@@ -20,20 +22,41 @@ module.exports = {
       }
     }
   },
+  css: {
+    loaderOptions: {
+      less: {
+        javascriptEnabled: true
+      }
+    }
+  },
+  configureWebpack: {
+    plugins: [
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/)
+    ]
+  },
   chainWebpack: config => {
+    if (process.env.ANALYZER === 'analyzer') {
+      config
+        .plugin('webpack-bundle-analyzer')
+        .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+    }
+
     // https://github.com/vuejs/vue-cli/issues/1729#issuecomment-402217659
     config.plugin('html-index').tap(args => {
       args[0].title = 'music'
       return args
     })
+
     config.module
       .rule('images')
       .test(/.png|jpg|gif$/)
       .use('url-loader')
+
     config.module
       .rule('fonts')
       .test(/.otf|ttf$/)
       .use('url-loader')
+
     config.resolve.extensions.add('less').add('css')
     config.target(
       process.env.VUE_APP_PLATFORM === 'electron' ? 'electron-renderer' : 'web'

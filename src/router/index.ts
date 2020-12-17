@@ -11,7 +11,7 @@ import { News, Recommend, SongList, TopList, Artists } from '@/pages/news/index'
 // Use this method when you need to load dynamically
 // const video = () => import(/* webpackChunkName: "video" */ '@/pages/video/index')
 import { Video, Mv } from '@/pages/video/index'
-import { Profile } from './../pages/auth/views/profile'
+import { Profile } from '@/pages/auth/views/profile'
 import { Moments } from '@/pages/moments/index'
 import { LocalMusic } from '@/pages/music/index'
 import { Download } from '@/pages/download/index'

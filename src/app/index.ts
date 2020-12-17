@@ -2,9 +2,7 @@ import { createApp } from 'vue'
 import App from './app'
 import router from '../router'
 import store from '../store'
-import EasyComponents from './plugin/v-easy-components'
-import Antd from './plugin/antd'
-import Vant from './plugin/vant'
+import { Components } from './plugin/v-easy-components'
 import GlobalComponent from '@/components-global/index'
 import { errorHandle } from '@/components/error-boundary/index'
 import '@/iconfont/index'
@@ -12,10 +10,8 @@ import '@/iconfont/index'
 const app = createApp(App)
   .use(store)
   .use(router)
-  .use(Antd)
-  .use(EasyComponents)
+  .use(Components)
   .use(GlobalComponent)
-  .use(Vant)
 
 errorHandle(app)
 

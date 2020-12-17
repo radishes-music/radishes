@@ -23,6 +23,7 @@ import classnames from 'classnames'
 import { SongsDetail } from '@/interface'
 import { TeleportToAny } from '@/components/teleport-layout/index'
 import { on, off } from '@/utils/index'
+import { Button } from 'ant-design-vue'
 import './history.less'
 
 const prefix = 'history-music'
@@ -111,24 +112,24 @@ export const MusicHistory = defineComponent({
             onClick={e => e.stopPropagation()}
           >
             <div class={`${prefix}-control`}>
-              <a-button-group>
-                <a-button
+              <Button.Group>
+                <Button
                   type={isPlayListVisible.value ? 'primary' : 'default'}
                   onClick={() =>
                     (isPlayListVisible.value = !isPlayListVisible.value)
                   }
                 >
                   播放列表
-                </a-button>
-                <a-button
+                </Button>
+                <Button
                   type={!isPlayListVisible.value ? 'primary' : 'default'}
                   onClick={() =>
                     (isPlayListVisible.value = !isPlayListVisible.value)
                   }
                 >
                   历史记录
-                </a-button>
-              </a-button-group>
+                </Button>
+              </Button.Group>
             </div>
             {isPlayListVisible.value ? (
               <div class={`${prefix}-content`}>

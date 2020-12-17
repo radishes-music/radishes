@@ -4,7 +4,8 @@ import {
   onBeforeMount,
   onActivated,
   onDeactivated,
-  inject
+  inject,
+  ref
 } from 'vue'
 import { Swiper } from '@/components/swiper/index'
 import { RecommendState, NAMESPACED } from '../module'
@@ -20,12 +21,15 @@ export const Recommend = defineComponent({
   setup() {
     const { useState, useActions } = uesModuleStore<RecommendState>(NAMESPACED)
     const { banners, songList, runningSwiper } = toRefs(useState())
+    const loading = ref(false)
 
     const getBanner = () => {
       useActions(RecommendActions.SET_ACTION_BANNERS)
     }
-    const getSongList = () => {
-      useActions(RecommendActions.SET_ACTION_SONG_LIST)
+    const getSongList = async () => {
+      loading.value = true
+      await useActions(RecommendActions.SET_ACTION_SONG_LIST)
+      loading.value = false
     }
     const toPlaylistDetails = inject(ProvideInject.TO_PLAYLIST_DETAILS, noop)
 
@@ -52,7 +56,11 @@ export const Recommend = defineComponent({
         </div>
         <div class="recommend-song">
           <h2>推荐歌单</h2>
-          <SongList songData={songList.value} onClick={toPlaylistDetails} />
+          <SongList
+            songData={songList.value}
+            loading={loading.value}
+            onClick={toPlaylistDetails}
+          />
         </div>
       </div>
     )

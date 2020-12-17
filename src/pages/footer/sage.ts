@@ -5,7 +5,7 @@ import { getSongUrl, getSongDetail, getLyric } from './api/index'
 import { FooterState, LocalKey } from './state'
 import { RootState } from '@/store/index'
 import { SongsDetail, SongsBase } from '@/interface'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 
 const { get, set } = storage()
 

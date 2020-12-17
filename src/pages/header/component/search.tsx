@@ -1,5 +1,4 @@
 import { defineComponent, ref, computed, toRefs, PropType } from 'vue'
-import { debounce } from 'lodash'
 import { Actions } from '../sage'
 import { uesModuleStore, useRouter } from '@/hooks/index'
 import { NAMESPACED, HeaderState, SearchSuggest } from '../module'
@@ -10,6 +9,7 @@ import {
   FooterActions,
   FooterMutations
 } from '@/pages/footer/module'
+import debounce from 'lodash/debounce'
 import './search.less'
 
 const Option = defineComponent({

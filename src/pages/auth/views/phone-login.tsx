@@ -15,6 +15,7 @@ import '../component/auth-view/index.less'
 import { useText } from '../hooks'
 import { inputColor, leakThemeColor, themeColor } from '../theme'
 
+import { Checkbox } from 'vant'
 /* 
   As there is no plug-in for area code selection in line with Chinese values,
   only + 86 is supported for the moment
@@ -175,12 +176,12 @@ export const PhoneLogin = defineComponent({
         </div>
 
         <div class="auth-view__clause">
-          <van-checkbox
+          <Checkbox
             icon-size="10px"
             shape="square"
             vModel={state.checked}
             checked-color={themeColor}
-          ></van-checkbox>
+          ></Checkbox>
           <span>同意</span>
           <div class="vchj">
             {TERMS.map((info: any) => (

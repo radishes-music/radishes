@@ -7,6 +7,7 @@ import { FormatSource, ListFormat, SongsBase } from '@/interface/index'
 import { formatTime, noop, download } from '@/utils/index'
 import { getSongUrl } from '@/api/index'
 import { RouterLink, useRouter } from 'vue-router'
+import { Button } from 'ant-design-vue'
 import dayjs from 'dayjs'
 import './index.less'
 
@@ -139,7 +140,7 @@ export const SecondaryList = defineComponent({
                   </i>
                 </div>
                 <div class="a-command-contanier">
-                  <a-button
+                  <Button
                     class="play-all"
                     shape="round"
                     v-slots={{
@@ -150,9 +151,9 @@ export const SecondaryList = defineComponent({
                     }}
                   >
                     播放全部
-                  </a-button>
-                  <a-button shape="round">收藏</a-button>
-                  <a-button shape="round">下载</a-button>
+                  </Button>
+                  <Button shape="round">收藏</Button>
+                  <Button shape="round">下载</Button>
                 </div>
                 <div class="a-tracks-count">
                   <div v-show={!!props.source.trackCount}>
