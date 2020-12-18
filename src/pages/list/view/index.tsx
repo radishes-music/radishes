@@ -121,7 +121,8 @@ export default defineComponent({
         const urlItem = tracksDetail.find(o => o.id === item.id)
         return {
           ...item,
-          url: urlItem?.url
+          url: urlItem?.url,
+          type: 'stack'
         }
       })
       footerStore.useMutations(FooterMutations.SET_PLAYLIST_TO_STACK, stack)

@@ -15,19 +15,21 @@ import {
   Getter,
   Music,
   FooterMutations,
-  FooterActions
+  FooterActions,
+  LocalKey
 } from '../../module'
 import { Table } from '@/components/table'
-import { formatTime } from '@/utils/index'
+import { formatTime, on, off, storage } from '@/utils/index'
 import classnames from 'classnames'
 import { SongsDetail } from '@/interface'
 import { TeleportToAny } from '@/components/teleport-layout/index'
-import { on, off } from '@/utils/index'
 import { Button } from 'ant-design-vue'
+import remove from 'lodash/remove'
 import './history.less'
 
 const prefix = 'history-music'
 const { VUE_APP_PLATFORM } = process.env
+const { get, set } = storage()
 
 const columns = [
   {
@@ -54,16 +56,26 @@ const columns = [
   {
     width: 40,
     customRender: ({ text }: { text: SongsDetail }) => {
-      const { useState, useActions, useMutations } = uesModuleStore<
-        FooterState,
-        Getter
-      >(NAMESPACED)
+      const { useMutations } = uesModuleStore<FooterState, Getter>(NAMESPACED)
+
       return (
         <div>
           <ve-button
             type="text"
             onClick={() => {
-              useMutations(FooterMutations.REMOVE_STACK, text.id)
+              if (text.type === 'stack') {
+                useMutations(FooterMutations.REMOVE_STACK, text.id)
+              }
+              if (text.type === 'history') {
+                const data = get(LocalKey.MUSIC_HISTORY, {
+                  parser: 'object'
+                })
+                if (data) {
+                  remove(data, (item: SongsDetail) => item.id === text.id)
+                  set(LocalKey.MUSIC_HISTORY, JSON.stringify(data))
+                  useMutations(FooterMutations.REMOVE_HISTORY, text.id)
+                }
+              }
             }}
           >
             <icon icon="remove" color="#000000a6" size={18}></icon>

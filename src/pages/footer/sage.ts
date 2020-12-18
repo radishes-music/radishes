@@ -29,7 +29,8 @@ export const enum FooterMutations {
   SET_PLAYLIST_TO_STACK = 'SET_PLAYLIST_TO_STACK',
   SET_DURATION = 'SET_DURATION',
   PUSH_STACK = 'PUSH_STACK',
-  REMOVE_STACK = 'REMOVE_STACK'
+  REMOVE_STACK = 'REMOVE_STACK',
+  REMOVE_HISTORY = 'REMOVE_HISTORY'
 }
 const dominateMediaSession = (
   title: string,
@@ -181,6 +182,9 @@ export const mutations: MutationTree<FooterState> = {
   [FooterMutations.REMOVE_STACK](state, id: number) {
     remove(state.musicStack, music => music.id === id)
   },
+  [FooterMutations.REMOVE_HISTORY](state, id: number) {
+    remove(state.musciHistory, music => music.id === id)
+  },
   [FooterMutations.SET_DURATION](state, duration: number) {
     state.duration = duration
   },
@@ -207,11 +211,17 @@ export const mutations: MutationTree<FooterState> = {
       const isRepeatHistory = findMusicIndex(state.musciHistory, music) === -1
       const isRepeatStack = findMusicIndex(state.musicStack, music) === -1
       if (isRepeatHistory) {
-        state.musciHistory.push(toRaw(music))
+        state.musciHistory.push({
+          ...toRaw(music),
+          type: 'history'
+        })
         set(LocalKey.MUSIC_HISTORY, JSON.stringify(toRaw(state.musciHistory)))
       }
       if (isRepeatStack) {
-        state.musicStack.push(toRaw(music))
+        state.musicStack.push({
+          ...toRaw(music),
+          type: 'stack'
+        })
       }
     }
   },

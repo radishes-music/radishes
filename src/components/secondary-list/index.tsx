@@ -64,7 +64,8 @@ const columns = [
                 if (data.length) {
                   const music = {
                     ...text,
-                    url: data[0].url
+                    url: data[0].url,
+                    type: 'stack'
                   }
                   useMutations(
                     FooterInteface.FooterMutations.SET_PLAYLIST_TO_STACK,

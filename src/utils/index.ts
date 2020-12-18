@@ -90,7 +90,11 @@ export const storage = () => {
   return {
     get: (key: string, option?: StorageOption) => {
       if (option?.parser) {
-        return parserData(window.localStorage.getItem(key), option.parser)
+        try {
+          return parserData(window.localStorage.getItem(key), option.parser)
+        } catch (e) {
+          console.warn(e)
+        }
       }
       return window.localStorage.getItem(key)
     },
