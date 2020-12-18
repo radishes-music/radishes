@@ -15,10 +15,11 @@ export const VolumeAndHistory = defineComponent({
     const draging = ref(false)
     const visible = ref(false)
 
-    const { useGetter, useMutations } = uesModuleStore<FooterState, Getter>(
-      NAMESPACED
-    )
-
+    const { useGetter, useMutations, useState } = uesModuleStore<
+      FooterState,
+      Getter
+    >(NAMESPACED)
+    const state = useState()
     const volume = useGetter('volume')
     const current = ref(volume * 100)
 
@@ -60,6 +61,7 @@ export const VolumeAndHistory = defineComponent({
         <div>
           <MusicHistory v-model={[visible.value, 'visible']} />
           <ve-button
+            id="history"
             type="text"
             onClick={(e: Event) => {
               e.stopPropagation()

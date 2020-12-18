@@ -50,6 +50,27 @@ const columns = [
     customRender: ({ text }: { text: number }) => (
       <div>{formatTime(text, 'millisecond')}</div>
     )
+  },
+  {
+    width: 40,
+    customRender: ({ text }: { text: SongsDetail }) => {
+      const { useState, useActions, useMutations } = uesModuleStore<
+        FooterState,
+        Getter
+      >(NAMESPACED)
+      return (
+        <div>
+          <ve-button
+            type="text"
+            onClick={() => {
+              useMutations(FooterMutations.REMOVE_STACK, text.id)
+            }}
+          >
+            <icon icon="remove" color="#000000a6" size={18}></icon>
+          </ve-button>
+        </div>
+      )
+    }
   }
 ]
 
@@ -143,6 +164,7 @@ export const MusicHistory = defineComponent({
                     if (record.id === music?.id) {
                       return 'active-play'
                     }
+                    return 'row-music'
                   }}
                 />
               </div>

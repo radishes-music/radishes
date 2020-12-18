@@ -6,6 +6,7 @@ import { FooterState, LocalKey } from './state'
 import { RootState } from '@/store/index'
 import { SongsDetail, SongsBase } from '@/interface'
 import cloneDeep from 'lodash/cloneDeep'
+import remove from 'lodash/remove'
 
 const { get, set } = storage()
 
@@ -26,7 +27,9 @@ export const enum FooterMutations {
   SET_VOLUME = 'SET_VOLUME',
   VISIBLE_FLASH = 'VISIBLE_FLASH',
   SET_PLAYLIST_TO_STACK = 'SET_PLAYLIST_TO_STACK',
-  SET_DURATION = 'SET_DURATION'
+  SET_DURATION = 'SET_DURATION',
+  PUSH_STACK = 'PUSH_STACK',
+  REMOVE_STACK = 'REMOVE_STACK'
 }
 const dominateMediaSession = (
   title: string,
@@ -175,6 +178,9 @@ export const actions: ActionTree<FooterState, RootState> = {
 }
 
 export const mutations: MutationTree<FooterState> = {
+  [FooterMutations.REMOVE_STACK](state, id: number) {
+    remove(state.musicStack, music => music.id === id)
+  },
   [FooterMutations.SET_DURATION](state, duration: number) {
     state.duration = duration
   },

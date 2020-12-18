@@ -1,4 +1,4 @@
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 import { Secondary } from '@/layout/secondary/secondary'
 import { Image } from '@/components/image/index'
 import { MoreThen } from '@/components/more-then/index'
@@ -8,6 +8,9 @@ import { formatTime, noop, download } from '@/utils/index'
 import { getSongUrl } from '@/api/index'
 import { RouterLink, useRouter } from 'vue-router'
 import { Button } from 'ant-design-vue'
+import { instance } from '@/components/fly/index'
+import { uesModuleStore } from '@/hooks/index'
+import { FooterInteface } from '@/pages/index'
 import dayjs from 'dayjs'
 import './index.less'
 
@@ -20,24 +23,62 @@ const columns = [
     )
   },
   {
-    width: 70,
+    width: 102,
     align: 'center',
-    customRender: ({ text }: { text: ListFormat }) => (
-      <div>
-        <ve-button type="text">
-          <icon icon="shoucang" className="gay" size={20} />
-        </ve-button>
-        <ve-button
-          type="text"
-          onClick={async () => {
-            const url = await getSongUrl<SongsBase[]>(text.id)
-            download(url[0].url, text.name)
-          }}
-        >
-          <icon icon="icondownload" className="gay" size={22} />
-        </ve-button>
-      </div>
-    )
+    customRender: ({ text }: { text: ListFormat }) => {
+      const add = ref()
+      const { useState, useMutations } = uesModuleStore<
+        FooterInteface.FooterState
+      >('Footer')
+      const state = useState()
+      return (
+        <div class="vh-center">
+          <ve-button type="text">
+            <icon icon="shoucang" className="gay" size={20} />
+          </ve-button>
+          <ve-button
+            type="text"
+            onClick={async () => {
+              const url = await getSongUrl<SongsBase[]>(text.id)
+              download(url[0].url, text.name)
+            }}
+          >
+            <icon icon="icondownload" className="gay" size={22} />
+          </ve-button>
+          <ve-button
+            ref={add}
+            disabled={
+              state.musicStack.findIndex(item => item.id === text.id) !== -1
+            }
+            type="text"
+            onDblClick={(e: Event) => e.stopPropagation()}
+            onClick={async () => {
+              const end = document.querySelector('#history')
+              if (end) {
+                instance({
+                  begin: add.value.$el,
+                  end: end,
+                  duartion: 0.8
+                })
+                const data = await getSongUrl<SongsBase[]>(text.id)
+                if (data.length) {
+                  const music = {
+                    ...text,
+                    url: data[0].url
+                  }
+                  useMutations(
+                    FooterInteface.FooterMutations.SET_PLAYLIST_TO_STACK,
+                    [music]
+                  )
+                }
+              }
+            }}
+          >
+            <icon icon="add1" className="gay" size={16} />
+          </ve-button>
+        </div>
+      )
+    }
   },
   {
     title: '音乐标题',
@@ -202,7 +243,7 @@ export const SecondaryList = defineComponent({
             <div class={renderClass('content')}>
               <Table
                 rowClassName={(record: ListFormat) =>
-                  record.noCopyright ? 'no-copyright' : ''
+                  record.noCopyright ? 'no-copyright' : 'row-music'
                 }
                 list={props.source.list}
                 columns={columns}

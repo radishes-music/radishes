@@ -1,7 +1,7 @@
 import $script from 'scriptjs'
 import { noop } from '@/utils/index'
 
-const ICONFONT_URL = 'font_2132275_vy63016frs8'
+const ICONFONT_URL = 'font_2132275_rt5djqws91q'
 
 // repair electron packaging '//' protocol problem
 $script(`https://at.alicdn.com/t/${ICONFONT_URL}.js`, noop)
