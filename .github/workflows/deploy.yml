@@ -13,12 +13,13 @@ jobs:
   cypress-run:
     name: Cypress run
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v2
       - uses: cypress-io/github-action@v2
         with:
           config-file: cypress.json
-          start: yarn, yarn bootstrap, yarn dev, yarn test:run
+          start: yarn bootstrap, yarn dev, yarn test:run
           wait-on: http://localhost:8080
           wait-on-timeout: 60
   build:
