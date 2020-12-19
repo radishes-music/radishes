@@ -66,6 +66,7 @@ jobs:
           node-version: 12
 
       - name: Load node_modules
+        id: cache-node-modules
         uses: actions/cache@v2
         with:
           path: |
@@ -73,8 +74,8 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - name: install dependencies
-        run: yarn install --prefer-offline
+      - run: yarn install
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
 
       - name: lint
         run: yarn lint
