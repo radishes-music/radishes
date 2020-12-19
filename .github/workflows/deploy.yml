@@ -26,12 +26,9 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: install
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: yarn install
-          if: steps.cache-node-modules.outputs.cache-hit != 'true'
-
-      - name: install lerna
         run: yarn bootstrap
-          if: steps.cache-node-modules.outputs.cache-hit != 'true'
 
 
   cypress-run:
@@ -77,8 +74,9 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - run: yarn install
+      - name: install
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: yarn install
 
       - name: lint
         run: yarn lint
