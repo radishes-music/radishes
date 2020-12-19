@@ -18,7 +18,7 @@ jobs:
       - uses: cypress-io/github-action@v2
         with:
           config-file: cypress.json
-          start: yarn, yarn bootstrap, yarn dev
+          start: yarn, yarn bootstrap, yarn dev, yarn test:run
           wait-on: http://localhost:8080
           wait-on-timeout: 60
   build:
