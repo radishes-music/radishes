@@ -15,49 +15,61 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Cache node modules
         uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
         with:
           path: ~/.yarn
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
       - name: install
         run: yarn install
+
       - name: install lerna
         run: yarn bootstrap
+
+
   cypress-run:
     name: Cypress run
     runs-on: ubuntu-latest
     needs: install
     steps:
       - uses: actions/checkout@v2
+
       - uses: cypress-io/github-action@v2
         with:
           config-file: cypress.json
           start: yarn dev
           wait-on: http://localhost:8080
           wait-on-timeout: 60
+
+
   build:
     name: Yarn build
     runs-on: ubuntu-latest
     needs: install
     steps:
       - uses: actions/checkout@v2
+
       - uses: actions/setup-node@v1
         with:
           node-version: 12
+
       - name: Load node_modules
         uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
         with:
           path: ~/.yarn
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: install dependencies
+        run: yarn install --prefer-offline
+
       - name: lint
         run: yarn lint
+
       - name: build
         run: yarn build
+
       - name: run deploy.sh
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
