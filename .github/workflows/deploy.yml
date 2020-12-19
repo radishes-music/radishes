@@ -28,6 +28,9 @@ jobs:
       - name: install
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: yarn install
+
+      - name: install lerna
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: yarn bootstrap
 
 
