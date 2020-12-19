@@ -19,7 +19,9 @@ jobs:
       - name: Cache node modules
         uses: actions/cache@v2
         with:
-          path: ~/.yarn
+          path: |
+            node_modules
+            */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: install
@@ -35,6 +37,14 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v2
+
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - uses: cypress-io/github-action@v2
         with:
@@ -58,7 +68,9 @@ jobs:
       - name: Load node_modules
         uses: actions/cache@v2
         with:
-          path: ~/.yarn
+          path: |
+            node_modules
+            */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: install dependencies
