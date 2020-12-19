@@ -1,2 +1,3 @@
 packages/
 cypress/
+tests/e2e/

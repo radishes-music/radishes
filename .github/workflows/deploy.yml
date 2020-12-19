@@ -10,7 +10,19 @@ on:
 
 
 jobs:
+  cypress-run:
+    name: Cypress run
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cypress-io/github-action@v2
+        with:
+          config-file: cypress.json
+          start: yarn, yarn bootstrap, yarn dev
+          wait-on: http://localhost:8080
+          wait-on-timeout: 60
   build:
+    name: Yarn build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -24,7 +36,7 @@ jobs:
       - name: build
         run: yarn build
       - name: run deploy.sh
-        env: 
+        env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_REPO: github.com/hq001/hq001.github.io.git
         run: ./script/deploy.sh
