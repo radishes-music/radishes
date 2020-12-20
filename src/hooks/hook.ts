@@ -14,9 +14,6 @@ interface DragOptions {
   moveCB?: (x: number, y: number) => void
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-export const useCallback = (fn: Noop) => {}
-
 export const useInternal = (ms: number, cb: () => void): InternalHook => {
   let t: NodeJS.Timeout
   let running = false

@@ -16,6 +16,7 @@ import { SecondaryList } from '@/components/secondary-list'
 import { playMusic } from '@/shared/music-shared'
 import './index.less'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isCopyright = (song: SongsDetail) => {
   // Currently does not clear which values are used to determine whether there is copyright
   // return song.fee === 0 && song.no === 1

@@ -1,4 +1,4 @@
-import { computed, defineComponent, toRefs, inject } from 'vue'
+import { computed, defineComponent, toRefs } from 'vue'
 import { SongList } from '@/components/song-list/index'
 import { uesModuleStore } from '@/hooks/index'
 import { NAMESPACED, TopListState, TopListActions } from '../module'
