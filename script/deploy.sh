@@ -1,4 +1,5 @@
-cp temp/.git dist/
+cp -r temp/.git dist/.git
+
 cd dist
 
 cp index.html 404.html
