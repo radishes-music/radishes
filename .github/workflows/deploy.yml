@@ -71,11 +71,8 @@ jobs:
           npx cypress cache path
           npx cypress cache list
 
-      - name: Start local dev
-        run: yarn dev
-
-      - name: Cypress tests
-        run: yarn test:run
+      - name: Start local dev and Cypress tests
+        run: yarn dev & yarn test:run
 
 
   build:
@@ -107,7 +104,7 @@ jobs:
 
       - name: clone github page repo
         run: |
-          git clone git@github.com:hq001/hq001.github.io.git temp
+          git clone https://github.com/hq001/hq001.github.io.git temp
 
       - name: build
         run: yarn build
