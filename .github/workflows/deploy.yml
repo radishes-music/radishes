@@ -102,10 +102,6 @@ jobs:
       - name: lint
         run: yarn lint
 
-      - name: clone github page repo
-        run: |
-          git clone https://github.com/hq001/hq001.github.io.git temp
-
       - name: build
         run: yarn build
 

@@ -1,3 +1,4 @@
+git clone https://$GITHUB_REPO temp
 cp -r temp/.git dist/.git
 
 cd dist
