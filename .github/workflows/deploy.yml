@@ -49,12 +49,7 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - uses: cypress-io/github-action@v2
-        with:
-          config-file: cypress.json
-          start: yarn dev
-          wait-on: http://localhost:8080
-          wait-on-timeout: 60
+      - run: yarn test:run
 
 
   build:
