@@ -19,7 +19,7 @@ export const SongList = defineComponent({
       default: false
     },
     onClick: {
-      type: Function as PropType<() => void>,
+      type: Function as PropType<(song: Song) => void>,
       required: true
     }
   },

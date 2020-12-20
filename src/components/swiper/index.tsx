@@ -11,6 +11,7 @@ import { FindMusicInteface } from '@/interface/index'
 import classnames from 'classnames'
 import { useInternal } from '@/hooks/index'
 import { Image } from '@/components/image/index'
+import { noop } from '@/utils'
 import './index.less'
 
 const prefix = 'swiper'
@@ -26,9 +27,14 @@ export const Swiper = defineComponent({
     running: {
       type: Boolean as PropType<boolean>,
       default: false
+    },
+    onClick: {
+      type: Function as PropType<(item: FindMusicInteface.Banners) => void>,
+      default: noop
     }
   },
-  setup(props) {
+  emits: ['click'],
+  setup(props, { emit }) {
     const current = ref(0)
     const spanCurrent = ref(false)
 
@@ -99,6 +105,10 @@ export const Swiper = defineComponent({
         current.value <= 0 ? banners.value.length - 1 : current.value - 1
     }
 
+    const handleClick = (item: FindMusicInteface.Banners) => {
+      emit('click', item)
+    }
+
     return () => (
       <div
         class={`${prefix}`}
@@ -110,8 +120,9 @@ export const Swiper = defineComponent({
             <icon icon="toLeft" size={42}></icon>
           </div>
           {banners.value.map((item, index: number) => (
-            <li class={renderClass(index)}>
+            <li class={renderClass(index)} onClick={() => handleClick(item)}>
               <Image src={item.imageUrl} />
+              <i class={`${prefix}-container-title`}>{item.typeTitle}</i>
             </li>
           ))}
           <div class={`${prefix}-container-right`} onClick={nextAction}>

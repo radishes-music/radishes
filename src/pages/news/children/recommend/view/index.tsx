@@ -4,16 +4,15 @@ import {
   onBeforeMount,
   onActivated,
   onDeactivated,
-  inject,
   ref
 } from 'vue'
 import { Swiper } from '@/components/swiper/index'
-import { RecommendState, NAMESPACED } from '../module'
+import { RecommendState, NAMESPACED, Banners, TargetType } from '../module'
 import { RecommendActions } from '../sage'
 import { SongList } from '@/components/song-list/index'
 import { uesModuleStore } from '@/hooks/index'
-import { ProvideInject } from '@/pages/news/constant'
-import { noop } from '@/utils/index'
+import { playMusic } from '@/shared/music-shared'
+import { jumpSongList } from '@/shared/list-shared'
 import './index.less'
 
 export const Recommend = defineComponent({
@@ -31,7 +30,20 @@ export const Recommend = defineComponent({
       await useActions(RecommendActions.SET_ACTION_SONG_LIST)
       loading.value = false
     }
-    const toPlaylistDetails = inject(ProvideInject.TO_PLAYLIST_DETAILS, noop)
+
+    const play = playMusic()
+    const toSongList = jumpSongList()
+    const bannerClick = (item: Banners) => {
+      if (item.targetType === TargetType.EXTERNAL) {
+        window.open(item.url, '_blank', 'nodeIntegration=no')
+      }
+      if (item.targetType === TargetType.LIST) {
+        toSongList(item.targetId)
+      }
+      if (item.targetType === TargetType.MUSIC) {
+        play(item.targetId)
+      }
+    }
 
     onActivated(() => {
       runningSwiper.value = true
@@ -52,6 +64,7 @@ export const Recommend = defineComponent({
           <Swiper
             banners={banners.value}
             running={runningSwiper.value}
+            onClick={bannerClick}
           ></Swiper>
         </div>
         <div class="recommend-song">
@@ -59,7 +72,7 @@ export const Recommend = defineComponent({
           <SongList
             songData={songList.value}
             loading={loading.value}
-            onClick={toPlaylistDetails}
+            onClick={item => toSongList(item.id)}
           />
         </div>
       </div>

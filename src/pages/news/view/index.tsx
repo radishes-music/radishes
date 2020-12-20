@@ -2,15 +2,11 @@ import {
   defineComponent,
   KeepAlive,
   Component,
-  resolveDynamicComponent,
-  provide
+  resolveDynamicComponent
 } from 'vue'
 import { RouteRecordRaw, RouterView } from 'vue-router'
 import { SecondaryBar } from '@/components/secondary-bar/index'
 import { navRouter } from '@/router/index'
-import { ProvideInject } from '../constant'
-import { useRouter } from '@/hooks/index'
-import { Song } from '@/interface/index'
 import './index.less'
 
 export const navKey = Symbol('nav')
@@ -22,15 +18,6 @@ export const News = defineComponent({
     if (nav.length) {
       nav = nav[0].children?.filter(item => item.meta?.name) as RouteRecordRaw[]
     }
-
-    const router = useRouter()
-    function toPlaylist(payload: Song) {
-      router.push({
-        path: '/list/song/' + payload.id
-      })
-    }
-
-    provide(ProvideInject.TO_PLAYLIST_DETAILS, toPlaylist)
 
     // eslint-disable-next-line
     const handleChangeRoute = (route: RouteRecordRaw) => {}
