@@ -30,7 +30,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/package.json') }}
+          key: cypress-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: install
         if: |
