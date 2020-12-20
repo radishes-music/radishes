@@ -25,12 +25,23 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
+      - name: Cache Cypress binary
+        id: cache-cypress-binary
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-cypress-${{ github.ref }}-${{ hashFiles('**/package.json') }}
+
       - name: install
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        if: |
+          steps.cache-node-modules.outputs.cache-hit != 'true' ||
+          steps.cache-cypress-binary.outputs.cache-hit != 'true'
         run: yarn install
 
       - name: install lerna
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        if: |
+          steps.cache-node-modules.outputs.cache-hit != 'true' ||
+          steps.cache-cypress-binary.outputs.cache-hit != 'true'
         run: yarn bootstrap
 
 
@@ -49,7 +60,19 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - run: yarn test:run
+      - name: Cache Cypress binary
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-cypress-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Check binary
+        run: |
+          npx cypress cache path
+          npx cypress cache list
+
+      - name: Cypress tests
+        run: yarn test:run
 
 
   build:
