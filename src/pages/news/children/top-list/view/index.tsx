@@ -1,36 +1,26 @@
-import { computed, defineComponent, toRefs, inject } from 'vue'
+import { computed, defineComponent, toRefs } from 'vue'
 import { SongList } from '@/components/song-list/index'
 import { uesModuleStore } from '@/hooks/index'
-import { NAMESPACED, TopListState, TopListActions, Top } from '../module'
-import { ProvideInject } from '@/pages/news/constant'
-import { noop } from '@/utils/index'
+import { NAMESPACED, TopListState, TopListActions } from '../module'
 import { SongState } from '@/pages/list/module'
 import { getPlayList } from '@/api/index'
-import {
-  NAMESPACED as FooterNamespaced,
-  FooterMutations,
-  FooterActions,
-  FooterState
-} from '@/pages/footer/module'
 import { Image } from '@/components/image/index'
+import { playMusic as music } from '@/shared/music-shared'
+import { jumpSongList } from '@/shared/list-shared'
 import './index.less'
 
 export const TopList = defineComponent({
   name: 'TopList',
   setup() {
     const { useState, useActions } = uesModuleStore<TopListState>(NAMESPACED)
-    const footer = uesModuleStore<FooterState>(FooterNamespaced)
 
     const { top } = toRefs(useState())
 
     const cacheSongListDetail = new Map()
 
-    const toPlaylistDetails = inject<(n?: Top) => void>(
-      ProvideInject.TO_PLAYLIST_DETAILS,
-      noop
-    )
+    const play = music()
+    const toSongList = jumpSongList()
     const playMusic = async (songlistID: number, index: number) => {
-      footer.useMutations(FooterMutations.PAUES_MUSIC)
       let songlist: SongState['playlist']
       if (cacheSongListDetail.has(songlistID)) {
         songlist = cacheSongListDetail.get(songlistID)
@@ -39,7 +29,7 @@ export const TopList = defineComponent({
         cacheSongListDetail.set(songlistID, songlist)
       }
 
-      footer.useActions(FooterActions.SET_MUSIC, songlist.tracks[index].id)
+      play(songlist.tracks[index].id)
     }
     const expan = computed(() => top.value.slice(0, 4))
     const shrink = computed(() => top.value.slice(4))
@@ -54,7 +44,7 @@ export const TopList = defineComponent({
             <div class="toplist-expansion-contanier">
               <Image
                 src={item.coverImgUrl}
-                onClick={() => toPlaylistDetails(item)}
+                onClick={() => toSongList(item.id)}
                 name="toplist-expansion-contanier--coverimg"
               />
               <div class="toplist-expansion-contanier--song">
@@ -67,16 +57,17 @@ export const TopList = defineComponent({
                     <div>{song.second}</div>
                   </div>
                 ))}
-                <strong onClick={() => toPlaylistDetails(item)}>
-                  查看全部
-                </strong>
+                <strong onClick={() => toSongList(item.id)}>查看全部</strong>
               </div>
             </div>
           ))}
         </div>
         <h1>全球榜</h1>
         <div class="toplist-shrink">
-          <SongList songData={shrink.value} onClick={toPlaylistDetails} />
+          <SongList
+            songData={shrink.value}
+            onClick={item => toSongList(item.id)}
+          />
         </div>
       </div>
     )

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineComponent, PropType } from 'vue'
 import { Image } from '@/components/image/index'
 import './grid.less'

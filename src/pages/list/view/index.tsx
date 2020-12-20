@@ -9,16 +9,14 @@ import {
 import { uesModuleStore, useRoute } from '@/hooks/index'
 import { NAMESPACED, SongState, SongActions, Tracks } from '../module'
 import { FooterNameSpaced } from '@/modules/index'
-import {
-  FooterState,
-  FooterActions,
-  FooterMutations
-} from '@/pages/footer/module'
+import { FooterState, FooterMutations } from '@/pages/footer/module'
 import { getSongUrl } from '@/api/index'
 import { SongsBase, FormatSource, SongsDetail } from '@/interface'
 import { SecondaryList } from '@/components/secondary-list'
+import { playMusic } from '@/shared/music-shared'
 import './index.less'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const isCopyright = (song: SongsDetail) => {
   // Currently does not clear which values are used to determine whether there is copyright
   // return song.fee === 0 && song.no === 1
@@ -107,12 +105,13 @@ export default defineComponent({
       return data
     })
 
+    const play = playMusic()
     const handleDbClick = (item: Tracks) => {
-      footerStore.useMutations(FooterMutations.PAUES_MUSIC)
-      footerStore.useActions(FooterActions.SET_MUSIC, item.id)
+      play(item.id)
     }
 
     const handlePlayAll = async () => {
+      footerStore.useMutations(FooterMutations.CLEAR_STACK)
       const tracks = toRaw(rawData.value.list)
       const tracksDetail = await getSongUrl<SongsBase[]>(
         tracks.map(item => item.id)
@@ -129,12 +128,10 @@ export default defineComponent({
 
       const { music } = footerStore.useState()
       if (music?.id !== stack[0].id) {
-        footerStore.useMutations(FooterMutations.PAUES_MUSIC)
-        await footerStore.useActions(FooterActions.SET_MUSIC, {
+        play({
           id: stack[0].id,
           url: stack[0].url
         })
-        footerStore.useMutations(FooterMutations.PLAY_MUSIC)
       }
     }
 

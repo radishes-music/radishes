@@ -1,10 +1,9 @@
-import { defineComponent, toRefs, inject, watch, ref, computed } from 'vue'
+import { defineComponent, toRefs, watch, ref, computed } from 'vue'
 import { SongList as ListComponent } from '@/components/song-list/index'
 import { uesModuleStore, useRoute, useRouter } from '@/hooks/index'
-import { ProvideInject } from '@/pages/news/constant'
-import { noop } from '@/utils/index'
 import { SongListState, NAMESPACED, SongListActions, Tags } from '../module'
 import { Popover, Button } from 'ant-design-vue'
+import { jumpSongList } from '@/shared/list-shared'
 import classnames from 'classnames'
 import './index.less'
 
@@ -66,7 +65,7 @@ export const SongList = defineComponent({
       })
     }
 
-    const toPlaylistDetails = inject(ProvideInject.TO_PLAYLIST_DETAILS, noop)
+    const toSongList = jumpSongList()
 
     return () => (
       <div class="find-music-songlist">
@@ -120,7 +119,7 @@ export const SongList = defineComponent({
         </div>
         <ListComponent
           songData={songList.value}
-          onClick={toPlaylistDetails}
+          onClick={item => toSongList(item.id)}
         ></ListComponent>
       </div>
     )

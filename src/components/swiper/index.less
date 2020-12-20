@@ -60,7 +60,19 @@
     align-items: center;
     width: 100%;
     height: calc(90% - 20px);
-
+    &-title {
+      position: absolute;
+      right: 6px;
+      bottom: 6px;
+      padding: 2px 10px;
+      font-size: 12px;
+      font-style: normal;
+      color: white;
+      background-color: var(--base-color);
+      border-radius: 2px;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
     &-left,
     &-right {
       position: absolute;
@@ -107,6 +119,7 @@
     }
     .@{prefix}-normal-item {
       left: 50%;
+      cursor: pointer;
       transition: all @duaring;
       transform: translateX(-50%) translateZ(0);
     }

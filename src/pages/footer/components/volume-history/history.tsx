@@ -15,7 +15,6 @@ import {
   Getter,
   Music,
   FooterMutations,
-  FooterActions,
   LocalKey
 } from '../../module'
 import { Table } from '@/components/table'
@@ -24,6 +23,7 @@ import classnames from 'classnames'
 import { SongsDetail } from '@/interface'
 import { TeleportToAny } from '@/components/teleport-layout/index'
 import { Button } from 'ant-design-vue'
+import { playMusic } from '@/shared/music-shared'
 import remove from 'lodash/remove'
 import './history.less'
 
@@ -101,16 +101,13 @@ export const MusicHistory = defineComponent({
     const transition = ref(visible.value)
     const isPlayListVisible = ref(true)
 
-    const { useState, useActions, useMutations } = uesModuleStore<
-      FooterState,
-      Getter
-    >(NAMESPACED)
+    const { useState } = uesModuleStore<FooterState, Getter>(NAMESPACED)
 
     const { musicStack, musciHistory } = toRefs(useState())
 
+    const play = playMusic()
     const handleDbClick = (item: Music) => {
-      useMutations(FooterMutations.PAUES_MUSIC)
-      useActions(FooterActions.SET_MUSIC, {
+      play({
         url: item.url,
         id: item.id
       })

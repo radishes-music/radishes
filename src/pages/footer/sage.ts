@@ -30,7 +30,8 @@ export const enum FooterMutations {
   SET_DURATION = 'SET_DURATION',
   PUSH_STACK = 'PUSH_STACK',
   REMOVE_STACK = 'REMOVE_STACK',
-  REMOVE_HISTORY = 'REMOVE_HISTORY'
+  REMOVE_HISTORY = 'REMOVE_HISTORY',
+  CLEAR_STACK = 'CLEAR_STACK'
 }
 const dominateMediaSession = (
   title: string,
@@ -179,6 +180,9 @@ export const actions: ActionTree<FooterState, RootState> = {
 }
 
 export const mutations: MutationTree<FooterState> = {
+  [FooterMutations.CLEAR_STACK](state) {
+    state.musicStack = []
+  },
   [FooterMutations.REMOVE_STACK](state, id: number) {
     remove(state.musicStack, music => music.id === id)
   },

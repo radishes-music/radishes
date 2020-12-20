@@ -15,11 +15,9 @@ export const VolumeAndHistory = defineComponent({
     const draging = ref(false)
     const visible = ref(false)
 
-    const { useGetter, useMutations, useState } = uesModuleStore<
-      FooterState,
-      Getter
-    >(NAMESPACED)
-    const state = useState()
+    const { useGetter, useMutations } = uesModuleStore<FooterState, Getter>(
+      NAMESPACED
+    )
     const volume = useGetter('volume')
     const current = ref(volume * 100)
 
