@@ -2,20 +2,16 @@ import { defineComponent, onMounted } from 'vue'
 import { MaskView } from '../mask-view'
 import './index.less'
 import { useStore } from 'vuex'
+import { hideAuth } from '@/helpers'
 
 export const AuthView = defineComponent({
   setup(props, { slots }) {
-    const $store = useStore()
-    const doClose = () => {
-      $store.commit('Auth/HIDE_VIEW')
-    }
-
     onMounted(() => {
-      window.history.pushState(null, '123', location.href)
+      window.history.pushState(null, 'RADISHES', location.href)
       window.addEventListener(
         'popstate',
         () => {
-          doClose()
+          hideAuth()
         },
         {
           once: true
@@ -35,7 +31,7 @@ export const AuthView = defineComponent({
               color="rgb(153,153,153)"
               size={18}
               class="auth-view__close"
-              onClick={doClose}
+              onClick={hideAuth}
             />
             {/* 想在这里加一个动画效果，让它做一个类似页面翻转的动画 */}
             <div class="auth-view__box">{slots.default?.()}</div>

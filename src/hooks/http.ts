@@ -7,7 +7,7 @@ export const useHttp = (fetchFn: Function): any => {
   })
 
   const doFetch = async (...args: any[]) => {
-    state.loading = false
+    state.loading = true
     try {
       const res = await fetchFn(...args)
       state.loading = false
