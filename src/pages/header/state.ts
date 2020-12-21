@@ -10,8 +10,10 @@ export interface SearchSuggest {
 
 export interface HeaderState {
   searchSuggest: SearchSuggest
+  themeColor: string
 }
 
 export const state: HeaderState = {
-  searchSuggest: {}
+  searchSuggest: {},
+  themeColor: '#4a6eef'
 }
