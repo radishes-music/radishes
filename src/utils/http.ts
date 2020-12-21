@@ -1,5 +1,6 @@
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { getNodeEnv } from '@/utils/index'
+import store from '@/store/index'
 
 // https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/guide.html#serve-command
 // The electron build process is in development mode
@@ -27,6 +28,9 @@ http.interceptors.response.use(
   response => {
     if (response.status === 200) {
       return response.data
+    }
+    if (response.status === 301) {
+      store.commit('/Auth/SHOW_VIEW')
     }
     return response
   },
