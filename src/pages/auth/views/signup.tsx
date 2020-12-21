@@ -76,6 +76,7 @@ export const Signup = defineComponent({
           </div>
         </div>
         <div
+          class="auth-back cursor-pointer"
           style={{ textAlign: 'center', color: '#333' }}
           onClick={() => {
             authUtil.to(AUTH_TYPE.PHONE_LOGIN)
