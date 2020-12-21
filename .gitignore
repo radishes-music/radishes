@@ -2,6 +2,7 @@
 node_modules
 /dist
 /dist-electron
+/cypress
 
 
 # local env files

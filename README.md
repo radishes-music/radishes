@@ -31,9 +31,7 @@
 ```shell
 # 安装前端项目依赖
 cd radishes/
-yarn
-# 安装 api 依赖
-yarn bootstrap
+npx lerna bootstrap
 ```
 
 - 运行项目  
