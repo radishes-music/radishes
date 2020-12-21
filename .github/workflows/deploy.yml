@@ -32,17 +32,13 @@ jobs:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - name: install
+      - name: Install
         if: |
           steps.cache-node-modules.outputs.cache-hit != 'true' ||
           steps.cache-cypress-binary.outputs.cache-hit != 'true'
-        run: yarn install
-
-      - name: install lerna
-        if: |
-          steps.cache-node-modules.outputs.cache-hit != 'true' ||
-          steps.cache-cypress-binary.outputs.cache-hit != 'true'
-        run: yarn bootstrap
+        run: | 
+          yarn install
+          yarn bootstrap
 
 
   cypress-run:
@@ -66,10 +62,12 @@ jobs:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Check binary
+      - name: Install dependencies and verify Cypress
         run: |
+          yarn install --frozen-lockfile
           npx cypress cache path
           npx cypress cache list
+          npx cypress verify
 
       - name: Start local dev and Cypress tests
         run: yarn dev & yarn test:run
@@ -95,17 +93,17 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - name: install
+      - name: Install
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
-      - name: lint
+      - name: Lint
         run: yarn lint
 
-      - name: build
+      - name: Build
         run: yarn build
 
-      - name: release to github page
+      - name: Release to github page
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_REPO: github.com/hq001/hq001.github.io.git
