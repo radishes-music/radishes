@@ -44,12 +44,6 @@ yarn bootstrap
   web: `yarn build`  
   electron: `yarn build:electron`
 
-### PR 说明
-
-以 next 分支为默认分支，请基于 next 分支 fock 自己的仓库，在提交之前请同步 next 分支，尽量避免代码冲突。
-
-在基本架构完成之后我会创建一些基本的编码规则和提交规则，也欢迎大家参与进来一起制定。
-
 ### 重构计划
 
 ~~2020.10.31 之前完成基本架构（可能更早）。~~(已完成基本架构，可能会因为功能需求变更一些，但是整体上不会有大的变动。)  
@@ -93,6 +87,7 @@ yarn bootstrap
 - test 测试相关
 - docs 文档/注释
 - chore 依赖更新/脚手架配置修改等
+- ci 自动化测试与发布脚本修改
 
 [rules](https://github.com/conventional-changelog/commitlint/blob/master/%40commitlint/config-conventional/index.js)
 
@@ -103,6 +98,8 @@ yarn bootstrap
 
 ### Electron
 
+目前已发布第一版，包含听歌等功能，前往 [https://github.com/Linkontoask/radishes/releases/tag/2.0.0-alpha.1](https://github.com/Linkontoask/radishes/releases/tag/2.0.0-alpha.1) 下载 windows 版本。  
+macOS 版本暂时无法发布（因为我没钱买 mac ）。
 在开发的同时会快速兼容 Electron 。所谓的快速就是调用很少的 API 实现 PC 端的功能，比如放大、缩小、通知、歌词、音乐拖放上传。
 
 ### ~~在线 API [NeteaseCloudMusicApi](https://music.linkorg.club/)~~
