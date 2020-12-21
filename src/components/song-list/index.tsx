@@ -2,7 +2,7 @@ import { defineComponent, toRefs, PropType } from 'vue'
 import { Song } from '@/interface/index'
 import { formatCount } from '@/utils/index'
 import { Skeleton } from 'ant-design-vue'
-import dayjs from 'dayjs'
+import { DailyCard } from '@/components/song-list/daily'
 import './index.less'
 
 const prefix = 'song'
@@ -40,21 +40,7 @@ export const SongList = defineComponent({
                 onClick={() => clickHandle(song)}
               >
                 <div class={`${prefix}-pic`}>
-                  <div class={`${prefix}-pic-img bg-img`}>
-                    {!song.picUrl && !song.coverImgUrl ? (
-                      <div class={`${prefix}-pic-img--date`}>
-                        <icon icon="rili" size={78}></icon>
-                        <div>{dayjs().date()}</div>
-                      </div>
-                    ) : (
-                      <img
-                        src={song.picUrl || song.coverImgUrl}
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-                        // @ts-ignore
-                        loading="lazy"
-                      />
-                    )}
-                  </div>
+                  <DailyCard src={song.picUrl || song.coverImgUrl} />
                   <div
                     v-show={song.playCount !== 0}
                     class={`${prefix}-pic-count`}

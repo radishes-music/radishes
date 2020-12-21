@@ -23,7 +23,25 @@ const isCopyright = (song: SongsDetail) => {
   return true
 }
 
-const formatPlayListData = (item: SongState['playlist']): FormatSource => {
+const formatPlayListData = (
+  item: SongState['playlist'],
+  id: string
+): FormatSource => {
+  if (id === '-1') {
+    return {
+      id: Number(id),
+      src: '',
+      type: 'song',
+      name: '每日歌曲推荐',
+      description: '每日歌曲推荐',
+      list: [
+        ...item.tracks.map(o => ({
+          ...o,
+          noCopyright: !isCopyright(o)
+        }))
+      ]
+    }
+  }
   return {
     id: item.id,
     name: item.name,
@@ -84,7 +102,11 @@ export default defineComponent({
     watch(
       () => route.params.playlist,
       v => {
-        if (v) {
+        console.log(v)
+        if (v === '-1') {
+          type.value === 'song' &&
+            useActions(SongActions.SET_ACTION_RECOMMEND_SONG)
+        } else if (v) {
           type.value === 'song'
             ? useActions(SongActions.SET_ACTION_PLAYLIST, v)
             : useActions(SongActions.SET_ACTION_ALBUMLIST, v)
@@ -100,7 +122,7 @@ export default defineComponent({
     const rawData = computed(() => {
       const data =
         type.value === 'song'
-          ? formatPlayListData(playlist.value)
+          ? formatPlayListData(playlist.value, route.params.playlist as string)
           : formatAlbumListData(albumList.value)
       return data
     })

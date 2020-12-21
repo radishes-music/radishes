@@ -29,12 +29,12 @@ export interface ListFormat extends GlobalBase {
 export interface FormatSource extends GlobalBase {
   src: string
   type: 'album' | 'song'
-  author: {
+  author?: {
     src: string
   } & GlobalBase
-  time: number
-  trackCount: number
-  playCount: number
+  time?: number
+  trackCount?: number
+  playCount?: number
   description: string
   tags?: string[]
   list: ListFormat[]

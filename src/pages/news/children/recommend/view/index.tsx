@@ -10,7 +10,7 @@ import { Swiper } from '@/components/swiper/index'
 import { RecommendState, NAMESPACED, Banners, TargetType } from '../module'
 import { RecommendActions } from '../sage'
 import { SongList } from '@/components/song-list/index'
-import { uesModuleStore } from '@/hooks/index'
+import { uesModuleStore, useAuth } from '@/hooks/index'
 import { playMusic } from '@/shared/music-shared'
 import { jumpSongList } from '@/shared/list-shared'
 import './index.less'
@@ -19,6 +19,7 @@ export const Recommend = defineComponent({
   name: 'Recommend',
   setup() {
     const { useState, useActions } = uesModuleStore<RecommendState>(NAMESPACED)
+    const { isLogin } = useAuth()
     const { banners, songList, runningSwiper } = toRefs(useState())
     const loading = ref(false)
 
@@ -27,7 +28,11 @@ export const Recommend = defineComponent({
     }
     const getSongList = async () => {
       loading.value = true
-      await useActions(RecommendActions.SET_ACTION_SONG_LIST)
+      if (isLogin) {
+        await useActions(RecommendActions.SET_ACTION_RECOMMEND_SONG_LIST)
+      } else {
+        await useActions(RecommendActions.SET_ACTION_SONG_LIST)
+      }
       loading.value = false
     }
 

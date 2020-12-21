@@ -1,15 +1,5 @@
 @prefix: ~'song';
 
-.center-contanier() {
-  position: relative;
-}
-.center() {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 .@{prefix}-list {
   padding: 10px 0;
 
@@ -34,24 +24,6 @@
         top: 2px;
         right: 6px;
         color: white;
-      }
-      &-img {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        min-height: 166px;
-        background-color: #1e53a3;
-        border-radius: 4px;
-        &--date {
-          .center-contanier();
-          > div {
-            margin-top: 6px;
-            font-size: 28px;
-            color: white;
-            .center();
-          }
-        }
       }
     }
     .song-title {

@@ -1,6 +1,5 @@
 import { defineComponent, PropType, ref } from 'vue'
 import { Secondary } from '@/layout/secondary/secondary'
-import { Image } from '@/components/image/index'
 import { MoreThen } from '@/components/more-then/index'
 import { Table } from '@/components/table'
 import { FormatSource, ListFormat, SongsBase } from '@/interface/index'
@@ -11,6 +10,7 @@ import { Button } from 'ant-design-vue'
 import { instance } from '@/components/fly/index'
 import { uesModuleStore } from '@/hooks/index'
 import { FooterInteface } from '@/pages/index'
+import { DailyCard } from '@/components/song-list/daily'
 import dayjs from 'dayjs'
 import './index.less'
 
@@ -153,13 +153,17 @@ export const SecondaryList = defineComponent({
         v-slots={{
           head: () => (
             <>
-              <Image src={props.source.src} name={renderClass('coverimg')} />
+              {/* <Image src={props.source.src} name={renderClass('coverimg')} /> */}
+              <DailyCard
+                src={props.source.src}
+                name={renderClass('coverimg')}
+              />
               <div class={renderClass('des')}>
                 <h1>
                   <div>{typeMap[props.source.type]}</div>
                   {props.source.name}
                 </h1>
-                <div class="a-author">
+                <div class="a-author" v-show={props.source.author}>
                   <div
                     class="a-author-coverimg"
                     style={{
@@ -170,7 +174,7 @@ export const SecondaryList = defineComponent({
                     class="a-author-name"
                     onClick={() => {
                       router.push({
-                        path: '/artist/' + props.source.author.id + '/album'
+                        path: '/artist/' + props.source?.author?.id + '/album'
                       })
                     }}
                   >

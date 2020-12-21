@@ -1,0 +1,25 @@
+.center() {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.daily-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 166px;
+  background-color: #1e53a3;
+  border-radius: 4px;
+  &-date {
+    position: relative;
+    > div {
+      margin-top: 6px;
+      font-size: 28px;
+      color: white;
+      .center();
+    }
+  }
+}

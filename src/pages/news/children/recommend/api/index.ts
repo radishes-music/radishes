@@ -13,9 +13,17 @@ export const getBanner = async (type: number): Promise<Banners> => {
   return data.banners
 }
 
-export const getSongList = async (limit = 30): Promise<Song> => {
-  const data = await get<{ result: Song }>('/api/personalized', {
+export const getSongList = async (limit = 30): Promise<Song[]> => {
+  const data = await get<{ result: Song[] }>('/api/personalized', {
     limit
   })
   return data.result
+}
+
+export const getRecommendSongList = async (): Promise<Song[]> => {
+  const data = await get<{ recommend: Song[] }>('/api/recommend/resource')
+  return data.recommend.map(item => ({
+    ...item,
+    playcount: item.playCount
+  }))
 }
