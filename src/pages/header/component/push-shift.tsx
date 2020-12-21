@@ -79,35 +79,36 @@ export const PushShift = defineComponent({
       })
     }
 
-    const { historyRoute } = store.state
-    const forward = () => handleRouteCommand(COMMAND.FORWARD)
-    const back = () => handleRouteCommand(COMMAND.BACK)
-
-    return () => (
-      <div class="push-shift">
-        <ve-button
-          disabled={!historyRoute.before.length}
-          class={classnames({
-            'push-shift-disabled': !historyRoute.before.length
-          })}
-          onClick={back}
-          type="text"
-          circle
-        >
-          <icon icon="toLeft" size={16}></icon>
-        </ve-button>
-        <ve-button
-          disabled={!historyRoute.after.length}
-          class={classnames({
-            'push-shift-disabled': !historyRoute.after.length
-          })}
-          onClick={forward}
-          type="text"
-          circle
-        >
-          <icon icon="toRight" size={16} color={'#fff'}></icon>
-        </ve-button>
-      </div>
-    )
+    return () => {
+      const { historyRoute } = store.state
+      const forward = () => handleRouteCommand(COMMAND.FORWARD)
+      const back = () => handleRouteCommand(COMMAND.BACK)
+      return (
+        <div class="push-shift">
+          <ve-button
+            disabled={!historyRoute.before.length}
+            class={classnames({
+              'push-shift-disabled': !historyRoute.before.length
+            })}
+            onClick={back}
+            type="text"
+            circle
+          >
+            <icon icon="toLeft" size={16}></icon>
+          </ve-button>
+          <ve-button
+            disabled={!historyRoute.after.length}
+            class={classnames({
+              'push-shift-disabled': !historyRoute.after.length
+            })}
+            onClick={forward}
+            type="text"
+            circle
+          >
+            <icon icon="toRight" size={16} color={'#fff'}></icon>
+          </ve-button>
+        </div>
+      )
+    }
   }
 })
