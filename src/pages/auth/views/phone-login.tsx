@@ -13,7 +13,7 @@ import { useHttp } from '@/hooks'
 
 import '../component/auth-view/index.less'
 import { useText } from '../hooks'
-import { inputColor, themeColor } from '../theme'
+import { inputColor, leakThemeColor, themeColor } from '../theme'
 
 import { Checkbox } from 'vant'
 /* 
@@ -59,7 +59,6 @@ export const PhoneLogin = defineComponent({
         httpPhoneLogin(state.phone, state.password)
           .then((res: LoginRes) => {
             commitLogin(res)
-            Toast('登录成功')
             $router.back()
           })
           .catch((e: any) => {
@@ -91,7 +90,7 @@ export const PhoneLogin = defineComponent({
     return () => (
       <>
         <div class="vh-center auth-view__icon">
-          <icon icon="diepian" size={96} />
+          <icon icon="diepian" color={leakThemeColor} size={96} />
         </div>
         <div class="auth-view__inputbox">
           <InputField
@@ -152,7 +151,6 @@ export const PhoneLogin = defineComponent({
 
         <Button
           disabled={httpStatus.loading}
-          loading={httpStatus.loading}
           class="bd-button__auth"
           onClick={doLogin}
         >
