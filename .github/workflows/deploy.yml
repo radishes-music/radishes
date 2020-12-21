@@ -77,7 +77,7 @@ jobs:
       - name: Start local dev and Cypress tests
         run: |
           echo "::group::Yarn dev"
-          yarn dev
+          yarn dev &
           echo "::endgroup::"
           yarn test:run
 
