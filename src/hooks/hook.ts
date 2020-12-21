@@ -137,8 +137,3 @@ export function uesModuleStore<S, G = Record<string, string>>(
     useGetter: useGetter
   }
 }
-
-export const useThemeColor = () => {
-  const $store = useStore()
-  return $store.state.Header.themeColor
-}

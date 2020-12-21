@@ -3,8 +3,7 @@
 @auth-text-strong: #333;
 @auth-input-border: #dedede;
 @auth-input-color: #a9a9a9;
-// @auth-theme-color: #d33a31;
-@auth-theme-color: var(--base-color);
+@auth-theme-color: #d33a31;
 
 .linearLine(@flag) {
   background: linear-gradient(if(@flag, 45deg, -45deg), #ccc, #f8f8f8);
@@ -30,9 +29,6 @@
   }
   &__icon {
     margin-top: 30px;
-    svg {
-      fill: var(--base-color-background) !important;
-    }
   }
 
   &__inputbox {
@@ -68,10 +64,7 @@
     justify-content: flex-end;
     height: 48px;
     font-size: 12px;
-    color: #d33a31;
-    svg {
-      fill: #d33a31 !important;
-    }
+    color: @auth-theme-color;
   }
 
   .register {

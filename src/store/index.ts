@@ -1,5 +1,4 @@
 import { createStore, MutationTree, createLogger } from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
 import modules from '../modules/index'
 import { FooterMutations } from '@/pages/footer/module'
 import { AllMutations } from '@/interface/index'
@@ -65,13 +64,6 @@ if (getNodeEnv() === 'development') {
     })
   )
 }
-
-plugins.push(
-  createPersistedState({
-    key: 'RADISHES-VUEX',
-    paths: ['Auth.user', 'Header.themeColor']
-  })
-)
 
 export default createStore<RootState>({
   state,
