@@ -1,7 +1,6 @@
 import { defineComponent, onMounted } from 'vue'
 import { MaskView } from '../mask-view'
 import './index.less'
-import { useStore } from 'vuex'
 import { hideAuth } from '@/helpers'
 
 export const AuthView = defineComponent({

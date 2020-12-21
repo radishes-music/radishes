@@ -12,6 +12,10 @@ export interface AuthState {
   show: boolean
 }
 
+export interface AuthGetter {
+  isLogin: boolean
+}
+
 export const state = {
   user: null,
   show: false

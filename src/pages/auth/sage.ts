@@ -25,5 +25,5 @@ export const mutations = {
 }
 
 export const getters = {
-  isLogin: (state: AuthState) => !state.user
+  isLogin: (state: AuthState) => !!state.user
 }
