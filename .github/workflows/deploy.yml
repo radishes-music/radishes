@@ -57,20 +57,29 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: Cache Cypress binary
+        id: cache-cypress-binary
         uses: actions/cache@v2
         with:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Install dependencies and verify Cypress
+      - name: Install dependencies
+        if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
         run: |
           yarn install --frozen-lockfile
+
+      - name: Verify Cypress
+        run: |
           npx cypress cache path
           npx cypress cache list
           npx cypress verify
 
       - name: Start local dev and Cypress tests
-        run: yarn dev & yarn test:run
+        run: |
+          echo "::group::Yarn dev"
+          yarn dev
+          echo "::endgroup::"
+          yarn test:run
 
 
   build:
