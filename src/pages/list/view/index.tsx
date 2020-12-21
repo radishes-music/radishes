@@ -102,7 +102,6 @@ export default defineComponent({
     watch(
       () => route.params.playlist,
       v => {
-        console.log(v)
         if (v === '-1') {
           type.value === 'song' &&
             useActions(SongActions.SET_ACTION_RECOMMEND_SONG)

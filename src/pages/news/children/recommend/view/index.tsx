@@ -28,7 +28,7 @@ export const Recommend = defineComponent({
     }
     const getSongList = async () => {
       loading.value = true
-      if (isLogin) {
+      if (isLogin.value) {
         await useActions(RecommendActions.SET_ACTION_RECOMMEND_SONG_LIST)
       } else {
         await useActions(RecommendActions.SET_ACTION_SONG_LIST)
