@@ -29,12 +29,15 @@ http.interceptors.response.use(
     if (response.status === 200) {
       return response.data
     }
-    if (response.status === 301) {
-      store.commit('/Auth/SHOW_VIEW')
-    }
     return response
   },
   error => {
+    if (error.response) {
+      if (error.response.status === 301) {
+        store.commit('Auth/SHOW_VIEW')
+      }
+    }
+
     return Promise.reject(error)
   }
 )
