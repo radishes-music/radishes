@@ -11,14 +11,12 @@ const isDevelopment = getNodeEnv() === 'development'
 const baseURL = isDevelopment ? '' : VUE_APP_BUILD_BASE_URL
 
 const http: AxiosInstance = Axios.create({
-  withCredentials: true,
   baseURL: baseURL,
   timeout: 20000
 })
 
 http.interceptors.request.use(
   config => {
-    config.headers.cookie = document.cookie
     return config
   },
   error => {
