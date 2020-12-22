@@ -1,5 +1,7 @@
 const webpack = require('webpack')
 
+const CI = process.env.CI !== 'action'
+
 module.exports = {
   pages: {
     index: {
@@ -12,6 +14,7 @@ module.exports = {
     }
   },
   devServer: {
+    progress: CI,
     proxy: {
       '/api': {
         target: 'http://localhost:3000',

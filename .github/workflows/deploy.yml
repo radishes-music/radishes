@@ -79,6 +79,8 @@ jobs:
           npx cypress verify
 
       - name: Start local dev and Cypress tests
+        env:
+          CI: action
         run: |
           echo "::group::Yarn dev"
           yarn dev &
