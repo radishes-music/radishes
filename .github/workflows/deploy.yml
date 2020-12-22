@@ -30,7 +30,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          key: cypress-${{ runner.os }}-cache-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install
         env:
@@ -64,7 +64,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          key: cypress-${{ runner.os }}-cache-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
         if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
