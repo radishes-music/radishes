@@ -33,12 +33,15 @@ jobs:
           key: cypress-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install
+        env:
+          # make sure every Cypress install prints minimal information
+          CI: 1
         if: |
           steps.cache-node-modules.outputs.cache-hit != 'true' ||
           steps.cache-cypress-binary.outputs.cache-hit != 'true'
         run: | 
-          yarn install
-          yarn bootstrap
+          npx lerna bootstrap
+          npx cypress install
 
 
   cypress-run:
