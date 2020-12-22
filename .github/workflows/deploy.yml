@@ -67,6 +67,7 @@ jobs:
         if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
         run: |
           yarn install --frozen-lockfile
+          npx cypress install
 
       - name: Verify Cypress
         run: |
