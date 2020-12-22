@@ -83,7 +83,7 @@ jobs:
           CI: action
         run: |
           echo "::group::Yarn dev"
-          yarn dev &
+          npx cross-env NODE_ENV=production vue-cli-service serve --mode browser &
           echo "::endgroup::"
           yarn test:run
 
