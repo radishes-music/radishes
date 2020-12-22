@@ -8,7 +8,8 @@ export const enum Actions {
 }
 
 export const enum Mutations {
-  SET_SEARCH_SUGGEST = 'SET_SEARCH_SUGGEST'
+  SET_SEARCH_SUGGEST = 'SET_SEARCH_SUGGEST',
+  SET_THEME_COLOR = 'SET_THEME_COLOR'
 }
 
 export const actions: ActionTree<HeaderState, RootState> = {
@@ -20,5 +21,8 @@ export const actions: ActionTree<HeaderState, RootState> = {
 export const mutations: MutationTree<HeaderState> = {
   [Mutations.SET_SEARCH_SUGGEST](state, payload: SearchSuggest) {
     state.searchSuggest = payload
+  },
+  [Mutations.SET_THEME_COLOR](state, payload: string) {
+    state.themeColor = payload
   }
 }

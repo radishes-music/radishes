@@ -67,7 +67,7 @@ export const ResetPwd = defineComponent({
         </Button>
 
         <div
-          class="auth-back"
+          class="auth-back cursor-pointer"
           onClick={() => authUtil.to(AUTH_TYPE.PHONE_LOGIN)}
         >{`< 返回登录`}</div>
       </>
