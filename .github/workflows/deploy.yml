@@ -118,6 +118,9 @@ jobs:
       - name: Build
         run: yarn build
       
+      - name: Rename dist
+        run: cp -r dist music
+      
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
         with:
@@ -125,8 +128,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          source: "dist/"
-          target: "/usr/sitemap/web_music"
+          source: "music/"
+          target: "/usr/sitemap"
 
       - name: Release to github page
         env:
