@@ -119,6 +119,7 @@ macOS 版本暂时无法发布（因为我没钱买 mac ）。
 - [prettier](https://prettier.io/)
 - [webpack-chain](https://github.com/neutrinojs/webpack-chain#getting-started)
 - [storybook](https://github.com/storybookjs/storybook/tree/next/app/vue)
+- [storybook vue3 support](https://github.com/storybookjs/storybook/issues/10654)
 - [vue-cli-plugin-electron-builder](https://github.com/nklayman/vue-cli-plugin-electron-builder)
 - [vue-cli jsx](https://github.com/vuejs/jsx-next/blob/dev/packages/babel-plugin-jsx/README-zh_CN.md)
 - [nativescript vue 3 issues](https://github.com/nativescript-vue/nativescript-vue/issues/583)

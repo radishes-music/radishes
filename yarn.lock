@@ -8283,10 +8283,10 @@ cyclist@^1.0.1:
   resolved "https://registry.npm.taobao.org/cyclist/download/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.npm.taobao.org/cypress/download/cypress-6.1.0.tgz#af2596cb110aa98eaf75fef3d8ab379ca0ff2413"
-  integrity sha1-ryWWyxEKqY6vdf7z2Ks3nKD/JBM=
+cypress@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.npm.taobao.org/cypress/download/cypress-6.2.0.tgz#1a8a7dd5bd08db3064551a9f12072963cc9337bf"
+  integrity sha1-Gop91b0I2zBkVRqfEgcpY8yTN78=
   dependencies:
     "@cypress/listr-verbose-renderer" "^0.4.1"
     "@cypress/request" "^2.88.5"
