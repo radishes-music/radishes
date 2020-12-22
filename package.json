@@ -51,15 +51,10 @@
     "packages/*"
   ],
   "dependencies": {
-    "chai-as-promised": "^7.1.1",
     "core-js": "^3.6.5",
-    "js-cookie": "^2.2.1",
-    "md5": "^2.3.0",
-    "vant": "^3.0.0-beta.7",
     "vue": "^3.0.2",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0",
-    "vuex-persistedstate": "^4.0.0-beta.1"
+    "vuex": "^4.0.0-0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
@@ -73,6 +68,7 @@
     "@types/classnames": "^2.2.10",
     "@types/electron-devtools-installer": "^2.2.0",
     "@types/file-saver": "^2.0.1",
+    "@types/js-cookie": "^2.2.6",
     "@types/md5": "^2.2.1",
     "@types/mocha": "^5.2.4",
     "@types/scriptjs": "^0.0.2",
@@ -94,6 +90,7 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-import": "^1.13.1",
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "chalk": "^4.1.0",
     "classnames": "^2.2.6",
     "concurrently": "^5.3.0",
@@ -112,11 +109,13 @@
     "file-saver": "^2.0.5",
     "http-proxy-middleware": "^1.0.6",
     "husky": "^4.3.0",
+    "js-cookie": "^2.2.1",
     "lerna": "^3.22.1",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
     "lint-staged": "^9.5.0",
     "lodash": "^4.17.20",
+    "md5": "^2.3.0",
     "prettier": "^1.19.1",
     "react-is": "^16.13.1",
     "scriptjs": "^2.5.9",
@@ -132,7 +131,9 @@
     "typescript": "^4.0.3",
     "url-loader": "^4.1.1",
     "v-easy-components": "2.0.0-beta.14",
+    "vant": "^3.0.0-beta.7",
     "vue-cli-plugin-electron-builder": "^2.0.0-rc.5",
+    "vuex-persistedstate": "^4.0.0-beta.1",
     "webpack-bundle-analyzer": "4.3.0"
   }
 }
