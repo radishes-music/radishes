@@ -4,7 +4,8 @@ export { getSongDetail, getSongUrl } from '@/api/index'
 
 export const getLyric = async (id: number): Promise<string> => {
   const data = await get<SongsDetail>('/api/lyric', {
-    id
+    id,
+    timestamp: Date.now()
   })
   return data.lrc.lyric
 }

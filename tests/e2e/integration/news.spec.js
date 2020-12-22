@@ -61,6 +61,9 @@ context('News Music Basic', () => {
   it('Double click to play the song', () => {
     cy.visit('/music/toplist')
 
+    // https://github.com/cypress-io/cypress/issues/14269
+    // Found it is a cache problem
+    // Solution: Use a timestamp to ensure that the URL cannot hit the browser cache
     cy.intercept(/\/api\/song\/url/).as('getUrl')
     cy.intercept(/\/api\/song\/detail/).as('getDetail')
     cy.intercept(/\/api\/lyric/).as('getLyric')
