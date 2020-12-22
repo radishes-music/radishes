@@ -33,7 +33,7 @@ export const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
   obj: X,
   prop: Y
 ): obj is X & Record<Y, unknown> => {
-  return Object.prototype.hasOwnProperty.call(obj, prop)
+  return Reflect.hasOwnProperty.call(obj, prop)
 }
 
 export const isNumber = (n: unknown) => {

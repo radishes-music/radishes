@@ -1,10 +1,12 @@
 import { Router } from 'vue-router'
-import { isLogin, showLogin } from '@/helpers'
+import store from '@/store'
 
 export function hook(router: Router) {
   router.beforeEach((to, from, next) => {
-    if (to.meta.auth && !isLogin()) {
-      showLogin()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    if (to.meta.auth && !store.state.Auth.user) {
+      store.commit('Auth/SHOW_VIEW')
       next(false)
       return
     }
