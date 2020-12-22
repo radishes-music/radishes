@@ -17,6 +17,7 @@ const http: AxiosInstance = Axios.create({
 
 http.interceptors.request.use(
   config => {
+    config.headers.Cookie = document.cookie
     return config
   },
   error => {
