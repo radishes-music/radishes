@@ -15,10 +15,10 @@ export const VolumeAndHistory = defineComponent({
     const draging = ref(false)
     const visible = ref(false)
 
-    const { useGetter, useMutations } = uesModuleStore<FooterState, Getter>(
+    const { useMutations, useState } = uesModuleStore<FooterState, Getter>(
       NAMESPACED
     )
-    const volume = useGetter('volume')
+    const { volume } = useState()
     const current = ref(volume * 100)
 
     const updateCurrent = (v: number) => {
@@ -30,7 +30,7 @@ export const VolumeAndHistory = defineComponent({
     }
 
     onMounted(() => {
-      const volume = useGetter('volume')
+      const { volume } = useState()
       volume &&
         useMutations(FooterMutations.SET_VOLUME, volume < 0 ? 0 : volume)
     })

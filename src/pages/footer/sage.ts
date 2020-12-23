@@ -1,14 +1,12 @@
 import { toRaw } from 'vue'
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
-import { isNumber, timeTos, toFixed, storage } from '@/utils/index'
+import { isNumber, timeTos, toFixed } from '@/utils/index'
 import { getSongUrl, getSongDetail, getLyric } from './api/index'
-import { FooterState, LocalKey } from './state'
+import { FooterState } from './state'
 import { RootState } from '@/store/index'
 import { SongsDetail, SongsBase } from '@/interface'
 import cloneDeep from 'lodash/cloneDeep'
 import remove from 'lodash/remove'
-
-const { get, set } = storage()
 
 export const enum FooterActions {
   SET_MUSIC = 'SET_MUSIC_URL',
@@ -17,7 +15,7 @@ export const enum FooterActions {
 }
 
 export const enum FooterMutations {
-  SET_MUSIC_URL = 'SET_MUSIC_URL',
+  SET_MUSIC_URL = 'SET_MUSIC_SINGLE_URL',
   PLAY_MUSIC = 'PLAY_MUSIC',
   PAUES_MUSIC = 'PAUES_MUSIC',
   ENDED_MUSIC = 'ENDED_MUSIC',
@@ -75,12 +73,6 @@ export const getters: GetterTree<FooterState, RootState> = {
       ...base,
       url: state.musicUrl
     }
-  },
-  volume(state) {
-    const volume = get(LocalKey.VOLUME, {
-      parser: 'number'
-    })
-    return volume || state.audioElement?.volume
   },
   musicLyrics(state) {
     const allDt = state.duration
@@ -219,7 +211,6 @@ export const mutations: MutationTree<FooterState> = {
           ...toRaw(music),
           type: 'history'
         })
-        set(LocalKey.MUSIC_HISTORY, JSON.stringify(toRaw(state.musciHistory)))
       }
       if (isRepeatStack) {
         state.musicStack.push({
@@ -260,7 +251,7 @@ export const mutations: MutationTree<FooterState> = {
   [FooterMutations.SET_VOLUME](state, volume: number) {
     if (state.audioElement) {
       state.audioElement.volume = volume
-      set(LocalKey.VOLUME, volume)
+      state.volume = volume
     }
   },
   [FooterMutations.VISIBLE_FLASH](state, visible: boolean) {

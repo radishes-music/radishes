@@ -1,9 +1,6 @@
 import { Artists, SongsDetail } from '@/interface/index'
 import { PostData } from './components/lyrice-float/electron-lyrice'
 import { Size } from '@/layout/module'
-import { storage } from '@/utils/index'
-
-const { get } = storage()
 
 export type Music = SongsDetail
 
@@ -15,11 +12,6 @@ export interface Lyrics {
 
 export const enum PlayMode {
   TURN = 'turn'
-}
-
-export const enum LocalKey {
-  VOLUME = 'volume',
-  MUSIC_HISTORY = 'music_history'
 }
 
 export interface FooterState {
@@ -38,6 +30,7 @@ export interface FooterState {
   visibleFlash: boolean
   electronLyrice: PostData
   duration: number
+  volume: number
 }
 
 export const state: FooterState = {
@@ -45,12 +38,10 @@ export const state: FooterState = {
   playMode: PlayMode.TURN,
   musicUrl: '',
   musicLyricsOrigin: '',
-  musciHistory:
-    ((get(LocalKey.MUSIC_HISTORY, {
-      parser: 'object'
-    }) as unknown) as SongsDetail[]) || [],
+  musciHistory: [],
   musicStack: [],
   currentTime: 0,
+  volume: 1,
   playing: false,
   canplay: false,
   audioElement: null,
@@ -73,7 +64,6 @@ export interface Getter {
   musicDetail: {
     url: string
   } & SongsDetail
-  volume: number
   musicLyrics: Lyrics[]
   musicDes: {
     author: Artists[]

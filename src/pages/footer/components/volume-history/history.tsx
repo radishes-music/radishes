@@ -14,8 +14,7 @@ import {
   FooterState,
   Getter,
   Music,
-  FooterMutations,
-  LocalKey
+  FooterMutations
 } from '../../module'
 import { Table } from '@/components/table'
 import { formatTime, on, off, storage } from '@/utils/index'
@@ -56,7 +55,9 @@ const columns = [
   {
     width: 40,
     customRender: ({ text }: { text: SongsDetail }) => {
-      const { useMutations } = uesModuleStore<FooterState, Getter>(NAMESPACED)
+      const { useMutations, useState } = uesModuleStore<FooterState, Getter>(
+        NAMESPACED
+      )
 
       return (
         <div>
@@ -67,14 +68,9 @@ const columns = [
                 useMutations(FooterMutations.REMOVE_STACK, text.id)
               }
               if (text.type === 'history') {
-                const data = get(LocalKey.MUSIC_HISTORY, {
-                  parser: 'object'
-                })
-                if (data) {
-                  remove(data, (item: SongsDetail) => item.id === text.id)
-                  set(LocalKey.MUSIC_HISTORY, JSON.stringify(data))
-                  useMutations(FooterMutations.REMOVE_HISTORY, text.id)
-                }
+                const { musciHistory } = useState()
+                remove(musciHistory, (item: SongsDetail) => item.id === text.id)
+                useMutations(FooterMutations.REMOVE_HISTORY, text.id)
               }
             }}
           >

@@ -9,7 +9,8 @@ import {
   ref,
   nextTick,
   onMounted,
-  onBeforeUnmount
+  onBeforeUnmount,
+  watch
 } from 'vue'
 import {
   NAMESPACED as LayoutNamespace,
@@ -40,6 +41,7 @@ export const PlayLyrice = defineComponent({
     const { visible } = toRefs(props)
     const disabled = ref(true)
     const contanier = ref()
+    const lyriceContanier = ref()
     const offset = ref(0)
     const transition = ref(visible.value)
 
@@ -79,6 +81,13 @@ export const PlayLyrice = defineComponent({
       if (visible.value) {
         updateOffset()
       }
+    })
+
+    watch(lyrice, () => {
+      nextTick(() => {
+        // lyrice
+        console.log(lyriceContanier.value)
+      })
     })
 
     const resize = debounce(() => {
@@ -143,7 +152,10 @@ export const PlayLyrice = defineComponent({
                         onStart={() => (disabled.value = true)}
                         onStop={() => (disabled.value = false)}
                       >
-                        <ul class={`${prefix}-right--lyrice-contanier`}>
+                        <ul
+                          class={`${prefix}-right--lyrice-contanier`}
+                          ref={lyriceContanier}
+                        >
                           {lyrice.value.map((item, i) => (
                             <div
                               class={classnams({

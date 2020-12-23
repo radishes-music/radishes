@@ -69,7 +69,12 @@ if (getNodeEnv() === 'development') {
 plugins.push(
   createPersistedState({
     key: 'RADISHES-VUEX',
-    paths: ['Auth.user', 'Header.themeColor']
+    paths: [
+      'Auth.user',
+      'Header.themeColor',
+      'Footer.musciHistory',
+      'Footer.volume'
+    ]
   })
 )
 
