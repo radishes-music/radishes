@@ -79,14 +79,12 @@ jobs:
           npx cypress verify
 
       - name: Start local dev and Cypress tests
+        uses: cypress-io/github-action@v2
         env:
           CI: action
           VUE_APP_CI_BASE_URL: http://112.74.169.178
-        run: |
-          echo "::group::Yarn dev"
-          echo fs.inotify.max_user_watches=526288 | sudo tee -a /etc/sysctl.conf && npx cross-env NODE_ENV=production vue-cli-service serve --mode browser &
-          echo "::endgroup::"
-          yarn test:run
+        with:
+          start: yarn dev
 
 
   build:
