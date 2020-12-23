@@ -81,6 +81,7 @@ jobs:
       - name: Start local dev and Cypress tests
         env:
           CI: action
+          VUE_APP_CI_BASE_URL: /
         run: |
           echo "::group::Yarn dev"
           echo fs.inotify.max_user_watches=526288 | sudo tee -a /etc/sysctl.conf && npx cross-env NODE_ENV=production vue-cli-service serve --mode browser &
@@ -123,7 +124,7 @@ jobs:
       - name: Rename dist
         run: cp -r dist music
       
-      - name: copy file via ssh password
+      - name: Copy music to host
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
