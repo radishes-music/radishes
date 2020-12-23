@@ -117,7 +117,7 @@ jobs:
 
       - name: Build to host
         env:
-          CI_BASE_URL: http://112.74.169.178
+          VUE_APP_CI_BASE_URL: /
         run: yarn build
       
       - name: Rename dist
@@ -135,7 +135,7 @@ jobs:
 
       - name: Build to github page
         env:
-          CI_BASE_URL: https://112.74.169.178
+          VUE_APP_CI_BASE_URL: https://112.74.169.178
         run: yarn build
 
       - name: Release to github page

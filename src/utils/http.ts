@@ -4,11 +4,13 @@ import store from '@/store/index'
 
 // https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/guide.html#serve-command
 // The electron build process is in development mode
-const { VUE_APP_BUILD_BASE_URL, CI_BASE_URL } = process.env
+const { VUE_APP_BUILD_BASE_URL, VUE_APP_CI_BASE_URL } = process.env
 
 const isDevelopment = getNodeEnv() === 'development'
 
-const baseURL = isDevelopment ? '' : CI_BASE_URL || VUE_APP_BUILD_BASE_URL
+const baseURL = isDevelopment
+  ? ''
+  : VUE_APP_CI_BASE_URL || VUE_APP_BUILD_BASE_URL
 
 const http: AxiosInstance = Axios.create({
   baseURL: baseURL,

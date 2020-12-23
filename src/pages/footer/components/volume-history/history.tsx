@@ -17,7 +17,7 @@ import {
   FooterMutations
 } from '../../module'
 import { Table } from '@/components/table'
-import { formatTime, on, off, storage } from '@/utils/index'
+import { formatTime, on, off } from '@/utils/index'
 import classnames from 'classnames'
 import { SongsDetail } from '@/interface'
 import { TeleportToAny } from '@/components/teleport-layout/index'
@@ -28,7 +28,6 @@ import './history.less'
 
 const prefix = 'history-music'
 const { VUE_APP_PLATFORM } = process.env
-const { get, set } = storage()
 
 const columns = [
   {

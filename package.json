@@ -11,7 +11,7 @@
     "test:run": "cypress run",
     "lint": "vue-cli-service lint && stylelint \"**/*.{css,less}\"",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less}\"",
-    "lint:style": "stylelint --fix \"**/*.{css,less}\" --cache --cache-location node_modules/.cache/stylelint/",
+    "lint:style": "stylelint --fix \"src/**/*.{css,less}\" --cache --cache-location node_modules/.cache/stylelint/",
     "build": "cross-env NODE_ENV=production vue-cli-service build --mode browser --modern",
     "build:storybook": "build-storybook",
     "build:electron": "vue-cli-service electron:build --mode electron.build --win nsis",
@@ -43,7 +43,7 @@
       "git add"
     ],
     "*.{css,less}": [
-      "stylelint \"**/*.{css,less}\"",
+      "stylelint \"src/**/*.{css,less}\"",
       "git add"
     ]
   },
