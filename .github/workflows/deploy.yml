@@ -78,13 +78,12 @@ jobs:
           npx cypress cache list
           npx cypress verify
 
-      - name: Start local dev and Cypress tests
+      - name: Start server in the background
+        run: yarn dev &
+
+      - name: Cypress tests
         uses: cypress-io/github-action@v2
-        env:
-          CI: action
-          VUE_APP_CI_BASE_URL: http://112.74.169.178
         with:
-          start: npx cross-env NODE_ENV=production vue-cli-service serve --mode browser
           command: yarn test:run
 
 

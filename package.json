@@ -9,7 +9,7 @@
     "test:unit": "vue-cli-service test:unit",
     "test:open": "cypress open",
     "test:run": "cypress run",
-    "lint": "vue-cli-service lint && stylelint \"**/*.{css,less}\"",
+    "lint": "vue-cli-service lint && stylelint \"src/**/*.{css,less}\"",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less}\"",
     "lint:style": "stylelint --fix \"src/**/*.{css,less}\" --cache --cache-location node_modules/.cache/stylelint/",
     "build": "cross-env NODE_ENV=production vue-cli-service build --mode browser --modern",
