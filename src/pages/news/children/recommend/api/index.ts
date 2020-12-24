@@ -24,6 +24,6 @@ export const getRecommendSongList = async (): Promise<Song[]> => {
   const data = await get<{ recommend: Song[] }>('/api/recommend/resource')
   return data.recommend.map(item => ({
     ...item,
-    playcount: item.playCount
+    playCount: item.playcount
   }))
 }

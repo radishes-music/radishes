@@ -8,6 +8,7 @@ export interface Songs extends GlobalBase {
 export interface Song extends Songs {
   type: number
   playCount: number
+  playcount: number
   trackCount: number
   name: string
   copywriter: string
