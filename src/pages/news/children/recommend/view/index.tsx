@@ -7,10 +7,10 @@ import {
   ref
 } from 'vue'
 import { Swiper } from '@/components/swiper/index'
-import { RecommendState, NAMESPACED, Banners, TargetType } from '../module'
-import { RecommendActions } from '../sage'
+import { Banners, TargetType, RecommendActions } from '../../../interface'
 import { SongList } from '@/components-business/song-list/index'
-import { uesModuleStore, useAuth } from '@/hooks/index'
+import { useAuth } from '@/hooks/index'
+import { useRecommendModule } from '@/modules/index'
 import { playMusic } from '@/shared/music-shared'
 import { jumpSongList } from '@/shared/list-shared'
 import './index.less'
@@ -18,7 +18,7 @@ import './index.less'
 export const Recommend = defineComponent({
   name: 'Recommend',
   setup() {
-    const { useState, useActions } = uesModuleStore<RecommendState>(NAMESPACED)
+    const { useState, useActions } = useRecommendModule()
     const { isLogin } = useAuth()
     const { banners, songList, runningSwiper } = toRefs(useState())
     const loading = ref(false)

@@ -13,6 +13,8 @@ const { VUE_APP_PLATFORM } = process.env
 const setColor = (value: string) => {
   const color = {
     'base-color': value.toLocaleLowerCase(),
+    'base-color-lighten': shade(value, 0.1),
+    'base-color-darken': shade(value, -0.1),
     'normal-theme-text': shade(value, 0.1),
     'primary-theme-text': value.toLocaleLowerCase(),
     'base-color-background': shade(value, 0.4),

@@ -1,5 +1,5 @@
 import { get } from '@/utils/http'
-import { Banners } from '../state'
+import { Banners } from '../../../interface'
 import { Song } from '@/interface/index'
 
 export const getRecommend = () => {

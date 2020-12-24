@@ -73,7 +73,8 @@ plugins.push(
       'Auth.user',
       'Header.themeColor',
       'Footer.musciHistory',
-      'Footer.volume'
+      'Footer.volume',
+      'Download.downloaded'
     ]
   })
 )

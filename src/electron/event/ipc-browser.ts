@@ -11,7 +11,9 @@ export const importIpc = () => {
 }
 
 export const importIpcOrigin = () => {
-  return import('electron').then(v => {
-    return v.ipcRenderer
-  })
+  return import('electron').then(v => v.ipcRenderer)
+}
+
+export const importShell = () => {
+  return import('electron').then(v => v.shell)
 }

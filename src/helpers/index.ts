@@ -1,7 +1,7 @@
 import { AUTH_MUTATIONS } from './../pages/auth/sage'
 import { AuthNameSpaced, HeaderNameSpaced } from '@/modules'
 import store from '@/store'
-import { Mutations as HEADER_MUTATIONS } from '@/pages/header/sage'
+import { HeaderMutations } from '@/interface'
 
 export const isLogin = () => store.getters['Auth/isLogin']
 
@@ -13,5 +13,5 @@ export const hideAuth = () => {
 }
 
 export const setThemeColor = (color: string) => {
-  store.commit(`${HeaderNameSpaced}/${HEADER_MUTATIONS.SET_THEME_COLOR}`, color)
+  store.commit(`${HeaderNameSpaced}/${HeaderMutations.SET_THEME_COLOR}`, color)
 }

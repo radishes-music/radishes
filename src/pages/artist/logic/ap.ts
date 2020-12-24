@@ -2,7 +2,8 @@
 // The functions exported from this file can only be run in setup for reuse of logic codes
 import { useRoute, useRouter } from '@/hooks/index'
 import { uesModuleStore } from '@/hooks/index'
-import { NAMESPACED, ArtistState } from '../module'
+import { NAMESPACED } from '../module'
+import { ArtistState } from '@/interface'
 
 export const parentAP = () => {
   const route = useRoute()

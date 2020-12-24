@@ -1,6 +1,6 @@
 import { defineComponent, onActivated } from 'vue'
 import { parentAP } from '../logic/ap'
-import { ArtistActions } from '../module'
+import { ArtistActions } from '@/interface'
 
 export const Desc = defineComponent({
   name: 'ArtistDesc',

@@ -1,7 +1,7 @@
 import { defineComponent, ref, computed, toRefs, PropType } from 'vue'
-import { Actions } from '../sage'
 import { uesModuleStore, useRouter } from '@/hooks/index'
-import { NAMESPACED, HeaderState, SearchSuggest } from '../module'
+import { NAMESPACED } from '../module'
+import { HeaderState, SearchSuggest, HeaderActions } from '@/interface'
 import { FooterNameSpaced } from '@/modules/index'
 import { Songs } from '@/interface/index'
 import {
@@ -120,7 +120,7 @@ export const Search = defineComponent({
     const handleSearch = debounce(async () => {
       if (words.value && !zh.value) {
         loading.value = true
-        await useActions(Actions.GET_SEARCH_SUGGEST, words.value)
+        await useActions(HeaderActions.GET_SEARCH_SUGGEST, words.value)
         loading.value = false
       }
     }, 200)

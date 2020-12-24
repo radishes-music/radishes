@@ -1,5 +1,5 @@
 import { get } from '@/utils/http'
-import { Top } from '../state'
+import { Top } from '@/interface'
 
 export const getTopList = async <
   T extends {

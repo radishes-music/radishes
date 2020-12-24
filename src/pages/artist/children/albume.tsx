@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import { Album } from '../module'
+import { Album } from '@/interface'
 import { Grid } from '../components/grid'
 import { parentAP } from '../logic/ap'
 

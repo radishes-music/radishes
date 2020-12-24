@@ -2,42 +2,11 @@ import { toRaw } from 'vue'
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { isNumber, timeTos, toFixed } from '@/utils/index'
 import { getSongUrl, getSongDetail, getLyric } from './api/index'
-import { FooterState } from './state'
+import { FooterState, FooterActions, FooterMutations } from './interface'
 import { RootState } from '@/store/index'
 import { SongsDetail, SongsBase } from '@/interface'
-import { Platform } from '@/config/build'
 import cloneDeep from 'lodash/cloneDeep'
 import remove from 'lodash/remove'
-import { importIpc } from '@/electron/event/ipc-browser'
-import { UpdateType } from '@/electron/event/action-types'
-
-const { VUE_APP_PLATFORM } = process.env
-
-export const enum FooterActions {
-  SET_MUSIC = 'SET_MUSIC_URL',
-  SET_MUSIC_DEFAILT = 'SET_MUSIC_DEFAILT',
-  SET_MUSIC_LYRICS = 'SET_MUSIC_LYRICS'
-}
-
-export const enum FooterMutations {
-  SET_MUSIC_URL = 'SET_MUSIC_SINGLE_URL',
-  PLAY_MUSIC = 'PLAY_MUSIC',
-  PAUES_MUSIC = 'PAUES_MUSIC',
-  ENDED_MUSIC = 'ENDED_MUSIC',
-  CURRENT_TIME = 'CURRENT_TIME',
-  UPDATE_CURRENT_TIME = 'UPDATE_CURRENT_TIME',
-  CAN_PLAY = 'CAN_PLAY',
-  SET_VOLUME = 'SET_VOLUME',
-  VISIBLE_FLASH = 'VISIBLE_FLASH',
-  SET_PLAYLIST_TO_STACK = 'SET_PLAYLIST_TO_STACK',
-  SET_DURATION = 'SET_DURATION',
-  PUSH_STACK = 'PUSH_STACK',
-  REMOVE_STACK = 'REMOVE_STACK',
-  REMOVE_HISTORY = 'REMOVE_HISTORY',
-  CLEAR_STACK = 'CLEAR_STACK',
-  LYRICE_EMBED_MIN_WIDTH = 'LYRICE_EMBED_MIN_WIDTH',
-  LYRICE_FLOAT_MIN_WIDTH = 'LYRICE_FLOAT_MIN_WIDTH'
-}
 
 const dominateMediaSession = (
   title: string,

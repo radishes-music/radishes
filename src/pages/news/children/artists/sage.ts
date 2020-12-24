@@ -1,15 +1,7 @@
 import { MutationTree, ActionTree } from 'vuex'
 import { RootState } from '@/store/index'
-import { ArtistsState } from './state'
 import { getArtistList } from './api/index'
-
-export const enum ArtistsMutations {
-  SET_ARTISTS = 'SET_ARTISTS'
-}
-
-export const enum ArtistsActions {
-  SET_ACTION_ARTISTS = 'SET_ACTION_ARTISTS'
-}
+import { ArtistsActions, ArtistsMutations, ArtistsState } from '@/interface'
 
 export const actions: ActionTree<ArtistsState, RootState> = {
   async [ArtistsActions.SET_ACTION_ARTISTS]({ commit }, params) {

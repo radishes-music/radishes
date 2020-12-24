@@ -1,4 +1,6 @@
-export function isElectron() {
+import { App } from '../main'
+
+export const isElectron = () => {
   // Renderer process
   if (
     typeof window !== 'undefined' &&
@@ -27,4 +29,8 @@ export function isElectron() {
   }
 
   return false
+}
+
+export const getAppPath = () => {
+  return App.getAppPath() || __dirname || process.env.PORTABLE_EXECUTABLE_DIR
 }

@@ -1,7 +1,6 @@
 import { defineComponent, onActivated } from 'vue'
-import { ArtistActions } from '../module'
 import { Grid } from '../components/grid'
-import { Artists } from '@/interface/index'
+import { Artists, ArtistActions } from '@/interface/index'
 import { parentAP } from '../logic/ap'
 
 export const Similar = defineComponent({

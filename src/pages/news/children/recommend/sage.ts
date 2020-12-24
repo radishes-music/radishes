@@ -1,21 +1,13 @@
 import { MutationTree, ActionTree } from 'vuex'
-import { RecommendState, Banners } from './state'
+import {
+  RecommendState,
+  Banners,
+  RecommendActions,
+  RecommendMutations
+} from '@/interface'
 import { RootState } from '@/store/index'
 import { getSongList, getBanner, getRecommendSongList } from './api/index'
 import { Song } from '@/interface/index'
-
-export const enum RecommendMutations {
-  SET_BANNERS = 'SET_BANNERS',
-  SET_SONG_LIST = 'SET_SONG_LIST',
-  SET_SWIPER_RINNING = 'SET_SWIPER_RINNING',
-  SET_RECOMMEND_SONG_LIST = 'SET_RECOMMEND_SONG_LIST'
-}
-
-export const enum RecommendActions {
-  SET_ACTION_BANNERS = 'SET_ACTION_BANNERS',
-  SET_ACTION_SONG_LIST = 'SET_ACTION_SONG_LIST',
-  SET_ACTION_RECOMMEND_SONG_LIST = 'SET_ACTION_RECOMMEND_SONG_LIST'
-}
 
 export const actions: ActionTree<RecommendState, RootState> = {
   async [RecommendActions.SET_ACTION_BANNERS]({ commit }) {

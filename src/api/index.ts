@@ -1,5 +1,5 @@
 import { get } from '@/utils/http'
-import { SongsDetail, SongInteface, Albums } from '@/interface/index'
+import { SongsDetail, SongState, Albums } from '@/interface/index'
 
 export const getSongUrl = async <T>(id: number | number[]): Promise<T> => {
   const data = await get<{ data: T }>('/api/song/url', {
@@ -22,8 +22,8 @@ export const getSongDetail = async (
 
 export const getPlayList = async (
   id: number
-): Promise<SongInteface.SongState['playlist']> => {
-  const data = await get<{ playlist: SongInteface.SongState['playlist'] }>(
+): Promise<SongState['playlist']> => {
+  const data = await get<{ playlist: SongState['playlist'] }>(
     '/api/playlist/detail',
     {
       id

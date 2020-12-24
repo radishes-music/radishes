@@ -1,5 +1,5 @@
 import { get } from '@/utils/http'
-import { SearchSuggest } from '../state'
+import { SearchSuggest } from '@/interface'
 
 interface QQ {
   id: { song: number; file: number }

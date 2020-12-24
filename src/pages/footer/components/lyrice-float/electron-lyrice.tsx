@@ -55,16 +55,14 @@ export default defineComponent({
         event,
         arg: {
           type: UpdateType
-          payload: unknown
+          payload: PostData[keyof PostData]
         }
       ) => {
         const { type, payload } = arg
         if (payload === undefined) return
         switch (type) {
           case UpdateType.UPDATE_INDEX:
-            postData.index = ((payload as number) < 0
-              ? 0
-              : payload) as PostData['index']
+            postData.index = (payload < 0 ? 0 : payload) as PostData['index']
             break
           case UpdateType.UPDATE_LYRICE:
             if (

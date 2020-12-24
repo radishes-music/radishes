@@ -1,39 +1,8 @@
-import { Artists, SongsDetail } from '@/interface/index'
-import { PostData } from './components/lyrice-float/electron-lyrice'
+import { SongsDetail } from '@/interface/index'
 import { Size } from '@/layout/module'
+import { FooterState, PlayMode } from './interface'
 
 export type Music = SongsDetail
-
-export interface Lyrics {
-  time: number
-  lyric: string
-  duration: number
-}
-
-export const enum PlayMode {
-  TURN = 'turn'
-}
-
-export interface FooterState {
-  // audio: AudioType
-  playMode: PlayMode
-  music?: SongsDetail
-  musicUrl: string
-  musicLyricsOrigin: string
-  musciHistory: SongsDetail[]
-  musicStack: SongsDetail[]
-  currentTime: number
-  playing: boolean
-  canplay: boolean
-  audioElement: HTMLAudioElement | null
-  sourceElement: HTMLSourceElement | null
-  visibleFlash: boolean
-  electronLyrice: PostData
-  duration: number
-  volume: number
-  lyriceEmbedMinWidth: number
-  lyriceFloatMinWidth: number
-}
 
 export const state: FooterState = {
   // audio: new BackgroundAudio(),
@@ -61,16 +30,5 @@ export const state: FooterState = {
     flashMagic: {
       animationDuration: ''
     }
-  }
-}
-
-export interface FooterGetter {
-  musicDetail: {
-    url: string
-  } & SongsDetail
-  musicLyrics: Lyrics[]
-  musicDes: {
-    author: Artists[]
-    title: string
   }
 }

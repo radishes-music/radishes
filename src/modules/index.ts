@@ -11,18 +11,25 @@ import {
 import Layout, { NAMESPACED as LayoutNameSpaced } from '@/layout/module'
 import Header, { NAMESPACED as HeaderNameSpaced } from '@/pages/header/module'
 import Footer, {
-  NAMESPACED as FooterNameSpaced,
+  FooterNameSpaced,
   useFooterModule
 } from '@/pages/footer/module'
 import Main, { NAMESPACED as MainNameSpaced } from '@/pages/main/module'
 import Auth, { NAMESPACED as AuthNameSpaced } from '@/pages/auth/module'
 import Song, { NAMESPACED as SongNameSpaced } from '@/pages/list/module'
 import Artist, { NAMESPACED as ArtistNameSpaced } from '@/pages/artist/module'
+import Download, {
+  DownloadNameSpaced,
+  useDownloadModule
+} from '@/pages/download/module'
 
 export * from '@/pages/footer/module'
+export * from '@/pages/news/children/module'
+export * from '@/pages/download/module'
 
 export {
   useFooterModule,
+  useDownloadModule,
   LayoutNameSpaced,
   RecommendNameSpaced,
   SongListNameSpaced,
@@ -32,7 +39,8 @@ export {
   FooterNameSpaced,
   AuthNameSpaced,
   SongNameSpaced,
-  ArtistNameSpaced
+  ArtistNameSpaced,
+  DownloadNameSpaced
 }
 
 const modules = {
@@ -46,7 +54,8 @@ const modules = {
   [MainNameSpaced]: Main,
   [AuthNameSpaced]: Auth,
   [SongNameSpaced]: Song,
-  [ArtistNameSpaced]: Artist
+  [ArtistNameSpaced]: Artist,
+  [DownloadNameSpaced]: Download
 }
 
 export default modules

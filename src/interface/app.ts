@@ -1,5 +1,5 @@
 import { ComponentPublicInstance, App } from 'vue'
-import { FooterInteface, FindMusicInteface } from '@/pages/index'
+import { FooterMutations, RecommendMutations } from '@/modules/index'
 
 export interface Music extends ComponentPublicInstance {
   $app: App
@@ -40,5 +40,4 @@ export interface FormatSource extends GlobalBase {
   list: ListFormat[]
 }
 
-export type AllMutations = FooterInteface.FooterMutations &
-  FindMusicInteface.RecommendMutations
+export type AllMutations = FooterMutations & RecommendMutations

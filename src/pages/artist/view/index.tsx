@@ -12,7 +12,7 @@ import { Image } from '@/components/image/index'
 import { RouterView, RouteRecordRaw } from 'vue-router'
 import { contentRouter } from '@/router/index'
 import { SecondaryBar } from '@/components-business/secondary-bar/index'
-import { ArtistActions } from '../module'
+import { ArtistActions } from '@/interface'
 import { parentAP } from '../logic/ap'
 import './index.less'
 

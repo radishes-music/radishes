@@ -7,11 +7,17 @@ import {
   ComputedRef
 } from 'vue'
 import { uesModuleStore, useRoute } from '@/hooks/index'
-import { NAMESPACED, SongState, SongActions, Tracks } from '../module'
+import { NAMESPACED } from '../module'
 import { FooterNameSpaced } from '@/modules/index'
 import { FooterState, FooterMutations } from '@/pages/footer/module'
 import { getSongUrl } from '@/api/index'
-import { SongsBase, FormatSource, SongsDetail } from '@/interface'
+import {
+  SongsBase,
+  FormatSource,
+  SongsDetail,
+  SongState,
+  SongActions
+} from '@/interface/index'
 import { SecondaryList } from '@/components-business/secondary-list'
 import { playMusic } from '@/shared/music-shared'
 import './index.less'
@@ -127,7 +133,7 @@ export default defineComponent({
     })
 
     const play = playMusic()
-    const handleDbClick = (item: Tracks) => {
+    const handleDbClick = (item: SongsDetail) => {
       play(item.id)
     }
 

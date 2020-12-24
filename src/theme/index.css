@@ -5,6 +5,8 @@
   --background-darken: #ebebeb;
   --background-darken-hover: #e6e6e6;
   --base-color: #4a6eef;
+  --base-color-lighten: #7994f3;
+  --base-color-darken: #1b48eb;
   --base-color-background: #d7dffb;
   --primary-theme-text: #4a6eef;
   --normal-theme-text: #7994f3;
@@ -21,6 +23,5 @@
   --secondary-active-color: #4f4f4f;
   --gay-color: #d2d2d2;
   --gay-hover-color: #6c6c6c;
-  --null: null;
   --sidebar-width: 180px;
 }

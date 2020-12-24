@@ -1,7 +1,5 @@
 import { get } from '@/utils/http'
-import { Song } from '@/interface/index'
-import { Pagination } from '../sage'
-import { Catlists, Tags } from '../state'
+import { Song, Pagination, Catlists, Tags } from '@/interface/index'
 
 export const getHighqualityPl = async (
   pagination: Pagination

@@ -1,6 +1,5 @@
 import { get } from '@/utils/http'
-import { Artists } from '@/interface/index'
-import { Artist, Album, Desc } from '../state'
+import { Artists, Artist, Album, Desc } from '@/interface/index'
 
 const artistCache = new Map()
 

@@ -8,7 +8,7 @@ import {
   watch,
   Transition
 } from 'vue'
-import { useFooterModule, FooterMutations, Music } from '@/modules'
+import { useFooterModule, FooterMutations } from '@/modules'
 import { Table } from '@/components-business/table'
 import { formatTime, on, off } from '@/utils/index'
 import classnames from 'classnames'
@@ -32,7 +32,7 @@ const columns = [
     dataIndex: 'ar',
     key: 'ar',
     ellipsis: true,
-    customRender: ({ text }: { text: Music[] }) => {
+    customRender: ({ text }: { text: SongsDetail[] }) => {
       return <div>{text.map(ar => ar.name).join(' / ')}</div>
     }
   },
@@ -92,7 +92,7 @@ export const MusicHistory = defineComponent({
     const { musicStack, musciHistory } = toRefs(useState())
 
     const play = playMusic()
-    const handleDbClick = (item: Music) => {
+    const handleDbClick = (item: SongsDetail) => {
       play({
         url: item.url,
         id: item.id

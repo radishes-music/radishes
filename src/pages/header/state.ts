@@ -1,17 +1,4 @@
-import { Albums, Songs, Artists, PlayLists } from '@/interface/index'
-
-export interface SearchSuggest {
-  albums?: Albums[]
-  artists?: Artists[]
-  songs?: Songs[]
-  order?: string[]
-  playlists?: PlayLists[]
-}
-
-export interface HeaderState {
-  searchSuggest: SearchSuggest
-  themeColor: string
-}
+import { HeaderState } from '@/interface'
 
 export const state: HeaderState = {
   searchSuggest: {},

@@ -7,7 +7,7 @@ import {
   toRefs,
   PropType
 } from 'vue'
-import { FindMusicInteface } from '@/interface/index'
+import { Banners } from '@/interface/index'
 import classnames from 'classnames'
 import { useInternal } from '@/hooks/index'
 import { Image } from '@/components/image/index'
@@ -21,7 +21,7 @@ const prefix = 'swiper'
 export const Swiper = defineComponent({
   props: {
     banners: {
-      type: Object as PropType<FindMusicInteface.Banners[]>,
+      type: Object as PropType<Banners[]>,
       required: true
     },
     running: {
@@ -29,7 +29,7 @@ export const Swiper = defineComponent({
       default: false
     },
     onClick: {
-      type: Function as PropType<(item: FindMusicInteface.Banners) => void>,
+      type: Function as PropType<(item: Banners) => void>,
       default: noop
     }
   },
@@ -105,7 +105,7 @@ export const Swiper = defineComponent({
         current.value <= 0 ? banners.value.length - 1 : current.value - 1
     }
 
-    const handleClick = (item: FindMusicInteface.Banners) => {
+    const handleClick = (item: Banners) => {
       emit('click', item)
     }
 

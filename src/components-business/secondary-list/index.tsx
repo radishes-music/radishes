@@ -3,14 +3,19 @@ import { Secondary } from '@/layout/secondary/secondary'
 import { MoreThen } from '@/components/more-then/index'
 import { Table } from '@/components-business/table'
 import { FormatSource, ListFormat, SongsBase } from '@/interface/index'
-import { formatTime, noop, download } from '@/utils/index'
+import { formatTime, noop } from '@/utils/index'
 import { getSongUrl } from '@/api/index'
 import { RouterLink, useRouter } from 'vue-router'
 import { Button } from 'ant-design-vue'
 import { instance } from '@/components-business/fly/index'
-import { uesModuleStore } from '@/hooks/index'
-import { FooterInteface } from '@/pages/index'
+import {
+  useDownloadModule,
+  DownloadActions,
+  useFooterModule,
+  FooterMutations
+} from '@/modules/index'
 import { DailyCard } from '@/components-business/song-list/daily'
+import { PlayAll } from '@/components-business/button'
 import dayjs from 'dayjs'
 import './index.less'
 
@@ -27,9 +32,8 @@ const columns = [
     align: 'center',
     customRender: ({ text }: { text: ListFormat }) => {
       const add = ref()
-      const { useState, useMutations } = uesModuleStore<
-        FooterInteface.FooterState
-      >('Footer')
+      const { useMutations } = useDownloadModule()
+      const { useState } = useFooterModule()
       const state = useState()
       return (
         <div class="vh-center">
@@ -39,8 +43,7 @@ const columns = [
           <ve-button
             type="text"
             onClick={async () => {
-              const url = await getSongUrl<SongsBase[]>(text.id)
-              download(url[0].url, text.name)
+              useMutations(DownloadActions.DOWNLOAD_MUSIC, text)
             }}
           >
             <icon icon="icondownload" className="gay" size={22} />
@@ -67,10 +70,7 @@ const columns = [
                     url: data[0].url,
                     type: 'stack'
                   }
-                  useMutations(
-                    FooterInteface.FooterMutations.SET_PLAYLIST_TO_STACK,
-                    [music]
-                  )
+                  useMutations(FooterMutations.SET_PLAYLIST_TO_STACK, [music])
                 }
               }
             }}
@@ -186,18 +186,7 @@ export const SecondaryList = defineComponent({
                   </i>
                 </div>
                 <div class="a-command-contanier">
-                  <Button
-                    class="play-all"
-                    shape="round"
-                    v-slots={{
-                      icon: () => <icon icon="play-copy" size={18} />
-                    }}
-                    onClick={() => {
-                      emit('playAll')
-                    }}
-                  >
-                    播放全部
-                  </Button>
+                  <PlayAll onClick={() => emit('playAll')} />
                   <Button shape="round">收藏</Button>
                   <Button shape="round">下载</Button>
                 </div>
