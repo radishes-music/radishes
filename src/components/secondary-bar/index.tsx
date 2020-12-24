@@ -4,6 +4,14 @@ import './index.less'
 
 const prefix = 'secondary'
 
+export const renderNavList = (origin: RouteRecordRaw[], name: string) => {
+  const nav = origin.find(item => item.name === name)
+  if (nav && nav.children) {
+    return nav.children.filter(item => item.meta?.name)
+  }
+  return []
+}
+
 export const SecondaryBar = defineComponent({
   name: 'SecondaryBar',
   props: {

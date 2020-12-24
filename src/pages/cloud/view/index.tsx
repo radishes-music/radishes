@@ -5,7 +5,7 @@ export const Cloud = defineComponent({
   render() {
     return (
       <div class="cloud">
-        <h1>下载管理</h1>
+        <h1>音乐云盘</h1>
       </div>
     )
   }

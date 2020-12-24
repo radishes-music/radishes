@@ -14,7 +14,7 @@ import { Video, Mv } from '@/pages/video/index'
 import { Profile } from '@/pages/auth/views/profile'
 import { Moments } from '@/pages/moments/index'
 import { LocalMusic } from '@/pages/music/index'
-import { Download } from '@/pages/download/index'
+import { Download, DownloadSong } from '@/pages/download/index'
 import { Cloud } from '@/pages/cloud/index'
 import { Platform } from '@/config/build'
 
@@ -136,16 +136,16 @@ export const navRouter: RouteRecordRaw[] = [
         redirect: '/music/recommend'
       },
       {
-        path: '/music/recommend',
+        path: 'recommend',
         component: Recommend,
         name: 'recommend',
         meta: {
           name: '个性推荐',
-          path: '/music/recommend'
+          path: 'recommend'
         }
       },
       {
-        path: '/music/songlist',
+        path: 'songlist',
         component: SongList,
         name: 'songlist',
         meta: {
@@ -159,21 +159,21 @@ export const navRouter: RouteRecordRaw[] = [
         }
       },
       {
-        path: '/music/toplist',
+        path: 'toplist',
         component: TopList,
         name: 'toplist',
         meta: {
           name: '排行榜',
-          path: '/music/toplist'
+          path: 'toplist'
         }
       },
       {
-        path: '/music/artists',
+        path: 'artists',
         component: Artists,
         name: 'artists',
         meta: {
           name: '歌手',
-          path: '/music/artists'
+          path: 'artists'
         }
       }
     ]
@@ -214,8 +214,31 @@ export const navRouter: RouteRecordRaw[] = [
     }
   },
   {
-    path: '/download-manage',
+    path: '/download',
     component: Download,
+    name: Download.name,
+    children: [
+      {
+        path: '',
+        redirect: '/download/song'
+      },
+      {
+        path: 'song',
+        component: DownloadSong,
+        meta: {
+          name: '已下载单曲',
+          path: 'song'
+        }
+      },
+      {
+        path: 'mv',
+        component: DownloadSong,
+        meta: {
+          name: '已下载MV',
+          path: 'mv'
+        }
+      }
+    ],
     meta: {
       name: '下载管理'
     }
@@ -223,6 +246,7 @@ export const navRouter: RouteRecordRaw[] = [
   {
     path: '/cloud',
     component: Cloud,
+    name: Cloud.name,
     meta: {
       name: '我的音乐云盘',
       auth: true

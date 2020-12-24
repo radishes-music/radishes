@@ -5,19 +5,14 @@ import {
   resolveDynamicComponent
 } from 'vue'
 import { RouteRecordRaw, RouterView } from 'vue-router'
-import { SecondaryBar } from '@/components/secondary-bar/index'
+import { SecondaryBar, renderNavList } from '@/components/secondary-bar/index'
 import { navRouter } from '@/router/index'
 import './index.less'
-
-export const navKey = Symbol('nav')
 
 export const News = defineComponent({
   name: 'News',
   setup() {
-    let nav = navRouter.filter(item => item.name === News.name)
-    if (nav.length) {
-      nav = nav[0].children?.filter(item => item.meta?.name) as RouteRecordRaw[]
-    }
+    const nav = renderNavList(navRouter, News.name)
 
     // eslint-disable-next-line
     const handleChangeRoute = (route: RouteRecordRaw) => {}
