@@ -2,7 +2,7 @@ import { defineComponent, toRefs, PropType } from 'vue'
 import { Song } from '@/interface/index'
 import { formatCount } from '@/utils/index'
 import { Skeleton } from 'ant-design-vue'
-import { DailyCard } from '@/components/song-list/daily'
+import { DailyCard } from '@/components-business/song-list/daily'
 import './index.less'
 
 const prefix = 'song'

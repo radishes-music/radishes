@@ -1,5 +1,5 @@
 import { computed, defineComponent, toRefs } from 'vue'
-import { SongList } from '@/components/song-list/index'
+import { SongList } from '@/components-business/song-list/index'
 import { uesModuleStore } from '@/hooks/index'
 import { NAMESPACED, TopListState, TopListActions } from '../module'
 import { SongState } from '@/pages/list/module'

@@ -1,5 +1,8 @@
 import { defineComponent } from 'vue'
-import { SecondaryBar, renderNavList } from '@/components/secondary-bar/index'
+import {
+  SecondaryBar,
+  renderNavList
+} from '@/components-business/secondary-bar/index'
 import { navRouter } from '@/router/index'
 import { RouterView } from 'vue-router'
 import './index.less'

@@ -12,7 +12,7 @@ import { FooterNameSpaced } from '@/modules/index'
 import { FooterState, FooterMutations } from '@/pages/footer/module'
 import { getSongUrl } from '@/api/index'
 import { SongsBase, FormatSource, SongsDetail } from '@/interface'
-import { SecondaryList } from '@/components/secondary-list'
+import { SecondaryList } from '@/components-business/secondary-list'
 import { playMusic } from '@/shared/music-shared'
 import './index.less'
 

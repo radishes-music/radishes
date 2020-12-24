@@ -1,5 +1,5 @@
 import { defineComponent, toRefs, watch, ref, computed } from 'vue'
-import { SongList as ListComponent } from '@/components/song-list/index'
+import { SongList as ListComponent } from '@/components-business/song-list/index'
 import { uesModuleStore, useRoute, useRouter } from '@/hooks/index'
 import { SongListState, NAMESPACED, SongListActions, Tags } from '../module'
 import { Popover, Button } from 'ant-design-vue'

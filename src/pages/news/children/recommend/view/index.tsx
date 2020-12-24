@@ -9,7 +9,7 @@ import {
 import { Swiper } from '@/components/swiper/index'
 import { RecommendState, NAMESPACED, Banners, TargetType } from '../module'
 import { RecommendActions } from '../sage'
-import { SongList } from '@/components/song-list/index'
+import { SongList } from '@/components-business/song-list/index'
 import { uesModuleStore, useAuth } from '@/hooks/index'
 import { playMusic } from '@/shared/music-shared'
 import { jumpSongList } from '@/shared/list-shared'

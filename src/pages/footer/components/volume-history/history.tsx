@@ -9,7 +9,7 @@ import {
   Transition
 } from 'vue'
 import { useFooterModule, FooterMutations, Music } from '@/modules'
-import { Table } from '@/components/table'
+import { Table } from '@/components-business/table'
 import { formatTime, on, off } from '@/utils/index'
 import classnames from 'classnames'
 import { SongsDetail } from '@/interface'

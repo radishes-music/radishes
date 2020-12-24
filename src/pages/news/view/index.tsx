@@ -5,7 +5,10 @@ import {
   resolveDynamicComponent
 } from 'vue'
 import { RouteRecordRaw, RouterView } from 'vue-router'
-import { SecondaryBar, renderNavList } from '@/components/secondary-bar/index'
+import {
+  SecondaryBar,
+  renderNavList
+} from '@/components-business/secondary-bar/index'
 import { navRouter } from '@/router/index'
 import './index.less'
 
