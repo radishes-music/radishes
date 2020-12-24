@@ -22,6 +22,12 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
     win.close()
     syrice && syrice.close()
   })
+  ipcMain.on(UpdateType.UPDATE_WIDTH, (event: IpcMainEvent, width: number) => {
+    if (syrice) {
+      const screenWidth = screen.getPrimaryDisplay().workAreaSize.width
+      syrice.setSize(Math.min(width + 40, screenWidth), 100)
+    }
+  })
   ipcMain.on(MiddlewareView.CREATE_WINDOW, (event: IpcMainEvent, arg) => {
     if (syrice) {
       if (syrice.isVisible()) {
@@ -32,9 +38,9 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
     } else {
       const { width, height } = screen.getPrimaryDisplay().workAreaSize
       syrice = new BrowserWindow({
-        width: 724,
+        width: width,
         height: 100,
-        x: width / 2 - 724 / 2,
+        x: 0,
         y: height - 100,
         show: false,
         frame: false,
@@ -43,6 +49,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
         resizable: false,
         alwaysOnTop: true,
         acceptFirstMouse: true,
+        skipTaskbar: false,
         webPreferences: {
           nodeIntegration: true
         }
@@ -60,6 +67,9 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
             payload: arg
           })
         }
+      })
+      syrice.on('close', () => {
+        win.webContents.send(LyriceAction.LYRICE_WIN_CLOSE)
       })
       syrice.on('closed', () => {
         syrice = null

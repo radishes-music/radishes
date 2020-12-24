@@ -3,11 +3,7 @@ import { NAMESPACED, State, LayoutActions } from '@/layout/module'
 import { uesModuleStore, useRouter } from '@/hooks/index'
 import { MusicControl } from '../components/music-controller'
 import { VolumeAndHistory } from '../components/volume-history/index'
-import {
-  NAMESPACED as FooterNamespace,
-  FooterState,
-  Getter as FooterGetter
-} from '../module'
+import { useFooterModule } from '@/modules'
 import {
   NAMESPACED as MainNamespace,
   State as MainState,
@@ -35,9 +31,7 @@ export const Footer = defineComponent({
 
     const router = useRouter()
     const { useState, useMutations } = uesModuleStore<State>(NAMESPACED)
-    const FooterModule = uesModuleStore<FooterState, FooterGetter>(
-      FooterNamespace
-    )
+    const FooterModule = useFooterModule()
     const MainModule = uesModuleStore<MainState>(MainNamespace)
     const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
 

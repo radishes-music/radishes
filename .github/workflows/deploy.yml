@@ -84,6 +84,7 @@ jobs:
       - name: Cypress tests
         uses: cypress-io/github-action@v2
         with:
+          install: false
           command: yarn test:run
 
 

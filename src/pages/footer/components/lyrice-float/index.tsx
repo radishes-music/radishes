@@ -2,10 +2,10 @@ import { defineComponent, toRefs, ref, onMounted, PropType } from 'vue'
 import { useDrag } from '@/hooks/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
 import { Size } from '@/layout/module'
-import { Getter } from '@/pages/footer/module'
+import { FooterGetter } from '@/pages/footer/module'
+import { Platform } from '@/config/build'
 import classnames from 'classnames'
 import './index.less'
-import { Platform } from '@/config/build'
 
 const { VUE_APP_PLATFORM } = process.env
 
@@ -21,7 +21,7 @@ export const LyriceFlash = defineComponent({
       required: true
     },
     lyrice: {
-      type: Array as PropType<Getter['musicLyrics']>,
+      type: Array as PropType<FooterGetter['musicLyrics']>,
       required: true
     },
     index: {
@@ -68,33 +68,37 @@ export const LyriceFlash = defineComponent({
       }
     })
 
-    return () => (
-      <TeleportToAny
-        container="body"
-        class={classnames('lyrice-float-contanier', [
-          'lyrice-float-' + screenSize.value,
-          'lyrice-float-' + VUE_APP_PLATFORM
-        ])}
-        visible={visibleFlash.value}
-      >
-        <div ref={lyriceEl} class="lyrice-float">
-          {lyrice.value.map((item, i) => (
-            <div
-              data-time={item.time}
-              data-duration={item.duration}
-              class={classnames({
-                'lyrice-float-active': index.value === i,
-                'lyrice-float-pause': !playing.value && index.value === i
-              })}
-            >
-              <div style={index.value === i ? flashMagic.value : ''}>
-                {item.lyric}
+    return () => {
+      const visible =
+        VUE_APP_PLATFORM === Platform.ELECTRON ? true : visibleFlash.value
+      return (
+        <TeleportToAny
+          container="body"
+          class={classnames('lyrice-float-contanier', [
+            'lyrice-float-' + screenSize.value,
+            'lyrice-float-' + VUE_APP_PLATFORM
+          ])}
+          visible={visible}
+        >
+          <div ref={lyriceEl} class="lyrice-float">
+            {lyrice.value.map((item, i) => (
+              <div
+                data-time={item.time}
+                data-duration={item.duration}
+                class={classnames('vh-center', {
+                  'lyrice-float-active': index.value === i,
+                  'lyrice-float-pause': !playing.value && index.value === i
+                })}
+              >
+                <div style={index.value === i ? flashMagic.value : ''}>
+                  {item.lyric}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </TeleportToAny>
-    )
+            ))}
+          </div>
+        </TeleportToAny>
+      )
+    }
   }
 })
 

@@ -1,21 +1,18 @@
 import { defineComponent, ref, toRefs, onMounted, computed, watch } from 'vue'
-import { uesModuleStore } from '@/hooks/index'
 import { toFixed, formatTime, sleep } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
 import {
-  NAMESPACED,
-  FooterState,
-  Getter,
-  FooterActions,
+  useFooterModule,
   FooterMutations,
   findMusicIndex,
-  PlayMode
-} from '../../module'
+  PlayMode,
+  FooterActions
+} from '@/modules'
 import './index.less'
 import { Platform } from '@/config/build'
-import { importIpc } from '@/electron/event/ipc-browser'
-import { MiddlewareView } from '@/electron/event/action-types'
+import { importIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
+import { MiddlewareView, LyriceAction } from '@/electron/event/action-types'
 
 const prefix = 'music'
 const { VUE_APP_PLATFORM } = process.env
@@ -33,10 +30,7 @@ export const MusicControl = defineComponent({
     const draging = ref(false)
     const block = ref<Block[]>([])
 
-    const { useState, useMutations, useGetter, useActions } = uesModuleStore<
-      FooterState,
-      Getter
-    >(NAMESPACED)
+    const { useState, useMutations, useGetter, useActions } = useFooterModule()
 
     const {
       musicStack,
@@ -51,6 +45,14 @@ export const MusicControl = defineComponent({
     } = toRefs(useState())
 
     const musicDes = computed(() => useGetter('musicDes'))
+
+    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+      importIpcOrigin().then(ipcRenderer => {
+        ipcRenderer.on(LyriceAction.LYRICE_WIN_CLOSE, () => {
+          useMutations(FooterMutations.VISIBLE_FLASH, false)
+        })
+      })
+    }
 
     const durationTime = computed(() => {
       return formatTime(duration.value || 0, 's')
@@ -100,9 +102,7 @@ export const MusicControl = defineComponent({
     }
 
     const handleVisibleFlash = () => {
-      if (VUE_APP_PLATFORM === Platform.BROWSER) {
-        useMutations(FooterMutations.VISIBLE_FLASH, !visibleFlash.value)
-      }
+      useMutations(FooterMutations.VISIBLE_FLASH, !visibleFlash.value)
       if (VUE_APP_PLATFORM === Platform.ELECTRON) {
         importIpc()
           .then(event => {

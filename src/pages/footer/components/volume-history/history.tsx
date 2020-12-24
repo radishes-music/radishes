@@ -8,14 +8,7 @@ import {
   watch,
   Transition
 } from 'vue'
-import { uesModuleStore } from '@/hooks/index'
-import {
-  NAMESPACED,
-  FooterState,
-  Getter,
-  Music,
-  FooterMutations
-} from '../../module'
+import { useFooterModule, FooterMutations, Music } from '@/modules'
 import { Table } from '@/components/table'
 import { formatTime, on, off } from '@/utils/index'
 import classnames from 'classnames'
@@ -54,9 +47,7 @@ const columns = [
   {
     width: 40,
     customRender: ({ text }: { text: SongsDetail }) => {
-      const { useMutations, useState } = uesModuleStore<FooterState, Getter>(
-        NAMESPACED
-      )
+      const { useMutations, useState } = useFooterModule()
 
       return (
         <div>
@@ -96,7 +87,7 @@ export const MusicHistory = defineComponent({
     const transition = ref(visible.value)
     const isPlayListVisible = ref(true)
 
-    const { useState } = uesModuleStore<FooterState, Getter>(NAMESPACED)
+    const { useState } = useFooterModule()
 
     const { musicStack, musciHistory } = toRefs(useState())
 

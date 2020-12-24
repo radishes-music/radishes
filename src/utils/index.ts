@@ -66,6 +66,16 @@ export const sleep = (n: number) => {
   })
 }
 
+export const maxChildrenScollWidth = (el: HTMLElement) => {
+  let max = 0
+  const children = el.children
+  for (let i = 0; i < children.length; i++) {
+    max = Math.max(max, children[i].scrollWidth)
+  }
+
+  return max
+}
+
 export type Reverse<T> = (arg: any) => T
 export type ParserTarget = string | boolean | number | null | 'object'
 export interface StorageOption {

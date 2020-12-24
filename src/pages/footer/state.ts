@@ -31,6 +31,8 @@ export interface FooterState {
   electronLyrice: PostData
   duration: number
   volume: number
+  lyriceEmbedMinWidth: number
+  lyriceFloatMinWidth: number
 }
 
 export const state: FooterState = {
@@ -48,6 +50,8 @@ export const state: FooterState = {
   sourceElement: null,
   visibleFlash: false,
   duration: 0,
+  lyriceEmbedMinWidth: 0,
+  lyriceFloatMinWidth: 0,
   electronLyrice: {
     screenSize: Size.SM,
     visibleFlash: true,
@@ -60,7 +64,7 @@ export const state: FooterState = {
   }
 }
 
-export interface Getter {
+export interface FooterGetter {
   musicDetail: {
     url: string
   } & SongsDetail

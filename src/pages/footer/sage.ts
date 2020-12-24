@@ -5,8 +5,13 @@ import { getSongUrl, getSongDetail, getLyric } from './api/index'
 import { FooterState } from './state'
 import { RootState } from '@/store/index'
 import { SongsDetail, SongsBase } from '@/interface'
+import { Platform } from '@/config/build'
 import cloneDeep from 'lodash/cloneDeep'
 import remove from 'lodash/remove'
+import { importIpc } from '@/electron/event/ipc-browser'
+import { UpdateType } from '@/electron/event/action-types'
+
+const { VUE_APP_PLATFORM } = process.env
 
 export const enum FooterActions {
   SET_MUSIC = 'SET_MUSIC_URL',
@@ -29,8 +34,11 @@ export const enum FooterMutations {
   PUSH_STACK = 'PUSH_STACK',
   REMOVE_STACK = 'REMOVE_STACK',
   REMOVE_HISTORY = 'REMOVE_HISTORY',
-  CLEAR_STACK = 'CLEAR_STACK'
+  CLEAR_STACK = 'CLEAR_STACK',
+  LYRICE_EMBED_MIN_WIDTH = 'LYRICE_EMBED_MIN_WIDTH',
+  LYRICE_FLOAT_MIN_WIDTH = 'LYRICE_FLOAT_MIN_WIDTH'
 }
+
 const dominateMediaSession = (
   title: string,
   artist: string,
@@ -172,6 +180,20 @@ export const actions: ActionTree<FooterState, RootState> = {
 }
 
 export const mutations: MutationTree<FooterState> = {
+  [FooterMutations.LYRICE_EMBED_MIN_WIDTH](state, width: number) {
+    state.lyriceEmbedMinWidth = width
+  },
+  [FooterMutations.LYRICE_FLOAT_MIN_WIDTH](state, width: number) {
+    if (state.lyriceFloatMinWidth !== width) {
+      state.lyriceFloatMinWidth = width
+      // if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+      //   // Send data to ipc, modify the size of the window
+      //   importIpc().then(v => {
+      //     v.sendAsyncIpcRendererEvent(UpdateType.UPDATE_WIDTH, width)
+      //   })
+      // }
+    }
+  },
   [FooterMutations.CLEAR_STACK](state) {
     state.musicStack = []
   },

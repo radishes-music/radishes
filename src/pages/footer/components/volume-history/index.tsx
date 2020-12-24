@@ -1,8 +1,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import { ProgressBar as VolumeBar } from '@/components/process-bar/index'
-import { uesModuleStore } from '@/hooks/index'
 import { toFixed } from '@/utils/index'
-import { NAMESPACED, FooterState, Getter, FooterMutations } from '../../module'
+import { useFooterModule, FooterMutations } from '@/modules'
 import { AsyncComponent } from './history'
 import './index.less'
 
@@ -15,9 +14,7 @@ export const VolumeAndHistory = defineComponent({
     const draging = ref(false)
     const visible = ref(false)
 
-    const { useMutations, useState } = uesModuleStore<FooterState, Getter>(
-      NAMESPACED
-    )
+    const { useMutations, useState } = useFooterModule()
     const { volume } = useState()
     const current = ref(volume * 100)
 

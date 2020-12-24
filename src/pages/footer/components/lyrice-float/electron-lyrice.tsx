@@ -62,7 +62,9 @@ export default defineComponent({
         if (payload === undefined) return
         switch (type) {
           case UpdateType.UPDATE_INDEX:
-            postData.index = payload as PostData['index']
+            postData.index = ((payload as number) < 0
+              ? 0
+              : payload) as PostData['index']
             break
           case UpdateType.UPDATE_LYRICE:
             if (

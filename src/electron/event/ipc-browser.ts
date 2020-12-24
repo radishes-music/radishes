@@ -9,3 +9,9 @@ export const importIpc = () => {
     }
   })
 }
+
+export const importIpcOrigin = () => {
+  return import('electron').then(v => {
+    return v.ipcRenderer
+  })
+}

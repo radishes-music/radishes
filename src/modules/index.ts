@@ -10,13 +10,19 @@ import {
 } from '@/pages/news/children/module'
 import Layout, { NAMESPACED as LayoutNameSpaced } from '@/layout/module'
 import Header, { NAMESPACED as HeaderNameSpaced } from '@/pages/header/module'
-import Footer, { NAMESPACED as FooterNameSpaced } from '@/pages/footer/module'
+import Footer, {
+  NAMESPACED as FooterNameSpaced,
+  useFooterModule
+} from '@/pages/footer/module'
 import Main, { NAMESPACED as MainNameSpaced } from '@/pages/main/module'
 import Auth, { NAMESPACED as AuthNameSpaced } from '@/pages/auth/module'
 import Song, { NAMESPACED as SongNameSpaced } from '@/pages/list/module'
 import Artist, { NAMESPACED as ArtistNameSpaced } from '@/pages/artist/module'
 
+export * from '@/pages/footer/module'
+
 export {
+  useFooterModule,
   LayoutNameSpaced,
   RecommendNameSpaced,
   SongListNameSpaced,
