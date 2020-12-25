@@ -17,6 +17,12 @@ const http: AxiosInstance = Axios.create({
   timeout: 20000
 })
 
+http.defaults.headers = {
+  'Cache-Control': 'no-cache',
+  Pragma: 'no-cache',
+  Expires: '0'
+}
+
 http.interceptors.request.use(
   config => {
     return config
