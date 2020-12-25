@@ -1,5 +1,5 @@
 git clone https://$2 temp
-cp -r temp/.git dist/.git
+cp -r temp/.git $3/.git
 
 cd $3
 
