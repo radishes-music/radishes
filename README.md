@@ -1,5 +1,7 @@
 ## Radishes 2.0.0
 
+![release](https://github.com/Linkontoask/radishes/workflows/release/badge.svg)
+
 `Radishes`是这个项目的名称，它是由`萝卜`翻译而来。
 
 项目目前还在 rfc 阶段，只有一个大致方向，具体细节可以讨论。

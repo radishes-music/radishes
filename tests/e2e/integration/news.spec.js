@@ -64,15 +64,16 @@ context('News Music Basic', () => {
     // https://github.com/cypress-io/cypress/issues/14269
     // Found it is a cache problem
     // Solution: Use a timestamp to ensure that the URL cannot hit the browser cache
+
+    cy.get(
+      '.toplist-expansion-contanier:first-child .none-select:nth-child(2)'
+    ).dblclick()
+
     cy.intercept(/\/api\/song\/url/).as('getUrl')
     cy.intercept(/\/api\/song\/detail/).as('getDetail')
     cy.intercept(/\/api\/lyric/).as('getLyric')
 
-    cy.get(
-      '.toplist-expansion-contanier:first-child .none-select:first-child'
-    ).dblclick()
-
-    cy.wait(['@getUrl', '@getDetail', '@getLyric']).then(interceptions => {
+    cy.wait(['@getUrl', '@getDetail', '@getLyric']).then(() => {
       cy.get('source')
         .invoke('attr', 'src')
         .then(src => {
@@ -84,7 +85,6 @@ context('News Music Basic', () => {
     })
   })
 
-  // TODO
   it('Singer filter', () => {
     cy.visit('/music/artists')
     cy.get('.artists-content ul')
