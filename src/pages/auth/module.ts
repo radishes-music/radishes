@@ -1,7 +1,7 @@
 import { mutations, getters } from './sage'
 import { state } from './state'
 
-export const NAMESPACED = 'Auth'
+export const AuthNameSpaced = 'Auth'
 
 export default {
   namespaced: true,

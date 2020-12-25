@@ -8,10 +8,10 @@ import {
   PropType
 } from 'vue'
 import { Banners } from '@/interface/index'
-import classnames from 'classnames'
 import { useInternal } from '@/hooks/index'
 import { Image } from '@/components/image/index'
 import { noop } from '@/utils'
+import classnames from 'classnames'
 import './index.less'
 
 const prefix = 'swiper'
