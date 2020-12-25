@@ -6,10 +6,9 @@ import {
   watch,
   ComputedRef
 } from 'vue'
-import { uesModuleStore, useRoute } from '@/hooks/index'
-import { NAMESPACED } from '../module'
-import { FooterNameSpaced } from '@/modules/index'
-import { FooterState, FooterMutations } from '@/pages/footer/module'
+import { useRoute } from '@/hooks/index'
+import { useSongModule, useFooterModule } from '@/modules/index'
+import { FooterMutations } from '@/interface'
 import { getSongUrl } from '@/api/index'
 import {
   SongsBase,
@@ -100,8 +99,8 @@ export default defineComponent({
   name: 'SongListDetails',
   setup() {
     const route = useRoute()
-    const { useActions, useState } = uesModuleStore<SongState>(NAMESPACED)
-    const footerStore = uesModuleStore<FooterState>(FooterNameSpaced)
+    const { useActions, useState } = useSongModule()
+    const footerStore = useFooterModule()
 
     const type = computed(() => route.params.type) as ComputedRef<string>
 

@@ -1,7 +1,5 @@
-export interface State {
-  isCoverContainer: boolean
-}
+import { MainState } from '@/interface'
 
-export const state: State = {
+export const state: MainState = {
   isCoverContainer: false
 }

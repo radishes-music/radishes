@@ -1,10 +1,13 @@
 import { actions, mutations } from './sage'
 import { state } from './state'
+import { uesModuleStore } from '@/hooks/index'
+import { SongState } from '@/interface'
 
-export * from './state'
-export * from './sage'
+export const SongNameSpaced = 'Song'
 
-export const NAMESPACED = 'Song'
+export const useSongModule = () => {
+  return uesModuleStore<SongState>(SongNameSpaced)
+}
 
 export default {
   namespaced: true,

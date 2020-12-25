@@ -1,9 +1,7 @@
 import { actions, mutations, getters } from './sage'
 import { state } from './state'
 import { uesModuleStore } from '@/hooks/index'
-import { FooterState, FooterGetter } from './interface'
-
-export * from './interface'
+import { FooterState, FooterGetter } from '@/interface'
 
 export { findMusicIndex } from './sage'
 

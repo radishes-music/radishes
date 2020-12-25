@@ -8,11 +8,11 @@ import {
   watch,
   Transition
 } from 'vue'
-import { useFooterModule, FooterMutations } from '@/modules'
+import { useFooterModule } from '@/modules'
 import { Table } from '@/components-business/table'
 import { formatTime, on, off } from '@/utils/index'
 import classnames from 'classnames'
-import { SongsDetail } from '@/interface'
+import { SongsDetail, FooterMutations } from '@/interface'
 import { TeleportToAny } from '@/components/teleport-layout/index'
 import { Button } from 'ant-design-vue'
 import { playMusic } from '@/shared/music-shared'

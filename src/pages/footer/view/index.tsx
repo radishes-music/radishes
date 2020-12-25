@@ -1,24 +1,13 @@
-import { defineComponent, ref, toRefs, computed } from 'vue'
-import { NAMESPACED, State, LayoutActions } from '@/layout/module'
-import { uesModuleStore, useRouter } from '@/hooks/index'
+import { defineComponent, ref, computed } from 'vue'
+import { useRouter } from '@/hooks/index'
 import { MusicControl } from '../components/music-controller'
 import { VolumeAndHistory } from '../components/volume-history/index'
-import { useFooterModule } from '@/modules'
-import {
-  NAMESPACED as MainNamespace,
-  State as MainState,
-  Mutations as MainMutations
-} from '@/pages/main/module'
-import {
-  NAMESPACED as LayoutNamespace,
-  State as LayoutState,
-  Size
-} from '@/layout/module'
+import { useFooterModule, useLayoutModule, useMainModule } from '@/modules'
 import { AsyncComponent } from '../components/lyrice-embed/index'
 import { BrowserLyriceFlash } from '../components/lyrice-float/browser-lyrice'
+import { Artists, LayoutSize, LayoutActions, MainMutations } from '@/interface'
 import classnames from 'classnames'
 import './index.less'
-import { Artists } from '@/interface'
 
 // Fix JSX element type "AsyncComponent" does not have any construction signature or call signature.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,20 +19,17 @@ export const Footer = defineComponent({
     const visibleLyrice = ref(false)
 
     const router = useRouter()
-    const { useState, useMutations } = uesModuleStore<State>(NAMESPACED)
     const FooterModule = useFooterModule()
-    const MainModule = uesModuleStore<MainState>(MainNamespace)
-    const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
+    const MainModule = useMainModule()
+    const LayoutModule = useLayoutModule()
 
     const footerState = FooterModule.useState()
     const layoutState = LayoutModule.useState()
 
     const musicDes = computed(() => FooterModule.useGetter('musicDes'))
 
-    const { rebackSize } = toRefs(useState())
-
     const canShowSongDetail = computed(
-      () => footerState.music && layoutState.screenSize !== Size.SM
+      () => footerState.music && layoutState.screenSize !== LayoutSize.SM
     )
 
     const unfoldLyrice = () => {
@@ -60,6 +46,13 @@ export const Footer = defineComponent({
       router.push({
         path: '/artist/' + artist.id + '/album'
       })
+    }
+
+    const handleRebackSize = () => {
+      LayoutModule.useMutations(
+        LayoutActions.CHANGE_WINDOW_SIZE,
+        layoutState.rebackSize
+      )
     }
 
     return () => (
@@ -94,12 +87,7 @@ export const Footer = defineComponent({
           <VolumeAndHistory />
         </div>
         <div class="footer-reduction">
-          <ve-button
-            size="small"
-            onClick={() =>
-              useMutations(LayoutActions.CHANGE_WINDOW_SIZE, rebackSize.value)
-            }
-          >
+          <ve-button size="small" onClick={handleRebackSize}>
             <icon icon="fullscreen2" color="#000"></icon>
           </ve-button>
         </div>

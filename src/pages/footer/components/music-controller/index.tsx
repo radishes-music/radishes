@@ -2,17 +2,12 @@ import { defineComponent, ref, toRefs, onMounted, computed, watch } from 'vue'
 import { toFixed, formatTime, sleep } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
-import {
-  useFooterModule,
-  FooterMutations,
-  findMusicIndex,
-  PlayMode,
-  FooterActions
-} from '@/modules'
-import './index.less'
+import { useFooterModule, findMusicIndex } from '@/modules'
+import { FooterActions, FooterMutations, PlayMode } from '@/interface'
 import { Platform } from '@/config/build'
 import { importIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyriceAction } from '@/electron/event/action-types'
+import './index.less'
 
 const prefix = 'music'
 const { VUE_APP_PLATFORM } = process.env

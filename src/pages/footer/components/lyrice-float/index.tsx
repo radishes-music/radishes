@@ -1,8 +1,7 @@
 import { defineComponent, toRefs, ref, onMounted, PropType } from 'vue'
 import { useDrag } from '@/hooks/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
-import { Size } from '@/layout/module'
-import { FooterGetter } from '@/pages/footer/module'
+import { LayoutSize, FooterGetter } from '@/interface'
 import { Platform } from '@/config/build'
 import classnames from 'classnames'
 import './index.less'
@@ -13,7 +12,7 @@ export const LyriceFlash = defineComponent({
   name: 'LyriceFlash',
   props: {
     screenSize: {
-      type: String as PropType<Size>,
+      type: String as PropType<LayoutSize>,
       required: true
     },
     visibleFlash: {

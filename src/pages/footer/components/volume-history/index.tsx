@@ -1,7 +1,8 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import { ProgressBar as VolumeBar } from '@/components/process-bar/index'
 import { toFixed } from '@/utils/index'
-import { useFooterModule, FooterMutations } from '@/modules'
+import { useFooterModule } from '@/modules'
+import { FooterMutations } from '@/interface'
 import { AsyncComponent } from './history'
 import './index.less'
 

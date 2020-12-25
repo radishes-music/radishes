@@ -1,9 +1,7 @@
 import { actions, mutations } from './sage'
-import { state, DownloadState } from './state'
+import { state } from './state'
 import { uesModuleStore } from '@/hooks/index'
-
-export { DownloadState } from './state'
-export { DownloadActions, DownloadMutations } from './sage'
+import { DownloadState } from '@/interface'
 
 export const DownloadNameSpaced = 'Download'
 

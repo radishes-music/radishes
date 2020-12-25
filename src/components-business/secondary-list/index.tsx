@@ -2,18 +2,19 @@ import { defineComponent, PropType, ref } from 'vue'
 import { Secondary } from '@/layout/secondary/secondary'
 import { MoreThen } from '@/components/more-then/index'
 import { Table } from '@/components-business/table'
-import { FormatSource, ListFormat, SongsBase } from '@/interface/index'
+import {
+  FormatSource,
+  ListFormat,
+  SongsBase,
+  FooterMutations,
+  DownloadActions
+} from '@/interface/index'
 import { formatTime, noop } from '@/utils/index'
 import { getSongUrl } from '@/api/index'
 import { RouterLink, useRouter } from 'vue-router'
 import { Button } from 'ant-design-vue'
 import { instance } from '@/components-business/fly/index'
-import {
-  useDownloadModule,
-  DownloadActions,
-  useFooterModule,
-  FooterMutations
-} from '@/modules/index'
+import { useDownloadModule, useFooterModule } from '@/modules/index'
 import { DailyCard } from '@/components-business/song-list/daily'
 import { PlayAll } from '@/components-business/button'
 import dayjs from 'dayjs'

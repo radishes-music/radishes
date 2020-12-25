@@ -12,16 +12,11 @@ import {
   onBeforeUnmount,
   watch
 } from 'vue'
-import {
-  NAMESPACED as LayoutNamespace,
-  State as LayoutState,
-  Size
-} from '@/layout/module'
 import { on, off, download, maxChildrenScollWidth } from '@/utils/index'
-import { uesModuleStore } from '@/hooks/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
-import { useFooterModule, FooterMutations } from '@/modules'
+import { useFooterModule, useLayoutModule } from '@/modules'
 import { Image } from '@/components/image'
+import { LayoutSize, FooterMutations } from '@/interface'
 import debounce from 'lodash/debounce'
 import classnams from 'classnames'
 import './index.less'
@@ -46,7 +41,7 @@ export const PlayLyrice = defineComponent({
     const offset = ref(0)
 
     const { useState, useGetter, useMutations } = useFooterModule()
-    const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
+    const LayoutModule = useLayoutModule()
 
     const { screenSize } = toRefs(LayoutModule.useState())
 
@@ -98,7 +93,7 @@ export const PlayLyrice = defineComponent({
     watch(lyrice, updateWidth)
 
     const resize = debounce(() => {
-      if (visible.value && screenSize.value !== Size.SM) {
+      if (visible.value && screenSize.value !== LayoutSize.SM) {
         updateOffset()
       }
     }, 100)

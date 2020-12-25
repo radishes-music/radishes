@@ -1,14 +1,16 @@
-import { actions, mutations } from './sage'
+import { mutations } from './sage'
 import { state } from './state'
+import { uesModuleStore } from '@/hooks/index'
+import { MainState } from '@/interface'
 
-export * from './state'
-export * from './sage'
+export const MainNameSpaced = 'Main'
 
-export const NAMESPACED = 'Main'
+export const useMainModule = () => {
+  return uesModuleStore<MainState>(MainNameSpaced)
+}
 
 export default {
   namespaced: true,
   state,
-  actions,
   mutations
 }

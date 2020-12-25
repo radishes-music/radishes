@@ -1,8 +1,8 @@
 import { defineComponent, reactive, ref, toRaw } from 'vue'
 import { Filter } from './filter'
-import { uesModuleStore, useRouter } from '@/hooks/index'
-import { NAMESPACED } from '../module'
-import { ArtistsState, ArtistsActions, Artist } from '@/interface'
+import { useRouter } from '@/hooks/index'
+import { useArtistSearchModule } from '@/modules'
+import { ArtistsActions, Artist } from '@/interface'
 import throttle from 'lodash/throttle'
 import merge from 'lodash/merge'
 import { Image } from '@/components/image/index'
@@ -22,7 +22,7 @@ export const Artists = defineComponent({
       initial: '-1'
     })
     const router = useRouter()
-    const { useActions, useState } = uesModuleStore<ArtistsState>(NAMESPACED)
+    const { useActions, useState } = useArtistSearchModule()
 
     const state = useState()
 

@@ -1,8 +1,7 @@
 import { computed, defineComponent, toRefs } from 'vue'
 import { SongList } from '@/components-business/song-list/index'
-import { uesModuleStore } from '@/hooks/index'
-import { NAMESPACED } from '../module'
-import { SongState, TopListState, TopListActions } from '@/interface/index'
+import { useTopListModule } from '@/modules'
+import { SongState, TopListActions } from '@/interface/index'
 import { getPlayList } from '@/api/index'
 import { Image } from '@/components/image/index'
 import { playMusic as music } from '@/shared/music-shared'
@@ -12,7 +11,7 @@ import './index.less'
 export const TopList = defineComponent({
   name: 'TopList',
   setup() {
-    const { useState, useActions } = uesModuleStore<TopListState>(NAMESPACED)
+    const { useState, useActions } = useTopListModule()
 
     const { top } = toRefs(useState())
 

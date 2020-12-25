@@ -5,8 +5,8 @@ import { Logo } from '../component/logo'
 import { PushShift } from '../component/push-shift'
 import { Setting } from '../component/setting'
 import { Search } from '../component/search'
-import { uesModuleStore } from '@/hooks/index'
-import { NAMESPACED, State, LayoutActions } from '@/layout/module'
+import { LayoutActions } from '@/interface'
+import { useLayoutModule } from '@/modules/index'
 import { Platform } from '@/config/build'
 import './index.less'
 
@@ -23,7 +23,7 @@ export const Header = defineComponent({
   setup() {
     const windowSize = ref('enlarge')
 
-    const { useMutations } = uesModuleStore<State>(NAMESPACED)
+    const { useMutations } = useLayoutModule()
 
     const handleWindowControl = (action: Action) => {
       if (VUE_APP_PLATFORM === Platform.BROWSER) {

@@ -1,15 +1,6 @@
-export const enum Size {
-  SM = 'sm',
-  MD = 'md',
-  LG = 'lg'
-}
+import { LayoutState, LayoutSize } from '@/interface'
 
-export interface State {
-  screenSize: Size
-  rebackSize: Size
-}
-
-export const state: State = {
-  screenSize: Size.MD,
-  rebackSize: Size.MD
+export const state: LayoutState = {
+  screenSize: LayoutSize.MD,
+  rebackSize: LayoutSize.MD
 }

@@ -1,5 +1,5 @@
 import { SongsDetail } from '@/interface/index'
-import { Size } from '@/layout/module'
+import { LayoutSize } from '@/interface'
 import { FooterState, PlayMode } from './interface'
 
 export type Music = SongsDetail
@@ -22,7 +22,7 @@ export const state: FooterState = {
   lyriceEmbedMinWidth: 0,
   lyriceFloatMinWidth: 0,
   electronLyrice: {
-    screenSize: Size.SM,
+    screenSize: LayoutSize.SM,
     visibleFlash: true,
     lyrice: [],
     index: 0,

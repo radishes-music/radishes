@@ -1,7 +1,7 @@
 import { defineComponent, reactive } from 'vue'
 import LyriceFlash from './index'
-import { Size } from '@/layout/module'
-import { Lyrics } from '@/pages/footer/module'
+import { LayoutSize } from '@/interface'
+import { Lyrics } from '@/interface'
 import {
   MiddlewareView,
   LyriceAction,
@@ -14,7 +14,7 @@ import './electron-lyrice.less'
 import { ipcRenderer } from 'electron'
 
 export interface PostData {
-  screenSize: Size
+  screenSize: LayoutSize
   visibleFlash: boolean
   lyrice: Lyrics[]
   index: number
@@ -28,7 +28,7 @@ export default defineComponent({
   name: 'Lyrice',
   setup() {
     const postData: PostData = reactive({
-      screenSize: Size.SM,
+      screenSize: LayoutSize.SM,
       visibleFlash: true,
       lyrice: [
         {

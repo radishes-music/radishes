@@ -6,14 +6,13 @@ import {
   onMounted,
   watch
 } from 'vue'
+import { RecommendMutations, LayoutSize } from '@/interface/index'
 import classnames from 'classnames'
 import { Header } from '@/pages/header/view/index'
 import { Main } from '@/pages/main/view/index'
 import { Footer } from '@/pages/footer/view/index'
-import { useDrag, uesModuleStore } from '@/hooks/index'
-import { State, Size, NAMESPACED } from './module'
-import { RecommendNameSpaced } from '@/modules/index'
-import { RecommendMutations, RecommendState } from '@/interface/index'
+import { useDrag } from '@/hooks/index'
+import { useRecommendModule, useLayoutModule } from '@/modules/index'
 import { Platform } from '@/config/build'
 import './container.less'
 
@@ -28,13 +27,13 @@ export const Container = defineComponent({
     const container = ref()
     const target = ref()
 
-    const { useState } = uesModuleStore<State>(NAMESPACED)
-    const RecommendStore = uesModuleStore<RecommendState>(RecommendNameSpaced)
+    const { useState } = useLayoutModule()
+    const RecommendStore = useRecommendModule()
 
     const { screenSize } = toRefs(useState())
 
     watch(screenSize, v => {
-      if (v === Size.MD) {
+      if (v === LayoutSize.MD) {
         startDrag.value()
       } else {
         stopDrag.value()

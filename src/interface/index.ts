@@ -4,6 +4,7 @@ export * from './service/albums'
 export * from './service/artists'
 export * from './service/songs'
 export * from './service/avatar'
+export * from '@/layout/interface'
 export {
   RecommendMutations,
   RecommendState,
@@ -33,5 +34,16 @@ export {
   ArtistActions,
   ArtistMutations,
   Album,
-  Desc
+  Desc,
+  MainMutations,
+  MainState,
+  FooterMutations,
+  FooterState,
+  FooterGetter,
+  FooterActions,
+  PlayMode,
+  Lyrics,
+  DownloadState,
+  DownloadActions,
+  Downloaded
 } from '../pages/index'

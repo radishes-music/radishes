@@ -1,5 +1,5 @@
 import { ComponentPublicInstance, App } from 'vue'
-import { FooterMutations, RecommendMutations } from '@/modules/index'
+import { FooterMutations, RecommendMutations } from '@/interface'
 
 export interface Music extends ComponentPublicInstance {
   $app: App

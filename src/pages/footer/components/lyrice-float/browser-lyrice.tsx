@@ -1,15 +1,10 @@
 import { defineComponent, computed, toRefs, watch, toRaw } from 'vue'
-import { uesModuleStore } from '@/hooks/index'
 import { toFixed } from '@/utils/index'
-import {
-  NAMESPACED as LayoutNamespace,
-  State as LayoutState
-} from '@/layout/module'
-import { useFooterModule, FooterMutations } from '@/modules'
+import { useFooterModule, useLayoutModule } from '@/modules'
 import { Platform } from '@/config/build'
-import LyriceFlash from './index'
 import { importIpc } from '@/electron/event/ipc-browser'
 import { LyriceAction, UpdateType } from '@/electron/event/action-types'
+import LyriceFlash from './index'
 import './index.less'
 
 const { VUE_APP_PLATFORM } = process.env
@@ -27,7 +22,7 @@ export const BrowserLyriceFlash = defineComponent({
   name: 'BrowserLyriceFlash',
   setup() {
     const { useState, useGetter } = useFooterModule()
-    const LayoutModule = uesModuleStore<LayoutState>(LayoutNamespace)
+    const LayoutModule = useLayoutModule()
 
     const { currentTime, playing, visibleFlash } = toRefs(useState())
     const { screenSize } = toRefs(LayoutModule.useState())

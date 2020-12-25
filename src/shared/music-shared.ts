@@ -1,8 +1,8 @@
-import { FooterMutations, FooterState, FooterActions } from '@/modules/index'
-import { uesModuleStore } from '@/hooks/index'
+import { FooterMutations, FooterActions } from '@/interface'
+import { useFooterModule } from '@/modules'
 
 export const playMusic = () => {
-  const store = uesModuleStore<FooterState>('Footer')
+  const store = useFooterModule()
 
   return (id: number | unknown) => {
     store.useMutations(FooterMutations.PAUES_MUSIC)

@@ -1,16 +1,8 @@
 import { MutationTree } from 'vuex'
-import { State, Size } from './state'
-export const enum LayoutActions {
-  CHANGE_WINDOW_SIZE = 'CHANGE_WINDOW_SIZE'
-}
+import { LayoutActions, LayoutState, LayoutSize } from '@/interface'
 
-export interface Mutations {
-  [LayoutActions.CHANGE_WINDOW_SIZE]: (state: State, size: Size) => void
-}
-
-export const actions = {}
-export const mutations: MutationTree<State> = {
-  [LayoutActions.CHANGE_WINDOW_SIZE](state, size: Size) {
+export const mutations: MutationTree<LayoutState> = {
+  [LayoutActions.CHANGE_WINDOW_SIZE](state, size: LayoutSize) {
     state.rebackSize = state.screenSize
     state.screenSize = size
   }

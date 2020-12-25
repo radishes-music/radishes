@@ -1,8 +1,8 @@
 import { defineComponent, toRefs, watch, ref, computed } from 'vue'
 import { SongList as ListComponent } from '@/components-business/song-list/index'
-import { uesModuleStore, useRoute, useRouter } from '@/hooks/index'
-import { NAMESPACED } from '../module'
-import { SongListState, SongListActions, Tags } from '@/interface'
+import { useRoute, useRouter } from '@/hooks/index'
+import { useSongListModule } from '@/modules'
+import { SongListActions, Tags } from '@/interface'
 import { Popover, Button } from 'ant-design-vue'
 import { jumpSongList } from '@/shared/list-shared'
 import classnames from 'classnames'
@@ -15,7 +15,7 @@ export const SongList = defineComponent({
     const route = useRoute()
     const router = useRouter()
 
-    const { useState, useActions } = uesModuleStore<SongListState>(NAMESPACED)
+    const { useState, useActions } = useSongListModule()
     const { songList, tagsHot, tags } = toRefs(useState())
 
     const tagsViewKeyMap: Record<number, string> = {

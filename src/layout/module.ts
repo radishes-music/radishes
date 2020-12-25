@@ -1,14 +1,15 @@
 import { state } from './state'
-import { actions, mutations } from './sage'
-export { LayoutActions } from './sage'
+import { mutations } from './sage'
+import { uesModuleStore } from '@/hooks/index'
+import { LayoutState } from '@/interface'
 
-export * from './state'
+export const LayoutNameSpaced = 'Layout'
 
-export const NAMESPACED = 'Layout'
+export const useLayoutModule = () =>
+  uesModuleStore<LayoutState>(LayoutNameSpaced)
 
 export default {
   namespaced: true,
   state,
-  actions,
   mutations
 }

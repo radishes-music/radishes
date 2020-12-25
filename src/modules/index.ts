@@ -8,15 +8,15 @@ import {
   Artists,
   ArtistsNameSpaced
 } from '@/pages/news/children/module'
-import Layout, { NAMESPACED as LayoutNameSpaced } from '@/layout/module'
-import Header, { NAMESPACED as HeaderNameSpaced } from '@/pages/header/module'
+import Layout, { LayoutNameSpaced } from '@/layout/module'
+import Header, { HeaderNameSpaced } from '@/pages/header/module'
 import Footer, {
   FooterNameSpaced,
   useFooterModule
 } from '@/pages/footer/module'
-import Main, { NAMESPACED as MainNameSpaced } from '@/pages/main/module'
+import Main, { MainNameSpaced } from '@/pages/main/module'
 import Auth, { NAMESPACED as AuthNameSpaced } from '@/pages/auth/module'
-import Song, { NAMESPACED as SongNameSpaced } from '@/pages/list/module'
+import Song, { SongNameSpaced } from '@/pages/list/module'
 import Artist, { NAMESPACED as ArtistNameSpaced } from '@/pages/artist/module'
 import Download, {
   DownloadNameSpaced,
@@ -26,6 +26,10 @@ import Download, {
 export * from '@/pages/footer/module'
 export * from '@/pages/news/children/module'
 export * from '@/pages/download/module'
+export * from '@/pages/main/module'
+export * from '@/pages/header/module'
+export * from '@/pages/list/module'
+export * from '@/layout/module'
 
 export {
   useFooterModule,

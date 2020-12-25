@@ -1,14 +1,8 @@
 import { defineComponent, ref, computed, toRefs, PropType } from 'vue'
-import { uesModuleStore, useRouter } from '@/hooks/index'
-import { NAMESPACED } from '../module'
-import { HeaderState, SearchSuggest, HeaderActions } from '@/interface'
-import { FooterNameSpaced } from '@/modules/index'
-import { Songs } from '@/interface/index'
-import {
-  FooterState,
-  FooterActions,
-  FooterMutations
-} from '@/pages/footer/module'
+import { useRouter } from '@/hooks/index'
+import { SearchSuggest, HeaderActions, Songs } from '@/interface'
+import { useHeaderModule, useFooterModule } from '@/modules/index'
+import { FooterActions, FooterMutations } from '@/interface'
 import debounce from 'lodash/debounce'
 import './search.less'
 
@@ -105,8 +99,8 @@ export const Search = defineComponent({
   },
   setup() {
     const router = useRouter()
-    const { useActions, useState } = uesModuleStore<HeaderState>(NAMESPACED)
-    const footerStore = uesModuleStore<FooterState>(FooterNameSpaced)
+    const { useActions, useState } = useHeaderModule()
+    const footerStore = useFooterModule()
 
     const state = useState()
     const words = ref('')
