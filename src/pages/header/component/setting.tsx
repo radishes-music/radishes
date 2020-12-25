@@ -10,15 +10,15 @@ import { useThemeColor } from '@/hooks'
 
 const { VUE_APP_PLATFORM } = process.env
 
-const setColor = (value: string) => {
+const setColor = (baseColor: string) => {
   const color = {
-    'base-color': value.toLocaleLowerCase(),
-    'base-color-lighten': shade(value, 0.1),
-    'base-color-darken': shade(value, -0.1),
-    'normal-theme-text': shade(value, 0.1),
-    'primary-theme-text': value.toLocaleLowerCase(),
-    'base-color-background': shade(value, 0.4),
-    'secondary-theme-text': shade(value, 0.2)
+    'base-color': baseColor.toLocaleLowerCase(),
+    'base-color-lighten': shade(baseColor, 0.1),
+    'base-color-darken': shade(baseColor, -0.1),
+    'normal-theme-text': shade(baseColor, 0.1),
+    'primary-theme-text': baseColor.toLocaleLowerCase(),
+    'base-color-background': shade(baseColor, 0.4),
+    'secondary-theme-text': shade(baseColor, 0.2)
   }
 
   for (const [key, value] of Object.entries(color)) {
@@ -27,7 +27,10 @@ const setColor = (value: string) => {
 
   if (VUE_APP_PLATFORM === Platform.ELECTRON) {
     importIpc().then(event => {
-      event.sendAsyncIpcRendererEvent(MiddlewareView.UPDATE_THEME_COLOR, value)
+      event.sendAsyncIpcRendererEvent(
+        MiddlewareView.UPDATE_THEME_COLOR,
+        baseColor
+      )
     })
   }
 }
