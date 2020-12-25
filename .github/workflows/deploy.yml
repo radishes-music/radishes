@@ -94,7 +94,7 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
           tar -zcvf ./tests/e2e/video.tar.gz ./tests/e2e/video
-          ./script/deploy.sh $ACCESS_TOKEN $GITHUB_REPO tests/e2e
+          ./script/deploy.sh $ACCESS_TOKEN github.com/hq001/test_video.git tests/e2e
 
 
   build:
