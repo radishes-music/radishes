@@ -88,11 +88,13 @@ jobs:
           command: yarn test:run
 
       - name: Tar test video
+        if: always()
         run: |
           tar -zcvf ./tests/e2e/video.tar.gz ./tests/e2e/video
           ll
       
       - name: Upload test video
+        if: always()
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
