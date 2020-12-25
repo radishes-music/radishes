@@ -11,7 +11,14 @@ export const App = app
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
-  { scheme: 'app', privileges: { secure: true, standard: true } }
+  {
+    scheme: 'app',
+    privileges: {
+      secure: true,
+      standard: true,
+      corsEnabled: true
+    }
+  }
 ])
 
 function createWindow() {

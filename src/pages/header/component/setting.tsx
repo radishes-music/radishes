@@ -38,7 +38,8 @@ const setColor = (baseColor: string) => {
 export const Setting = defineComponent({
   name: 'Setting',
   setup() {
-    const themeColor = useThemeColor()
+    // eslint-disable-next-line prefer-const
+    let themeColor = useThemeColor()
     const visibleColor = ref(false)
 
     onMounted(() => {

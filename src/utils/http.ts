@@ -13,6 +13,7 @@ const baseURL = isDevelopment
   : VUE_APP_CI_BASE_URL || VUE_APP_BUILD_BASE_URL
 
 const http: AxiosInstance = Axios.create({
+  withCredentials: true,
   baseURL: baseURL,
   timeout: 20000
 })

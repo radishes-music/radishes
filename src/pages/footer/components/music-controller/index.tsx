@@ -169,16 +169,6 @@ export const MusicControl = defineComponent({
       }
     )
 
-    // When re-entering, set the playback link of the song
-    const stopUnWatchMusic = watchEffect(() => {
-      if (music && music.value) {
-        useMutations(FooterMutations.SET_MUSIC_URL, music.value.url)
-        nextTick(() => {
-          stopUnWatchMusic()
-        })
-      }
-    })
-
     const loadstart = () => {
       block.value = []
     }
@@ -205,6 +195,9 @@ export const MusicControl = defineComponent({
     }
 
     onMounted(() => {
+      if (music && music.value) {
+        useMutations(FooterMutations.SET_MUSIC_URL, music.value.url)
+      }
       if (audioElement.value && sourceElement.value) {
         audioElement.value.addEventListener('loadedmetadata', loadedmetadata)
         audioElement.value.addEventListener('canplaythrough', canplaythrough)
