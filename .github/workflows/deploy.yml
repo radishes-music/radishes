@@ -91,7 +91,6 @@ jobs:
         if: always()
         run: |
           tar -zcvf ./tests/e2e/video.tar.gz ./tests/e2e/video
-          ll
       
       - name: Upload test video
         if: always()
@@ -100,6 +99,8 @@ jobs:
         run: |
           cd tests/e2e
           git init
+          git config user.email "link19970507@gmail.com"
+          git config user.name "Link"
           git add .
           git commit -m "Github Action auto commit"
           git branch -M main
