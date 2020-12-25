@@ -1,4 +1,13 @@
-import { defineComponent, ref, toRefs, onMounted, computed, watch } from 'vue'
+import {
+  defineComponent,
+  ref,
+  toRefs,
+  onMounted,
+  computed,
+  watch,
+  watchEffect,
+  nextTick
+} from 'vue'
 import { toFixed, formatTime, sleep } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
@@ -33,6 +42,7 @@ export const MusicControl = defineComponent({
       audioElement,
       sourceElement,
       playing,
+      music,
       canplay,
       currentTime,
       visibleFlash,
@@ -159,6 +169,16 @@ export const MusicControl = defineComponent({
       }
     )
 
+    // When re-entering, set the playback link of the song
+    const stopUnWatchMusic = watchEffect(() => {
+      if (music && music.value) {
+        useMutations(FooterMutations.SET_MUSIC_URL, music.value.url)
+        nextTick(() => {
+          stopUnWatchMusic()
+        })
+      }
+    })
+
     const loadstart = () => {
       block.value = []
     }
@@ -200,7 +220,7 @@ export const MusicControl = defineComponent({
         })
         audioElement.value.addEventListener('canplay', () => {
           useMutations(FooterMutations.CAN_PLAY, true)
-          useMutations(FooterMutations.PLAY_MUSIC)
+          // useMutations(FooterMutations.PLAY_MUSIC)
         })
       }
     })

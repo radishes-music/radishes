@@ -24,6 +24,7 @@ export interface ListFormat extends GlobalBase {
   al: GlobalBase
   noCopyright: boolean
   dt: number
+  size: number
 }
 
 export interface FormatSource extends GlobalBase {
@@ -39,5 +40,16 @@ export interface FormatSource extends GlobalBase {
   tags?: string[]
   list: ListFormat[]
 }
+
+export type SongListColumnsType =
+  | 'index'
+  | 'control'
+  | 'name'
+  | 'ar'
+  | 'al'
+  | 'dt'
+  | 'remove'
+  | 'size'
+  | 'dlt'
 
 export type AllMutations = FooterMutations & RecommendMutations

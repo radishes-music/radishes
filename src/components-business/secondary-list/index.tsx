@@ -1,121 +1,15 @@
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { Secondary } from '@/layout/secondary/secondary'
 import { MoreThen } from '@/components/more-then/index'
 import { Table } from '@/components-business/table'
-import {
-  FormatSource,
-  ListFormat,
-  SongsBase,
-  FooterMutations,
-  DownloadActions
-} from '@/interface/index'
-import { formatTime, noop } from '@/utils/index'
-import { getSongUrl } from '@/api/index'
+import { FormatSource, ListFormat } from '@/interface/index'
+import { noop } from '@/utils/index'
 import { RouterLink, useRouter } from 'vue-router'
 import { Button } from 'ant-design-vue'
-import { instance } from '@/components-business/fly/index'
-import { useDownloadModule, useFooterModule } from '@/modules/index'
 import { DailyCard } from '@/components-business/song-list/daily'
 import { PlayAll } from '@/components-business/button'
 import dayjs from 'dayjs'
 import './index.less'
-
-const columns = [
-  {
-    width: 40,
-    align: 'center',
-    customRender: ({ index }: { index: number }) => (
-      <div class="gay no-hover">{++index < 10 ? '0' + index : index}</div>
-    )
-  },
-  {
-    width: 102,
-    align: 'center',
-    customRender: ({ text }: { text: ListFormat }) => {
-      const add = ref()
-      const { useMutations } = useDownloadModule()
-      const { useState } = useFooterModule()
-      const state = useState()
-      return (
-        <div class="vh-center">
-          <ve-button type="text">
-            <icon icon="shoucang" className="gay" size={20} />
-          </ve-button>
-          <ve-button
-            type="text"
-            onClick={async () => {
-              useMutations(DownloadActions.DOWNLOAD_MUSIC, text)
-            }}
-          >
-            <icon icon="icondownload" className="gay" size={22} />
-          </ve-button>
-          <ve-button
-            ref={add}
-            disabled={
-              state.musicStack.findIndex(item => item.id === text.id) !== -1
-            }
-            type="text"
-            onDblClick={(e: Event) => e.stopPropagation()}
-            onClick={async () => {
-              const end = document.querySelector('#history')
-              if (end) {
-                instance({
-                  begin: add.value.$el,
-                  end: end,
-                  duartion: 0.8
-                })
-                const data = await getSongUrl<SongsBase[]>(text.id)
-                if (data.length) {
-                  const music = {
-                    ...text,
-                    url: data[0].url,
-                    type: 'stack'
-                  }
-                  useMutations(FooterMutations.SET_PLAYLIST_TO_STACK, [music])
-                }
-              }
-            }}
-          >
-            <icon icon="add1" className="gay" size={16} />
-          </ve-button>
-        </div>
-      )
-    }
-  },
-  {
-    title: '音乐标题',
-    ellipsis: true,
-    dataIndex: 'name',
-    key: 'name'
-  },
-  {
-    title: '歌手',
-    dataIndex: 'ar',
-    key: 'ar',
-    ellipsis: true,
-    customRender: ({ text }: { text: ListFormat['ar'] }) => {
-      return <div>{text.map(ar => ar.name).join(' / ')}</div>
-    }
-  },
-  {
-    title: '专辑',
-    dataIndex: 'al',
-    key: 'al',
-    ellipsis: true,
-    customRender: ({ text }: { text: ListFormat['al'] }) => {
-      return <div>{text.name}</div>
-    }
-  },
-  {
-    title: '时长',
-    dataIndex: 'dt',
-    key: 'dt',
-    width: 120,
-    customRender: ({ text }: { text: number }) => (
-      <div>{formatTime(text, 'millisecond')}</div>
-    )
-  }
-]
 
 const renderClass = (name: string) => `secondary-list-${name}`
 
@@ -241,7 +135,7 @@ export const SecondaryList = defineComponent({
                   record.noCopyright ? 'no-copyright' : 'row-music'
                 }
                 list={props.source.list}
-                columns={columns}
+                columnsTypes={['index', 'control', 'name', 'ar', 'al', 'dt']}
                 onDblClick={e => {
                   emit('playDbl', e)
                 }}

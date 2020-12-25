@@ -1,7 +1,7 @@
 import { SongsDetail } from '@/interface'
 
 export interface Downloaded extends SongsDetail {
-  time: string
+  dlt: number
 }
 
 export interface DownloadState {
@@ -11,4 +11,7 @@ export interface DownloadState {
 export const enum DownloadActions {
   DOWNLOAD_MUSIC = 'DOWNLOAD_MUSIC'
 }
-export const enum DownloadMutations {}
+
+export const enum DownloadMutations {
+  SET_DOWNLOAD_MUSIC = 'SET_DOWNLOAD_MUSIC'
+}

@@ -72,8 +72,10 @@ plugins.push(
     paths: [
       'Auth.user',
       'Header.themeColor',
+      'Footer.musicStack',
       'Footer.musciHistory',
       'Footer.volume',
+      'Footer.music',
       'Download.downloaded'
     ]
   })

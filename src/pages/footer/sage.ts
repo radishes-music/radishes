@@ -127,9 +127,9 @@ export const actions: ActionTree<FooterState, RootState> = {
       url = payload.url
     }
     state.musicUrl = url
-    commit(FooterMutations.CAN_PLAY, false)
     await dispatch(FooterActions.SET_MUSIC_DEFAILT, id)
     await dispatch(FooterActions.SET_MUSIC_LYRICS, id)
+    commit(FooterMutations.CAN_PLAY, false)
     commit(FooterMutations.SET_MUSIC_URL, url)
   },
   async [FooterActions.SET_MUSIC_DEFAILT]({ state }, id: number | number[]) {
@@ -211,13 +211,13 @@ export const mutations: MutationTree<FooterState> = {
     }
   },
   [FooterMutations.PLAY_MUSIC](state) {
-    if (state.audioElement && !state.playing && state.canplay) {
+    if (state.audioElement && !state.playing) {
       state.audioElement.play()
       state.playing = true
     }
   },
   [FooterMutations.PAUES_MUSIC](state) {
-    if (state.audioElement && state.playing && state.canplay) {
+    if (state.audioElement && state.playing) {
       state.audioElement.pause()
       state.playing = false
     }

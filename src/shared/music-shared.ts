@@ -4,8 +4,9 @@ import { useFooterModule } from '@/modules'
 export const playMusic = () => {
   const store = useFooterModule()
 
-  return (id: number | unknown) => {
+  return async (id: number | unknown) => {
     store.useMutations(FooterMutations.PAUES_MUSIC)
-    store.useActions(FooterActions.SET_MUSIC, id)
+    await store.useActions(FooterActions.SET_MUSIC, id)
+    store.useMutations(FooterMutations.PLAY_MUSIC)
   }
 }

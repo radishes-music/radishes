@@ -17,6 +17,31 @@ export const formatTime = (time: number, unit: OpUnitType): string => {
     .format('mm:ss')
 }
 
+export const formatTimeToStandard = (time: number) => {
+  return dayjs(time).format('YYYY-MM-DD HH:mm:ss')
+}
+
+export const formatNumber = (n: number, base: number, unit: string[]) => {
+  let res = n,
+    index = 0
+
+  while (res > base) {
+    res /= base
+    index++
+  }
+  return (res | 0) + unit[index]
+}
+
+export const formatCount = (count: number): string => {
+  const unit = ['', '万', '亿']
+  return formatNumber(count, 1e4, unit)
+}
+
+export const formatSize = (size: number) => {
+  const unit = ['', 'KB', 'MB']
+  return formatNumber(size, 1.024e3, unit)
+}
+
 export const timeTos = (time: string): number => {
   return (
     dayjs(time, ['mm:ss.SSS', 'mm:ss.SS']).diff(
@@ -45,17 +70,6 @@ export const toFixed = (n: number, m: number) => {
     return Number(n.toFixed(m))
   }
   return null
-}
-
-export const formatCount = (count: number): string => {
-  let res = count,
-    n = 0
-  const unit = ['', '万', '亿']
-  while (res > 1e4) {
-    res /= 1e4
-    n++
-  }
-  return (res | 0) + unit[n]
 }
 
 export const sleep = (n: number) => {

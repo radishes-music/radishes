@@ -10,67 +10,17 @@ import {
 } from 'vue'
 import { useFooterModule } from '@/modules'
 import { Table } from '@/components-business/table'
-import { formatTime, on, off } from '@/utils/index'
+import { on, off } from '@/utils/index'
 import classnames from 'classnames'
-import { SongsDetail, FooterMutations } from '@/interface'
+import { SongsDetail } from '@/interface'
 import { TeleportToAny } from '@/components/teleport-layout/index'
 import { Button } from 'ant-design-vue'
 import { playMusic } from '@/shared/music-shared'
-import remove from 'lodash/remove'
+
 import './history.less'
 
 const prefix = 'history-music'
 const { VUE_APP_PLATFORM } = process.env
-
-const columns = [
-  {
-    dataIndex: 'name',
-    key: 'name',
-    ellipsis: true
-  },
-  {
-    dataIndex: 'ar',
-    key: 'ar',
-    ellipsis: true,
-    customRender: ({ text }: { text: SongsDetail[] }) => {
-      return <div>{text.map(ar => ar.name).join(' / ')}</div>
-    }
-  },
-  {
-    dataIndex: 'dt',
-    key: 'dt',
-    width: 80,
-    customRender: ({ text }: { text: number }) => (
-      <div>{formatTime(text, 'millisecond')}</div>
-    )
-  },
-  {
-    width: 40,
-    customRender: ({ text }: { text: SongsDetail }) => {
-      const { useMutations, useState } = useFooterModule()
-
-      return (
-        <div>
-          <ve-button
-            type="text"
-            onClick={() => {
-              if (text.type === 'stack') {
-                useMutations(FooterMutations.REMOVE_STACK, text.id)
-              }
-              if (text.type === 'history') {
-                const { musciHistory } = useState()
-                remove(musciHistory, (item: SongsDetail) => item.id === text.id)
-                useMutations(FooterMutations.REMOVE_HISTORY, text.id)
-              }
-            }}
-          >
-            <icon icon="remove" color="#000000a6" size={18}></icon>
-          </ve-button>
-        </div>
-      )
-    }
-  }
-]
 
 export const MusicHistory = defineComponent({
   name: 'MusicHistory',
@@ -151,7 +101,7 @@ export const MusicHistory = defineComponent({
               <div class={`${prefix}-content`}>
                 <Table
                   list={musicStack.value}
-                  columns={columns}
+                  columnsTypes={['name', 'ar', 'dt', 'remove']}
                   showHeader={false}
                   onDblClick={handleDbClick}
                   rowClassName={(record: SongsDetail) => {
@@ -167,7 +117,7 @@ export const MusicHistory = defineComponent({
               <div class={`${prefix}-content`}>
                 <Table
                   list={musciHistory.value}
-                  columns={columns}
+                  columnsTypes={['name', 'ar', 'dt', 'remove']}
                   showHeader={false}
                   onDblClick={handleDbClick}
                 />

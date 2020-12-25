@@ -59,4 +59,5 @@ export interface SongsDetail extends GlobalBase {
   }
   fee: number
   no: number
+  size: number
 }
