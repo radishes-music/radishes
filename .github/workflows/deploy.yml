@@ -79,30 +79,23 @@ jobs:
           npx cypress verify
 
       - name: Start server in the background
-        run: yarn dev &
+        run: cross-env NODE_ENV=development vue-cli-service serve --mode browser &
 
       - name: Cypress tests
         uses: cypress-io/github-action@v2
         with:
           install: false
+          start: yarn dev:api
           command: yarn test:run
 
-      - name: Tar test video
-        run: |
-          tar -zcvf ./tests/e2e/video.tar.gz ./tests/e2e/video
-          ll
-      
-      - name: Upload test video
+      - name: Compress and upload the test result folder
+        if: always()
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
-          cd tests/e2e
-          git init
-          git add .
-          git commit -m "Github Action auto commit"
-          git branch -M main
-          git push --force --quiet "https://$ACCESS_TOKEN@github.com/hq001/test_video.git" main:main
-         
+          tar -zcvf ./tests/e2e/video.tar.gz ./tests/e2e/video
+          ./script/deploy.sh $ACCESS_TOKEN $GITHUB_REPO tests/e2e
+
 
   build:
     name: Yarn build
@@ -158,4 +151,4 @@ jobs:
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_REPO: github.com/hq001/hq001.github.io.git
-        run: ./script/deploy.sh
+        run: ./script/deploy.sh $ACCESS_TOKEN $GITHUB_REPO dist
