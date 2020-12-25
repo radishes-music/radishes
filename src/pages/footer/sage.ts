@@ -185,14 +185,13 @@ export const mutations: MutationTree<FooterState> = {
   },
   [FooterMutations.SET_MUSIC_URL](state, payload: string | SongsDetail) {
     if (state.sourceElement && state.audioElement && state.music) {
-      let music = toRaw(state.music)
+      const music = toRaw(state.music)
       if (typeof payload === 'string') {
         state.sourceElement.src = payload
         music.url = payload
       } else {
         state.sourceElement.src = payload.url
         state.music = payload
-        music = toRaw(state.music)
       }
       state.audioElement.load()
       const isRepeatHistory = findMusicIndex(state.musciHistory, music) === -1
