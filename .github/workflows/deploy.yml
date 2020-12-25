@@ -101,7 +101,7 @@ jobs:
         if: always()
         with:
           name: test-results
-          path: tests/e2e
+          path: tests
 
 
   build:
