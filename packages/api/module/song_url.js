@@ -41,7 +41,7 @@ module.exports = (query, request) => {
     const { body } = v
     let i = 0
     while (i < body.data.length) {
-      if (!body.data[i].url) {
+      if (!body.data[i].url || body.data[i].freeTrialInfo) {
         const url = await find(body.data[i].id)
         v.body.data[i].url = url
       }
