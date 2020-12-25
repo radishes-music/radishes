@@ -87,6 +87,22 @@ jobs:
           install: false
           command: yarn test:run
 
+      - name: Tar test video
+        run: |
+          tar -zcvf ./tests/e2e/video.tar.gz ./tests/e2e/video
+          ll
+      
+      - name: Upload test video
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          cd tests/e2e
+          git init
+          git add .
+          git commit -m "Github Action auto commit"
+          git branch -M main
+          git push --force --quiet "https://$ACCESS_TOKEN@github.com/hq001/test_video.git" main:main
+         
 
   build:
     name: Yarn build
