@@ -1,12 +1,14 @@
 import { actions, mutations } from './sage'
 import { state } from './state'
 import { uesModuleStore } from '@/hooks/index'
-import { HeaderState } from '@/interface'
+import { HeaderState, HeaderActions, HeaderMutations } from '@/interface'
 
 export const HeaderNameSpaced = 'Header'
 
 export const useHeaderModule = () => {
-  return uesModuleStore<HeaderState>(HeaderNameSpaced)
+  return uesModuleStore<HeaderState, {}, HeaderActions, HeaderMutations>(
+    HeaderNameSpaced
+  )
 }
 
 export default {

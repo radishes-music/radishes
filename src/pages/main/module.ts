@@ -1,12 +1,12 @@
 import { mutations } from './sage'
 import { state } from './state'
 import { uesModuleStore } from '@/hooks/index'
-import { MainState } from '@/interface'
+import { MainState, MainMutations } from '@/interface'
 
 export const MainNameSpaced = 'Main'
 
 export const useMainModule = () => {
-  return uesModuleStore<MainState>(MainNameSpaced)
+  return uesModuleStore<MainState, {}, {}, MainMutations>(MainNameSpaced)
 }
 
 export default {

@@ -1,12 +1,14 @@
 import { actions, mutations } from './sage'
 import { state } from './state'
 import { uesModuleStore } from '@/hooks/index'
-import { ArtistState } from '@/interface'
+import { ArtistState, ArtistActions, ArtistMutations } from '@/interface'
 
 export const ArtistNameSpaced = 'Artist'
 
 export const useArtistModule = () => {
-  return uesModuleStore<ArtistState>(ArtistNameSpaced)
+  return uesModuleStore<ArtistState, {}, ArtistActions, ArtistMutations>(
+    ArtistNameSpaced
+  )
 }
 
 export default {

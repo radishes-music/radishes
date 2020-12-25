@@ -7,25 +7,44 @@ import Artists, { NAMESPACED as ArtistsNameSpaced } from './artists/module'
 import { uesModuleStore } from '@/hooks/index'
 import {
   RecommendState,
+  RecommendActions,
+  RecommendMutations,
   ArtistsState,
+  ArtistsActions,
+  ArtistsMutations,
   SongListState,
-  TopListState
+  SongListActions,
+  SongListMutations,
+  TopListState,
+  TopListActions,
+  TopListMutations
 } from '@/interface'
 
 export const useRecommendModule = () => {
-  return uesModuleStore<RecommendState>(RecommendNameSpaced)
+  return uesModuleStore<
+    RecommendState,
+    {},
+    RecommendActions,
+    RecommendMutations
+  >(RecommendNameSpaced)
 }
 
 export const useArtistSearchModule = () => {
-  return uesModuleStore<ArtistsState>(ArtistsNameSpaced)
+  return uesModuleStore<ArtistsState, {}, ArtistsActions, ArtistsMutations>(
+    ArtistsNameSpaced
+  )
 }
 
 export const useSongListModule = () => {
-  return uesModuleStore<SongListState>(SongListNameSpaced)
+  return uesModuleStore<SongListState, {}, SongListActions, SongListMutations>(
+    SongListNameSpaced
+  )
 }
 
 export const useTopListModule = () => {
-  return uesModuleStore<TopListState>(TopListNameSpaced)
+  return uesModuleStore<TopListState, {}, TopListActions, TopListMutations>(
+    TopListNameSpaced
+  )
 }
 
 export {

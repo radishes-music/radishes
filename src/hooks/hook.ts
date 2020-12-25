@@ -112,9 +112,12 @@ export const useDrag = (
   }
 }
 
-export function uesModuleStore<S, G = Record<string, string>>(
-  NAMESPACED: string
-) {
+export function uesModuleStore<
+  S,
+  G = Record<string, string>,
+  A = string,
+  M = string
+>(NAMESPACED: string) {
   const store = useStore()
 
   const useState = (): S => {
@@ -123,10 +126,10 @@ export function uesModuleStore<S, G = Record<string, string>>(
   const useGetter = <key extends keyof G>(value: key): G[key] => {
     return store.getters[NAMESPACED + '/' + value]
   }
-  const useActions = (type: string, payload?: unknown) => {
+  const useActions = (type: A, payload?: unknown) => {
     return store.dispatch(NAMESPACED + '/' + type, payload)
   }
-  const useMutations = (type: string, payload?: unknown): void => {
+  const useMutations = (type: M, payload?: unknown): void => {
     store.commit(NAMESPACED + '/' + type, payload)
   }
 

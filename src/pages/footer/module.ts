@@ -1,14 +1,24 @@
 import { actions, mutations, getters } from './sage'
 import { state } from './state'
 import { uesModuleStore } from '@/hooks/index'
-import { FooterState, FooterGetter } from '@/interface'
+import {
+  FooterState,
+  FooterGetter,
+  FooterActions,
+  FooterMutations
+} from '@/interface'
 
 export { findMusicIndex } from './sage'
 
 export const FooterNameSpaced = 'Footer'
 
 export const useFooterModule = () => {
-  return uesModuleStore<FooterState, FooterGetter>(FooterNameSpaced)
+  return uesModuleStore<
+    FooterState,
+    FooterGetter,
+    FooterActions,
+    FooterMutations
+  >(FooterNameSpaced)
 }
 
 export default {
