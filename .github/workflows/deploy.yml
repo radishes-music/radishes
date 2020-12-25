@@ -96,13 +96,6 @@ jobs:
           tar -zcvf ./tests/e2e/video.tar.gz ./tests/e2e/video
           ./script/deploy.sh $ACCESS_TOKEN github.com/hq001/test_video.git tests/e2e
 
-      - name: Download a single artifact
-        uses: actions/download-artifact@v2
-        if: always()
-        with:
-          name: test-results
-          path: tests
-
 
   build:
     name: Yarn build
