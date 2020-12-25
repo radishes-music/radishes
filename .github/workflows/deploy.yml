@@ -79,7 +79,7 @@ jobs:
           npx cypress verify
 
       - name: Start server in the background
-        run: npx cross-env NODE_ENV=development vue-cli-service serve --mode browser &
+        run: yarn dev:web &
 
       - name: Cypress tests
         uses: cypress-io/github-action@v2
