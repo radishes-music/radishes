@@ -73,7 +73,9 @@ context('News Music Basic', () => {
     cy.intercept(/\/api\/song\/detail/).as('getDetail')
     cy.intercept(/\/api\/lyric/).as('getLyric')
 
-    cy.wait(['@getUrl', '@getDetail', '@getLyric']).then(() => {
+    cy.wait(['@getUrl', '@getDetail', '@getLyric'], {
+      requestTimeout: 20 * 1000
+    }).then(() => {
       cy.get('source')
         .invoke('attr', 'src')
         .then(src => {

@@ -98,6 +98,7 @@ jobs:
 
       - name: Download a single artifact
         uses: actions/download-artifact@v2
+        if: always()
         with:
           name: test-results
           path: tests/e2e
