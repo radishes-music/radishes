@@ -25,5 +25,8 @@ export const mutations: MutationTree<DownloadState> = {
   [DownloadMutations.SET_DOWNLOAD_MUSIC](state, song: Downloaded) {
     song.dlt = Date.now()
     state.downloaded.push(song)
+  },
+  [DownloadMutations.SET_DOWNLOAD_PATH](state, path: string) {
+    state.downloadPath = path
   }
 }

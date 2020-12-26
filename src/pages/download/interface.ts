@@ -6,6 +6,7 @@ export interface Downloaded extends SongsDetail {
 
 export interface DownloadState {
   downloaded: Downloaded[]
+  downloadPath: string
 }
 
 export const enum DownloadActions {
@@ -13,5 +14,6 @@ export const enum DownloadActions {
 }
 
 export const enum DownloadMutations {
-  SET_DOWNLOAD_MUSIC = 'SET_DOWNLOAD_MUSIC'
+  SET_DOWNLOAD_MUSIC = 'SET_DOWNLOAD_MUSIC',
+  SET_DOWNLOAD_PATH = 'SET_DOWNLOAD_PATH'
 }

@@ -1,4 +1,6 @@
-import { App } from '../main'
+import { userInfo } from 'os'
+import { shell } from 'electron'
+export { normalize, join } from 'path'
 
 export const isElectron = () => {
   // Renderer process
@@ -32,5 +34,13 @@ export const isElectron = () => {
 }
 
 export const getAppPath = () => {
-  return App.getAppPath() || __dirname || process.env.PORTABLE_EXECUTABLE_DIR
+  return __dirname || process.env.PORTABLE_EXECUTABLE_DIR
+}
+
+export const getUserOS = () => {
+  return userInfo()
+}
+
+export const openExplorer = (path: string) => {
+  shell.openExternal(path)
 }
