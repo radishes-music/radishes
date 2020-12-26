@@ -18,8 +18,11 @@ const http: AxiosInstance = Axios.create({
   timeout: 20000
 })
 
+http.defaults.params = {}
+
 http.interceptors.request.use(
   config => {
+    config.params['t'] = Date.now()
     return config
   },
   error => {
