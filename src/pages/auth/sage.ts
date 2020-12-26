@@ -14,11 +14,11 @@ export const mutations = {
     // Set cookies manually
     // see https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Set-Cookie
     // see https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content
-    if (info) {
-      info.cookie.split(';;').forEach(str => {
-        document.cookie = str
-      })
-    }
+    // if (info) {
+    //   info.cookie.split(';;').forEach(str => {
+    //     document.cookie = str
+    //   })
+    // }
     state.user = info
   },
   [AUTH_MUTATIONS.LOGOUT]: (state: AuthState) => {
