@@ -10,6 +10,17 @@ import { Platform } from '@/config/build'
 dayjs.extend(UTC)
 dayjs.extend(customParseFormat)
 
+export const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
+  obj: X,
+  prop: Y
+): obj is X & Record<Y, unknown> => {
+  return Object.prototype.hasOwnProperty.call(obj, prop)
+}
+
+export const isNumber = (n: unknown) => {
+  return Object.prototype.toString.call(n) === '[object Number]'
+}
+
 export const formatTime = (time: number, unit: OpUnitType): string => {
   return dayjs
     .utc(new Date(0))
@@ -32,9 +43,12 @@ export const formatNumber = (n: number, base: number, unit: string[]) => {
   return (res | 0) + unit[index]
 }
 
-export const formatCount = (count: number): string => {
+export const formatCount = (count?: number): string => {
   const unit = ['', '万', '亿']
-  return formatNumber(count, 1e4, unit)
+  if (count) {
+    return formatNumber(count, 1e4, unit)
+  }
+  return ''
 }
 
 export const formatSize = (size: number) => {
@@ -54,17 +68,6 @@ export const download = (url: string, filename: string) => {
   saveAs(url, filename)
 }
 
-export const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
-  obj: X,
-  prop: Y
-): obj is X & Record<Y, unknown> => {
-  return Object.prototype.hasOwnProperty.call(obj, prop)
-}
-
-export const isNumber = (n: unknown) => {
-  return Object.prototype.toString.call(n) === '[object Number]'
-}
-
 export const toFixed = (n: number, m: number) => {
   if (typeof n === 'number') {
     return Number(n.toFixed(m))
@@ -77,6 +80,18 @@ export const sleep = (n: number) => {
     setTimeout(() => {
       resolve(true)
     }, n)
+  })
+}
+
+export const syncToAsync = (
+  fn: (resolve: (value: unknown) => void) => void
+) => {
+  return new Promise((resolve, reject) => {
+    try {
+      fn(resolve)
+    } catch (e) {
+      reject(e)
+    }
   })
 }
 

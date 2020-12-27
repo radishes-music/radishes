@@ -2,11 +2,10 @@ import { message } from 'ant-design-vue'
 import { VNodeTypes } from 'vue'
 
 export interface MessageConfig {
-  key: string
+  key: string | number
 }
 
 message.config({
-  top: '80px',
   duration: 2
 })
 const messageMap = new Map()
@@ -27,6 +26,13 @@ export const suggested = (msg: VNodeTypes, config: MessageConfig) => {
 
 export const success = (msg: VNodeTypes, config: MessageConfig) => {
   return message.success({
+    key: config.key,
+    content: msg
+  })
+}
+
+export const warning = (msg: VNodeTypes, config: MessageConfig) => {
+  return message.warning({
     key: config.key,
     content: msg
   })

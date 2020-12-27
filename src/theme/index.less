@@ -3,8 +3,12 @@
 @light-border: 0.5px solid lighten(@base-border-color, 2%);
 @lighter-border: 0.5px solid lighten(@base-border-color, 4%);
 @extra-light-border: 0.5px solid lighten(@base-border-color, 6%);
-
 @drank-border: 0.5px solid darken(@base-border-color, 40%);
+
+.border(@width) {
+  border: @drank-border;
+  border-width: @width;
+}
 
 .visible(@origin) {
   &-enter,

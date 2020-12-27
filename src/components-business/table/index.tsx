@@ -15,6 +15,7 @@ import {
   SongListColumnsType
 } from '@/interface/index'
 import { useDownloadModule, useFooterModule } from '@/modules/index'
+import { useSubscribe } from '@/shared/subscribe'
 import { instance } from '@/components-business/fly/index'
 import { getSongUrl } from '@/api/index'
 import remove from 'lodash/remove'
@@ -40,9 +41,13 @@ const columns = [
       const { useActions } = useDownloadModule()
       const { useState, useMutations } = useFooterModule()
       const state = useState()
+      const subscribe = useSubscribe(true)
+      const handleSubscribe = () => {
+        subscribe('1', text.id)
+      }
       return (
         <div class="vh-center">
-          <ve-button type="text">
+          <ve-button type="text" onClick={handleSubscribe}>
             <icon icon="shoucang" className="gay" size={20} />
           </ve-button>
           <ve-button

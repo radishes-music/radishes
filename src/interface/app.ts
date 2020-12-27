@@ -39,6 +39,7 @@ export interface FormatSource extends GlobalBase {
   description: string
   tags?: string[]
   list: ListFormat[]
+  subscribed?: boolean
 }
 
 export type SongListColumnsType =

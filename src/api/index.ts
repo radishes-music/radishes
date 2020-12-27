@@ -1,5 +1,6 @@
 import { get } from '@/utils/http'
-import { SongsDetail, SongState, Albums } from '@/interface/index'
+import { SongsDetail, SongState, Albums, Song } from '@/interface/index'
+import { SubscribeActionType } from '@/shared/subscribe'
 
 export const getSongUrl = async <T>(id: number | number[]): Promise<T> => {
   const data = await get<{ data: T }>('/api/song/url', {
@@ -40,4 +41,37 @@ export const getAlbumList = async (
     }
   )
   return data
+}
+
+export const userPlaylist = async (id: string | number): Promise<Song[]> => {
+  const data = await get<{ playlist: Song[] }>('/api/user/playlist', {
+    uid: id
+  })
+  return data.playlist
+}
+
+export const userSubscribeCount = async () => {
+  return get('/api/user/subcount')
+}
+
+export const subscribePlaylist = async (
+  type: SubscribeActionType,
+  id: number | string
+) => {
+  return get('/api/playlist/subscribe', {
+    t: type,
+    id: id
+  })
+}
+
+export const subscribeSingle = async (
+  type: SubscribeActionType,
+  pid: number | string,
+  id: number[] | string[]
+) => {
+  return get('/api/playlist/tracks', {
+    op: type === '1' ? 'add' : 'del',
+    pid,
+    tracks: id.join(',')
+  })
 }

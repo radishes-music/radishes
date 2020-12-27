@@ -22,7 +22,7 @@ http.defaults.params = {}
 
 http.interceptors.request.use(
   config => {
-    config.params['t'] = Date.now()
+    config.params[Date.now()] = 'no-cache'
     return config
   },
   error => {

@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/camelcase */
 import { useRouter } from 'vue-router'
 import { computed } from 'vue'
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
 import { useStore } from 'vuex'
 import { Toast } from 'vant'
 import http from '@/utils/http'

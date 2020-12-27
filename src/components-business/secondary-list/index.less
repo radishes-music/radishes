@@ -1,18 +1,21 @@
 .secondary-list {
   &-coverimg {
     width: 210px;
+    min-width: 210px;
     height: 210px;
     margin-right: 20px;
     border-radius: 4px;
   }
   &-des {
     flex: 1;
+    width: 0;
     h1 {
       display: flex;
       align-items: center;
       font-size: 28px;
       font-weight: bold;
       div {
+        min-width: 40px;
         padding: 1px 4px;
         margin-right: 10px;
         font-size: 14px;
@@ -21,6 +24,11 @@
         vertical-align: middle;
         border: 1px solid var(--base-color);
         border-radius: 4px;
+      }
+      strong {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
     .a {

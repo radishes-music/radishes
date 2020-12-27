@@ -59,13 +59,9 @@ export const Fly = defineComponent({
 
     return () => (
       <div class="fly" style={style.contanier}>
-        <Icon
-          class="fly-content"
-          style={style.child}
-          icon="icomoonmusic"
-          color="#333"
-          size={30}
-        ></Icon>
+        <div class="fly-content vh-center" style={style.child}>
+          <Icon icon="icomoonmusic" color="#333" size={18}></Icon>
+        </div>
       </div>
     )
   }

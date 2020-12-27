@@ -14,6 +14,7 @@ import { Schedule } from '@/components/schedule/index'
 import { useDrag } from '@/hooks/index'
 import { useRecommendModule, useLayoutModule } from '@/modules/index'
 import { Platform } from '@/config/build'
+import { message } from 'ant-design-vue'
 import store from '@/store/index'
 import classnames from 'classnames'
 import './container.less'
@@ -45,6 +46,9 @@ export const Container = defineComponent({
     }
 
     onMounted(() => {
+      message.config({
+        top: container.value.getBoundingClientRect().top + 80 + 'px'
+      })
       if (VUE_APP_PLATFORM === Platform.BROWSER) {
         const { start, stop } = useDrag(
           container.value as HTMLElement,

@@ -62,6 +62,7 @@ const formatPlayListData = (
     playCount: item.playCount,
     description: item.description,
     tags: item.tags,
+    subscribed: item.subscribed,
     list: [
       ...item.tracks.map(o => ({
         ...o,
@@ -86,6 +87,7 @@ const formatAlbumListData = (item: SongState['albumList']): FormatSource => {
     trackCount: item.album.trackCount,
     playCount: item.album.playCount,
     description: item.album.description,
+    subscribed: item.album.subscribed,
     list: [
       ...item.song.map(o => ({
         ...o,
@@ -104,17 +106,21 @@ export default defineComponent({
 
     const type = computed(() => route.params.type) as ComputedRef<string>
 
+    const updateList = (v: string) => {
+      if (v === '-1') {
+        type.value === 'song' &&
+          useActions(SongActions.SET_ACTION_RECOMMEND_SONG)
+      } else if (v) {
+        type.value === 'song'
+          ? useActions(SongActions.SET_ACTION_PLAYLIST, v)
+          : useActions(SongActions.SET_ACTION_ALBUMLIST, v)
+      }
+    }
+
     watch(
       () => route.params.playlist,
       v => {
-        if (v === '-1') {
-          type.value === 'song' &&
-            useActions(SongActions.SET_ACTION_RECOMMEND_SONG)
-        } else if (v) {
-          type.value === 'song'
-            ? useActions(SongActions.SET_ACTION_PLAYLIST, v)
-            : useActions(SongActions.SET_ACTION_ALBUMLIST, v)
-        }
+        updateList(v as string)
       },
       {
         immediate: true
@@ -168,6 +174,7 @@ export default defineComponent({
           source={rawData.value}
           onPlayAll={handlePlayAll}
           onPlayDbl={handleDbClick}
+          onUpdate={() => updateList(route.params.playlist as string)}
         />
       </div>
     )

@@ -18,10 +18,10 @@ export interface SongState {
       coverImgUrl: string
       trackCount: number
       creator: Avatar
+      subscribed: boolean
     } & GlobalBase,
     Merage<{
       subscribers: Avatar[]
-
       userId: number
     }>
   >
@@ -35,6 +35,7 @@ export interface SongState {
       trackCount: number
       shareCount: number
       playCount: number
+      subscribed: boolean
     } & Albums
   }
 }

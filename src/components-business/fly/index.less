@@ -1,9 +1,15 @@
+@import '~@/theme/index.less';
+
 .fly {
   position: absolute;
   z-index: 9;
   opacity: 0.3;
   transform: translateX(0);
   &-content {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     transform: translateY(0);
+    .border(2px);
   }
 }

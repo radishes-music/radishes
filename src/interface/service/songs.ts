@@ -14,6 +14,7 @@ export interface Song extends Songs {
   copywriter: string
   picUrl: string
   coverImgUrl: string
+  specialType?: number
 }
 
 export interface FreeTrialInfo {
