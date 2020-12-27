@@ -30,7 +30,6 @@ export const MusicControl = defineComponent({
   name: 'MusicControl',
   setup() {
     const playingIcon = ref('play')
-    const currentIndicator = ref(0)
     const draging = ref(false)
     const block = ref<Block[]>([])
 
@@ -146,16 +145,23 @@ export const MusicControl = defineComponent({
       ]
     }
 
+    const currentIndicator = computed(() => {
+      const time = currentTime.value
+      const width = toFixed((time / (duration.value * 1000)) * 100 * 1000, 6)
+      if (width) {
+        return width > 100 ? 100 : width
+      }
+      return 0
+    })
+
     const timeUpdate = async () => {
       if (!playing.value) return false
       await sleep(1000)
       if (audioElement.value && duration.value && !draging.value) {
-        const time = audioElement.value.currentTime
-        const width = toFixed((time / (duration.value * 1000)) * 100 * 1000, 6)
-        if (width) {
-          currentIndicator.value = width > 100 ? 100 : width
-        }
-        useMutations(FooterMutations.UPDATE_CURRENT_TIME, time)
+        useMutations(
+          FooterMutations.UPDATE_CURRENT_TIME,
+          audioElement.value.currentTime
+        )
       }
       requestAnimationFrame(timeUpdate)
     }
@@ -197,6 +203,9 @@ export const MusicControl = defineComponent({
     onMounted(() => {
       if (music && music.value) {
         useMutations(FooterMutations.SET_MUSIC_URL, music.value.url)
+      }
+      if (currentTime && currentTime.value) {
+        useMutations(FooterMutations.CURRENT_TIME, currentTime.value)
       }
       if (audioElement.value && sourceElement.value) {
         audioElement.value.addEventListener('loadedmetadata', loadedmetadata)
@@ -273,7 +282,12 @@ export const MusicControl = defineComponent({
             <ProgressBar
               v-model={[draging.value, 'draging']}
               current={currentIndicator.value}
-              onCurrent={(v: number) => (currentIndicator.value = v)}
+              onCurrent={(v: number) => {
+                useMutations(
+                  FooterMutations.UPDATE_CURRENT_TIME,
+                  (duration.value * v) / 100
+                )
+              }}
               canDrage={canplay.value}
               onChange={setAudioCurrent}
               block={block.value}

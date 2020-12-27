@@ -84,6 +84,8 @@ plugins.push(
       'Footer.musciHistory',
       'Footer.volume',
       'Footer.music',
+      'Footer.musicLyricsOrigin',
+      'Footer.currentTime',
       'Download'
     ]
   })
