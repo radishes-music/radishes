@@ -80,6 +80,7 @@ plugins.push(
     paths: [
       'Auth.user',
       'Header.themeColor',
+      'Layout',
       'Footer.musicStack',
       'Footer.musciHistory',
       'Footer.volume',

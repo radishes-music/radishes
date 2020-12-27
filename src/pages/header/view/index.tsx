@@ -1,11 +1,11 @@
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import { Action } from '@/electron/event/action-types'
 import { importIpc } from '@/electron/event/ipc-browser'
 import { Logo } from '../component/logo'
 import { PushShift } from '../component/push-shift'
 import { Setting } from '../component/setting'
 import { Search } from '../component/search'
-import { LayoutActions } from '@/interface'
+import { LayoutActions, LayoutSize } from '@/interface'
 import { useLayoutModule } from '@/modules/index'
 import { Platform } from '@/config/build'
 import './index.less'
@@ -21,9 +21,8 @@ const actionToClass = {
 export const Header = defineComponent({
   name: 'Header',
   setup() {
-    const windowSize = ref('enlarge')
-
-    const { useMutations } = useLayoutModule()
+    const { useState, useMutations } = useLayoutModule()
+    const state = useState()
 
     const handleWindowControl = (action: Action) => {
       if (VUE_APP_PLATFORM === Platform.BROWSER) {
@@ -36,12 +35,14 @@ export const Header = defineComponent({
       }
     }
 
+    const windowSize = computed(() => {
+      return state.screenSize === LayoutSize.MD ? 'enlarge' : 'shrink'
+    })
+
     const windowsChangeSize = () => {
       if (windowSize.value === 'shrink') {
-        windowSize.value = 'enlarge'
         handleWindowControl(Action.RESTORE_WINDOW)
       } else {
-        windowSize.value = 'shrink'
         handleWindowControl(Action.MAXIMIZE_WINDOW)
       }
     }
@@ -52,9 +53,8 @@ export const Header = defineComponent({
           const win = event.getWindow()
           if (win) {
             const isMax = win.isMaximized()
-            isMax
-              ? (windowSize.value = 'shrink')
-              : (windowSize.value = 'enlarge')
+            const size = isMax ? LayoutSize.LG : LayoutSize.MD
+            useMutations(LayoutActions.CHANGE_WINDOW_SIZE, size)
           }
         })
       })

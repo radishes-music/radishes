@@ -34,13 +34,15 @@ export const Container = defineComponent({
 
     const { screenSize } = toRefs(useState())
 
-    watch(screenSize, v => {
-      if (v === LayoutSize.MD) {
-        startDrag.value()
-      } else {
-        stopDrag.value()
-      }
-    })
+    if (VUE_APP_PLATFORM === Platform.BROWSER) {
+      watch(screenSize, v => {
+        if (v === LayoutSize.MD) {
+          startDrag.value()
+        } else {
+          stopDrag.value()
+        }
+      })
+    }
 
     onMounted(() => {
       if (VUE_APP_PLATFORM === Platform.BROWSER) {

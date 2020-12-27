@@ -64,16 +64,16 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
     store.set('downloadPath', arg)
     downloadPath = arg
   })
-  ipcMain.on(Action.MINIMIZE_WINDOW, (event: IpcMainEvent, arg) => {
+  ipcMain.on(Action.MINIMIZE_WINDOW, (event: IpcMainEvent) => {
     win.minimize()
   })
-  ipcMain.on(Action.MAXIMIZE_WINDOW, (event: IpcMainEvent, arg) => {
+  ipcMain.on(Action.MAXIMIZE_WINDOW, (event: IpcMainEvent) => {
     win.maximize()
   })
-  ipcMain.on(Action.RESTORE_WINDOW, (event: IpcMainEvent, arg) => {
+  ipcMain.on(Action.RESTORE_WINDOW, (event: IpcMainEvent) => {
     win.restore()
   })
-  ipcMain.on(Action.CLOSE_WINDOW, (event: IpcMainEvent, arg) => {
+  ipcMain.on(Action.CLOSE_WINDOW, (event: IpcMainEvent) => {
     win.close()
     syrice && syrice.close()
   })
