@@ -10,6 +10,8 @@ import {
 import { RootState } from '@/store/index'
 import { getSongUrl } from '@/api/index'
 import { download } from '@/utils/index'
+import { importIpc } from '@/electron/event/ipc-browser'
+import { DownloadIpcType } from '@/electron/event/action-types'
 
 export const actions: ActionTree<DownloadState, RootState> = {
   async [DownloadActions.DOWNLOAD_MUSIC]({ commit }, song: SongsDetail) {
@@ -27,6 +29,9 @@ export const mutations: MutationTree<DownloadState> = {
     state.downloaded.push(song)
   },
   [DownloadMutations.SET_DOWNLOAD_PATH](state, path: string) {
+    importIpc().then(v => {
+      v.sendAsyncIpcRendererEvent(DownloadIpcType.SET_DOWNLOAD_PATH, path)
+    })
     state.downloadPath = path
   }
 }

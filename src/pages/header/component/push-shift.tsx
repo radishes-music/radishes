@@ -1,5 +1,5 @@
 import { defineComponent, nextTick, watch, toRefs } from 'vue'
-import { Mutations } from '@/store/index'
+import { RootMutations } from '@/store/index'
 import classnames from 'classnames'
 import { useRoute, useStore, useRouter } from '@/hooks/index'
 import './puah-shift.less'
@@ -14,18 +14,18 @@ export const PushShift = defineComponent({
   setup() {
     const store = useStore()
     const setHistoryRoute = (routeObj: { oldRoute: string }) => {
-      store.commit(Mutations.SET_HISTORY_ROUTE, {
+      store.commit(RootMutations.SET_HISTORY_ROUTE, {
         oldRoute: routeObj.oldRoute
       })
     }
     const routeCanBeCollect = (isCollect: boolean) => {
-      store.commit(Mutations.CAN_BE_COLLECT, isCollect)
+      store.commit(RootMutations.CAN_BE_COLLECT, isCollect)
     }
     const routeForward = (path: string) => {
-      store.commit(Mutations.FORWARD_HISTORY_ROUTE, path)
+      store.commit(RootMutations.FORWARD_HISTORY_ROUTE, path)
     }
     const routeBack = (path: string) => {
-      store.commit(Mutations.BACK_HISTORY_ROUTE, path)
+      store.commit(RootMutations.BACK_HISTORY_ROUTE, path)
     }
 
     const { fullPath } = toRefs(useRoute())

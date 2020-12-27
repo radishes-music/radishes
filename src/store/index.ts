@@ -1,15 +1,16 @@
 import { createStore, MutationTree, createLogger } from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
-import modules from '../modules/index'
 import { FooterMutations } from '@/interface'
 import { AllMutations } from '@/interface/index'
 import { getNodeEnv } from '@/utils/index'
+import createPersistedState from 'vuex-persistedstate'
+import modules from '@/modules/index'
 
-export const enum Mutations {
+export const enum RootMutations {
   SET_HISTORY_ROUTE = 'SET_HISTORY_ROUTE',
   BACK_HISTORY_ROUTE = 'BACK_HISTORY_ROUTE',
   FORWARD_HISTORY_ROUTE = 'FORWARD_HISTORY_ROUTE',
-  CAN_BE_COLLECT = 'CAN_BE_COLLECT'
+  CAN_BE_COLLECT = 'CAN_BE_COLLECT',
+  UPDATE_PERECENTAGE = 'UPDATE_PERECENTAGE'
 }
 
 interface HistoryRoute {
@@ -20,7 +21,10 @@ interface HistoryRoute {
 }
 
 export interface RootState {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [x: string]: any
   historyRoute: HistoryRoute
+  percentage: number
 }
 
 const state: RootState = {
@@ -29,25 +33,29 @@ const state: RootState = {
     needRoute: '',
     before: [],
     after: []
-  }
+  },
+  percentage: 0
 }
 
 const mutations: MutationTree<RootState> = {
-  [Mutations.SET_HISTORY_ROUTE](state, { oldRoute }) {
+  [RootMutations.SET_HISTORY_ROUTE](state, { oldRoute }) {
     state.historyRoute.before.push(oldRoute)
   },
-  [Mutations.BACK_HISTORY_ROUTE](state, route: string) {
+  [RootMutations.BACK_HISTORY_ROUTE](state, route: string) {
     const before = state.historyRoute.before.pop() as string
     state.historyRoute.after.push(route)
     state.historyRoute.needRoute = before
   },
-  [Mutations.FORWARD_HISTORY_ROUTE](state, route: string) {
+  [RootMutations.FORWARD_HISTORY_ROUTE](state, route: string) {
     const after = state.historyRoute.after.pop() as string
     state.historyRoute.before.push(route)
     state.historyRoute.needRoute = after
   },
-  [Mutations.CAN_BE_COLLECT](state, collect: boolean) {
+  [RootMutations.CAN_BE_COLLECT](state, collect: boolean) {
     state.historyRoute.canBeCollect = collect
+  },
+  [RootMutations.UPDATE_PERECENTAGE](state, percentage: number) {
+    state.percentage = percentage * 100
   }
 }
 

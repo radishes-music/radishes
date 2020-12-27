@@ -1,9 +1,9 @@
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import { PlayAll } from '@/components-business/button'
 import { Platform } from '@/config/build'
 import { Table } from '@/components-business/table'
 import { useDownloadModule } from '@/modules'
-import { SongsDetail, DownloadMutations } from '@/interface'
+import { SongsDetail } from '@/interface'
 import { playMusic } from '@/shared/music-shared'
 import './song.less'
 
@@ -28,20 +28,6 @@ export const DownloadSong = defineComponent({
         v.openExplorer(state.downloadPath)
       })
     }
-
-    onMounted(() => {
-      if (VUE_APP_PLATFORM === Platform.ELECTRON) {
-        if (!state.downloadPath) {
-          import('@/electron/utils/index').then(v => {
-            const os = v.getUserOS()
-            useMutations(
-              DownloadMutations.SET_DOWNLOAD_PATH,
-              v.join(os.homedir + '/Music')
-            )
-          })
-        }
-      }
-    })
 
     return () => (
       <div class="download-song">

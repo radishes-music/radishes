@@ -5,6 +5,13 @@ export const enum Action {
   CLOSE_WINDOW = 'CLOSE_WINDOW'
 }
 
+export const enum DownloadIpcType {
+  SET_DOWNLOAD_PATH = 'SET_DOWNLOAD_PATH',
+  DOWNLOAD_PROGRESS = 'DOWNLOAD_PROGRESS',
+  DOWNLOAD_START = 'DOWNLOAD_START',
+  DOWNLOAD_END = 'DOWNLOAD_END'
+}
+
 export const enum MiddlewareView {
   CREATE_WINDOW = 'CREATE_WINDOW',
   UPDATE_THEME_COLOR = 'UPDATE_THEME_COLOR'

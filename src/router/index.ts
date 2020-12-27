@@ -14,7 +14,7 @@ import { Video, Mv } from '@/pages/video/index'
 import { Profile } from '@/pages/auth/views/profile'
 import { Moments } from '@/pages/moments/index'
 import { LocalMusic } from '@/pages/music/index'
-import { Download, DownloadSong } from '@/pages/download/index'
+import { Download, DownloadSong, DownloadMv } from '@/pages/download/index'
 import { Cloud } from '@/pages/cloud/index'
 import { Platform } from '@/config/build'
 
@@ -232,7 +232,7 @@ export const navRouter: RouteRecordRaw[] = [
       },
       {
         path: 'mv',
-        component: DownloadSong,
+        component: DownloadMv,
         meta: {
           name: '已下载MV',
           path: 'mv'

@@ -10,13 +10,19 @@ import {
   Action,
   MiddlewareView,
   LyriceAction,
-  UpdateType
+  UpdateType,
+  DownloadIpcType
 } from '../action-types'
 
 export const getWindow = () => remote.BrowserWindow.getFocusedWindow()
 
 type Message = unknown
-type ActionType = Action | MiddlewareView | LyriceAction | UpdateType
+type ActionType =
+  | Action
+  | DownloadIpcType
+  | MiddlewareView
+  | LyriceAction
+  | UpdateType
 
 export function sendAsyncIpcRendererEvent(
   action: ActionType,

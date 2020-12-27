@@ -12,11 +12,11 @@ import {
   onBeforeUnmount,
   watch
 } from 'vue'
-import { on, off, download, maxChildrenScollWidth } from '@/utils/index'
+import { on, off, maxChildrenScollWidth } from '@/utils/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
-import { useFooterModule, useLayoutModule } from '@/modules'
+import { useFooterModule, useLayoutModule, useDownloadModule } from '@/modules'
 import { Image } from '@/components/image'
-import { LayoutSize, FooterMutations } from '@/interface'
+import { LayoutSize, FooterMutations, DownloadActions } from '@/interface'
 import debounce from 'lodash/debounce'
 import classnams from 'classnames'
 import './index.less'
@@ -42,6 +42,7 @@ export const PlayLyrice = defineComponent({
 
     const { useState, useGetter, useMutations } = useFooterModule()
     const LayoutModule = useLayoutModule()
+    const DownloadModule = useDownloadModule()
 
     const { screenSize } = toRefs(LayoutModule.useState())
 
@@ -100,7 +101,7 @@ export const PlayLyrice = defineComponent({
 
     const handleDownload = () => {
       if (state.music) {
-        download(state.music.url, state.music.name)
+        DownloadModule.useActions(DownloadActions.DOWNLOAD_MUSIC, state.music)
       }
     }
 
