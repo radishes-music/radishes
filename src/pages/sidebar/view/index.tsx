@@ -10,33 +10,35 @@ export const Sidebar = defineComponent({
   name: 'Sidebar',
   setup() {
     const route = useRoute()
-    return () => (
-      <aside class="sidebar">
-        <SidebarAuth></SidebarAuth>
-        {navRouter.map((routerGroup: RouteRecordRaw) => {
-          // TODO hack
-          if (routerGroup.meta?.nonav) {
-            return null
-          }
+    return () => {
+      return (
+        <aside class="sidebar">
+          <SidebarAuth></SidebarAuth>
+          {navRouter.map((routerGroup: RouteRecordRaw) => {
+            // TODO hack
+            if (routerGroup.meta?.nonav) {
+              return null
+            }
 
-          return (
-            <div
-              class={classnames('sidebar-nav', {
-                'sidebar-nav-active': route.path.includes(routerGroup.path)
-              })}
-            >
-              {routerGroup.meta?.beforeHeader && (
-                <header class="sidebar-nav-header">
-                  {routerGroup.meta.beforeHeader}
-                </header>
-              )}
-              <RouterLink class="sidebar-nav-name" to={routerGroup.path}>
-                {routerGroup.meta?.name}
-              </RouterLink>
-            </div>
-          )
-        })}
-      </aside>
-    )
+            return (
+              <div
+                class={classnames('sidebar-nav', {
+                  'sidebar-nav-active': route.path.includes(routerGroup.path)
+                })}
+              >
+                {routerGroup.meta?.beforeHeader && (
+                  <header class="sidebar-nav-header">
+                    {routerGroup.meta.beforeHeader}
+                  </header>
+                )}
+                <RouterLink class="sidebar-nav-name" to={routerGroup.path}>
+                  {routerGroup.meta?.name}
+                </RouterLink>
+              </div>
+            )
+          })}
+        </aside>
+      )
+    }
   }
 })

@@ -5,9 +5,9 @@ import { success } from '@/hooks'
 import { syncToAsync } from '@/utils/index'
 import { Modal } from 'ant-design-vue'
 import { Song } from '@/interface'
+import { ref } from 'vue'
 import classnames from 'classnames'
 import './subscribe.less'
-import { ref } from 'vue'
 
 export type SubscribeActionType = '1' | '2'
 

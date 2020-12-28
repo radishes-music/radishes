@@ -113,14 +113,28 @@ export const contentRouter: RouteRecordRaw[] = [
   }
 ]
 
-export const navRouter: RouteRecordRaw[] = [
+const renderSidebar = (nav: RouteRecordRaw[]) => {
+  return nav.filter(n => {
+    if (VUE_APP_PLATFORM === Platform.BROWSER) {
+      return n?.meta?.browser
+    }
+    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+      return n?.meta?.electron
+    }
+    return true
+  })
+}
+
+export const baseNavRouter: RouteRecordRaw[] = [
   {
     path: '/profile',
     component: Profile,
     name: Profile.name,
     meta: {
       auth: true,
-      nonav: true
+      nonav: true,
+      browser: true,
+      electron: true
     }
   },
   {
@@ -128,7 +142,9 @@ export const navRouter: RouteRecordRaw[] = [
     component: News,
     name: News.name,
     meta: {
-      name: '发现音乐'
+      name: '发现音乐',
+      browser: true,
+      electron: true
     },
     children: [
       {
@@ -182,7 +198,9 @@ export const navRouter: RouteRecordRaw[] = [
     path: '/video',
     component: Video,
     meta: {
-      name: '视频'
+      name: '视频',
+      browser: true,
+      electron: true
     },
     children: [
       {
@@ -202,21 +220,21 @@ export const navRouter: RouteRecordRaw[] = [
     path: '/moments',
     component: Moments,
     meta: {
-      name: '朋友'
-    }
-  },
-  {
-    path: '/local-music',
-    component: LocalMusic,
-    meta: {
-      name: '本地音乐',
-      beforeHeader: '我的音乐'
+      name: '朋友',
+      browser: true,
+      electron: true
     }
   },
   {
     path: '/download',
     component: Download,
     name: Download.name,
+    meta: {
+      name: '下载管理',
+      beforeHeader: '我的音乐',
+      browser: true,
+      electron: true
+    },
     children: [
       {
         path: '',
@@ -238,9 +256,15 @@ export const navRouter: RouteRecordRaw[] = [
           path: 'mv'
         }
       }
-    ],
+    ]
+  },
+  {
+    path: '/local-music',
+    component: LocalMusic,
     meta: {
-      name: '下载管理'
+      name: '本地音乐',
+      browser: false,
+      electron: true
     }
   },
   {
@@ -249,10 +273,14 @@ export const navRouter: RouteRecordRaw[] = [
     name: Cloud.name,
     meta: {
       name: '我的音乐云盘',
-      auth: true
+      auth: true,
+      browser: true,
+      electron: true
     }
   }
 ]
+
+export const navRouter = renderSidebar(baseNavRouter)
 
 const router = createRouter({
   history:
