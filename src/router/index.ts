@@ -13,7 +13,7 @@ import { News, Recommend, SongList, TopList, Artists } from '@/pages/news/index'
 import { Video, Mv } from '@/pages/video/index'
 import { Profile } from '@/pages/auth/views/profile'
 import { Moments } from '@/pages/moments/index'
-import { LocalMusic } from '@/pages/music/index'
+import { LocalMusic, LocalMusicSong, LocalMusicDir } from '@/pages/music/index'
 import { Download, DownloadSong, DownloadMv } from '@/pages/download/index'
 import { Cloud } from '@/pages/cloud/index'
 import { Platform } from '@/config/build'
@@ -261,11 +261,34 @@ export const baseNavRouter: RouteRecordRaw[] = [
   {
     path: '/local-music',
     component: LocalMusic,
+    name: LocalMusic.name,
     meta: {
       name: '本地音乐',
       browser: false,
       electron: true
-    }
+    },
+    children: [
+      {
+        path: '',
+        redirect: '/local-music/song'
+      },
+      {
+        path: 'song',
+        component: LocalMusicSong,
+        meta: {
+          name: '歌曲',
+          path: 'song'
+        }
+      },
+      {
+        path: 'dir',
+        component: LocalMusicDir,
+        meta: {
+          name: '文件夹',
+          path: 'dir'
+        }
+      }
+    ]
   },
   {
     path: '/cloud',

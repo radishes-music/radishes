@@ -32,7 +32,7 @@ export const SecondaryBar = defineComponent({
         <ul>
           {nav.value?.map(link => (
             <RouterLink
-              class={`${prefix}-bar-link`}
+              class={`${prefix}-bar-link ${prefix}-bar-link--${size.value}`}
               activeClass={`${prefix}-bar-link-active ${prefix}-bar-link-active--${size.value}`}
               to={link.meta?.path}
             >
