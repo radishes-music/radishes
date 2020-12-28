@@ -63,9 +63,11 @@ export const PhoneLogin = defineComponent({
             $router.back()
           })
           .catch((e: any) => {
-            if (e.response.status === 400) {
+            if (e.response?.status === 400) {
               setErrorMsg('该手机号尚未注册')
-            } else if (e.code !== 200) {
+            } else if (e.response?.data) {
+              setErrorMsg(e.response.data.msg)
+            } else if (e.msg) {
               setErrorMsg(e.msg)
             }
           })
