@@ -12,7 +12,7 @@ const { VUE_APP_PLATFORM } = process.env
 export const DownloadSong = defineComponent({
   name: 'DownloadSong',
   setup() {
-    const { useState, useMutations } = useDownloadModule()
+    const { useState } = useDownloadModule()
     const state = useState()
     const play = playMusic()
     const handlePlayAll = () => {

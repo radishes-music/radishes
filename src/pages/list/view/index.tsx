@@ -9,9 +9,7 @@ import {
 import { useRoute } from '@/hooks/index'
 import { useSongModule, useFooterModule } from '@/modules/index'
 import { FooterMutations } from '@/interface'
-import { getSongUrl } from '@/api/index'
 import {
-  SongsBase,
   FormatSource,
   SongsDetail,
   SongState,

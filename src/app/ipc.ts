@@ -13,6 +13,7 @@ interface Process {
   schedule: number
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const registerIPC = (app: App) => {
   const state = store.state.Download
   if (!state.downloadPath) {

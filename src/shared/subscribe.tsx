@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { subscribePlaylist, subscribeSingle, userPlaylist } from '@/api'
 import { isLogin } from '@/helpers/index'
 import { useAuthView, useAuth } from '@/hooks/index'

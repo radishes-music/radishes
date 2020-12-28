@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { Action } from '@/electron/event/action-types'
 import { importIpc } from '@/electron/event/ipc-browser'
 import { Logo } from '../component/logo'
