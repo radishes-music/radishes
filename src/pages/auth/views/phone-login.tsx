@@ -179,12 +179,14 @@ export const PhoneLogin = defineComponent({
 
         <div class="auth-view__clause">
           <Checkbox
-            icon-size="10px"
+            icon-size="14px"
             shape="square"
             vModel={state.checked}
             checked-color={themeColor}
-          ></Checkbox>
-          <span>同意</span>
+          >
+            <span>同意</span>
+          </Checkbox>
+
           <div class="vchj">
             {TERMS.map((info: any) => (
               <Link to={info.link} key={info.name} external type="light">
