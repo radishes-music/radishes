@@ -104,14 +104,17 @@ context('News Music Basic', () => {
     cy.wait(['@getUrl', '@getDetail', '@getLyric'], {
       requestTimeout: 20 * 1000
     }).then(() => {
-      cy.get('source')
-        .invoke('attr', 'src')
-        .then(src => {
-          expect(src).to.have.string('.mp3')
-        })
+      // Possibly due to insufficient performance in the ci automatic test
+      cy.wait(1000).then(() => {
+        cy.get('source')
+          .invoke('attr', 'src')
+          .then(src => {
+            expect(src).to.have.string('.mp3')
+          })
 
-      // pause music
-      cy.get('.music-command-group button:nth-child(3)').click()
+        // pause music
+        cy.get('.music-command-group button:nth-child(3)').click()
+      })
     })
   })
 })
