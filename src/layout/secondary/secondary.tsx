@@ -1,7 +1,7 @@
 import { defineComponent, PropType } from 'vue'
 import './secondary.less'
 
-export const Secondary = defineComponent({
+export const SecondaryLayout = defineComponent({
   name: 'Secondary',
   props: {
     src: {
