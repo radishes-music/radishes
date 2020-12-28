@@ -1,13 +1,4 @@
-import {
-  defineComponent,
-  ref,
-  toRefs,
-  onMounted,
-  computed,
-  watch,
-  watchEffect,
-  nextTick
-} from 'vue'
+import { defineComponent, ref, toRefs, onMounted, computed, watch } from 'vue'
 import { toFixed, formatTime, sleep } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'

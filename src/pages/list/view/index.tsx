@@ -145,14 +145,9 @@ export default defineComponent({
     const handlePlayAll = async () => {
       footerStore.useMutations(FooterMutations.CLEAR_STACK)
       const tracks = toRaw(rawData.value.list)
-      const tracksDetail = await getSongUrl<SongsBase[]>(
-        tracks.map(item => item.id)
-      )
       const stack = tracks.map(item => {
-        const urlItem = tracksDetail.find(o => o.id === item.id)
         return {
           ...item,
-          url: urlItem?.url,
           type: 'stack'
         }
       })
@@ -160,10 +155,7 @@ export default defineComponent({
 
       const { music } = footerStore.useState()
       if (music?.id !== stack[0].id) {
-        play({
-          id: stack[0].id,
-          url: stack[0].url
-        })
+        play(stack[0].id)
       }
     }
 

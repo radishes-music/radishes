@@ -43,10 +43,7 @@ export const MusicHistory = defineComponent({
 
     const play = playMusic()
     const handleDbClick = (item: SongsDetail) => {
-      play({
-        url: item.url,
-        id: item.id
-      })
+      play(item.id)
     }
 
     const trigger = () => {
