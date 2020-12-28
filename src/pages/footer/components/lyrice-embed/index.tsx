@@ -17,6 +17,7 @@ import { TeleportToAny } from '@/components/teleport-layout/index'
 import { useFooterModule, useLayoutModule, useDownloadModule } from '@/modules'
 import { Image } from '@/components/image'
 import { LayoutSize, FooterMutations, DownloadActions } from '@/interface'
+import { useSubscribe } from '@/shared/subscribe'
 import debounce from 'lodash/debounce'
 import classnams from 'classnames'
 import './index.less'
@@ -43,6 +44,7 @@ export const PlayLyrice = defineComponent({
     const { useState, useGetter, useMutations } = useFooterModule()
     const LayoutModule = useLayoutModule()
     const DownloadModule = useDownloadModule()
+    const subscribe = useSubscribe(true)
 
     const { screenSize } = toRefs(LayoutModule.useState())
 
@@ -105,6 +107,12 @@ export const PlayLyrice = defineComponent({
       }
     }
 
+    const handleSubscribe = () => {
+      if (state.music) {
+        subscribe('1', state.music.id)
+      }
+    }
+
     onMounted(() => {
       on(window, 'resize', resize)
     })
@@ -136,7 +144,7 @@ export const PlayLyrice = defineComponent({
                         src={url.value}
                       />
                       <div class={`${prefix}-left-extra`}>
-                        <ve-button type="text" circle>
+                        <ve-button type="text" circle onClick={handleSubscribe}>
                           <icon icon="shoucang" size={22} color="#333"></icon>
                         </ve-button>
                         <ve-button type="text" circle onClick={handleDownload}>
