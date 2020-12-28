@@ -74,8 +74,6 @@ export const useSubscribe = (isSingle: boolean) => {
     } else {
       await subscribePlaylist(type, id)
     }
-    success(type === '1' ? '收藏成功' : '取消收藏成功', {
-      key: id
-    })
+    success(type === '1' ? '收藏成功' : '取消收藏成功')
   }
 }

@@ -10,37 +10,39 @@ message.config({
 })
 const messageMap = new Map()
 
-export const suggested = (msg: VNodeTypes, config: MessageConfig) => {
-  const loading = messageMap.get(config.key)
+export const suggested = (msg: VNodeTypes, config?: MessageConfig) => {
+  const loading = messageMap.get(config?.key)
   if (loading) {
     return loading
   }
   const insMessage = message.loading({
-    key: config.key,
+    ...config,
     content: msg,
     duration: 0
   })
-  messageMap.set(config.key, insMessage)
+  if (config) {
+    messageMap.set(config?.key, insMessage)
+  }
   return insMessage
 }
 
-export const success = (msg: VNodeTypes, config: MessageConfig) => {
+export const success = (msg: VNodeTypes, config?: MessageConfig) => {
   return message.success({
-    key: config.key,
+    ...config,
     content: msg
   })
 }
 
-export const warning = (msg: VNodeTypes, config: MessageConfig) => {
+export const warning = (msg: VNodeTypes, config?: MessageConfig) => {
   return message.warning({
-    key: config.key,
+    ...config,
     content: msg
   })
 }
 
-export const error = (msg: VNodeTypes, config: MessageConfig) => {
+export const error = (msg: VNodeTypes, config?: MessageConfig) => {
   return message.error({
-    key: config.key,
+    ...config,
     content: msg
   })
 }

@@ -56,9 +56,7 @@ export const SecondaryList = defineComponent({
     }
 
     const handleDwonloadAll = () => {
-      warning('暂不支持批量下载', {
-        key: props.source.id
-      })
+      warning('暂不支持批量下载')
     }
 
     return () => (
