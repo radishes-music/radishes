@@ -152,17 +152,6 @@ export const mutations: MutationTree<FooterState> = {
   [FooterMutations.LYRICE_EMBED_MIN_WIDTH](state, width: number) {
     state.lyriceEmbedMinWidth = width
   },
-  [FooterMutations.LYRICE_FLOAT_MIN_WIDTH](state, width: number) {
-    if (state.lyriceFloatMinWidth !== width) {
-      state.lyriceFloatMinWidth = width
-      // if (VUE_APP_PLATFORM === Platform.ELECTRON) {
-      //   // Send data to ipc, modify the size of the window
-      //   importIpc().then(v => {
-      //     v.sendAsyncIpcRendererEvent(UpdateType.UPDATE_WIDTH, width)
-      //   })
-      // }
-    }
-  },
   [FooterMutations.CLEAR_STACK](state) {
     state.musicStack = []
   },

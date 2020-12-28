@@ -12,7 +12,8 @@ import { FooterMutations } from '@/interface'
 import {
   FormatSource,
   SongsDetail,
-  SongState,
+  PlayList,
+  AlbumList,
   SongActions
 } from '@/interface/index'
 import { SecondaryList } from '@/components-business/secondary-list'
@@ -26,10 +27,7 @@ const isCopyright = (song: SongsDetail) => {
   return true
 }
 
-const formatPlayListData = (
-  item: SongState['playlist'],
-  id: string
-): FormatSource => {
+const formatPlayListData = (item: PlayList, id: string): FormatSource => {
   if (id === '-1') {
     return {
       id: Number(id),
@@ -70,7 +68,7 @@ const formatPlayListData = (
   }
 }
 
-const formatAlbumListData = (item: SongState['albumList']): FormatSource => {
+const formatAlbumListData = (item: AlbumList): FormatSource => {
   return {
     id: item.album.id,
     name: item.album.name,

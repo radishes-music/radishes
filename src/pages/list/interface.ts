@@ -1,43 +1,42 @@
 import { Avatar, GlobalBase, SongsDetail, Albums } from '@/interface/index'
+import { Merage, RequiredPartial } from '@/interface/utils'
 
-type Merage<P, T = {}> = P & T
-export type RequiredPartial<P, T> = Merage<Required<P>, Partial<T>>
-
-export type Tracks = SongsDetail
+export type PlayList = RequiredPartial<
+  {
+    tracks: SongsDetail[]
+    tags: string[]
+    description: string
+    shareCount: number
+    playCount: number
+    dt: number
+    createTime: number
+    coverImgUrl: string
+    trackCount: number
+    creator: Avatar
+    subscribed: boolean
+  } & GlobalBase,
+  Merage<{
+    subscribers: Avatar[]
+    userId: number
+  }>
+>
+export interface AlbumList {
+  song: SongsDetail[]
+  album: {
+    description: string
+    publishTime: number
+    size: number
+    picUrl: string
+    trackCount: number
+    shareCount: number
+    playCount: number
+    subscribed: boolean
+  } & Albums
+}
 
 export interface SongState {
-  playlist: RequiredPartial<
-    {
-      tracks: SongsDetail[]
-      tags: string[]
-      description: string
-      shareCount: number
-      playCount: number
-      dt: number
-      createTime: number
-      coverImgUrl: string
-      trackCount: number
-      creator: Avatar
-      subscribed: boolean
-    } & GlobalBase,
-    Merage<{
-      subscribers: Avatar[]
-      userId: number
-    }>
-  >
-  albumList: {
-    song: SongsDetail[]
-    album: {
-      description: string
-      publishTime: number
-      size: number
-      picUrl: string
-      trackCount: number
-      shareCount: number
-      playCount: number
-      subscribed: boolean
-    } & Albums
-  }
+  playlist: PlayList
+  albumList: AlbumList
 }
 
 export enum SongActions {

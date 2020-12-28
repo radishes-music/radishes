@@ -1,7 +1,7 @@
 import { computed, defineComponent, toRefs } from 'vue'
 import { SongList } from '@/components-business/song-list/index'
 import { useTopListModule } from '@/modules'
-import { SongState, TopListActions } from '@/interface/index'
+import { PlayList, TopListActions } from '@/interface/index'
 import { getPlayList } from '@/api/index'
 import { Image } from '@/components/image/index'
 import { playMusic as music } from '@/shared/music-shared'
@@ -20,7 +20,7 @@ export const TopList = defineComponent({
     const play = music()
     const toSongList = jumpSongList()
     const playMusic = async (songlistID: number, index: number) => {
-      let songlist: SongState['playlist']
+      let songlist: PlayList
       if (cacheSongListDetail.has(songlistID)) {
         songlist = cacheSongListDetail.get(songlistID)
       } else {

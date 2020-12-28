@@ -203,7 +203,6 @@ export const MusicControl = defineComponent({
         audioElement.value.addEventListener('canplaythrough', canplaythrough)
         audioElement.value.addEventListener('loadstart', loadstart)
         audioElement.value.addEventListener('progress', progress)
-        // audioElement.value.addEventListener('timeupdate', timeUpdate)
         audioElement.value.addEventListener('ended', ended)
         audioElement.value.addEventListener('playing', () => {
           playingIcon.value = 'pause'
@@ -213,7 +212,6 @@ export const MusicControl = defineComponent({
         })
         audioElement.value.addEventListener('canplay', () => {
           useMutations(FooterMutations.CAN_PLAY, true)
-          // useMutations(FooterMutations.PLAY_MUSIC)
         })
       }
     })

@@ -29,7 +29,6 @@ export interface FooterState {
   duration: number
   volume: number
   lyriceEmbedMinWidth: number
-  lyriceFloatMinWidth: number
 }
 
 export interface FooterGetter {
@@ -65,6 +64,5 @@ export const enum FooterMutations {
   REMOVE_STACK = 'REMOVE_STACK',
   REMOVE_HISTORY = 'REMOVE_HISTORY',
   CLEAR_STACK = 'CLEAR_STACK',
-  LYRICE_EMBED_MIN_WIDTH = 'LYRICE_EMBED_MIN_WIDTH',
-  LYRICE_FLOAT_MIN_WIDTH = 'LYRICE_FLOAT_MIN_WIDTH'
+  LYRICE_EMBED_MIN_WIDTH = 'LYRICE_EMBED_MIN_WIDTH'
 }
