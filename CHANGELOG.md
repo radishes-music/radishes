@@ -1,4 +1,4 @@
-# 2.0.0-alpha.1 (2020-12-16)
+# [2.0.0-alpha.1](https://github.com/Linkontoask/radishes/compare/3aa58b3b926ba9e8c475db1e7d0a447fb67973e3...2.0.0-alpha.1) (2020-12-16)
 
 
 ### build
@@ -43,6 +43,7 @@
 * Add PR rules ([5a9b27d](https://github.com/Linkontoask/radishes/commit/5a9b27d82373798c48627a2a4b2c17513faf0d69))
 * modification progress ([48f6054](https://github.com/Linkontoask/radishes/commit/48f605491d4aae6e202a54424cfc89830d249c1d))
 * simplify project initialization ([fe58858](https://github.com/Linkontoask/radishes/commit/fe5885896c342b7fe50687fc6cc930a250655cb3))
+* update changelog ([ac45d53](https://github.com/Linkontoask/radishes/commit/ac45d53a2253c83fffa9847577460ec9e84dc096))
 * update current progress ([bf7e425](https://github.com/Linkontoask/radishes/commit/bf7e42565f51ba4304f78504fb66b18a6c4d2983))
 * update docs ([7027acd](https://github.com/Linkontoask/radishes/commit/7027acdca91a18ccfdca556ebfeb53ececab5fbd))
 * update online access instructions ([3996e20](https://github.com/Linkontoask/radishes/commit/3996e20b67a5ea1eec5a66071a5750da6fe3f84f))
@@ -89,6 +90,7 @@
 * support the leaderboard to play songs directly ([55824b4](https://github.com/Linkontoask/radishes/commit/55824b4a873ae6a6b33666a2cf2f5547d838f5ec))
 * tag jump ([39d923b](https://github.com/Linkontoask/radishes/commit/39d923bb765564d9988dd01f9d5a96c04792ca71))
 * the basic structure is completed and music development begins ([002e1d7](https://github.com/Linkontoask/radishes/commit/002e1d703342343a57bd4e6186b401ece205af1a))
+* the electron version backend api does not use the https protocol ([560cd21](https://github.com/Linkontoask/radishes/commit/560cd21cec5bd9e5c3328d825d0eed8f1de37571))
 * the song author at the bottom can jump directly to the singer page ([7ea601a](https://github.com/Linkontoask/radishes/commit/7ea601af5b1827e203bda0211c02fcab7d7306f2))
 * use query form to verify playlist ([ff2f8d8](https://github.com/Linkontoask/radishes/commit/ff2f8d85852425e68c3357b5381119f57fe7b69c))
 * volmue control ([25593fe](https://github.com/Linkontoask/radishes/commit/25593fe0bd1e592c77296ed861ecde5509efe592))
