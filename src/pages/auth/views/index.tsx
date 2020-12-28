@@ -15,8 +15,9 @@ import { Signup } from './signup'
 import { EmailLogin } from './email-login'
 import { AuthView } from '../component/auth-view'
 import { AUTH_TYPE, PROVIDER_AUTH_UTIL } from '../constant'
+import { SmsCode } from './sms-code'
 
-const authComponent = [PhoneLogin, EmailLogin, Signup, ResetPwd]
+const authComponent = [PhoneLogin, EmailLogin, Signup, ResetPwd, SmsCode]
 
 export const AuthBox = defineComponent({
   name: 'AuthBox',
@@ -24,14 +25,19 @@ export const AuthBox = defineComponent({
   setup() {
     const { isShow } = useAuth()
     const state = reactive({
-      authType: AUTH_TYPE.PHONE_LOGIN
+      authType: AUTH_TYPE.PHONE_LOGIN,
+      config: null
     })
 
     const Component: any = computed(() => authComponent[state.authType])
 
     provide(PROVIDER_AUTH_UTIL, {
-      to: (type: number) => {
+      to: (type: number, config: any) => {
         state.authType = type
+        state.config = config
+      },
+      getConfig: () => {
+        return state.config
       }
     })
 
@@ -48,11 +54,10 @@ export const AuthBox = defineComponent({
       <Transition name="fade">
         {isShow.value ? (
           <AuthView>
-            {/* <Transition name="fade"> */}
             <KeepAlive>
+              {/* <SmsCode></SmsCode> */}
               <Component.value></Component.value>
             </KeepAlive>
-            {/* </Transition> */}
           </AuthView>
         ) : null}
       </Transition>

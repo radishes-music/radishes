@@ -22,6 +22,7 @@ export const doPhoneLogin = (
       md5_password: Md5(password)
     }
   })
+
 export const doEmailLogin = (
   email: string,
   password: string
@@ -32,5 +33,26 @@ export const doEmailLogin = (
       md5_password: Md5(password)
     }
   })
+
+export const sendMsgCode = (phone: string) =>
+  http.get('/api/captcha/sent', {
+    params: {
+      phone
+    }
+  })
+
+const registerAreset = (phone: string, password: string, code: string) =>
+  http.get('/register/cellphone', {
+    params: {
+      captcha: code,
+      phone,
+      password: Md5(password),
+      nickname: ''
+    }
+  })
+
+export const register = registerAreset
+export const resetPwd = registerAreset
+
 // export const doResetPwd = () => {}
 // export const doSignup = () => {}
