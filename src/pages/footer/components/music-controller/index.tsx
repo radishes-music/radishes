@@ -202,7 +202,7 @@ export const MusicControl = defineComponent({
 
     onMounted(() => {
       if (music && music.value) {
-        useMutations(FooterMutations.SET_MUSIC_URL, music.value.url)
+        useActions(FooterActions.SET_MUSIC, music.value.id)
       }
       if (currentTime && currentTime.value) {
         useMutations(FooterMutations.CURRENT_TIME, currentTime.value)
