@@ -42,11 +42,11 @@ export const sendMsgCode = (phone: string) =>
   })
 
 const registerAreset = (phone: string, password: string, code: string) =>
-  http.get('/register/cellphone', {
+  http.get('/api/register/cellphone', {
     params: {
       captcha: code,
       phone,
-      password: Md5(password),
+      password,
       nickname: ''
     }
   })

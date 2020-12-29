@@ -4,8 +4,8 @@ import { Button } from '../component/button'
 import { themeColor } from '../theme'
 import { useText } from '../hooks'
 import { InputField } from '../component/input-field'
-import { CountDown } from 'vant'
-import { useHttp } from '@/hooks'
+import { CountDown, Toast } from 'vant'
+import { useHttp, useLogin, useRouter } from '@/hooks'
 import { resetPwd, sendMsgCode } from '../api'
 
 export const SmsCode = defineComponent({
@@ -23,14 +23,29 @@ export const SmsCode = defineComponent({
     const [httpSendStatus, httpSend] = useHttp(sendMsgCode)
     const [httpResetStatus, httpReset] = useHttp(resetPwd)
 
+    const commitLogin = useLogin()
+    const $router = useRouter()
+
     const [errorMsg, setErrorMsg] = useText()
 
     const onSubmit = async () => {
       if (state.code === '') {
         setErrorMsg('请输入验证码')
       } else {
-        const res = await httpReset(phone, password, state.code)
-        console.log(res)
+        try {
+          const res = await httpReset(phone, password, state.code)
+          commitLogin(res)
+          Toast('修改成功')
+          $router.back()
+        } catch (e) {
+          if (e.response?.data) {
+            setErrorMsg(
+              e.response.data.msg || e.response.data.message || '请求异常'
+            )
+          } else if (e.msg) {
+            setErrorMsg(e.msg)
+          }
+        }
       }
     }
 

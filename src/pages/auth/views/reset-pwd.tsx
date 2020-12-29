@@ -34,8 +34,6 @@ export const ResetPwd = defineComponent({
       } else {
         httpSend(state.phone)
           .then((res: any) => {
-            // TODO 直接下一步操作
-            // TODO 做一个倒计时的页面，把手机号和密码全部存起来，在下一个验证码页面一次性提交完成这个操作
             authUtil.to(AUTH_TYPE.SMS_CODE, {
               phone: state.phone,
               password: state.password
