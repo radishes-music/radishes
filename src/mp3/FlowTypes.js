@@ -1,3 +1,3 @@
-"use strict";
+'use strict'
 
-var MediaFileReader = require('./MediaFileReader');
+var MediaFileReader = require('./MediaFileReader')
