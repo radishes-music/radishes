@@ -39,10 +39,7 @@ export const PhoneLogin = defineComponent({
     // TODO ->  用来判断请求的状态
     const [httpStatus, httpPhoneLogin] = useHttp(doPhoneLogin)
 
-    const checkTip = () =>
-      Toast(
-        '请先勾选同意《服务条款》、《隐私政策》\n《儿童隐私政策》、《radishes条款》'
-      )
+    const checkTip = () => Toast('请先勾选同意《radishes条款》')
 
     const doLogin = () => {
       if (!state.checked) {
