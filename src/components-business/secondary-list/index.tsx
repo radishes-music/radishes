@@ -1,5 +1,5 @@
 import { defineComponent, PropType } from 'vue'
-import { Secondary } from '@/layout/secondary/secondary'
+import { SecondaryLayout } from '@/layout/secondary/secondary'
 import { MoreThen } from '@/components/more-then/index'
 import { Table } from '@/components-business/table'
 import { FormatSource, ListFormat } from '@/interface/index'
@@ -60,7 +60,7 @@ export const SecondaryList = defineComponent({
     }
 
     return () => (
-      <Secondary
+      <SecondaryLayout
         v-slots={{
           head: () => (
             <>

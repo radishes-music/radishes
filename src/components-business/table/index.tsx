@@ -103,6 +103,9 @@ const columns = [
     key: 'ar',
     ellipsis: true,
     customRender: ({ text }: { text: ListFormat['ar'] }) => {
+      if (typeof text === 'string' || typeof text === 'undefined') {
+        return <div>{text}</div>
+      }
       return <div>{text.map(ar => ar.name).join(' / ')}</div>
     }
   },
@@ -112,6 +115,9 @@ const columns = [
     key: 'al',
     ellipsis: true,
     customRender: ({ text }: { text: ListFormat['al'] }) => {
+      if (typeof text === 'string' || typeof text === 'undefined') {
+        return <div>{text}</div>
+      }
       return <div>{text.name}</div>
     }
   },

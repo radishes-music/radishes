@@ -87,7 +87,8 @@ plugins.push(
       'Footer.music',
       'Footer.musicLyricsOrigin',
       'Footer.currentTime',
-      'Download'
+      'Download',
+      'LocalMusic'
     ]
   })
 )

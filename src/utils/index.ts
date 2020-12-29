@@ -83,9 +83,9 @@ export const sleep = (n: number) => {
   })
 }
 
-export const syncToAsync = (
-  fn: (resolve: (value: unknown) => void) => void
-) => {
+export const syncToAsync = <Value = unknown>(
+  fn: (resolve: (value: Value) => void) => void
+): Promise<Value> => {
   return new Promise((resolve, reject) => {
     try {
       fn(resolve)
@@ -123,27 +123,6 @@ export const parserData = (target: string | null, type: ParserTarget) => {
     return target
   }
   return null
-}
-
-export const storage = () => {
-  return {
-    get: (key: string, option?: StorageOption) => {
-      if (option?.parser) {
-        try {
-          return parserData(window.localStorage.getItem(key), option.parser)
-        } catch (e) {
-          console.warn(e)
-        }
-      }
-      return window.localStorage.getItem(key)
-    },
-    set: (key: string, value: string | number) => {
-      if (typeof value === 'number') {
-        value = value.toString()
-      }
-      window.localStorage.setItem(key, value)
-    }
-  }
 }
 
 export function on<T extends keyof ElectronWindowEventMap>(

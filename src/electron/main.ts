@@ -3,6 +3,7 @@ import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { eventInit } from '@/electron/event/index'
 import path from 'path'
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 let win: BrowserWindow | null

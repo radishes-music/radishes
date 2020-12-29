@@ -1,12 +1,16 @@
 import { defineComponent } from 'vue'
+import { MusicLayout } from '@/layout/music/music'
 
 export const Cloud = defineComponent({
   name: 'Cloud',
-  render() {
-    return (
-      <div class="cloud">
-        <h1>音乐云盘</h1>
-      </div>
+  setup() {
+    return () => (
+      <MusicLayout
+        class="cloud"
+        v-slots={{
+          title: () => <div>音乐云盘</div>
+        }}
+      />
     )
   }
 })

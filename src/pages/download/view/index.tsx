@@ -5,6 +5,7 @@ import {
 } from '@/components-business/secondary-bar/index'
 import { navRouter } from '@/router/index'
 import { RouterView } from 'vue-router'
+import { MusicLayout } from '@/layout/music/music'
 import './index.less'
 
 export const Download = defineComponent({
@@ -12,11 +13,13 @@ export const Download = defineComponent({
   setup() {
     const nav = renderNavList(navRouter, Download.name)
     return () => (
-      <div class="download">
-        <h1>下载管理</h1>
-        <SecondaryBar nav={nav} size="small"></SecondaryBar>
-        <RouterView />
-      </div>
+      <MusicLayout
+        v-slots={{
+          title: () => <div>下载管理</div>,
+          head: () => <SecondaryBar nav={nav} size="small" />,
+          body: () => <RouterView />
+        }}
+      />
     )
   }
 })

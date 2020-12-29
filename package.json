@@ -119,6 +119,7 @@
     "lint-staged": "^9.5.0",
     "lodash": "^4.17.20",
     "md5": "^2.3.0",
+    "mp3-duration": "^1.1.0",
     "prettier": "^1.19.1",
     "react-is": "^16.13.1",
     "scriptjs": "^2.5.9",

@@ -1,7 +1,5 @@
 import { App } from 'vue'
 import { DownloadIpcType } from '@/electron/event/action-types'
-import { DownloadMutations } from '@/interface'
-import { DownloadNameSpaced } from '@/modules'
 import { suggested, success, error } from '@/hooks/index'
 import store, { RootMutations } from '@/store'
 
@@ -15,16 +13,6 @@ interface Process {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const registerIPC = (app: App) => {
-  const state = store.state.Download
-  if (!state.downloadPath) {
-    import('@/electron/utils/index').then(v => {
-      const os = v.getUserOS()
-      store.commit(
-        DownloadNameSpaced + '/' + DownloadMutations.SET_DOWNLOAD_PATH,
-        v.join(os.homedir + '/Music')
-      )
-    })
-  }
   import('electron').then(v => {
     v.ipcRenderer.on(DownloadIpcType.DOWNLOAD_START, (event, arg) => {
       store.commit(

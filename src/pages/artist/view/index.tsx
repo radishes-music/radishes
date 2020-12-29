@@ -7,7 +7,7 @@ import {
   resolveDynamicComponent,
   KeepAlive
 } from 'vue'
-import { Secondary } from '@/layout/secondary/secondary'
+import { SecondaryLayout } from '@/layout/secondary/secondary'
 import { Image } from '@/components/image/index'
 import { RouterView, RouteRecordRaw } from 'vue-router'
 import { contentRouter } from '@/router/index'
@@ -60,7 +60,7 @@ export default defineComponent({
 
     return () => (
       <div class="artist">
-        <Secondary
+        <SecondaryLayout
           v-slots={{
             head: () => (
               <>

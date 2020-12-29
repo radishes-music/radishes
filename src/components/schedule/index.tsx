@@ -1,4 +1,4 @@
-import { computed, defineComponent, PropType } from 'vue'
+import { ref, defineComponent, PropType, watchEffect } from 'vue'
 import './index.less'
 
 export const Schedule = defineComponent({
@@ -10,7 +10,17 @@ export const Schedule = defineComponent({
     }
   },
   setup(props, { slots }) {
-    const opacity = computed(() => (props.percentage >= 100 ? 0 : 1))
+    const opacity = ref(0)
+
+    watchEffect(() => {
+      if (props.percentage >= 100) {
+        setTimeout(() => {
+          opacity.value = 0
+        }, 2000)
+      } else {
+        opacity.value = 1
+      }
+    })
 
     return () => (
       <div class="schedule">
