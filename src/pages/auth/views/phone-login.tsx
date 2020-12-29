@@ -190,21 +190,19 @@ export const PhoneLogin = defineComponent({
           </Checkbox>
 
           <div class="vchj">
-            {TERMS.map((info: any) => (
+            <Link
+              to="https://github.com/Linkontoask/radishes"
+              external
+              type="light"
+            >
+              《radishes条款》
+            </Link>
+            {/* {TERMS.map((info: any) => (
               <Link to={info.link} key={info.name} external type="light">
                 {info.name}
               </Link>
-            ))}
+            ))} */}
           </div>
-        </div>
-        <div class="auth-view__clause">
-          <Link
-            to="https://github.com/Linkontoask/radishes"
-            external
-            type="light"
-          >
-            《radishes条款》
-          </Link>
         </div>
       </>
     )
