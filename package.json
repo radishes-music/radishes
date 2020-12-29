@@ -70,6 +70,7 @@
     "@types/electron-devtools-installer": "^2.2.0",
     "@types/file-saver": "^2.0.1",
     "@types/js-cookie": "^2.2.6",
+    "@types/jsmediatags": "^3.9.2",
     "@types/md5": "^2.2.1",
     "@types/mocha": "^5.2.4",
     "@types/scriptjs": "^0.0.2",

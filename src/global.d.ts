@@ -12,3 +12,6 @@ declare interface MediaMetadataType {
   new (option: MediaMetadataTypeParams): MediaMetadataTypeParams
 }
 declare const MediaMetadata: MediaMetadataType
+declare module '@/mp3/jsmediatags' {
+  export * from '@types/jsmediatags/index'
+}
