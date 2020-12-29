@@ -20,7 +20,7 @@ export const ResetPwd = defineComponent({
 
     const authUtil: any = inject('authUtil')
 
-    const [errorMsg, setErrorMsg, isNullMsg] = useText()
+    const [errorMsg, setErrorMsg] = useText()
 
     const [httpStatus, httpSend] = useHttp(sendMsgCode)
 
@@ -33,7 +33,7 @@ export const ResetPwd = defineComponent({
         setErrorMsg('请输入正确的手机号')
       } else {
         httpSend(state.phone)
-          .then((res: any) => {
+          .then(() => {
             authUtil.to(AUTH_TYPE.SMS_CODE, {
               phone: state.phone,
               password: state.password

@@ -35,6 +35,32 @@
     }
   }
 
+  &__smscode {
+    display: flex;
+    > div {
+      flex: 1;
+      overflow: hidden;
+      border: 1px solid #dedede;
+      border-radius: 4px;
+      &:nth-child(1) {
+        margin-right: 10px;
+      }
+      &:nth-child(2) {
+        &.actived {
+          border: none;
+        }
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dedede;
+        .van-count-down {
+          color: #9d9d9d;
+        }
+      }
+    }
+  }
+
   &__inputbox {
     margin: 30px 0 0;
     overflow: hidden;
@@ -83,41 +109,16 @@
 
   &__tiptext {
     height: 38px;
-    font-size: 0.72rem;
     padding-top: 4px;
+    font-size: 0.72rem;
     color: @auth-input-color;
   }
 
   &__tipstrong {
+    margin: 30px 0;
     font-size: 0.72rem;
     color: @auth-text-strong;
-    margin: 30px 0;
     text-align: center;
-  }
-  &__smscode {
-    display: flex;
-    > div {
-      flex: 1;
-      border-radius: 4px;
-      overflow: hidden;
-      border: 1px solid #dedede;
-      &:nth-child(1) {
-        margin-right: 10px;
-      }
-      &:nth-child(2) {
-        &.actived {
-          border: none;
-        }
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #dedede;
-        .van-count-down {
-          color: #9d9d9d;
-        }
-      }
-    }
   }
 }
 
