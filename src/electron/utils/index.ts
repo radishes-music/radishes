@@ -2,13 +2,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { userInfo } from 'os'
 import { shell } from 'electron'
-import { statSync, readFile } from 'fs'
+import { statSync } from 'fs'
 import { syncToAsync } from '@/utils/index'
-import { ShortcutTags } from 'jsmediatags/types/index'
-import mediatags from '@/mp3/jsmediatags'
+import { SongsDetail } from '@/interface'
 import mp3Duration from 'mp3-duration'
-export { readdirSync } from 'fs'
+import { readdirSync } from 'fs'
+import { ICommonTagsResult } from 'music-metadata/lib/type.d'
+import { join } from 'path'
+import { v4 } from 'uuid'
+import * as mm from 'music-metadata'
+export * from 'fs'
 export { normalize, join } from 'path'
+
+type LocalSongsDetail = Pick<SongsDetail, 'al' | 'ar' | 'name'>
 
 export const isElectron = () => {
   if (
@@ -60,41 +66,72 @@ export const getDuration = (path: string): Promise<number> => {
   })
 }
 
-export const getMp3Tags = (
-  path: string
-): Promise<ShortcutTags & { size: number }> => {
-  return syncToAsync<ShortcutTags & { size: number }>(async resolve => {
-    const stat = statSync(path)
-    const duration = await getDuration(path)
-    readFile(path, async (err, buffer) => {
-      new mediatags.Reader(buffer).read({
-        onSuccess(tag) {
-          const info = [
-            'album',
-            'artist',
-            'genre',
-            'title',
-            'year',
-            'comment',
-            'lyrics',
-            'track',
-            'picture',
-            'lyrics'
-          ].reduce((a: any, b) => {
-            if (tag.tags[b]) {
-              a[b] = tag.tags[b]
-            }
-            return a
-          }, {})
-          resolve({
-            ...info,
-            id: info.comment.text,
-            size: stat.size,
-            duration: duration,
-            dlt: stat.birthtime.getTime()
-          })
-        }
-      })
-    })
+export const getMp3Tags = async (
+  path: string,
+  file: string
+): Promise<LocalSongsDetail> => {
+  const map: Record<string, string> = {
+    album: 'al',
+    artist: 'ar',
+    title: 'name'
+  }
+  const stat = statSync(path)
+  const tag = await mm.parseFile(path, {
+    duration: true
   })
+  const duration = tag.format.duration
+  const size = stat.size
+  const dlt = stat.birthtime.getTime()
+  const info = [
+    'album',
+    'artist',
+    'artists',
+    'genre',
+    'title',
+    'year',
+    'comment',
+    'lyrics',
+    'picture'
+  ].reduce((result: any, current) => {
+    let key = current
+    if (map[key]) {
+      key = map[key]
+    }
+    const value = tag.common[current as keyof ICommonTagsResult]
+    if (value) {
+      result[key] = value
+    }
+    return result
+  }, {})
+  console.log(info)
+  if (!info.name) {
+    info.name = file.replace(/\.mp3$/, '')
+  }
+  if (info.comment) {
+    info.id = info.comment[0]
+  } else {
+    info.id = v4()
+  }
+
+  return {
+    ...info,
+    duration,
+    size,
+    dlt,
+    path
+  }
+}
+
+export const readPathMusic = async (abPath: string) => {
+  const files = readdirSync(abPath).filter(mp3 => /\.mp3$/.test(mp3))
+
+  const fls: LocalSongsDetail[] = []
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i]
+    const path = join(abPath, file)
+    const mp3 = await getMp3Tags(path, file)
+    fls.push(mp3)
+  }
+
+  return fls
 }

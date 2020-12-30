@@ -1,50 +1,11 @@
 // runtime web
 
 import { Platform } from '@/config/build'
-import { DownloadMutations, LocalMusicMutations, SongsDetail } from '@/interface'
+import { DownloadMutations, LocalMusicMutations } from '@/interface'
 import { DownloadNameSpaced, LocalMusicNameSpaced } from '@/modules'
-import { syncToAsync } from '@/utils/index'
 import store from '@/store'
 
 const { VUE_APP_PLATFORM } = process.env
-type LocalSongsDetail = Pick<SongsDetail, 'al' | 'ar' | 'name'>
-
-const readPathMusic = async (abPath: string) => {
-  const v = await import('@/electron/utils/index')
-
-  const files = v.readdirSync(abPath)
-    .filter(mp3 => /\.mp3$/.test(mp3))
-
-  const renderSongs = async (resolve: (v: LocalSongsDetail[]) => void) => {
-    const fls: LocalSongsDetail[] = []
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i]
-      const path = v.join(abPath, file)
-      const mp3 = await v.getMp3Tags(path)
-      const map: Record<string, string> = {
-        album: 'al',
-        artist: 'ar',
-        title: 'name'
-      }
-      const songs: Record<string, string> = {}
-      for (const [key, value] of Object.entries(mp3)) {
-        // eslint-disable-next-line prettier/prettier
-        songs[map[key] ??= key] = value
-      }
-
-      if (!songs.name) {
-        songs.name = file.replace(/\.mp3/, '')
-      }
-      songs.path = path
-
-      fls.push(songs as unknown as LocalSongsDetail)
-    }
-    resolve(fls)
-  }
-  const songs = await syncToAsync<LocalSongsDetail[]>(renderSongs)
-
-  return songs
-}
 
 const initStorage = async () => {
   if (VUE_APP_PLATFORM === Platform.ELECTRON) {
@@ -68,9 +29,7 @@ const initStorage = async () => {
       )
     }
 
-    const songs = await readPathMusic(localMusicState.normalPath)
-
-    console.log(songs)
+    const songs = await v.readPathMusic(localMusicState.normalPath)
 
     store.commit(
       LocalMusicNameSpaced + '/' + LocalMusicMutations.SET_LOCAL_MUSIC,
