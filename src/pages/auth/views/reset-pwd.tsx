@@ -5,16 +5,55 @@ import '../component/auth-view/index.less'
 import { InputField } from '../component/input-field'
 import { AUTH_TYPE } from '../constant'
 import { inputColor, leakThemeColor, themeColor } from '../theme'
+import { useText } from '../hooks'
+import { useHttp } from '@/hooks'
+import { sendMsgCode } from '../api'
 
 // TODO As there is no plug-in for area code selection in line with Chinese values, only + 86 is supported for the moment
 export const ResetPwd = defineComponent({
   name: 'ResetPwd',
   setup() {
     const state = reactive({
-      errorMsg: ''
+      phone: '',
+      password: ''
     })
 
     const authUtil: any = inject('authUtil')
+
+    const [errorMsg, setErrorMsg] = useText()
+
+    const [httpStatus, httpSend] = useHttp(sendMsgCode)
+
+    const doReset = () => {
+      if (!state.phone) {
+        setErrorMsg('请输入手机号')
+      } else if (!state.password) {
+        setErrorMsg('请输入登录密码')
+      } else if (!/\d{11}/.test(state.phone)) {
+        setErrorMsg('请输入正确的手机号')
+      } else {
+        httpSend(state.phone)
+          .then(() => {
+            authUtil.to(AUTH_TYPE.SMS_CODE, {
+              phone: state.phone,
+              password: state.password
+            })
+          })
+          .catch((e: any) => {
+            if (e.response?.data) {
+              setErrorMsg(
+                e.response.data.msg || e.response.data.message || '请求异常'
+              )
+            } else if (e.msg) {
+              setErrorMsg(e.msg)
+            }
+          })
+      }
+    }
+
+    const onFocus = () => {
+      setErrorMsg('')
+    }
 
     return () => (
       <>
@@ -25,6 +64,7 @@ export const ResetPwd = defineComponent({
           <InputField
             bold
             placeholder="请输入手机号"
+            v-model={state.phone}
             v-slots={{
               left: () => (
                 <div class="country-code">
@@ -33,11 +73,14 @@ export const ResetPwd = defineComponent({
                 </div>
               )
             }}
+            // @ts-ignore
+            onFocus={onFocus}
           ></InputField>
           <InputField
-            placeholder="设置登陆密码，不少于6位"
+            placeholder="设置登陆密码"
             // @ts-ignore
             type="password"
+            v-model={state.password}
             v-slots={{
               left: () => (
                 <div style="padding-left:8px;">
@@ -45,23 +88,26 @@ export const ResetPwd = defineComponent({
                 </div>
               )
             }}
+            onFocus={onFocus}
           ></InputField>
         </div>
 
-        <div class="auth-view__error">
-          <icon
-            icon="warning"
-            color={themeColor}
-            v-show={state.errorMsg !== ''}
-            size={18}
-          />
-          <span v-show={state.errorMsg !== ''}>{state.errorMsg}</span>
-        </div>
+        {!errorMsg.text ? (
+          <div class="auth-view__tiptext">
+            密码8-20位，至少包含字母/数字/字符2种组合
+          </div>
+        ) : (
+          <div class="auth-view__error">
+            <icon icon="warning" color={themeColor} size={18} />
+            <span>{errorMsg.text}</span>
+          </div>
+        )}
+
         <Button
+          disabled={httpStatus.loading}
+          loading={httpStatus.loading}
           class="bd-button__auth"
-          onClick={() => {
-            console.log('click')
-          }}
+          onClick={doReset}
         >
           下一步
         </Button>

@@ -32,7 +32,6 @@ export const AuthView = defineComponent({
               class="auth-view__close"
               onClick={hideAuth}
             />
-            {/* 想在这里加一个动画效果，让它做一个类似页面翻转的动画 */}
             <div class="auth-view__box">{slots.default?.()}</div>
           </div>
         </MaskView>

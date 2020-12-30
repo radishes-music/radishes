@@ -12,7 +12,7 @@
 
 .auth-view {
   position: relative;
-  width: 390px;
+  width: 350px;
   height: 530px;
   padding: 10px;
   font-size: 12px;
@@ -32,6 +32,32 @@
     margin-top: 30px;
     svg {
       fill: var(--base-color-background) !important;
+    }
+  }
+
+  &__smscode {
+    display: flex;
+    > div {
+      flex: 1;
+      overflow: hidden;
+      border: 1px solid #dedede;
+      border-radius: 4px;
+      &:nth-child(1) {
+        margin-right: 10px;
+      }
+      &:nth-child(2) {
+        &.actived {
+          border: none;
+        }
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dedede;
+        .van-count-down {
+          color: #9d9d9d;
+        }
+      }
     }
   }
 
@@ -63,7 +89,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    height: 48px;
+    height: 38px;
     font-size: 12px;
     color: #d33a31;
     svg {
@@ -79,6 +105,20 @@
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
+  }
+
+  &__tiptext {
+    height: 38px;
+    padding-top: 4px;
+    font-size: 0.72rem;
+    color: @auth-input-color;
+  }
+
+  &__tipstrong {
+    margin: 30px 0;
+    font-size: 0.72rem;
+    color: @auth-text-strong;
+    text-align: center;
   }
 }
 
