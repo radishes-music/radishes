@@ -54,5 +54,9 @@ const registerAreset = (phone: string, password: string, code: string) =>
 export const register = registerAreset
 export const resetPwd = registerAreset
 
-// export const doResetPwd = () => {}
-// export const doSignup = () => {}
+export const checkPhone = (phone: string) =>
+  http.get('/api/cellphone/existence/check', {
+    params: {
+      phone
+    }
+  })

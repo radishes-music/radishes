@@ -36,7 +36,7 @@ export const SmsCode = defineComponent({
         try {
           const res = await httpReset(phone, password, state.code)
           commitLogin(res)
-          Toast('修改成功')
+          Toast('登录成功')
           $router.back()
         } catch (e) {
           if (e.response?.data) {
