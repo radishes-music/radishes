@@ -11,7 +11,9 @@ type Noop = (x: number, y: number) => void
 interface DragOptions {
   startCB?: Noop
   stopCB?: Noop
-  moveCB?: (x: number, y: number) => void
+  moveCB: (x: number, y: number) => void
+  horizontal?: boolean
+  vertical?: boolean
 }
 
 export const useInternal = (ms: number, cb: () => void): InternalHook => {
@@ -39,7 +41,7 @@ export const useInternal = (ms: number, cb: () => void): InternalHook => {
 export const useDrag = (
   container: HTMLElement,
   target: HTMLElement,
-  options?: DragOptions
+  options: DragOptions
 ) => {
   const cache = {
     x: 0,
@@ -66,20 +68,22 @@ export const useDrag = (
     const width = computedStyle.width.match(/\d+/)
     const height = computedStyle.height.match(/\d+/)
     const matrix = computedStyle.transform.match(/-?\d+/g)
-    if (matrix) {
+    if (options.horizontal || options.vertical) {
+      if (width && height) {
+        cache.x = +width[0]
+        cache.y = +height[0]
+      }
+    } else if (matrix) {
       cache.x = +matrix[4]
       cache.y = +matrix[5]
-    } else if (width && height) {
-      cache.x = +width[0]
-      cache.y = +height[0]
     }
     target.style.cursor = 'grabbing'
-    options?.startCB && options.startCB(cache.left, cache.top)
+    options.startCB && options.startCB(cache.left, cache.top)
   }
   const mouseup = () => {
     target.style.cursor = 'grab'
     if (canMove) {
-      options?.stopCB && options.stopCB(cache.left, cache.top)
+      options.stopCB && options.stopCB(cache.left, cache.top)
     }
     canMove = false
   }
@@ -90,7 +94,7 @@ export const useDrag = (
       const top = clientY - clickPosition.y + cache.y
       cache.left = left
       cache.top = top
-      options?.moveCB && options.moveCB(left, top)
+      options.moveCB && options.moveCB(left, top)
     }
   }
 

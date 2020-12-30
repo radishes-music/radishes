@@ -117,7 +117,8 @@ export const ProgressBar = defineComponent({
             visibleTip.value = false
             context.emit('update:draging', false)
             setAudioCurrent(x, width)
-          }
+          },
+          horizontal: true
         }
       )
 
