@@ -5,7 +5,6 @@ import { shell } from 'electron'
 import { statSync } from 'fs'
 import { syncToAsync } from '@/utils/index'
 import { SongsDetail } from '@/interface'
-import mp3Duration from 'mp3-duration'
 import { readdirSync } from 'fs'
 import { ICommonTagsResult } from 'music-metadata/lib/type.d'
 import { join } from 'path'
@@ -56,14 +55,6 @@ export const getUserOS = () => {
 
 export const openExplorer = (path: string) => {
   shell.openExternal(path)
-}
-
-export const getDuration = (path: string): Promise<number> => {
-  return syncToAsync<number>(resolve => {
-    mp3Duration(path, (error: unknown, duration: number) => {
-      resolve(duration)
-    })
-  })
 }
 
 export const getMp3Tags = async (
