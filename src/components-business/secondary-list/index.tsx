@@ -156,7 +156,7 @@ export const SecondaryList = defineComponent({
                 }
                 list={props.source.list}
                 columnsTypes={['index', 'control', 'name', 'ar', 'al', 'dt']}
-                onDblClick={e => {
+                onDblclick={e => {
                   emit('playDbl', e)
                 }}
               />

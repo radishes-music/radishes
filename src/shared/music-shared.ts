@@ -4,7 +4,15 @@ import { useFooterModule } from '@/modules'
 export const playMusic = () => {
   const store = useFooterModule()
 
-  return async (id: number | unknown, isStartOver = true) => {
+  return async (
+    id:
+      | number
+      | {
+          url: string
+          id: string | number
+        },
+    isStartOver = true
+  ) => {
     store.useMutations(FooterMutations.PAUES_MUSIC)
     if (isStartOver) {
       store.useMutations(FooterMutations.UPDATE_CURRENT_TIME, 0)

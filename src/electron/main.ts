@@ -2,6 +2,7 @@ import { app, protocol, BrowserWindow, screen } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { eventInit } from '@/electron/event/index'
+import { downloadIntercept } from './event/ipc-main/download'
 import path from 'path'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -78,6 +79,7 @@ function createWindow() {
   })
 
   eventInit(win)
+  downloadIntercept(win)
 }
 
 // Quit when all windows are closed.

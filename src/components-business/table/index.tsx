@@ -190,8 +190,9 @@ export const Table = defineComponent({
       type: Boolean as PropType<boolean>,
       default: true
     },
-    onDblClick: {
-      type: Function as PropType<(item: SongsDetail) => void>,
+    onDblclick: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      type: Function as PropType<(item: any) => void>,
       default: noop
     },
     rowClassName: {
@@ -200,10 +201,9 @@ export const Table = defineComponent({
       default: () => 'row-music'
     }
   },
-  setup(props) {
-    const { list, onDblClick, columnsTypes, showHeader, rowClassName } = toRefs(
-      props
-    )
+  emits: ['dblclick'],
+  setup(props, { emit }) {
+    const { list, columnsTypes, showHeader, rowClassName } = toRefs(props)
 
     const renderColumns = computed(() => {
       const col: unknown[] = []
@@ -238,9 +238,7 @@ export const Table = defineComponent({
                 },
                 onDblclick: (e: Event) => {
                   e.preventDefault()
-                  if (onDblClick) {
-                    onDblClick.value(record)
-                  }
+                  emit('dblclick', record)
                 }
               }
             }}

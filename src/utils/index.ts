@@ -32,6 +32,13 @@ export const formatTimeToStandard = (time: number) => {
   return dayjs(time).format('YYYY-MM-DD HH:mm:ss')
 }
 
+export const toFixed = (n: number, m: number) => {
+  if (typeof n === 'number') {
+    return Number(n.toFixed(m))
+  }
+  return null
+}
+
 export const formatNumber = (n: number, base: number, unit: string[]) => {
   let res = n,
     index = 0
@@ -40,7 +47,7 @@ export const formatNumber = (n: number, base: number, unit: string[]) => {
     res /= base
     index++
   }
-  return (res | 0) + unit[index]
+  return toFixed(res, 2) + unit[index]
 }
 
 export const formatCount = (count?: number): string => {
@@ -66,13 +73,6 @@ export const timeTos = (time: string): number => {
 
 export const download = (url: string, filename: string) => {
   saveAs(url, filename)
-}
-
-export const toFixed = (n: number, m: number) => {
-  if (typeof n === 'number') {
-    return Number(n.toFixed(m))
-  }
-  return null
 }
 
 export const sleep = (n: number) => {
@@ -123,6 +123,15 @@ export const parserData = (target: string | null, type: ParserTarget) => {
     return target
   }
   return null
+}
+
+export const toArrayBuffer = (buf: Buffer) => {
+  const ab = new ArrayBuffer(buf.length)
+  const view = new Uint8Array(ab)
+  for (let i = 0; i < buf.length; ++i) {
+    view[i] = buf[i]
+  }
+  return ab
 }
 
 export function on<T extends keyof ElectronWindowEventMap>(

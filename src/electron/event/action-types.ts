@@ -30,3 +30,7 @@ export const enum UpdateType {
   UPDATE_MAGIC = 'UPDATE_MAGIC',
   UPDATE_WIDTH = 'UPDATE_WIDTH'
 }
+
+export const enum ReadLocalFile {
+  READ_MP3_FROM_PATH = 'READ_MP3_FROM_PATH'
+}

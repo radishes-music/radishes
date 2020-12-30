@@ -103,7 +103,7 @@ export const getMp3Tags = async (
     }
     return result
   }, {})
-  console.log(info)
+
   if (!info.name) {
     info.name = file.replace(/\.mp3$/, '')
   }

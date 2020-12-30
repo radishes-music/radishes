@@ -50,6 +50,8 @@ export const enum FooterActions {
 
 export const enum FooterMutations {
   SET_MUSIC_URL = 'SET_MUSIC_SINGLE_URL',
+  SET_LOCAL_MUSIC_URL = 'SET_LOCAL_MUSIC_URL',
+  CLEAR_LOCAL_MUSIC_URL = 'CLEAR_LOCAL_MUSIC_URL',
   PLAY_MUSIC = 'PLAY_MUSIC',
   PAUES_MUSIC = 'PAUES_MUSIC',
   ENDED_MUSIC = 'ENDED_MUSIC',

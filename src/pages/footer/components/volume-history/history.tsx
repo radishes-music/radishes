@@ -100,7 +100,7 @@ export const MusicHistory = defineComponent({
                   list={musicStack.value}
                   columnsTypes={['name', 'ar', 'dt', 'remove']}
                   showHeader={false}
-                  onDblClick={handleDbClick}
+                  onDblclick={handleDbClick}
                   rowClassName={(record: SongsDetail) => {
                     const { music } = useState()
                     if (record.id === music?.id) {
@@ -116,7 +116,7 @@ export const MusicHistory = defineComponent({
                   list={musciHistory.value}
                   columnsTypes={['name', 'ar', 'dt', 'remove']}
                   showHeader={false}
-                  onDblClick={handleDbClick}
+                  onDblclick={handleDbClick}
                 />
               </div>
             )}
