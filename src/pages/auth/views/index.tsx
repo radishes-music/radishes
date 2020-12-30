@@ -54,7 +54,9 @@ export const AuthBox = defineComponent({
       <Transition name="fade">
         {isShow.value ? (
           <AuthView>
-            <KeepAlive exclude={['SmsCode', 'ResetPwd']}>
+            <KeepAlive
+              exclude={['SmsCode', 'ResetPwd', 'EmailLogin', 'Signup']}
+            >
               <Component.value></Component.value>
             </KeepAlive>
           </AuthView>

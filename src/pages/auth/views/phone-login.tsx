@@ -5,7 +5,7 @@ import { Toast } from 'vant'
 import { Button } from '../component/button'
 import { Link, AuthLink } from '../component/link'
 import { InputField } from '../component/input-field'
-import { AUTH_TYPE, PROVIDER_AUTH_UTIL, TERMS } from '../constant'
+import { AUTH_TYPE, PROVIDER_AUTH_UTIL } from '../constant'
 import { doPhoneLogin, LoginRes } from '../api'
 
 import { useLogin } from '@/hooks/auth'
