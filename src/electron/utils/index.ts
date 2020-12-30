@@ -3,7 +3,6 @@
 import { userInfo } from 'os'
 import { shell } from 'electron'
 import { statSync } from 'fs'
-import { syncToAsync } from '@/utils/index'
 import { SongsDetail } from '@/interface'
 import { readdirSync } from 'fs'
 import { ICommonTagsResult } from 'music-metadata/lib/type.d'
