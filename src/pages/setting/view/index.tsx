@@ -66,7 +66,6 @@ export const Setting = defineComponent({
       () => route.params.location,
       loc => {
         jumpTop(loc as string)
-        console.log(loc)
       }
     )
 
@@ -92,7 +91,6 @@ export const Setting = defineComponent({
             }
           }
         }
-        console.log(areaFormat.value)
       }
     })
 

@@ -126,3 +126,13 @@ export const readPathMusic = async (abPath: string[]) => {
 
   return fls
 }
+
+export const saveBlob = (blob: Blob) => {
+  const reader = new FileReader()
+  reader.onload = () => {
+    if (reader.readyState == 2 && reader.result) {
+      const buffer = Buffer.from(reader.result)
+    }
+  }
+  reader.readAsArrayBuffer(blob)
+}

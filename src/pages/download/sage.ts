@@ -11,14 +11,28 @@ import { getMusicUrl } from '@/shared/music-shared'
 import { download } from '@/utils/index'
 import { importIpc } from '@/electron/event/ipc-browser'
 import { DownloadIpcType } from '@/electron/event/action-types'
+import { Platform } from '@/config/build'
+
+const { VUE_APP_PLATFORM } = process.env
 
 export const actions: ActionTree<DownloadState, RootState> = {
   async [DownloadActions.DOWNLOAD_MUSIC]({ commit }, song: SongsDetail) {
-    const url = await getMusicUrl(song.id)
-    song.size = url[0].size
+    const songBase = await getMusicUrl(song.id)
+    song.size = songBase[0].size
+    const url = songBase[0].url
     commit(DownloadMutations.SET_DOWNLOAD_MUSIC, song)
-    // TODO ws protocol to be supported, download progress to be discussed
-    download(url[0].url, song.name)
+    if (VUE_APP_PLATFORM === Platform.BROWSER) {
+      // TODO ws protocol to be supported, download progress to be discussed
+      download(url, song.name)
+    }
+    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+      const v = await importIpc()
+      v.sendAsyncIpcRendererEvent(DownloadIpcType.DOWNLOAD_TASK, {
+        name: song.name,
+        suffix: '.mp3',
+        url
+      })
+    }
   }
 }
 

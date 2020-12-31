@@ -1,7 +1,7 @@
 import { createStore, MutationTree, createLogger } from 'vuex'
 import { FooterMutations } from '@/interface'
 import { AllMutations, PlaySource } from '@/interface/index'
-import { getNodeEnv } from '@/utils/index'
+import { getNodeEnv, toFixed } from '@/utils/index'
 import createPersistedState from 'vuex-persistedstate'
 import modules from '@/modules/index'
 
@@ -67,7 +67,7 @@ const mutations: MutationTree<RootState> = {
     state.historyRoute.canBeCollect = collect
   },
   [RootMutations.UPDATE_PERECENTAGE](state, percentage: number) {
-    state.percentage = percentage * 100
+    state.percentage = toFixed(percentage * 100, 2)
   }
 }
 

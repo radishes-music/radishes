@@ -105,8 +105,9 @@ app.on('activate', () => {
 app.on('ready', async () => {
   session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
     const location = new URL(details.url)
-    if (location.port === '80') {
+    if (location.port === '') {
       details.requestHeaders['Origin'] = location.origin
+      details.requestHeaders['Referer'] = location.origin
     }
     callback({ requestHeaders: details.requestHeaders })
   })

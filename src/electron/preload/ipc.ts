@@ -3,12 +3,13 @@ import { DownloadIpcType } from '@/electron/event/action-types'
 import { suggested, success, error } from '@/hooks/index'
 import store, { RootMutations } from '@/store'
 
-interface Process {
-  state: 'progressing' | 'completed' | 'interrupted' | 'cancelled'
+export interface DownloadData {
+  state: 'progressing' | 'completed' | 'interrupted' | 'cancelled' | 'start'
   name: string
   receive: number
   total: number
   schedule: number
+  error?: NodeJS.ErrnoException | null | string
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -17,7 +18,7 @@ export const registerIPC = (app: App) => {
     v.ipcRenderer.on(DownloadIpcType.DOWNLOAD_START, (event, arg) => {
       store.commit(
         RootMutations.UPDATE_PERECENTAGE,
-        Math.floor(Math.random() * 10)
+        Math.floor((Math.random() * 10) / 100)
       )
       suggested('下载中...', {
         key: arg.name
@@ -26,12 +27,13 @@ export const registerIPC = (app: App) => {
 
     v.ipcRenderer.on(
       DownloadIpcType.DOWNLOAD_END,
-      (event, arg: Pick<Process, 'name' | 'state'>) => {
+      (event, arg: Pick<DownloadData, 'name' | 'state' | 'error'>) => {
         if (arg.state === 'completed') {
           success('下载完成', {
             key: arg.name
           })
         } else {
+          console.log(arg.error)
           error('下载失败', {
             key: arg.name
           })
@@ -41,7 +43,7 @@ export const registerIPC = (app: App) => {
 
     v.ipcRenderer.on(
       DownloadIpcType.DOWNLOAD_PROGRESS,
-      (event, arg: Process) => {
+      (event, arg: DownloadData) => {
         if (arg.state === 'progressing') {
           store.commit(RootMutations.UPDATE_PERECENTAGE, arg.schedule)
         }
