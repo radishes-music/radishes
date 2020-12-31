@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/camelcase,vue/require-default-prop,@typescript-eslint/ban-ts-ignore*/
 import { defineComponent, inject, reactive } from 'vue'
 import { Button } from '../component/button'
+import { Link } from '../component/link'
 import '../component/auth-view/index.less'
 import { InputField } from '../component/input-field'
 import { AUTH_TYPE } from '../constant'
@@ -40,12 +41,20 @@ export const EmailLogin = defineComponent({
       } else {
         httpEmailLogin(state.email, state.password)
           .then((res: LoginRes) => {
-            commitLogin(res)
-            $router.back()
+            if (!res.profile) {
+              setErrorMsg('该邮箱未绑定手机号，请通过官方渠道进行该操作')
+            } else {
+              commitLogin(res)
+              $router.back()
+            }
           })
           .catch((e: any) => {
-            if (e.code !== 200) {
-              setErrorMsg(e.msg || 'Invalid request')
+            if (e.response?.data) {
+              setErrorMsg(
+                e.response.data.msg || e.response.data.message || '请求异常'
+              )
+            } else if (e.msg) {
+              setErrorMsg(e.msg)
             }
           })
       }
@@ -81,7 +90,16 @@ export const EmailLogin = defineComponent({
                   <icon icon="suodakaimima" size={18} color={inputColor}></icon>
                 </div>
               ),
-              right: () => <div style="padding:0 8px;">忘记密码？</div>
+              right: () => (
+                <Link
+                  type="normal"
+                  style="padding:0 8px;"
+                  to="https://reg.163.com/naq/findPassword#/verifyAccount"
+                  external
+                >
+                  忘记密码？
+                </Link>
+              )
             }}
             v-model={state.password}
             onFocus={onFocus}

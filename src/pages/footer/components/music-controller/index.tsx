@@ -7,6 +7,7 @@ import { FooterActions, FooterMutations, PlayMode } from '@/interface'
 import { Platform } from '@/config/build'
 import { importIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyriceAction } from '@/electron/event/action-types'
+import { playMusic } from '@/shared/music-shared'
 import './index.less'
 
 const prefix = 'music'
@@ -38,6 +39,8 @@ export const MusicControl = defineComponent({
       visibleFlash,
       duration
     } = toRefs(useState())
+
+    const play = playMusic()
 
     const musicDes = computed(() => useGetter('musicDes'))
 
@@ -74,10 +77,7 @@ export const MusicControl = defineComponent({
         }
         const nextMusic = musicStack.value[next]
 
-        await useActions(FooterActions.SET_MUSIC_LYRICS, nextMusic.id)
-        useMutations(FooterMutations.SET_MUSIC_URL, nextMusic)
-        useMutations(FooterMutations.PAUES_MUSIC)
-        useMutations(FooterMutations.PLAY_MUSIC)
+        play(nextMusic.id)
       }
     }
 

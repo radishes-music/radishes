@@ -1,4 +1,6 @@
 .music-layout {
+  display: flex;
+  flex-direction: column;
   padding: 20px;
   &--title {
     display: flex;
@@ -11,6 +13,8 @@
     margin-bottom: 10px;
   }
   &--body {
-    display: block;
+    flex: 1;
+    height: 0;
+    overflow: auto;
   }
 }
