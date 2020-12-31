@@ -16,6 +16,7 @@ import Song, { SongNameSpaced } from '@/pages/list/module'
 import Artist, { ArtistNameSpaced } from '@/pages/artist/module'
 import Download, { DownloadNameSpaced } from '@/pages/download/module'
 import LocalMusic, { LocalMusicNameSpaced } from '@/pages/music/module'
+import Setting, { SettingNameSpaced } from '@/pages/setting/module'
 import Layout, { LayoutNameSpaced } from '@/layout/module'
 
 export * from '@/pages/footer/module'
@@ -26,6 +27,7 @@ export * from '@/pages/header/module'
 export * from '@/pages/list/module'
 export * from '@/pages/artist/module'
 export * from '@/pages/music/module'
+export * from '@/pages/setting/module'
 export * from '@/layout/module'
 
 export {
@@ -41,6 +43,7 @@ export {
   ArtistNameSpaced,
   DownloadNameSpaced,
   LocalMusicNameSpaced,
+  SettingNameSpaced,
   LayoutNameSpaced
 }
 
@@ -57,7 +60,8 @@ const modules = {
   [SongNameSpaced]: Song,
   [ArtistNameSpaced]: Artist,
   [DownloadNameSpaced]: Download,
-  [LocalMusicNameSpaced]: LocalMusic
+  [LocalMusicNameSpaced]: LocalMusic,
+  [SettingNameSpaced]: Setting
 }
 
 export default modules

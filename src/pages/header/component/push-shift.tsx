@@ -1,4 +1,4 @@
-import { defineComponent, nextTick, watch, toRefs } from 'vue'
+import { defineComponent, nextTick, watch } from 'vue'
 import { RootMutations } from '@/store/index'
 import classnames from 'classnames'
 import { useRoute, useStore, useRouter } from '@/hooks/index'
@@ -13,10 +13,8 @@ export const PushShift = defineComponent({
   name: 'Logo',
   setup() {
     const store = useStore()
-    const setHistoryRoute = (routeObj: { oldRoute: string }) => {
-      store.commit(RootMutations.SET_HISTORY_ROUTE, {
-        oldRoute: routeObj.oldRoute
-      })
+    const setHistoryRoute = (oldRoute: string) => {
+      store.commit(RootMutations.SET_HISTORY_ROUTE, oldRoute)
     }
     const routeCanBeCollect = (isCollect: boolean) => {
       store.commit(RootMutations.CAN_BE_COLLECT, isCollect)
@@ -28,37 +26,43 @@ export const PushShift = defineComponent({
       store.commit(RootMutations.BACK_HISTORY_ROUTE, path)
     }
 
-    const { fullPath } = toRefs(useRoute())
+    const route = useRoute()
 
-    watch(fullPath, (route, oldRoute) => {
-      const { historyRoute } = store.state
-      if (!historyRoute.canBeCollect) {
-        routeCanBeCollect(true)
-      } else {
+    watch(
+      () => route.fullPath,
+      (currentRoute, oldRoute) => {
         const { historyRoute } = store.state
-        const backRoute = historyRoute.after[historyRoute.after.length - 1]
-        const forwardRoute = historyRoute.before[historyRoute.before.length - 1]
-        if (route === backRoute) {
-          routeForward(oldRoute)
-        } else if (route === forwardRoute) {
-          routeBack(oldRoute)
+        if (
+          !historyRoute.canBeCollect ||
+          !route.meta.canBeCollect ||
+          oldRoute === '/'
+        ) {
+          routeCanBeCollect(true)
         } else {
-          setHistoryRoute({
-            oldRoute: oldRoute
-          })
+          const { historyRoute } = store.state
+          const backRoute = historyRoute.after[historyRoute.after.length - 1]
+          const forwardRoute =
+            historyRoute.before[historyRoute.before.length - 1]
+          if (currentRoute === backRoute) {
+            routeForward(oldRoute)
+          } else if (currentRoute === forwardRoute) {
+            routeBack(oldRoute)
+          } else {
+            setHistoryRoute(oldRoute)
+          }
         }
       }
-    })
+    )
 
     const router = useRouter()
     const handleRouteCommand = (payload: string) => {
       const { historyRoute } = store.state
       routeCanBeCollect(false)
       if (payload === COMMAND.FORWARD) {
-        routeForward(fullPath.value)
+        routeForward(route.fullPath)
       }
       if (payload === COMMAND.BACK) {
-        routeBack(fullPath.value)
+        routeBack(route.fullPath)
       }
       nextTick(() => {
         // TODO Needs optimization

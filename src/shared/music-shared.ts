@@ -25,6 +25,6 @@ export const playMusic = () => {
 }
 
 export const getMusicUrl = (id: number | number[]) => {
-  const source = store.state.playSource
+  const source = store.state.Setting.source
   return getSongUrl<SongsBase[]>(id, source)
 }

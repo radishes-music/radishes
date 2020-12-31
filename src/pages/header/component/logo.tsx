@@ -4,14 +4,14 @@ import './logo.less'
 
 export const Logo = defineComponent({
   name: 'Logo',
-  render() {
+  setup() {
     const router = useRouter()
     const home = () => {
       router.replace({
         path: '/'
       })
     }
-    return (
+    return () => (
       <div class="logo" onClick={home}>
         <icon icon="logo-fill" size={132} height={40}></icon>
       </div>

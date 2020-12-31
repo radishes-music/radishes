@@ -115,6 +115,7 @@ macOS 版本暂时无法发布（因为我没钱买 mac ）。
 相关链接：
 
 - [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
+- [UnblockNeteaseMusic](https://github.com/nondanee/UnblockNeteaseMusic)
 - [vuejs](https://v3.vuejs.org/)
 - [commitlint](https://commitlint.js.org/#/)
 - [vue-cli](https://cli.vuejs.org/zh/)

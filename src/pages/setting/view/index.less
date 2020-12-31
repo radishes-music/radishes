@@ -1,0 +1,52 @@
+@import '~@/theme/index.less';
+
+.setting-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+  overflow: auto;
+  background-color: white;
+  h1 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  h2 {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  &-route {
+    padding-bottom: 20px;
+    border-bottom: @lighter-border;
+    &--active {
+      font-weight: bold;
+    }
+    ul {
+      display: flex;
+      align-items: center;
+      li {
+        margin-right: 10px;
+        cursor: pointer;
+      }
+    }
+  }
+  &-description {
+    margin: 8px 0;
+    font-size: 12px;
+  }
+  &-paragraph {
+    line-height: 2;
+    text-indent: 24px;
+    ul {
+      padding-left: 20px;
+    }
+  }
+  &-contanier {
+    flex: 1;
+    height: 0;
+    overflow: auto;
+    > div {
+      margin-top: 50px;
+    }
+  }
+}

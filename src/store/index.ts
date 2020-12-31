@@ -25,7 +25,6 @@ export interface RootState {
   [x: string]: any
   historyRoute: HistoryRoute
   percentage: number
-  playSource: PlaySource[]
 }
 
 const state: RootState = {
@@ -35,22 +34,33 @@ const state: RootState = {
     before: [],
     after: []
   },
-  percentage: 0,
-  playSource: ['qq', 'kuwo', 'migu']
+  percentage: 0
 }
 
 const mutations: MutationTree<RootState> = {
-  [RootMutations.SET_HISTORY_ROUTE](state, { oldRoute }) {
-    state.historyRoute.before.push(oldRoute)
+  [RootMutations.SET_HISTORY_ROUTE](state, oldRoute: string) {
+    const before = state.historyRoute.before
+    const beforeLast = before[before.length - 1]
+    if (beforeLast !== oldRoute) {
+      state.historyRoute.before.push(oldRoute)
+    }
   },
   [RootMutations.BACK_HISTORY_ROUTE](state, route: string) {
     const before = state.historyRoute.before.pop() as string
-    state.historyRoute.after.push(route)
+    const after = state.historyRoute.after
+    const afterLast = after[after.length - 1]
+    if (afterLast !== route) {
+      state.historyRoute.after.push(route)
+    }
     state.historyRoute.needRoute = before
   },
   [RootMutations.FORWARD_HISTORY_ROUTE](state, route: string) {
     const after = state.historyRoute.after.pop() as string
-    state.historyRoute.before.push(route)
+    const before = state.historyRoute.before
+    const beforeLast = before[before.length - 1]
+    if (beforeLast !== route) {
+      state.historyRoute.before.push(route)
+    }
     state.historyRoute.needRoute = after
   },
   [RootMutations.CAN_BE_COLLECT](state, collect: boolean) {
@@ -91,6 +101,7 @@ plugins.push(
       'Footer.music',
       'Footer.musicLyricsOrigin',
       'Footer.currentTime',
+      'Setting',
       'Download',
       'LocalMusic'
     ]

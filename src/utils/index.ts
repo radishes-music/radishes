@@ -37,7 +37,7 @@ export const toFixed = (n: number, m: number) => {
   if (typeof n === 'number') {
     return Number(n.toFixed(m))
   }
-  return null
+  return 0
 }
 
 export const formatNumber = (n: number, base: number, unit: string[]) => {

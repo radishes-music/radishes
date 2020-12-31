@@ -16,6 +16,7 @@ import { Moments } from '@/pages/moments/index'
 import { LocalMusic, LocalMusicSong, LocalMusicDir } from '@/pages/music/index'
 import { Download, DownloadSong, DownloadMv } from '@/pages/download/index'
 import { Cloud } from '@/pages/cloud/index'
+import { Setting } from '@/pages/setting/index'
 import { Platform } from '@/config/build'
 
 const { VUE_APP_PLATFORM } = process.env
@@ -39,20 +40,35 @@ const baseRouter: RouteRecordRaw[] = [
     path: '/:pathMatch(.*)', // https://next.router.vuejs.org/guide/migration/#removed-star-or-catch-all-routes
     name: $404.name,
     meta: {
-      full: true
+      full: true,
+      canBeCollect: false
     },
     component: $404
   },
   {
     path: '/',
-    redirect: '/music'
+    redirect: '/music',
+    meta: {
+      canBeCollect: false
+    }
+  },
+  {
+    path: '/setting/:location',
+    name: Setting.name,
+    component: Setting,
+    meta: {
+      canBeCollect: true
+    }
   }
 ]
 
 export const contentRouter: RouteRecordRaw[] = [
   {
     path: '/list/:type/:playlist',
-    component: () => import('@/pages/list/view/index')
+    component: () => import('@/pages/list/view/index'),
+    meta: {
+      canBeCollect: true
+    }
   },
   {
     path: '/artist/:id',
@@ -76,7 +92,8 @@ export const contentRouter: RouteRecordRaw[] = [
             component => component.Albume
           ),
         meta: {
-          name: '专辑'
+          name: '专辑',
+          canBeCollect: true
         }
       },
       {
@@ -86,7 +103,8 @@ export const contentRouter: RouteRecordRaw[] = [
             component => component.Mv
           ),
         meta: {
-          name: 'MV'
+          name: 'MV',
+          canBeCollect: true
         }
       },
       {
@@ -96,7 +114,8 @@ export const contentRouter: RouteRecordRaw[] = [
             component => component.Desc
           ),
         meta: {
-          name: '歌手详情'
+          name: '歌手详情',
+          canBeCollect: true
         }
       },
       {
@@ -106,7 +125,8 @@ export const contentRouter: RouteRecordRaw[] = [
             component => component.Similar
           ),
         meta: {
-          name: '相似歌手'
+          name: '相似歌手',
+          canBeCollect: true
         }
       }
     ]
@@ -134,7 +154,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
       auth: true,
       nonav: true,
       browser: true,
-      electron: true
+      electron: true,
+      canBeCollect: true
     }
   },
   {
@@ -157,7 +178,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
         name: 'recommend',
         meta: {
           name: '个性推荐',
-          path: 'recommend'
+          path: 'recommend',
+          canBeCollect: true
         }
       },
       {
@@ -171,7 +193,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
             query: {
               tag: 'all'
             }
-          }
+          },
+          canBeCollect: true
         }
       },
       {
@@ -180,7 +203,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
         name: 'toplist',
         meta: {
           name: '排行榜',
-          path: 'toplist'
+          path: 'toplist',
+          canBeCollect: true
         }
       },
       {
@@ -189,7 +213,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
         name: 'artists',
         meta: {
           name: '歌手',
-          path: 'artists'
+          path: 'artists',
+          canBeCollect: true
         }
       }
     ]
@@ -211,7 +236,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
         path: '/video/mv',
         component: Mv,
         meta: {
-          name: 'MV'
+          name: 'MV',
+          canBeCollect: true
         }
       }
     ]
@@ -222,7 +248,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
     meta: {
       name: '朋友',
       browser: true,
-      electron: true
+      electron: true,
+      canBeCollect: true
     }
   },
   {
@@ -245,7 +272,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
         component: DownloadSong,
         meta: {
           name: '已下载单曲',
-          path: 'song'
+          path: 'song',
+          canBeCollect: true
         }
       },
       {
@@ -253,7 +281,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
         component: DownloadMv,
         meta: {
           name: '已下载MV',
-          path: 'mv'
+          path: 'mv',
+          canBeCollect: true
         }
       }
     ]
@@ -277,7 +306,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
         component: LocalMusicSong,
         meta: {
           name: '歌曲',
-          path: 'song'
+          path: 'song',
+          canBeCollect: true
         }
       },
       {
@@ -285,7 +315,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
         component: LocalMusicDir,
         meta: {
           name: '文件夹',
-          path: 'dir'
+          path: 'dir',
+          canBeCollect: true
         }
       }
     ]
@@ -298,7 +329,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
       name: '我的音乐云盘',
       auth: true,
       browser: true,
-      electron: true
+      electron: true,
+      canBeCollect: true
     }
   }
 ]

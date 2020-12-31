@@ -4,9 +4,9 @@ import { MiddlewareView } from '@/electron/event/action-types'
 import { Platform } from '@/config/build'
 import { shade } from '@/theme/color'
 import { Popover } from 'ant-design-vue'
-import './setting.less'
 import { setThemeColor } from '@/helpers'
-import { useThemeColor } from '@/hooks'
+import { useThemeColor, useRouter } from '@/hooks'
+import './setting.less'
 
 const { VUE_APP_PLATFORM } = process.env
 
@@ -36,8 +36,9 @@ const setColor = (baseColor: string) => {
 }
 
 export const Setting = defineComponent({
-  name: 'Setting',
+  name: 'SettingButton',
   setup() {
+    const router = useRouter()
     // eslint-disable-next-line prefer-const
     let themeColor = useThemeColor()
     const visibleColor = ref(false)
@@ -64,9 +65,19 @@ export const Setting = defineComponent({
       default: () => <icon icon="skin"></icon>
     }
 
+    const handleOpenSetting = () => {
+      router.push({
+        path: '/setting/source'
+      })
+    }
+
     return () => (
       <div class="setting">
-        <ve-button type="text" class="header-window-btn">
+        <ve-button
+          type="text"
+          class="header-window-btn"
+          onClick={handleOpenSetting}
+        >
           <icon icon="setting"></icon>
         </ve-button>
         <ve-button type="text" class="header-window-btn">
