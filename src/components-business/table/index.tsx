@@ -9,15 +9,14 @@ import {
 import {
   SongsDetail,
   ListFormat,
-  SongsBase,
   FooterMutations,
   DownloadActions,
   SongListColumnsType
 } from '@/interface/index'
 import { useDownloadModule, useFooterModule } from '@/modules/index'
 import { useSubscribe } from '@/shared/subscribe'
+import { getMusicUrl } from '@/shared/music-shared'
 import { instance } from '@/components-business/fly/index'
-import { getSongUrl } from '@/api/index'
 import remove from 'lodash/remove'
 import './index.less'
 
@@ -73,7 +72,7 @@ const columns = [
                   end: end,
                   duartion: 0.8
                 })
-                const data = await getSongUrl<SongsBase[]>(text.id)
+                const data = await getMusicUrl(text.id)
                 if (data.length) {
                   const music = {
                     ...text,

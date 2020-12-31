@@ -5,17 +5,9 @@ const match = require('@radishes/unblock')
 const crypto = require('crypto')
 const { cookieToJson } = require('../util/index')
 
-const find = (id) => {
-  return match(id, [
-    'qq',
-    'xiami',
-    'baidu',
-    'kugou',
-    'kuwo',
-    'migu',
-    'joox',
-    'youtube',
-  ])
+const find = (id, source) => {
+  const playSource = source.split(',')
+  return match(id, playSource)
     .then((url) => {
       return url.url
     })
@@ -52,7 +44,7 @@ module.exports = (query, request) => {
     let i = 0
     while (i < body.data.length) {
       if (!body.data[i].url || body.data[i].freeTrialInfo) {
-        const url = await find(body.data[i].id)
+        const url = await find(body.data[i].id, query.source)
         v.body.data[i].url = url
       }
       i++

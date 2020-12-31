@@ -5,3 +5,13 @@ export interface HttpGet {
 export interface HttpPost {
   [key: string]: string
 }
+
+export type PlaySource =
+  | 'qq'
+  | 'xiami'
+  | 'baidu'
+  | 'kugou'
+  | 'kuwo'
+  | 'migu'
+  | 'joox'
+  | 'youtube'

@@ -1,6 +1,6 @@
 import { createStore, MutationTree, createLogger } from 'vuex'
 import { FooterMutations } from '@/interface'
-import { AllMutations } from '@/interface/index'
+import { AllMutations, PlaySource } from '@/interface/index'
 import { getNodeEnv } from '@/utils/index'
 import createPersistedState from 'vuex-persistedstate'
 import modules from '@/modules/index'
@@ -25,6 +25,7 @@ export interface RootState {
   [x: string]: any
   historyRoute: HistoryRoute
   percentage: number
+  playSource: PlaySource[]
 }
 
 const state: RootState = {
@@ -34,7 +35,8 @@ const state: RootState = {
     before: [],
     after: []
   },
-  percentage: 0
+  percentage: 0,
+  playSource: ['qq', 'kuwo', 'migu']
 }
 
 const mutations: MutationTree<RootState> = {
@@ -78,6 +80,8 @@ plugins.push(
   createPersistedState({
     key: 'RADISHES-VUEX',
     paths: [
+      'historyRoute',
+      'playSource',
       'Auth.user',
       'Header.themeColor',
       'Layout',

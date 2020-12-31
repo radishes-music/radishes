@@ -1,11 +1,21 @@
 import { get } from '@/utils/http'
-import { SongsDetail, PlayList, Albums, Song } from '@/interface/index'
+import {
+  SongsDetail,
+  PlayList,
+  Albums,
+  Song,
+  PlaySource
+} from '@/interface/index'
 import { SubscribeActionType } from '@/shared/subscribe'
 
-export const getSongUrl = async <T>(id: number | number[]): Promise<T> => {
+export const getSongUrl = async <T>(
+  id: number | number[],
+  source?: PlaySource[]
+): Promise<T> => {
   const data = await get<{ data: T }>('/api/song/url', {
     id: Array.isArray(id) ? id.join(',') : id,
-    br: 9.99e5
+    br: 9.99e5,
+    source: source?.join(',')
   })
   return data.data
 }

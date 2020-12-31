@@ -1,10 +1,11 @@
 import { toRaw } from 'vue'
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { isNumber, timeTos, toFixed, toArrayBuffer } from '@/utils/index'
-import { getSongUrl, getSongDetail, getLyric } from './api/index'
+import { getSongDetail, getLyric } from './api/index'
 import { FooterState, FooterActions, FooterMutations } from './interface'
+import { getMusicUrl } from '@/shared/music-shared'
 import { RootState } from '@/store/index'
-import { SongsDetail, SongsBase } from '@/interface'
+import { SongsDetail } from '@/interface'
 import cloneDeep from 'lodash/cloneDeep'
 import remove from 'lodash/remove'
 
@@ -121,7 +122,7 @@ export const actions: ActionTree<FooterState, RootState> = {
   ) {
     let id, url
     if (typeof payload === 'number') {
-      const data = await getSongUrl<SongsBase[]>(payload)
+      const data = await getMusicUrl(payload)
       id = payload
       url = data[0].url
     } else {
