@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { App } from 'vue'
 import dayjs, { OpUnitType } from 'dayjs'
 import UTC from 'dayjs/plugin/utc'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
@@ -132,6 +133,17 @@ export const toArrayBuffer = (buf: Buffer) => {
     view[i] = buf[i]
   }
   return ab
+}
+
+export const create = (appFunction: App<Element>) => {
+  const div = document.createElement('div')
+  document.body.appendChild(div)
+  appFunction.mixin({
+    unmounted() {
+      appFunction.unmount(div)
+    }
+  })
+  appFunction.mount(div)
 }
 
 export function on<T extends keyof ElectronWindowEventMap>(

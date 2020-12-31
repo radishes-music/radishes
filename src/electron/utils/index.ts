@@ -112,15 +112,16 @@ export const getMp3Tags = async (
   }
 }
 
-export const readPathMusic = async (abPath: string) => {
-  const files = readdirSync(abPath).filter(mp3 => /\.mp3$/.test(mp3))
-
+export const readPathMusic = async (abPath: string[]) => {
   const fls: LocalSongsDetail[] = []
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i]
-    const path = join(abPath, file)
-    const mp3 = await getMp3Tags(path, file)
-    fls.push(mp3)
+  for (let i = 0; i < abPath.length; i++) {
+    const files = readdirSync(abPath[i]).filter(mp3 => /\.mp3$/.test(mp3))
+    for (let j = 0; j < files.length; j++) {
+      const file = files[j]
+      const path = join(abPath[i], file)
+      const mp3 = await getMp3Tags(path, file)
+      fls.push(mp3)
+    }
   }
 
   return fls

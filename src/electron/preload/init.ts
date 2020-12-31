@@ -1,4 +1,9 @@
-// runtime web
+/**
+ * runtime: web
+ * The electron package cannot be imported directly, it can only be imported dynamically.
+ * Because webpack will import the corresponding package when analyzing dependencies,
+ * an electron-related error will be prompted in the browser host.
+ */
 
 import { Platform } from '@/config/build'
 import { DownloadMutations, LocalMusicMutations } from '@/interface'
@@ -12,16 +17,17 @@ const initStorage = async () => {
     const v = await import('@/electron/utils/index')
     const downloadState = store.state.Download
     const localMusicState = store.state.LocalMusic
-    const os = v.getUserOS()
-    const userMusicPath = v.join(os.homedir + '/Music')
 
+    const os = v.getUserOS()
+    const userDownloadPath = v.join(os.homedir + '/Downloads')
     if (!downloadState.downloadPath) {
       store.commit(
         DownloadNameSpaced + '/' + DownloadMutations.SET_DOWNLOAD_PATH,
-        userMusicPath
+        userDownloadPath
       )
     }
 
+    const userMusicPath = v.join(os.homedir + '/Music')
     if (!localMusicState.normalPath) {
       store.commit(
         LocalMusicNameSpaced + '/' + LocalMusicMutations.SET_NORMAL_PATH,
@@ -29,7 +35,26 @@ const initStorage = async () => {
       )
     }
 
-    const songs = await v.readPathMusic(localMusicState.normalPath)
+    const paths = [
+      {
+        path: userMusicPath,
+        name: '我的音乐',
+        check: true
+      },
+      {
+        path: userDownloadPath,
+        name: '下载',
+        check: true
+      }
+    ]
+    if (!localMusicState.localPath.length) {
+      store.commit(
+        LocalMusicNameSpaced + '/' + LocalMusicMutations.SET_LOCAL_PATH,
+        paths
+      )
+    }
+
+    const songs = await v.readPathMusic(paths.map(item => item.path))
 
     store.commit(
       LocalMusicNameSpaced + '/' + LocalMusicMutations.SET_LOCAL_MUSIC,

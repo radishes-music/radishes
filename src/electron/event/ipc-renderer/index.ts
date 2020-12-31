@@ -12,7 +12,8 @@ import {
   LyriceAction,
   UpdateType,
   DownloadIpcType,
-  ReadLocalFile
+  ReadLocalFile,
+  Dialog
 } from '../action-types'
 
 export const getWindow = () => remote.BrowserWindow.getFocusedWindow()
@@ -25,6 +26,7 @@ type ActionType =
   | LyriceAction
   | UpdateType
   | ReadLocalFile
+  | Dialog
 
 export function sendAsyncIpcRendererEvent(
   action: ActionType,

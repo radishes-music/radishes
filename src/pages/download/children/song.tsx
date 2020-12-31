@@ -35,7 +35,7 @@ export const DownloadSong = defineComponent({
           <PlayAll onClick={handlePlayAll} />
           {VUE_APP_PLATFORM === Platform.ELECTRON && (
             <div class="download-song-head--dir">
-              存储目录：{state.downloadPath}{' '}
+              存储目录：{state.downloadPath}
               <ve-button type="text" onClick={handleOpenExplorer}>
                 打开目录
               </ve-button>

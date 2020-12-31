@@ -34,3 +34,7 @@ export const enum UpdateType {
 export const enum ReadLocalFile {
   READ_MP3_FROM_PATH = 'READ_MP3_FROM_PATH'
 }
+
+export const enum Dialog {
+  SHOW_DIALOG = 'SHOW_DIALOG'
+}

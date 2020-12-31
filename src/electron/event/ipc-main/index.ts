@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ipcMain, IpcMainEvent, BrowserWindow, screen } from 'electron'
+import { ipcMain, IpcMainEvent, BrowserWindow, screen, dialog } from 'electron'
 import {
   Action,
   MiddlewareView,
   LyriceAction,
   UpdateType,
   DownloadIpcType,
-  ReadLocalFile
+  ReadLocalFile,
+  Dialog
 } from '../action-types'
 import store from '@/electron/store/index'
 import { readFileSync } from 'fs'
@@ -101,5 +102,15 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
   ipcMain.on(ReadLocalFile.READ_MP3_FROM_PATH, (event, arg: string) => {
     const buffer = readFileSync(arg)
     event.returnValue = buffer
+  })
+  ipcMain.on(Dialog.SHOW_DIALOG, (event, arg) => {
+    dialog
+      .showOpenDialog(win, {
+        title: '添加文件夹',
+        properties: ['openDirectory', 'multiSelections']
+      })
+      .then(v => {
+        event.returnValue = v
+      })
   })
 }

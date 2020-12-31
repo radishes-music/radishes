@@ -3,7 +3,7 @@ import { PlayAll } from '@/components-business/button'
 import { Button } from 'ant-design-vue'
 import { Table } from '@/components-business/table'
 import { useLocalMusicModule } from '@/modules'
-import { SongsDetail, FooterMutations } from '@/interface'
+import { SongsDetail, FooterMutations, LocalMusicMutations } from '@/interface'
 import { useFooterModule } from '@/modules/index'
 import { importIpc } from '@/electron/event/ipc-browser'
 import { ReadLocalFile } from '@/electron/event/action-types'
@@ -11,7 +11,7 @@ import { ReadLocalFile } from '@/electron/event/action-types'
 export const LocalMusicSong = defineComponent({
   name: 'LocalMusicSong',
   setup() {
-    const { useState } = useLocalMusicModule()
+    const { useState, useMutations } = useLocalMusicModule()
     const footerModule = useFooterModule()
     const state = useState()
 
@@ -31,6 +31,14 @@ export const LocalMusicSong = defineComponent({
       })
       footerModule.useMutations(FooterMutations.PLAY_MUSIC)
     }
+    const handleSyncMusic = async () => {
+      const v = await import('@/electron/utils/index')
+      const songs = await v.readPathMusic(
+        state.localPath.map(item => item.path)
+      )
+
+      useMutations(LocalMusicMutations.SET_LOCAL_MUSIC, songs)
+    }
 
     onUnmounted(() => {
       // Release the URL object
@@ -41,7 +49,9 @@ export const LocalMusicSong = defineComponent({
       <div class="local-music-song">
         <div class="local-music-head">
           <PlayAll onClick={handlePlayAll} />
-          <Button shape="round">同步音乐</Button>
+          <Button shape="round" onClick={handleSyncMusic}>
+            同步音乐
+          </Button>
         </div>
         <div class="local-music-body">
           <Table

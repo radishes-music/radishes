@@ -6,11 +6,21 @@ const crypto = require('crypto')
 const { cookieToJson } = require('../util/index')
 
 const find = (id) => {
-  return match(id)
+  return match(id, [
+    'qq',
+    'xiami',
+    'baidu',
+    'kugou',
+    'kuwo',
+    'migu',
+    'joox',
+    'youtube',
+  ])
     .then((url) => {
       return url.url
     })
     .catch((e) => {
+      console.warn(e)
       return ''
     })
 }
