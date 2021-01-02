@@ -32,7 +32,14 @@ export const SongList = defineComponent({
 
     return () => (
       <div class={`${prefix}-list`}>
-        <Skeleton loading={loading.value}>
+        <Skeleton
+          active
+          paragraph={{
+            rows: 3,
+            width: '100%'
+          }}
+          loading={loading.value}
+        >
           <ul>
             {songData.value.map(song => (
               <li

@@ -4,7 +4,8 @@ import {
   toRaw,
   toRefs,
   watch,
-  ComputedRef
+  ComputedRef,
+  ref
 } from 'vue'
 import { useRoute } from '@/hooks/index'
 import { useSongModule, useFooterModule } from '@/modules/index'
@@ -18,6 +19,7 @@ import {
 } from '@/interface/index'
 import { SecondaryList } from '@/components-business/secondary-list'
 import { playMusic } from '@/shared/music-shared'
+import { Skeleton } from 'ant-design-vue'
 import './index.less'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -96,21 +98,24 @@ const formatAlbumListData = (item: AlbumList): FormatSource => {
 export default defineComponent({
   name: 'SongListDetails',
   setup() {
+    const loading = ref(false)
     const route = useRoute()
     const { useActions, useState } = useSongModule()
     const footerStore = useFooterModule()
 
     const type = computed(() => route.params.type) as ComputedRef<string>
 
-    const updateList = (v: string) => {
+    const updateList = async (v: string) => {
+      loading.value = true
       if (v === '-1') {
         type.value === 'song' &&
-          useActions(SongActions.SET_ACTION_RECOMMEND_SONG)
+          (await useActions(SongActions.SET_ACTION_RECOMMEND_SONG))
       } else if (v) {
         type.value === 'song'
-          ? useActions(SongActions.SET_ACTION_PLAYLIST, v)
-          : useActions(SongActions.SET_ACTION_ALBUMLIST, v)
+          ? await useActions(SongActions.SET_ACTION_PLAYLIST, v)
+          : await useActions(SongActions.SET_ACTION_ALBUMLIST, v)
       }
+      loading.value = false
     }
 
     watch(
@@ -157,13 +162,35 @@ export default defineComponent({
 
     return () => (
       <div class="song-list-details">
-        <SecondaryList
-          type={type.value}
-          source={rawData.value}
-          onPlayAll={handlePlayAll}
-          onPlayDbl={handleDbClick}
-          onUpdate={() => updateList(route.params.playlist as string)}
-        />
+        <Skeleton
+          active
+          avatar={{
+            shape: 'square',
+            size: 'large'
+          }}
+          paragraph={{
+            rows: 5,
+            width: '100%'
+          }}
+          loading={loading.value}
+        >
+          <SecondaryList
+            type={type.value}
+            source={rawData.value}
+            onPlayAll={handlePlayAll}
+            onPlayDbl={handleDbClick}
+            onUpdate={() => updateList(route.params.playlist as string)}
+          />
+        </Skeleton>
+        <Skeleton
+          class="song-list-details--table"
+          active
+          paragraph={{
+            rows: 10,
+            width: '100%'
+          }}
+          loading={loading.value}
+        ></Skeleton>
       </div>
     )
   }
