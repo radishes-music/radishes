@@ -3,6 +3,7 @@ import { getUserOS, join } from '@/electron/utils/index'
 import { DownloadIpcType } from '../action-types'
 import { writeFile } from 'fs'
 import { DownloadData } from '../../preload/ipc'
+import { writeBufferID3 } from '@/tag/ID3Writer'
 import throttle from 'lodash/throttle'
 import store from '@/electron/store/index'
 
@@ -19,6 +20,7 @@ const downloadStart = ({
     name
   })
 }
+
 const downloadProgress = throttle(
   ({
     win,
@@ -51,6 +53,23 @@ const downloadEnd = ({
   })
 }
 
+const renderCover = (url: string): Promise<Buffer> => {
+  return new Promise(resolve => {
+    const request = net.request(url)
+    request.on('response', response => {
+      const chunks: Buffer[] = []
+      response.on('data', chunk => {
+        chunks.push(chunk)
+      })
+      response.on('end', () => {
+        const buffer = Buffer.concat(chunks)
+        resolve(buffer)
+      })
+    })
+    request.end()
+  })
+}
+
 export const downloadIntercept = (win: BrowserWindow) => {
   const downloadPath = store.get(
     'downloadPath',
@@ -59,9 +78,12 @@ export const downloadIntercept = (win: BrowserWindow) => {
 
   ipcMain.on(
     DownloadIpcType.DOWNLOAD_TASK,
-    async (event, { name, url, suffix }: { [x: string]: string }) => {
-      console.log(url, name, suffix)
-      const request = await net.request(url)
+    async (
+      event,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      { name, url, suffix, al, ar, pic, arArr, id }: { [x: string]: string }
+    ) => {
+      const request = net.request(url)
       request.on('response', response => {
         downloadStart({
           win,
@@ -83,11 +105,29 @@ export const downloadIntercept = (win: BrowserWindow) => {
             total: totalBytes
           })
         })
-        response.on('end', () => {
+        response.on('end', async () => {
           const buffer = Buffer.concat(chunks)
           const path = join(downloadPath, name + suffix)
-          console.log(path)
-          writeFile(path, buffer, err => {
+          const comm = Buffer.from(String(id)).toString('base64')
+          const { setFrame, addTag } = writeBufferID3(buffer)
+          setFrame('TIT2', name)
+          setFrame('TALB', al)
+          setFrame('TPE2', ar)
+          setFrame('TPE1', arArr.split(';'))
+          setFrame('COMM', {
+            description: '',
+            text: comm,
+            language: 'eng'
+          })
+          // The cover image is too large, which will cause the application to start slowly, so the display of the cover page when offline is temporarily not supported.
+          // setFrame('APIC', {
+          //   type: 3,
+          //   data: await renderCover(pic),
+          //   description: 'Cover (front)',
+          //   useUnicodeEncoding: false
+          // })
+          const newBuf = Buffer.from(addTag())
+          writeFile(path, newBuf, err => {
             console.log(err)
             if (err) {
               downloadEnd({

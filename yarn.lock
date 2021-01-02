@@ -3971,6 +3971,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/imagemin@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.npm.taobao.org/@types/imagemin/download/@types/imagemin-7.0.0.tgz#cb99d719190ebe421015213733d656fac1f8af2e"
+  integrity sha1-y5nXGRkOvkIQFSE3M9ZW+sH4ry4=
+  dependencies:
+    "@types/node" "*"
+
 "@types/is-function@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/@types/is-function/download/@types/is-function-1.0.0.tgz#1b0b819b1636c7baf0d6785d030d12edf70c3e83"
@@ -6284,11 +6291,6 @@ blob-util@2.0.2:
   version "2.0.2"
   resolved "https://registry.npm.taobao.org/blob-util/download/blob-util-2.0.2.tgz#3b4e3c281111bb7f11128518006cdc60b403a1eb"
   integrity sha1-O048KBERu38REoUYAGzcYLQDoes=
-
-bluebird-co@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.npm.taobao.org/bluebird-co/download/bluebird-co-2.2.0.tgz#e0a49e63b6b17e34c91f48b3934b769a377fbed7"
-  integrity sha1-4KSeY7axfjTJH0izk0t2mjd/vtc=
 
 bluebird-lst@^1.0.9:
   version "1.0.9"
@@ -10404,6 +10406,11 @@ file-system-cache@^1.0.5:
     fs-extra "^0.30.0"
     ramda "^0.21.0"
 
+file-type@^12.0.0:
+  version "12.4.2"
+  resolved "https://registry.npm.taobao.org/file-type/download/file-type-12.4.2.tgz?cache=0&sync_timestamp=1608546925614&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffile-type%2Fdownload%2Ffile-type-12.4.2.tgz#a344ea5664a1d01447ee7fb1b635f72feb6169d9"
+  integrity sha1-o0TqVmSh0BRH7n+xtjX3L+thadk=
+
 file-type@^16.0.1:
   version "16.1.0"
   resolved "https://registry.npm.taobao.org/file-type/download/file-type-16.1.0.tgz?cache=0&sync_timestamp=1608546864393&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffile-type%2Fdownload%2Ffile-type-16.1.0.tgz#1c8a4458b2103e07d2b49ae7f76384abafe86529"
@@ -11255,7 +11262,7 @@ globby@8.0.2:
     pify "^3.0.0"
     slash "^1.0.0"
 
-globby@^10.0.1:
+globby@^10.0.0, globby@^10.0.1:
   version "10.0.2"
   resolved "https://registry.npm.taobao.org/globby/download/globby-10.0.2.tgz?cache=0&sync_timestamp=1600349143804&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fglobby%2Fdownload%2Fglobby-10.0.2.tgz#277593e745acaa4646c3ab411289ec47a0392543"
   integrity sha1-J3WT50WsqkZGw6tBEonsR6A5JUM=
@@ -12089,6 +12096,19 @@ image-size@~0.5.0:
   version "0.5.5"
   resolved "https://registry.npm.taobao.org/image-size/download/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
   integrity sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=
+
+imagemin@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.npm.taobao.org/imagemin/download/imagemin-7.0.1.tgz#f6441ca647197632e23db7d971fffbd530c87dbf"
+  integrity sha1-9kQcpkcZdjLiPbfZcf/71TDIfb8=
+  dependencies:
+    file-type "^12.0.0"
+    globby "^10.0.0"
+    graceful-fs "^4.2.2"
+    junk "^3.1.0"
+    make-dir "^3.0.0"
+    p-pipe "^3.0.0"
+    replace-ext "^1.0.0"
 
 immediate@~3.0.5:
   version "3.0.6"
@@ -13718,6 +13738,11 @@ jszip@^3.1.0:
     readable-stream "~2.3.6"
     set-immediate-shim "~1.0.1"
 
+junk@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/junk/download/junk-3.1.0.tgz#31499098d902b7e98c5d9b9c80f43457a88abfa1"
+  integrity sha1-MUmQmNkCt+mMXZucgPQ0V6iKv6E=
+
 kew@^0.7.0:
   version "0.7.0"
   resolved "https://registry.npm.taobao.org/kew/download/kew-0.7.0.tgz#79d93d2d33363d6fdd2970b335d9141ad591d79b"
@@ -15148,14 +15173,6 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
-mp3-duration@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npm.taobao.org/mp3-duration/download/mp3-duration-1.1.0.tgz#c002e4e454448060873660abb4da7d10118d0e9c"
-  integrity sha1-wALk5FREgGCHNmCrtNp9EBGNDpw=
-  dependencies:
-    bluebird "^3.5.1"
-    bluebird-co "^2.2.0"
-
 mri@1.1.4:
   version "1.1.4"
   resolved "https://registry.npm.taobao.org/mri/download/mri-1.1.4.tgz#7cb1dd1b9b40905f1fac053abe25b6720f44744a"
@@ -16068,6 +16085,11 @@ p-pipe@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npm.taobao.org/p-pipe/download/p-pipe-1.2.0.tgz#4b1a11399a11520a67790ee5a0c1d5881d6befe9"
   integrity sha1-SxoROZoRUgpneQ7loMHViB1r7+k=
+
+p-pipe@^3.0.0:
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/p-pipe/download/p-pipe-3.1.0.tgz#48b57c922aa2e1af6a6404cb7c6bf0eb9cc8e60e"
+  integrity sha1-SLV8kiqi4a9qZATLfGvw65zI5g4=
 
 p-queue@^4.0.0:
   version "4.0.0"
@@ -18313,6 +18335,11 @@ replace-ext@1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/replace-ext/download/replace-ext-1.0.0.tgz#de63128373fcbf7c3ccfa4de5a480c45a67958eb"
   integrity sha1-3mMSg3P8v3w8z6TeWkgMRaZ5WOs=
+
+replace-ext@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/replace-ext/download/replace-ext-1.0.1.tgz#2d6d996d04a15855d967443631dd5f77825b016a"
+  integrity sha1-LW2ZbQShWFXZZ0Q2Md1fd4JbAWo=
 
 request-progress@^2.0.1:
   version "2.0.1"

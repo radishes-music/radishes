@@ -11,6 +11,7 @@ import { getMusicUrl } from '@/shared/music-shared'
 import { download } from '@/utils/index'
 import { importIpc } from '@/electron/event/ipc-browser'
 import { DownloadIpcType } from '@/electron/event/action-types'
+import { getSongDetail } from '@/api/index'
 import { Platform } from '@/config/build'
 
 const { VUE_APP_PLATFORM } = process.env
@@ -27,8 +28,25 @@ export const actions: ActionTree<DownloadState, RootState> = {
     }
     if (VUE_APP_PLATFORM === Platform.ELECTRON) {
       const v = await importIpc()
+      let al, ar, pic, arArr
+      try {
+        const detail = await getSongDetail(song.id)
+        if (detail.length) {
+          al = detail[0].al.name
+          ar = detail[0].ar.map(r => r.name).join(',')
+          arArr = detail[0].ar.map(r => r.name).join(',')
+          pic = detail[0].al.picUrl
+        }
+      } catch (e) {
+        console.warn(e)
+      }
       v.sendAsyncIpcRendererEvent(DownloadIpcType.DOWNLOAD_TASK, {
         name: song.name,
+        al,
+        ar,
+        pic,
+        arArr,
+        id: song.id,
         suffix: '.mp3',
         url
       })

@@ -44,6 +44,7 @@ export interface FooterGetter {
 
 export const enum FooterActions {
   SET_MUSIC = 'SET_MUSIC_URL',
+  SET_LOCAL_MUSIC = 'SET_LOCAL_MUSIC',
   SET_MUSIC_DEFAILT = 'SET_MUSIC_DEFAILT',
   SET_MUSIC_LYRICS = 'SET_MUSIC_LYRICS'
 }

@@ -8,7 +8,7 @@ import { readdirSync } from 'fs'
 import { ICommonTagsResult } from 'music-metadata/lib/type.d'
 import { join } from 'path'
 import { v4 } from 'uuid'
-import * as mm from 'music-metadata'
+import { parseFile } from 'music-metadata'
 export * from 'fs'
 export { normalize, join } from 'path'
 
@@ -66,7 +66,7 @@ export const getMp3Tags = async (
     title: 'name'
   }
   const stat = statSync(path)
-  const tag = await mm.parseFile(path, {
+  const tag = await parseFile(path, {
     duration: true
   })
   const duration = tag.format.duration
@@ -125,14 +125,4 @@ export const readPathMusic = async (abPath: string[]) => {
   }
 
   return fls
-}
-
-export const saveBlob = (blob: Blob) => {
-  const reader = new FileReader()
-  reader.onload = () => {
-    if (reader.readyState == 2 && reader.result) {
-      const buffer = Buffer.from(reader.result)
-    }
-  }
-  reader.readAsArrayBuffer(blob)
 }

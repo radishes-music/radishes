@@ -1,35 +1,34 @@
-import { defineComponent, onUnmounted } from 'vue'
+import { defineComponent, onUnmounted, toRaw } from 'vue'
 import { PlayAll } from '@/components-business/button'
 import { Button } from 'ant-design-vue'
 import { Table } from '@/components-business/table'
 import { useLocalMusicModule } from '@/modules'
-import { SongsDetail, FooterMutations, LocalMusicMutations } from '@/interface'
-import { useFooterModule } from '@/modules/index'
+import { SongsDetail, LocalMusicMutations, LocalMusicDetail } from '@/interface'
 import { importIpc } from '@/electron/event/ipc-browser'
 import { ReadLocalFile } from '@/electron/event/action-types'
+import { playMusic, clearLocalMusicUrl } from '@/shared/music-shared'
+import cloneDeep from 'lodash/cloneDeep'
 
 export const LocalMusicSong = defineComponent({
   name: 'LocalMusicSong',
   setup() {
     const { useState, useMutations } = useLocalMusicModule()
-    const footerModule = useFooterModule()
     const state = useState()
 
+    const play = playMusic()
     const handlePlayAll = () => {
       //
     }
-    const handlePlaySingle = async (song: SongsDetail & { path: string }) => {
-      footerModule.useMutations(FooterMutations.PAUES_MUSIC)
+    const handlePlaySingle = async (song: SongsDetail & LocalMusicDetail) => {
+      const music = cloneDeep(toRaw(song))
       const renderer = await importIpc()
       const buffer = renderer.sendSyncIpcRendererEvent(
         ReadLocalFile.READ_MP3_FROM_PATH,
-        song.path
+        music.path
       )
-      footerModule.useMutations(FooterMutations.SET_LOCAL_MUSIC_URL, {
-        buffer,
-        path: song.path
-      })
-      footerModule.useMutations(FooterMutations.PLAY_MUSIC)
+      music.buffer = buffer as Buffer
+      music.id = Number(atob(String(music.id)))
+      play(music)
     }
     const handleSyncMusic = async () => {
       const v = await import('@/electron/utils/index')
@@ -42,7 +41,7 @@ export const LocalMusicSong = defineComponent({
 
     onUnmounted(() => {
       // Release the URL object
-      footerModule.useMutations(FooterMutations.CLEAR_LOCAL_MUSIC_URL)
+      clearLocalMusicUrl()
     })
 
     return () => (

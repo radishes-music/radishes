@@ -1,15 +1,13 @@
 import { toRaw } from 'vue'
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
-import { isNumber, timeTos, toFixed, toArrayBuffer } from '@/utils/index'
-import { getSongDetail, getLyric } from './api/index'
+import { isNumber, timeTos, toFixed } from '@/utils/index'
+import { getSongDetail, getLyric } from '@/api/index'
 import { FooterState, FooterActions, FooterMutations } from './interface'
 import { getMusicUrl } from '@/shared/music-shared'
 import { RootState } from '@/store/index'
 import { SongsDetail } from '@/interface'
 import cloneDeep from 'lodash/cloneDeep'
 import remove from 'lodash/remove'
-
-const mapURL = new Map()
 
 const dominateMediaSession = (
   title: string,
@@ -132,7 +130,6 @@ export const actions: ActionTree<FooterState, RootState> = {
     state.musicUrl = url
     await dispatch(FooterActions.SET_MUSIC_DEFAILT, id)
     await dispatch(FooterActions.SET_MUSIC_LYRICS, id)
-    commit(FooterMutations.CAN_PLAY, false)
     commit(FooterMutations.SET_MUSIC_URL, url)
   },
   async [FooterActions.SET_MUSIC_DEFAILT]({ state }, id: number | number[]) {
@@ -173,33 +170,6 @@ export const mutations: MutationTree<FooterState> = {
       if (isExist) {
         state.musicStack.push(item)
       }
-    })
-  },
-  [FooterMutations.SET_LOCAL_MUSIC_URL](
-    state,
-    mp3: {
-      buffer: Buffer
-      path: string
-    }
-  ) {
-    if (state.audioElement && state.sourceElement) {
-      let url = ''
-      if (mapURL.has(mp3.path)) {
-        url = mapURL.get(mp3.path)
-      } else {
-        const blob = new Blob([toArrayBuffer(mp3.buffer)], {
-          type: 'audio/mpeg'
-        })
-        url = window.URL.createObjectURL(blob)
-        mapURL.set(mp3.path, url)
-      }
-      state.sourceElement.src = url
-      state.audioElement.load()
-    }
-  },
-  [FooterMutations.CLEAR_LOCAL_MUSIC_URL]() {
-    Array.from(mapURL.values()).forEach((url: string) => {
-      window.URL.revokeObjectURL(url)
     })
   },
   [FooterMutations.SET_MUSIC_URL](state, payload: string | SongsDetail) {

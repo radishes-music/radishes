@@ -1,4 +1,17 @@
-import { SongsDetail } from '@/interface'
+import { SongsDetail, Artists } from '@/interface'
+
+export interface LocalMusicDetail {
+  buffer: Buffer
+  path: string
+  picture: { data: Buffer; type: string; format: string }[]
+  pic: string
+  comment: string[]
+  ar: Artists[]
+  artists: Artists[]
+  al: string
+  id: number
+  name: string
+}
 
 export interface LocalMusicPath {
   name: string
