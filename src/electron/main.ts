@@ -1,4 +1,4 @@
-import { app, protocol, BrowserWindow, screen, session } from 'electron'
+import { app, protocol, BrowserWindow, screen } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { eventInit } from '@/electron/event/index'
@@ -103,14 +103,14 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
-  session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-    const location = new URL(details.url)
-    if (location.port === '') {
-      details.requestHeaders['Origin'] = location.origin
-      details.requestHeaders['Referer'] = location.origin
-    }
-    callback({ requestHeaders: details.requestHeaders })
-  })
+  // session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
+  //   const location = new URL(details.url)
+  //   if (location.port === '') {
+  //     details.requestHeaders['Origin'] = location.origin
+  //     details.requestHeaders['Referer'] = location.origin
+  //   }
+  //   callback({ requestHeaders: details.requestHeaders })
+  // })
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
