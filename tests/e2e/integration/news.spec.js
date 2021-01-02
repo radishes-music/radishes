@@ -88,33 +88,33 @@ context('News Music Basic', () => {
     cy.contains('.secondary-bar-link-active', '专辑')
   })
 
-  it('Double click to play the song', () => {
-    cy.visit('/music/toplist')
+  // it('Double click to play the song', () => {
+  //   cy.visit('/music/toplist')
 
-    // https://github.com/cypress-io/cypress/issues/14269
-    // Found it is a cache problem
-    // Solution: Use a timestamp to ensure that the URL cannot hit the browser cache
-    cy.intercept(/\/api\/song\/url/).as('getUrl')
-    cy.intercept(/\/api\/song\/detail/).as('getDetail')
-    cy.intercept(/\/api\/lyric/).as('getLyric')
-    cy.get(
-      '.toplist-expansion-contanier:first-child .none-select:first-child'
-    ).dblclick()
+  //   // https://github.com/cypress-io/cypress/issues/14269
+  //   // Found it is a cache problem
+  //   // Solution: Use a timestamp to ensure that the URL cannot hit the browser cache
+  //   cy.intercept(/\/api\/song\/url/).as('getUrl')
+  //   cy.intercept(/\/api\/song\/detail/).as('getDetail')
+  //   cy.intercept(/\/api\/lyric/).as('getLyric')
+  //   cy.get(
+  //     '.toplist-expansion-contanier:first-child .none-select:first-child'
+  //   ).dblclick()
 
-    cy.wait(['@getUrl', '@getDetail', '@getLyric'], {
-      requestTimeout: 20 * 1000
-    }).then(() => {
-      // Possibly due to insufficient performance in the ci automatic test
-      cy.wait(1000).then(() => {
-        cy.get('source')
-          .invoke('attr', 'src')
-          .then(src => {
-            expect(src).to.have.string('.mp3')
-          })
+  //   cy.wait(['@getUrl', '@getDetail', '@getLyric'], {
+  //     requestTimeout: 20 * 1000
+  //   }).then(() => {
+  //     // Possibly due to insufficient performance in the ci automatic test
+  //     cy.wait(1000).then(() => {
+  //       cy.get('source')
+  //         .invoke('attr', 'src')
+  //         .then(src => {
+  //           expect(src).to.have.string('.mp3')
+  //         })
 
-        // pause music
-        cy.get('.music-command-group button:nth-child(3)').click()
-      })
-    })
-  })
+  //       // pause music
+  //       cy.get('.music-command-group button:nth-child(3)').click()
+  //     })
+  //   })
+  // })
 })
