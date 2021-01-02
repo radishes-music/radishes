@@ -3,6 +3,7 @@ import { useRouter } from '@/hooks/index'
 import { SearchSuggest, HeaderActions, Songs } from '@/interface'
 import { useHeaderModule, useFooterModule } from '@/modules/index'
 import { FooterActions, FooterMutations } from '@/interface'
+import { playMusic } from '@/shared/music-shared'
 import debounce from 'lodash/debounce'
 import './search.less'
 
@@ -102,6 +103,7 @@ export const Search = defineComponent({
     const { useActions, useState } = useHeaderModule()
     const footerStore = useFooterModule()
 
+    const play = playMusic()
     const state = useState()
     const words = ref('')
     const loading = ref(false)
@@ -129,8 +131,7 @@ export const Search = defineComponent({
     const handleSelect = async (type: SearchType, id: unknown) => {
       switch (type) {
         case SearchType.SONGS:
-          footerStore.useMutations(FooterMutations.PAUES_MUSIC)
-          footerStore.useActions(FooterActions.SET_MUSIC, (id as Songs).id)
+          play((id as Songs).id)
           break
         case SearchType.PLAYLISTS:
           router.push({
