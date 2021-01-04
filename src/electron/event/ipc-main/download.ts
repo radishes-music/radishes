@@ -100,24 +100,24 @@ const nodeDownload = async (
       const buffer = Buffer.concat(chunks)
       const path = join(downloadPath, name + suffix)
       const comm = Buffer.from(String(id)).toString('base64')
-      const { setFrame, addTag } = writeBufferID3(buffer)
-      setFrame('TIT2', name)
-      setFrame('TALB', al)
-      setFrame('TPE2', ar)
-      setFrame('TPE1', arArr.split(';'))
-      setFrame('COMM', {
+      const { renderBuffer, addTag } = writeBufferID3(buffer)
+      addTag('TIT2', name)
+      addTag('TALB', al)
+      addTag('TPE2', ar)
+      addTag('TPE1', arArr.split(';'))
+      addTag('COMM', {
         description: '',
         text: comm,
         language: 'eng'
       })
       // The cover image is too large, which will cause the application to start slowly, so the display of the cover page when offline is temporarily not supported.
-      // setFrame('APIC', {
+      // addTag('APIC', {
       //   type: 3,
       //   data: await renderCover(pic),
       //   description: 'Cover (front)',
       //   useUnicodeEncoding: false
       // })
-      const newBuf = Buffer.from(addTag())
+      const newBuf = Buffer.from(renderBuffer())
       writeFile(path, newBuf, err => {
         if (err) {
           console.log(err)

@@ -164,10 +164,8 @@ function _setUrlLinkFrame(frames: unknown[], name: string, url: string) {
   })
 }
 
-export function writeBufferID3(buf: Buffer) {
-  const originBuffer = buf
-  const padding = 4096
-  const frames: {
+function renderBuffer(
+  frames: {
     [x: string]: unknown
     name: string
     size: number
@@ -176,11 +174,179 @@ export function writeBufferID3(buf: Buffer) {
     description: string
     id: string
     mimeType: string
-  }[] = []
+  }[],
+  padding: number,
+  originBuffer: Buffer
+) {
+  return () => {
+    const BOM = [0xff, 0xfe]
+    const headerSize = 10
+    const totalFrameSize = frames.reduce((sum, frame) => sum + frame.size, 0)
+    const totalTagSize = headerSize + totalFrameSize + padding
+    const buffer = new ArrayBuffer(originBuffer.byteLength + totalTagSize)
+    const bufferWriter = new Uint8Array(buffer)
 
-  const invoke = invokeFrame(frames)
+    let offset = 0
+    let writeBytes: any = []
 
-  const setFrame = (frameName: string, frameValue: any) => {
+    writeBytes = [0x49, 0x44, 0x33, 3] // ID3 tag and version
+    bufferWriter.set(writeBytes, offset)
+    offset += writeBytes.length
+
+    offset++ // version revision
+    offset++ // flags
+
+    writeBytes = uint28ToUint7Array(totalTagSize - headerSize) // tag size (without header)
+    bufferWriter.set(writeBytes, offset)
+    offset += writeBytes.length
+
+    frames.forEach(frame => {
+      writeBytes = encodeWindows1252(frame.name) // frame name
+      bufferWriter.set(writeBytes, offset)
+      offset += writeBytes.length
+
+      writeBytes = uint32ToUint8Array(frame.size - headerSize) // frame size (without header)
+      bufferWriter.set(writeBytes, offset)
+      offset += writeBytes.length
+
+      offset += 2 // flags
+
+      switch (frame.name) {
+        case 'WCOM':
+        case 'WCOP':
+        case 'WOAF':
+        case 'WOAR':
+        case 'WOAS':
+        case 'WORS':
+        case 'WPAY':
+        case 'WPUB': {
+          writeBytes = encodeWindows1252(frame.value) // URL
+          bufferWriter.set(writeBytes, offset)
+          offset += writeBytes.length
+          break
+        }
+        case 'TPE1':
+        case 'TCOM':
+        case 'TCON':
+        case 'TLAN':
+        case 'TIT1':
+        case 'TIT2':
+        case 'TIT3':
+        case 'TALB':
+        case 'TPE2':
+        case 'TPE3':
+        case 'TPE4':
+        case 'TRCK':
+        case 'TPOS':
+        case 'TKEY':
+        case 'TMED':
+        case 'TPUB':
+        case 'TCOP':
+        case 'TEXT':
+        case 'TSRC': {
+          writeBytes = [1].concat(BOM) // encoding, BOM
+          bufferWriter.set(writeBytes, offset)
+          offset += writeBytes.length
+
+          writeBytes = encodeUtf16le(frame.value) // frame value
+          bufferWriter.set(writeBytes, offset)
+          offset += writeBytes.length
+          break
+        }
+        case 'TXXX':
+        case 'USLT':
+        case 'COMM': {
+          writeBytes = [1] // encoding
+          if (frame.name === 'USLT' || frame.name === 'COMM') {
+            writeBytes = writeBytes.concat(frame.language) // language
+          }
+          writeBytes = writeBytes.concat(BOM) // BOM for content descriptor
+          bufferWriter.set(writeBytes, offset)
+          offset += writeBytes.length
+
+          writeBytes = encodeUtf16le(frame.description) // content descriptor
+          bufferWriter.set(writeBytes, offset)
+          offset += writeBytes.length
+
+          writeBytes = [0, 0].concat(BOM) // separator, BOM for frame value
+          bufferWriter.set(writeBytes, offset)
+          offset += writeBytes.length
+
+          writeBytes = encodeUtf16le(frame.value) // frame value
+          bufferWriter.set(writeBytes, offset)
+          offset += writeBytes.length
+          break
+        }
+        case 'TBPM':
+        case 'TLEN':
+        case 'TDAT':
+        case 'TYER': {
+          offset++ // encoding
+
+          writeBytes = encodeWindows1252(frame.value) // frame value
+          bufferWriter.set(writeBytes, offset)
+          offset += writeBytes.length
+          break
+        }
+        case 'PRIV': {
+          writeBytes = encodeWindows1252(frame.id) // identifier
+          bufferWriter.set(writeBytes, offset)
+          offset += writeBytes.length
+
+          offset++ // separator
+
+          bufferWriter.set(new Uint8Array(frame.value as Uint8Array), offset) // frame data
+          offset += (frame.value as Uint8Array).byteLength
+          break
+        }
+        case 'APIC': {
+          writeBytes = [frame.useUnicodeEncoding ? 1 : 0] // encoding
+          bufferWriter.set(writeBytes, offset)
+          offset += writeBytes.length
+
+          writeBytes = encodeWindows1252(frame.mimeType) // MIME type
+          bufferWriter.set(writeBytes, offset)
+          offset += writeBytes.length
+
+          writeBytes = [0, frame.pictureType] // separator, pic type
+          bufferWriter.set(writeBytes, offset)
+          offset += writeBytes.length
+
+          if (frame.useUnicodeEncoding) {
+            writeBytes = [].concat(BOM as any) // BOM
+            bufferWriter.set(writeBytes, offset)
+            offset += writeBytes.length
+
+            writeBytes = encodeUtf16le(frame.description) // description
+            bufferWriter.set(writeBytes, offset)
+            offset += writeBytes.length
+
+            offset += 2 // separator
+          } else {
+            writeBytes = encodeWindows1252(frame.description) // description
+            bufferWriter.set(writeBytes, offset)
+            offset += writeBytes.length
+
+            offset++ // separator
+          }
+
+          bufferWriter.set(new Uint8Array(frame.value as Uint8Array), offset) // picture content
+          offset += (frame.value as Uint8Array).byteLength
+          break
+        }
+      }
+    })
+
+    offset += padding // free space for rewriting
+    bufferWriter.set(new Uint8Array(originBuffer), offset)
+    return buffer
+  }
+}
+
+function addTag(
+  invoke: (fn: (...args: any[]) => void, ...args: any[]) => void
+) {
+  return (frameName: string, frameValue: any) => {
     switch (frameName) {
       case 'TPE1': // song artists
       case 'TCOM': // song composers
@@ -344,173 +510,26 @@ export function writeBufferID3(buf: Buffer) {
       }
     }
   }
+}
 
-  const addTag = () => {
-    const BOM = [0xff, 0xfe]
-    const headerSize = 10
-    const totalFrameSize = frames.reduce((sum, frame) => sum + frame.size, 0)
-    const totalTagSize = headerSize + totalFrameSize + padding
-    const buffer = new ArrayBuffer(originBuffer.byteLength + totalTagSize)
-    const bufferWriter = new Uint8Array(buffer)
+export function writeBufferID3(buf: Buffer) {
+  const originBuffer = buf
+  const padding = 4096
+  const frames: {
+    [x: string]: unknown
+    name: string
+    size: number
+    value: string | Uint8Array
+    language: string
+    description: string
+    id: string
+    mimeType: string
+  }[] = []
 
-    let offset = 0
-    let writeBytes: any = []
-
-    writeBytes = [0x49, 0x44, 0x33, 3] // ID3 tag and version
-    bufferWriter.set(writeBytes, offset)
-    offset += writeBytes.length
-
-    offset++ // version revision
-    offset++ // flags
-
-    writeBytes = uint28ToUint7Array(totalTagSize - headerSize) // tag size (without header)
-    bufferWriter.set(writeBytes, offset)
-    offset += writeBytes.length
-
-    frames.forEach(frame => {
-      writeBytes = encodeWindows1252(frame.name) // frame name
-      bufferWriter.set(writeBytes, offset)
-      offset += writeBytes.length
-
-      writeBytes = uint32ToUint8Array(frame.size - headerSize) // frame size (without header)
-      bufferWriter.set(writeBytes, offset)
-      offset += writeBytes.length
-
-      offset += 2 // flags
-
-      switch (frame.name) {
-        case 'WCOM':
-        case 'WCOP':
-        case 'WOAF':
-        case 'WOAR':
-        case 'WOAS':
-        case 'WORS':
-        case 'WPAY':
-        case 'WPUB': {
-          writeBytes = encodeWindows1252(frame.value) // URL
-          bufferWriter.set(writeBytes, offset)
-          offset += writeBytes.length
-          break
-        }
-        case 'TPE1':
-        case 'TCOM':
-        case 'TCON':
-        case 'TLAN':
-        case 'TIT1':
-        case 'TIT2':
-        case 'TIT3':
-        case 'TALB':
-        case 'TPE2':
-        case 'TPE3':
-        case 'TPE4':
-        case 'TRCK':
-        case 'TPOS':
-        case 'TKEY':
-        case 'TMED':
-        case 'TPUB':
-        case 'TCOP':
-        case 'TEXT':
-        case 'TSRC': {
-          writeBytes = [1].concat(BOM) // encoding, BOM
-          bufferWriter.set(writeBytes, offset)
-          offset += writeBytes.length
-
-          writeBytes = encodeUtf16le(frame.value) // frame value
-          bufferWriter.set(writeBytes, offset)
-          offset += writeBytes.length
-          break
-        }
-        case 'TXXX':
-        case 'USLT':
-        case 'COMM': {
-          writeBytes = [1] // encoding
-          if (frame.name === 'USLT' || frame.name === 'COMM') {
-            writeBytes = writeBytes.concat(frame.language) // language
-          }
-          writeBytes = writeBytes.concat(BOM) // BOM for content descriptor
-          bufferWriter.set(writeBytes, offset)
-          offset += writeBytes.length
-
-          writeBytes = encodeUtf16le(frame.description) // content descriptor
-          bufferWriter.set(writeBytes, offset)
-          offset += writeBytes.length
-
-          writeBytes = [0, 0].concat(BOM) // separator, BOM for frame value
-          bufferWriter.set(writeBytes, offset)
-          offset += writeBytes.length
-
-          writeBytes = encodeUtf16le(frame.value) // frame value
-          bufferWriter.set(writeBytes, offset)
-          offset += writeBytes.length
-          break
-        }
-        case 'TBPM':
-        case 'TLEN':
-        case 'TDAT':
-        case 'TYER': {
-          offset++ // encoding
-
-          writeBytes = encodeWindows1252(frame.value) // frame value
-          bufferWriter.set(writeBytes, offset)
-          offset += writeBytes.length
-          break
-        }
-        case 'PRIV': {
-          writeBytes = encodeWindows1252(frame.id) // identifier
-          bufferWriter.set(writeBytes, offset)
-          offset += writeBytes.length
-
-          offset++ // separator
-
-          bufferWriter.set(new Uint8Array(frame.value as Uint8Array), offset) // frame data
-          offset += (frame.value as Uint8Array).byteLength
-          break
-        }
-        case 'APIC': {
-          writeBytes = [frame.useUnicodeEncoding ? 1 : 0] // encoding
-          bufferWriter.set(writeBytes, offset)
-          offset += writeBytes.length
-
-          writeBytes = encodeWindows1252(frame.mimeType) // MIME type
-          bufferWriter.set(writeBytes, offset)
-          offset += writeBytes.length
-
-          writeBytes = [0, frame.pictureType] // separator, pic type
-          bufferWriter.set(writeBytes, offset)
-          offset += writeBytes.length
-
-          if (frame.useUnicodeEncoding) {
-            writeBytes = [].concat(BOM as any) // BOM
-            bufferWriter.set(writeBytes, offset)
-            offset += writeBytes.length
-
-            writeBytes = encodeUtf16le(frame.description) // description
-            bufferWriter.set(writeBytes, offset)
-            offset += writeBytes.length
-
-            offset += 2 // separator
-          } else {
-            writeBytes = encodeWindows1252(frame.description) // description
-            bufferWriter.set(writeBytes, offset)
-            offset += writeBytes.length
-
-            offset++ // separator
-          }
-
-          bufferWriter.set(new Uint8Array(frame.value as Uint8Array), offset) // picture content
-          offset += (frame.value as Uint8Array).byteLength
-          break
-        }
-      }
-    })
-
-    offset += padding // free space for rewriting
-    bufferWriter.set(new Uint8Array(originBuffer), offset)
-    return buffer
-  }
+  const invoke = invokeFrame(frames)
 
   return {
-    setFrame,
-    addTag
+    addTag: addTag(invoke),
+    renderBuffer: renderBuffer(frames, padding, originBuffer)
   }
 }
