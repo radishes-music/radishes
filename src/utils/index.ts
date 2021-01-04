@@ -22,6 +22,13 @@ export const isNumber = (n: unknown) => {
   return Object.prototype.toString.call(n) === '[object Number]'
 }
 
+export const isMobile = () => {
+  const regexp = /Android|webOS|iPhone|iPod|BlackBerry|iPad/i
+  return Boolean(
+    navigator && navigator.userAgent && regexp.test(navigator.userAgent)
+  )
+}
+
 export const formatTime = (time: number, unit: OpUnitType): string => {
   return dayjs
     .utc(new Date(0))

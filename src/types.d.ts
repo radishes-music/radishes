@@ -9,3 +9,9 @@ declare module '@vue/runtime-core' {
 }
 
 declare module '*.png'
+
+declare global {
+  interface Window {
+    isMobile: boolean
+  }
+}
