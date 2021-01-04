@@ -40,7 +40,7 @@ export interface PlayLists extends GlobalBase {
 }
 
 export interface SongsDetail extends GlobalBase {
-  type: 'stack' | 'history'
+  type: 'stack' | 'history' | 'download'
   alia: string[]
   dt: number // duration
   al: {

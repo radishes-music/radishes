@@ -5,7 +5,8 @@ import {
   toRefs,
   watch,
   ComputedRef,
-  ref
+  ref,
+  provide
 } from 'vue'
 import { useRoute } from '@/hooks/index'
 import { useSongModule, useFooterModule } from '@/modules/index'
@@ -118,6 +119,8 @@ export default defineComponent({
       loading.value = false
     }
 
+    provide('loading', loading)
+
     watch(
       () => route.params.playlist,
       v => {
@@ -162,35 +165,13 @@ export default defineComponent({
 
     return () => (
       <div class="song-list-details">
-        <Skeleton
-          active
-          avatar={{
-            shape: 'square',
-            size: 'large'
-          }}
-          paragraph={{
-            rows: 5,
-            width: '100%'
-          }}
-          loading={loading.value}
-        >
-          <SecondaryList
-            type={type.value}
-            source={rawData.value}
-            onPlayAll={handlePlayAll}
-            onPlayDbl={handleDbClick}
-            onUpdate={() => updateList(route.params.playlist as string)}
-          />
-        </Skeleton>
-        <Skeleton
-          class="song-list-details--table"
-          active
-          paragraph={{
-            rows: 10,
-            width: '100%'
-          }}
-          loading={loading.value}
-        ></Skeleton>
+        <SecondaryList
+          type={type.value}
+          source={rawData.value}
+          onPlayAll={handlePlayAll}
+          onPlayDbl={handleDbClick}
+          onUpdate={() => updateList(route.params.playlist as string)}
+        />
       </div>
     )
   }

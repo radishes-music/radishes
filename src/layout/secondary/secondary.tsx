@@ -1,4 +1,5 @@
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, inject, ref } from 'vue'
+import { Skeleton } from 'ant-design-vue'
 import './secondary.less'
 
 export const SecondaryLayout = defineComponent({
@@ -10,10 +11,38 @@ export const SecondaryLayout = defineComponent({
     }
   },
   setup(props, { slots }) {
+    const loading = inject('loading', ref(false))
+
     return () => (
       <div class="secondary">
-        <div class="secondary-head">{slots.head && slots.head()}</div>
-        <div class="secondary-body">{slots.body && slots.body()}</div>
+        <Skeleton
+          class="secondary-head--skeleton"
+          active
+          title={false}
+          avatar={{
+            shape: 'square',
+            size: 'large'
+          }}
+          paragraph={{
+            rows: 5,
+            width: [500, 200, 300, 100, 300]
+          }}
+          loading={loading.value}
+        >
+          <div class="secondary-head">{slots.head && slots.head()}</div>
+        </Skeleton>
+        <Skeleton
+          class="secondary-body--skeleton"
+          active
+          title={false}
+          paragraph={{
+            rows: 10,
+            width: '100%'
+          }}
+          loading={loading.value}
+        >
+          <div class="secondary-body">{slots.body && slots.body()}</div>
+        </Skeleton>
       </div>
     )
   }

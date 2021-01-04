@@ -13,6 +13,7 @@ import { importIpc } from '@/electron/event/ipc-browser'
 import { DownloadIpcType } from '@/electron/event/action-types'
 import { getSongDetail } from '@/api/index'
 import { Platform } from '@/config/build'
+import remove from 'lodash/remove'
 
 const { VUE_APP_PLATFORM } = process.env
 
@@ -56,8 +57,16 @@ export const actions: ActionTree<DownloadState, RootState> = {
 
 export const mutations: MutationTree<DownloadState> = {
   [DownloadMutations.SET_DOWNLOAD_MUSIC](state, song: Downloaded) {
+    if (state.downloaded.find(s => s.id === song.id)) {
+      return
+    }
     song.dlt = Date.now()
+    song.type = 'download'
     state.downloaded.push(song)
+  },
+  [DownloadMutations.REMOVE_DOWNLOAD_MUSIC](state, id: number) {
+    remove(state.downloaded, s => s.id === id)
+    console.log(state.downloaded)
   },
   [DownloadMutations.SET_DOWNLOAD_PATH](state, path: string) {
     importIpc().then(v => {

@@ -11,7 +11,8 @@ import {
   ListFormat,
   FooterMutations,
   DownloadActions,
-  SongListColumnsType
+  SongListColumnsType,
+  DownloadMutations
 } from '@/interface/index'
 import { useDownloadModule, useFooterModule } from '@/modules/index'
 import { useSubscribe } from '@/shared/subscribe'
@@ -149,7 +150,8 @@ const columns = [
     width: 40,
     key: 'remove',
     customRender: ({ text }: { text: SongsDetail }) => {
-      const { useMutations, useState } = useFooterModule()
+      const { useMutations } = useFooterModule()
+      const downloadModule = useDownloadModule()
 
       return (
         <div>
@@ -160,9 +162,13 @@ const columns = [
                 useMutations(FooterMutations.REMOVE_STACK, text.id)
               }
               if (text.type === 'history') {
-                const { musciHistory } = useState()
-                remove(musciHistory, (item: SongsDetail) => item.id === text.id)
                 useMutations(FooterMutations.REMOVE_HISTORY, text.id)
+              }
+              if (text.type === 'download') {
+                downloadModule.useMutations(
+                  DownloadMutations.REMOVE_DOWNLOAD_MUSIC,
+                  text.id
+                )
               }
             }}
           >

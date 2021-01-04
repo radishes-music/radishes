@@ -56,7 +56,7 @@ export const DownloadSong = defineComponent({
         <div class="download-song-body">
           <Table
             list={state.downloaded}
-            columnsTypes={['name', 'ar', 'al', 'size', 'dlt']}
+            columnsTypes={['name', 'ar', 'al', 'size', 'dlt', 'remove']}
             onDblclick={handlePlaySingle}
           />
         </div>
