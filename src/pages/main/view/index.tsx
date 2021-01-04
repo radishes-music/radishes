@@ -7,6 +7,7 @@ import {
 import { RouterView } from 'vue-router'
 import { Sidebar } from '@/pages/sidebar/view/index'
 import { AuthBox } from '@/pages/auth/views'
+import classnames from 'classnames'
 import './index.less'
 
 export const Main = defineComponent({
@@ -18,8 +19,13 @@ export const Main = defineComponent({
       )
     }
     return () => (
-      <div class="main-container" id="cover-container">
-        <Sidebar></Sidebar>
+      <div
+        class={classnames('main-container', {
+          'main-container-mobile': window.isMobile
+        })}
+        id="cover-container"
+      >
+        {!window.isMobile && <Sidebar></Sidebar>}
         <div class="content">
           <RouterView v-slots={Slots}></RouterView>
         </div>
