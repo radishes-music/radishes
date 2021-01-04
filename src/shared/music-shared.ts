@@ -50,5 +50,6 @@ export const clearLocalMusicUrl = () => {
 
 export const getMusicUrl = (id: number | number[]) => {
   const source = store.state.Setting.source
-  return getSongUrl<SongsBase[]>(id, source)
+  const br = store.state.Setting.bitRate
+  return getSongUrl<SongsBase[]>(id, source, br)
 }

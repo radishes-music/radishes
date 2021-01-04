@@ -27,7 +27,15 @@ export default defineComponent({
           radishes。
         </div>
         <div class="setting-view-paragraph">
-          radishes 还可以在线访问。在线访问有两个链接：
+          radishes
+          还可以在线访问。在线访问有两个链接（第一个链接可以正常使用登录功能，第二链接没办法使用和cookie相关的功能，原因可以在
+          <a
+            href="https://github.com/Linkontoask/radishes#%E5%9C%A8%E7%BA%BF%E8%AE%BF%E9%97%AE%E8%AF%B4%E6%98%8E"
+            target="_blank"
+          >
+            这里
+          </a>
+          找到）：
           <ul>
             <li>
               <a href="http://112.74.169.178/music/" target="_blank">
@@ -40,16 +48,6 @@ export default defineComponent({
               </a>
             </li>
           </ul>
-        </div>
-        <div class="setting-view-paragraph">
-          第一个链接可以正常使用登录功能，第二链接没办法使用和cookie相关的功能，原因可以在
-          <a
-            href="https://github.com/Linkontoask/radishes#%E5%9C%A8%E7%BA%BF%E8%AE%BF%E9%97%AE%E8%AF%B4%E6%98%8E"
-            target="_blank"
-          >
-            这里
-          </a>
-          找到。
         </div>
       </div>
     )

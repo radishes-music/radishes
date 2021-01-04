@@ -1,4 +1,11 @@
-import { defineComponent, onMounted, onUnmounted, ref, watch } from 'vue'
+import {
+  defineComponent,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch
+} from 'vue'
 import { useRoute } from '@/hooks/index'
 import { toFixed } from '@/utils/index'
 import Source from './source'
@@ -51,7 +58,9 @@ export const Setting = defineComponent({
             item => item.location === top
           )
           if (currentArea) {
-            contanier.value.scrollTop = currentArea.top
+            nextTick(() => {
+              contanier.value && (contanier.value.scrollTop = currentArea.top)
+            })
           }
         }
       }
@@ -64,7 +73,9 @@ export const Setting = defineComponent({
     const handleWatch = watch(
       () => route.params.location,
       loc => {
-        jumpTop(loc as string)
+        if (loc) {
+          jumpTop(loc as string)
+        }
       }
     )
 
@@ -90,6 +101,7 @@ export const Setting = defineComponent({
             }
           }
         }
+        jumpTop(currentLocation.value as string)
       }
     })
 
@@ -100,7 +112,7 @@ export const Setting = defineComponent({
         for (let i = 0; i < areaFormat.value.length; i++) {
           const area = areaFormat.value[i]
           const areaNext = areaFormat.value[i + 1]
-          if (top >= area.top && top < areaNext.top) {
+          if (areaNext && top >= area.top && top < areaNext.top) {
             currentLocation.value = area.location
           }
         }

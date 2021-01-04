@@ -198,16 +198,19 @@ const electronDownload = (
 }
 
 export const downloadIntercept = (win: BrowserWindow) => {
-  const downloadPath = store.get(
-    'downloadPath',
-    join(getUserOS().homedir, '/Downloads')
-  )
-
-  ipcMain.on(DownloadIpcType.DOWNLOAD_TASK, async (event, arg) =>
+  ipcMain.on(DownloadIpcType.DOWNLOAD_TASK, async (event, arg) => {
+    const downloadPath = store.get(
+      'downloadPath',
+      join(getUserOS().homedir, '/Downloads')
+    )
     nodeDownload(downloadPath, win, arg)
-  )
+  })
 
   win.webContents.session.on('will-download', (event, item: DownloadItem) => {
+    const downloadPath = store.get(
+      'downloadPath',
+      join(getUserOS().homedir, '/Downloads')
+    )
     electronDownload(downloadPath, win, item)
   })
 }

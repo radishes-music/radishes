@@ -10,11 +10,12 @@ import { SubscribeActionType } from '@/shared/subscribe'
 
 export const getSongUrl = async <T>(
   id: number | number[],
-  source?: PlaySource[]
+  source: PlaySource[],
+  br: number
 ): Promise<T> => {
   const data = await get<{ data: T }>('/api/song/url', {
     id: Array.isArray(id) ? id.join(',') : id,
-    br: 9.99e5,
+    br: br,
     source: source?.join(',')
   })
   return data.data

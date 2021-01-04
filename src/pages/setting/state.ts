@@ -11,5 +11,6 @@ export const state: SettingState = {
     { name: '酷狗音乐', value: 'kugou' },
     { name: '虾米音乐', value: 'xiami' }
     // { name: 'Youtube', value: 'youtube' }
-  ]
+  ],
+  bitRate: 3.2e5
 }
