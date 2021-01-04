@@ -8,7 +8,7 @@ import { AUTH_TYPE } from '../constant'
 import { inputColor, leakThemeColor, themeColor } from '../theme'
 import { useText } from '../hooks'
 import { sendMsgCode } from '../api'
-import { useHttp, useRouter } from '@/hooks'
+import { useHttp } from '@/hooks'
 
 // TODO As there is no plug-in for area code selection in line with Chinese values, only + 86 is supported for the moment
 export const Signup = defineComponent({

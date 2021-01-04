@@ -37,7 +37,7 @@ export const LocalMusic = defineComponent({
               '.ant-modal-header'
             )
             if (contanier && head) {
-              const { start, stop } = useDrag(contanier, head, {
+              const { start } = useDrag(contanier, head, {
                 moveCB(x, y) {
                   requestAnimationFrame(() => {
                     if (el.parentElement && el.parentElement.parentElement) {

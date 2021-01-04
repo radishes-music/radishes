@@ -1,8 +1,7 @@
 import { defineComponent, ref, computed, toRefs, PropType } from 'vue'
 import { useRouter } from '@/hooks/index'
 import { SearchSuggest, HeaderActions, Songs } from '@/interface'
-import { useHeaderModule, useFooterModule } from '@/modules/index'
-import { FooterActions, FooterMutations } from '@/interface'
+import { useHeaderModule } from '@/modules/index'
 import { playMusic } from '@/shared/music-shared'
 import debounce from 'lodash/debounce'
 import './search.less'
@@ -101,7 +100,6 @@ export const Search = defineComponent({
   setup() {
     const router = useRouter()
     const { useActions, useState } = useHeaderModule()
-    const footerStore = useFooterModule()
 
     const play = playMusic()
     const state = useState()

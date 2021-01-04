@@ -1,6 +1,6 @@
 import { createStore, MutationTree, createLogger } from 'vuex'
 import { FooterMutations } from '@/interface'
-import { AllMutations, PlaySource } from '@/interface/index'
+import { AllMutations } from '@/interface/index'
 import { getNodeEnv, toFixed } from '@/utils/index'
 import createPersistedState from 'vuex-persistedstate'
 import modules from '@/modules/index'

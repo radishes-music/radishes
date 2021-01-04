@@ -20,7 +20,6 @@ import {
 } from '@/interface/index'
 import { SecondaryList } from '@/components-business/secondary-list'
 import { playMusic } from '@/shared/music-shared'
-import { Skeleton } from 'ant-design-vue'
 import './index.less'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
