@@ -121,7 +121,7 @@ export const Swiper = defineComponent({
         <div class={`${prefix}-container-mobile`}>
           <Swipe autoplay={4000}>
             {props.banners.map(item => (
-              <SwipeItem>
+              <SwipeItem onClick={() => handleClick(item)}>
                 <>
                   <Image name="swiper-mobile" src={item.imageUrl} />
                   <i class={`${prefix}-container-title`}>{item.typeTitle}</i>
