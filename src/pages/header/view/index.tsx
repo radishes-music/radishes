@@ -8,6 +8,7 @@ import { Search } from '../component/search'
 import { LayoutActions, LayoutSize } from '@/interface'
 import { useLayoutModule } from '@/modules/index'
 import { Platform } from '@/config/build'
+import classnames from 'classnames'
 import './index.less'
 
 const { VUE_APP_PLATFORM } = process.env
@@ -61,7 +62,11 @@ export const Header = defineComponent({
     }
 
     return () => (
-      <header class="header">
+      <header
+        class={classnames('header', {
+          'header-mobile': window.isMobile
+        })}
+      >
         {window.isMobile ? (
           <Search />
         ) : (

@@ -1,10 +1,10 @@
 @prefix: ~'swiper';
 
-@duaring: 0.6s;
+@duration: 0.6s;
 
 .show() {
   opacity: 1;
-  transition: all @duaring;
+  transition: all @duration;
 }
 
 @keyframes spanScale {
@@ -29,7 +29,7 @@
     }
   }
 
-  animation: prevActive @duaring;
+  animation: prevActive @duration;
 }
 
 .nextActiveFn(@position: 50%) {
@@ -42,7 +42,7 @@
     }
   }
 
-  animation: nextActive @duaring;
+  animation: nextActive @duration;
 }
 
 @radius: 8px;
@@ -60,6 +60,15 @@
     align-items: center;
     width: 100%;
     height: calc(90% - 20px);
+    &-mobile {
+      height: 100%;
+      .van-swipe {
+        height: 100%;
+      }
+      .swiper-mobile {
+        height: 100%;
+      }
+    }
     &-title {
       position: absolute;
       right: 6px;
@@ -120,7 +129,7 @@
     .@{prefix}-normal-item {
       left: 50%;
       cursor: pointer;
-      transition: all @duaring;
+      transition: all @duration;
       transform: translateX(-50%) translateZ(0);
     }
     .@{prefix}-prev,
@@ -151,7 +160,7 @@
       .show();
     }
     .@{prefix}-current-span {
-      animation: spanScale @duaring cubic-bezier(0, 0, 0.05, 0.58);
+      animation: spanScale @duration cubic-bezier(0, 0, 0.05, 0.58);
     }
     .@{prefix}-span-current {
       transition: none;
@@ -167,9 +176,9 @@
       margin: 0 6px;
       background-color: var(--background-lighter);
       border-radius: 50%;
-    }
-    li&-active {
-      background-color: var(--base-color);
+      &-active {
+        background-color: var(--base-color);
+      }
     }
   }
 }

@@ -135,27 +135,38 @@ export const PlayLyrice = defineComponent({
               >
                 <div v-show={visible.value} class={`${prefix}`}>
                   <div class={`${prefix}-center`}>
-                    <div class={`${prefix}-left`}>
-                      <Image
-                        name={classnams(`${prefix}-left-pic`, {
-                          [`${prefix}-left-pic--playing`]: state.playing,
-                          [`${prefix}-left-pic--pause`]: !state.playing
-                        })}
-                        src={url.value}
-                      />
-                      <div class={`${prefix}-left-extra`}>
-                        <ve-button type="text" circle onClick={handleSubscribe}>
-                          <icon icon="shoucang" size={22} color="#333"></icon>
-                        </ve-button>
-                        <ve-button type="text" circle onClick={handleDownload}>
-                          <icon
-                            icon="icondownload"
-                            size={24}
-                            color="#333"
-                          ></icon>
-                        </ve-button>
+                    {!window.isMobile && (
+                      <div class={`${prefix}-left`}>
+                        <Image
+                          name={classnams(`${prefix}-left-pic`, {
+                            [`${prefix}-left-pic--playing`]: state.playing,
+                            [`${prefix}-left-pic--pause`]: !state.playing
+                          })}
+                          src={url.value}
+                        />
+                        <div class={`${prefix}-left-extra`}>
+                          <ve-button
+                            type="text"
+                            circle
+                            onClick={handleSubscribe}
+                          >
+                            <icon icon="shoucang" size={22} color="#333"></icon>
+                          </ve-button>
+                          <ve-button
+                            type="text"
+                            circle
+                            onClick={handleDownload}
+                          >
+                            <icon
+                              icon="icondownload"
+                              size={24}
+                              color="#333"
+                            ></icon>
+                          </ve-button>
+                        </div>
                       </div>
-                    </div>
+                    )}
+
                     <div
                       class={`${prefix}-right`}
                       style={{

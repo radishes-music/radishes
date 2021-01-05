@@ -4,6 +4,7 @@ import { SearchSuggest, HeaderActions, Songs } from '@/interface'
 import { useHeaderModule } from '@/modules/index'
 import { playMusic } from '@/shared/music-shared'
 import debounce from 'lodash/debounce'
+import classnames from 'classnames'
 import './search.less'
 
 const Option = defineComponent({
@@ -221,7 +222,11 @@ export const Search = defineComponent({
       )
     }
     return () => (
-      <div class="search">
+      <div
+        class={classnames('search', {
+          'search-mobile': window.isMobile
+        })}
+      >
         <ve-auto-complete
           class="search-input"
           type="search"
