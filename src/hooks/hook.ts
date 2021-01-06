@@ -1,5 +1,6 @@
 import { useStore } from 'vuex'
 import { on, off } from '@/utils/index'
+import store from '@/store/index'
 
 interface InternalHook {
   startInternal: () => void
@@ -122,8 +123,6 @@ export function uesModuleStore<
   A = string,
   M = string
 >(NAMESPACED: string) {
-  const store = useStore()
-
   const useState = (): S => {
     return store.state[NAMESPACED]
   }
