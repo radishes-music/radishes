@@ -21,6 +21,10 @@ export const SongList = defineComponent({
     onClick: {
       type: Function as PropType<(song: Song) => void>,
       required: true
+    },
+    mode: {
+      type: String as PropType<'mobile' | 'pc'>,
+      default: 'pc'
     }
   },
   emits: ['click'],
@@ -31,7 +35,7 @@ export const SongList = defineComponent({
     }
 
     return () => (
-      <div class={`${prefix}-list`}>
+      <div class={`${prefix}-list ${prefix}-list-${props.mode}`}>
         <Skeleton
           active
           paragraph={{

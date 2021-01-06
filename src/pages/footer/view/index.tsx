@@ -56,7 +56,11 @@ export const Footer = defineComponent({
     }
 
     return () => (
-      <footer class="footer">
+      <footer
+        class={classnames('footer', {
+          'footer-mobile': window.isMobile
+        })}
+      >
         <div class="footer-left">
           <div class="footer-music-thumbnail">
             <div
@@ -84,18 +88,16 @@ export const Footer = defineComponent({
           {/* Failed to locate Teleport target with selector "#cover-container" */}
           {/* {<PlayLyrice visible={visibleLyrice.value}></PlayLyrice>} */}
         </div>
+        <div class="footer-right">
+          <MusicControl />
+          {!window.isMobile && <VolumeAndHistory />}
+        </div>
         {!window.isMobile && (
-          <>
-            <div class="footer-right">
-              <MusicControl />
-              <VolumeAndHistory />
-            </div>
-            <div class="footer-reduction">
-              <ve-button size="small" onClick={handleRebackSize}>
-                <icon icon="fullscreen2" color="#000"></icon>
-              </ve-button>
-            </div>
-          </>
+          <div class="footer-reduction">
+            <ve-button size="small" onClick={handleRebackSize}>
+              <icon icon="fullscreen2" color="#000"></icon>
+            </ve-button>
+          </div>
         )}
       </footer>
     )

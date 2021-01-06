@@ -1,6 +1,7 @@
 import { SongsDetail } from '@/interface/index'
 import { LayoutSize } from '@/interface'
 import { FooterState, PlayMode } from './interface'
+// import { BackgroundAudio } from '@/audio/audio'
 
 export type Music = SongsDetail
 
