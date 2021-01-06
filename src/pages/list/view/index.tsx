@@ -140,9 +140,8 @@ export default defineComponent({
       return data
     })
 
-    const play = playMusic()
     const handleDbClick = (item: SongsDetail) => {
-      play(item.id)
+      playMusic(item.id)
     }
 
     const handlePlayAll = async () => {
@@ -158,7 +157,7 @@ export default defineComponent({
 
       const { music } = footerStore.useState()
       if (music?.id !== stack[0].id) {
-        play(stack[0].id)
+        playMusic(stack[0].id)
       }
     }
 

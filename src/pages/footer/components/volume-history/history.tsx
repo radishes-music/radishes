@@ -41,9 +41,8 @@ export const MusicHistory = defineComponent({
 
     const { musicStack, musciHistory } = toRefs(useState())
 
-    const play = playMusic()
     const handleDbClick = (item: SongsDetail) => {
-      play(item.id)
+      playMusic(item.id)
     }
 
     const trigger = () => {

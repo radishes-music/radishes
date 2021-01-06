@@ -37,7 +37,6 @@ export const Recommend = defineComponent({
       loading.value = false
     }
 
-    const play = playMusic()
     const toSongList = jumpSongList()
     const bannerClick = (item: Banners) => {
       if (item.targetType === TargetType.EXTERNAL) {
@@ -47,7 +46,7 @@ export const Recommend = defineComponent({
         toSongList(item.targetId)
       }
       if (item.targetType === TargetType.MUSIC) {
-        play(item.targetId)
+        playMusic(item.targetId)
       }
     }
 

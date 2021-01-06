@@ -15,7 +15,6 @@ export const LocalMusicSong = defineComponent({
     const { useState, useMutations } = useLocalMusicModule()
     const state = useState()
 
-    const play = playMusic()
     const handlePlayAll = () => {
       //
     }
@@ -28,7 +27,7 @@ export const LocalMusicSong = defineComponent({
       )
       music.buffer = buffer as Buffer
       music.id = Number(atob(String(music.id)))
-      play(music)
+      playMusic(music)
     }
     const handleSyncMusic = async () => {
       const v = await import('@/electron/utils/index')

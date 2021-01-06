@@ -102,7 +102,6 @@ export const Search = defineComponent({
     const router = useRouter()
     const { useActions, useState } = useHeaderModule()
 
-    const play = playMusic()
     const state = useState()
     const words = ref('')
     const loading = ref(false)
@@ -130,7 +129,7 @@ export const Search = defineComponent({
     const handleSelect = async (type: SearchType, id: unknown) => {
       switch (type) {
         case SearchType.SONGS:
-          play((id as Songs).id)
+          playMusic((id as Songs).id)
           break
         case SearchType.PLAYLISTS:
           router.push({

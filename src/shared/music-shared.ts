@@ -6,40 +6,37 @@ import store from '@/store/index'
 
 const mapURL = new Map()
 
-export const playMusic = () => {
+export const playMusic = async (
+  payload:
+    | number
+    | {
+        buffer?: Buffer
+        path?: string
+        url: string
+        id: string | number
+      },
+  isStartOver = true
+) => {
   const store = useFooterModule()
-
-  return async (
-    payload:
-      | number
-      | {
-          buffer?: Buffer
-          path?: string
-          url: string
-          id: string | number
-        },
-    isStartOver = true
-  ) => {
-    if (typeof payload === 'object' && payload.buffer) {
-      if (mapURL.has(payload.path)) {
-        payload.url = mapURL.get(payload.path)
-      } else {
-        const blob = new Blob([toArrayBuffer(payload.buffer)], {
-          type: 'audio/mpeg'
-        })
-        payload.url = window.URL.createObjectURL(blob)
-        mapURL.set(payload.path, payload.url)
-      }
-      delete payload.buffer
+  if (typeof payload === 'object' && payload.buffer) {
+    if (mapURL.has(payload.path)) {
+      payload.url = mapURL.get(payload.path)
+    } else {
+      const blob = new Blob([toArrayBuffer(payload.buffer)], {
+        type: 'audio/mpeg'
+      })
+      payload.url = window.URL.createObjectURL(blob)
+      mapURL.set(payload.path, payload.url)
     }
-    store.useMutations(FooterMutations.PAUES_MUSIC)
-    if (isStartOver) {
-      store.useMutations(FooterMutations.UPDATE_CURRENT_TIME, 0)
-    }
-
-    await store.useActions(FooterActions.SET_MUSIC, payload)
-    store.useMutations(FooterMutations.PLAY_MUSIC)
+    delete payload.buffer
   }
+  store.useMutations(FooterMutations.PAUES_MUSIC)
+  if (isStartOver) {
+    store.useMutations(FooterMutations.UPDATE_CURRENT_TIME, 0)
+  }
+
+  await store.useActions(FooterActions.SET_MUSIC, payload)
+  store.useMutations(FooterMutations.PLAY_MUSIC)
 }
 
 export const clearLocalMusicUrl = () => {

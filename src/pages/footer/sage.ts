@@ -180,8 +180,6 @@ export const actions: ActionTree<FooterState, RootState> = {
     }
   },
   async [FooterActions.CUTOVER_TRACK]({ state }, direction: Direction) {
-    const play = playMusic()
-
     if (state.music && state.musicStack.length > 1) {
       const index = findMusicIndex(state.musicStack, state.music)
       let next
@@ -196,7 +194,7 @@ export const actions: ActionTree<FooterState, RootState> = {
       }
       const nextMusic = state.musicStack[next]
 
-      play(nextMusic.id)
+      playMusic(nextMusic.id)
     }
   }
 }

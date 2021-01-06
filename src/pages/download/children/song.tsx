@@ -16,13 +16,13 @@ export const DownloadSong = defineComponent({
     const router = useRouter()
     const { useState } = useDownloadModule()
     const state = useState()
-    const play = playMusic()
+
     const handlePlayAll = () => {
       //
     }
 
     const handlePlaySingle = (song: SongsDetail) => {
-      play(song.id)
+      playMusic(song.id)
     }
 
     const handleOpenExplorer = () => {

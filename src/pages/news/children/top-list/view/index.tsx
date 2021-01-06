@@ -17,7 +17,6 @@ export const TopList = defineComponent({
 
     const cacheSongListDetail = new Map()
 
-    const play = music()
     const toSongList = jumpSongList()
     const playMusic = async (songlistID: number, index: number) => {
       let songlist: PlayList
@@ -28,7 +27,7 @@ export const TopList = defineComponent({
         cacheSongListDetail.set(songlistID, songlist)
       }
 
-      play(songlist.tracks[index].id)
+      music(songlist.tracks[index].id)
     }
     const expan = computed(() => top.value.slice(0, 4))
     const shrink = computed(() => top.value.slice(4))
