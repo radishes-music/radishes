@@ -59,7 +59,7 @@ const dominateMediaSession = (
       useActions(FooterActions.CUTOVER_TRACK, Direction.NEXT)
     })
     navigator.mediaSession.setActionHandler('stop', () => {
-      warning('现在听不了歌了哦')
+      useMutations(FooterMutations.PAUES_MUSIC)
     })
   }
 }
