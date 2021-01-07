@@ -2,17 +2,21 @@ import { defineComponent, ref, toRefs, onMounted, computed, watch } from 'vue'
 import { toFixed, formatTime, sleep } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
-import { useFooterModule } from '@/modules'
-import { FooterActions, FooterMutations, Direction } from '@/interface'
+import { useFooterModule, findMusicIndex } from '@/modules'
+import { FooterActions, FooterMutations, PlayMode } from '@/interface'
 import { Platform } from '@/config/build'
 import { importIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyriceAction } from '@/electron/event/action-types'
-
-import classnames from 'classnames'
+import { playMusic } from '@/shared/music-shared'
 import './index.less'
 
 const prefix = 'music'
 const { VUE_APP_PLATFORM } = process.env
+
+const enum Direction {
+  FORWARD = 'FORWARD',
+  BACK = 'BACK'
+}
 
 export const MusicControl = defineComponent({
   name: 'MusicControl',
@@ -34,8 +38,9 @@ export const MusicControl = defineComponent({
       currentTime,
       visibleFlash,
       duration
-      // audio
     } = toRefs(useState())
+
+    const play = playMusic()
 
     const musicDes = computed(() => useGetter('musicDes'))
 
@@ -55,11 +60,32 @@ export const MusicControl = defineComponent({
       return formatTime(currentTime.value, 's')
     })
 
+    const switchMusic = async (direction: Direction) => {
+      const { music } = useState()
+
+      if (music && musicStack.value.length > 1) {
+        const index = findMusicIndex(musicStack.value, music)
+        let next
+        switch (playMode.value) {
+          case PlayMode.TURN:
+            if (direction === Direction.BACK) {
+              next = index <= 0 ? musicStack.value.length - 1 : index - 1
+            } else {
+              next = index === musicStack.value.length - 1 ? 0 : index + 1
+            }
+            break
+        }
+        const nextMusic = musicStack.value[next]
+
+        play(nextMusic.id)
+      }
+    }
+
     const prevMusic = () => {
-      useActions(FooterActions.CUTOVER_TRACK, Direction.PREV)
+      switchMusic(Direction.BACK)
     }
     const nextMusic = () => {
-      useActions(FooterActions.CUTOVER_TRACK, Direction.NEXT)
+      switchMusic(Direction.FORWARD)
     }
 
     const handlePlayPaues = () => {
@@ -122,13 +148,6 @@ export const MusicControl = defineComponent({
     const timeUpdate = async () => {
       if (!playing.value) return false
       await sleep(1000)
-      // TODO
-      if (window.isMobile) {
-        // useMutations(
-        //   FooterMutations.UPDATE_CURRENT_TIME,
-        //   audio.value.currentTime
-        // )
-      }
       if (audioElement.value && duration.value && !draging.value) {
         useMutations(
           FooterMutations.UPDATE_CURRENT_TIME,
@@ -169,7 +188,7 @@ export const MusicControl = defineComponent({
 
     const ended = async () => {
       useMutations(FooterMutations.ENDED_MUSIC)
-      useActions(FooterActions.CUTOVER_TRACK, Direction.NEXT)
+      switchMusic(Direction.FORWARD)
     }
 
     onMounted(() => {
@@ -198,10 +217,7 @@ export const MusicControl = defineComponent({
     })
 
     return () => (
-      <div
-        class={`${prefix}-command`}
-        v-show={window.isMobile ? music?.value : true}
-      >
+      <div class={`${prefix}-command`}>
         <audio
           class="audio-background"
           aria-title={musicDes.value.title}
@@ -210,17 +226,9 @@ export const MusicControl = defineComponent({
         >
           <source ref={sourceElement} type="audio/mpeg" />
         </audio>
-        <div
-          class={classnames(`${prefix}-command-center`, {
-            [`${prefix}-command-center--mobile`]: window.isMobile
-          })}
-        >
-          <div
-            class={classnames(`${prefix}-command-group`, {
-              [`${prefix}-command-group--mobile`]: window.isMobile
-            })}
-          >
-            <ve-button type="text" v-show={!window.isMobile}>
+        <div class={`${prefix}-command-center`}>
+          <div class={`${prefix}-command-group`}>
+            <ve-button type="text">
               <icon
                 icon={playMode.value}
                 color="#333"
@@ -228,11 +236,7 @@ export const MusicControl = defineComponent({
                 aria-title="播放顺序"
               ></icon>
             </ve-button>
-            <ve-button
-              type="text"
-              class="theme-btn-color"
-              v-show={!window.isMobile}
-            >
+            <ve-button type="text" class="theme-btn-color">
               <icon
                 icon="shangyishou"
                 aria-title="上一首"
@@ -250,15 +254,10 @@ export const MusicControl = defineComponent({
                 aria-title="播放/暂停"
               ></icon>
             </ve-button>
-            <ve-button
-              type="text"
-              class="theme-btn-color"
-              onClick={nextMusic}
-              v-show={!window.isMobile}
-            >
+            <ve-button type="text" class="theme-btn-color" onClick={nextMusic}>
               <icon icon="xiayishou" aria-title="下一首"></icon>
             </ve-button>
-            <ve-button type="text" v-show={!window.isMobile}>
+            <ve-button type="text">
               <icon
                 icon="lyrics"
                 color={visibleFlash.value ? 'var(--base-color)' : '#333'}
@@ -268,7 +267,7 @@ export const MusicControl = defineComponent({
               ></icon>
             </ve-button>
           </div>
-          <div class={`${prefix}-command-bottom`} v-show={!window.isMobile}>
+          <div class={`${prefix}-command-bottom`}>
             <ProgressBar
               v-model={[draging.value, 'draging']}
               current={currentIndicator.value}

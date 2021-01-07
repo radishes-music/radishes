@@ -56,11 +56,7 @@ export const Footer = defineComponent({
     }
 
     return () => (
-      <footer
-        class={classnames('footer', {
-          'footer-mobile': window.isMobile
-        })}
-      >
+      <footer class="footer">
         <div class="footer-left">
           <div class="footer-music-thumbnail">
             <div

@@ -1,6 +1,5 @@
 import { defineComponent, PropType, inject, ref } from 'vue'
 import { Skeleton } from 'ant-design-vue'
-import classnames from 'classnames'
 import './secondary.less'
 
 export const SecondaryLayout = defineComponent({
@@ -15,11 +14,7 @@ export const SecondaryLayout = defineComponent({
     const loading = inject('loading', ref(false))
 
     return () => (
-      <div
-        class={classnames('secondary', {
-          'secondary-mobile': window.isMobile
-        })}
-      >
+      <div class="secondary">
         <Skeleton
           class="secondary-head--skeleton"
           active

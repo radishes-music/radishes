@@ -74,7 +74,6 @@ export const Recommend = defineComponent({
         <div class="recommend-song">
           <h2>推荐歌单</h2>
           <SongList
-            mode={window.isMobile ? 'mobile' : 'pc'}
             songData={songList.value}
             loading={loading.value}
             onClick={item => toSongList(item.id)}

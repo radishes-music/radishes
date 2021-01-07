@@ -1,14 +1,8 @@
 import { PostData } from './components/lyrice-float/electron-lyrice'
 import { Artists, SongsDetail } from '@/interface/index'
-// import { AudioType } from '@/audio/audio'
 
 export const enum PlayMode {
   TURN = 'turn'
-}
-
-export const enum Direction {
-  NEXT = 'NEXT',
-  PREV = 'PREV'
 }
 
 export interface Lyrics {
@@ -52,8 +46,7 @@ export const enum FooterActions {
   SET_MUSIC = 'SET_MUSIC_URL',
   SET_LOCAL_MUSIC = 'SET_LOCAL_MUSIC',
   SET_MUSIC_DEFAILT = 'SET_MUSIC_DEFAILT',
-  SET_MUSIC_LYRICS = 'SET_MUSIC_LYRICS',
-  CUTOVER_TRACK = 'CUTOVER_TRACK'
+  SET_MUSIC_LYRICS = 'SET_MUSIC_LYRICS'
 }
 
 export const enum FooterMutations {
@@ -74,7 +67,5 @@ export const enum FooterMutations {
   REMOVE_STACK = 'REMOVE_STACK',
   REMOVE_HISTORY = 'REMOVE_HISTORY',
   CLEAR_STACK = 'CLEAR_STACK',
-  LYRICE_EMBED_MIN_WIDTH = 'LYRICE_EMBED_MIN_WIDTH',
-  SEEKBACKWARD = 'SEEKBACKWARD',
-  SEEKFORWARD = 'SEEKFORWARD'
+  LYRICE_EMBED_MIN_WIDTH = 'LYRICE_EMBED_MIN_WIDTH'
 }

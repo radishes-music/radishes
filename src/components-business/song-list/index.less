@@ -2,16 +2,12 @@
 
 .@{prefix}-list {
   padding: 10px 0;
+
   > ul {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 20px;
     height: 100%;
-  }
-  &-mobile {
-    > ul {
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    }
   }
   &-container {
     display: flex;

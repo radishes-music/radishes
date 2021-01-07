@@ -1,23 +1,13 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { toRaw } from 'vue'
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { isNumber, timeTos, toFixed } from '@/utils/index'
 import { getSongDetail, getLyric } from '@/api/index'
+import { FooterState, FooterActions, FooterMutations } from './interface'
 import { getMusicUrl } from '@/shared/music-shared'
 import { RootState } from '@/store/index'
-import {
-  SongsDetail,
-  FooterState,
-  FooterActions,
-  FooterMutations,
-  Direction,
-  PlayMode
-} from '@/interface'
-import { useFooterModule } from '@/modules/index'
-import { playMusic } from '@/shared/music-shared'
+import { SongsDetail } from '@/interface'
 import cloneDeep from 'lodash/cloneDeep'
 import remove from 'lodash/remove'
-import { warning } from '@/hooks'
 
 const dominateMediaSession = (
   title: string,
@@ -25,10 +15,14 @@ const dominateMediaSession = (
   album: string,
   pic: string
 ) => {
-  document.title = title + '-' + artist
-  if ('mediaSession' in navigator) {
-    const { useMutations, useActions } = useFooterModule()
-    navigator.mediaSession.metadata = new MediaMetadata({
+  interface MyNav extends Navigator {
+    mediaSession: {
+      metadata: MediaMetadataTypeParams
+    }
+  }
+  const nav = navigator as MyNav
+  if (nav.mediaSession) {
+    nav.mediaSession.metadata = new MediaMetadata({
       title,
       artist,
       album,
@@ -155,12 +149,6 @@ export const actions: ActionTree<FooterState, RootState> = {
       url = payload.url
     }
     state.musicUrl = url
-    if (window.isMobile) {
-      // TODO
-      // await state.audio.setSource(state.musicUrl)
-      // state.duration = state.audio.getDuraion()
-      // state.audio.play()
-    }
     await dispatch(FooterActions.SET_MUSIC_DEFAILT, id)
     await dispatch(FooterActions.SET_MUSIC_LYRICS, id)
     commit(FooterMutations.SET_MUSIC_URL, url)
@@ -286,15 +274,5 @@ export const mutations: MutationTree<FooterState> = {
   },
   [FooterMutations.VISIBLE_FLASH](state, visible: boolean) {
     state.visibleFlash = visible
-  },
-  [FooterMutations.SEEKBACKWARD](state) {
-    if (state.audioElement) {
-      state.audioElement.currentTime = state.currentTime - 10
-    }
-  },
-  [FooterMutations.SEEKFORWARD](state) {
-    if (state.audioElement) {
-      state.audioElement.currentTime = state.currentTime + 10
-    }
   }
 }
