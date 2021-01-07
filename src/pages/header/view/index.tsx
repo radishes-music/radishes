@@ -4,6 +4,7 @@ import { importIpc } from '@/electron/event/ipc-browser'
 import { Logo } from '../component/logo'
 import { PushShift } from '../component/push-shift'
 import { Setting } from '../component/setting'
+import { Theme } from '../component/theme'
 import { Search } from '../component/search'
 import { LayoutActions, LayoutSize } from '@/interface'
 import { useLayoutModule } from '@/modules/index'
@@ -68,7 +69,11 @@ export const Header = defineComponent({
         })}
       >
         {window.isMobile ? (
-          <Search />
+          <>
+            <Setting />
+            <Search />
+            <Theme />
+          </>
         ) : (
           <>
             <Logo />
@@ -85,6 +90,7 @@ export const Header = defineComponent({
                 onMousedown={e => e.stopPropagation()}
               >
                 <Setting />
+                <Theme />
                 <div class="header-window">
                   <ve-button
                     type="text"

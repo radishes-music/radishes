@@ -5,6 +5,11 @@
     height: 210px;
     margin-right: 20px;
     border-radius: 4px;
+    &--mobile {
+      width: 120px;
+      min-width: 120px;
+      height: 120px;
+    }
   }
   &-des {
     flex: 1;
@@ -83,6 +88,28 @@
         line-height: 22px;
         > div:first-child {
           min-width: 40px;
+        }
+      }
+    }
+    &--mobile {
+      h1 {
+        font-size: 15px;
+        font-weight: normal;
+        color: white;
+      }
+      .a {
+        &-author {
+          margin-top: 25px;
+          margin-bottom: 25px;
+        }
+        &-description {
+          &--mobile {
+            > div:first-child {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
         }
       }
     }

@@ -9,18 +9,6 @@ li.qq-song {
 .search {
   -webkit-app-region: no-drag;
   margin-left: 10px;
-  &-mobile {
-    width: 100%;
-    height: 36px;
-    .auto-complete {
-      width: 100%;
-      height: 100%;
-      .v-easy-input-small {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
   &-popper {
     height: 240px;
     font-size: 13px;
@@ -61,6 +49,20 @@ li.qq-song {
       border-radius: 8px;
       &:focus {
         box-shadow: none;
+      }
+    }
+  }
+
+  &-mobile {
+    width: 100%;
+    height: 36px;
+    margin-left: 0;
+    .auto-complete {
+      width: 100%;
+      height: 100%;
+      .v-easy-input-small {
+        width: 100%;
+        height: 100%;
       }
     }
   }

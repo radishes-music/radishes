@@ -24,7 +24,6 @@ export const MusicControl = defineComponent({
     const { useState, useMutations, useGetter, useActions } = useFooterModule()
 
     const {
-      musicStack,
       playMode,
       audioElement,
       sourceElement,
@@ -53,6 +52,10 @@ export const MusicControl = defineComponent({
 
     const currentTimeFormat = computed(() => {
       return formatTime(currentTime.value, 's')
+    })
+
+    const showFooter = computed(() => {
+      return window.isMobile ? duration.value : true
     })
 
     const prevMusic = () => {
@@ -198,10 +201,7 @@ export const MusicControl = defineComponent({
     })
 
     return () => (
-      <div
-        class={`${prefix}-command`}
-        v-show={window.isMobile ? music?.value : true}
-      >
+      <div class={`${prefix}-command`} v-show={showFooter.value}>
         <audio
           class="audio-background"
           aria-title={musicDes.value.title}

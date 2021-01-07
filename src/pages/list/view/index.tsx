@@ -20,6 +20,7 @@ import {
 } from '@/interface/index'
 import { SecondaryList } from '@/components-business/secondary-list'
 import { playMusic } from '@/shared/music-shared'
+import classnames from 'classnames'
 import './index.less'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -162,7 +163,11 @@ export default defineComponent({
     }
 
     return () => (
-      <div class="song-list-details">
+      <div
+        class={classnames('song-list-details', {
+          'song-list-details--mobile': window.isMobile
+        })}
+      >
         <SecondaryList
           type={type.value}
           source={rawData.value}

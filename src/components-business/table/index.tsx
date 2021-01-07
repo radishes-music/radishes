@@ -16,7 +16,7 @@ import {
 } from '@/interface/index'
 import { useDownloadModule, useFooterModule } from '@/modules/index'
 import { useSubscribe } from '@/shared/subscribe'
-import { getMusicUrl } from '@/shared/music-shared'
+import { getMusicUrl, playMusic } from '@/shared/music-shared'
 import { instance } from '@/components-business/fly/index'
 import './index.less'
 
@@ -32,7 +32,7 @@ const columns = [
     )
   },
   {
-    width: 102,
+    width: window.isMobile ? 72 : 102,
     key: 'control',
     align: 'center',
     customRender: ({ text }: { text: ListFormat }) => {
@@ -46,10 +46,18 @@ const columns = [
       }
       return (
         <div class="vh-center">
+          <ve-button
+            type="text"
+            onClick={() => playMusic(text.id)}
+            v-show={window.isMobile}
+          >
+            <icon icon="play-mobile" className="gay" size={18} />
+          </ve-button>
           <ve-button type="text" onClick={handleSubscribe}>
             <icon icon="shoucang" className="gay" size={20} />
           </ve-button>
           <ve-button
+            v-show={!window.isMobile}
             type="text"
             onClick={() => {
               useActions(DownloadActions.DOWNLOAD_MUSIC, text)
@@ -58,6 +66,7 @@ const columns = [
             <icon icon="icondownload" className="gay" size={22} />
           </ve-button>
           <ve-button
+            v-show={!window.isMobile}
             ref={add}
             disabled={
               state.musicStack.findIndex(item => item.id === text.id) !== -1
@@ -199,13 +208,23 @@ export const Table = defineComponent({
       type: Function as PropType<(item: any) => void>,
       default: noop
     },
+    onTouchstart: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      type: Function as PropType<(item: any) => void>,
+      default: noop
+    },
+    onClick: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      type: Function as PropType<(item: any) => void>,
+      default: noop
+    },
     rowClassName: {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       type: Function as PropType<(item: any) => void>,
       default: () => 'row-music'
     }
   },
-  emits: ['dblclick'],
+  emits: ['dblclick', 'touchstart', 'click'],
   setup(props, { emit }) {
     const { list, columnsTypes, showHeader, rowClassName } = toRefs(props)
 
@@ -239,6 +258,9 @@ export const Table = defineComponent({
               return {
                 onClick: (e: Event) => {
                   e.preventDefault()
+                  if (window.isMobile) {
+                    emit('click', record)
+                  }
                 },
                 onDblclick: (e: Event) => {
                   e.preventDefault()

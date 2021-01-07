@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, watchEffect, onUnmounted } from 'vue'
 import { useRouter } from '@/hooks/index'
 import { MusicControl } from '../components/music-controller'
 import { VolumeAndHistory } from '../components/volume-history/index'
@@ -6,6 +6,7 @@ import { useFooterModule, useLayoutModule, useMainModule } from '@/modules'
 import { AsyncComponent } from '../components/lyrice-embed/index'
 import { BrowserLyriceFlash } from '../components/lyrice-float/browser-lyrice'
 import { Artists, LayoutSize, LayoutActions, MainMutations } from '@/interface'
+import { getAverageRGB } from '@/theme/color'
 import classnames from 'classnames'
 import './index.less'
 
@@ -17,6 +18,7 @@ export const Footer = defineComponent({
   name: 'Footer',
   setup() {
     const visibleLyrice = ref(false)
+    const color = ref('rgb(243, 243, 243)')
 
     const router = useRouter()
     const FooterModule = useFooterModule()
@@ -31,6 +33,20 @@ export const Footer = defineComponent({
     const canShowSongDetail = computed(
       () => footerState.music && layoutState.screenSize !== LayoutSize.SM
     )
+
+    const stopColor = watchEffect(async () => {
+      if (window.isMobile) {
+        const src = footerState.music?.al.picUrl
+        if (src) {
+          const { r, g, b } = await getAverageRGB(src)
+          color.value = `rgb(${r}, ${g}, ${b})`
+        }
+      }
+    })
+
+    onUnmounted(() => {
+      stopColor()
+    })
 
     const unfoldLyrice = () => {
       if (canShowSongDetail.value) {
@@ -60,6 +76,9 @@ export const Footer = defineComponent({
         class={classnames('footer', {
           'footer-mobile': window.isMobile
         })}
+        style={{
+          backgroundColor: color.value
+        }}
       >
         <div class="footer-left">
           <div class="footer-music-thumbnail">

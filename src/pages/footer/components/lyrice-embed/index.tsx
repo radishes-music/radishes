@@ -134,7 +134,11 @@ export const PlayLyrice = defineComponent({
                 onAfterLeave={() => (transition.value = false)}
               >
                 <div v-show={visible.value} class={`${prefix}`}>
-                  <div class={`${prefix}-center`}>
+                  <div
+                    class={classnams(`${prefix}-center`, {
+                      [`${prefix}-center--mobile`]: window.isMobile
+                    })}
+                  >
                     {!window.isMobile && (
                       <div class={`${prefix}-left`}>
                         <Image
@@ -168,7 +172,9 @@ export const PlayLyrice = defineComponent({
                     )}
 
                     <div
-                      class={`${prefix}-right`}
+                      class={classnams(`${prefix}-right`, {
+                        [`${prefix}-right--mobile`]: window.isMobile
+                      })}
                       style={{
                         minWidth: minWidth + 'px'
                       }}

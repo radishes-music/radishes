@@ -40,3 +40,61 @@ export function shade(color: string, percent: number) {
   if (color.length > 7) return shadeRGBColor(color, percent)
   else return shadeHexColor(color, percent)
 }
+
+export function getAverageRGB(
+  src: string
+): Promise<{ r: number; g: number; b: number }> {
+  const blockSize = 5,
+    defaultRGB = { r: 0, g: 0, b: 0 },
+    canvas = document.createElement('canvas'),
+    context = canvas.getContext && canvas.getContext('2d'),
+    rgb = { r: 0, g: 0, b: 0 }
+
+  let data,
+    width,
+    height,
+    length,
+    count = 0,
+    i = -4
+
+  const image = new Image()
+  image.src = src
+  image.crossOrigin = 'anonymous'
+
+  return new Promise(resolve => {
+    if (!context) {
+      return resolve(defaultRGB)
+    }
+
+    image.onload = () => {
+      height = canvas.height =
+        image.naturalHeight || image.offsetHeight || image.height
+      width = canvas.width =
+        image.naturalWidth || image.offsetWidth || image.width
+
+      context.drawImage(image, 0, 0)
+
+      try {
+        data = context.getImageData(0, 0, width, height)
+      } catch (e) {
+        return resolve(defaultRGB)
+      }
+
+      length = data.data.length
+
+      while ((i += blockSize * 4) < length) {
+        ++count
+        rgb.r += data.data[i]
+        rgb.g += data.data[i + 1]
+        rgb.b += data.data[i + 2]
+      }
+
+      // ~~ used to floor values
+      rgb.r = ~~(rgb.r / count)
+      rgb.g = ~~(rgb.g / count)
+      rgb.b = ~~(rgb.b / count)
+
+      resolve(rgb)
+    }
+  })
+}

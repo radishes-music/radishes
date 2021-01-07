@@ -3,6 +3,7 @@
   overflow-x: hidden;
   overflow-y: auto;
   &-head {
+    position: relative;
     display: flex;
     align-items: flex-start;
     &--skeleton {
@@ -11,11 +12,33 @@
         height: 210px;
       }
     }
+    &-image {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      z-index: -1;
+      width: 110%;
+      height: 110%;
+      filter: blur(2px);
+      background-position: center;
+      background-size: cover;
+    }
   }
   &-body {
     margin-top: 20px;
     &--skeleton {
       margin-top: 40px;
+    }
+  }
+  &--mobile {
+    .secondary {
+      &-head {
+        padding: 20px;
+        color: white;
+      }
+      &-body {
+        margin-top: 0;
+      }
     }
   }
 }

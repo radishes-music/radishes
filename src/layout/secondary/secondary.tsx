@@ -17,7 +17,7 @@ export const SecondaryLayout = defineComponent({
     return () => (
       <div
         class={classnames('secondary', {
-          'secondary-mobile': window.isMobile
+          'secondary--mobile': window.isMobile
         })}
       >
         <Skeleton
@@ -34,7 +34,16 @@ export const SecondaryLayout = defineComponent({
           }}
           loading={loading.value}
         >
-          <div class="secondary-head">{slots.head && slots.head()}</div>
+          <div class="secondary-head">
+            <div
+              v-show={window.isMobile}
+              class="secondary-head-image"
+              style={{
+                backgroundImage: `url(${props.src})`
+              }}
+            ></div>
+            {slots.head && slots.head()}
+          </div>
         </Skeleton>
         <Skeleton
           class="secondary-body--skeleton"
