@@ -9,3 +9,33 @@ declare module '@vue/runtime-core' {
 }
 
 declare module '*.png'
+
+declare global {
+  interface Window {
+    isMobile: boolean
+    webkitAudioContext: AudioContext
+  }
+  type ActionTypeMap =
+    | 'play'
+    | 'pause'
+    | 'seekbackward'
+    | 'seekforward'
+    | 'previoustrack'
+    | 'nexttrack'
+    | 'skipad'
+    | 'stop'
+    | 'seekto'
+  interface PositionState {
+    duration: number
+    playbackRate: number
+    position: number
+  }
+  interface Navigator {
+    mediaSession: {
+      metadata: MediaMetadataTypeParams
+      playbackState: 'none' | 'paused' | 'playing'
+      setActionHandler: (type: ActionTypeMap, handler: () => void) => void
+      setPositionState: (state: PositionState) => void
+    }
+  }
+}

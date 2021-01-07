@@ -2,10 +2,17 @@ import { toRaw } from 'vue'
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { isNumber, timeTos, toFixed } from '@/utils/index'
 import { getSongDetail, getLyric } from '@/api/index'
-import { FooterState, FooterActions, FooterMutations } from './interface'
-import { getMusicUrl } from '@/shared/music-shared'
+import {
+  FooterState,
+  FooterActions,
+  FooterMutations,
+  Direction,
+  SongsDetail,
+  PlayMode
+} from '@/interface'
+import { getMusicUrl, playMusic } from '@/shared/music-shared'
 import { RootState } from '@/store/index'
-import { SongsDetail } from '@/interface'
+import { useFooterModule } from './module'
 import cloneDeep from 'lodash/cloneDeep'
 import remove from 'lodash/remove'
 
@@ -15,14 +22,11 @@ const dominateMediaSession = (
   album: string,
   pic: string
 ) => {
-  interface MyNav extends Navigator {
-    mediaSession: {
-      metadata: MediaMetadataTypeParams
-    }
-  }
-  const nav = navigator as MyNav
-  if (nav.mediaSession) {
-    nav.mediaSession.metadata = new MediaMetadata({
+  document.title = title + '-' + artist
+
+  if ('mediaSession' in navigator) {
+    const { useMutations, useActions } = useFooterModule()
+    navigator.mediaSession.metadata = new MediaMetadata({
       title,
       artist,
       album,
@@ -274,5 +278,15 @@ export const mutations: MutationTree<FooterState> = {
   },
   [FooterMutations.VISIBLE_FLASH](state, visible: boolean) {
     state.visibleFlash = visible
+  },
+  [FooterMutations.SEEKBACKWARD](state) {
+    if (state.audioElement) {
+      state.audioElement.currentTime = state.currentTime - 10
+    }
+  },
+  [FooterMutations.SEEKFORWARD](state) {
+    if (state.audioElement) {
+      state.audioElement.currentTime = state.currentTime + 10
+    }
   }
 }

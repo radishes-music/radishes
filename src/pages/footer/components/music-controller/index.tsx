@@ -3,7 +3,12 @@ import { toFixed, formatTime, sleep } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
 import { useFooterModule, findMusicIndex } from '@/modules'
-import { FooterActions, FooterMutations, PlayMode } from '@/interface'
+import {
+  FooterActions,
+  FooterMutations,
+  PlayMode,
+  Direction
+} from '@/interface'
 import { Platform } from '@/config/build'
 import { importIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyriceAction } from '@/electron/event/action-types'
@@ -12,11 +17,6 @@ import './index.less'
 
 const prefix = 'music'
 const { VUE_APP_PLATFORM } = process.env
-
-const enum Direction {
-  FORWARD = 'FORWARD',
-  BACK = 'BACK'
-}
 
 export const MusicControl = defineComponent({
   name: 'MusicControl',
@@ -40,8 +40,6 @@ export const MusicControl = defineComponent({
       duration
     } = toRefs(useState())
 
-    const play = playMusic()
-
     const musicDes = computed(() => useGetter('musicDes'))
 
     if (VUE_APP_PLATFORM === Platform.ELECTRON) {
@@ -60,32 +58,11 @@ export const MusicControl = defineComponent({
       return formatTime(currentTime.value, 's')
     })
 
-    const switchMusic = async (direction: Direction) => {
-      const { music } = useState()
-
-      if (music && musicStack.value.length > 1) {
-        const index = findMusicIndex(musicStack.value, music)
-        let next
-        switch (playMode.value) {
-          case PlayMode.TURN:
-            if (direction === Direction.BACK) {
-              next = index <= 0 ? musicStack.value.length - 1 : index - 1
-            } else {
-              next = index === musicStack.value.length - 1 ? 0 : index + 1
-            }
-            break
-        }
-        const nextMusic = musicStack.value[next]
-
-        play(nextMusic.id)
-      }
-    }
-
     const prevMusic = () => {
-      switchMusic(Direction.BACK)
+      useActions(FooterActions.CUTOVER_TRACK, Direction.PREV)
     }
     const nextMusic = () => {
-      switchMusic(Direction.FORWARD)
+      useActions(FooterActions.CUTOVER_TRACK, Direction.NEXT)
     }
 
     const handlePlayPaues = () => {
@@ -188,7 +165,7 @@ export const MusicControl = defineComponent({
 
     const ended = async () => {
       useMutations(FooterMutations.ENDED_MUSIC)
-      switchMusic(Direction.FORWARD)
+      useActions(FooterActions.CUTOVER_TRACK, Direction.NEXT)
     }
 
     onMounted(() => {
