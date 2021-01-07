@@ -13,7 +13,6 @@ import { useAuth } from '@/hooks/index'
 import { useRecommendModule } from '@/modules/index'
 import { playMusic } from '@/shared/music-shared'
 import { jumpSongList } from '@/shared/list-shared'
-import classnames from 'classnames'
 import './index.less'
 
 export const Recommend = defineComponent({
@@ -65,13 +64,8 @@ export const Recommend = defineComponent({
 
     return () => (
       <div class="find-music-recommend">
-        <div
-          class={classnames('swiper-box', {
-            'swiper-box-mobile': window.isMobile
-          })}
-        >
+        <div class="swiper-box">
           <Swiper
-            mode={window.isMobile ? 'mobile' : 'pc'}
             banners={banners.value}
             running={runningSwiper.value}
             onClick={bannerClick}

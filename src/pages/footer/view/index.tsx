@@ -81,24 +81,20 @@ export const Footer = defineComponent({
               </div>
             </div>
           </div>
-
           <BrowserLyrice visible={visibleLyrice.value} />
-          {!window.isMobile && <BrowserLyriceFlash />}
-
+          <BrowserLyriceFlash />
           {/* Failed to locate Teleport target with selector "#cover-container" */}
           {/* {<PlayLyrice visible={visibleLyrice.value}></PlayLyrice>} */}
         </div>
         <div class="footer-right">
           <MusicControl />
-          {!window.isMobile && <VolumeAndHistory />}
+          <VolumeAndHistory />
         </div>
-        {!window.isMobile && (
-          <div class="footer-reduction">
-            <ve-button size="small" onClick={handleRebackSize}>
-              <icon icon="fullscreen2" color="#000"></icon>
-            </ve-button>
-          </div>
-        )}
+        <div class="footer-reduction">
+          <ve-button size="small" onClick={handleRebackSize}>
+            <icon icon="fullscreen2" color="#000"></icon>
+          </ve-button>
+        </div>
       </footer>
     )
   }

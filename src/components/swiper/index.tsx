@@ -11,7 +11,6 @@ import { Banners } from '@/interface/index'
 import { useInternal } from '@/hooks/index'
 import { Image } from '@/components/image/index'
 import { noop } from '@/utils'
-import { Swipe, SwipeItem } from 'vant'
 import classnames from 'classnames'
 import './index.less'
 
@@ -32,10 +31,6 @@ export const Swiper = defineComponent({
     onClick: {
       type: Function as PropType<(item: Banners) => void>,
       default: noop
-    },
-    mode: {
-      type: String as PropType<'mobile' | 'pc'>,
-      default: 'pc'
     }
   },
   emits: ['click'],
@@ -67,12 +62,10 @@ export const Swiper = defineComponent({
     })
 
     watchEffect(() => {
-      if (props.mode === 'pc') {
-        if (running.value) {
-          startInternal()
-        } else {
-          stopInternal()
-        }
+      if (running.value) {
+        startInternal()
+      } else {
+        stopInternal()
       }
     })
 
@@ -82,13 +75,14 @@ export const Swiper = defineComponent({
         Math.abs(modern - history) !== props.banners.length - 1
     })
 
+    const { banners } = toRefs(props)
     const renderClass = (index: number) => {
       const next =
         index === current.value + 1 ||
-        (current.value === props.banners.length - 1 && index === 0)
+        (current.value === banners.value.length - 1 && index === 0)
       const prev =
         index === current.value - 1 ||
-        (current.value === 0 && index === props.banners.length - 1)
+        (current.value === 0 && index === banners.value.length - 1)
 
       return classnames(`${prefix}-normal-item`, {
         [`${prefix}-prev`]: prev,
@@ -101,67 +95,51 @@ export const Swiper = defineComponent({
         [`${prefix}-span-current`]: spanCurrent.value
       })
     }
-
     const nextAction = () => {
       current.value =
-        current.value >= props.banners.length - 1 ? 0 : current.value + 1
+        current.value >= banners.value.length - 1 ? 0 : current.value + 1
     }
 
     const prevAction = () => {
       current.value =
-        current.value <= 0 ? props.banners.length - 1 : current.value - 1
+        current.value <= 0 ? banners.value.length - 1 : current.value - 1
     }
 
     const handleClick = (item: Banners) => {
       emit('click', item)
     }
 
-    return () => {
-      return props.mode === 'mobile' ? (
-        <div class={`${prefix}-container-mobile`}>
-          <Swipe autoplay={4000}>
-            {props.banners.map(item => (
-              <SwipeItem>
-                <>
-                  <Image name="swiper-mobile" src={item.imageUrl} />
-                  <i class={`${prefix}-container-title`}>{item.typeTitle}</i>
-                </>
-              </SwipeItem>
-            ))}
-          </Swipe>
-        </div>
-      ) : (
-        <div
-          class={`${prefix}`}
-          onMouseenter={handleMouseEnter}
-          onMouseleave={handleMouseLeave}
-        >
-          <ul class={`${prefix}-container ${prefix}-container-${props.mode}`}>
-            <div class={`${prefix}-container-left`} onClick={prevAction}>
-              <icon icon="toLeft" size={42}></icon>
-            </div>
-            {props.banners.map((item, index: number) => (
-              <li class={renderClass(index)} onClick={() => handleClick(item)}>
-                <Image src={item.imageUrl} />
-                <i class={`${prefix}-container-title`}>{item.typeTitle}</i>
-              </li>
-            ))}
-            <div class={`${prefix}-container-right`} onClick={nextAction}>
-              <icon icon="toRight" size={42}></icon>
-            </div>
-          </ul>
-          <ul class={`${prefix}-pagination`}>
-            {props.banners.map((item, index) => (
-              <li
-                class={classnames({
-                  [`${prefix}-pagination-active`]: index === current.value
-                })}
-                onMouseenter={() => handleChangeBanner(index)}
-              ></li>
-            ))}
-          </ul>
-        </div>
-      )
-    }
+    return () => (
+      <div
+        class={`${prefix}`}
+        onMouseenter={handleMouseEnter}
+        onMouseleave={handleMouseLeave}
+      >
+        <ul class={`${prefix}-container`}>
+          <div class={`${prefix}-container-left`} onClick={prevAction}>
+            <icon icon="toLeft" size={42}></icon>
+          </div>
+          {banners.value.map((item, index: number) => (
+            <li class={renderClass(index)} onClick={() => handleClick(item)}>
+              <Image src={item.imageUrl} />
+              <i class={`${prefix}-container-title`}>{item.typeTitle}</i>
+            </li>
+          ))}
+          <div class={`${prefix}-container-right`} onClick={nextAction}>
+            <icon icon="toRight" size={42}></icon>
+          </div>
+        </ul>
+        <ul class={`${prefix}-pagination`}>
+          {banners.value.map((item, index) => (
+            <li
+              class={classnames({
+                [`${prefix}-pagination-active`]: index === current.value
+              })}
+              onMouseenter={() => handleChangeBanner(index)}
+            ></li>
+          ))}
+        </ul>
+      </div>
+    )
   }
 })
