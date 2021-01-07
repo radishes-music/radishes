@@ -62,53 +62,44 @@ export const Header = defineComponent({
 
     return () => (
       <header class="header">
-        {window.isMobile ? (
-          <Search />
-        ) : (
-          <>
-            <Logo />
-            <div class="header-right">
-              <div
-                class="header-right-left"
-                onMousedown={e => e.stopPropagation()}
+        <Logo></Logo>
+        <div class="header-right">
+          <div class="header-right-left" onMousedown={e => e.stopPropagation()}>
+            <PushShift></PushShift>
+            <Search></Search>
+          </div>
+          <div
+            class="header-right-right"
+            onMousedown={e => e.stopPropagation()}
+          >
+            <Setting></Setting>
+            <div class="header-window">
+              <ve-button
+                type="text"
+                class="header-window-btn"
+                onClick={() => handleWindowControl(Action.MINIMIZE_WINDOW)}
               >
-                <PushShift />
-                <Search />
-              </div>
-              <div
-                class="header-right-right"
-                onMousedown={e => e.stopPropagation()}
+                <icon icon="shrink-taskbar" size={20}></icon>
+              </ve-button>
+              <ve-button
+                type="text"
+                class="header-window-btn"
+                onClick={windowsChangeSize}
               >
-                <Setting />
-                <div class="header-window">
-                  <ve-button
-                    type="text"
-                    class="header-window-btn"
-                    onClick={() => handleWindowControl(Action.MINIMIZE_WINDOW)}
-                  >
-                    <icon icon="shrink-taskbar" size={20}></icon>
-                  </ve-button>
-                  <ve-button
-                    type="text"
-                    class="header-window-btn"
-                    onClick={windowsChangeSize}
-                  >
-                    <icon icon={windowSize.value} size={20}></icon>
-                  </ve-button>
-                  {VUE_APP_PLATFORM !== 'browser' && (
-                    <ve-button
-                      type="text"
-                      class="header-window-btn"
-                      onClick={() => handleWindowControl(Action.CLOSE_WINDOW)}
-                    >
-                      <icon icon="cross" size={22}></icon>
-                    </ve-button>
-                  )}
-                </div>
-              </div>
+                <icon icon={windowSize.value} size={20}></icon>
+              </ve-button>
+              {VUE_APP_PLATFORM !== 'browser' && (
+                <ve-button
+                  type="text"
+                  class="header-window-btn"
+                  onClick={() => handleWindowControl(Action.CLOSE_WINDOW)}
+                >
+                  <icon icon="cross" size={22}></icon>
+                </ve-button>
+              )}
             </div>
-          </>
-        )}
+          </div>
+        </div>
       </header>
     )
   }

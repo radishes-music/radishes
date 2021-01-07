@@ -4,5 +4,4 @@ if (window) {
   window.isMobile = isMobile()
 }
 
-// Import app using asynchronous method
-import('./app/index')
+import './app/index'
