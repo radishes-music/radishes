@@ -4,6 +4,11 @@
     width: 210px;
     height: 210px;
     margin-right: 20px;
+    &--mobile {
+      width: 120px;
+      height: 120px;
+      margin-right: 30px;
+    }
   }
   &-detail {
     &-authoring {
@@ -12,6 +17,25 @@
       font-size: 13px;
       p {
         margin-right: 10px;
+      }
+    }
+  }
+  &-body {
+    &--mobile {
+      padding: 20px;
+      margin-top: 20px;
+    }
+  }
+  &--mobile {
+    padding: 0;
+    h1 {
+      color: white;
+    }
+    .artist {
+      &-detail {
+        &-authoring {
+          display: block;
+        }
       }
     }
   }

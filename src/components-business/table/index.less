@@ -8,6 +8,19 @@
       padding: 12px 16px;
     }
   }
+  &--mobile {
+    .ant-table-thead {
+      display: none;
+    }
+    .@{prefix} {
+      &-body {
+        .ant-table-tbody > tr > td,
+        .ant-table-thead > tr > th {
+          padding: 22px 10px !important;
+        }
+      }
+    }
+  }
   .row-music {
     cursor: pointer;
   }

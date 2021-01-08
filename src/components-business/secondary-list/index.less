@@ -1,4 +1,19 @@
 .secondary-list {
+  &-fn-control-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+    margin-top: 20px;
+    > div {
+      display: flex;
+      align-items: center;
+      > div {
+        margin-left: 10px;
+      }
+    }
+  }
   &-coverimg {
     width: 210px;
     min-width: 210px;
@@ -101,6 +116,9 @@
         &-author {
           margin-top: 25px;
           margin-bottom: 25px;
+          &-name {
+            color: white;
+          }
         }
         &-description {
           &--mobile {

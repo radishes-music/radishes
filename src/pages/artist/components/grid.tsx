@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineComponent, PropType } from 'vue'
 import { Image } from '@/components/image/index'
-import './grid.less'
 import { noop } from '@/utils'
+import classnames from 'classnames'
+import './grid.less'
 
 export const Grid = defineComponent({
   name: 'Grid',
@@ -22,7 +23,11 @@ export const Grid = defineComponent({
       emit('click', item)
     }
     return () => (
-      <ul class="grid-contanier">
+      <ul
+        class={classnames('grid-contanier', {
+          'grid-contanier--mobile': window.isMobile
+        })}
+      >
         {props.source.map(item => (
           <li onClick={() => handleClick(item)}>
             <Image

@@ -16,8 +16,9 @@ import {
 } from '@/interface/index'
 import { useDownloadModule, useFooterModule } from '@/modules/index'
 import { useSubscribe } from '@/shared/subscribe'
-import { getMusicUrl, playMusic } from '@/shared/music-shared'
+import { getMusicUrl } from '@/shared/music-shared'
 import { instance } from '@/components-business/fly/index'
+import classnames from 'classnames'
 import './index.less'
 
 const prefix = 'table'
@@ -27,9 +28,13 @@ const columns = [
     width: 40,
     key: 'index',
     align: 'center',
-    customRender: ({ index }: { index: number }) => (
-      <div class="gay no-hover">{++index < 10 ? '0' + index : index}</div>
-    )
+    customRender: ({ index }: { index: number }) => {
+      return window.isMobile ? (
+        <div class="gay no-hover">{++index}</div>
+      ) : (
+        <div class="gay no-hover">{++index < 10 ? '0' + index : index}</div>
+      )
+    }
   },
   {
     width: window.isMobile ? 72 : 102,
@@ -46,13 +51,6 @@ const columns = [
       }
       return (
         <div class="vh-center">
-          <ve-button
-            type="text"
-            onClick={() => playMusic(text.id)}
-            v-show={window.isMobile}
-          >
-            <icon icon="play-mobile" className="gay" size={18} />
-          </ve-button>
           <ve-button type="text" onClick={handleSubscribe}>
             <icon icon="shoucang" className="gay" size={20} />
           </ve-button>
@@ -240,7 +238,11 @@ export const Table = defineComponent({
     })
 
     return () => (
-      <div class={`${prefix}`}>
+      <div
+        class={classnames(`${prefix}`, {
+          [`${prefix}--mobile`]: window.isMobile
+        })}
+      >
         {/* <div class={`${prefix}-header`}></div> */}
         <div class={`${prefix}-body`}>
           <ATable

@@ -52,8 +52,11 @@ export const SecondaryList = defineComponent({
     }
 
     const handleSubscribe = async () => {
-      await subscribe(props.source.subscribed ? '2' : '1', props.source.id)
-      emit('update')
+      const isSuccess = await subscribe(
+        props.source.subscribed ? '2' : '1',
+        props.source.id
+      )
+      isSuccess && emit('update')
     }
 
     const handleDwonloadAll = () => {
@@ -167,6 +170,19 @@ export const SecondaryList = defineComponent({
                   </div>
                 )}
               </div>
+              <div
+                class={renderClass('fn-control-mobile')}
+                v-show={window.isMobile}
+              >
+                <div onClick={() => emit('playAll')}>
+                  <icon icon="play-mobile" size={16} />
+                  <div>播放全部</div>
+                </div>
+                <div onClick={handleSubscribe}>
+                  <icon icon="shoucang" size={20} />
+                  <div>{props.source.subscribed ? '取消收藏' : '收藏'}</div>
+                </div>
+              </div>
             </>
           ),
           body: () => (
@@ -178,7 +194,7 @@ export const SecondaryList = defineComponent({
                 list={props.source.list}
                 columnsTypes={
                   window.isMobile
-                    ? ['index', 'control', 'name', 'ar']
+                    ? ['index', 'name', 'ar', 'control']
                     : ['index', 'control', 'name', 'ar', 'al', 'dt']
                 }
                 onDblclick={e => {

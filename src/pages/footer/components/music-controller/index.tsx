@@ -55,7 +55,7 @@ export const MusicControl = defineComponent({
     })
 
     const showFooter = computed(() => {
-      return window.isMobile ? duration.value : true
+      return window.isMobile ? musicDes.value : true
     })
 
     const prevMusic = () => {

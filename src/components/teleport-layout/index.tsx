@@ -46,7 +46,8 @@ export const TeleportToAny = defineComponent({
           class={
             props.class ||
             classnames('cover-container', {
-              'cover-container-show': visible.value
+              'cover-container-show': visible.value,
+              'cover-container--mobile': window.isMobile
             })
           }
         >

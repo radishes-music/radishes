@@ -133,7 +133,18 @@ export const PlayLyrice = defineComponent({
                 onBeforeEnter={() => (transition.value = true)}
                 onAfterLeave={() => (transition.value = false)}
               >
-                <div v-show={visible.value} class={`${prefix}`}>
+                <div
+                  v-show={visible.value}
+                  class={classnams(`${prefix}`, {
+                    [`${prefix}--mobile`]: window.isMobile
+                  })}
+                >
+                  <div
+                    class={`${prefix}-bg--mobile`}
+                    style={{
+                      backgroundImage: `url(${state.music?.al.picUrl})`
+                    }}
+                  ></div>
                   <div
                     class={classnams(`${prefix}-center`, {
                       [`${prefix}-center--mobile`]: window.isMobile

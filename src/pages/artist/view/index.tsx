@@ -14,6 +14,7 @@ import { contentRouter } from '@/router/index'
 import { SecondaryBar } from '@/components-business/secondary-bar/index'
 import { ArtistActions } from '@/interface'
 import { parentAP } from '../logic/ap'
+import classnames from 'classnames'
 import './index.less'
 
 const formatNav = (id: string | string[]): RouteRecordRaw[] => {
@@ -59,12 +60,22 @@ export default defineComponent({
     })
 
     return () => (
-      <div class="artist">
+      <div
+        class={classnames('artist', {
+          'artist--mobile': window.isMobile
+        })}
+      >
         <SecondaryLayout
+          src={state.artist.cover}
           v-slots={{
             head: () => (
               <>
-                <Image src={state.artist.cover} name="artist-coverimg" />
+                <Image
+                  src={state.artist.cover}
+                  name={classnames('artist-coverimg', {
+                    'artist-coverimg--mobile': window.isMobile
+                  })}
+                />
                 <div class="artist-detail">
                   <h1>{state.artist.name}</h1>
                   <div class="artist-detail-authoring">
@@ -76,7 +87,11 @@ export default defineComponent({
               </>
             ),
             body: () => (
-              <div class="artist-body">
+              <div
+                class={classnames('artist-body', {
+                  'artist-body--mobile': window.isMobile
+                })}
+              >
                 <SecondaryBar nav={nav.value} size="small" />
                 <RouterView
                   v-slots={{

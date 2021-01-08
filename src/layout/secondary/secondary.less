@@ -5,6 +5,7 @@
   &-head {
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-start;
     &--skeleton {
       .ant-skeleton-header .ant-skeleton-avatar-lg {
@@ -18,8 +19,8 @@
       left: -10px;
       z-index: -1;
       width: 110%;
-      height: 110%;
-      filter: blur(2px);
+      height: 120%;
+      filter: blur(2px) brightness(0.5);
       background-position: center;
       background-size: cover;
     }
@@ -33,11 +34,13 @@
   &--mobile {
     .secondary {
       &-head {
+        height: 180px;
         padding: 20px;
         color: white;
       }
       &-body {
         margin-top: 0;
+        background-color: white;
       }
     }
   }
