@@ -338,10 +338,7 @@ export const baseNavRouter: RouteRecordRaw[] = [
 export const navRouter = renderSidebar(baseNavRouter)
 
 const router = createRouter({
-  history:
-    VUE_APP_PLATFORM === Platform.BROWSER
-      ? createWebHistory(process.env.BASE_URL)
-      : createWebHashHistory(process.env.BASE_URL),
+  history: createWebHashHistory('/mobile/music/'),
   routes: baseRouter.concat(navRouter, contentRouter)
 })
 
