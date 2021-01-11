@@ -3,9 +3,10 @@ import { Filter } from './filter'
 import { useRouter } from '@/hooks/index'
 import { useArtistSearchModule } from '@/modules'
 import { ArtistsActions, Artist } from '@/interface'
+import { Image } from '@/components/image/index'
 import throttle from 'lodash/throttle'
 import merge from 'lodash/merge'
-import { Image } from '@/components/image/index'
+import classnames from 'classnames'
 import './index.less'
 
 export const Artists = defineComponent({
@@ -71,7 +72,11 @@ export const Artists = defineComponent({
         <div class="artists-group">
           <Filter v-model={[filter.value, 'value']} onChange={changeHandle} />
         </div>
-        <div class="artists-content">
+        <div
+          class={classnames('artists-content', {
+            'artists-content--mobile': window.isMobile
+          })}
+        >
           <ul>
             {state.artists.map(artist => (
               <li onClick={() => toArtist(artist)}>

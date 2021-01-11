@@ -1,9 +1,4 @@
-import {
-  createRouter,
-  createWebHistory,
-  createWebHashHistory,
-  RouteRecordRaw
-} from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { ComponentPublicInstance } from 'vue'
 import { hook } from './hook'
 import { $404 } from '@/pages/404/view/index'

@@ -61,27 +61,42 @@
       }
     }
   }
-  &-mobile {
+  &--mobile {
+    align-items: flex-start;
     justify-content: space-between;
     overflow: hidden;
     color: white;
     .footer-left {
-      width: auto;
+      flex: 1;
       max-width: calc(100% - 70px);
+      height: 60px;
       padding-left: 0;
       overflow: hidden;
     }
     .footer-right {
       flex: 0;
       min-width: 70px;
+      height: 60px;
       padding-right: 20px;
     }
     .footer-music {
+      &-des {
+        flex: 1;
+        width: 0;
+        &--title {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
       &-thumbnail {
+        overflow: hidden;
         .music-pic {
           width: 60px;
           min-width: 60px;
           height: 60px;
+          background-position: center;
+          background-size: cover;
         }
       }
     }

@@ -21,6 +21,7 @@ export const state: FooterState = {
   visibleFlash: false,
   duration: 0,
   lyriceEmbedMinWidth: 0,
+  visibleLyrice: false,
   electronLyrice: {
     screenSize: LayoutSize.SM,
     visibleFlash: true,

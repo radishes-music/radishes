@@ -17,7 +17,6 @@ import { useFooterModule } from '@/modules/index'
 import { playMusic } from '@/shared/music-shared'
 import cloneDeep from 'lodash/cloneDeep'
 import remove from 'lodash/remove'
-import { warning } from '@/hooks'
 
 const dominateMediaSession = (
   title: string,
@@ -286,6 +285,9 @@ export const mutations: MutationTree<FooterState> = {
   },
   [FooterMutations.VISIBLE_FLASH](state, visible: boolean) {
     state.visibleFlash = visible
+  },
+  [FooterMutations.VISIBLE_EMBED](state, visible: boolean) {
+    state.visibleLyrice = visible
   },
   [FooterMutations.SEEKBACKWARD](state) {
     if (state.audioElement) {

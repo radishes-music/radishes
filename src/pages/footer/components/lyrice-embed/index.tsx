@@ -14,10 +14,22 @@ import {
 } from 'vue'
 import { on, off, maxChildrenScollWidth } from '@/utils/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
-import { useFooterModule, useLayoutModule, useDownloadModule } from '@/modules'
+import {
+  useFooterModule,
+  useLayoutModule,
+  useDownloadModule,
+  useMainModule
+} from '@/modules'
 import { Image } from '@/components/image'
-import { LayoutSize, FooterMutations, DownloadActions } from '@/interface'
+import {
+  LayoutSize,
+  FooterMutations,
+  DownloadActions,
+  Artists,
+  MainMutations
+} from '@/interface'
 import { useSubscribe } from '@/shared/subscribe'
+import { useRouter } from '@/hooks/index'
 import debounce from 'lodash/debounce'
 import classnams from 'classnames'
 import './index.less'
@@ -34,6 +46,7 @@ export const PlayLyrice = defineComponent({
     }
   },
   setup(props) {
+    const router = useRouter()
     const { visible } = toRefs(props)
     const transition = ref(visible.value)
     const disabled = ref(true)
@@ -44,10 +57,12 @@ export const PlayLyrice = defineComponent({
     const { useState, useGetter, useMutations } = useFooterModule()
     const LayoutModule = useLayoutModule()
     const DownloadModule = useDownloadModule()
+    const MainModule = useMainModule()
     const subscribe = useSubscribe(true)
 
     const { screenSize } = toRefs(LayoutModule.useState())
 
+    const musicDes = computed(() => useGetter('musicDes'))
     const lyrice = computed(() => useGetter('musicLyrics'))
     const state = useState()
 
@@ -107,6 +122,15 @@ export const PlayLyrice = defineComponent({
       }
     }
 
+    const toArtist = (artist: Artists) => {
+      const visible = !state.visibleLyrice
+      useMutations(FooterMutations.VISIBLE_EMBED, visible)
+      MainModule.useMutations(MainMutations.IS_SHOW_COVER_CONTAINER, visible)
+      router.push({
+        path: '/artist/' + artist.id + '/album'
+      })
+    }
+
     const handleSubscribe = () => {
       if (state.music) {
         subscribe('1', state.music.id)
@@ -139,12 +163,14 @@ export const PlayLyrice = defineComponent({
                     [`${prefix}--mobile`]: window.isMobile
                   })}
                 >
-                  <div
-                    class={`${prefix}-bg--mobile`}
-                    style={{
-                      backgroundImage: `url(${state.music?.al.picUrl})`
-                    }}
-                  ></div>
+                  {window.isMobile && (
+                    <div
+                      class={`${prefix}-bg--mobile`}
+                      style={{
+                        backgroundImage: `url(${state.music?.al.picUrl})`
+                      }}
+                    ></div>
+                  )}
                   <div
                     class={classnams(`${prefix}-center`, {
                       [`${prefix}-center--mobile`]: window.isMobile
@@ -192,6 +218,13 @@ export const PlayLyrice = defineComponent({
                     >
                       <div class={`${prefix}-right--title`}>
                         {state.music?.name}
+                      </div>
+                      <div class={`${prefix}-right--author`}>
+                        {musicDes.value.author.map(artist => (
+                          <div onClick={() => toArtist(artist)}>
+                            {artist.name}
+                          </div>
+                        ))}
                       </div>
                       <div ref={contanier} class={`${prefix}-right--lyrice`}>
                         <ve-scroll

@@ -5,8 +5,17 @@ import { VolumeAndHistory } from '../components/volume-history/index'
 import { useFooterModule, useLayoutModule, useMainModule } from '@/modules'
 import { AsyncComponent } from '../components/lyrice-embed/index'
 import { BrowserLyriceFlash } from '../components/lyrice-float/browser-lyrice'
-import { Artists, LayoutSize, LayoutActions, MainMutations } from '@/interface'
+import {
+  Artists,
+  LayoutSize,
+  LayoutActions,
+  MainMutations,
+  FooterMutations,
+  FooterActions,
+  Direction
+} from '@/interface'
 import { getAverageRGB } from '@/theme/color'
+import { Swipe, SwipeItem } from 'vant'
 import classnames from 'classnames'
 import './index.less'
 
@@ -17,7 +26,6 @@ const BrowserLyrice = AsyncComponent as any
 export const Footer = defineComponent({
   name: 'Footer',
   setup() {
-    const visibleLyrice = ref(false)
     const color = ref('rgb(243, 243, 243)')
 
     const router = useRouter()
@@ -29,6 +37,11 @@ export const Footer = defineComponent({
     const layoutState = LayoutModule.useState()
 
     const musicDes = computed(() => FooterModule.useGetter('musicDes'))
+    const index = computed(() =>
+      footerState.musicStack.findIndex(
+        item => item.id === footerState.music?.id
+      )
+    )
 
     const canShowSongDetail = computed(
       () => footerState.music && layoutState.screenSize !== LayoutSize.SM
@@ -50,11 +63,9 @@ export const Footer = defineComponent({
 
     const unfoldLyrice = () => {
       if (canShowSongDetail.value) {
-        visibleLyrice.value = !visibleLyrice.value
-        MainModule.useMutations(
-          MainMutations.IS_SHOW_COVER_CONTAINER,
-          visibleLyrice.value
-        )
+        const visible = !footerState.visibleLyrice
+        FooterModule.useMutations(FooterMutations.VISIBLE_EMBED, visible)
+        MainModule.useMutations(MainMutations.IS_SHOW_COVER_CONTAINER, visible)
       }
     }
 
@@ -71,10 +82,18 @@ export const Footer = defineComponent({
       )
     }
 
+    const handleSwitch = (i: number) => {
+      if (i > index.value) {
+        FooterModule.useActions(FooterActions.CUTOVER_TRACK, Direction.NEXT)
+      } else {
+        FooterModule.useActions(FooterActions.CUTOVER_TRACK, Direction.PREV)
+      }
+    }
+
     return () => (
       <footer
         class={classnames('footer', {
-          'footer-mobile': window.isMobile
+          'footer--mobile': window.isMobile
         })}
         style={{
           backgroundColor: color.value
@@ -92,16 +111,43 @@ export const Footer = defineComponent({
               onClick={unfoldLyrice}
             ></div>
             <div class="footer-music-des">
-              <div class="footer-music-des--title">{musicDes.value.title}</div>
-              <div class="footer-music-des--author">
-                {musicDes.value.author.map(artist => (
-                  <div onClick={() => toArtist(artist)}>{artist.name}</div>
-                ))}
-              </div>
+              {window.isMobile ? (
+                <Swipe
+                  show-indicators={false}
+                  initial-swipe={index.value}
+                  onChange={handleSwitch}
+                >
+                  {footerState.musicStack.map(item => (
+                    <SwipeItem>
+                      <>
+                        <div class="footer-music-des--title">{item.name}</div>
+                        <div class="footer-music-des--author">
+                          {item.ar.map(artist => (
+                            <div onClick={() => toArtist(artist)}>
+                              {artist.name}
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    </SwipeItem>
+                  ))}
+                </Swipe>
+              ) : (
+                <>
+                  <div class="footer-music-des--title">
+                    {musicDes.value.title}
+                  </div>
+                  <div class="footer-music-des--author">
+                    {musicDes.value.author.map(artist => (
+                      <div onClick={() => toArtist(artist)}>{artist.name}</div>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
-          <BrowserLyrice visible={visibleLyrice.value} />
+          <BrowserLyrice visible={footerState.visibleLyrice} />
           {!window.isMobile && <BrowserLyriceFlash />}
 
           {/* Failed to locate Teleport target with selector "#cover-container" */}

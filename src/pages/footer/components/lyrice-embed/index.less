@@ -16,12 +16,14 @@
   &-bg {
     &--mobile {
       position: absolute;
-      top: -10px;
-      left: -10px;
+      top: -10%;
+      left: -10%;
       z-index: 0;
-      width: 110%;
-      height: 110%;
-      filter: blur(2px) brightness(0.6);
+      width: 120%;
+      height: 120%;
+      filter: blur(6px) brightness(0.3);
+      background-position: center;
+      background-size: cover;
     }
   }
   &--mobile {
@@ -89,10 +91,12 @@
     }
     &--title {
       z-index: 1;
-      padding: 0 10px;
       margin-top: 30px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       font-size: 24px;
+    }
+    &--author {
+      z-index: 1;
     }
     &--lyrice {
       flex: 1;
