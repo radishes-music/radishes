@@ -136,7 +136,7 @@
     "typescript": "^4.1.3",
     "url-loader": "^4.1.1",
     "uuid": "^8.3.2",
-    "v-easy-components": "2.0.0-beta.14",
+    "v-easy-components": "2.0.0-beta.15",
     "vant": "^3.0.0-beta.7",
     "vue-cli-plugin-electron-builder": "^2.0.0-rc.5",
     "vuex-persistedstate": "^4.0.0-beta.1",
