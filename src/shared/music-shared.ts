@@ -12,7 +12,7 @@ export const playMusic = async (
     | {
         buffer?: Buffer
         path?: string
-        url: string
+        url?: string
         id: string | number
       },
   isStartOver = true

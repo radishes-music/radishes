@@ -52,7 +52,6 @@ export interface SongsDetail extends GlobalBase {
     version: number
     lyric: string
   }
-  url: string
   copyright: number
   noCopyrightRcmd?: {
     type: number

@@ -15,6 +15,7 @@ import {
 } from '@/interface'
 import { useFooterModule } from '@/modules/index'
 import { playMusic } from '@/shared/music-shared'
+import { basicMetadata } from '@/utils/meta'
 import cloneDeep from 'lodash/cloneDeep'
 import remove from 'lodash/remove'
 
@@ -22,9 +23,18 @@ const dominateMediaSession = (
   title: string,
   artist: string,
   album: string,
-  pic: string
+  pic: string,
+  audio: string
 ) => {
   document.title = title + '-' + artist
+
+  basicMetadata({
+    title: title,
+    artist: artist,
+    pic: pic,
+    audio: audio
+  })
+
   if ('mediaSession' in navigator) {
     const { useMutations, useActions } = useFooterModule()
     navigator.mediaSession.metadata = new MediaMetadata({
@@ -123,7 +133,8 @@ export const getters: GetterTree<FooterState, RootState> = {
           title,
           author.map(o => o.name).join(' / '),
           '',
-          state.music.al.picUrl
+          state.music.al.picUrl,
+          state.musicUrl
         )
         return {
           author: author,
@@ -222,16 +233,10 @@ export const mutations: MutationTree<FooterState> = {
       }
     })
   },
-  [FooterMutations.SET_MUSIC_URL](state, payload: string | SongsDetail) {
+  [FooterMutations.SET_MUSIC_URL](state, payload: string) {
     if (state.sourceElement && state.audioElement && state.music) {
       const music = toRaw(state.music)
-      if (typeof payload === 'string') {
-        state.sourceElement.src = payload
-        music.url = payload
-      } else {
-        state.sourceElement.src = payload.url
-        state.music = payload
-      }
+      state.sourceElement.src = payload
       state.audioElement.load()
       const isRepeatHistory = findMusicIndex(state.musciHistory, music) === -1
       const isRepeatStack = findMusicIndex(state.musicStack, music) === -1

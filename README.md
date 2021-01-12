@@ -134,3 +134,4 @@ macOS 版本暂时无法发布（因为我没钱买 mac ）。
 - [dayjs](https://day.js.org/docs/zh-CN/installation/installation)
 - [lerna](https://github.com/lerna/lerna)
 - [id3-writer](https://github.com/egoroof/browser-id3-writer)
+- [Open Graph](https://ogp.me/)
