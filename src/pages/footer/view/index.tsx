@@ -83,6 +83,19 @@ export const Footer = defineComponent({
     }
 
     const handleSwitch = (i: number) => {
+      const len = footerState.musicStack.length
+      if (i === 0 && index.value === len - 1) {
+        return FooterModule.useActions(
+          FooterActions.CUTOVER_TRACK,
+          Direction.NEXT
+        )
+      }
+      if (i === len - 1 && index.value === 0) {
+        return FooterModule.useActions(
+          FooterActions.CUTOVER_TRACK,
+          Direction.PREV
+        )
+      }
       if (i > index.value) {
         FooterModule.useActions(FooterActions.CUTOVER_TRACK, Direction.NEXT)
       } else {
