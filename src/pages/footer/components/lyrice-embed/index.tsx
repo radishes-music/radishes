@@ -242,7 +242,9 @@ export const PlayLyrice = defineComponent({
                             {lyrice.value.map((item, i) => (
                               <div
                                 class={classnams({
-                                  'lyrice-active': index.value === i
+                                  'lyrice-active': index.value === i,
+                                  'lyrice-active--mobile':
+                                    window.isMobile && index.value === i
                                 })}
                                 data-time={item.time}
                               >

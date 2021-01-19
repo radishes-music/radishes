@@ -178,7 +178,7 @@ export const SecondaryList = defineComponent({
                   <icon icon="play-mobile" size={16} />
                   <div>播放全部</div>
                 </div>
-                <div onClick={handleSubscribe}>
+                <div onClick={handleSubscribe} v-show={props.source.src}>
                   <icon icon="shoucang" size={20} />
                   <div>{props.source.subscribed ? '取消收藏' : '收藏'}</div>
                 </div>

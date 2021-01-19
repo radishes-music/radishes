@@ -116,7 +116,8 @@ export const Footer = defineComponent({
           <div class="footer-music-thumbnail">
             <div
               class={classnames('music-pic', {
-                'music-pic-active': canShowSongDetail.value
+                'music-pic-active': canShowSongDetail.value,
+                'music-pic--mobile': window.isMobile
               })}
               style={{
                 backgroundImage: `url(${footerState.music?.al.picUrl})`
