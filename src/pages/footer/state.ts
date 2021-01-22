@@ -5,7 +5,6 @@ import { FooterState, PlayMode } from './interface'
 export type Music = SongsDetail
 
 export const state: FooterState = {
-  // audio: new BackgroundAudio(),
   playMode: PlayMode.TURN,
   musicUrl: '',
   musicLyricsOrigin: '',
@@ -16,7 +15,6 @@ export const state: FooterState = {
   playing: false,
   canplay: false,
   audioElement: null,
-  sourceElement: null,
   visibleFlash: false,
   duration: 0,
   lyriceEmbedMinWidth: 0,

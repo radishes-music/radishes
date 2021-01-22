@@ -14,6 +14,7 @@ module.exports = {
     }
   },
   devServer: {
+    port: 10001,
     progress: CI,
     proxy: {
       '/api': {

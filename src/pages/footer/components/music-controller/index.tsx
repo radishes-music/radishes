@@ -2,17 +2,12 @@ import { defineComponent, ref, toRefs, onMounted, computed, watch } from 'vue'
 import { toFixed, formatTime, sleep } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
-import { useFooterModule, findMusicIndex } from '@/modules'
-import {
-  FooterActions,
-  FooterMutations,
-  PlayMode,
-  Direction
-} from '@/interface'
+import { useFooterModule } from '@/modules'
+import { FooterActions, FooterMutations, Direction } from '@/interface'
 import { Platform } from '@/config/build'
 import { importIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyriceAction } from '@/electron/event/action-types'
-import { playMusic } from '@/shared/music-shared'
+import { ConvolutionFile, AudioEffect } from '@/shared/audio'
 import './index.less'
 
 const prefix = 'music'
@@ -28,10 +23,8 @@ export const MusicControl = defineComponent({
     const { useState, useMutations, useGetter, useActions } = useFooterModule()
 
     const {
-      musicStack,
       playMode,
       audioElement,
-      sourceElement,
       playing,
       music,
       canplay,
@@ -65,10 +58,15 @@ export const MusicControl = defineComponent({
       useActions(FooterActions.CUTOVER_TRACK, Direction.NEXT)
     }
 
-    const handlePlayPaues = () => {
+    const handlePlayPaues = async () => {
       if (playing.value) {
         useMutations(FooterMutations.PAUES_MUSIC)
       } else {
+        if (audioElement.value) {
+          const audio = new AudioEffect(audioElement.value)
+          audio.startSpatial()
+          // await audio.createConvolver(ConvolutionFile.TunnelToHell)
+        }
         useMutations(FooterMutations.PLAY_MUSIC)
       }
     }
@@ -175,7 +173,7 @@ export const MusicControl = defineComponent({
       if (currentTime && currentTime.value) {
         useMutations(FooterMutations.CURRENT_TIME, currentTime.value)
       }
-      if (audioElement.value && sourceElement.value) {
+      if (audioElement.value) {
         audioElement.value.addEventListener('loadedmetadata', loadedmetadata)
         audioElement.value.addEventListener('canplaythrough', canplaythrough)
         audioElement.value.addEventListener('loadstart', loadstart)
@@ -197,12 +195,11 @@ export const MusicControl = defineComponent({
       <div class={`${prefix}-command`}>
         <audio
           class="audio-background"
+          crossorigin="anonymous"
           aria-title={musicDes.value.title}
           aria-author={musicDes.value.author.map(o => o.name).join(' / ')}
           ref={audioElement}
-        >
-          <source ref={sourceElement} type="audio/mpeg" />
-        </audio>
+        ></audio>
         <div class={`${prefix}-command-center`}>
           <div class={`${prefix}-command-group`}>
             <ve-button type="text">

@@ -17,7 +17,6 @@ export interface Lyrics {
 }
 
 export interface FooterState {
-  // audio: AudioType
   playMode: PlayMode
   music?: SongsDetail
   musicUrl: string
@@ -28,7 +27,6 @@ export interface FooterState {
   playing: boolean
   canplay: boolean
   audioElement: HTMLAudioElement | null
-  sourceElement: HTMLSourceElement | null
   visibleFlash: boolean
   electronLyrice: PostData
   duration: number

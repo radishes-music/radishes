@@ -216,13 +216,13 @@ export const mutations: MutationTree<FooterState> = {
     })
   },
   [FooterMutations.SET_MUSIC_URL](state, payload: string | SongsDetail) {
-    if (state.sourceElement && state.audioElement && state.music) {
+    if (state.audioElement && state.music) {
       const music = toRaw(state.music)
       if (typeof payload === 'string') {
-        state.sourceElement.src = payload
+        state.audioElement.src = payload
         music.url = payload
       } else {
-        state.sourceElement.src = payload.url
+        state.audioElement.src = payload.url
         state.music = payload
       }
       state.audioElement.load()

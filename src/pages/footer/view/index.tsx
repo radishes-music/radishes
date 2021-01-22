@@ -5,6 +5,7 @@ import { VolumeAndHistory } from '../components/volume-history/index'
 import { useFooterModule, useLayoutModule, useMainModule } from '@/modules'
 import { AsyncComponent } from '../components/lyrice-embed/index'
 import { BrowserLyriceFlash } from '../components/lyrice-float/browser-lyrice'
+import Effect from '../components/effect/index'
 import { Artists, LayoutSize, LayoutActions, MainMutations } from '@/interface'
 import classnames from 'classnames'
 import './index.less'
@@ -84,6 +85,7 @@ export const Footer = defineComponent({
         </div>
         <div class="footer-right">
           <MusicControl />
+          <Effect />
           <VolumeAndHistory />
         </div>
         <div class="footer-reduction">
