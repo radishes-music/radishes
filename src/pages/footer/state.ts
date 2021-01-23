@@ -1,10 +1,11 @@
 import { SongsDetail } from '@/interface/index'
 import { LayoutSize } from '@/interface'
-import { FooterState, PlayMode } from './interface'
+import { PlayMode } from './interface'
 
 export type Music = SongsDetail
 
-export const state: FooterState = {
+export const state = {
+  effect: null,
   playMode: PlayMode.TURN,
   musicUrl: '',
   musicLyricsOrigin: '',

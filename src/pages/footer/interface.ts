@@ -1,5 +1,11 @@
 import { PostData } from './components/lyrice-float/electron-lyrice'
 import { Artists, SongsDetail } from '@/interface/index'
+import { AudioEffect } from '@/shared/audio'
+
+export const enum BasicEffect {
+  D3,
+  FADE
+}
 
 export const enum PlayMode {
   TURN = 'turn'
@@ -17,6 +23,7 @@ export interface Lyrics {
 }
 
 export interface FooterState {
+  effect: AudioEffect
   playMode: PlayMode
   music?: SongsDetail
   musicUrl: string
@@ -59,7 +66,7 @@ export const enum FooterMutations {
   CLEAR_LOCAL_MUSIC_URL = 'CLEAR_LOCAL_MUSIC_URL',
   PLAY_MUSIC = 'PLAY_MUSIC',
   PAUES_MUSIC = 'PAUES_MUSIC',
-  ENDED_MUSIC = 'ENDED_MUSIC',
+  PLAYING = 'PLAYING',
   CURRENT_TIME = 'CURRENT_TIME',
   UPDATE_CURRENT_TIME = 'UPDATE_CURRENT_TIME',
   CAN_PLAY = 'CAN_PLAY',
@@ -73,5 +80,6 @@ export const enum FooterMutations {
   CLEAR_STACK = 'CLEAR_STACK',
   LYRICE_EMBED_MIN_WIDTH = 'LYRICE_EMBED_MIN_WIDTH',
   SEEKBACKWARD = 'SEEKBACKWARD',
-  SEEKFORWARD = 'SEEKFORWARD'
+  SEEKFORWARD = 'SEEKFORWARD',
+  INIT_EFFECT = 'INIT_EFFECT'
 }

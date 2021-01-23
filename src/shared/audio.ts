@@ -1,23 +1,12 @@
+import { ConvolutionFile } from '@/interface'
 import { sleep } from '@/utils'
 import axios from 'axios'
-
-export const enum ConvolutionFile {
-  Batcave = 'Batcave.wav',
-  Crowd = 'Crowd.wav',
-  EchoBridge = 'EchoBridge.wav',
-  Natatorium = 'Natatorium.wav',
-  TunnelToHell = 'TunnelToHell.wav'
-}
-
-interface InOut {
-  isIn: boolean
-}
 
 export interface Effect {
   createConvolver: (payload: ConvolutionFile) => Promise<void>
   startSpatial: () => void
   stopSpatial: () => void
-  fadeInOut: (fade: InOut) => void
+  fadeInOut: (fade: boolean) => Promise<void>
   disconnect: () => void
   volume: number
 }
@@ -29,6 +18,7 @@ export class AudioEffect implements Effect {
   private convolver: ConvolverNode
   private audio: HTMLAudioElement
   private stopSurround: boolean
+  private convolverFile?: string
   constructor(audio: HTMLAudioElement) {
     const AudioContext = window.AudioContext || window.webkitAudioContext
     if (!AudioContext) {
@@ -40,6 +30,7 @@ export class AudioEffect implements Effect {
     this.gainNode = this.context.createGain()
     this.convolver = this.context.createConvolver()
     this.source = this.context.createMediaElementSource(this.audio)
+    this.gainNode.gain.setValueAtTime(0, 0)
   }
 
   get volume() {
@@ -54,8 +45,11 @@ export class AudioEffect implements Effect {
   }
 
   public async createConvolver(payload: ConvolutionFile) {
-    this.disconnect()
-    const decodeBuffer = await this.getBuffer('/audio-effect/' + payload)
+    if (this.convolverFile === payload) return
+    this.convolverFile = payload
+    const decodeBuffer = await this.getBuffer(
+      '/audio-effect/' + payload + '.wav'
+    )
     this.convolver.buffer = decodeBuffer
     this.source.connect(this.convolver)
     this.convolver.connect(this.gainNode)
@@ -64,14 +58,7 @@ export class AudioEffect implements Effect {
 
   public startSpatial() {
     this.stopSurround = false
-    this.disconnect()
-    const [panner, gain1, gain2, convolver, radius] = [
-      this.context.createPanner(),
-      this.context.createGain(),
-      this.context.createGain(),
-      this.context.createConvolver(),
-      20
-    ]
+    const [panner, radius] = [this.context.createPanner(), 20]
 
     let index = 0
     const loop = async () => {
@@ -94,12 +81,8 @@ export class AudioEffect implements Effect {
     loop()
 
     this.source.connect(panner)
-    gain1.gain.value = 5
-    panner.connect(gain1)
-    gain1.connect(this.context.destination)
-
-    convolver.connect(gain2)
-    gain2.connect(this.context.destination)
+    panner.connect(this.gainNode)
+    this.gainNode.connect(this.context.destination)
   }
 
   public stopSpatial() {
@@ -123,24 +106,18 @@ export class AudioEffect implements Effect {
     return decodeBuffer
   }
 
-  public fadeInOut({ isIn }: InOut) {
+  public async fadeInOut(isIn: boolean) {
+    const { currentTime } = this.context
+    this.source.connect(this.gainNode)
+    this.gainNode.connect(this.context.destination)
+    // Cancel all scheduled future changes
+    this.gainNode.gain.cancelScheduledValues(0)
     if (isIn) {
-      this.gainNode.gain.value = 0
-      this.audio.play()
-
-      this.gainNode.gain.linearRampToValueAtTime(
-        1,
-        this.context.currentTime + 0.7
-      )
+      this.gainNode.gain.linearRampToValueAtTime(1.0, currentTime + 1)
     } else {
-      this.gainNode.gain.linearRampToValueAtTime(
-        0,
-        this.context.currentTime + 0.7
-      )
-      setTimeout(() => {
-        this.audio.pause()
-      }, 700)
+      this.gainNode.gain.linearRampToValueAtTime(0, currentTime + 1)
     }
+    await sleep(1100)
   }
 
   public disconnect() {

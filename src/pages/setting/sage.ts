@@ -10,5 +10,11 @@ export const mutations: MutationTree<SettingState> = {
   },
   [SettingMutations.SET_BIT_RATE](state, bit: number) {
     state.bitRate = bit
+  },
+  [SettingMutations.SET_BASIC_EFFECT](state, basic) {
+    state.basicEffect = basic
+  },
+  [SettingMutations.SET_CONVOLVER_EFFECT](state, convolver) {
+    state.convolver = convolver
   }
 }

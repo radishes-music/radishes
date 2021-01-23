@@ -12,6 +12,7 @@ import Source from './source'
 import Download from './download'
 import Author from './author'
 import About from './about'
+import Effect from './effect'
 import classnames from 'classnames'
 import debounce from 'lodash/debounce'
 import './index.less'
@@ -37,6 +38,10 @@ export const Setting = defineComponent({
       {
         location: 'download',
         name: '下载设置'
+      },
+      {
+        location: 'effect',
+        name: '音效设置'
       },
       {
         location: 'author',
@@ -86,7 +91,7 @@ export const Setting = defineComponent({
     onMounted(() => {
       if (contanier.value) {
         const children = contanier.value.children
-        const contanierTop = contanier.value.getBoundingClientRect().top + 50
+        const contanierTop = contanier.value.getBoundingClientRect().top + 20
         for (let i = 0; i < children.length; i++) {
           const area = children[i] as HTMLElement
           const top = toFixed(
@@ -146,6 +151,7 @@ export const Setting = defineComponent({
         >
           <Source />
           <Download />
+          <Effect />
           <Author />
           <About />
         </div>

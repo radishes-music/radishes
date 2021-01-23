@@ -2,12 +2,16 @@ import { defineComponent, ref, toRefs, onMounted, computed, watch } from 'vue'
 import { toFixed, formatTime, sleep } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
-import { useFooterModule } from '@/modules'
-import { FooterActions, FooterMutations, Direction } from '@/interface'
+import { useFooterModule, useSettingModule } from '@/modules'
+import {
+  FooterActions,
+  FooterMutations,
+  Direction,
+  BasicEffect
+} from '@/interface'
 import { Platform } from '@/config/build'
 import { importIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyriceAction } from '@/electron/event/action-types'
-import { ConvolutionFile, AudioEffect } from '@/shared/audio'
 import './index.less'
 
 const prefix = 'music'
@@ -21,7 +25,9 @@ export const MusicControl = defineComponent({
     const block = ref<Block[]>([])
 
     const { useState, useMutations, useGetter, useActions } = useFooterModule()
+    const settingModule = useSettingModule()
 
+    const settingState = settingModule.useState()
     const {
       playMode,
       audioElement,
@@ -30,7 +36,8 @@ export const MusicControl = defineComponent({
       canplay,
       currentTime,
       visibleFlash,
-      duration
+      duration,
+      effect
     } = toRefs(useState())
 
     const musicDes = computed(() => useGetter('musicDes'))
@@ -59,15 +66,36 @@ export const MusicControl = defineComponent({
     }
 
     const handlePlayPaues = async () => {
+      // It can be called after being triggered by the user
+      if (!effect.value) {
+        useMutations(FooterMutations.INIT_EFFECT)
+      }
+
+      if (settingState.convolver !== '无') {
+        effect.value.createConvolver(settingState.convolver)
+      }
+
       if (playing.value) {
-        useMutations(FooterMutations.PAUES_MUSIC)
+        if (settingState.basicEffect.includes(BasicEffect.D3)) {
+          effect.value.stopSpatial()
+        }
+        if (settingState.basicEffect.includes(BasicEffect.FADE)) {
+          // Change the icon directly when fading out to optimize the experience
+          playingIcon.value = 'play'
+          effect.value.fadeInOut(false).then(() => {
+            playing.value && useMutations(FooterMutations.PAUES_MUSIC)
+          })
+        } else {
+          useMutations(FooterMutations.PAUES_MUSIC)
+        }
       } else {
-        if (audioElement.value) {
-          const audio = new AudioEffect(audioElement.value)
-          audio.startSpatial()
-          // await audio.createConvolver(ConvolutionFile.TunnelToHell)
+        if (settingState.basicEffect.includes(BasicEffect.FADE)) {
+          effect.value.fadeInOut(true)
         }
         useMutations(FooterMutations.PLAY_MUSIC)
+        if (settingState.basicEffect.includes(BasicEffect.D3)) {
+          effect.value.startSpatial()
+        }
       }
     }
 
@@ -162,7 +190,7 @@ export const MusicControl = defineComponent({
     }
 
     const ended = async () => {
-      useMutations(FooterMutations.ENDED_MUSIC)
+      useMutations(FooterMutations.PLAYING, false)
       useActions(FooterActions.CUTOVER_TRACK, Direction.NEXT)
     }
 
@@ -180,6 +208,9 @@ export const MusicControl = defineComponent({
         audioElement.value.addEventListener('progress', progress)
         audioElement.value.addEventListener('ended', ended)
         audioElement.value.addEventListener('playing', () => {
+          if (effect.value) {
+            effect.value.fadeInOut(true)
+          }
           playingIcon.value = 'pause'
         })
         audioElement.value.addEventListener('pause', () => {

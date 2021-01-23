@@ -12,7 +12,8 @@ import {
 } from '@/interface'
 import { getMusicUrl, playMusic } from '@/shared/music-shared'
 import { RootState } from '@/store/index'
-import { useFooterModule } from './module'
+import { useFooterModule } from '@/modules'
+import { AudioEffect } from '@/shared/audio'
 import cloneDeep from 'lodash/cloneDeep'
 import remove from 'lodash/remove'
 
@@ -254,8 +255,8 @@ export const mutations: MutationTree<FooterState> = {
       state.playing = false
     }
   },
-  [FooterMutations.ENDED_MUSIC](state) {
-    state.playing = false
+  [FooterMutations.PLAYING](state, playing) {
+    state.playing = playing
   },
   [FooterMutations.CURRENT_TIME](state, time: number) {
     if (state.audioElement && isNumber(time)) {
@@ -287,6 +288,11 @@ export const mutations: MutationTree<FooterState> = {
   [FooterMutations.SEEKFORWARD](state) {
     if (state.audioElement) {
       state.audioElement.currentTime = state.currentTime + 10
+    }
+  },
+  [FooterMutations.INIT_EFFECT](state) {
+    if (state.audioElement) {
+      state.effect = new AudioEffect(state.audioElement)
     }
   }
 }
