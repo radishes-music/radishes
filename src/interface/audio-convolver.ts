@@ -1,5 +1,5 @@
 export type ConvolutionFile =
-  | '无'
+  | '原唱'
   | 'AcademicQuadrangle'
   | 'AliceInBones'
   | 'Amaranth'

@@ -14,9 +14,9 @@ export const state: SettingState = {
   ],
   bitRate: 3.2e5,
   basicEffect: [BasicEffect.FADE],
-  convolver: '无',
+  convolver: '原唱',
   convolverAll: [
-    '无',
+    '原唱',
     'AcademicQuadrangle',
     'AliceInBones',
     'Amaranth',

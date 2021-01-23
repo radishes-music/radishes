@@ -4,6 +4,7 @@ import axios from 'axios'
 
 export interface Effect {
   createConvolver: (payload: ConvolutionFile) => Promise<void>
+  clearConvolver: () => void
   startSpatial: () => void
   stopSpatial: () => void
   fadeInOut: (fade: boolean) => Promise<void>
@@ -15,9 +16,9 @@ export class AudioEffect implements Effect {
   private context: AudioContext
   private source: MediaElementAudioSourceNode
   private gainNode: GainNode
-  private convolver: ConvolverNode
   private audio: HTMLAudioElement
   private stopSurround: boolean
+  private convolver?: ConvolverNode
   private convolverFile?: string
   constructor(audio: HTMLAudioElement) {
     const AudioContext = window.AudioContext || window.webkitAudioContext
@@ -28,7 +29,7 @@ export class AudioEffect implements Effect {
     this.stopSurround = true
     this.context = new AudioContext()
     this.gainNode = this.context.createGain()
-    this.convolver = this.context.createConvolver()
+
     this.source = this.context.createMediaElementSource(this.audio)
     this.gainNode.gain.setValueAtTime(0, 0)
   }
@@ -46,6 +47,7 @@ export class AudioEffect implements Effect {
 
   public async createConvolver(payload: ConvolutionFile) {
     if (this.convolverFile === payload) return
+    this.convolver = this.context.createConvolver()
     this.convolverFile = payload
     const decodeBuffer = await this.getBuffer(
       '/audio-effect/' + payload + '.wav'
@@ -54,6 +56,10 @@ export class AudioEffect implements Effect {
     this.source.connect(this.convolver)
     this.convolver.connect(this.gainNode)
     this.gainNode.connect(this.context.destination)
+  }
+
+  public clearConvolver() {
+    this.convolver?.disconnect()
   }
 
   public startSpatial() {

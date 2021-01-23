@@ -71,7 +71,9 @@ export const MusicControl = defineComponent({
         useMutations(FooterMutations.INIT_EFFECT)
       }
 
-      if (settingState.convolver !== '无') {
+      if (settingState.convolver === '原唱') {
+        effect.value.clearConvolver()
+      } else {
         effect.value.createConvolver(settingState.convolver)
       }
 

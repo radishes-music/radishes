@@ -41,7 +41,7 @@ export const Setting = defineComponent({
       },
       {
         location: 'effect',
-        name: '音效设置'
+        name: '音效'
       },
       {
         location: 'author',
