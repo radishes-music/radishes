@@ -1,5 +1,5 @@
-import { defineComponent, ref, computed } from 'vue'
-import { useRouter } from '@/hooks/index'
+import { defineComponent, ref, computed, watch } from 'vue'
+import { useRouter, useRoute } from '@/hooks/index'
 import { MusicControl } from '../components/music-controller'
 import { VolumeAndHistory } from '../components/volume-history/index'
 import { useFooterModule, useLayoutModule, useMainModule } from '@/modules'
@@ -19,6 +19,7 @@ export const Footer = defineComponent({
   setup() {
     const visibleLyrice = ref(false)
 
+    const route = useRoute()
     const router = useRouter()
     const FooterModule = useFooterModule()
     const MainModule = useMainModule()
@@ -42,6 +43,13 @@ export const Footer = defineComponent({
         )
       }
     }
+
+    watch(
+      () => route.path,
+      () => {
+        unfoldLyrice()
+      }
+    )
 
     const toArtist = (artist: Artists) => {
       router.push({
