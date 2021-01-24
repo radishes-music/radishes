@@ -48,12 +48,11 @@ class EffectNodeRender {
 
   output() {
     const { node, ctx } = this
-    node[0].node.disconnect()
-    node[node.length - 1].node.disconnect()
     for (let i = 0; i < this.node.length; i++) {
       const cur = node[i],
         next = node[i + 1]
 
+      cur.node.disconnect()
       if (next) {
         cur.node.connect(next.node)
       } else {
@@ -98,12 +97,14 @@ export class AudioEffect implements Effect {
       '/audio-effect/' + payload + '.wav'
     )
     this.convolver.buffer = decodeBuffer
-    this.nodeRender.insert(EffectNodeRender.render(this.convolver, 3)).output()
+    this.nodeRender
+      .delete(3)
+      .insert(EffectNodeRender.render(this.convolver, 3))
+      .output()
   }
 
   public clearConvolver() {
     this.convolverFile = '原唱'
-    this.convolver?.disconnect()
     this.nodeRender.delete(3).output()
   }
 
@@ -142,7 +143,6 @@ export class AudioEffect implements Effect {
   }
 
   public clearSpatial() {
-    this.panner?.disconnect()
     this.nodeRender.delete(2).output()
   }
 
@@ -181,7 +181,6 @@ export class AudioEffect implements Effect {
   }
 
   public clearFade() {
-    this.gainNodeFade?.disconnect()
     this.nodeRender.delete(1).output()
   }
 }
