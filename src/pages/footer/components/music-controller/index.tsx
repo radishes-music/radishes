@@ -74,10 +74,14 @@ export const MusicControl = defineComponent({
       effect.value.createConvolver(settingState.convolver)
 
       if (playing.value) {
-        if (settingState.basicEffect === BasicEffect.D3) {
+        if (settingState.basicEffect.includes(BasicEffect.D3)) {
           effect.value.stopSpatial()
+          // effect.value.clearSpatial()
         }
-        if (settingState.basicEffect === BasicEffect.FADE) {
+        if (settingState.basicEffect.includes(BasicEffect.TENDER)) {
+          effect.value.clearTender()
+        }
+        if (settingState.basicEffect.includes(BasicEffect.FADE)) {
           // Change the icon directly when fading out to optimize the experience
           playingIcon.value = 'play'
           effect.value.startInOut(false).then(() => {
@@ -87,11 +91,14 @@ export const MusicControl = defineComponent({
           useMutations(FooterMutations.PAUES_MUSIC)
         }
       } else {
-        if (settingState.basicEffect === BasicEffect.FADE) {
+        if (settingState.basicEffect.includes(BasicEffect.FADE)) {
           effect.value.startInOut(true)
         }
+        if (settingState.basicEffect.includes(BasicEffect.TENDER)) {
+          effect.value.startTender()
+        }
         useMutations(FooterMutations.PLAY_MUSIC)
-        if (settingState.basicEffect === BasicEffect.D3) {
+        if (settingState.basicEffect.includes(BasicEffect.D3)) {
           effect.value.stopSurround && effect.value.startSpatial()
         }
       }
@@ -207,10 +214,10 @@ export const MusicControl = defineComponent({
         audioElement.value.addEventListener('ended', ended)
         audioElement.value.addEventListener('playing', () => {
           if (effect.value) {
-            if (settingState.basicEffect === BasicEffect.FADE) {
+            if (settingState.basicEffect.includes(BasicEffect.FADE)) {
               effect.value.startInOut(true)
             }
-            if (settingState.basicEffect === BasicEffect.D3) {
+            if (settingState.basicEffect.includes(BasicEffect.D3)) {
               effect.value.stopSurround && effect.value.startSpatial()
             }
           }

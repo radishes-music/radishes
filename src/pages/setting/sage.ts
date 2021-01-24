@@ -17,13 +17,18 @@ export const mutations: MutationTree<SettingState> = {
   [SettingMutations.SET_BIT_RATE](state, bit: number) {
     state.bitRate = bit
   },
-  [SettingMutations.SET_BASIC_EFFECT](state, basic: BasicEffect) {
+  [SettingMutations.SET_BASIC_EFFECT](state, basic: BasicEffect[]) {
     const { useState } = useFooterModule()
     const footerState = useState()
-    if (basic === BasicEffect.D3) {
-      footerState.effect?.clearFade()
-    } else {
-      footerState.effect?.clearSpatial()
+    footerState.effect?.clearBasicEffect()
+    if (basic.includes(BasicEffect.D3)) {
+      footerState.effect?.startSpatial()
+    }
+    if (basic.includes(BasicEffect.FADE)) {
+      footerState.effect?.startInOut(true)
+    }
+    if (basic.includes(BasicEffect.TENDER)) {
+      footerState.effect?.startTender()
     }
     state.basicEffect = basic
   },

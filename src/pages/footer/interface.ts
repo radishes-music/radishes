@@ -4,7 +4,8 @@ import { AudioEffect } from '@/shared/audio'
 
 export const enum BasicEffect {
   D3 = '3D',
-  FADE = 'FADE'
+  FADE = 'FADE',
+  TENDER = 'TENDER'
 }
 
 export const enum PlayMode {

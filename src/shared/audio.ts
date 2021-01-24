@@ -13,9 +13,17 @@ export interface Effect {
   clearFade: () => void
 }
 
+enum NodeID {
+  SourceNode,
+  ConvolverNode,
+  PannerNode,
+  GainNode,
+  DynamicsCompressorNode
+}
+
 type EffectNode = {
   node: AudioNode
-  id: number
+  id: NodeID
 }
 
 class EffectNodeRender {
@@ -27,7 +35,7 @@ class EffectNodeRender {
     this.node = []
   }
 
-  static render(node: AudioNode, id: number) {
+  static render(node: AudioNode, id: NodeID) {
     return {
       node,
       id
@@ -41,13 +49,14 @@ class EffectNodeRender {
     return this
   }
 
-  delete(id: number) {
+  delete(id: NodeID) {
     remove(this.node, node => node.id === id)
     return this
   }
 
   output() {
     const { node, ctx } = this
+    console.log(node)
     for (let i = 0; i < this.node.length; i++) {
       const cur = node[i],
         next = node[i + 1]
@@ -65,14 +74,13 @@ class EffectNodeRender {
 export class AudioEffect implements Effect {
   private context: AudioContext
   private source: MediaElementAudioSourceNode
-  private gainNodeFade?: GainNode
-  private gainNodeConvolver?: GainNode
-  private gainNodeSpatial?: GainNode
   private audio: HTMLAudioElement
+  private nodeRender: EffectNodeRender
+  private gainNodeFade?: GainNode
   private convolver?: ConvolverNode
   private panner?: PannerNode
+  private bigquadFilter?: BiquadFilterNode
   private convolverFile?: ConvolutionFile
-  private nodeRender: EffectNodeRender
 
   public stopSurround: boolean
 
@@ -86,64 +94,9 @@ export class AudioEffect implements Effect {
     this.context = new AudioContext()
     this.source = this.context.createMediaElementSource(this.audio)
     this.nodeRender = new EffectNodeRender(this.context)
-    this.nodeRender.insert(EffectNodeRender.render(this.source, 0))
-  }
-
-  public async createConvolver(payload: ConvolutionFile) {
-    if (this.convolverFile === payload || payload === '原唱') return
-    this.convolver = this.context.createConvolver()
-    this.convolverFile = payload
-    const decodeBuffer = await this.getBuffer(
-      '/audio-effect/' + payload + '.wav'
+    this.nodeRender.insert(
+      EffectNodeRender.render(this.source, NodeID.SourceNode)
     )
-    this.convolver.buffer = decodeBuffer
-    this.nodeRender
-      .delete(3)
-      .insert(EffectNodeRender.render(this.convolver, 3))
-      .output()
-  }
-
-  public clearConvolver() {
-    this.convolverFile = '原唱'
-    this.nodeRender.delete(3).output()
-  }
-
-  public startSpatial() {
-    this.stopSurround = false
-    if (!this.gainNodeSpatial) {
-      this.gainNodeSpatial = this.context.createGain()
-    }
-    if (!this.panner) {
-      this.panner = this.context.createPanner()
-      this.panner.panningModel = 'HRTF'
-      this.panner.distanceModel = 'linear'
-    }
-    const radius = 10
-
-    this.nodeRender.insert(EffectNodeRender.render(this.panner, 2)).output()
-
-    let index = 0
-    const start = async () => {
-      if (this.stopSurround) {
-        return
-      }
-      await sleep(16)
-      const x = Math.sin(index) * radius
-      const y = Math.cos(index) * radius
-      this.panner?.positionX.setValueAtTime(x, this.context.currentTime)
-      this.panner?.positionZ.setValueAtTime(y, this.context.currentTime)
-      index += 1 / 100
-      requestAnimationFrame(start)
-    }
-    start()
-  }
-
-  public stopSpatial() {
-    this.stopSurround = true
-  }
-
-  public clearSpatial() {
-    this.nodeRender.delete(2).output()
   }
 
   public async getBuffer(url: string | Buffer) {
@@ -163,13 +116,92 @@ export class AudioEffect implements Effect {
     return decodeBuffer
   }
 
+  public async createConvolver(payload: ConvolutionFile) {
+    if (this.convolverFile === payload || payload === '原唱') return
+    this.convolver = this.context.createConvolver()
+    this.convolverFile = payload
+    const decodeBuffer = await this.getBuffer(
+      '/audio-effect/' + payload + '.wav'
+    )
+    this.convolver.buffer = decodeBuffer
+    this.nodeRender
+      .delete(NodeID.ConvolverNode)
+      .insert(EffectNodeRender.render(this.convolver, NodeID.ConvolverNode))
+      .output()
+  }
+
+  public clearConvolver() {
+    this.convolverFile = '原唱'
+    this.nodeRender.delete(NodeID.ConvolverNode).output()
+  }
+
+  public startTender() {
+    const { currentTime } = this.context
+    if (!this.bigquadFilter) {
+      this.bigquadFilter = this.context.createBiquadFilter()
+      this.bigquadFilter.type = 'bandpass'
+      this.bigquadFilter.frequency.setValueAtTime(1000, currentTime)
+    }
+
+    this.nodeRender
+      .insert(
+        EffectNodeRender.render(
+          this.bigquadFilter,
+          NodeID.DynamicsCompressorNode
+        )
+      )
+      .output()
+  }
+
+  public clearTender() {
+    this.nodeRender.delete(NodeID.DynamicsCompressorNode).output()
+  }
+
+  public startSpatial() {
+    this.stopSurround = false
+    if (!this.panner) {
+      this.panner = this.context.createPanner()
+      this.panner.panningModel = 'HRTF'
+      this.panner.distanceModel = 'linear'
+    }
+    const radius = 10
+
+    this.nodeRender
+      .insert(EffectNodeRender.render(this.panner, NodeID.PannerNode))
+      .output()
+
+    let index = 0
+    const start = async () => {
+      if (this.stopSurround) {
+        return
+      }
+      console.log('start')
+      await sleep(16)
+      const x = Math.sin(index) * radius
+      const y = Math.cos(index) * radius
+      this.panner?.positionX.setValueAtTime(x, this.context.currentTime)
+      this.panner?.positionZ.setValueAtTime(y, this.context.currentTime)
+      index += 1 / 100
+      requestAnimationFrame(start)
+    }
+    start()
+  }
+
+  public stopSpatial() {
+    this.stopSurround = true
+  }
+
+  public clearSpatial() {
+    this.nodeRender.delete(NodeID.PannerNode).output()
+  }
+
   public async startInOut(isIn: boolean) {
     const { currentTime } = this.context
     if (!this.gainNodeFade) {
       this.gainNodeFade = this.context.createGain()
     }
     this.nodeRender
-      .insert(EffectNodeRender.render(this.gainNodeFade, 1))
+      .insert(EffectNodeRender.render(this.gainNodeFade, NodeID.GainNode))
       .output()
     this.gainNodeFade.gain.cancelScheduledValues(0)
     if (isIn) {
@@ -181,6 +213,13 @@ export class AudioEffect implements Effect {
   }
 
   public clearFade() {
-    this.nodeRender.delete(1).output()
+    this.nodeRender.delete(NodeID.GainNode).output()
+  }
+
+  public clearBasicEffect() {
+    this.stopSpatial()
+    this.clearSpatial()
+    this.clearFade()
+    this.clearTender()
   }
 }

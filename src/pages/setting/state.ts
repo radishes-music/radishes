@@ -13,7 +13,7 @@ export const state: SettingState = {
     // { name: 'Youtube', value: 'youtube' }
   ],
   bitRate: 3.2e5,
-  basicEffect: BasicEffect.FADE,
+  basicEffect: [BasicEffect.FADE],
   convolver: '原唱',
   convolverAll: [
     '原唱',

@@ -8,7 +8,7 @@ export interface SettingState {
     disabled?: boolean
   }[]
   bitRate: number
-  basicEffect: BasicEffect
+  basicEffect: BasicEffect[]
   convolver: ConvolutionFile
   convolverAll: ConvolutionFile[]
 }

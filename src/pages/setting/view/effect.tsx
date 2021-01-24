@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import { Radio, RadioGroup } from 'vant'
+import { Radio, RadioGroup, Checkbox, CheckboxGroup } from 'vant'
 import { useSettingModule } from '@/modules'
 import { BasicEffect, SettingMutations } from '@/interface'
 
@@ -12,11 +12,12 @@ export default defineComponent({
     const basicFormat: {
       [k: string]: string
     } = {
-      [BasicEffect.D3]: '3D环绕(需要暂停歌曲才可以生效)',
-      [BasicEffect.FADE]: '淡入淡出'
+      [BasicEffect.D3]: '3D环绕',
+      [BasicEffect.FADE]: '淡入淡出',
+      [BasicEffect.TENDER]: '温柔'
     }
 
-    const handleChangeBasic = (basic: BasicEffect) => {
+    const handleChangeBasic = (basic: BasicEffect[]) => {
       useMutations(SettingMutations.SET_BASIC_EFFECT, basic)
     }
 
@@ -32,24 +33,24 @@ export default defineComponent({
         </div>
         <div class="effect-basic">
           <div>基本音效</div>
-          <RadioGroup
+          <CheckboxGroup
             direction="horizontal"
             v-model={state.basicEffect}
             onChange={handleChangeBasic}
           >
             {Object.keys(basicFormat).map(key => {
               return (
-                <Radio
+                <Checkbox
                   shape="square"
                   checked-color="var(--base-color)"
                   icon-size="16px"
                   name={key}
                 >
                   {basicFormat[key]}
-                </Radio>
+                </Checkbox>
               )
             })}
-          </RadioGroup>
+          </CheckboxGroup>
         </div>
         <div class="effect-convolver">
           <div>混合音效</div>
