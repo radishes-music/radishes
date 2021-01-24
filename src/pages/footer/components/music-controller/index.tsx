@@ -80,7 +80,7 @@ export const MusicControl = defineComponent({
         if (settingState.basicEffect === BasicEffect.FADE) {
           // Change the icon directly when fading out to optimize the experience
           playingIcon.value = 'play'
-          effect.value.fadeInOut(false).then(() => {
+          effect.value.startInOut(false).then(() => {
             playing.value && useMutations(FooterMutations.PAUES_MUSIC)
           })
         } else {
@@ -88,7 +88,7 @@ export const MusicControl = defineComponent({
         }
       } else {
         if (settingState.basicEffect === BasicEffect.FADE) {
-          effect.value.fadeInOut(true)
+          effect.value.startInOut(true)
         }
         useMutations(FooterMutations.PLAY_MUSIC)
         if (settingState.basicEffect === BasicEffect.D3) {
@@ -208,7 +208,7 @@ export const MusicControl = defineComponent({
         audioElement.value.addEventListener('playing', () => {
           if (effect.value) {
             if (settingState.basicEffect === BasicEffect.FADE) {
-              effect.value.fadeInOut(true)
+              effect.value.startInOut(true)
             }
             if (settingState.basicEffect === BasicEffect.D3) {
               effect.value.stopSurround && effect.value.startSpatial()

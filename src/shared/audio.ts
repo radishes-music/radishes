@@ -9,7 +9,7 @@ export interface Effect {
   startSpatial: () => void
   stopSpatial: () => void
   clearSpatial: () => void
-  fadeInOut: (fade: boolean) => Promise<void>
+  startInOut: (fade: boolean) => Promise<void>
   clearFade: () => void
 }
 
@@ -163,7 +163,7 @@ export class AudioEffect implements Effect {
     return decodeBuffer
   }
 
-  public async fadeInOut(isIn: boolean) {
+  public async startInOut(isIn: boolean) {
     const { currentTime } = this.context
     if (!this.gainNodeFade) {
       this.gainNodeFade = this.context.createGain()
