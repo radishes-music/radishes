@@ -121,7 +121,7 @@ export class AudioEffect implements Effect {
     this.convolver = this.context.createConvolver()
     this.convolverFile = payload
     const decodeBuffer = await this.getBuffer(
-      '/audio-effect/' + payload + '.wav'
+      'audio-effect/' + payload + '.wav'
     )
     this.convolver.buffer = decodeBuffer
     this.nodeRender
