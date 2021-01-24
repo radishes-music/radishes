@@ -39,6 +39,7 @@ export interface FooterState {
   duration: number
   volume: number
   lyriceEmbedMinWidth: number
+  visibleLyrice: boolean
 }
 
 export interface FooterGetter {
@@ -72,6 +73,7 @@ export const enum FooterMutations {
   CAN_PLAY = 'CAN_PLAY',
   SET_VOLUME = 'SET_VOLUME',
   VISIBLE_FLASH = 'VISIBLE_FLASH',
+  VISIBLE_EMBED = 'VISIBLE_EMBED',
   SET_PLAYLIST_TO_STACK = 'SET_PLAYLIST_TO_STACK',
   SET_DURATION = 'SET_DURATION',
   PUSH_STACK = 'PUSH_STACK',

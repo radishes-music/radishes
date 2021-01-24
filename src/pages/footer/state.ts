@@ -17,6 +17,7 @@ export const state = {
   canplay: false,
   audioElement: null,
   visibleFlash: false,
+  visibleLyrice: false,
   duration: 0,
   lyriceEmbedMinWidth: 0,
   electronLyrice: {

@@ -1,4 +1,4 @@
-import { defineComponent, ref, computed, watch } from 'vue'
+import { defineComponent, computed, watch } from 'vue'
 import { useRouter, useRoute } from '@/hooks/index'
 import { MusicControl } from '../components/music-controller'
 import { VolumeAndHistory } from '../components/volume-history/index'
@@ -6,7 +6,13 @@ import { useFooterModule, useLayoutModule, useMainModule } from '@/modules'
 import { AsyncComponent } from '../components/lyrice-embed/index'
 import { BrowserLyriceFlash } from '../components/lyrice-float/browser-lyrice'
 import Effect from '../components/effect/index'
-import { Artists, LayoutSize, LayoutActions, MainMutations } from '@/interface'
+import {
+  Artists,
+  LayoutSize,
+  LayoutActions,
+  MainMutations,
+  FooterMutations
+} from '@/interface'
 import classnames from 'classnames'
 import './index.less'
 
@@ -17,8 +23,6 @@ const BrowserLyrice = AsyncComponent as any
 export const Footer = defineComponent({
   name: 'Footer',
   setup() {
-    const visibleLyrice = ref(false)
-
     const route = useRoute()
     const router = useRouter()
     const FooterModule = useFooterModule()
@@ -36,20 +40,11 @@ export const Footer = defineComponent({
 
     const unfoldLyrice = () => {
       if (canShowSongDetail.value) {
-        visibleLyrice.value = !visibleLyrice.value
-        MainModule.useMutations(
-          MainMutations.IS_SHOW_COVER_CONTAINER,
-          visibleLyrice.value
-        )
+        const visible = !footerState.visibleLyrice
+        MainModule.useMutations(MainMutations.IS_SHOW_COVER_CONTAINER, visible)
+        FooterModule.useMutations(FooterMutations.VISIBLE_EMBED, visible)
       }
     }
-
-    watch(
-      () => route.path,
-      () => {
-        unfoldLyrice()
-      }
-    )
 
     const toArtist = (artist: Artists) => {
       router.push({
@@ -63,6 +58,19 @@ export const Footer = defineComponent({
         layoutState.rebackSize
       )
     }
+
+    let firstTime = true
+    watch(
+      () => route.path,
+      () => {
+        if (firstTime) {
+          firstTime = false
+        } else {
+          MainModule.useMutations(MainMutations.IS_SHOW_COVER_CONTAINER, false)
+          FooterModule.useMutations(FooterMutations.VISIBLE_EMBED, false)
+        }
+      }
+    )
 
     return () => (
       <footer class="footer">
@@ -86,7 +94,7 @@ export const Footer = defineComponent({
               </div>
             </div>
           </div>
-          <BrowserLyrice visible={visibleLyrice.value} />
+          <BrowserLyrice visible={footerState.visibleLyrice} />
           <BrowserLyriceFlash />
           {/* Failed to locate Teleport target with selector "#cover-container" */}
           {/* {<PlayLyrice visible={visibleLyrice.value}></PlayLyrice>} */}

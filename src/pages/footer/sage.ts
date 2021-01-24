@@ -280,6 +280,9 @@ export const mutations: MutationTree<FooterState> = {
   [FooterMutations.VISIBLE_FLASH](state, visible: boolean) {
     state.visibleFlash = visible
   },
+  [FooterMutations.VISIBLE_EMBED](state, visible: boolean) {
+    state.visibleLyrice = visible
+  },
   [FooterMutations.SEEKBACKWARD](state) {
     if (state.audioElement) {
       state.audioElement.currentTime = state.currentTime - 10
