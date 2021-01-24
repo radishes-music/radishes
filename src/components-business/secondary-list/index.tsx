@@ -51,8 +51,11 @@ export const SecondaryList = defineComponent({
     }
 
     const handleSubscribe = async () => {
-      await subscribe(props.source.subscribed ? '2' : '1', props.source.id)
-      emit('update')
+      const isSuccess = await subscribe(
+        props.source.subscribed ? '2' : '1',
+        props.source.id
+      )
+      isSuccess && emit('update')
     }
 
     const handleDwonloadAll = () => {

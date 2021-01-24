@@ -84,5 +84,24 @@
         }
       }
     }
+    &--effect {
+      .effect {
+        &-basic {
+          margin-bottom: 10px;
+          > div {
+            margin-bottom: 6px;
+          }
+        }
+        &-convolver {
+          > div {
+            margin-bottom: 6px;
+          }
+          .van-radio-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+      }
+    }
   }
 }

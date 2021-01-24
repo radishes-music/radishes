@@ -18,7 +18,8 @@ export const useSubscribe = (isSingle: boolean) => {
 
   return async (type: SubscribeActionType, id: number) => {
     if (!isLogin()) {
-      return viewLogin(true)
+      viewLogin(true)
+      return false
     }
     if (isSingle) {
       const userSub = await userPlaylist(user.account.value.id)
@@ -75,5 +76,6 @@ export const useSubscribe = (isSingle: boolean) => {
       await subscribePlaylist(type, id)
     }
     success(type === '1' ? '收藏成功' : '取消收藏成功')
+    return true
   }
 }

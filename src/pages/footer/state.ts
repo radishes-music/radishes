@@ -1,11 +1,11 @@
 import { SongsDetail } from '@/interface/index'
 import { LayoutSize } from '@/interface'
-import { FooterState, PlayMode } from './interface'
+import { PlayMode } from './interface'
 
 export type Music = SongsDetail
 
-export const state: FooterState = {
-  // audio: new BackgroundAudio(),
+export const state = {
+  effect: null,
   playMode: PlayMode.TURN,
   musicUrl: '',
   musicLyricsOrigin: '',
@@ -16,8 +16,8 @@ export const state: FooterState = {
   playing: false,
   canplay: false,
   audioElement: null,
-  sourceElement: null,
   visibleFlash: false,
+  visibleLyrice: false,
   duration: 0,
   lyriceEmbedMinWidth: 0,
   electronLyrice: {

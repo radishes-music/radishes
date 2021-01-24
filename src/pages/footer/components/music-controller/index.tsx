@@ -2,17 +2,16 @@ import { defineComponent, ref, toRefs, onMounted, computed, watch } from 'vue'
 import { toFixed, formatTime, sleep } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
-import { useFooterModule, findMusicIndex } from '@/modules'
+import { useFooterModule, useSettingModule } from '@/modules'
 import {
   FooterActions,
   FooterMutations,
-  PlayMode,
-  Direction
+  Direction,
+  BasicEffect
 } from '@/interface'
 import { Platform } from '@/config/build'
 import { importIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyriceAction } from '@/electron/event/action-types'
-import { playMusic } from '@/shared/music-shared'
 import './index.less'
 
 const prefix = 'music'
@@ -26,18 +25,19 @@ export const MusicControl = defineComponent({
     const block = ref<Block[]>([])
 
     const { useState, useMutations, useGetter, useActions } = useFooterModule()
+    const settingModule = useSettingModule()
 
+    const settingState = settingModule.useState()
     const {
-      musicStack,
       playMode,
       audioElement,
-      sourceElement,
       playing,
       music,
       canplay,
       currentTime,
       visibleFlash,
-      duration
+      duration,
+      effect
     } = toRefs(useState())
 
     const musicDes = computed(() => useGetter('musicDes'))
@@ -65,11 +65,42 @@ export const MusicControl = defineComponent({
       useActions(FooterActions.CUTOVER_TRACK, Direction.NEXT)
     }
 
-    const handlePlayPaues = () => {
+    const handlePlayPaues = async () => {
+      // It can be called after being triggered by the user
+      if (!effect.value) {
+        useMutations(FooterMutations.INIT_EFFECT)
+      }
+
+      effect.value.createConvolver(settingState.convolver)
+
       if (playing.value) {
-        useMutations(FooterMutations.PAUES_MUSIC)
+        if (settingState.basicEffect.includes(BasicEffect.D3)) {
+          effect.value.stopSpatial()
+          // effect.value.clearSpatial()
+        }
+        if (settingState.basicEffect.includes(BasicEffect.TENDER)) {
+          effect.value.clearTender()
+        }
+        if (settingState.basicEffect.includes(BasicEffect.FADE)) {
+          // Change the icon directly when fading out to optimize the experience
+          playingIcon.value = 'play'
+          effect.value.startInOut(false).then(() => {
+            playing.value && useMutations(FooterMutations.PAUES_MUSIC)
+          })
+        } else {
+          useMutations(FooterMutations.PAUES_MUSIC)
+        }
       } else {
+        if (settingState.basicEffect.includes(BasicEffect.FADE)) {
+          effect.value.startInOut(true)
+        }
+        if (settingState.basicEffect.includes(BasicEffect.TENDER)) {
+          effect.value.startTender()
+        }
         useMutations(FooterMutations.PLAY_MUSIC)
+        if (settingState.basicEffect.includes(BasicEffect.D3)) {
+          effect.value.stopSurround && effect.value.startSpatial()
+        }
       }
     }
 
@@ -164,7 +195,7 @@ export const MusicControl = defineComponent({
     }
 
     const ended = async () => {
-      useMutations(FooterMutations.ENDED_MUSIC)
+      useMutations(FooterMutations.PLAYING, false)
       useActions(FooterActions.CUTOVER_TRACK, Direction.NEXT)
     }
 
@@ -175,13 +206,21 @@ export const MusicControl = defineComponent({
       if (currentTime && currentTime.value) {
         useMutations(FooterMutations.CURRENT_TIME, currentTime.value)
       }
-      if (audioElement.value && sourceElement.value) {
+      if (audioElement.value) {
         audioElement.value.addEventListener('loadedmetadata', loadedmetadata)
         audioElement.value.addEventListener('canplaythrough', canplaythrough)
         audioElement.value.addEventListener('loadstart', loadstart)
         audioElement.value.addEventListener('progress', progress)
         audioElement.value.addEventListener('ended', ended)
         audioElement.value.addEventListener('playing', () => {
+          if (effect.value) {
+            if (settingState.basicEffect.includes(BasicEffect.FADE)) {
+              effect.value.startInOut(true)
+            }
+            if (settingState.basicEffect.includes(BasicEffect.D3)) {
+              effect.value.stopSurround && effect.value.startSpatial()
+            }
+          }
           playingIcon.value = 'pause'
         })
         audioElement.value.addEventListener('pause', () => {
@@ -197,12 +236,11 @@ export const MusicControl = defineComponent({
       <div class={`${prefix}-command`}>
         <audio
           class="audio-background"
+          crossorigin="anonymous"
           aria-title={musicDes.value.title}
           aria-author={musicDes.value.author.map(o => o.name).join(' / ')}
           ref={audioElement}
-        >
-          <source ref={sourceElement} type="audio/mpeg" />
-        </audio>
+        ></audio>
         <div class={`${prefix}-command-center`}>
           <div class={`${prefix}-command-group`}>
             <ve-button type="text">
