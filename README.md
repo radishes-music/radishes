@@ -23,7 +23,6 @@
 - 安装依赖
 
 ```shell
-# 安装前端项目依赖
 cd radishes/
 npx lerna bootstrap
 ```
@@ -45,7 +44,7 @@ npx lerna bootstrap
 
 `browser`: 浏览器支持  
 `electron`: 桌面级支持  
-`mobile`: 移动端支持(在线: [链接](http://112.74.169.178/mobile/music/)，分支：`next-mobile`)  
+`mobile`: 移动端支持(在线链接: [http://112.74.169.178/mobile/music/](http://112.74.169.178/mobile/music/)，分支：`next-mobile`)  
 `√`: 已经支持  
 `×`: 不打算支持
 
@@ -67,21 +66,9 @@ npx lerna bootstrap
 | 音乐云盘                                                        |         |          |        |
 | 视频播放、收藏                                                  |         |          |        |
 | 通知(已登录)                                                    |    ×    |          |   ×    |
-| 音效(待定)                                                      |    √    |     √    |        |
+| 音效(3D环绕、淡入淡出、温柔、混合)                                |    √    |     √    |        |
 
 ### Git 提交规范
-
-- build 版本发布
-- feat 增加新功能
-- fix 修复问题/BUG
-- style 代码风格相关无影响运行结果的
-- perf 优化/性能提升
-- refactor 重构
-- revert 撤销修改
-- test 测试相关
-- docs 文档/注释
-- chore 依赖更新/脚手架配置修改等
-- ci 自动化测试与发布脚本修改
 
 [rules](https://github.com/conventional-changelog/commitlint/blob/master/%40commitlint/config-conventional/index.js)
 
@@ -94,9 +81,10 @@ npx lerna bootstrap
 
 目前已发布第一版，包含听歌等功能，前往 [https://github.com/Linkontoask/radishes/releases/tag/2.0.0-alpha.1](https://github.com/Linkontoask/radishes/releases/tag/2.0.0-alpha.1) 下载 windows 版本。  
 macOS 版本暂时无法发布（因为我没钱买 mac ）。
-在开发的同时会快速兼容 Electron 。所谓的快速就是调用很少的 API 实现 PC 端的功能，比如放大、缩小、通知、歌词、音乐拖放上传。
+在开发的同时会快速兼容 Electron 。所谓的快速就是调用很少的 API 实现 PC 端的功能，比如放大、缩小、通知、歌词、音乐拖放上传。  
 
-### ~~在线 API [NeteaseCloudMusicApi](https://music.linkorg.club/)~~
+目前`Electron`已经支持对歌曲的标签写入与读取，专辑封面还未压缩处理。所有在`radishes`平台下载的歌曲都会自动生成歌曲的歌手、专辑、标题等内容。  
+到现在为止，`Electron`平台相对于`Web`平台已经完成了下载进度展示、本地音乐的同步和播放、浮动歌词的展示。  
 
 ### `vue3.x`已发布，音乐项目已完成基本架构
 
