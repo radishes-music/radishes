@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const CI = process.env.CI !== 'action'
 
 module.exports = {
+  publicPath: '.',
   pages: {
     index: {
       entry: 'src/main.ts',
