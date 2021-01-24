@@ -3,8 +3,8 @@ import { Artists, SongsDetail } from '@/interface/index'
 import { AudioEffect } from '@/shared/audio'
 
 export const enum BasicEffect {
-  D3,
-  FADE
+  D3 = '3D',
+  FADE = 'FADE'
 }
 
 export const enum PlayMode {

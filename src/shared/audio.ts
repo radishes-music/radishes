@@ -1,5 +1,6 @@
 import { ConvolutionFile } from '@/interface'
 import { sleep } from '@/utils'
+import remove from 'lodash/remove'
 import axios from 'axios'
 
 export interface Effect {
@@ -7,19 +8,75 @@ export interface Effect {
   clearConvolver: () => void
   startSpatial: () => void
   stopSpatial: () => void
+  clearSpatial: () => void
   fadeInOut: (fade: boolean) => Promise<void>
-  disconnect: () => void
-  volume: number
+  clearFade: () => void
+}
+
+type EffectNode = {
+  node: AudioNode
+  id: number
+}
+
+class EffectNodeRender {
+  private node: EffectNode[]
+  private ctx: AudioContext
+
+  constructor(ctx: AudioContext) {
+    this.ctx = ctx
+    this.node = []
+  }
+
+  static render(node: AudioNode, id: number) {
+    return {
+      node,
+      id
+    }
+  }
+
+  insert(node: EffectNode) {
+    if (!this.node.find(n => n.id === node.id)) {
+      this.node.push(node)
+    }
+    return this
+  }
+
+  delete(id: number) {
+    remove(this.node, node => node.id === id)
+    return this
+  }
+
+  output() {
+    const { node, ctx } = this
+    node[0].node.disconnect()
+    node[node.length - 1].node.disconnect()
+    for (let i = 0; i < this.node.length; i++) {
+      const cur = node[i],
+        next = node[i + 1]
+
+      if (next) {
+        cur.node.connect(next.node)
+      } else {
+        cur.node.connect(ctx.destination)
+      }
+    }
+  }
 }
 
 export class AudioEffect implements Effect {
   private context: AudioContext
   private source: MediaElementAudioSourceNode
-  private gainNode: GainNode
+  private gainNodeFade?: GainNode
+  private gainNodeConvolver?: GainNode
+  private gainNodeSpatial?: GainNode
   private audio: HTMLAudioElement
-  private stopSurround: boolean
   private convolver?: ConvolverNode
-  private convolverFile?: string
+  private panner?: PannerNode
+  private convolverFile?: ConvolutionFile
+  private nodeRender: EffectNodeRender
+
+  public stopSurround: boolean
+
   constructor(audio: HTMLAudioElement) {
     const AudioContext = window.AudioContext || window.webkitAudioContext
     if (!AudioContext) {
@@ -28,71 +85,65 @@ export class AudioEffect implements Effect {
     this.audio = audio
     this.stopSurround = true
     this.context = new AudioContext()
-    this.gainNode = this.context.createGain()
-
     this.source = this.context.createMediaElementSource(this.audio)
-    this.gainNode.gain.setValueAtTime(0, 0)
-  }
-
-  get volume() {
-    return this.gainNode.gain.value
-  }
-
-  set volume(v: number) {
-    if (typeof v !== 'number') {
-      console.error(`The volume must be digital and between 0 and 1`)
-    }
-    this.gainNode.gain.value = v
+    this.nodeRender = new EffectNodeRender(this.context)
+    this.nodeRender.insert(EffectNodeRender.render(this.source, 0))
   }
 
   public async createConvolver(payload: ConvolutionFile) {
-    if (this.convolverFile === payload) return
+    if (this.convolverFile === payload || payload === '原唱') return
     this.convolver = this.context.createConvolver()
     this.convolverFile = payload
     const decodeBuffer = await this.getBuffer(
       '/audio-effect/' + payload + '.wav'
     )
     this.convolver.buffer = decodeBuffer
-    this.source.connect(this.convolver)
-    this.convolver.connect(this.gainNode)
-    this.gainNode.connect(this.context.destination)
+    this.nodeRender.insert(EffectNodeRender.render(this.convolver, 3)).output()
   }
 
   public clearConvolver() {
+    this.convolverFile = '原唱'
     this.convolver?.disconnect()
+    this.nodeRender.delete(3).output()
   }
 
   public startSpatial() {
     this.stopSurround = false
-    const [panner, radius] = [this.context.createPanner(), 20]
+    if (!this.gainNodeSpatial) {
+      this.gainNodeSpatial = this.context.createGain()
+    }
+    if (!this.panner) {
+      this.panner = this.context.createPanner()
+      this.panner.panningModel = 'HRTF'
+      this.panner.distanceModel = 'linear'
+    }
+    const radius = 10
+
+    this.nodeRender.insert(EffectNodeRender.render(this.panner, 2)).output()
 
     let index = 0
-    const loop = async () => {
+    const start = async () => {
       if (this.stopSurround) {
         return
       }
       await sleep(16)
-      panner.positionX.setValueAtTime(
-        Math.sin(index) * radius,
-        this.context.currentTime
-      )
-      panner.positionY.setValueAtTime(0, this.context.currentTime)
-      panner.positionZ.setValueAtTime(
-        Math.cos(index) * radius,
-        this.context.currentTime
-      )
+      const x = Math.sin(index) * radius
+      const y = Math.cos(index) * radius
+      this.panner?.positionX.setValueAtTime(x, this.context.currentTime)
+      this.panner?.positionZ.setValueAtTime(y, this.context.currentTime)
       index += 1 / 100
-      requestAnimationFrame(loop)
+      requestAnimationFrame(start)
     }
-    loop()
-
-    this.source.connect(panner)
-    panner.connect(this.gainNode)
-    this.gainNode.connect(this.context.destination)
+    start()
   }
 
   public stopSpatial() {
     this.stopSurround = true
+  }
+
+  public clearSpatial() {
+    this.panner?.disconnect()
+    this.nodeRender.delete(2).output()
   }
 
   public async getBuffer(url: string | Buffer) {
@@ -114,19 +165,23 @@ export class AudioEffect implements Effect {
 
   public async fadeInOut(isIn: boolean) {
     const { currentTime } = this.context
-    this.source.connect(this.gainNode)
-    this.gainNode.connect(this.context.destination)
-    // Cancel all scheduled future changes
-    this.gainNode.gain.cancelScheduledValues(0)
+    if (!this.gainNodeFade) {
+      this.gainNodeFade = this.context.createGain()
+    }
+    this.nodeRender
+      .insert(EffectNodeRender.render(this.gainNodeFade, 1))
+      .output()
+    this.gainNodeFade.gain.cancelScheduledValues(0)
     if (isIn) {
-      this.gainNode.gain.linearRampToValueAtTime(1.0, currentTime + 1)
+      this.gainNodeFade.gain.linearRampToValueAtTime(1.0, currentTime + 1)
     } else {
-      this.gainNode.gain.linearRampToValueAtTime(0, currentTime + 1)
+      this.gainNodeFade.gain.linearRampToValueAtTime(0, currentTime + 1)
     }
     await sleep(1100)
   }
 
-  public disconnect() {
-    this.gainNode.disconnect()
+  public clearFade() {
+    this.gainNodeFade?.disconnect()
+    this.nodeRender.delete(1).output()
   }
 }

@@ -71,17 +71,13 @@ export const MusicControl = defineComponent({
         useMutations(FooterMutations.INIT_EFFECT)
       }
 
-      if (settingState.convolver === '原唱') {
-        effect.value.clearConvolver()
-      } else {
-        effect.value.createConvolver(settingState.convolver)
-      }
+      effect.value.createConvolver(settingState.convolver)
 
       if (playing.value) {
-        if (settingState.basicEffect.includes(BasicEffect.D3)) {
+        if (settingState.basicEffect === BasicEffect.D3) {
           effect.value.stopSpatial()
         }
-        if (settingState.basicEffect.includes(BasicEffect.FADE)) {
+        if (settingState.basicEffect === BasicEffect.FADE) {
           // Change the icon directly when fading out to optimize the experience
           playingIcon.value = 'play'
           effect.value.fadeInOut(false).then(() => {
@@ -91,12 +87,12 @@ export const MusicControl = defineComponent({
           useMutations(FooterMutations.PAUES_MUSIC)
         }
       } else {
-        if (settingState.basicEffect.includes(BasicEffect.FADE)) {
+        if (settingState.basicEffect === BasicEffect.FADE) {
           effect.value.fadeInOut(true)
         }
         useMutations(FooterMutations.PLAY_MUSIC)
-        if (settingState.basicEffect.includes(BasicEffect.D3)) {
-          effect.value.startSpatial()
+        if (settingState.basicEffect === BasicEffect.D3) {
+          effect.value.stopSurround && effect.value.startSpatial()
         }
       }
     }
@@ -211,7 +207,12 @@ export const MusicControl = defineComponent({
         audioElement.value.addEventListener('ended', ended)
         audioElement.value.addEventListener('playing', () => {
           if (effect.value) {
-            effect.value.fadeInOut(true)
+            if (settingState.basicEffect === BasicEffect.FADE) {
+              effect.value.fadeInOut(true)
+            }
+            if (settingState.basicEffect === BasicEffect.D3) {
+              effect.value.stopSurround && effect.value.startSpatial()
+            }
           }
           playingIcon.value = 'pause'
         })
