@@ -18,7 +18,7 @@ enum NodeID {
   ConvolverNode,
   PannerNode,
   GainNode,
-  DynamicsCompressorNode
+  BiquadFilterNode
 }
 
 type EffectNode = {
@@ -145,16 +145,13 @@ export class AudioEffect implements Effect {
 
     this.nodeRender
       .insert(
-        EffectNodeRender.render(
-          this.bigquadFilter,
-          NodeID.DynamicsCompressorNode
-        )
+        EffectNodeRender.render(this.bigquadFilter, NodeID.BiquadFilterNode)
       )
       .output()
   }
 
   public clearTender() {
-    this.nodeRender.delete(NodeID.DynamicsCompressorNode).output()
+    this.nodeRender.delete(NodeID.BiquadFilterNode).output()
   }
 
   public startSpatial() {
