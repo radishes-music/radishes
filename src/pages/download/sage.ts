@@ -66,7 +66,6 @@ export const mutations: MutationTree<DownloadState> = {
   },
   [DownloadMutations.REMOVE_DOWNLOAD_MUSIC](state, id: number) {
     remove(state.downloaded, s => s.id === id)
-    console.log(state.downloaded)
   },
   [DownloadMutations.SET_DOWNLOAD_PATH](state, path: string) {
     importIpc().then(v => {

@@ -56,7 +56,7 @@ class EffectNodeRender {
 
   output() {
     const { node, ctx } = this
-    console.log(node)
+
     for (let i = 0; i < this.node.length; i++) {
       const cur = node[i],
         next = node[i + 1]
@@ -172,7 +172,6 @@ export class AudioEffect implements Effect {
       if (this.stopSurround) {
         return
       }
-      console.log('start')
       await sleep(16)
       const x = Math.sin(index) * radius
       const y = Math.cos(index) * radius

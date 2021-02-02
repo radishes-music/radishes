@@ -149,20 +149,28 @@ export const create = (appFunction: App<Element>) => {
 export function on<T extends keyof ElectronWindowEventMap>(
   container: Window,
   type: T,
-  listener: (ev: ElectronWindowEventMap[T]) => void
+  listener: (ev: ElectronWindowEventMap[T]) => void,
+  config?: AddEventListenerOptions | boolean
 ): void
 export function on<T extends keyof WindowEventMap>(
   container: Window,
   type: T,
-  listener: (ev: WindowEventMap[T]) => void
+  listener: (ev: WindowEventMap[T]) => void,
+  config?: AddEventListenerOptions | boolean
 ): void
 export function on<T extends keyof HTMLElementEventMap>(
   container: HTMLElement,
   type: T,
-  listener: (ev: HTMLElementEventMap[T]) => void
+  listener: (ev: HTMLElementEventMap[T]) => void,
+  config?: AddEventListenerOptions | boolean
 ): void
-export function on(container: any, type: any, listener: any): void {
-  container.addEventListener(type, listener)
+export function on(
+  container: any,
+  type: any,
+  listener: any,
+  config: any
+): void {
+  container?.addEventListener(type, listener, config)
 }
 
 export function off<T extends keyof ElectronWindowEventMap>(
@@ -181,7 +189,7 @@ export function off<T extends keyof HTMLElementEventMap>(
   listener: (ev: HTMLElementEventMap[T]) => void
 ): void
 export function off(container: any, type: any, listener: (ev: any) => void) {
-  container.removeEventListener(type, listener)
+  container?.removeEventListener(type, listener)
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function

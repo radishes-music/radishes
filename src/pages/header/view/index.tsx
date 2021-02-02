@@ -5,7 +5,7 @@ import { Logo } from '../component/logo'
 import { PushShift } from '../component/push-shift'
 import { Setting } from '../component/setting'
 import { Search } from '../component/search'
-import { LayoutActions, LayoutSize } from '@/interface'
+import { LayoutMutations, LayoutSize } from '@/interface'
 import { useLayoutModule } from '@/modules/index'
 import { Platform } from '@/config/build'
 import './index.less'
@@ -26,7 +26,7 @@ export const Header = defineComponent({
 
     const handleWindowControl = (action: Action) => {
       if (VUE_APP_PLATFORM === Platform.BROWSER) {
-        useMutations(LayoutActions.CHANGE_WINDOW_SIZE, actionToClass[action])
+        useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, actionToClass[action])
       }
       if (VUE_APP_PLATFORM === Platform.ELECTRON) {
         importIpc().then(event => {
@@ -54,7 +54,7 @@ export const Header = defineComponent({
           if (win) {
             const isMax = win.isMaximized()
             const size = isMax ? LayoutSize.LG : LayoutSize.MD
-            useMutations(LayoutActions.CHANGE_WINDOW_SIZE, size)
+            useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, size)
           }
         })
       })

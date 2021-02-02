@@ -9,7 +9,7 @@ import Effect from '../components/effect/index'
 import {
   Artists,
   LayoutSize,
-  LayoutActions,
+  LayoutMutations,
   MainMutations,
   FooterMutations
 } from '@/interface'
@@ -54,7 +54,7 @@ export const Footer = defineComponent({
 
     const handleRebackSize = () => {
       LayoutModule.useMutations(
-        LayoutActions.CHANGE_WINDOW_SIZE,
+        LayoutMutations.CHANGE_WINDOW_SIZE,
         layoutState.rebackSize
       )
     }

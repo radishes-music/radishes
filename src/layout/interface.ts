@@ -9,6 +9,6 @@ export interface LayoutState {
   rebackSize: LayoutSize
 }
 
-export const enum LayoutActions {
+export const enum LayoutMutations {
   CHANGE_WINDOW_SIZE = 'CHANGE_WINDOW_SIZE'
 }

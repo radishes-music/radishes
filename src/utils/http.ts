@@ -1,6 +1,11 @@
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { getNodeEnv } from '@/utils/index'
+import { getNodeEnv, syncToAsync, on } from '@/utils/index'
 import store from '@/store/index'
+
+interface HttpConfig extends AxiosRequestConfig {
+  retry?: boolean
+  auths?: boolean
+}
 
 // https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/guide.html#serve-command
 // The electron build process is in development mode
@@ -38,9 +43,20 @@ http.interceptors.response.use(
     return response
   },
   error => {
+    const config = error.response.config as HttpConfig
     if (error.response) {
-      if (error.response.status === 301) {
+      if (error.response.status === 301 && config.auths) {
         store.commit('Auth/SHOW_VIEW')
+        return syncToAsync(resolve => {
+          on(
+            window,
+            'popstate',
+            () => {
+              http.request(config).then(resolve)
+            },
+            { once: true }
+          )
+        })
       }
     }
 
@@ -51,7 +67,7 @@ http.interceptors.response.use(
 export function get<T>(
   url: string,
   params?: unknown,
-  options?: AxiosRequestConfig
+  options?: HttpConfig
 ): Promise<T> {
   return http.get(url, {
     params,
@@ -59,9 +75,14 @@ export function get<T>(
   })
 }
 
-export function post<T>(url: string, data?: unknown): Promise<T> {
+export function post<T>(
+  url: string,
+  data?: unknown,
+  options?: HttpConfig
+): Promise<T> {
   return http.post(url, {
-    data
+    data,
+    ...options
   })
 }
 

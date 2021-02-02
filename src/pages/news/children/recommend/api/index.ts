@@ -21,7 +21,13 @@ export const getSongList = async (limit = 30): Promise<Song[]> => {
 }
 
 export const getRecommendSongList = async (): Promise<Song[]> => {
-  const data = await get<{ recommend: Song[] }>('/api/recommend/resource')
+  const data = await get<{ recommend: Song[] }>(
+    '/api/recommend/resource',
+    {},
+    {
+      auths: true
+    }
+  )
   return data.recommend.map(item => ({
     ...item,
     playCount: item.playcount

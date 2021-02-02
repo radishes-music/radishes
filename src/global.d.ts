@@ -14,3 +14,5 @@ declare interface MediaMetadataType {
 }
 
 declare const MediaMetadata: MediaMetadataType
+
+declare const __filenamespace: string
