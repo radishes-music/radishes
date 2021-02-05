@@ -1,6 +1,6 @@
 {
   "name": "radishes",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "private": true,
   "main": "./background.js",
   "author": "Linkontoask",
@@ -16,7 +16,7 @@
     "lint:style": "stylelint --fix \"src/**/*.{css,less}\" --cache --cache-location node_modules/.cache/stylelint/",
     "build": "cross-env NODE_ENV=production vue-cli-service build --mode browser --modern",
     "build:storybook": "build-storybook",
-    "build:electron": "vue-cli-service electron:build --mode electron.build --win nsis",
+    "build:electron": "rimraf dist-electron vue-cli-service electron:build --mode electron.build --win nsis",
     "build:api": "concurrently -r \"yarn dev:api\" \"node script/server-local.js\"",
     "dev": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"yarn dev:web\"",
     "dev:web": "cross-env NODE_ENV=development vue-cli-service serve --mode browser",

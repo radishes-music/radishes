@@ -79,8 +79,8 @@ module.exports = {
       builderOptions: {
         publish: [
           { provider: 'github', owner: 'Linkontoask', repo: 'radishes' }
-          // token: '4b955963e7eadaa675c2cf0b183b24c154129577'
-        ]
+        ],
+        artifactName: pkg.name + '.Setup.' + '${version}.${ext}'
       }
     }
   }
