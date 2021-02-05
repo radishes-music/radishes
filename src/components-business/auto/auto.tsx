@@ -2,7 +2,11 @@ import { defineComponent, onMounted, reactive, ref } from 'vue'
 import { ipcRenderer, shell } from 'electron'
 import { AutoDownload } from '@/electron/event/action-types'
 import { AutoUpdateContent } from '@/electron/event/ipc-main/auto-download'
-import { asyncIpc } from '@/electron/event/ipc-browser'
+import {
+  asyncIpc,
+  importIpcOrigin,
+  importShell
+} from '@/electron/event/ipc-browser'
 import { useDrag } from '@/hooks/index'
 import './auto.less'
 
@@ -58,10 +62,10 @@ export default defineComponent({
       }
     }
 
-    ipcRenderer.on(AutoDownload.MESSAGE, handleMessage)
+    importIpcOrigin().then(v => v.on(AutoDownload.MESSAGE, handleMessage))
 
     const handleShellUrl = (url: string) => {
-      shell.openExternal(url)
+      importShell().then(v => v.openExternal(url))
     }
 
     const handleUpdater = () => {
