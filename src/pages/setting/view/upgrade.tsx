@@ -3,7 +3,7 @@ import { Checkbox } from 'vant'
 import { Button } from 'ant-design-vue'
 import { useSettingModule } from '@/modules'
 import { SettingMutations } from '../interface'
-import { asyncIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
+import { asyncIpc, asyncIpcOrigin } from '@/electron/event/ipc-browser'
 import { AutoDownload } from '@/electron/event/action-types'
 import { newsVersion } from '@/utils/index'
 import { Platform } from '@/config/build'
@@ -14,12 +14,14 @@ export default defineComponent({
   name: 'Upgrade',
   setup() {
     const newUpgrade = ref(false)
+    const upgrading = ref(false)
     const { useState, useMutations } = useSettingModule()
     const state = useState()
 
     if (VUE_APP_PLATFORM === Platform.ELECTRON) {
-      importIpcOrigin().then(ipc => {
+      asyncIpcOrigin().then(ipc => {
         ipc.on(AutoDownload.CHECK_UPGRADE, (e, v) => {
+          upgrading.value = false
           if (!newsVersion(v.version, VERSION)) {
             newUpgrade.value = true
           }
@@ -35,6 +37,7 @@ export default defineComponent({
     }
 
     const handleCheckUpgrade = () => {
+      upgrading.value = true
       asyncIpc().then(v => {
         v.sendAsyncIpcRendererEvent(AutoDownload.CHECK_UPGRADE)
       })
@@ -69,6 +72,8 @@ export default defineComponent({
               icon: () => <icon icon="upgrade" size={16} />
             }}
             onClick={handleCheckUpgrade}
+            loading={upgrading.value}
+            disabled={VUE_APP_PLATFORM === Platform.BROWSER}
           >
             <span>检查更新</span>
           </Button>

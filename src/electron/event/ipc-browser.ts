@@ -10,10 +10,10 @@ export const asyncIpc = () => {
   })
 }
 
-export const importIpcOrigin = () => {
+export const asyncIpcOrigin = () => {
   return import('electron').then(v => v.ipcRenderer)
 }
 
-export const importShell = () => {
+export const asyncShell = () => {
   return import('electron').then(v => v.shell)
 }

@@ -10,7 +10,7 @@ import {
   BasicEffect
 } from '@/interface'
 import { Platform } from '@/config/build'
-import { asyncIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
+import { asyncIpc, asyncIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyriceAction } from '@/electron/event/action-types'
 import './index.less'
 
@@ -43,7 +43,7 @@ export const MusicControl = defineComponent({
     const musicDes = computed(() => useGetter('musicDes'))
 
     if (VUE_APP_PLATFORM === Platform.ELECTRON) {
-      importIpcOrigin().then(ipcRenderer => {
+      asyncIpcOrigin().then(ipcRenderer => {
         ipcRenderer.on(LyriceAction.LYRICE_WIN_CLOSE, () => {
           useMutations(FooterMutations.VISIBLE_FLASH, false)
         })

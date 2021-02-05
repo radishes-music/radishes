@@ -4,6 +4,9 @@ import { DownloadMutations, SettingMutations } from '@/interface'
 import { useDownloadModule, useSettingModule } from '@/modules'
 import { RadioGroup, Radio } from 'vant'
 import { defineComponent } from 'vue'
+import { Platform } from '@/config/build'
+
+const { VUE_APP_PLATFORM } = process.env
 
 export default defineComponent({
   setup() {
@@ -69,7 +72,11 @@ export default defineComponent({
         </div>
         <div class="download-path">
           下载目录：{downloadState.downloadPath}
-          <ve-button type="text" onClick={handleOpenDialog}>
+          <ve-button
+            type="text"
+            onClick={handleOpenDialog}
+            disabled={VUE_APP_PLATFORM === Platform.BROWSER}
+          >
             更改目录
           </ve-button>
         </div>

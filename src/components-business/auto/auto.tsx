@@ -1,11 +1,10 @@
 import { defineComponent, onMounted, reactive, ref } from 'vue'
-import { ipcRenderer, shell } from 'electron'
 import { AutoDownload } from '@/electron/event/action-types'
 import { AutoUpdateContent } from '@/electron/event/ipc-main/auto-download'
 import {
   asyncIpc,
-  importIpcOrigin,
-  importShell
+  asyncIpcOrigin,
+  asyncShell
 } from '@/electron/event/ipc-browser'
 import { useDrag } from '@/hooks/index'
 import './auto.less'
@@ -46,7 +45,7 @@ export default defineComponent({
     ) {
       // console.log(type, content)
       if (type === AutoDownload.NOT_VERSION) {
-        console.log('content', content)
+        // console.log('content', content)
       }
       // if (type === AutoDownload.VERSION) {
       //   const c = content as AutoUpdateContent[AutoDownload.VERSION]
@@ -62,14 +61,13 @@ export default defineComponent({
       }
     }
 
-    importIpcOrigin().then(v => v.on(AutoDownload.MESSAGE, handleMessage))
+    asyncIpcOrigin().then(v => v.on(AutoDownload.MESSAGE, handleMessage))
 
     const handleShellUrl = (url: string) => {
-      importShell().then(v => v.openExternal(url))
+      asyncShell().then(v => v.openExternal(url))
     }
 
     const handleUpdater = () => {
-      // autoUpdater.quitAndInstall()
       asyncIpc().then(v => {
         v.sendAsyncIpcRendererEvent(AutoDownload.UPGRADE_NOW)
       })
