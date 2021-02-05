@@ -3,9 +3,12 @@ import { Checkbox } from 'vant'
 import { Button } from 'ant-design-vue'
 import { useSettingModule } from '@/modules'
 import { SettingMutations } from '../interface'
-import { asyncIpc } from '@/electron/event/ipc-browser'
+import { asyncIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
 import { AutoDownload } from '@/electron/event/action-types'
 import { newsVersion } from '@/utils/index'
+import { Platform } from '@/config/build'
+
+const { VUE_APP_PLATFORM } = process.env
 
 export default defineComponent({
   name: 'Upgrade',
@@ -13,6 +16,16 @@ export default defineComponent({
     const newUpgrade = ref(false)
     const { useState, useMutations } = useSettingModule()
     const state = useState()
+
+    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+      importIpcOrigin().then(ipc => {
+        ipc.on(AutoDownload.CHECK_UPGRADE, (e, v) => {
+          if (!newsVersion(v.version, VERSION)) {
+            newUpgrade.value = true
+          }
+        })
+      })
+    }
 
     const handleChangeUpgrade = (checked: boolean) => {
       useMutations(SettingMutations.SET_UPGRADE, checked)
@@ -23,13 +36,7 @@ export default defineComponent({
 
     const handleCheckUpgrade = () => {
       asyncIpc().then(v => {
-        const r = v.sendSyncIpcRendererEvent<{ version: string }>(
-          AutoDownload.CHECK_UPGRADE
-        )
-        if (!newsVersion(r.version, VERSION)) {
-          newUpgrade.value = true
-        }
-        console.log(r)
+        v.sendAsyncIpcRendererEvent(AutoDownload.CHECK_UPGRADE)
       })
     }
 
