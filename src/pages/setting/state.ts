@@ -15,6 +15,7 @@ export const state: SettingState = {
   bitRate: 3.2e5,
   basicEffect: [BasicEffect.FADE],
   convolver: '原唱',
+  upgrade: true,
   convolverAll: [
     '原唱',
     'AcademicQuadrangle',

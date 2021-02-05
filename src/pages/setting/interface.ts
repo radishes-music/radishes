@@ -11,6 +11,7 @@ export interface SettingState {
   basicEffect: BasicEffect[]
   convolver: ConvolutionFile
   convolverAll: ConvolutionFile[]
+  upgrade: boolean
 }
 
 export const enum SettingActions {}
@@ -18,5 +19,6 @@ export const enum SettingMutations {
   SET_SOURCE = 'SET_SOURCE',
   SET_BIT_RATE = 'SET_BIT_RATE',
   SET_BASIC_EFFECT = 'SET_BASIC_EFFECT',
-  SET_CONVOLVER_EFFECT = 'SET_CONVOLVER_EFFECT'
+  SET_CONVOLVER_EFFECT = 'SET_CONVOLVER_EFFECT',
+  SET_UPGRADE = 'SET_UPGRADE'
 }

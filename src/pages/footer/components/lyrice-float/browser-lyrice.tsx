@@ -2,7 +2,7 @@ import { defineComponent, computed, toRefs, watch, toRaw } from 'vue'
 import { toFixed } from '@/utils/index'
 import { useFooterModule, useLayoutModule } from '@/modules'
 import { Platform } from '@/config/build'
-import { importIpc } from '@/electron/event/ipc-browser'
+import { asyncIpc } from '@/electron/event/ipc-browser'
 import { LyriceAction, UpdateType } from '@/electron/event/action-types'
 import LyriceFlash from './index'
 import './index.less'
@@ -10,7 +10,7 @@ import './index.less'
 const { VUE_APP_PLATFORM } = process.env
 
 export const ipcUpdateLyrice = (type: UpdateType, payload?: unknown) => {
-  importIpc().then(event => {
+  asyncIpc().then(event => {
     event.sendAsyncIpcRendererEvent(LyriceAction.LYRICE_UPDATE, {
       type: type,
       payload: toRaw(payload)

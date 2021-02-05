@@ -1,5 +1,5 @@
 import { Dialog } from '@/electron/event/action-types'
-import { importIpc } from '@/electron/event/ipc-browser'
+import { asyncIpc } from '@/electron/event/ipc-browser'
 import { DownloadMutations, SettingMutations } from '@/interface'
 import { useDownloadModule, useSettingModule } from '@/modules'
 import { RadioGroup, Radio } from 'vant'
@@ -24,7 +24,7 @@ export default defineComponent({
     ]
 
     const handleOpenDialog = async () => {
-      const ipc = await importIpc()
+      const ipc = await asyncIpc()
       const dir = ipc.sendSyncIpcRendererEvent(
         Dialog.SHOW_DIALOG
       ) as Electron.OpenDialogReturnValue

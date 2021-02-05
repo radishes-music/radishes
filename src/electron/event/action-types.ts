@@ -39,3 +39,15 @@ export const enum ReadLocalFile {
 export const enum Dialog {
   SHOW_DIALOG = 'SHOW_DIALOG'
 }
+
+export const enum AutoDownload {
+  MESSAGE = 'MESSAGE',
+  VERSION = 'VERSION',
+  NOT_VERSION = 'NOT_VERSION',
+  PROGRESS = 'PROGRESS',
+  ERROR = 'ERROR',
+  DOWNLOAD_SUCCESS = 'DOWNLOAD_SUCCESS',
+  IS_UPGRADE = 'IS_UPGRADE',
+  CHECK_UPGRADE = 'CHECK_UPGRADE',
+  UPGRADE_NOW = 'UPGRADE_NOW'
+}

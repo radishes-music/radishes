@@ -1,5 +1,5 @@
 import { defineComponent, onMounted, ref } from 'vue'
-import { importIpc } from '@/electron/event/ipc-browser'
+import { asyncIpc } from '@/electron/event/ipc-browser'
 import { MiddlewareView } from '@/electron/event/action-types'
 import { Platform } from '@/config/build'
 import { shade } from '@/theme/color'
@@ -26,7 +26,7 @@ const setColor = (baseColor: string) => {
   }
 
   if (VUE_APP_PLATFORM === Platform.ELECTRON) {
-    importIpc().then(event => {
+    asyncIpc().then(event => {
       event.sendAsyncIpcRendererEvent(
         MiddlewareView.UPDATE_THEME_COLOR,
         baseColor

@@ -7,12 +7,12 @@ import {
   watch
 } from 'vue'
 import { useRoute } from '@/hooks/index'
-import { toFixed } from '@/utils/index'
 import Source from './source'
 import Download from './download'
 import Author from './author'
 import About from './about'
 import Effect from './effect'
+import Upgrade from './upgrade'
 import classnames from 'classnames'
 import debounce from 'lodash/debounce'
 import './index.less'
@@ -33,23 +33,33 @@ export const Setting = defineComponent({
     const markNav = [
       {
         location: 'source',
-        name: '播放源'
+        name: '播放源',
+        component: <Source />
       },
       {
         location: 'download',
-        name: '下载设置'
+        name: '下载设置',
+        component: <Download />
+      },
+      {
+        location: 'upgrade',
+        name: '自动更新',
+        component: <Upgrade />
       },
       {
         location: 'effect',
-        name: '音效'
+        name: '音效',
+        component: <Effect />
       },
       {
         location: 'author',
-        name: '作者'
+        name: '作者',
+        component: <Author />
       },
       {
         location: 'about',
-        name: '关于 radishes'
+        name: '关于Radishes',
+        component: <About />
       }
     ]
 
@@ -64,7 +74,8 @@ export const Setting = defineComponent({
           )
           if (currentArea) {
             nextTick(() => {
-              contanier.value && (contanier.value.scrollTop = currentArea.top)
+              contanier.value &&
+                (contanier.value.scrollTop = currentArea.top + 10)
             })
           }
         }
@@ -94,15 +105,14 @@ export const Setting = defineComponent({
         const contanierTop = contanier.value.getBoundingClientRect().top + 20
         for (let i = 0; i < children.length; i++) {
           const area = children[i] as HTMLElement
-          const top = toFixed(
-            area.getBoundingClientRect().top - contanierTop,
-            2
+          const top = Math.floor(
+            area.getBoundingClientRect().top - contanierTop
           )
           const location = area.dataset.location
           if (location) {
             areaFormat.value[i] = {
               location,
-              top
+              top: i === 0 ? 0 : top
             }
           }
         }
@@ -113,13 +123,15 @@ export const Setting = defineComponent({
     const onScroll = () => {
       const el = contanier.value
       if (el) {
-        const top = toFixed(el.scrollTop, 2)
+        const top = Math.floor(el.scrollTop)
         for (let i = 0; i < areaFormat.value.length; i++) {
           const area = areaFormat.value[i]
           const areaNext = areaFormat.value[i + 1]
           if (areaNext && top >= area.top && top < areaNext.top) {
             currentLocation.value = area.location
+            break
           }
+          currentLocation.value = markNav[markNav.length - 1].location
         }
       }
     }
@@ -149,11 +161,7 @@ export const Setting = defineComponent({
           onScroll={debounce(onScroll, 10)}
           class="setting-view-contanier"
         >
-          <Source />
-          <Download />
-          <Effect />
-          <Author />
-          <About />
+          {markNav.map(mark => mark.component)}
         </div>
       </div>
     )

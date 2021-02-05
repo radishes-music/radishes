@@ -10,7 +10,7 @@ import {
   BasicEffect
 } from '@/interface'
 import { Platform } from '@/config/build'
-import { importIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
+import { asyncIpc, importIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyriceAction } from '@/electron/event/action-types'
 import './index.less'
 
@@ -107,7 +107,7 @@ export const MusicControl = defineComponent({
     const handleVisibleFlash = () => {
       useMutations(FooterMutations.VISIBLE_FLASH, !visibleFlash.value)
       if (VUE_APP_PLATFORM === Platform.ELECTRON) {
-        importIpc()
+        asyncIpc()
           .then(event => {
             event.sendAsyncIpcRendererEvent(
               MiddlewareView.CREATE_WINDOW,

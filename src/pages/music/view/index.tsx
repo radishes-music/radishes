@@ -9,7 +9,7 @@ import { MusicLayout } from '@/layout/music/music'
 import { Modal } from 'ant-design-vue'
 import { CheckboxGroup, Checkbox, Button } from 'vant'
 import { useDrag } from '@/hooks/index'
-import { importIpc } from '@/electron/event/ipc-browser'
+import { asyncIpc } from '@/electron/event/ipc-browser'
 import { Dialog } from '@/electron/event/action-types'
 import { useLocalMusicModule } from '@/modules'
 import { LocalMusicMutations } from '../interface'
@@ -54,7 +54,7 @@ export const LocalMusic = defineComponent({
     })
 
     const handleAddDirectory = async () => {
-      const ipc = await importIpc()
+      const ipc = await asyncIpc()
       const dir = ipc.sendSyncIpcRendererEvent(
         Dialog.SHOW_DIALOG
       ) as Electron.OpenDialogReturnValue

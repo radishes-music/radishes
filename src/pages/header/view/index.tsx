@@ -1,6 +1,6 @@
 import { computed, defineComponent } from 'vue'
 import { Action } from '@/electron/event/action-types'
-import { importIpc } from '@/electron/event/ipc-browser'
+import { asyncIpc } from '@/electron/event/ipc-browser'
 import { Logo } from '../component/logo'
 import { PushShift } from '../component/push-shift'
 import { Setting } from '../component/setting'
@@ -29,7 +29,7 @@ export const Header = defineComponent({
         useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, actionToClass[action])
       }
       if (VUE_APP_PLATFORM === Platform.ELECTRON) {
-        importIpc().then(event => {
+        asyncIpc().then(event => {
           event.sendAsyncIpcRendererEvent(action)
         })
       }
@@ -49,7 +49,7 @@ export const Header = defineComponent({
 
     if (VUE_APP_PLATFORM === Platform.ELECTRON) {
       window.addEventListener('resize', () => {
-        importIpc().then(event => {
+        asyncIpc().then(event => {
           const win = event.getWindow()
           if (win) {
             const isMax = win.isMaximized()

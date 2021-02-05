@@ -9,7 +9,7 @@ import {
 import { RootState } from '@/store/index'
 import { getMusicUrl } from '@/shared/music-shared'
 import { download } from '@/utils/index'
-import { importIpc } from '@/electron/event/ipc-browser'
+import { asyncIpc } from '@/electron/event/ipc-browser'
 import { DownloadIpcType } from '@/electron/event/action-types'
 import { getSongDetail } from '@/api/index'
 import { Platform } from '@/config/build'
@@ -28,7 +28,7 @@ export const actions: ActionTree<DownloadState, RootState> = {
       download(url, song.name)
     }
     if (VUE_APP_PLATFORM === Platform.ELECTRON) {
-      const v = await importIpc()
+      const v = await asyncIpc()
       let al, ar, pic, arArr
       try {
         const detail = await getSongDetail(song.id)
@@ -68,7 +68,7 @@ export const mutations: MutationTree<DownloadState> = {
     remove(state.downloaded, s => s.id === id)
   },
   [DownloadMutations.SET_DOWNLOAD_PATH](state, path: string) {
-    importIpc().then(v => {
+    asyncIpc().then(v => {
       v.sendAsyncIpcRendererEvent(DownloadIpcType.SET_DOWNLOAD_PATH, path)
     })
     state.downloadPath = path

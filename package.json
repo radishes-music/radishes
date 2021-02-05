@@ -3,6 +3,8 @@
   "version": "2.0.0-alpha.1",
   "private": true,
   "main": "./background.js",
+  "author": "Linkontoask",
+  "description": "Cross-platform copyright-free music platform",
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "test": "lerna run test --stream",
@@ -36,6 +38,10 @@
     "hooks": {
       "commit-msg": "yarn lint && commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Linkontoask/radishes.git"
   },
   "license": "MIT",
   "lint-staged": {
@@ -105,7 +111,9 @@
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.0",
     "electron-icon-builder": "^1.0.2",
+    "electron-log": "^4.3.1",
     "electron-store": "^6.0.1",
+    "electron-updater": "^4.3.5",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-vue": "^7.0.0-0",

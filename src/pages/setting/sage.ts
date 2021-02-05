@@ -41,5 +41,8 @@ export const mutations: MutationTree<SettingState> = {
       footerState.effect?.createConvolver(convolver)
     }
     state.convolver = convolver
+  },
+  [SettingMutations.SET_UPGRADE](state, upgrade) {
+    state.upgrade = upgrade
   }
 }
