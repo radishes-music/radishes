@@ -1,16 +1,17 @@
 import { BrowserWindow } from 'electron'
-import { autoUpdater, UpdateDownloadedEvent } from 'electron-updater'
+import {
+  autoUpdater,
+  UpdateDownloadedEvent,
+  UpdateInfo
+} from 'electron-updater'
 import { AutoDownload } from '../action-types'
 import pgk from '../../../../package.json'
 import log from 'electron-log'
 
 export interface AutoUpdateContent {
-  [AutoDownload.VERSION]: {
-    url: string
-    version: string
-  }
+  [AutoDownload.VERSION]: UpdateInfo & { url: string }
+  [AutoDownload.DOWNLOAD_SUCCESS]: UpdateDownloadedEvent & { url: string }
   [AutoDownload.NOT_VERSION]: unknown
-  [AutoDownload.DOWNLOAD_SUCCESS]: UpdateDownloadedEvent
   [AutoDownload.ERROR]: string
   [AutoDownload.PROGRESS]: number
   [AutoDownload.MESSAGE]: unknown
@@ -32,6 +33,7 @@ export default (win: BrowserWindow) => {
   }
 
   autoUpdater.on('update-available', info => {
+    // Inject into subsequent hooks
     info.url = `${pgk.repository.url.replace(/\.git$/, '')}/releases/tag/v${
       info.version
     }`

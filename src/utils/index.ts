@@ -202,3 +202,62 @@ export const getNodeEnv = (): string => {
   }
   return NODE_ENV
 }
+
+export const formatVersion = (version: string) => {
+  let major: unknown = 0,
+    minor: unknown = 0,
+    patch: unknown = 0,
+    status,
+    statusV: unknown = 0
+  const formalRegex = /^(\d)\.(\d)\.(\d)$/
+  const isFormalVersion = formalRegex.test(version)
+  if (isFormalVersion) {
+    const formalMatch = version.match(formalRegex)
+    if (formalMatch) {
+      ;[major, minor, patch] = formalMatch.slice(1)
+      return {
+        major: Number(major),
+        minor: Number(minor),
+        patch: Number(patch)
+      }
+    }
+  } else {
+    const match = version.match(/^(\d)\.(\d)\.(\d)-([a-z]+)\.(\d)$/)
+    if (match) {
+      ;[major, minor, patch, status, statusV] = match.slice(1)
+    }
+  }
+  return {
+    major: Number(major),
+    minor: Number(minor),
+    patch: Number(patch),
+    status,
+    statusV: Number(statusV)
+  }
+}
+
+export const newsVersion = (origin: string, local: string) => {
+  const originFormat = formatVersion(origin)
+  const localFormat = formatVersion(local)
+
+  // formal version
+  if (
+    originFormat.major > localFormat.major ||
+    originFormat.minor > localFormat.minor ||
+    originFormat.patch > localFormat.patch
+  ) {
+    return true
+  }
+
+  // test version
+  if (
+    originFormat.statusV &&
+    localFormat.statusV &&
+    originFormat.status === localFormat.status &&
+    originFormat.statusV > localFormat.statusV
+  ) {
+    return true
+  }
+
+  return false
+}

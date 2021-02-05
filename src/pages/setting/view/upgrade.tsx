@@ -5,6 +5,7 @@ import { useSettingModule } from '@/modules'
 import { SettingMutations } from '../interface'
 import { asyncIpc } from '@/electron/event/ipc-browser'
 import { AutoDownload } from '@/electron/event/action-types'
+import { newsVersion } from '@/utils/index'
 
 export default defineComponent({
   name: 'Upgrade',
@@ -25,7 +26,7 @@ export default defineComponent({
         const r = v.sendSyncIpcRendererEvent<{ version: string }>(
           AutoDownload.CHECK_UPGRADE
         )
-        if (r.version === VERSION) {
+        if (!newsVersion(r.version, VERSION)) {
           newUpgrade.value = true
         }
         console.log(r)
