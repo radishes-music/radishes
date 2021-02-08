@@ -261,3 +261,24 @@ export const newsVersion = (origin: string, local: string) => {
 
   return false
 }
+
+export const scrollAnmation = (
+  from: number,
+  to: number,
+  config: {
+    tween: (...args: number[]) => number
+    duration: number
+    cb: (n: number) => void
+  }
+) => {
+  let start = 0
+  const step = () => {
+    const value = config.tween(start, from, to - from, config.duration / 10)
+    config.cb(Number(value.toFixed(2)))
+    start++
+    if (start <= config.duration / 10) {
+      requestAnimationFrame(step)
+    }
+  }
+  step()
+}

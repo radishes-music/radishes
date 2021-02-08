@@ -15,7 +15,11 @@ import Effect from './effect'
 import Upgrade from './upgrade'
 import classnames from 'classnames'
 import debounce from 'lodash/debounce'
+import { TweenMap } from '@/utils/tween'
+import { scrollAnmation } from '@/utils/index'
 import './index.less'
+
+const tween = TweenMap['Quad-easeOut']
 
 export const Setting = defineComponent({
   name: 'Setting',
@@ -64,21 +68,31 @@ export const Setting = defineComponent({
     ]
 
     const jumpTop = (top: number | string) => {
+      let to = 0
       if (contanier.value) {
         if (typeof top === 'number') {
-          contanier.value.scrollTop = top
+          to = top
         }
         if (typeof top === 'string') {
           const currentArea = areaFormat.value.find(
             item => item.location === top
           )
           if (currentArea) {
-            nextTick(() => {
-              contanier.value &&
-                (contanier.value.scrollTop = currentArea.top + 10)
-            })
+            to = currentArea.top + 10
           }
         }
+        nextTick(() => {
+          if (contanier.value) {
+            const from = contanier.value.scrollTop
+            scrollAnmation(from, to, {
+              tween: tween,
+              duration: 200,
+              cb: n => {
+                contanier.value && (contanier.value.scrollTop = n)
+              }
+            })
+          }
+        })
       }
     }
 
