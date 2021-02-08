@@ -121,11 +121,11 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
   })
   ipcMain.on(AutoDownload.CHECK_UPGRADE, e => {
     autoUpdater.checkForUpdates().then(result => {
-      log.debug('checkForUpdates', result)
-      e.returnValue = {
+      win.webContents.send(AutoDownload.CHECK_UPGRADE, {
         version: result.updateInfo.version,
         path: result.updateInfo.path
-      }
+      })
+      log.debug('checkForUpdates', result)
     })
   })
   ipcMain.on(AutoDownload.UPGRADE_NOW, (e, upgrade) => {
