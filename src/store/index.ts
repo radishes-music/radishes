@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createStore, MutationTree, createLogger } from 'vuex'
 import { FooterMutations } from '@/interface'
 import { AllMutations } from '@/interface/index'
 import { getNodeEnv, toFixed } from '@/utils/index'
+import clone from 'lodash/cloneDeep'
+import each from 'lodash/each'
+import pull from 'lodash/pull'
 import createPersistedState from 'vuex-persistedstate'
 import modules from '@/modules/index'
 
@@ -13,18 +17,56 @@ export const enum RootMutations {
   UPDATE_PERECENTAGE = 'UPDATE_PERECENTAGE'
 }
 
+export interface CustomRouter {
+  life: number
+  url: string
+}
+
 interface HistoryRoute {
-  before: string[]
-  after: string[]
-  needRoute: string
+  [x: string]: any
+  before: CustomRouter[]
+  after: CustomRouter[]
+  needRoute?: string
   canBeCollect: boolean
 }
 
 export interface RootState {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [x: string]: any
   historyRoute: HistoryRoute
   percentage: number
+}
+
+function removeExpired(route: CustomRouter[]) {
+  const life = 2 * 24 * 60 * 60 * 1000
+  const heap = 20
+  // Maximum capacity
+  const routeTp = clone(route).slice(-1 * (heap - 1))
+  each(routeTp, value => {
+    if (Date.now() - value.life > life) {
+      pull(routeTp, value)
+    }
+  })
+  return routeTp
+}
+
+function customRouterBase(state: RootState, originKey: string, route: string) {
+  const origin = state.historyRoute[originKey] as CustomRouter[]
+  const afterLast = origin[origin.length - 1]
+  if (afterLast?.url !== route) {
+    state.historyRoute[originKey] = removeExpired(origin)
+    state.historyRoute[originKey].push({
+      life: Date.now(),
+      url: route
+    })
+  }
+}
+
+function customRouterBack(state: RootState, route: string) {
+  customRouterBase(state, 'after', route)
+}
+
+function customRouterForward(state: RootState, route: string) {
+  customRouterBase(state, 'before', route)
 }
 
 const state: RootState = {
@@ -38,30 +80,18 @@ const state: RootState = {
 }
 
 const mutations: MutationTree<RootState> = {
-  [RootMutations.SET_HISTORY_ROUTE](state, oldRoute: string) {
-    const before = state.historyRoute.before
-    const beforeLast = before[before.length - 1]
-    if (beforeLast !== oldRoute) {
-      state.historyRoute.before.push(oldRoute)
-    }
+  [RootMutations.SET_HISTORY_ROUTE](state, route: string) {
+    customRouterForward(state, route)
   },
   [RootMutations.BACK_HISTORY_ROUTE](state, route: string) {
-    const before = state.historyRoute.before.pop() as string
-    const after = state.historyRoute.after
-    const afterLast = after[after.length - 1]
-    if (afterLast !== route) {
-      state.historyRoute.after.push(route)
-    }
-    state.historyRoute.needRoute = before
+    const before = state.historyRoute.before.pop()
+    state.historyRoute.needRoute = before?.url
+    customRouterBack(state, route)
   },
   [RootMutations.FORWARD_HISTORY_ROUTE](state, route: string) {
-    const after = state.historyRoute.after.pop() as string
-    const before = state.historyRoute.before
-    const beforeLast = before[before.length - 1]
-    if (beforeLast !== route) {
-      state.historyRoute.before.push(route)
-    }
-    state.historyRoute.needRoute = after
+    const after = state.historyRoute.after.pop()
+    state.historyRoute.needRoute = after?.url
+    customRouterForward(state, route)
   },
   [RootMutations.CAN_BE_COLLECT](state, collect: boolean) {
     state.historyRoute.canBeCollect = collect

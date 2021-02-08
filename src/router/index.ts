@@ -247,8 +247,8 @@ export const baseNavRouter: RouteRecordRaw[] = [
     component: Moments,
     meta: {
       name: '朋友',
-      browser: true,
-      electron: true,
+      browser: false,
+      electron: false,
       canBeCollect: true
     }
   },
