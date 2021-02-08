@@ -7,7 +7,8 @@ import {
   FooterActions,
   FooterMutations,
   Direction,
-  BasicEffect
+  BasicEffect,
+  PlayMode
 } from '@/interface'
 import { Platform } from '@/config/build'
 import { asyncIpc, asyncIpcOrigin } from '@/electron/event/ipc-browser'
@@ -58,6 +59,12 @@ export const MusicControl = defineComponent({
       return formatTime(currentTime.value, 's')
     })
 
+    const changePlayMode = () => {
+      useMutations(
+        FooterMutations.CHANGE_PLAYMODE,
+        playMode.value === PlayMode.RANDOM ? PlayMode.TURN : PlayMode.RANDOM
+      )
+    }
     const prevMusic = () => {
       useActions(FooterActions.CUTOVER_TRACK, Direction.PREV)
     }
@@ -243,7 +250,7 @@ export const MusicControl = defineComponent({
         ></audio>
         <div class={`${prefix}-command-center`}>
           <div class={`${prefix}-command-group`}>
-            <ve-button type="text">
+            <ve-button type="text" onClick={changePlayMode}>
               <icon
                 icon={playMode.value}
                 color="#333"
@@ -251,12 +258,8 @@ export const MusicControl = defineComponent({
                 aria-title="播放顺序"
               ></icon>
             </ve-button>
-            <ve-button type="text" class="theme-btn-color">
-              <icon
-                icon="shangyishou"
-                aria-title="上一首"
-                onClick={prevMusic}
-              ></icon>
+            <ve-button type="text" class="theme-btn-color" onClick={prevMusic}>
+              <icon icon="shangyishou" aria-title="上一首"></icon>
             </ve-button>
             <ve-button
               type="text"

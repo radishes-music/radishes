@@ -282,3 +282,15 @@ export const scrollAnmation = (
   }
   step()
 }
+
+export const renderRandom = (extent: number, index: number) => {
+  if (extent <= 1) return extent
+  const random = (): number => {
+    const n = Math.floor(Math.random() * extent)
+    if (n !== index) {
+      return n
+    }
+    return random()
+  }
+  return random()
+}

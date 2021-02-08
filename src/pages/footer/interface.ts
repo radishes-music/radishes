@@ -9,7 +9,8 @@ export const enum BasicEffect {
 }
 
 export const enum PlayMode {
-  TURN = 'turn'
+  TURN = 'turn',
+  RANDOM = 'random'
 }
 
 export const enum Direction {
@@ -84,5 +85,6 @@ export const enum FooterMutations {
   LYRICE_EMBED_MIN_WIDTH = 'LYRICE_EMBED_MIN_WIDTH',
   SEEKBACKWARD = 'SEEKBACKWARD',
   SEEKFORWARD = 'SEEKFORWARD',
-  INIT_EFFECT = 'INIT_EFFECT'
+  INIT_EFFECT = 'INIT_EFFECT',
+  CHANGE_PLAYMODE = 'CHANGE_PLAYMODE'
 }

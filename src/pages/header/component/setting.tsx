@@ -72,13 +72,13 @@ export const Setting = defineComponent({
     }
 
     return () => (
-      <div class="setting">
+      <div class="setting vchj">
         <ve-button
           type="text"
           class="header-window-btn"
           onClick={handleOpenSetting}
         >
-          <icon icon="setting"></icon>
+          <icon icon="setting-new" size={25}></icon>
         </ve-button>
         <ve-button type="text" class="header-window-btn">
           <Popover

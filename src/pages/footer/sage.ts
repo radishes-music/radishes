@@ -1,6 +1,6 @@
 import { toRaw } from 'vue'
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
-import { isNumber, timeTos, toFixed } from '@/utils/index'
+import { isNumber, timeTos, toFixed, renderRandom } from '@/utils/index'
 import { getSongDetail, getLyric } from '@/api/index'
 import {
   FooterState,
@@ -184,6 +184,8 @@ export const actions: ActionTree<FooterState, RootState> = {
             next = index === state.musicStack.length - 1 ? 0 : index + 1
           }
           break
+        case PlayMode.RANDOM:
+          next = renderRandom(state.musicStack.length, index)
       }
       const nextMusic = state.musicStack[next]
 
@@ -297,5 +299,8 @@ export const mutations: MutationTree<FooterState> = {
     if (state.audioElement) {
       state.effect = new AudioEffect(state.audioElement)
     }
+  },
+  [FooterMutations.CHANGE_PLAYMODE](state, mode: PlayMode) {
+    state.playMode = mode
   }
 }
