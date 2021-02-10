@@ -14,18 +14,20 @@ export const SearchSong = defineComponent({
     const pagination = reactive<Pagination>({
       limit: 30,
       offset: 1,
-      total: 0
+      total: 0,
+      slice: 0
     })
 
     const updateList = async (words: string) => {
       if (words) {
         const result = await search(words, SearchType.SONG, pagination)
-        list.value = result.songs.map(song => {
+        list.value = result.songs.slice(pagination.slice).map(song => {
           return {
             ...song,
             dt: song.duration,
             al: song.album,
-            ar: song.artists
+            ar: song.artists,
+            index: (pagination.offset - 1) * pagination.limit
           }
         })
         pagination.total = result.songCount
@@ -34,6 +36,12 @@ export const SearchSong = defineComponent({
 
     const handleChange = (page: number) => {
       pagination.offset = page
+      const total = pagination.limit * pagination.offset
+      if (pagination.total && total > pagination.total) {
+        pagination.slice = total - pagination.total
+      } else {
+        pagination.slice = 0
+      }
     }
 
     const handlePlaySingle = (song: ArrayItem<Songs>) => {

@@ -29,11 +29,16 @@ const tween = TweenMap['Quad-easeOut']
 const columns = [
   {
     width: 40,
+    dataIndex: 'index',
     key: 'index',
     align: 'center',
-    customRender: ({ index }: { index: number }) => (
-      <div class="gay no-hover">{++index < 10 ? '0' + index : index}</div>
-    )
+    customRender: ({ text, index }: { text: number; index: number }) => {
+      let i = index
+      if (typeof text === 'number') {
+        i += text
+      }
+      return <div class="gay no-hover">{++i < 10 ? '0' + i : i}</div>
+    }
   },
   {
     width: 102,
