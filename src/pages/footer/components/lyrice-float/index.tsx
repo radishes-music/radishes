@@ -2,9 +2,9 @@ import { defineComponent, toRefs, ref, onMounted, PropType } from 'vue'
 import { useDrag } from '@/hooks/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
 import { LayoutSize, FooterGetter } from '@/interface'
-import { Platform } from '@/config/build'
 import classnames from 'classnames'
 import './index.less'
+import { isBrowser, isElectron } from '@/utils'
 
 const { VUE_APP_PLATFORM } = process.env
 
@@ -51,7 +51,7 @@ export const LyriceFlash = defineComponent({
     } = toRefs(props)
 
     onMounted(() => {
-      if (VUE_APP_PLATFORM === Platform.BROWSER) {
+      if (isBrowser()) {
         const { start } = useDrag(
           lyriceEl.value.parentElement as HTMLElement,
           lyriceEl.value as HTMLElement,
@@ -68,8 +68,7 @@ export const LyriceFlash = defineComponent({
     })
 
     return () => {
-      const visible =
-        VUE_APP_PLATFORM === Platform.ELECTRON ? true : visibleFlash.value
+      const visible = isElectron() ? true : visibleFlash.value
       return (
         <TeleportToAny
           container="body"

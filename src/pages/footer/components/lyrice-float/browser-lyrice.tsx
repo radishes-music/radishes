@@ -1,13 +1,10 @@
 import { defineComponent, computed, toRefs, watch, toRaw } from 'vue'
-import { toFixed } from '@/utils/index'
+import { isBrowser, isElectron, toFixed } from '@/utils/index'
 import { useFooterModule, useLayoutModule } from '@/modules'
-import { Platform } from '@/config/build'
 import { asyncIpc } from '@/electron/event/ipc-browser'
 import { LyriceAction, UpdateType } from '@/electron/event/action-types'
 import LyriceFlash from './index'
 import './index.less'
-
-const { VUE_APP_PLATFORM } = process.env
 
 export const ipcUpdateLyrice = (type: UpdateType, payload?: unknown) => {
   asyncIpc().then(event => {
@@ -65,7 +62,7 @@ export const BrowserLyriceFlash = defineComponent({
       }
     })
 
-    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+    if (isElectron()) {
       watch(flashMagic, v => {
         ipcUpdateLyrice(UpdateType.UPDATE_MAGIC, v)
       })
@@ -82,7 +79,7 @@ export const BrowserLyriceFlash = defineComponent({
 
     return () => (
       <>
-        {VUE_APP_PLATFORM === Platform.BROWSER && (
+        {isBrowser() && (
           <LyriceFlash
             screenSize={screenSize.value}
             visibleFlash={visibleFlash.value}

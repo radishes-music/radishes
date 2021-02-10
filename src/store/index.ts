@@ -51,8 +51,8 @@ function removeExpired(route: CustomRouter[]) {
 
 function customRouterBase(state: RootState, originKey: string, route: string) {
   const origin = state.historyRoute[originKey] as CustomRouter[]
-  const afterLast = origin[origin.length - 1]
-  if (afterLast?.url !== route) {
+  const last = origin[origin.length - 1]
+  if (last?.url !== route) {
     state.historyRoute[originKey] = removeExpired(origin)
     state.historyRoute[originKey].push({
       life: Date.now(),

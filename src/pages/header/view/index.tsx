@@ -7,10 +7,9 @@ import { Setting } from '../component/setting'
 import { Search } from '../component/search'
 import { LayoutMutations, LayoutSize } from '@/interface'
 import { useLayoutModule } from '@/modules/index'
-import { Platform } from '@/config/build'
+import { isBrowser, isElectron } from '@/utils'
 import './index.less'
 
-const { VUE_APP_PLATFORM } = process.env
 const actionToClass = {
   [Action.CLOSE_WINDOW]: '',
   [Action.MAXIMIZE_WINDOW]: 'lg',
@@ -25,10 +24,10 @@ export const Header = defineComponent({
     const state = useState()
 
     const handleWindowControl = (action: Action) => {
-      if (VUE_APP_PLATFORM === Platform.BROWSER) {
+      if (isBrowser()) {
         useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, actionToClass[action])
       }
-      if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+      if (isElectron()) {
         asyncIpc().then(event => {
           event.sendAsyncIpcRendererEvent(action)
         })
@@ -47,7 +46,7 @@ export const Header = defineComponent({
       }
     }
 
-    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+    if (isElectron()) {
       window.addEventListener('resize', () => {
         asyncIpc().then(event => {
           const win = event.getWindow()
@@ -88,7 +87,7 @@ export const Header = defineComponent({
               >
                 <icon icon={windowSize.value} size={20}></icon>
               </ve-button>
-              {VUE_APP_PLATFORM !== 'browser' && (
+              {isElectron() && (
                 <ve-button
                   type="text"
                   class="header-window-btn"

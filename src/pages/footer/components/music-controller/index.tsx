@@ -1,5 +1,5 @@
 import { defineComponent, ref, toRefs, onMounted, computed, watch } from 'vue'
-import { toFixed, formatTime, sleep } from '@/utils/index'
+import { toFixed, formatTime, sleep, isElectron } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
 import { useFooterModule, useSettingModule } from '@/modules'
@@ -10,13 +10,11 @@ import {
   BasicEffect,
   PlayMode
 } from '@/interface'
-import { Platform } from '@/config/build'
 import { asyncIpc, asyncIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyriceAction } from '@/electron/event/action-types'
 import './index.less'
 
 const prefix = 'music'
-const { VUE_APP_PLATFORM } = process.env
 
 export const MusicControl = defineComponent({
   name: 'MusicControl',
@@ -43,7 +41,7 @@ export const MusicControl = defineComponent({
 
     const musicDes = computed(() => useGetter('musicDes'))
 
-    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+    if (isElectron()) {
       asyncIpcOrigin().then(ipcRenderer => {
         ipcRenderer.on(LyriceAction.LYRICE_WIN_CLOSE, () => {
           useMutations(FooterMutations.VISIBLE_FLASH, false)
@@ -113,7 +111,7 @@ export const MusicControl = defineComponent({
 
     const handleVisibleFlash = () => {
       useMutations(FooterMutations.VISIBLE_FLASH, !visibleFlash.value)
-      if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+      if (isElectron()) {
         asyncIpc()
           .then(event => {
             event.sendAsyncIpcRendererEvent(

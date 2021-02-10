@@ -17,9 +17,7 @@ import { LocalMusic, LocalMusicSong, LocalMusicDir } from '@/pages/music/index'
 import { Download, DownloadSong, DownloadMv } from '@/pages/download/index'
 import { Cloud } from '@/pages/cloud/index'
 import { Setting } from '@/pages/setting/index'
-import { Platform } from '@/config/build'
-
-const { VUE_APP_PLATFORM } = process.env
+import { isBrowser, isElectron } from '@/utils'
 
 export interface Meta {
   name?: string
@@ -135,10 +133,10 @@ export const contentRouter: RouteRecordRaw[] = [
 
 const renderSidebar = (nav: RouteRecordRaw[]) => {
   return nav.filter(n => {
-    if (VUE_APP_PLATFORM === Platform.BROWSER) {
+    if (isBrowser()) {
       return n?.meta?.browser
     }
-    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+    if (isElectron()) {
       return n?.meta?.electron
     }
     return true
@@ -339,7 +337,7 @@ export const navRouter = renderSidebar(baseNavRouter)
 
 const router = createRouter({
   // history:
-  //   VUE_APP_PLATFORM === Platform.BROWSER
+  //   isBrowser()
   //     ? createWebHistory(process.env.BASE_URL)
   //     : createWebHashHistory(process.env.BASE_URL),
   history: createWebHashHistory(process.env.BASE_URL),

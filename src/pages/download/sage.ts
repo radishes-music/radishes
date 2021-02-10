@@ -8,14 +8,11 @@ import {
 } from '@/interface'
 import { RootState } from '@/store/index'
 import { getMusicUrl } from '@/shared/music-shared'
-import { download } from '@/utils/index'
+import { download, isBrowser, isElectron } from '@/utils/index'
 import { asyncIpc } from '@/electron/event/ipc-browser'
 import { DownloadIpcType } from '@/electron/event/action-types'
 import { getSongDetail } from '@/api/index'
-import { Platform } from '@/config/build'
 import remove from 'lodash/remove'
-
-const { VUE_APP_PLATFORM } = process.env
 
 export const actions: ActionTree<DownloadState, RootState> = {
   async [DownloadActions.DOWNLOAD_MUSIC]({ commit }, song: SongsDetail) {
@@ -23,11 +20,11 @@ export const actions: ActionTree<DownloadState, RootState> = {
     song.size = songBase[0].size
     const url = songBase[0].url
     commit(DownloadMutations.SET_DOWNLOAD_MUSIC, song)
-    if (VUE_APP_PLATFORM === Platform.BROWSER) {
+    if (isBrowser()) {
       // TODO ws protocol to be supported, download progress to be discussed
       download(url, song.name)
     }
-    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+    if (isElectron()) {
       const v = await asyncIpc()
       let al, ar, pic, arArr
       try {

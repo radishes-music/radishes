@@ -4,9 +4,7 @@ import { DownloadMutations, SettingMutations } from '@/interface'
 import { useDownloadModule, useSettingModule } from '@/modules'
 import { RadioGroup, Radio } from 'vant'
 import { defineComponent } from 'vue'
-import { Platform } from '@/config/build'
-
-const { VUE_APP_PLATFORM } = process.env
+import { isBrowser } from '@/utils'
 
 export default defineComponent({
   setup() {
@@ -75,7 +73,7 @@ export default defineComponent({
           <ve-button
             type="text"
             onClick={handleOpenDialog}
-            disabled={VUE_APP_PLATFORM === Platform.BROWSER}
+            disabled={isBrowser()}
           >
             更改目录
           </ve-button>

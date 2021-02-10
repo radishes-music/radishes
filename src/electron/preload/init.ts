@@ -5,15 +5,13 @@
  * an electron-related error will be prompted in the browser host.
  */
 
-import { Platform } from '@/config/build'
 import { DownloadMutations, LocalMusicMutations } from '@/interface'
 import { useDownloadModule, useLocalMusicModule } from '@/modules'
 import store from '@/store'
-
-const { VUE_APP_PLATFORM } = process.env
+import { isElectron } from '@/utils'
 
 const initStorage = async () => {
-  if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+  if (isElectron()) {
     const v = await import('@/electron/utils/index')
     const downloadModule = useDownloadModule()
     const localMusicModule = useLocalMusicModule()

@@ -11,6 +11,11 @@ import { Platform } from '@/config/build'
 dayjs.extend(UTC)
 dayjs.extend(customParseFormat)
 
+export const isBrowser = () => process.env.VUE_APP_PLATFORM === Platform.BROWSER
+
+export const isElectron = () =>
+  process.env.VUE_APP_PLATFORM === Platform.ELECTRON
+
 export const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
   obj: X,
   prop: Y
@@ -197,7 +202,7 @@ export const noop = () => {}
 
 export const getNodeEnv = (): string => {
   let NODE_ENV = process.env.NODE_ENV as string
-  if (process.env.VUE_APP_PLATFORM === Platform.ELECTRON) {
+  if (isElectron()) {
     NODE_ENV = process.env.VUE_APP_NODE_ENV as string
   }
   return NODE_ENV
