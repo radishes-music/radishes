@@ -41,7 +41,10 @@ function removeExpired(route: CustomRouter[]) {
   const life = 2 * 24 * 60 * 60 * 1000
   const heap = 20
   // Maximum capacity
-  const routeTp = uniqBy(clone(route), 'url').slice(-1 * (heap - 1))
+  // Reverse the array before deduplication
+  const routeTp = uniqBy(clone(route.reverse()), 'url')
+    .reverse()
+    .slice(-1 * (heap - 1))
   each(routeTp, value => {
     if (Date.now() - value.life > life) {
       pull(routeTp, value)
