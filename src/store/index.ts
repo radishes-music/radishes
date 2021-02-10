@@ -6,6 +6,7 @@ import { getNodeEnv, toFixed } from '@/utils/index'
 import clone from 'lodash/cloneDeep'
 import each from 'lodash/each'
 import pull from 'lodash/pull'
+import uniqBy from 'lodash/uniqBy'
 import createPersistedState from 'vuex-persistedstate'
 import modules from '@/modules/index'
 
@@ -40,7 +41,7 @@ function removeExpired(route: CustomRouter[]) {
   const life = 2 * 24 * 60 * 60 * 1000
   const heap = 20
   // Maximum capacity
-  const routeTp = clone(route).slice(-1 * (heap - 1))
+  const routeTp = uniqBy(clone(route), 'url').slice(-1 * (heap - 1))
   each(routeTp, value => {
     if (Date.now() - value.life > life) {
       pull(routeTp, value)
@@ -53,11 +54,11 @@ function customRouterBase(state: RootState, originKey: string, route: string) {
   const origin = state.historyRoute[originKey] as CustomRouter[]
   const last = origin[origin.length - 1]
   if (last?.url !== route) {
-    state.historyRoute[originKey] = removeExpired(origin)
     state.historyRoute[originKey].push({
       life: Date.now(),
       url: route
     })
+    state.historyRoute[originKey] = removeExpired(origin)
   }
 }
 
