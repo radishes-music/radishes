@@ -30,8 +30,10 @@ export const enum SearchType {
 }
 
 export interface SearchState {
-  songs: SongsDetail
+  searchTitle: string
 }
 
 export const enum SearchActions {}
-export const enum SearchMutations {}
+export const enum SearchMutations {
+  SET_SEARCH_TITLE = 'SET_SEARCH_TITLE'
+}

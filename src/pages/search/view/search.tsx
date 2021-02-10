@@ -7,16 +7,20 @@ import {
   renderNavList
 } from '@/components-business/secondary-bar/index'
 import './search.less'
+import { useSearchModule } from '@/modules'
 
 export const Search = defineComponent({
   name: 'Search',
   setup() {
+    const { useState } = useSearchModule()
+    const state = useState()
+
     const nav = renderNavList(contentRouter, Search.name)
 
     return () => (
       <MusicLayout
         v-slots={{
-          title: () => <div>找到 {} 首歌曲</div>,
+          title: () => <div>{state.searchTitle}</div>,
           head: () => <SecondaryBar nav={nav} size="small" />,
           body: () => <RouterView />
         }}

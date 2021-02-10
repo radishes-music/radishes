@@ -3,7 +3,14 @@ import { Table } from '@/components-business/table/index'
 import { effectWords } from '../logic/index'
 import { search } from '@/api/search'
 import { playMusic } from '@/shared/music-shared'
-import { Pagination, SearchType, SearchSuggest, ArrayItem } from '@/interface'
+import {
+  Pagination,
+  SearchType,
+  SearchSuggest,
+  ArrayItem,
+  SearchMutations
+} from '@/interface'
+import { useSearchModule } from '@/modules'
 
 type Songs = SearchSuggest['songs']
 
@@ -17,6 +24,7 @@ export const SearchSong = defineComponent({
       total: 0,
       slice: 0
     })
+    const { useMutations } = useSearchModule()
 
     const updateList = async (words: string) => {
       if (words) {
@@ -31,6 +39,10 @@ export const SearchSong = defineComponent({
           }
         })
         pagination.total = result.songCount
+        useMutations(
+          SearchMutations.SET_SEARCH_TITLE,
+          `找到 ${pagination.total} 首歌曲`
+        )
       }
     }
 
