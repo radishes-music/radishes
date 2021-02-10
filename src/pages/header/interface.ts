@@ -1,15 +1,15 @@
-import { Albums, Songs, Artists, PlayLists } from '@/interface/index'
+import { SearchSuggest } from '@/interface'
 
-export interface SearchSuggest {
-  albums?: Albums[]
-  artists?: Artists[]
-  songs?: Songs[]
-  order?: string[]
-  playlists?: PlayLists[]
+export interface QQ {
+  id: { song: number; file: number }
+  name: string
+  duration: number
+  album: { id: string; name: string }
+  artists: { id: number; name: string; alias: unknown[]; img1v1Url: string }[]
 }
 
 export interface HeaderState {
-  searchSuggest: SearchSuggest
+  searchSuggest: Partial<SearchSuggest>
   themeColor: string
 }
 

@@ -1,10 +1,11 @@
-import { defineComponent, PropType, toRefs, ref, computed } from 'vue'
-import { Table as ATable } from 'ant-design-vue'
+import { defineComponent, PropType, toRefs, ref, computed, watch } from 'vue'
+import { Table as ATable, Pagination as APagination } from 'ant-design-vue'
 import {
   noop,
   formatTime,
   formatTimeToStandard,
-  formatSize
+  formatSize,
+  scrollAnmation
 } from '@/utils/index'
 import {
   SongsDetail,
@@ -12,16 +13,19 @@ import {
   FooterMutations,
   DownloadActions,
   SongListColumnsType,
-  DownloadMutations
+  DownloadMutations,
+  Pagination
 } from '@/interface/index'
 import { useDownloadModule, useFooterModule } from '@/modules/index'
 import { useSubscribe } from '@/shared/subscribe'
 import { getMusicUrl } from '@/shared/music-shared'
 import { instance } from '@/components-business/fly/index'
+import { TweenMap } from '@/utils/tween'
 import './index.less'
 
 const prefix = 'table'
 
+const tween = TweenMap['Quad-easeOut']
 const columns = [
   {
     width: 40,
@@ -194,9 +198,17 @@ export const Table = defineComponent({
       type: Boolean as PropType<boolean>,
       default: true
     },
+    pagination: {
+      type: Object as PropType<Pagination>,
+      default: () => ({})
+    },
     onDblclick: {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       type: Function as PropType<(item: any) => void>,
+      default: noop
+    },
+    onChange: {
+      type: Function as PropType<(page: number, size: number) => void>,
       default: noop
     },
     rowClassName: {
@@ -205,9 +217,12 @@ export const Table = defineComponent({
       default: () => 'row-music'
     }
   },
-  emits: ['dblclick'],
+  emits: ['dblclick', 'change'],
   setup(props, { emit }) {
-    const { list, columnsTypes, showHeader, rowClassName } = toRefs(props)
+    const contanier = ref()
+    const { list, columnsTypes, showHeader, rowClassName, pagination } = toRefs(
+      props
+    )
 
     const renderColumns = computed(() => {
       const col: unknown[] = []
@@ -220,8 +235,26 @@ export const Table = defineComponent({
       return col
     })
 
+    const paginationChange = (page: number, size: number) => {
+      emit('change', page, size)
+    }
+
+    watch(list, () => {
+      if (contanier.value) {
+        const scrollContanier = contanier.value
+        const from = scrollContanier.scrollTop
+        scrollAnmation(from, 0, {
+          tween: tween,
+          duration: 200,
+          cb: n => {
+            contanier.value && (scrollContanier.scrollTop = n)
+          }
+        })
+      }
+    })
+
     return () => (
-      <div class={`${prefix}`}>
+      <div class={`${prefix}`} ref={contanier}>
         {/* <div class={`${prefix}-header`}></div> */}
         <div class={`${prefix}-body`}>
           <ATable
@@ -248,12 +281,19 @@ export const Table = defineComponent({
             }}
           />
         </div>
-        {/* <div class={`${prefix}-pagination`}>
-          <Pagination
-            v-model={[current.value, 'current']}
-            total={list.value.length}
-          />
-        </div> */}
+        {pagination.value.limit && (
+          <div class={`${prefix}-pagination`}>
+            <APagination
+              size="small"
+              pageSize={pagination.value.limit}
+              total={pagination.value.total}
+              current={pagination.value.offset}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+              // @ts-ignore
+              onChange={paginationChange}
+            />
+          </div>
+        )}
       </div>
     )
   }

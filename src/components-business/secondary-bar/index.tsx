@@ -1,5 +1,5 @@
-import { defineComponent, toRefs, PropType } from 'vue'
-import { RouterLink, RouteRecordRaw } from 'vue-router'
+import { defineComponent, toRefs, PropType, toRaw } from 'vue'
+import { RouterLink, RouteRecordRaw, useRoute } from 'vue-router'
 import './index.less'
 
 const prefix = 'secondary'
@@ -26,6 +26,17 @@ export const SecondaryBar = defineComponent({
   },
   setup(props) {
     const { nav, size } = toRefs(props)
+    const route = useRoute()
+
+    const renderPath = (url: string) => {
+      if (typeof url === 'string') {
+        return {
+          path: url,
+          query: toRaw(route.query)
+        }
+      }
+      return url
+    }
 
     return () => (
       <div class={`${prefix}-bar`}>
@@ -34,7 +45,7 @@ export const SecondaryBar = defineComponent({
             <RouterLink
               class={`${prefix}-bar-link ${prefix}-bar-link--${size.value}`}
               activeClass={`${prefix}-bar-link-active ${prefix}-bar-link-active--${size.value}`}
-              to={link.meta?.path}
+              to={renderPath(link.meta?.path)}
             >
               {link.meta?.name}
             </RouterLink>

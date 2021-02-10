@@ -1,5 +1,5 @@
 import { ActionTree, MutationTree } from 'vuex'
-import { searchSuggest } from './api/search'
+import { searchSuggest } from '@/api/search'
 import {
   HeaderState,
   SearchSuggest,

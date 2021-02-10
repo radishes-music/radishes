@@ -1,5 +1,6 @@
 export * from './http'
 export * from './app'
+export * from './utils'
 export * from './service/albums'
 export * from './service/artists'
 export * from './service/songs'

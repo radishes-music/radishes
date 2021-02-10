@@ -27,7 +27,7 @@ http.defaults.params = {}
 
 http.interceptors.request.use(
   config => {
-    config.params[Date.now()] = 'no-cache'
+    config.params.timestampAxios = Date.now()
     return config
   },
   error => {
@@ -43,9 +43,9 @@ http.interceptors.response.use(
     return response
   },
   error => {
-    const config = error.response.config as HttpConfig
+    const config = error.response?.config as HttpConfig
     if (error.response) {
-      if (error.response.status === 301 && config.auths) {
+      if (error.response.status === 301 && config?.auths) {
         store.commit('Auth/SHOW_VIEW')
         return syncToAsync(resolve => {
           on(

@@ -1,4 +1,4 @@
-import { Song } from '@/interface/index'
+import { Pagination, Song } from '@/interface/index'
 import { Artist } from '@/interface/index'
 import { GlobalBase } from '@/interface/index'
 
@@ -27,8 +27,7 @@ export interface ArtistsState {
   completed: boolean
 }
 
-export interface Pagination {
-  limit: number
+export interface PaginationHighquality extends Pagination {
   before: number
   cat: string
 }

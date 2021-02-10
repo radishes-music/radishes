@@ -1,8 +1,11 @@
 import { Artists } from './artists'
 import { GlobalBase } from '../app'
+import { Albums } from './albums'
 
 export interface Songs extends GlobalBase {
   artists: Artists[]
+  duration?: number
+  album?: Albums
 }
 
 export interface Song extends Songs {
