@@ -1,8 +1,10 @@
 const webpack = require('webpack')
+const pkg = require('./package.json')
 
 const CI = process.env.CI !== 'action'
 
 module.exports = {
+  publicPath: '.',
   pages: {
     index: {
       entry: 'src/main.ts',
@@ -34,7 +36,11 @@ module.exports = {
   },
   configureWebpack: {
     plugins: [
-      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/)
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/),
+      new webpack.DefinePlugin({
+        VERSION: JSON.stringify(pkg.version),
+        GIT_URL: JSON.stringify(pkg.repository.url)
+      })
     ]
   },
   chainWebpack: config => {
@@ -69,7 +75,13 @@ module.exports = {
     electronBuilder: {
       nodeIntegration: true,
       mainProcessFile: 'src/electron/main.ts',
-      outputDir: 'dist-electron'
+      outputDir: 'dist-electron',
+      builderOptions: {
+        publish: [
+          { provider: 'github', owner: 'Linkontoask', repo: 'radishes' }
+        ],
+        artifactName: pkg.name + '.Setup.' + '${version}.${ext}'
+      }
     }
   }
 }

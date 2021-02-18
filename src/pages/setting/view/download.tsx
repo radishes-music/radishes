@@ -1,9 +1,10 @@
 import { Dialog } from '@/electron/event/action-types'
-import { importIpc } from '@/electron/event/ipc-browser'
+import { asyncIpc } from '@/electron/event/ipc-browser'
 import { DownloadMutations, SettingMutations } from '@/interface'
 import { useDownloadModule, useSettingModule } from '@/modules'
 import { RadioGroup, Radio } from 'vant'
 import { defineComponent } from 'vue'
+import { isBrowser } from '@/utils'
 
 export default defineComponent({
   setup() {
@@ -24,7 +25,7 @@ export default defineComponent({
     ]
 
     const handleOpenDialog = async () => {
-      const ipc = await importIpc()
+      const ipc = await asyncIpc()
       const dir = ipc.sendSyncIpcRendererEvent(
         Dialog.SHOW_DIALOG
       ) as Electron.OpenDialogReturnValue
@@ -69,7 +70,11 @@ export default defineComponent({
         </div>
         <div class="download-path">
           下载目录：{downloadState.downloadPath}
-          <ve-button type="text" onClick={handleOpenDialog}>
+          <ve-button
+            type="text"
+            onClick={handleOpenDialog}
+            disabled={isBrowser()}
+          >
             更改目录
           </ve-button>
         </div>

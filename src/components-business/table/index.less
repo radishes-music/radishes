@@ -1,12 +1,18 @@
 @prefix: ~'table';
 
 .@{prefix} {
-  display: block;
+  height: 100%;
+  overflow: auto;
   &-body {
     .ant-table-tbody > tr > td,
     .ant-table-thead > tr > th {
       padding: 12px 16px;
     }
+  }
+  &-pagination {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
   }
   .row-music {
     cursor: pointer;

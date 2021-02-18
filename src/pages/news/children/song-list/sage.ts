@@ -4,7 +4,7 @@ import {
   Song,
   SongListActions,
   SongListMutations,
-  Pagination,
+  PaginationHighquality,
   SongListState,
   Tags
 } from '@/interface/index'
@@ -13,7 +13,7 @@ import { getHighqualityPl, getHighqualityTags, getHotTags } from './api/index'
 export const actions: ActionTree<SongListState, RootState> = {
   async [SongListActions.SET_ACTION_SONG_LIST](
     { commit },
-    pagination: Pagination
+    pagination: PaginationHighquality
   ) {
     const result = await getHighqualityPl(pagination)
     commit(SongListMutations.SET_SONG_LIST, result)

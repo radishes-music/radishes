@@ -5,32 +5,32 @@
  * an electron-related error will be prompted in the browser host.
  */
 
-import { Platform } from '@/config/build'
 import { DownloadMutations, LocalMusicMutations } from '@/interface'
-import { DownloadNameSpaced, LocalMusicNameSpaced } from '@/modules'
+import { useDownloadModule, useLocalMusicModule } from '@/modules'
 import store from '@/store'
-
-const { VUE_APP_PLATFORM } = process.env
+import { isElectron } from '@/utils'
 
 const initStorage = async () => {
-  if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+  if (isElectron()) {
     const v = await import('@/electron/utils/index')
+    const downloadModule = useDownloadModule()
+    const localMusicModule = useLocalMusicModule()
     const downloadState = store.state.Download
     const localMusicState = store.state.LocalMusic
 
     const os = v.getUserOS()
     const userDownloadPath = v.join(os.homedir + '/Downloads')
     if (!downloadState.downloadPath) {
-      store.commit(
-        DownloadNameSpaced + '/' + DownloadMutations.SET_DOWNLOAD_PATH,
+      downloadModule.useMutations(
+        DownloadMutations.SET_DOWNLOAD_PATH,
         userDownloadPath
       )
     }
 
     const userMusicPath = v.join(os.homedir + '/Music')
     if (!localMusicState.normalPath) {
-      store.commit(
-        LocalMusicNameSpaced + '/' + LocalMusicMutations.SET_NORMAL_PATH,
+      localMusicModule.useMutations(
+        LocalMusicMutations.SET_NORMAL_PATH,
         userMusicPath
       )
     }
@@ -48,18 +48,12 @@ const initStorage = async () => {
       }
     ]
     if (!localMusicState.localPath.length) {
-      store.commit(
-        LocalMusicNameSpaced + '/' + LocalMusicMutations.SET_LOCAL_PATH,
-        paths
-      )
+      localMusicModule.useMutations(LocalMusicMutations.SET_LOCAL_PATH, paths)
     }
 
     const songs = await v.readPathMusic(paths.map(item => item.path))
 
-    store.commit(
-      LocalMusicNameSpaced + '/' + LocalMusicMutations.SET_LOCAL_MUSIC,
-      songs
-    )
+    localMusicModule.useMutations(LocalMusicMutations.SET_LOCAL_MUSIC, songs)
   }
 }
 

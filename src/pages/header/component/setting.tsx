@@ -1,14 +1,12 @@
 import { defineComponent, onMounted, ref } from 'vue'
-import { importIpc } from '@/electron/event/ipc-browser'
+import { asyncIpc } from '@/electron/event/ipc-browser'
 import { MiddlewareView } from '@/electron/event/action-types'
-import { Platform } from '@/config/build'
 import { shade } from '@/theme/color'
 import { Popover } from 'ant-design-vue'
 import { setThemeColor } from '@/helpers'
 import { useThemeColor, useRouter } from '@/hooks'
 import './setting.less'
-
-const { VUE_APP_PLATFORM } = process.env
+import { isElectron } from '@/utils'
 
 const setColor = (baseColor: string) => {
   const color = {
@@ -25,8 +23,8 @@ const setColor = (baseColor: string) => {
     document.documentElement.style.setProperty('--' + key, value)
   }
 
-  if (VUE_APP_PLATFORM === Platform.ELECTRON) {
-    importIpc().then(event => {
+  if (isElectron()) {
+    asyncIpc().then(event => {
       event.sendAsyncIpcRendererEvent(
         MiddlewareView.UPDATE_THEME_COLOR,
         baseColor
@@ -72,13 +70,13 @@ export const Setting = defineComponent({
     }
 
     return () => (
-      <div class="setting">
+      <div class="setting vchj">
         <ve-button
           type="text"
           class="header-window-btn"
           onClick={handleOpenSetting}
         >
-          <icon icon="setting"></icon>
+          <icon icon="setting-new" size={25}></icon>
         </ve-button>
         <ve-button type="text" class="header-window-btn">
           <Popover

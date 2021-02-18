@@ -1,16 +1,15 @@
 import { computed, defineComponent } from 'vue'
 import { Action } from '@/electron/event/action-types'
-import { importIpc } from '@/electron/event/ipc-browser'
+import { asyncIpc } from '@/electron/event/ipc-browser'
 import { Logo } from '../component/logo'
 import { PushShift } from '../component/push-shift'
 import { Setting } from '../component/setting'
 import { Search } from '../component/search'
-import { LayoutActions, LayoutSize } from '@/interface'
+import { LayoutMutations, LayoutSize } from '@/interface'
 import { useLayoutModule } from '@/modules/index'
-import { Platform } from '@/config/build'
+import { isBrowser, isElectron } from '@/utils'
 import './index.less'
 
-const { VUE_APP_PLATFORM } = process.env
 const actionToClass = {
   [Action.CLOSE_WINDOW]: '',
   [Action.MAXIMIZE_WINDOW]: 'lg',
@@ -25,11 +24,11 @@ export const Header = defineComponent({
     const state = useState()
 
     const handleWindowControl = (action: Action) => {
-      if (VUE_APP_PLATFORM === Platform.BROWSER) {
-        useMutations(LayoutActions.CHANGE_WINDOW_SIZE, actionToClass[action])
+      if (isBrowser()) {
+        useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, actionToClass[action])
       }
-      if (VUE_APP_PLATFORM === Platform.ELECTRON) {
-        importIpc().then(event => {
+      if (isElectron()) {
+        asyncIpc().then(event => {
           event.sendAsyncIpcRendererEvent(action)
         })
       }
@@ -47,14 +46,14 @@ export const Header = defineComponent({
       }
     }
 
-    if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+    if (isElectron()) {
       window.addEventListener('resize', () => {
-        importIpc().then(event => {
+        asyncIpc().then(event => {
           const win = event.getWindow()
           if (win) {
             const isMax = win.isMaximized()
             const size = isMax ? LayoutSize.LG : LayoutSize.MD
-            useMutations(LayoutActions.CHANGE_WINDOW_SIZE, size)
+            useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, size)
           }
         })
       })
@@ -88,7 +87,7 @@ export const Header = defineComponent({
               >
                 <icon icon={windowSize.value} size={20}></icon>
               </ve-button>
-              {VUE_APP_PLATFORM !== 'browser' && (
+              {isElectron() && (
                 <ve-button
                   type="text"
                   class="header-window-btn"

@@ -4,7 +4,7 @@ export default defineComponent({
   setup() {
     return () => (
       <div class="setting-view-contanier--about" data-location="about">
-        <h2>关于 radishes</h2>
+        <h2>关于Radishes（{VERSION}）</h2>
         <div class="setting-view-paragraph">
           radishes
           是一款参考网易云音乐客户端实现的跨平台播放器。如果在使用过程中遇到任何问题可以在

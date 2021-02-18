@@ -1,14 +1,12 @@
 import { defineComponent } from 'vue'
 import { PlayAll } from '@/components-business/button'
-import { Platform } from '@/config/build'
 import { Table } from '@/components-business/table'
 import { useDownloadModule } from '@/modules'
 import { SongsDetail } from '@/interface'
 import { playMusic } from '@/shared/music-shared'
 import { useRouter } from 'vue-router'
 import './song.less'
-
-const { VUE_APP_PLATFORM } = process.env
+import { isElectron } from '@/utils'
 
 export const DownloadSong = defineComponent({
   name: 'DownloadSong',
@@ -41,7 +39,7 @@ export const DownloadSong = defineComponent({
       <div class="download-song">
         <div class="download-song-head">
           <PlayAll onClick={handlePlayAll} />
-          {VUE_APP_PLATFORM === Platform.ELECTRON && (
+          {isElectron() && (
             <div class="download-song-head--dir">
               存储目录：{state.downloadPath}
               <ve-button type="text" onClick={handleOpenExplorer}>

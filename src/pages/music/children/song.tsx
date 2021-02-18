@@ -4,7 +4,7 @@ import { Button } from 'ant-design-vue'
 import { Table } from '@/components-business/table'
 import { useLocalMusicModule } from '@/modules'
 import { SongsDetail, LocalMusicMutations, LocalMusicDetail } from '@/interface'
-import { importIpc } from '@/electron/event/ipc-browser'
+import { asyncIpc } from '@/electron/event/ipc-browser'
 import { ReadLocalFile } from '@/electron/event/action-types'
 import { playMusic, clearLocalMusicUrl } from '@/shared/music-shared'
 import cloneDeep from 'lodash/cloneDeep'
@@ -20,7 +20,7 @@ export const LocalMusicSong = defineComponent({
     }
     const handlePlaySingle = async (song: SongsDetail & LocalMusicDetail) => {
       const music = cloneDeep(toRaw(song))
-      const renderer = await importIpc()
+      const renderer = await asyncIpc()
       const buffer = renderer.sendSyncIpcRendererEvent(
         ReadLocalFile.READ_MP3_FROM_PATH,
         music.path

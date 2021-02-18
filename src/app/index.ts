@@ -6,11 +6,9 @@ import { Components } from './plugin/v-easy-components'
 import GlobalComponent from '@/components-global/index'
 import { errorHandle } from '@/components/error-boundary/index'
 import { registerIPC } from '../electron/preload/ipc'
-import { Platform } from '@/config/build'
+import { isElectron } from '@/utils/index'
 import init from '@/electron/preload/init'
 import '@/iconfont/index'
-
-const { VUE_APP_PLATFORM } = process.env
 
 const app = createApp(App)
   .use(store)
@@ -21,7 +19,7 @@ const app = createApp(App)
 errorHandle(app)
 init()
 
-if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+if (isElectron()) {
   registerIPC(app)
 }
 

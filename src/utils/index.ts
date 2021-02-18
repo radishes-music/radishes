@@ -11,6 +11,11 @@ import { Platform } from '@/config/build'
 dayjs.extend(UTC)
 dayjs.extend(customParseFormat)
 
+export const isBrowser = () => process.env.VUE_APP_PLATFORM === Platform.BROWSER
+
+export const isElectron = () =>
+  process.env.VUE_APP_PLATFORM === Platform.ELECTRON
+
 export const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
   obj: X,
   prop: Y
@@ -149,20 +154,28 @@ export const create = (appFunction: App<Element>) => {
 export function on<T extends keyof ElectronWindowEventMap>(
   container: Window,
   type: T,
-  listener: (ev: ElectronWindowEventMap[T]) => void
+  listener: (ev: ElectronWindowEventMap[T]) => void,
+  config?: AddEventListenerOptions | boolean
 ): void
 export function on<T extends keyof WindowEventMap>(
   container: Window,
   type: T,
-  listener: (ev: WindowEventMap[T]) => void
+  listener: (ev: WindowEventMap[T]) => void,
+  config?: AddEventListenerOptions | boolean
 ): void
 export function on<T extends keyof HTMLElementEventMap>(
   container: HTMLElement,
   type: T,
-  listener: (ev: HTMLElementEventMap[T]) => void
+  listener: (ev: HTMLElementEventMap[T]) => void,
+  config?: AddEventListenerOptions | boolean
 ): void
-export function on(container: any, type: any, listener: any): void {
-  container.addEventListener(type, listener)
+export function on(
+  container: any,
+  type: any,
+  listener: any,
+  config: any
+): void {
+  container?.addEventListener(type, listener, config)
 }
 
 export function off<T extends keyof ElectronWindowEventMap>(
@@ -181,7 +194,7 @@ export function off<T extends keyof HTMLElementEventMap>(
   listener: (ev: HTMLElementEventMap[T]) => void
 ): void
 export function off(container: any, type: any, listener: (ev: any) => void) {
-  container.removeEventListener(type, listener)
+  container?.removeEventListener(type, listener)
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -189,8 +202,100 @@ export const noop = () => {}
 
 export const getNodeEnv = (): string => {
   let NODE_ENV = process.env.NODE_ENV as string
-  if (process.env.VUE_APP_PLATFORM === Platform.ELECTRON) {
+  if (isElectron()) {
     NODE_ENV = process.env.VUE_APP_NODE_ENV as string
   }
   return NODE_ENV
+}
+
+export const formatVersion = (version: string) => {
+  let major: unknown = 0,
+    minor: unknown = 0,
+    patch: unknown = 0,
+    status,
+    statusV: unknown = 0
+  const formalRegex = /^(\d)\.(\d)\.(\d)$/
+  const isFormalVersion = formalRegex.test(version)
+  if (isFormalVersion) {
+    const formalMatch = version.match(formalRegex)
+    if (formalMatch) {
+      ;[major, minor, patch] = formalMatch.slice(1)
+      return {
+        major: Number(major),
+        minor: Number(minor),
+        patch: Number(patch)
+      }
+    }
+  } else {
+    const match = version.match(/^(\d)\.(\d)\.(\d)-([a-z]+)\.(\d)$/)
+    if (match) {
+      ;[major, minor, patch, status, statusV] = match.slice(1)
+    }
+  }
+  return {
+    major: Number(major),
+    minor: Number(minor),
+    patch: Number(patch),
+    status,
+    statusV: Number(statusV)
+  }
+}
+
+export const newsVersion = (origin: string, local: string) => {
+  const originFormat = formatVersion(origin)
+  const localFormat = formatVersion(local)
+
+  // formal version
+  if (
+    originFormat.major > localFormat.major ||
+    originFormat.minor > localFormat.minor ||
+    originFormat.patch > localFormat.patch
+  ) {
+    return true
+  }
+
+  // test version
+  if (
+    originFormat.statusV &&
+    localFormat.statusV &&
+    originFormat.status === localFormat.status &&
+    originFormat.statusV > localFormat.statusV
+  ) {
+    return true
+  }
+
+  return false
+}
+
+export const scrollAnmation = (
+  from: number,
+  to: number,
+  config: {
+    tween: (...args: number[]) => number
+    duration: number
+    cb: (n: number) => void
+  }
+) => {
+  let start = 0
+  const step = () => {
+    const value = config.tween(start, from, to - from, config.duration / 10)
+    config.cb(Number(value.toFixed(2)))
+    start++
+    if (start <= config.duration / 10) {
+      requestAnimationFrame(step)
+    }
+  }
+  step()
+}
+
+export const renderRandom = (extent: number, index: number) => {
+  if (extent <= 1) return extent
+  const random = (): number => {
+    const n = Math.floor(Math.random() * extent)
+    if (n !== index) {
+      return n
+    }
+    return random()
+  }
+  return random()
 }

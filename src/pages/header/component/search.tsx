@@ -6,6 +6,13 @@ import { playMusic } from '@/shared/music-shared'
 import debounce from 'lodash/debounce'
 import './search.less'
 
+const enum SearchType {
+  SONGS = 'SONGS',
+  ARTISTS = 'ARTISTS',
+  ALBUMS = 'ALBUMS',
+  PLAYLISTS = 'PLAYLISTS'
+}
+
 const Option = defineComponent({
   name: 'Option',
   props: {
@@ -92,7 +99,7 @@ const Group = defineComponent({
 })
 
 export const Search = defineComponent({
-  name: 'Search',
+  name: 'SearchInput',
   components: {
     Option,
     Group
@@ -118,13 +125,6 @@ export const Search = defineComponent({
       }
     }, 200)
 
-    const enum SearchType {
-      SONGS = 'SONGS',
-      ARTISTS = 'ARTISTS',
-      ALBUMS = 'ALBUMS',
-      PLAYLISTS = 'PLAYLISTS'
-    }
-
     const handleSelect = async (type: SearchType, id: unknown) => {
       switch (type) {
         case SearchType.SONGS:
@@ -147,10 +147,22 @@ export const Search = defineComponent({
       }
     }
 
+    const handleSearchMore = () => {
+      router.push({
+        path: '/search/song',
+        query: {
+          words: words.value
+        }
+      })
+    }
+
     const Slot = {
       prefix: () => <icon icon="search" color="#ffffff61" size={18}></icon>,
       popper: () => (
         <div class="search-popper">
+          <div class="search-popper-more" onClick={handleSearchMore}>
+            搜"<strong class="keyword">{words.value}</strong>"相关的结果
+          </div>
           <div class="search-popper-title" v-show={state.searchSuggest.songs}>
             <icon icon="facebook" color="#333" size={14}></icon>单曲
           </div>

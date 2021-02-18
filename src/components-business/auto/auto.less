@@ -1,0 +1,21 @@
+.auto {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  z-index: 9999;
+  min-width: 180px;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 4px;
+  &-header {
+    padding: 10px;
+    color: white;
+    user-select: none;
+    background-color: var(--base-color);
+    border-radius: 4px 4px 0 0;
+  }
+  &-body {
+    padding: 10px;
+    background-color: var(--background-darken);
+  }
+}

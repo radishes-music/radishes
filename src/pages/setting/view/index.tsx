@@ -7,14 +7,19 @@ import {
   watch
 } from 'vue'
 import { useRoute } from '@/hooks/index'
-import { toFixed } from '@/utils/index'
 import Source from './source'
 import Download from './download'
 import Author from './author'
 import About from './about'
+import Effect from './effect'
+import Upgrade from './upgrade'
 import classnames from 'classnames'
 import debounce from 'lodash/debounce'
+import { TweenMap } from '@/utils/tween'
+import { scrollAnmation } from '@/utils/index'
 import './index.less'
+
+const tween = TweenMap['Quad-easeOut']
 
 export const Setting = defineComponent({
   name: 'Setting',
@@ -32,37 +37,62 @@ export const Setting = defineComponent({
     const markNav = [
       {
         location: 'source',
-        name: '播放源'
+        name: '播放源',
+        component: <Source />
       },
       {
         location: 'download',
-        name: '下载设置'
+        name: '下载设置',
+        component: <Download />
+      },
+      {
+        location: 'upgrade',
+        name: '自动更新',
+        component: <Upgrade />
+      },
+      {
+        location: 'effect',
+        name: '音效',
+        component: <Effect />
       },
       {
         location: 'author',
-        name: '作者'
+        name: '作者',
+        component: <Author />
       },
       {
         location: 'about',
-        name: '关于 radishes'
+        name: '关于Radishes',
+        component: <About />
       }
     ]
 
     const jumpTop = (top: number | string) => {
+      let to = 0
       if (contanier.value) {
         if (typeof top === 'number') {
-          contanier.value.scrollTop = top
+          to = top
         }
         if (typeof top === 'string') {
           const currentArea = areaFormat.value.find(
             item => item.location === top
           )
           if (currentArea) {
-            nextTick(() => {
-              contanier.value && (contanier.value.scrollTop = currentArea.top)
-            })
+            to = currentArea.top + 10
           }
         }
+        nextTick(() => {
+          if (contanier.value) {
+            const from = contanier.value.scrollTop
+            scrollAnmation(from, to, {
+              tween: tween,
+              duration: 200,
+              cb: n => {
+                contanier.value && (contanier.value.scrollTop = n)
+              }
+            })
+          }
+        })
       }
     }
 
@@ -86,18 +116,17 @@ export const Setting = defineComponent({
     onMounted(() => {
       if (contanier.value) {
         const children = contanier.value.children
-        const contanierTop = contanier.value.getBoundingClientRect().top + 50
+        const contanierTop = contanier.value.getBoundingClientRect().top + 20
         for (let i = 0; i < children.length; i++) {
           const area = children[i] as HTMLElement
-          const top = toFixed(
-            area.getBoundingClientRect().top - contanierTop,
-            2
+          const top = Math.floor(
+            area.getBoundingClientRect().top - contanierTop
           )
           const location = area.dataset.location
           if (location) {
             areaFormat.value[i] = {
               location,
-              top
+              top: i === 0 ? 0 : top
             }
           }
         }
@@ -108,13 +137,15 @@ export const Setting = defineComponent({
     const onScroll = () => {
       const el = contanier.value
       if (el) {
-        const top = toFixed(el.scrollTop, 2)
+        const top = Math.floor(el.scrollTop)
         for (let i = 0; i < areaFormat.value.length; i++) {
           const area = areaFormat.value[i]
           const areaNext = areaFormat.value[i + 1]
           if (areaNext && top >= area.top && top < areaNext.top) {
             currentLocation.value = area.location
+            break
           }
+          currentLocation.value = markNav[markNav.length - 1].location
         }
       }
     }
@@ -144,10 +175,7 @@ export const Setting = defineComponent({
           onScroll={debounce(onScroll, 10)}
           class="setting-view-contanier"
         >
-          <Source />
-          <Download />
-          <Author />
-          <About />
+          {markNav.map(mark => mark.component)}
         </div>
       </div>
     )

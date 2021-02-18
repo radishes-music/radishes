@@ -55,7 +55,7 @@ export const PushShift = defineComponent({
     )
 
     const router = useRouter()
-    const handleRouteCommand = (payload: string) => {
+    const handleRouteCommand = (payload: COMMAND) => {
       const { historyRoute } = store.state
       routeCanBeCollect(false)
       if (payload === COMMAND.FORWARD) {

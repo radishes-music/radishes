@@ -1,10 +1,14 @@
 import { app, protocol, BrowserWindow, screen } from 'electron'
+import { autoUpdater } from 'electron-updater'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { eventInit } from '@/electron/event/index'
 import { downloadIntercept } from './event/ipc-main/download'
+import store from '@/electron/store/index'
+
 import path from 'path'
 
+// curl -H "Accept: application/json" https://api.github.com/repos/Linkontoask/radishes/contents/package.json
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 let win: BrowserWindow | null
@@ -99,10 +103,19 @@ app.on('activate', () => {
   }
 })
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
+  const upgrade = store.get('upgrade')
+  if (upgrade) {
+    autoUpdater.checkForUpdatesAndNotify().then(updateCheckResult => {
+      if (updateCheckResult) {
+        const version = updateCheckResult.updateInfo.version
+        console.log(version)
+      }
+    })
+
+    autoUpdater.checkForUpdates()
+  }
+
   // session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
   //   const location = new URL(details.url)
   //   if (location.port === '') {

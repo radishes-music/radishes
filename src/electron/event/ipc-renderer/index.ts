@@ -13,7 +13,8 @@ import {
   UpdateType,
   DownloadIpcType,
   ReadLocalFile,
-  Dialog
+  Dialog,
+  AutoDownload
 } from '../action-types'
 
 export const getWindow = () => remote.BrowserWindow.getFocusedWindow()
@@ -27,6 +28,7 @@ type ActionType =
   | UpdateType
   | ReadLocalFile
   | Dialog
+  | AutoDownload
 
 export function sendAsyncIpcRendererEvent(
   action: ActionType,

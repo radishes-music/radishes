@@ -7,10 +7,13 @@ import {
   UpdateType,
   DownloadIpcType,
   ReadLocalFile,
-  Dialog
+  Dialog,
+  AutoDownload
 } from '../action-types'
-import store from '@/electron/store/index'
 import { readFileSync } from 'fs'
+import { autoUpdater } from 'electron-updater'
+import log from 'electron-log'
+import store from '@/electron/store/index'
 
 export const onIpcMainEvent = (win: BrowserWindow) => {
   let syrice: null | BrowserWindow
@@ -112,5 +115,20 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
       .then(v => {
         event.returnValue = v
       })
+  })
+  ipcMain.on(AutoDownload.IS_UPGRADE, (e, upgrade) => {
+    store.set('upgrade', upgrade)
+  })
+  ipcMain.on(AutoDownload.CHECK_UPGRADE, e => {
+    autoUpdater.checkForUpdates().then(result => {
+      win.webContents.send(AutoDownload.CHECK_UPGRADE, {
+        version: result.updateInfo.version,
+        path: result.updateInfo.path
+      })
+      log.debug('checkForUpdates', result)
+    })
+  })
+  ipcMain.on(AutoDownload.UPGRADE_NOW, (e, upgrade) => {
+    autoUpdater.quitAndInstall()
   })
 }

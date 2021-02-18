@@ -1,6 +1,6 @@
 import { toRaw } from 'vue'
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
-import { isNumber, timeTos, toFixed } from '@/utils/index'
+import { isNumber, timeTos, toFixed, renderRandom } from '@/utils/index'
 import { getSongDetail, getLyric } from '@/api/index'
 import {
   FooterState,
@@ -12,7 +12,8 @@ import {
 } from '@/interface'
 import { getMusicUrl, playMusic } from '@/shared/music-shared'
 import { RootState } from '@/store/index'
-import { useFooterModule } from './module'
+import { useFooterModule } from '@/modules'
+import { AudioEffect } from '@/shared/audio'
 import cloneDeep from 'lodash/cloneDeep'
 import remove from 'lodash/remove'
 
@@ -183,6 +184,8 @@ export const actions: ActionTree<FooterState, RootState> = {
             next = index === state.musicStack.length - 1 ? 0 : index + 1
           }
           break
+        case PlayMode.RANDOM:
+          next = renderRandom(state.musicStack.length, index)
       }
       const nextMusic = state.musicStack[next]
 
@@ -216,13 +219,13 @@ export const mutations: MutationTree<FooterState> = {
     })
   },
   [FooterMutations.SET_MUSIC_URL](state, payload: string | SongsDetail) {
-    if (state.sourceElement && state.audioElement && state.music) {
+    if (state.audioElement && state.music) {
       const music = toRaw(state.music)
       if (typeof payload === 'string') {
-        state.sourceElement.src = payload
+        state.audioElement.src = payload
         music.url = payload
       } else {
-        state.sourceElement.src = payload.url
+        state.audioElement.src = payload.url
         state.music = payload
       }
       state.audioElement.load()
@@ -254,8 +257,8 @@ export const mutations: MutationTree<FooterState> = {
       state.playing = false
     }
   },
-  [FooterMutations.ENDED_MUSIC](state) {
-    state.playing = false
+  [FooterMutations.PLAYING](state, playing) {
+    state.playing = playing
   },
   [FooterMutations.CURRENT_TIME](state, time: number) {
     if (state.audioElement && isNumber(time)) {
@@ -279,6 +282,9 @@ export const mutations: MutationTree<FooterState> = {
   [FooterMutations.VISIBLE_FLASH](state, visible: boolean) {
     state.visibleFlash = visible
   },
+  [FooterMutations.VISIBLE_EMBED](state, visible: boolean) {
+    state.visibleLyrice = visible
+  },
   [FooterMutations.SEEKBACKWARD](state) {
     if (state.audioElement) {
       state.audioElement.currentTime = state.currentTime - 10
@@ -288,5 +294,13 @@ export const mutations: MutationTree<FooterState> = {
     if (state.audioElement) {
       state.audioElement.currentTime = state.currentTime + 10
     }
+  },
+  [FooterMutations.INIT_EFFECT](state) {
+    if (state.audioElement) {
+      state.effect = new AudioEffect(state.audioElement)
+    }
+  },
+  [FooterMutations.CHANGE_PLAYMODE](state, mode: PlayMode) {
+    state.playMode = mode
   }
 }

@@ -1,8 +1,16 @@
 import { PostData } from './components/lyrice-float/electron-lyrice'
 import { Artists, SongsDetail } from '@/interface/index'
+import { AudioEffect } from '@/shared/audio'
+
+export const enum BasicEffect {
+  D3 = '3D',
+  FADE = 'FADE',
+  TENDER = 'TENDER'
+}
 
 export const enum PlayMode {
-  TURN = 'turn'
+  TURN = 'turn',
+  RANDOM = 'random'
 }
 
 export const enum Direction {
@@ -17,7 +25,7 @@ export interface Lyrics {
 }
 
 export interface FooterState {
-  // audio: AudioType
+  effect: AudioEffect
   playMode: PlayMode
   music?: SongsDetail
   musicUrl: string
@@ -28,12 +36,12 @@ export interface FooterState {
   playing: boolean
   canplay: boolean
   audioElement: HTMLAudioElement | null
-  sourceElement: HTMLSourceElement | null
   visibleFlash: boolean
   electronLyrice: PostData
   duration: number
   volume: number
   lyriceEmbedMinWidth: number
+  visibleLyrice: boolean
 }
 
 export interface FooterGetter {
@@ -61,12 +69,13 @@ export const enum FooterMutations {
   CLEAR_LOCAL_MUSIC_URL = 'CLEAR_LOCAL_MUSIC_URL',
   PLAY_MUSIC = 'PLAY_MUSIC',
   PAUES_MUSIC = 'PAUES_MUSIC',
-  ENDED_MUSIC = 'ENDED_MUSIC',
+  PLAYING = 'PLAYING',
   CURRENT_TIME = 'CURRENT_TIME',
   UPDATE_CURRENT_TIME = 'UPDATE_CURRENT_TIME',
   CAN_PLAY = 'CAN_PLAY',
   SET_VOLUME = 'SET_VOLUME',
   VISIBLE_FLASH = 'VISIBLE_FLASH',
+  VISIBLE_EMBED = 'VISIBLE_EMBED',
   SET_PLAYLIST_TO_STACK = 'SET_PLAYLIST_TO_STACK',
   SET_DURATION = 'SET_DURATION',
   PUSH_STACK = 'PUSH_STACK',
@@ -75,5 +84,7 @@ export const enum FooterMutations {
   CLEAR_STACK = 'CLEAR_STACK',
   LYRICE_EMBED_MIN_WIDTH = 'LYRICE_EMBED_MIN_WIDTH',
   SEEKBACKWARD = 'SEEKBACKWARD',
-  SEEKFORWARD = 'SEEKFORWARD'
+  SEEKFORWARD = 'SEEKFORWARD',
+  INIT_EFFECT = 'INIT_EFFECT',
+  CHANGE_PLAYMODE = 'CHANGE_PLAYMODE'
 }

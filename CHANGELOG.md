@@ -1,3 +1,211 @@
+# [2.0.0-alpha.2](https://github.com/Linkontoask/radishes/compare/v2.0.0-alpha.1...v2.0.0-alpha.2) (2021-02-05)
+
+
+### build
+
+* upgrade to 2.0.0-alpha.2 ([a66f1eb](https://github.com/Linkontoask/radishes/commit/a66f1ebd23c3f995b567aa12771edf86692f2e0a))
+
+
+
+# [2.0.0-alpha.1](https://github.com/Linkontoask/radishes/compare/2.0.0-alpha.1...v2.0.0-alpha.1) (2021-02-02)
+
+
+### chore
+
+* add electron-dl ([aeb0217](https://github.com/Linkontoask/radishes/commit/aeb0217bc898deec54336a2d3873caa7ff83d35e))
+* add file parsing code ([7257bc1](https://github.com/Linkontoask/radishes/commit/7257bc1deaa50c66a665cd77285861d42a872019))
+* axios upgrade ([a5a3632](https://github.com/Linkontoask/radishes/commit/a5a3632d9bd3270d83002ac03c0530d055595e1b))
+* remove mp3-duration ([123c8a7](https://github.com/Linkontoask/radishes/commit/123c8a766e10e6149cd626a65c6f325ab7b283dd))
+* use music-metadata instead of jsmediatags ([991e7cc](https://github.com/Linkontoask/radishes/commit/991e7cc045823550605c2b1a4ba7ccddb023229c))
+
+### ci
+
+* cache cypress binary ([8bef109](https://github.com/Linkontoask/radishes/commit/8bef10994b367a34e046cfe6e9aa36e0403bd1ca))
+* cache cypress binary ([c5c4845](https://github.com/Linkontoask/radishes/commit/c5c48455e757be46fe141c3b56ec96147a631daf))
+* cache cypress binary ([f1176e4](https://github.com/Linkontoask/radishes/commit/f1176e487d8aa0312069c573642a66455964cba6))
+* different platform packaging ([5e98b79](https://github.com/Linkontoask/radishes/commit/5e98b79015f543768e8a762bbdf2312d164f6f6d))
+* different platform packaging ([2e5976f](https://github.com/Linkontoask/radishes/commit/2e5976f0dba7267e442667c7009581a42f95af9f))
+* different platform packaging ([45e0c9e](https://github.com/Linkontoask/radishes/commit/45e0c9e062216999eb45ec42d18147ebee19a3c4))
+* different platform packaging ([7020dbe](https://github.com/Linkontoask/radishes/commit/7020dbeba1e75e23c40ad0e2dee02bde2f1c1af5))
+* display dev output in groups ([d75a3fe](https://github.com/Linkontoask/radishes/commit/d75a3fee21674b3d8e9ea1454ec7a8528f93e8a9))
+* do not use local proxy in ci ([9b534d7](https://github.com/Linkontoask/radishes/commit/9b534d79ebe9ee49aee86589bd23e5693e361f82))
+* fixed the Cypress binary is missing ([12a6ac3](https://github.com/Linkontoask/radishes/commit/12a6ac37b0645ea26f62df6a3fd2c86251a4cf29))
+* increase the number of monitored files ([8620b69](https://github.com/Linkontoask/radishes/commit/8620b69035881af250e23ab036e9dc93f150e8a5))
+* increase the number of monitored files again ([18227b3](https://github.com/Linkontoask/radishes/commit/18227b36591c713e36344a146d8759c03a6ef1d3))
+* modify environment variables ([5a4ce67](https://github.com/Linkontoask/radishes/commit/5a4ce67f4b16970d10f8e9afa6a157734f24c136))
+* modify environment variables ([9495891](https://github.com/Linkontoask/radishes/commit/94958919aa992e55b0e1d7eca204fd93d21f0c38))
+* optimize the log output of dev in the CI process ([7b3b1a5](https://github.com/Linkontoask/radishes/commit/7b3b1a5127b2d4165654b061c5ffb8d180f1af1a))
+* port changed to 8080 ([d9d1392](https://github.com/Linkontoask/radishes/commit/d9d1392cdae6848d61de4600fcb8da605b8d1332))
+* rename dist ([67ce113](https://github.com/Linkontoask/radishes/commit/67ce113fcbd9a13e28969a446abd9b6654132432))
+* test scp ([e38a530](https://github.com/Linkontoask/radishes/commit/e38a5305f540feb7ed9c7c484cb695d3efee81fa))
+* upload test results ([f9abba1](https://github.com/Linkontoask/radishes/commit/f9abba1dde3c1e79ff590dd46487a723f0bbfbef))
+* upload test results ([928aab1](https://github.com/Linkontoask/radishes/commit/928aab1245cf706f36719299009e87a9bb6d9f7c))
+* upload test results ([576a28f](https://github.com/Linkontoask/radishes/commit/576a28f3c7a2cdadfd26202096ad7668a1824a2f))
+* upload test results ([e37b959](https://github.com/Linkontoask/radishes/commit/e37b9599367eefe8f690b4142473c68d9b994821))
+* upload test results ([c972df5](https://github.com/Linkontoask/radishes/commit/c972df532b7d21ad2936062bf1d4d22f003aa383))
+* upload test results ([770d043](https://github.com/Linkontoask/radishes/commit/770d0436c4251cd102451b252b27c008aef1c940))
+* upload test results ([647f1a8](https://github.com/Linkontoask/radishes/commit/647f1a8d62da21468f845afa67a945927b85d8d2))
+* use cypress-io/github-action ([3014b26](https://github.com/Linkontoask/radishes/commit/3014b2625ca67c303077acc0ecf0b409d54546b2))
+* use cypress-io/github-action ([c614f06](https://github.com/Linkontoask/radishes/commit/c614f06c90117b0e24e4fd600df6e4eb8bcf379d))
+* use cypress-io/github-action ([2d0f54c](https://github.com/Linkontoask/radishes/commit/2d0f54c12ed10596ecc25d0d85b5b43f18b5d022))
+* use cypress-io/github-action ([8320450](https://github.com/Linkontoask/radishes/commit/8320450e16cab56348f33de902a32e7e7cbaa9c5))
+* use publicPath ([06c3150](https://github.com/Linkontoask/radishes/commit/06c3150b9e41f84578752e7f8834f3163bdb1bb4))
+* when testing e2e, use background process to start ([c3a8ae0](https://github.com/Linkontoask/radishes/commit/c3a8ae05358ea59fd90639b4360b230a29df3ccd))
+
+### docs
+
+* add preview ([358a1dd](https://github.com/Linkontoask/radishes/commit/358a1dd01dd654ba7e9303ea9914b9e90501694e))
+* update api url ([3ee8f16](https://github.com/Linkontoask/radishes/commit/3ee8f1611109388ad3f7cf95ac65fecbca43eff7))
+* update progress ([6d6b382](https://github.com/Linkontoask/radishes/commit/6d6b38211f0d4a2ec7a04f3e43a747268dc1175a))
+* update progress ([ca02f26](https://github.com/Linkontoask/radishes/commit/ca02f26ea6545b57164b58166fdd4bacb40e70a4))
+* update readme ([b042f9d](https://github.com/Linkontoask/radishes/commit/b042f9dd31b6a944468edd1252cb25937e77e9eb))
+* update readme ([bbe2edb](https://github.com/Linkontoask/radishes/commit/bbe2edbb501173c61d68d1f631c733ffbb652c53))
+* update record ([209c85c](https://github.com/Linkontoask/radishes/commit/209c85c7f3c88ed8051c8087db5e4bd70a090408))
+
+### feat
+
+* add a song to play ([7cf56aa](https://github.com/Linkontoask/radishes/commit/7cf56aaaf186bdf8b4cb7acaed091960f29810f7))
+* add favorite function ([0d9f59f](https://github.com/Linkontoask/radishes/commit/0d9f59fc06823e511414321169bcd4367ac9de14))
+* complete download management form and partial optimization ([f67c8dc](https://github.com/Linkontoask/radishes/commit/f67c8dcf9c2feb751b43dcd3b1adf2022fa8edbf))
+* complete setting related functions ([f014352](https://github.com/Linkontoask/radishes/commit/f01435239fa12f4b286d1c45636b5fa2f9e5b3b0))
+* custom download behavior ([2683b55](https://github.com/Linkontoask/radishes/commit/2683b55c8fb3ce59d5d340ce99f0ef2a1fa28e60))
+* download management support delete ([d573243](https://github.com/Linkontoask/radishes/commit/d573243f976fb31728da93686adadf19effdd55c))
+* download management supports opening download directories ([f24a734](https://github.com/Linkontoask/radishes/commit/f24a734de0c9763411f6fa6d76250298421c352f))
+* download progress display ([3bd616f](https://github.com/Linkontoask/radishes/commit/3bd616f63467dd01522c1a24429d15aeef352287))
+* get the complete song automatically before getting the trial song ([0c8d434](https://github.com/Linkontoask/radishes/commit/0c8d434b675e8f931f2e140cba29ce2a955e8b72))
+* initial download management ([793a608](https://github.com/Linkontoask/radishes/commit/793a6086dc027f540291a8adfecdd1deee8023b7))
+* initialization of the local music interface ([5130733](https://github.com/Linkontoask/radishes/commit/5130733452eb389be0aea969d6e19da6d838279d))
+* initialize the mobile platform ([4cf6b11](https://github.com/Linkontoask/radishes/commit/4cf6b111c21687dfb3ecc397e3258bb6f4490584))
+* keep window size ([143ce87](https://github.com/Linkontoask/radishes/commit/143ce87c02a3074d2afe467f2861adbc650a0b0e))
+* local music format optimization ([fe8df8e](https://github.com/Linkontoask/radishes/commit/fe8df8ec8bba7692c00f676b29c1612e564cfd59))
+* local music only supports electron platform ([88e207d](https://github.com/Linkontoask/radishes/commit/88e207dace97444fc0a054b36cfb966eb4a94240))
+* local music supports lyrics author display ([528a68c](https://github.com/Linkontoask/radishes/commit/528a68c243f1795ba4710199a6c22e174f60fce4))
+* local music supports synchronization of different folders and songs ([260e730](https://github.com/Linkontoask/radishes/commit/260e730741d9e756da1015ab68d49ce3e7f0247a))
+* processing 301 status code ([7159b1a](https://github.com/Linkontoask/radishes/commit/7159b1a171354b22e8eacba099d6e95f9ed3078c))
+* save the current state of the song, and retain the previous state after refreshing ([67007d5](https://github.com/Linkontoask/radishes/commit/67007d5e52bdfb449609417866c2f0c386421b92))
+* support custom playback source ([a6b5949](https://github.com/Linkontoask/radishes/commit/a6b594923a85f06fbf34edff1836c7b3ac6a9ac1))
+* support delete history ([915ea3b](https://github.com/Linkontoask/radishes/commit/915ea3be6c27844e521c740ac937979676bbbf0a))
+* support double-click to play local music ([2b32ca5](https://github.com/Linkontoask/radishes/commit/2b32ca5325efb2ec2c731e5b510937ffc9dd34a4))
+* support favorite songs in embedded lyrics ([eeac945](https://github.com/Linkontoask/radishes/commit/eeac945e41970430a8551adc7043e9c5650d414f))
+* support for downloading settings ([a7fd906](https://github.com/Linkontoask/radishes/commit/a7fd906cb4775ad6fd9f32cc836db09901112f6f))
+* support media session action handler stop ([3907805](https://github.com/Linkontoask/radishes/commit/3907805d350c65c3ab7ede061139bd4c1a71c577))
+* support reading local music, the default is the user directory ([3f68ce3](https://github.com/Linkontoask/radishes/commit/3f68ce3d06899f0ae8bb0e82dbda61a76c729332))
+* support recommended playlists and songs (login) ([a1b4670](https://github.com/Linkontoask/radishes/commit/a1b46703bdcd6e6c548c069ea4fad1ddd681857a))
+* the login box pops up when the api interface returns 301 ([528d2ad](https://github.com/Linkontoask/radishes/commit/528d2ad6ef9bad611c7ddd2bdae91a0f7591118e))
+* the message prompts that the key value becomes optional ([eef0719](https://github.com/Linkontoask/radishes/commit/eef0719b8fbbdbd51097881870dd51a6c81b499f))
+* the revolving lantern supports jump playlist, song playback, etc ([23c9fcf](https://github.com/Linkontoask/radishes/commit/23c9fcf59bfa4b67d0dc02e68852ea496c8504ec))
+
+### fix
+
+* all http interfaces do not use cache ([d07244b](https://github.com/Linkontoask/radishes/commit/d07244b9689d36f885c86e878579003791afd3a2))
+* assignment to constant variable ([9152453](https://github.com/Linkontoask/radishes/commit/91524533faf9e260c7fe9d5d0f3b3ea4e195bb78))
+* automatically close lyrics program ([b52232f](https://github.com/Linkontoask/radishes/commit/b52232fe9c1ec6415a8618183f5362a0ae961628))
+* cross-protocol request to actively set cookies ([1bce6cf](https://github.com/Linkontoask/radishes/commit/1bce6cf0d6e6116d3ea832d3c31972e75122a40c))
+* double-click to play to clear the playback progress ([adf9759](https://github.com/Linkontoask/radishes/commit/adf975909f0d81769dcdff99480e019a1aa739bb))
+* electron cors blocked ([df85e1c](https://github.com/Linkontoask/radishes/commit/df85e1ca33eda911e9f9b562beceff282a8753ff))
+* electron platform lyrics BUG ([ee00f0f](https://github.com/Linkontoask/radishes/commit/ee00f0fef2365ec15d286129fdea44fcbfb0aa96))
+* fix data structure problem ([c6d1e04](https://github.com/Linkontoask/radishes/commit/c6d1e04f4c8528c674084eba676d1c42a7b022fb))
+* fix the abnormality of daily recommended songs ([236a761](https://github.com/Linkontoask/radishes/commit/236a7618e34235bfaab1acf3ae6da38a51ed93a5))
+* fix the cookie storage problem on the electron platform ([82f6000](https://github.com/Linkontoask/radishes/commit/82f6000d0bdaaf5f8953ddf456cfaa77808737fd))
+* fix the drag problem ([127e34a](https://github.com/Linkontoask/radishes/commit/127e34a0ee85fd938e319c10237307620777ce7f))
+* fix the issue that the playback link may expire after refresh ([d6f2d85](https://github.com/Linkontoask/radishes/commit/d6f2d85d848bbc9218a690ee5e2f5e0a029b4260))
+* fix the next song not playing automatically ([afa63e3](https://github.com/Linkontoask/radishes/commit/afa63e3bfcc68bf28631dbbb13653841eccc708a))
+* fix the problem that cypress cannot capture cached get requests ([f0eedb3](https://github.com/Linkontoask/radishes/commit/f0eedb388f8fd018e340a996b08f49fbbf482837))
+* fix the problem that the login box does not pop up when 301 ([666cf0f](https://github.com/Linkontoask/radishes/commit/666cf0ffc23e49b6f2e387d96b1a353902d04ffb))
+* online environment login support ([dfdb620](https://github.com/Linkontoask/radishes/commit/dfdb620324a0a0999a041afc4dbaf59ac82f41af))
+* refused to set unsafe header "cookie" ([b2bb220](https://github.com/Linkontoask/radishes/commit/b2bb22037d9655317df191b79bee209f261fd3d0))
+* repair login logic judgment ([ba24de7](https://github.com/Linkontoask/radishes/commit/ba24de7d02e0ea74498b8b7637a2b4ec28b02033))
+* repair login logic judgment ([2e2d664](https://github.com/Linkontoask/radishes/commit/2e2d664d1f70ab8ffdfa32e39b79661aea64f091))
+* request cookie case is wrong ([bcc0f50](https://github.com/Linkontoask/radishes/commit/bcc0f509a13feeeea6da36bf78e840d0d8b022f2))
+* search results directly play bug ([3e807e8](https://github.com/Linkontoask/radishes/commit/3e807e814fd7594d0d145688e04d8d926ce89fae))
+* send cookies across origins ([2910e6a](https://github.com/Linkontoask/radishes/commit/2910e6ae2ebf7419022098c65154878c8ac73378))
+* the list will not be refreshed until the subscription is triggered ([5bf3771](https://github.com/Linkontoask/radishes/commit/5bf37716de5c97005c1c74b8fb885f95b38ffba8))
+* use timestamp, no longer use cache ([087e70c](https://github.com/Linkontoask/radishes/commit/087e70cf2478a6e2696015f59f8f63c18fc4c835))
+
+### fixed
+
+* Reflect.hasOwnProperty -> Object.prototype.hasOwnProperty ([6252133](https://github.com/Linkontoask/radishes/commit/6252133b94ce895f4e54159ed78bdd7e4ce306b1))
+* response error ([2e58890](https://github.com/Linkontoask/radishes/commit/2e5889095044d5142c91f13bccaa25cd45250b98))
+
+### perf
+
+* cache all routing components and use onActivated api to update when necessary ([c11c7d4](https://github.com/Linkontoask/radishes/commit/c11c7d48b8b7748d4c0ae70866c911f44e6d999b))
+* optimization ([d19306d](https://github.com/Linkontoask/radishes/commit/d19306d0bc2bc68989dcf2aad1f5e08b1ac695e5))
+* optimize code size and increase loading speed ([3687b03](https://github.com/Linkontoask/radishes/commit/3687b03c46ea2eb147cb934ace8524b8f8bea866))
+* support the use of store in the global scope of createapp ([7fadbeb](https://github.com/Linkontoask/radishes/commit/7fadbeb8b8aed197e08261ac856f75b9104e5831))
+
+### refactor
+
+* annotation agreement ([46bfe97](https://github.com/Linkontoask/radishes/commit/46bfe97101975a25e74dff4110231323662cadb5))
+* change toast text ([b78e926](https://github.com/Linkontoask/radishes/commit/b78e9264e38ddba32d84f77a01c6e83bba76b6ef))
+* don't cache song url anymore ([51b87ea](https://github.com/Linkontoask/radishes/commit/51b87eac25c6deec2d1cfee9a07dffe59d53e4cc))
+* more detailed component separation ([4d4be75](https://github.com/Linkontoask/radishes/commit/4d4be75eaa7c391b6661a6decc447bc16d766bfa))
+* mp3 add tag related code refactoring ([47bd603](https://github.com/Linkontoask/radishes/commit/47bd603ac6cf58c84ee31194eb97b9e288a7c411))
+* partial refactoring ([f6c924d](https://github.com/Linkontoask/radishes/commit/f6c924d99cf4b3a2d79b498f1eef19cfa444f324))
+* play music without using the return function ([9d540d9](https://github.com/Linkontoask/radishes/commit/9d540d94149023779b92c34da3fdc063d9f1d8a9))
+* restructuring ([879bb32](https://github.com/Linkontoask/radishes/commit/879bb327243676efab32d6f99f29d602790edfb8))
+* restructuring ([68af70a](https://github.com/Linkontoask/radishes/commit/68af70a3326213af1d4a0963cb8eeb2c387d9c5f))
+* restructuring ([5ed44c9](https://github.com/Linkontoask/radishes/commit/5ed44c938520d170718da3ed362e897f7016b936))
+* stricter uesModuleStore ([2fe8b0f](https://github.com/Linkontoask/radishes/commit/2fe8b0f9ffaf09787dd7786852f2a4ad664df7f9))
+
+### revert
+
+* fix problems caused by git do not operate ([5669562](https://github.com/Linkontoask/radishes/commit/566956218cd90a64bc74cafb2a162ae06f4d9d53))
+
+### style
+
+* add the layout file of my music bar ([9bf73d6](https://github.com/Linkontoask/radishes/commit/9bf73d6bc600ee48e0d4c9105a4e2f4d32a311b0))
+* daily card background color use base-color ([d7edc68](https://github.com/Linkontoask/radishes/commit/d7edc68045f161a224444edb7252bb1b257457b2))
+* do lint ([04ffd77](https://github.com/Linkontoask/radishes/commit/04ffd7719dd9e68ca49471bdb43f5f6df6fe514e))
+* format code ([b9ab021](https://github.com/Linkontoask/radishes/commit/b9ab0217d8e0720eb771d090977cfc9aa3bf17d2))
+* format code ([ec4f3f3](https://github.com/Linkontoask/radishes/commit/ec4f3f330da7ecda02c27f6668a4471bd7b54ba3))
+* format code ([253e5b2](https://github.com/Linkontoask/radishes/commit/253e5b206196c4ba1b19b67839dcff8595845796))
+* format code ([ddcc24c](https://github.com/Linkontoask/radishes/commit/ddcc24c095205a2eb31ac9258fc13a3f1204191d))
+* format jsmediatags lib ([47ec8cb](https://github.com/Linkontoask/radishes/commit/47ec8cb40b9a8aaed113fb2a6d9aa8537a592000))
+* local music overflow auto ([3388d3d](https://github.com/Linkontoask/radishes/commit/3388d3d5f0c5feea21e6765b9bceae661f6fcf94))
+* login box style modification ([6dff8a8](https://github.com/Linkontoask/radishes/commit/6dff8a81d9480a705a10d75692d099bcdbe39318))
+* lyrics display is managed by vuex ([c025670](https://github.com/Linkontoask/radishes/commit/c02567019b5ba5bbb8ee1a43251176d3536e99ce))
+* method rename ([8c2d547](https://github.com/Linkontoask/radishes/commit/8c2d547e9c0743b5678b3b56212246d1cc5dbe37))
+* organize the code ([15f133d](https://github.com/Linkontoask/radishes/commit/15f133d0126c5fdc453c77f45853a469d25a97d2))
+* remove manually adding cookies when logging in ([7250d05](https://github.com/Linkontoask/radishes/commit/7250d05a29bab4177c6fb20ff6c358338878c938))
+* temporarily use hash routing ([78e399a](https://github.com/Linkontoask/radishes/commit/78e399a81a54662bf78ffc8619a32027d9f33127))
+
+### test
+
+* basic function test of recommended page ([5ed777f](https://github.com/Linkontoask/radishes/commit/5ed777f223cad13c8ce21e826c31070dc1c858d4))
+* basic routing test cases ([b9aead6](https://github.com/Linkontoask/radishes/commit/b9aead6f818931008bfc5c213c40f6b8c62ea621))
+* github action cache node_modules ([98adbd8](https://github.com/Linkontoask/radishes/commit/98adbd8981e24f7b21be5a013c51da08923a7b71))
+* github action cache node_modules ([1f5d2eb](https://github.com/Linkontoask/radishes/commit/1f5d2eb4bb615cfa6d7968f016b20f734c713ec8))
+* github action cache node_modules ([81fc96d](https://github.com/Linkontoask/radishes/commit/81fc96d9db2564673934fcf38c4c3ecc3f052754))
+* github action cache node_modules ([f5ca97a](https://github.com/Linkontoask/radishes/commit/f5ca97a3ffe2f48053f1e21affc4a74f10838463))
+* github action cache node_modules ([1b11363](https://github.com/Linkontoask/radishes/commit/1b1136331ad8abd53c83c1e89fce46f24dff8317))
+* github action cache node_modules ([d2acaa3](https://github.com/Linkontoask/radishes/commit/d2acaa3d0b4bb6b5d2e35e2e5e39bfe8a41aca3f))
+* github action cache node_modules ([b86f588](https://github.com/Linkontoask/radishes/commit/b86f58883cc35358395fc11a7256e605dc298340))
+* github action cache node_modules ([4071ca7](https://github.com/Linkontoask/radishes/commit/4071ca7bd6f9eea90661d8cefbd57497c42a8cc1))
+* github action test ([4a59a12](https://github.com/Linkontoask/radishes/commit/4a59a1201f0a6f29238f2c3a729434c7a89a36fd))
+* github action test ([f9a442c](https://github.com/Linkontoask/radishes/commit/f9a442cbf569aef6b0c0ffc3df5f803fe1b7dc4e))
+* github action test ([3e15409](https://github.com/Linkontoask/radishes/commit/3e15409be15f4c2d2e20c3faebf087b2eb096e88))
+* improve cypress testing process ([672cce2](https://github.com/Linkontoask/radishes/commit/672cce2c0448a123e258dba1fb10f9b63056889b))
+* init cypress test ([a4a21d4](https://github.com/Linkontoask/radishes/commit/a4a21d4fd2d245c993f9b0f8d7f6e05e044e6400))
+* possibly due to insufficient performance in the ci automatic test ([27c2368](https://github.com/Linkontoask/radishes/commit/27c236838f47958fefec52ccd8de8ab054894d8a))
+* remove dbl click test ([57a7c3a](https://github.com/Linkontoask/radishes/commit/57a7c3ab0c1f0df0f73f0d81aee341e3699d61e7))
+* save historical push records for easy rollback ([f145864](https://github.com/Linkontoask/radishes/commit/f145864bccdf276629e994245c88becc338f6fea))
+* save historical push records for easy rollback ([298eca8](https://github.com/Linkontoask/radishes/commit/298eca83611e3d485f9613b10bcffbdf6d11eb95))
+* save historical push records for easy rollback ([2e36090](https://github.com/Linkontoask/radishes/commit/2e36090f07c7b5bfa54fe70ffac5487e7839403a))
+* save historical push records for easy rollback ([b999762](https://github.com/Linkontoask/radishes/commit/b999762decb9e13e8ae2eba5f8ed48cd167ccaaf))
+* save historical push records for easy rollback ([45d0b3d](https://github.com/Linkontoask/radishes/commit/45d0b3d33660adeff9a15761aee54872d1f21ed4))
+* save historical push records for easy rollback ([64f3b7d](https://github.com/Linkontoask/radishes/commit/64f3b7d86232e3af2b7bc313748dcef29f9b3455))
+* save historical push records for easy rollback ([6214478](https://github.com/Linkontoask/radishes/commit/6214478bc568aa183082391e4ba654c969e45385))
+* save historical push records for easy rollback ([6eeaae2](https://github.com/Linkontoask/radishes/commit/6eeaae26cb3b6701b77ac5f0a471a54e71131bfe))
+* sharing cookies among different sources ([74496c7](https://github.com/Linkontoask/radishes/commit/74496c7ed8f6b1214a8d395fb4d55d7016c96faf))
+* thank God ([b39629d](https://github.com/Linkontoask/radishes/commit/b39629da29dbe4ab9a131bf8e013fa5c0ba3e59d))
+* try. The local test is passed, what is the problem with the online test ([e1fad8d](https://github.com/Linkontoask/radishes/commit/e1fad8d0d72e12f7aa980970c519abe3c2be45b8))
+* try. The local test is passed, what is the problem with the online test ([575210a](https://github.com/Linkontoask/radishes/commit/575210aa0368853ab42c90e104596e2ff6697c6e))
+* try. The local test is passed, what is the problem with the online test ([a577fb1](https://github.com/Linkontoask/radishes/commit/a577fb14dafd7e516b09255453c90da7fc583ca1))
+* try. The local test is passed, what is the problem with the online test ([044b57d](https://github.com/Linkontoask/radishes/commit/044b57d15922888ff4f4803f48cc843e82beb533))
+
+
+
 # [2.0.0-alpha.1](https://github.com/Linkontoask/radishes/compare/3aa58b3b926ba9e8c475db1e7d0a447fb67973e3...2.0.0-alpha.1) (2020-12-16)
 
 

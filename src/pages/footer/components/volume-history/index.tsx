@@ -4,6 +4,7 @@ import { toFixed } from '@/utils/index'
 import { useFooterModule } from '@/modules'
 import { FooterMutations } from '@/interface'
 import { AsyncComponent } from './history'
+import { Tooltip } from 'ant-design-vue'
 import './index.less'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,8 +55,12 @@ export const VolumeAndHistory = defineComponent({
             v-slots={slots}
           ></VolumeBar>
         </div>
-        <div>
-          <MusicHistory v-model={[visible.value, 'visible']} />
+        <MusicHistory v-model={[visible.value, 'visible']} />
+        <Tooltip
+          v-slots={{
+            title: () => <span>历史记录</span>
+          }}
+        >
           <ve-button
             id="history"
             type="text"
@@ -66,7 +71,7 @@ export const VolumeAndHistory = defineComponent({
           >
             <icon icon="play-list-fill" color="#333" size={20}></icon>
           </ve-button>
-        </div>
+        </Tooltip>
       </div>
     )
   }

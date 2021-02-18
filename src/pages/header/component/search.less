@@ -12,6 +12,14 @@ li.qq-song {
   &-popper {
     height: 240px;
     font-size: 13px;
+    .keyword {
+      font-weight: normal;
+      color: var(--primary-theme-text);
+    }
+    &-more {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
     &-title {
       padding: 4px 10px;
       background-color: #e7e7e7;
@@ -28,10 +36,6 @@ li.qq-song {
         user-select: none;
         &:hover {
           background-color: #eaeaea;
-        }
-        .keyword {
-          font-weight: normal;
-          color: var(--primary-theme-text);
         }
       }
     }

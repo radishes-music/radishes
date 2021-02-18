@@ -12,6 +12,13 @@ export interface GlobalBase {
   name: string
 }
 
+export interface Pagination {
+  offset: number
+  limit: number
+  total?: number
+  slice?: number
+}
+
 export interface ElectronWindowEventMap extends WindowEventMap {
   maximize: Event
   unmaximize: Event

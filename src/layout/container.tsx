@@ -11,6 +11,7 @@ import { Header } from '@/pages/header/view/index'
 import { Main } from '@/pages/main/view/index'
 import { Footer } from '@/pages/footer/view/index'
 import { Schedule } from '@/components/schedule/index'
+import AutoDwonload from '@/components-business/auto/auto'
 import { useDrag } from '@/hooks/index'
 import { useRecommendModule, useLayoutModule } from '@/modules/index'
 import { Platform } from '@/config/build'
@@ -18,6 +19,7 @@ import { message } from 'ant-design-vue'
 import store from '@/store/index'
 import classnames from 'classnames'
 import './container.less'
+import { isBrowser, isElectron } from '@/utils'
 
 const { VUE_APP_PLATFORM } = process.env
 
@@ -35,7 +37,7 @@ export const Container = defineComponent({
 
     const { screenSize } = toRefs(useState())
 
-    if (VUE_APP_PLATFORM === Platform.BROWSER) {
+    if (isBrowser()) {
       watch(screenSize, v => {
         if (v === LayoutSize.MD) {
           startDrag.value()
@@ -49,7 +51,7 @@ export const Container = defineComponent({
       message.config({
         top: container.value.getBoundingClientRect().top + 80 + 'px'
       })
-      if (VUE_APP_PLATFORM === Platform.BROWSER) {
+      if (isBrowser()) {
         const { start, stop } = useDrag(
           container.value as HTMLElement,
           (target.value as ComponentPublicInstance).$el,
@@ -79,7 +81,7 @@ export const Container = defineComponent({
         startDrag.value = start
         stopDrag.value = stop
       }
-      if (VUE_APP_PLATFORM === Platform.ELECTRON) {
+      if (isElectron()) {
         // TODO
       }
     })
@@ -104,6 +106,7 @@ export const Container = defineComponent({
           <Main />
         </Schedule>
         <Footer />
+        {isElectron() && <AutoDwonload />}
       </div>
     )
   }

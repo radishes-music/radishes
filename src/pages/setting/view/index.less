@@ -16,15 +16,16 @@
     font-size: 18px;
   }
   &-route {
-    padding-bottom: 20px;
     border-bottom: @lighter-border;
     &--active {
       font-weight: bold;
+      .drank-border-bottom(2px);
     }
     ul {
       display: flex;
       align-items: center;
       li {
+        padding-bottom: 10px;
         margin-right: 10px;
         cursor: pointer;
       }
@@ -81,6 +82,46 @@
         margin-top: 10px;
         button {
           margin-left: 10px;
+        }
+      }
+    }
+    &--effect {
+      .effect {
+        &-basic {
+          margin-bottom: 10px;
+          > div {
+            margin-bottom: 6px;
+          }
+        }
+        &-convolver {
+          > div {
+            margin-bottom: 6px;
+          }
+          .van-radio-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+      }
+    }
+    &--upgrade {
+      .upgrade {
+        &-basic {
+          margin-bottom: 10px;
+        }
+        &-check {
+          .ant-btn {
+            display: flex;
+            align-items: center;
+          }
+          span {
+            margin-left: 4px;
+            font-size: 13px;
+          }
+          p {
+            margin-top: 10px;
+            font-size: 13px;
+          }
         }
       }
     }
