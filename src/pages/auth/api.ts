@@ -10,18 +10,35 @@ export interface LoginRes {
   profile: Record<string, any>
   bindings: Array<Record<string, any>>
   cookie: string
+  level: number
+  pcSign: boolean
 }
 
-export const doPhoneLogin = (
+export const getUserDetail = (uid: string) =>
+  http.get('/api/user/detail', {
+    params: {
+      uid
+    }
+  })
+
+export const doPhoneLogin = async (
   phone: string,
   password: string
-): Promise<LoginRes> =>
-  http.get('/api/login/cellphone', {
+): Promise<LoginRes> => {
+  const res: LoginRes = await http.get('/api/login/cellphone', {
     params: {
       phone: phone,
       md5_password: Md5(password)
     }
   })
+
+  const info: any = await getUserDetail(res.profile.userId)
+  res.profile = { ...res.profile, ...info.profile }
+  res.profile.level = info.level
+  res.profile.pcSign = info.pcSign
+
+  return res
+}
 
 export const doEmailLogin = (
   email: string,
@@ -60,3 +77,18 @@ export const checkPhone = (phone: string) =>
       phone
     }
   })
+
+// TODO 要获取一个签到状态来控制签到按钮状态
+/* 
+  0 安卓端
+  1 web/PC 端
+*/
+export const doSignin = () =>
+  http.get('/api/daily_signin', {
+    params: {
+      type: 1
+    }
+  })
+
+// TODO 退出登录
+export const doLogout = () => http.get('/api/logout')

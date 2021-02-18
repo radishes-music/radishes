@@ -8,6 +8,7 @@ export interface AuthState {
     profile: any
     bindings: Array<any>
     cookie: string
+    [key: string]: any
   } | null
   show: boolean
 }

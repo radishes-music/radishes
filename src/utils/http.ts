@@ -40,6 +40,10 @@ http.interceptors.response.use(
   error => {
     if (error.response) {
       if (error.response.status === 301) {
+        if (store.getters[`Auth/isLogin`]) {
+          store.commit('Auth/LOGOUT')
+        }
+
         store.commit('Auth/SHOW_VIEW')
       }
     }
