@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineComponent } from 'vue'
 import Icon from '@/components-global/icon/main'
 import './style.less'
@@ -29,9 +30,7 @@ export default defineComponent({
     }
   },
   setup($props) {
-    console.log('X-Cell => Go~')
-
-    const onClick = (e: any) => {
+    const onClick = (e: MouseEvent) => {
       if ($props.externalLink) {
         window.open($props.externalLink)
       } else {

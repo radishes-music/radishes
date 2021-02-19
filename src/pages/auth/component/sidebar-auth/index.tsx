@@ -26,11 +26,11 @@ export const SidebarAuth = defineComponent({
       }
     }
 
-    const goProfile = (e: any) => {
+    const goProfile = () => {
       if (isLogin.value) $router.push('/profile')
     }
 
-    const popupProfile = (e: any) => {
+    const popupProfile = (e: MouseEvent) => {
       if (isLogin.value) {
         e.stopPropagation()
         state.show = !state.show
@@ -43,7 +43,7 @@ export const SidebarAuth = defineComponent({
 
     const doSingin = useSignin()
 
-    const clickListener = (e: any) => {
+    const clickListener = () => {
       if (state.show) {
         state.show = false
       }
