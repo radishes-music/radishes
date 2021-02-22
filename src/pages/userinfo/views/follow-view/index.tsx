@@ -4,7 +4,7 @@
 import { defineComponent, onMounted, reactive } from 'vue'
 import { useGetFollowList } from '@/pages/userinfo/hooks'
 import { EmptyList } from '@/pages/userinfo/component/empty-list'
-import { FollowCard } from '@/pages/userinfo/views/follow-view/Card'
+import { FollowCard } from '@/pages/userinfo/views/follow-view/card'
 
 export const FollowView = defineComponent({
   name: 'FollowView',
