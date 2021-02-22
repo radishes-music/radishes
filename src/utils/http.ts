@@ -38,6 +38,13 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   response => {
     if (response.status === 200) {
+      if (response.data.code) {
+        if (response.data.code !== 200) {
+          throw new Error(`HttpErrorCode:${response.data.code}`)
+        } else {
+          delete response.data.code
+        }
+      }
       return response.data
     }
     return response

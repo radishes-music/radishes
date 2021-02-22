@@ -4,7 +4,15 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { Toast } from 'vant'
 import http from '@/utils/http'
-import { doSignin, getUserDetail } from '@/pages/auth/api'
+import { doSignin } from '@/pages/auth/api'
+import {
+  getUserInfoApi,
+  userDetail,
+  userFollows,
+  userListenRecord,
+  userPlaylist
+} from '@/api/userinfo'
+import { isFunction } from 'lodash'
 
 export const useAuth = () => {
   const $store = useStore()
@@ -78,6 +86,12 @@ export const useUpdateProfile = () => {
   }
 }
 
+/*
+  TODO Profile载入
+    用户个人详情
+    我的听歌排行
+    我的歌单
+* * */
 export const useLoadProfile = () => {
   const $store = useStore()
 
@@ -86,13 +100,16 @@ export const useLoadProfile = () => {
       return
     }
     try {
-      const res: any = await getUserDetail(
-        $store.state.Auth.user.profile.userId
-      )
+      const res: any = await userDetail($store.state.Auth.user.profile.userId)
 
       $store.commit('Auth/UPDATE_USER', {
         key: 'profile',
-        value: { ...res.profile, level: res.level, pcSign: res.pcSign }
+        value: {
+          ...res.profile,
+          level: res.level,
+          pcSign: res.pcSign,
+          listenSongs: res.listenSongs
+        }
       })
     } catch (e) {
       Toast(e.message)
@@ -123,4 +140,142 @@ export const useSignin = () => {
       }
     }
   }
+}
+
+export const useUserInfoLoading = () => {
+  const $store = useStore()
+
+  return computed(() => !!$store.state.Auth.userInfoLoading)
+}
+/*
+  TODO Profile载入
+    用户个人详情
+    我的听歌排行
+    我的歌单
+* * */
+// export const useLoadUserInfo = () => {
+//   const $store = useStore()
+//
+//   return async () => {
+//     try {
+//       $store.commit('Auth/USER_INFO_LOADING', true)
+//       const res: any = await getUserInfoApi(
+//         $store.state.Auth.user.profile.userId
+//       )
+//
+//       const { info, playlist, listenRecord } = res
+//       const {
+//         profile,
+//         createDays,
+//         createTime,
+//         level,
+//         listenSongs,
+//         peopleCanSeeMyPlayRecord,
+//         pcSign
+//       } = info
+//
+//       $store.commit('Auth/UPDATE_USER', {
+//         key: 'profile',
+//         value: {
+//           ...profile,
+//           level: level,
+//           pcSign: pcSign,
+//           listenSongs,
+//           peopleCanSeeMyPlayRecord,
+//           playlist,
+//           listenRecord
+//         }
+//       })
+//       $store.commit('Auth/USER_INFO_LOADING', false)
+//     } catch (e) {
+//       $store.commit('Auth/USER_INFO_LOADING', false)
+//       Toast(e.message)
+//     }
+//   }
+// }
+
+export const useMyPlaylist = () => {
+  const $store = useStore()
+
+  return computed(() => ({
+    listenRecord: {
+      total: $store.state.Auth.user.profile.listenSongs,
+      list: $store.state.Auth.user.profile.listenRecord
+    },
+    playlist: $store.state.Auth.user.profile.playlist
+  }))
+}
+
+export const useUserValue = (key: string) => {
+  const $store = useStore()
+  return computed(() => $store.state.Auth.user[key])
+}
+
+export const useLoadUserInfo = () => {
+  const $store = useStore()
+
+  return async (uid: string) => {
+    try {
+      $store.commit('Auth/USER_INFO_LOADING', true)
+      const res: any = await getUserInfoApi(
+        uid,
+        uid == $store.state.Auth.user.profile.userId
+      )
+      $store.commit('Auth/USER_INFO_LOADING', false)
+      return res
+    } catch (e) {
+      $store.commit('Auth/USER_INFO_LOADING', false)
+    }
+  }
+}
+
+// TODO 里面还有删除未过滤的歌单，我也是醉了...
+export const usePlaylist = (
+  uid: string,
+  needRecord = false,
+  listenSongs = 0
+) => {
+  const $store = useStore()
+
+  return async (offset = 0) => {
+    const isLogin = !!$store.state.Auth.user
+    const userId = isLogin ? $store.state.Auth.user.profile.userId : ''
+    const isSelf = userId == uid
+
+    const res: any = await userPlaylist(
+      uid,
+      offset > 0 ? offset - 1 : offset,
+      offset > 0 ? 20 : offset === 0 && needRecord ? 18 : 19
+    )
+
+    // res.playlist = res.playlist.filter((info: any) => info.trackCount !== 0)
+
+    if (offset === 0 && isSelf) {
+      res.playlist[0].name = '我喜欢的音乐'
+    }
+    if (offset === 0 && needRecord) {
+      res.playlist.unshift({
+        coverImgUrl: require('@/assets/imgs/rank_me.png'),
+        name: `${isSelf ? '我的' : ''}听歌排行`,
+        trackCount: listenSongs,
+        record: true,
+        userId: uid
+      })
+    }
+
+    return res
+  }
+}
+
+export const useIsSelf = (uid: any) => {
+  const $store = useStore()
+
+  return computed(
+    () =>
+      (isFunction(uid) ? uid() : uid) == $store.state.Auth.user?.profile?.userId
+  )
+}
+
+export const useUserFollows = (uid: string) => {
+  return async (offset = 0) => userFollows(uid, offset, 20)
 }
