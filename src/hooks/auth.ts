@@ -29,6 +29,18 @@ export const useAuth = () => {
   }
 }
 
+export const useAuthProfile = () => {
+  const $store = useStore()
+
+  const isLogin = computed(() => !!$store.state.Auth.user)
+
+  const profile = computed(() =>
+    isLogin.value ? $store.state.Auth.user.profile : null
+  )
+
+  return profile
+}
+
 export const useLogin = () => {
   const $store = useStore()
   return (info: any) => $store.commit('Auth/LOGIN', info)
@@ -42,6 +54,24 @@ export const useLogout = () => {
       await http.get('/api/logout')
       $store.commit('Auth/LOGOUT')
       $router.replace('/')
+    } catch (e) {
+      Toast(e.message)
+    }
+  }
+}
+
+export const useUpdateProfile = () => {
+  const $store = useStore()
+
+  return (value: any) => {
+    if (!$store.getters['Auth/isLogin']) {
+      return
+    }
+    try {
+      $store.commit('Auth/UPDATE_USER', {
+        key: 'profile',
+        value
+      })
     } catch (e) {
       Toast(e.message)
     }

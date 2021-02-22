@@ -24,3 +24,27 @@ export const getFansList = (uid: string) =>
       uid
     }
   })
+
+export const uploadAvatar = (file: any) => {
+  const data = new FormData()
+  data.append('imgFile', file)
+  return http.post(`/api/avatar/upload?imgSize=1024`, data, {
+    headers: {
+      ['Content-Type']: 'multipart/form-data'
+    }
+  })
+}
+
+interface ProfileData {
+  gender: number
+  signature: string
+  city: string
+  province: string
+  nickname: string
+  birthday: number
+}
+
+export const updateProfile = (params: ProfileData) =>
+  http.get('/api/user/update', {
+    params
+  })
