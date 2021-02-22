@@ -6,7 +6,8 @@ export const AUTH_MUTATIONS = {
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
   SHOW_VIEW: 'SHOW_VIEW',
-  HIDE_VIEW: 'HIDE_VIEW'
+  HIDE_VIEW: 'HIDE_VIEW',
+  UPDATE_USER: 'UPDATE_USER'
 }
 
 export const mutations = {
@@ -20,6 +21,13 @@ export const mutations = {
     //   })
     // }
     state.user = info
+  },
+  [AUTH_MUTATIONS.UPDATE_USER]: (state: AuthState, { key, value }: any) => {
+    if (!state.user) {
+      return
+    }
+    const info = state.user[key]
+    state.user[key] = { ...info, ...value }
   },
   [AUTH_MUTATIONS.LOGOUT]: (state: AuthState) => {
     state.user = null

@@ -46,6 +46,9 @@ http.interceptors.response.use(
     const config = error.response?.config as HttpConfig
     if (error.response) {
       if (error.response.status === 301 && config?.auths) {
+        if (store.getters[`Auth/isLogin`]) {
+          store.commit('Auth/LOGOUT')
+        }
         store.commit('Auth/SHOW_VIEW')
         return syncToAsync(resolve => {
           on(

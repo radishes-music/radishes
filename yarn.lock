@@ -3140,6 +3140,11 @@
   resolved "https://registry.npm.taobao.org/@popperjs/core/download/@popperjs/core-2.5.4.tgz?cache=0&sync_timestamp=1604053905119&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40popperjs%2Fcore%2Fdownload%2F%40popperjs%2Fcore-2.5.4.tgz#de25b5da9f727985a3757fd59b5d028aba75841a"
   integrity sha1-3iW12p9yeYWjdX/Vm10Cirp1hBo=
 
+"@popperjs/core@^2.5.4":
+  version "2.7.0"
+  resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.7.0.tgz#5f7760965170f7f1e2910d2498c5be88b47a2a8c"
+  integrity sha512-V3WyEc8ZyAuOQ2fpFuTuYYOd2tV4NePeSdxaHYgYAOs7ERLxlcFi2XsmgI5LJFdAUmJKXsg8jaIiVTkTHQygQw==
+
 "@reach/router@^1.3.3":
   version "1.3.4"
   resolved "https://registry.npm.taobao.org/@reach/router/download/@reach/router-1.3.4.tgz#d2574b19370a70c80480ed91f3da840136d10f8c"
@@ -4475,15 +4480,29 @@
   resolved "https://registry.npm.taobao.org/@ungap/promise-all-settled/download/@ungap/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
   integrity sha1-qlgEJxHW4ydd033Fl+XTHowpCkQ=
 
-"@vant/icons@1.4.0":
-  version "1.4.0"
-  resolved "https://registry.npmjs.org/@vant/icons/-/icons-1.4.0.tgz#a91f7894f2f34356f78a5d6f8b9d4f1a46add0c5"
-  integrity sha512-96k+x00FqdGAQeTWrHEJ6C+QNifPQu58W9mv8pJAQ7VQ527KV9GHQT7m2TT+PhHXejDENYhlpW/XWOB66j8r8w==
+"@vant/icons@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.npmjs.org/@vant/icons/-/icons-1.5.2.tgz#3f3ea353a0eacd38c113757bd31836489facb10b"
+  integrity sha512-Gy2mFIgObvCh1azp6LklQYsNFrCjMLxf/mEzHD6WV0pZbMBNjsb7bWvAjPo3Wygo9IVtGqi/36wrtosv3PkyRg==
 
-"@vant/use@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.npmjs.org/@vant/use/-/use-0.0.9.tgz#938b41e8dd682f063450f45699111ab30dd279c1"
-  integrity sha512-P+/q3MqFCmoNStQU8qpPxDNtBLy9Q82xx05APm7ZqEhoJLPynK1u0giC1JeEvFoSTEJ3y4XxN+R7YqmpXnf/7Q==
+"@vant/lazyload@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@vant/lazyload/-/lazyload-1.0.2.tgz#1ca486bee2b9465ae005a88014bee873a647f763"
+  integrity sha512-v8q+M59R6J+H2l544zD/Uz+LNWwcIFsbIX+gprBK/O6qLjl4l9IxDW1gjZc7xOz/aMequZ9ACIHOa9wXStupow==
+
+"@vant/popperjs@^1.0.2":
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/@vant/popperjs/-/popperjs-1.0.4.tgz#49c20809a3828e7b036e23d50fb56121e997618f"
+  integrity sha512-bqbmOoX0kYexGw65awNX9wxePR0ZIdTlVP+7JRahrbUjKW0+HxC2T27NE90cCDmqiFL/6+QYazhLvVa436jV0A==
+  dependencies:
+    "@popperjs/core" "^2.5.4"
+
+"@vant/use@^1.0.2":
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/@vant/use/-/use-1.0.5.tgz#44bee952ebccf9396414a51c4d4b458434a9de23"
+  integrity sha512-Zf7t/KO9K6WjPUC+75KB8yTAauoSLAcTzxYCLjdMbbiCRG/oDfb5qTmaka2Hr5cV6k7cEa1cNBXCy+0UMcZNbQ==
+  dependencies:
+    "@babel/runtime" "7.x"
 
 "@vue/babel-helper-vue-jsx-merge-props@^1.2.1":
   version "1.2.1"
@@ -21209,15 +21228,16 @@ validate-npm-package-name@^3.0.0:
   dependencies:
     builtins "^1.0.3"
 
-vant@^3.0.0-beta.7:
-  version "3.0.0-beta.7"
-  resolved "https://registry.npmjs.org/vant/-/vant-3.0.0-beta.7.tgz#413064034e36574323e84baa6ee68ba2b37b70aa"
-  integrity sha512-quzvzPXRvbyWCotx3so6NhmX+030bYaiIovf2g/WysMhiuWvtujmjfBwORw+lUtQAXCyrkj9Hr6nNyq8v79MpA==
+vant@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.npmjs.org/vant/-/vant-3.0.6.tgz#ce6f5be7c1593ea98c78865056820f85899ab8ed"
+  integrity sha512-6ihDD8ShsqDYs00C39YkaGDfuWed4sY0QRdkD/2QZRnlYEZgTnPG1mvEi9v/UN/iiUc1uKFunnnL5xnRg8RfQg==
   dependencies:
     "@babel/runtime" "7.x"
-    "@vant/icons" "1.4.0"
-    "@vant/use" "^0.0.9"
-    vue-lazyload "1.2.3"
+    "@vant/icons" "^1.5.2"
+    "@vant/lazyload" "^1.0.2"
+    "@vant/popperjs" "^1.0.2"
+    "@vant/use" "^1.0.2"
 
 vary@~1.1.2:
   version "1.1.2"
@@ -21348,11 +21368,6 @@ vue-inbrowser-compiler-utils@^4.33.4:
   integrity sha1-iV1gU2Eta4iinoxY1yhORO6/vPU=
   dependencies:
     camelcase "^5.3.1"
-
-vue-lazyload@1.2.3:
-  version "1.2.3"
-  resolved "https://registry.npmjs.org/vue-lazyload/-/vue-lazyload-1.2.3.tgz#901f9ec15c7e6ca78781a2bae4a343686bdedb2c"
-  integrity sha512-DC0ZwxanbRhx79tlA3zY5OYJkH8FYp3WBAnAJbrcuoS8eye1P73rcgAZhyxFSPUluJUTelMB+i/+VkNU/qVm7g==
 
 "vue-loader-v16@npm:vue-loader@^16.0.0-beta.7":
   version "16.0.0-beta.10"
