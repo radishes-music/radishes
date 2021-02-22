@@ -23,12 +23,14 @@ export const FollowCard = defineComponent({
               fit="cover"
               src={info.avatar}
             ></Image>
-            <Image
-              width="22"
-              height="22"
-              src={info.avatarIcon}
-              class="follow-card__avataricon"
-            ></Image>
+            {info.avatarIcon && (
+              <Image
+                width="22"
+                height="22"
+                src={info.avatarIcon}
+                class="follow-card__avataricon"
+              ></Image>
+            )}
           </div>
           <div class="follow-card__info">
             <div class="follow-card__title">

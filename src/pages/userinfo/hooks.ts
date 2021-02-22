@@ -29,13 +29,13 @@ export const useGetFollowList = () => {
         } = info
 
         return {
-          avatarIcon: avatarDetail.identityIconUrl,
+          avatarIcon: avatarDetail?.identityIconUrl,
           avatar: avatarUrl,
           followeds,
           nickname,
           playlistCount,
           signature,
-          vip: vipRights.associator.rights ? vipRights.redVipLevel : 0
+          vip: vipRights?.associator.rights ? vipRights.redVipLevel : 0
         }
       })
     } catch (e) {
