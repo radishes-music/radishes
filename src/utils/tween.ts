@@ -51,7 +51,7 @@ const Tween = {
     }
   },
   Sine: {
-    easeIn: function(t: number, b: any, c: number, d: number) {
+    easeIn: function(t: number, b: number, c: number, d: number) {
       return -c * Math.cos((t / d) * (Math.PI / 2)) + c + b
     },
     easeOut: function(t: number, b: number, c: number, d: number) {
@@ -116,7 +116,7 @@ const Tween = {
     },
     easeOut: function(
       t: number,
-      b: any,
+      b: number,
       c: number,
       d: number,
       a: number,

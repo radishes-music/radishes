@@ -1,5 +1,6 @@
 import {
   createRouter,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   createWebHistory,
   createWebHashHistory,
   RouteRecordRaw

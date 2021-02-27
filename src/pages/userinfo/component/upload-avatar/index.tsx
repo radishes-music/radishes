@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Created by buddy on 2021/2/19.
  */
@@ -18,6 +19,7 @@ import { useUpdateProfile } from '@/hooks'
 const CONST_W = 220
 export const UploadAvatar = defineComponent({
   name: 'UploadAvatar',
+  // eslint-disable-next-line vue/require-prop-types
   props: ['defaultImg', 'onComplete'],
   emits: ['complete'],
   setup(props) {

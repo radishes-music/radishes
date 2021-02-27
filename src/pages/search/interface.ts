@@ -1,11 +1,4 @@
-import {
-  SongsDetail,
-  Albums,
-  Songs,
-  Artists,
-  PlayLists,
-  Merage
-} from '@/interface/index'
+import { Albums, Songs, Artists, PlayLists, Merage } from '@/interface/index'
 
 export interface SearchSuggest {
   albums: Albums[]

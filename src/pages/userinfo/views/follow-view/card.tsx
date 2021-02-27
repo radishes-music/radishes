@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Created by buddy on 2021/2/18.
  */
@@ -8,6 +9,7 @@ import './index.less'
 
 export const FollowCard = defineComponent({
   name: 'FollowCard',
+  // eslint-disable-next-line vue/require-prop-types
   props: ['info'],
   setup() {
     return function(this: any) {

@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Created by buddy on 2021/2/19.
  */
 import { defineComponent, reactive, watch } from 'vue'
 import { Radio } from 'ant-design-vue'
+import { noop } from '@/utils'
 
 export const SexSelect = defineComponent({
   name: 'SexSelect',
@@ -12,7 +14,8 @@ export const SexSelect = defineComponent({
       default: 0
     },
     onChange: {
-      type: Function
+      type: Function,
+      default: noop
     }
   },
   emits: ['change'],

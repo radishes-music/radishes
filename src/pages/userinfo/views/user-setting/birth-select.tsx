@@ -11,6 +11,7 @@ const days = range(1, 32)
 
 export const BirthSelect = defineComponent({
   name: 'BirthSelect',
+  // eslint-disable-next-line vue/require-prop-types
   props: ['defaultValue', 'onChange'],
   emits: ['change'],
   setup(props, { emit }) {
@@ -47,6 +48,7 @@ export const BirthSelect = defineComponent({
       const month = months[state.month]
 
       const big = [1, 3, 5, 7, 8, 10, 12]
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const small = [4, 6, 9, 11]
 
       const end =

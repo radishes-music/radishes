@@ -308,5 +308,8 @@ export const measureImg = (source: string) => {
     img.onload = () => {
       resolve({ w: img.width, h: img.height })
     }
+    img.onerror = e => {
+      reject(e)
+    }
   })
 }

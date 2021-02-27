@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Created by buddy on 2021/2/21.
  */
@@ -5,6 +6,7 @@ import { defineComponent, ref } from 'vue'
 
 export const UploadWrapper = defineComponent({
   name: 'UploadWrapper',
+  // eslint-disable-next-line vue/require-prop-types
   props: ['onFile'],
   emits: ['file'],
   setup() {
