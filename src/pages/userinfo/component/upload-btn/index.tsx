@@ -3,7 +3,6 @@
  * Created by buddy on 2021/2/22.
  */
 import { defineComponent, reactive } from 'vue'
-import './index.less'
 import { Button } from 'ant-design-vue'
 import { UploadWrapper } from '@/pages/userinfo/component/upload-avatar/UploadWrapper'
 import { UploadAvatar } from '@/pages/userinfo/component/upload-avatar'
