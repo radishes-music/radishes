@@ -5,24 +5,33 @@
 
 import http from '@/utils/http'
 
-export const getEventList = (uid: string) =>
+// TODO 用户动态[可分页]
+export const getEventList = (uid: string, limit = 40, lasttime = -1) =>
   http.get('/api/user/event', {
     params: {
-      uid
+      uid,
+      limit,
+      lasttime
     }
   })
 
-export const getFollowList = (uid: string) =>
+// TODO 用户关注列表[可分页]
+export const getFollowList = (uid: string, offset = 0, limit = 40) =>
   http.get('/api/user/follows', {
     params: {
-      uid
+      uid,
+      offset,
+      limit
     }
   })
 
-export const getFansList = (uid: string) =>
+// TODO 用户粉丝列表[可分页]
+export const getFansList = (uid: string, limit = 40, lasttime = -1) =>
   http.get('/api/user/followeds', {
     params: {
-      uid
+      uid,
+      limit,
+      lasttime
     }
   })
 
@@ -48,4 +57,28 @@ interface ProfileData {
 export const updateProfile = (params: ProfileData) =>
   http.get('/api/user/update', {
     params
+  })
+
+export const getPlayList = (uid: string) =>
+  http.get('/api/user/playlist', {
+    params: {
+      uid
+    }
+  })
+
+export const getPlayRecord = (uid: string, type = 0) =>
+  http.get('/api/user/record', {
+    params: {
+      uid,
+      type
+    }
+  })
+
+// TODO 获取收藏的专栏
+export const getTopicSublist = (limit = 20, offset = 0) =>
+  http.get('/api/topic/sublist', {
+    params: {
+      limit,
+      offset
+    }
   })

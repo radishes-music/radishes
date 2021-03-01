@@ -1,0 +1,46 @@
+.radio-item {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  cursor: pointer;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    & > div {
+      margin-right: 8px;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    > div {
+      width: 100px;
+      font-size: 12px;
+      color: #777;
+    }
+  }
+
+  &__img {
+    display: block;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  &__tag {
+    width: fit-content;
+    padding: 0 4px;
+    font-size: 10px;
+    color: var(--base-color);
+    border: 1px solid var(--base-color-lighten);
+    border-radius: 2px;
+    &:hover {
+      border-color: var(--base-color-darken);
+    }
+  }
+}

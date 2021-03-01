@@ -1,0 +1,48 @@
+.userinfo-view {
+  padding-top: 20px;
+
+  &__info {
+    display: flex;
+    padding-right: 20px;
+    padding-left: 30px;
+
+    &right {
+      flex: 1;
+      width: 0;
+      margin-left: 30px;
+    }
+  }
+
+  &__tags {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    width: 0;
+    min-height: 30px;
+  }
+
+  &__btns {
+    display: flex;
+    margin-bottom: 1%;
+    > button {
+      &:not(:last-child) {
+        margin-right: 4px;
+      }
+    }
+  }
+
+  &__nickname {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  &__editview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 4px;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #dfdfdf;
+  }
+}
