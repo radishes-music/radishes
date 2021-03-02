@@ -13,10 +13,15 @@ export const Main = defineComponent({
   name: 'Main',
   setup() {
     const Slots = {
-      default: (component: { Component: Component }) => (
-        <KeepAlive>{resolveDynamicComponent(component.Component)}</KeepAlive>
-      )
+      default: (component: { Component: Component }) => {
+        return (
+          <KeepAlive exclude={/FollowView/}>
+            {resolveDynamicComponent(component.Component)}
+          </KeepAlive>
+        )
+      }
     }
+
     return () => (
       <div class="main-container" id="cover-container">
         <Sidebar></Sidebar>

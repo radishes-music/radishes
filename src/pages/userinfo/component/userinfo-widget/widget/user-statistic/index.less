@@ -1,0 +1,35 @@
+.user-statistic {
+  display: flex;
+  align-items: center;
+  height: 45px;
+  margin-bottom: 6px;
+
+  &__box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    cursor: pointer;
+    &num {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    &text {
+      font-size: 12px;
+      color: #777;
+    }
+
+    &:hover {
+      .user-statistic__boxtext {
+        color: #333;
+      }
+    }
+  }
+
+  &__space {
+    width: 1px;
+    height: 38px;
+    margin: 0 30px;
+    background: #dfdfdf;
+  }
+}

@@ -11,6 +11,7 @@ export interface AuthState {
     [key: string]: any
   } | null
   show: boolean
+  userInfoLoading: boolean
 }
 
 export interface AuthGetter {
@@ -19,5 +20,6 @@ export interface AuthGetter {
 
 export const state = {
   user: null,
-  show: false
+  show: false,
+  userInfoLoading: false
 }

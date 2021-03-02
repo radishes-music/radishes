@@ -6,30 +6,39 @@ import { defineComponent } from 'vue'
 import { Button, Image, Tag } from 'vant'
 import Icon from '@/components-global/icon/main'
 import './index.less'
+import { useRouter } from '@/hooks'
 
 export const FollowCard = defineComponent({
   name: 'FollowCard',
   // eslint-disable-next-line vue/require-prop-types
   props: ['info'],
   setup() {
+    const $router = useRouter()
     return function(this: any) {
       const { info } = this
 
+      const avatarIcon = info?.avatarDetail?.identityIconUrl
+
       return (
-        <div class="follow-card">
+        <div
+          class="follow-card"
+          onClick={() => {
+            $router.push(`/userinfo/${info.userId}`)
+          }}
+        >
           <div class="follow-card__avatar">
             <Image
               width="90"
               height="90"
               round
               fit="cover"
-              src={info.avatar}
+              src={info.avatarUrl}
             ></Image>
-            {info.avatarIcon && (
+            {avatarIcon && (
               <Image
                 width="22"
                 height="22"
-                src={info.avatarIcon}
+                src={avatarIcon}
                 class="follow-card__avataricon"
               ></Image>
             )}
@@ -37,9 +46,9 @@ export const FollowCard = defineComponent({
           <div class="follow-card__info">
             <div class="follow-card__title">
               <div class="follow-card__name">{info.nickname}</div>
-              {info.vip > 0 && (
+              {info.vipType > 0 && (
                 <Tag color="#131313" text-color="#ffe3df">
-                  vip {info.vip}
+                  vip陆
                 </Tag>
               )}
             </div>

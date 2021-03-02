@@ -22,7 +22,7 @@ export const UploadAvatar = defineComponent({
   // eslint-disable-next-line vue/require-prop-types
   props: ['defaultImg', 'onComplete'],
   emits: ['complete'],
-  setup(props) {
+  setup(props, { emit }) {
     const updateProfile = useUpdateProfile()
 
     const state = reactive({
@@ -248,7 +248,12 @@ export const UploadAvatar = defineComponent({
         <div class="upload-avatar__masker">
           <div class="upload-avatar">
             <div class="upload-avatar__move">
-              <div class="upload-avatar__close">
+              <div
+                class="upload-avatar__close"
+                onClick={() => {
+                  emit('complete')
+                }}
+              >
                 <Icon icon="cross" color="auto"></Icon>
               </div>
               <div class="upload-avatar__title">上传头像</div>
