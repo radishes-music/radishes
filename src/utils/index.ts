@@ -145,7 +145,7 @@ export const create = (appFunction: App<Element>) => {
   document.body.appendChild(div)
   appFunction.mixin({
     unmounted() {
-      appFunction.unmount(div)
+      appFunction.unmount()
     }
   })
   appFunction.mount(div)

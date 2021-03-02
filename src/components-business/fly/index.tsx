@@ -82,7 +82,7 @@ export const instance = function(config: Config) {
       onMounted(() => {
         if (fly.value && fly.value.$el) {
           fly.value.$el.addEventListener('transitionend', () => {
-            app.unmount(div)
+            app.unmount()
             if (div.parentNode) {
               div.parentNode.removeChild(div)
             }

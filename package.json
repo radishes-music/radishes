@@ -59,7 +59,7 @@
   ],
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^3.0.2",
+    "vue": "^3.0.5",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
   },
@@ -90,7 +90,7 @@
     "@vue/cli-plugin-unit-mocha": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0-0",
+    "@vue/compiler-sfc": "^3.0.5",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
     "@vue/test-utils": "^2.0.0-0",
