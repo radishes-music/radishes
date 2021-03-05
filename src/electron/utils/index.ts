@@ -1,5 +1,5 @@
 // runtime electron
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { userInfo } from 'os'
 import { shell } from 'electron'
 import { statSync } from 'fs'

@@ -28,7 +28,6 @@ export const Fly = defineComponent({
   setup(props) {
     const begin = props.begin.getBoundingClientRect()
     const end = props.end.getBoundingClientRect()
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const style = reactive<any>({
       contanier: {
         transition: `transform ${props.duartion}s linear`

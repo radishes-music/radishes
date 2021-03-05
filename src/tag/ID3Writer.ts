@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { encodeWindows1252, encodeUtf16le } from './encoder'
 import { getMimeType, isId3v2 } from './signatures'
 import {

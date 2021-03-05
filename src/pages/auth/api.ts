@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/camelcase */
+/* eslint-disable @typescript-eslint/camelcase */
 import Md5 from 'md5'
 import http from '@/utils/http'
 

@@ -7,7 +7,6 @@ import { AsyncComponent } from './history'
 import { Tooltip } from 'ant-design-vue'
 import './index.less'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MusicHistory = AsyncComponent as any
 
 export const VolumeAndHistory = defineComponent({

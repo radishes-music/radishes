@@ -11,7 +11,6 @@ import { resetPwd, sendMsgCode } from '../api'
 export const SmsCode = defineComponent({
   name: 'SmsCode',
   setup() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const authUtil: any = inject('authUtil')
 
     const { phone, password } = authUtil.getConfig() || {}
