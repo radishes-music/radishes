@@ -12,9 +12,6 @@ export const useHttp = (fetchFn: Function): any => {
     try {
       const res = await fetchFn(...args)
       state.loading = false
-      if (res.code !== 200) {
-        throw res
-      }
       return res
     } catch (e) {
       state.loading = false

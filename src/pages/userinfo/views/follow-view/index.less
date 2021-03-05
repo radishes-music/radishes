@@ -1,0 +1,70 @@
+.list-view {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: auto !important;
+}
+
+.follow-card {
+  display: flex;
+  align-items: center;
+  height: 110px;
+  padding-right: 20px;
+  padding-left: 30px;
+  margin-top: 10px;
+
+  &:hover {
+    cursor: default;
+    background: #fafafa;
+  }
+
+  &__avatar {
+    position: relative;
+    display: flex;
+    img {
+      display: block;
+    }
+  }
+
+  &__avataricon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  &__title {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  &__name {
+    flex-shrink: 0;
+    margin-right: 10px;
+  }
+
+  &__info {
+    width: 170px;
+    margin-left: 10px;
+    font-size: 12px;
+  }
+
+  &__desc {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__btn {
+    width: 74px;
+    height: 24px;
+    font-size: 12px;
+  }
+  &__btnc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

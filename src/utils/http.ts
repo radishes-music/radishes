@@ -38,6 +38,13 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   response => {
     if (response.status === 200) {
+      if (response.data.code) {
+        if (response.data.code !== 200) {
+          throw new Error(`HttpErrorCode:${response.data.code}`)
+        } else {
+          delete response.data.code
+        }
+      }
       return response.data
     }
     return response
@@ -46,6 +53,9 @@ http.interceptors.response.use(
     const config = error.response?.config as HttpConfig
     if (error.response) {
       if (error.response.status === 301 && config?.auths) {
+        if (store.getters[`Auth/isLogin`]) {
+          store.commit('Auth/LOGOUT')
+        }
         store.commit('Auth/SHOW_VIEW')
         return syncToAsync(resolve => {
           on(

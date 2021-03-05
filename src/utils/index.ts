@@ -299,3 +299,21 @@ export const renderRandom = (extent: number, index: number) => {
   }
   return random()
 }
+
+export const measureImg = (source: string) => {
+  const img = document.createElement('img')
+  img.src = source
+
+  return new Promise((resolve, reject) => {
+    img.onload = () => {
+      resolve({ w: img.width, h: img.height })
+    }
+    img.onerror = e => {
+      reject(e)
+    }
+  })
+}
+
+export const overNum = (num: number) => {
+  return num > 100000 ? `${Math.floor(num / 10000)}万` : num
+}

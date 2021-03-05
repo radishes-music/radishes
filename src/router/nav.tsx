@@ -3,17 +3,68 @@ import { News, Recommend, SongList, TopList, Artists } from '@/pages/news/index'
 // Use this method when you need to load dynamically
 // const video = () => import(/* webpackChunkName: "video" */ '@/pages/video/index')
 import { Video, Mv } from '@/pages/video/index'
-import { Profile } from '@/pages/auth/views/profile'
+import Profile from '@/pages/userinfo/views'
 import { Moments } from '@/pages/moments/index'
 import { LocalMusic, LocalMusicSong, LocalMusicDir } from '@/pages/music/index'
 import { Download, DownloadSong, DownloadMv } from '@/pages/download/index'
 import { Cloud } from '@/pages/cloud/index'
+import { FollowView } from '@/pages/userinfo/views/follow-view'
+import { EventView } from '@/pages/userinfo/views/event-view'
+import { FansView } from '@/pages/userinfo/views/fans-view'
+import { UserSetting } from '@/pages/userinfo/views/user-setting'
 
 export const baseNavRouter: RouteRecordRaw[] = [
   {
-    path: '/profile',
+    path: '/userinfo/:uid',
     component: Profile,
     name: Profile.name,
+    meta: {
+      auth: true,
+      nonav: true,
+      browser: true,
+      electron: true
+    }
+  },
+  {
+    path: '/followList/:uid',
+    component: FollowView,
+    name: FollowView.name,
+    meta: {
+      auth: true,
+      nonav: true,
+      browser: true,
+      electron: true,
+      canBeCollect: true
+    }
+  },
+  {
+    path: '/eventView/:uid',
+    component: EventView,
+    name: EventView.name,
+    meta: {
+      auth: true,
+      nonav: true,
+      browser: true,
+      electron: true,
+      canBeCollect: true
+    }
+  },
+  {
+    path: '/fansView/:uid',
+    component: FansView,
+    name: FansView.name,
+    meta: {
+      auth: true,
+      nonav: true,
+      browser: true,
+      electron: true,
+      canBeCollect: true
+    }
+  },
+  {
+    path: '/userSetting',
+    component: UserSetting,
+    name: UserSetting.name,
     meta: {
       auth: true,
       nonav: true,

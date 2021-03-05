@@ -1,0 +1,125 @@
+.absoluteFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-avatar__masker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.16);
+}
+.upload-avatar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 470px;
+  height: 350px;
+  padding: 20px;
+  user-select: none;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px 0 #afafaf;
+  transform: translate(-50%, -50%);
+
+  &__move {
+    user-select: none;
+  }
+
+  &__close {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    fill: #cbcbcb;
+    &:hover {
+      cursor: pointer;
+      fill: #777;
+    }
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  &__box {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+  }
+  &__poster {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 220px;
+    margin-right: 20px;
+    overflow: hidden;
+    background: black;
+    border-radius: 4px;
+  }
+  &__poster1 {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+  }
+  &__poster2 {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+  &__postertext {
+    margin: 4px 0;
+    font-size: 12px;
+    color: #777;
+  }
+
+  &__submit {
+    display: flex;
+    justify-content: center;
+    button {
+      width: 100px;
+      &:nth-child(1) {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  &__postermover {
+    position: absolute;
+    cursor: move;
+    border: 1px dotted #01ff00;
+    box-shadow: 0 0 0 2005px rgba(0, 0, 0, 0.4);
+  }
+
+  &__posterscaler {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 2px;
+    height: 2px;
+    cursor: se-resize;
+    background: black;
+  }
+
+  &__error {
+    color: red;
+  }
+}

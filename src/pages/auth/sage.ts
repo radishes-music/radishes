@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AuthState } from './state'
+import { isObject, isArray } from 'lodash'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 
@@ -6,7 +8,9 @@ export const AUTH_MUTATIONS = {
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
   SHOW_VIEW: 'SHOW_VIEW',
-  HIDE_VIEW: 'HIDE_VIEW'
+  HIDE_VIEW: 'HIDE_VIEW',
+  UPDATE_USER: 'UPDATE_USER',
+  USER_INFO_LOADING: 'USER_INFO_LOADING'
 }
 
 export const mutations = {
@@ -21,6 +25,18 @@ export const mutations = {
     // }
     state.user = info
   },
+  [AUTH_MUTATIONS.UPDATE_USER]: (state: AuthState, { key, value }: any) => {
+    if (!state.user) {
+      return
+    }
+    const info = state.user[key]
+
+    if (isObject(value)) {
+      state.user[key] = { ...info, ...value }
+    } else {
+      state.user[key] = value
+    }
+  },
   [AUTH_MUTATIONS.LOGOUT]: (state: AuthState) => {
     state.user = null
   },
@@ -29,6 +45,9 @@ export const mutations = {
   },
   [AUTH_MUTATIONS.HIDE_VIEW]: (state: AuthState) => {
     state.show = false
+  },
+  [AUTH_MUTATIONS.USER_INFO_LOADING]: (state: AuthState, value: boolean) => {
+    state.userInfoLoading = value
   }
 }
 

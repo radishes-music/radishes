@@ -1,0 +1,18 @@
+.overflow-text {
+  display: flex;
+  width: 100%;
+  .overflow-text__value {
+    flex: 1;
+    margin-right: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &.switchOn {
+      white-space: normal;
+    }
+  }
+  .overflow-text__switch {
+    align-self: flex-start;
+  }
+}

@@ -46,7 +46,7 @@ function removeExpired(route: CustomRouter[]) {
     .reverse()
     .slice(-1 * (heap - 1))
   each(routeTp, value => {
-    if (Date.now() - value?.life > life) {
+    if (value && Date.now() - value.life > life) {
       pull(routeTp, value)
     }
   })
