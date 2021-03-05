@@ -44,10 +44,5 @@ export const searchSuggest = async (key: string): Promise<SearchSuggest> => {
   const data = await get<{ result: SearchSuggest }>('/api/search/suggest', {
     keywords: key
   })
-  const songs = await search(key, SearchType.SONG, {
-    limit: 30,
-    offset: 0
-  })
-  data.result.songs = songs.songs
   return data.result
 }

@@ -1,5 +1,9 @@
 import { defineComponent, PropType, toRefs, ref, computed, watch } from 'vue'
-import { Table as ATable, Pagination as APagination } from 'ant-design-vue'
+import {
+  Table as ATable,
+  Pagination as APagination,
+  Skeleton
+} from 'ant-design-vue'
 import {
   noop,
   formatTime,
@@ -21,6 +25,7 @@ import { useSubscribe } from '@/shared/subscribe'
 import { getMusicUrl } from '@/shared/music-shared'
 import { instance } from '@/components-business/fly/index'
 import { TweenMap } from '@/utils/tween'
+import { Image } from '@/components/image'
 import './index.less'
 
 const prefix = 'table'
@@ -97,6 +102,16 @@ const columns = [
           </ve-button>
         </div>
       )
+    }
+  },
+  {
+    title: '',
+    width: 140,
+    align: 'center',
+    dataIndex: 'picUrl',
+    key: 'picUrl',
+    customRender: ({ text }: { text: string }) => {
+      return <Image src={text} name="pic-url" />
     }
   },
   {
@@ -195,6 +210,14 @@ export const Table = defineComponent({
       type: Array as PropType<unknown[]>,
       required: true
     },
+    total: {
+      type: Number as PropType<number>,
+      default: 0
+    },
+    loading: {
+      type: Boolean as PropType<boolean>,
+      default: false
+    },
     columnsTypes: {
       type: Array as PropType<SongListColumnsType[]>,
       default: () => []
@@ -225,9 +248,15 @@ export const Table = defineComponent({
   emits: ['dblclick', 'change'],
   setup(props, { emit }) {
     const contanier = ref()
-    const { list, columnsTypes, showHeader, rowClassName, pagination } = toRefs(
-      props
-    )
+    const {
+      list,
+      columnsTypes,
+      showHeader,
+      rowClassName,
+      pagination,
+      total,
+      loading
+    } = toRefs(props)
 
     const renderColumns = computed(() => {
       const col: unknown[] = []
@@ -260,38 +289,47 @@ export const Table = defineComponent({
 
     return () => (
       <div class={`${prefix}`} ref={contanier}>
-        {/* <div class={`${prefix}-header`}></div> */}
-        <div class={`${prefix}-body`}>
-          <ATable
-            size="small"
-            rowKey="id"
-            rowClassName={rowClassName.value}
-            pagination={false}
-            showHeader={showHeader.value}
-            columns={renderColumns.value}
-            dataSource={list.value}
-            customRow={record => {
-              // There is a problem with the ant design vue document, please refer to the link below
-              // https://v3.vuejs.org/guide/migration/render-function-api.html#_3-x-syntax-3
-              // https://github.com/vueComponent/ant-design-vue/blob/28aeea6f0b142ed68950a3738f7cf2c1581a7a5b/components/table/Table.tsx#L465
-              return {
-                onClick: (e: Event) => {
-                  e.preventDefault()
-                },
-                onDblclick: (e: Event) => {
-                  e.preventDefault()
-                  emit('dblclick', record)
+        <Skeleton
+          active
+          paragraph={{
+            rows: 3,
+            width: '100%'
+          }}
+          loading={loading.value}
+        >
+          {/* <div class={`${prefix}-header`}></div> */}
+          <div class={`${prefix}-body`}>
+            <ATable
+              size="small"
+              rowKey="id"
+              rowClassName={rowClassName.value}
+              pagination={false}
+              showHeader={showHeader.value}
+              columns={renderColumns.value}
+              dataSource={list.value}
+              customRow={record => {
+                // There is a problem with the ant design vue document, please refer to the link below
+                // https://v3.vuejs.org/guide/migration/render-function-api.html#_3-x-syntax-3
+                // https://github.com/vueComponent/ant-design-vue/blob/28aeea6f0b142ed68950a3738f7cf2c1581a7a5b/components/table/Table.tsx#L465
+                return {
+                  onClick: (e: Event) => {
+                    e.preventDefault()
+                  },
+                  onDblclick: (e: Event) => {
+                    e.preventDefault()
+                    emit('dblclick', record)
+                  }
                 }
-              }
-            }}
-          />
-        </div>
+              }}
+            />
+          </div>
+        </Skeleton>
         {pagination.value.limit && (
           <div class={`${prefix}-pagination`}>
             <APagination
               size="small"
+              total={total.value}
               pageSize={pagination.value.limit}
-              total={pagination.value.total}
               current={pagination.value.offset}
               // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
               // @ts-ignore

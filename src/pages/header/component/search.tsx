@@ -240,8 +240,8 @@ export const Search = defineComponent({
           v-model={[words.value, 'value']}
           data-source={source.value}
           onSearch={handleSearch}
-          onCompositionStart={() => (zh.value = true)}
-          onCompositionEnd={() => (zh.value = false)}
+          onCompositionstart={() => (zh.value = true)}
+          onCompositionend={() => (zh.value = false)}
           loading={loading.value}
           v-slots={Slot}
         ></ve-auto-complete>

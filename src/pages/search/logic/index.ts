@@ -1,14 +1,9 @@
-import { watch } from 'vue'
-import { useRoute } from '@/hooks/index'
+import { useUrlParams } from '@/hooks/index'
 
-export const effectWords = (
-  cb: (word: string, deps?: unknown[]) => void,
-  deps: unknown[]
+export const useEffectWords = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  cb: (...args: any[]) => void,
+  deps?: unknown
 ) => {
-  const route = useRoute()
-
-  cb(route.query.words as string)
-  watch([() => route.query.words, ...deps], ([words, deps]) => {
-    cb((words as unknown) as string, deps as unknown[])
-  })
+  return useUrlParams('words', cb, deps)
 }

@@ -1,5 +1,15 @@
 import { SearchState } from '@/interface/index'
+import cloneDeep from 'lodash/cloneDeep'
+
+const initList = {
+  data: [],
+  total: 0,
+  loading: false,
+  pagination: { limit: 30, offset: 1, slice: 0 }
+}
 
 export const state: SearchState = {
-  searchTitle: ''
+  searchTitle: '',
+  songList: cloneDeep(initList),
+  artistList: cloneDeep(initList)
 }

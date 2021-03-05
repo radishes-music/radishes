@@ -1,10 +1,10 @@
 import {
-  SongsDetail,
   Albums,
   Songs,
   Artists,
   PlayLists,
-  Merage
+  Merage,
+  Pagination
 } from '@/interface/index'
 
 export interface SearchSuggest {
@@ -29,11 +29,25 @@ export const enum SearchType {
   LYRICE = 1006
 }
 
-export interface SearchState {
-  searchTitle: string
+export type list<T> = {
+  data: T[]
+  total: number
+  loading: boolean
+  pagination: Pagination
 }
 
-export const enum SearchActions {}
+export interface SearchState {
+  searchTitle: string
+  songList: list<Songs>
+  artistList: list<Artists>
+}
+
+export const enum SearchActions {
+  GET_SONG_LIST = 'GET_SONG_LIST',
+  GET_ARTIST_LIST = 'GET_ARTIST_LIST'
+}
 export const enum SearchMutations {
-  SET_SEARCH_TITLE = 'SET_SEARCH_TITLE'
+  SET_SEARCH_TITLE = 'SET_SEARCH_TITLE',
+  CHANGE_SONG_PAGE_OFFSET = 'CHANGE_SONG_PAGE_OFFSET',
+  CHANGE_ARTIST_PAGE_OFFSET = 'CHANGE_ARTIST_PAGE_OFFSET'
 }

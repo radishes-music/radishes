@@ -1,5 +1,9 @@
 import { useStore } from 'vuex'
 import { on, off } from '@/utils/index'
+import { useRoute } from 'vue-router'
+import { watch, toRaw } from 'vue'
+import equal from 'lodash/isEqual'
+import cloneDeep from 'lodash/cloneDeep'
 import store from '@/store/index'
 
 interface InternalHook {
@@ -147,4 +151,24 @@ export function uesModuleStore<
 export const useThemeColor = () => {
   const $store = useStore()
   return $store.state.Header.themeColor
+}
+
+export const useUrlParams = (
+  key: string,
+  cb: (...args: unknown[]) => void,
+  args: unknown
+) => {
+  const route = useRoute()
+
+  return watch(
+    [() => route.query[key] as string, () => cloneDeep(args)] as unknown[],
+    (v, ov) => {
+      if (!equal(v, ov)) {
+        cb(...v)
+      }
+    },
+    {
+      immediate: true
+    }
+  )
 }

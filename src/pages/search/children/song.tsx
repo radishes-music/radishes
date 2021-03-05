@@ -1,14 +1,17 @@
-import { defineComponent, reactive, ref } from 'vue'
+import {
+  defineComponent,
+  onDeactivated,
+  onActivated,
+  onBeforeUnmount
+} from 'vue'
 import { Table } from '@/components-business/table/index'
-import { effectWords } from '../logic/index'
-import { search } from '@/api/search'
+import { useEffectWords } from '../logic/index'
 import { playMusic } from '@/shared/music-shared'
 import {
-  Pagination,
-  SearchType,
   SearchSuggest,
   ArrayItem,
-  SearchMutations
+  SearchMutations,
+  SearchActions
 } from '@/interface'
 import { useSearchModule } from '@/modules'
 
@@ -17,57 +20,47 @@ type Songs = SearchSuggest['songs']
 export const SearchSong = defineComponent({
   name: 'SearchSong',
   setup() {
-    const list = ref<Songs>([])
-    const pagination = reactive<Pagination>({
-      limit: 30,
-      offset: 1,
-      total: 0,
-      slice: 0
-    })
-    const { useMutations } = useSearchModule()
+    const { useMutations, useActions, useState } = useSearchModule()
+
+    const state = useState()
 
     const updateList = async (words: string) => {
       if (words) {
-        const result = await search(words, SearchType.SONG, pagination)
-        list.value = result.songs.slice(pagination.slice).map(song => {
-          return {
-            ...song,
-            dt: song.duration,
-            al: song.album,
-            ar: song.artists,
-            index: (pagination.offset - 1) * pagination.limit
-          }
-        })
-        pagination.total = result.songCount
-        useMutations(
-          SearchMutations.SET_SEARCH_TITLE,
-          `找到 ${pagination.total} 首歌曲`
-        )
+        useActions(SearchActions.GET_SONG_LIST, words)
       }
     }
 
     const handleChange = (page: number) => {
-      pagination.offset = page
-      const total = pagination.limit * pagination.offset
-      if (pagination.total && total > pagination.total) {
-        pagination.slice = total - pagination.total
-      } else {
-        pagination.slice = 0
-      }
+      useMutations(SearchMutations.CHANGE_SONG_PAGE_OFFSET, page)
     }
 
     const handlePlaySingle = (song: ArrayItem<Songs>) => {
       playMusic(song.id)
     }
 
-    effectWords(updateList, [pagination])
+    const uneffect = useEffectWords(updateList, state.songList.pagination)
+
+    onActivated(() => {
+      useMutations(
+        SearchMutations.SET_SEARCH_TITLE,
+        `找到 ${state.songList.total} 首歌曲`
+      )
+    })
+    onDeactivated(() => {
+      // console.log(uneffect)
+    })
+    onBeforeUnmount(() => {
+      uneffect && uneffect()
+    })
 
     return () => (
       <div class="search-song">
         <Table
-          list={list.value}
+          list={state.songList.data}
+          total={state.songList.total}
+          loading={state.songList.loading}
           columnsTypes={['index', 'control', 'name', 'ar', 'al', 'dt']}
-          pagination={pagination}
+          pagination={state.songList.pagination}
           onChange={handleChange}
           onDblclick={handlePlaySingle}
         />

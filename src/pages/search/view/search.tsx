@@ -1,4 +1,9 @@
-import { defineComponent } from 'vue'
+import {
+  defineComponent,
+  Component,
+  KeepAlive,
+  resolveDynamicComponent
+} from 'vue'
 import { MusicLayout } from '@/layout/music/music'
 import { contentRouter } from '@/router/index'
 import { RouterView } from 'vue-router'
@@ -22,7 +27,17 @@ export const Search = defineComponent({
         v-slots={{
           title: () => <div>{state.searchTitle}</div>,
           head: () => <SecondaryBar nav={nav} size="small" />,
-          body: () => <RouterView />
+          body: () => (
+            <RouterView
+              v-slots={{
+                default: (component: { Component: Component }) => (
+                  <KeepAlive>
+                    {resolveDynamicComponent(component.Component)}
+                  </KeepAlive>
+                )
+              }}
+            ></RouterView>
+          )
         }}
       />
     )
