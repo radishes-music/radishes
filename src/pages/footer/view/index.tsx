@@ -17,7 +17,6 @@ import classnames from 'classnames'
 import './index.less'
 
 // Fix JSX element type "AsyncComponent" does not have any construction signature or call signature.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const BrowserLyrice = AsyncComponent as any
 
 export const Footer = defineComponent({

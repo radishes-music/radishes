@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineComponent } from 'vue'
 import Icon from '@/components-global/icon/main'
 import './style.less'

@@ -31,7 +31,6 @@ export const SecondaryList = defineComponent({
       default: noop
     },
     onPlayDbl: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       type: Function as PropType<(item: any) => void>,
       default: noop
     },

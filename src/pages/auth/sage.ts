@@ -1,9 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AuthState } from './state'
-import { isObject, isArray } from 'lodash'
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-
+import isObject from 'lodash/isObject'
 export const AUTH_MUTATIONS = {
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',

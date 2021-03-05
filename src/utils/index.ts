@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { App } from 'vue'
 import dayjs, { OpUnitType } from 'dayjs'
 import UTC from 'dayjs/plugin/utc'

@@ -231,7 +231,6 @@ export const Table = defineComponent({
       default: () => ({})
     },
     onDblclick: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       type: Function as PropType<(item: any) => void>,
       default: noop
     },
@@ -240,7 +239,6 @@ export const Table = defineComponent({
       default: noop
     },
     rowClassName: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       type: Function as PropType<(item: any) => void>,
       default: () => 'row-music'
     }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createStore, MutationTree, createLogger } from 'vuex'
 import { FooterMutations } from '@/interface'
 import { AllMutations } from '@/interface/index'
