@@ -14,6 +14,11 @@ export const isBrowser = () => process.env.VUE_APP_PLATFORM === Platform.BROWSER
 export const isElectron = () =>
   process.env.VUE_APP_PLATFORM === Platform.ELECTRON
 
+export const getDomStyle = (dom: Element, css: keyof CSSStyleDeclaration) => {
+  const style = window.getComputedStyle(dom)
+  return style[css]
+}
+
 export const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
   obj: X,
   prop: Y

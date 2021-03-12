@@ -1,5 +1,13 @@
-import { defineComponent, PropType } from 'vue'
-import { noop } from '@/utils/index'
+import {
+  computed,
+  defineComponent,
+  nextTick,
+  onMounted,
+  PropType,
+  reactive,
+  ref
+} from 'vue'
+import { getDomStyle, noop } from '@/utils/index'
 
 export const Image = defineComponent({
   name: 'Image',
@@ -19,10 +27,40 @@ export const Image = defineComponent({
   },
   emits: ['click'],
   setup(props, { emit }) {
+    const contanier = ref()
+    const contanierStyle = reactive({
+      w: 0,
+      h: 0
+    })
+    const src = computed(() => {
+      return `${props.src}?param=${contanierStyle.w}y${contanierStyle.h}`
+    })
+
+    onMounted(() => {
+      nextTick(() => {
+        if (contanier.value) {
+          const w = getDomStyle(contanier.value, 'width') as string
+          const h = getDomStyle(contanier.value, 'height') as string
+          contanierStyle.w = Number(w.replace(/px/, ''))
+          contanierStyle.h = Number(h.replace(/px/, ''))
+        }
+      })
+    })
+
     return () => (
-      <div class={`${props.name} bg-img`} onClick={e => emit('click', e)}>
-        {/* @ts-ignore */}
-        {props.src && <img src={props.src} alt="not found" loading="lazy" />}
+      <div
+        class={`${props.name} bg-img`}
+        onClick={e => emit('click', e)}
+        ref={contanier}
+      >
+        {props.src && (
+          <img
+            src={src.value}
+            alt="not found"
+            // @ts-ignore
+            loading="lazy"
+          />
+        )}
       </div>
     )
   }
