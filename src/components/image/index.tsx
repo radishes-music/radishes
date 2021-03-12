@@ -29,8 +29,8 @@ export const Image = defineComponent({
   setup(props, { emit }) {
     const contanier = ref()
     const contanierStyle = reactive({
-      w: 0,
-      h: 0
+      w: 150,
+      h: 150
     })
     const src = computed(() => {
       return `${props.src}?param=${contanierStyle.w}y${contanierStyle.h}`
@@ -41,8 +41,8 @@ export const Image = defineComponent({
         if (contanier.value) {
           const w = getDomStyle(contanier.value, 'width') as string
           const h = getDomStyle(contanier.value, 'height') as string
-          contanierStyle.w = Number(w.replace(/px/, ''))
-          contanierStyle.h = Number(h.replace(/px/, ''))
+          contanierStyle.w = Math.floor(Number(w.replace(/px/, '')))
+          contanierStyle.h = Math.floor(Number(h.replace(/px/, '')))
         }
       })
     })
