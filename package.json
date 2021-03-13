@@ -7,6 +7,7 @@
   "description": "Cross-platform copyright-free music platform",
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "inspect": "vue-cli-service inspect",
     "test": "lerna run test --stream",
     "test:unit": "vue-cli-service test:unit",
     "test:open": "cypress open",
@@ -148,6 +149,7 @@
     "v-easy-components": "2.0.0-beta.14",
     "vant": "^3.0.6",
     "vue-cli-plugin-electron-builder": "^2.0.0-rc.5",
+    "vue-loader": "^16.1.2",
     "vuex-persistedstate": "^4.0.0-beta.1",
     "webpack-bundle-analyzer": "4.3.0"
   }

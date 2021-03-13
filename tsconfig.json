@@ -14,7 +14,8 @@
     "baseUrl": ".",
     "types": ["webpack-env", "mocha", "chai", "electron"],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "root/*": ["./*"],
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },

@@ -1,7 +1,10 @@
 const webpack = require('webpack')
 const pkg = require('./package.json')
+const path = require('path')
+const merge = require('lodash/merge')
 
 const CI = process.env.CI !== 'action'
+const md2vue = path.resolve(__dirname, 'packages/md2vue-loader/index.js')
 
 module.exports = {
   publicPath: '.',
@@ -66,7 +69,17 @@ module.exports = {
       .test(/.otf|ttf$/)
       .use('url-loader')
 
+    config.module
+      .rule('md')
+      .test(/\.md$/)
+      .use('md2vue-loader')
+      .loader(md2vue)
+      .tap(options => {
+        return merge({}, options, { html: true })
+      })
+
     config.resolve.extensions.add('less').add('css')
+    config.resolve.alias.set('root', path.join(__dirname))
     config.target(
       process.env.VUE_APP_PLATFORM === 'electron' ? 'electron-renderer' : 'web'
     )
