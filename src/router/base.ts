@@ -1,8 +1,8 @@
-import { RouteRecordRaw } from 'vue-router'
 import { $404 } from '@/pages/404/view/index'
+import { CustomizeRouteRecordRaw } from '@/interface'
 
 // Internationalization is not currently supported
-export const baseRouter: RouteRecordRaw[] = [
+export const baseRouter: CustomizeRouteRecordRaw[] = [
   {
     path: '/:pathMatch(.*)', // https://next.router.vuejs.org/guide/migration/#removed-star-or-catch-all-routes
     name: $404.name,

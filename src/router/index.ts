@@ -2,31 +2,19 @@ import {
   createRouter,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   createWebHistory,
-  createWebHashHistory,
-  RouteRecordRaw
+  createWebHashHistory
 } from 'vue-router'
-import { ComponentPublicInstance } from 'vue'
 import { hook } from './hook'
 import { baseRouter } from './base'
 import { contentBaseRouter } from './content'
 import { baseNavRouter } from './nav'
 
 import { isBrowser, isElectron } from '@/utils'
-
-export interface Meta {
-  name?: string
-}
-
-export interface RouterChildren {
-  path: string
-  comments: ComponentPublicInstance
-  name?: string
-  meta?: Meta
-}
+import { CustomizeRouteRecordRaw } from '@/interface'
 
 export const LYRICE_PATH = '/electron-lyrice-float'
 
-const renderRouter = (nav: RouteRecordRaw[]) => {
+const renderRouter = (nav: CustomizeRouteRecordRaw[]) => {
   return nav.filter(n => {
     if (isBrowser()) {
       return n?.meta?.browser

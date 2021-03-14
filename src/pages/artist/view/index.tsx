@@ -9,14 +9,14 @@ import {
 } from 'vue'
 import { SecondaryLayout } from '@/layout/secondary/secondary'
 import { Image } from '@/components/image/index'
-import { RouterView, RouteRecordRaw } from 'vue-router'
+import { RouterView } from 'vue-router'
 import { contentRouter } from '@/router/index'
 import { SecondaryBar } from '@/components-business/secondary-bar/index'
-import { ArtistActions } from '@/interface'
+import { ArtistActions, CustomizeRouteRecordRaw } from '@/interface'
 import { parentAP } from '../logic/ap'
 import './index.less'
 
-const formatNav = (id: string | string[]): RouteRecordRaw[] => {
+const formatNav = (id: string | string[]): CustomizeRouteRecordRaw[] => {
   let tp = contentRouter.filter(route => route.path.includes('/artist'))
   if (tp[0]) {
     if (tp[0].children) {

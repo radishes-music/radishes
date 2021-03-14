@@ -15,7 +15,7 @@ export const Main = defineComponent({
     const Slots = {
       default: (component: { Component: Component }) => {
         return (
-          <KeepAlive exclude={/FollowView/}>
+          <KeepAlive exclude={['FollowView']}>
             {resolveDynamicComponent(component.Component)}
           </KeepAlive>
         )

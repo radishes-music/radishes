@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router'
+import { CustomizeRouteRecordRaw } from '@/interface'
 
 const List = () => import('@/pages/list/view/index')
 
@@ -60,7 +60,7 @@ const SearchLyrice = () =>
     component => component.SearchLyrice
   )
 
-export const contentBaseRouter: RouteRecordRaw[] = [
+export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
   {
     path: '/list/:type/:playlist',
     component: List,

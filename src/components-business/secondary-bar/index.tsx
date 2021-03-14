@@ -1,13 +1,19 @@
+import { CustomizeRouteRecordRaw } from '@/interface'
 import { defineComponent, toRefs, PropType, toRaw } from 'vue'
-import { RouterLink, RouteRecordRaw, useRoute } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import './index.less'
 
 const prefix = 'secondary'
 
-export const renderNavList = (origin: RouteRecordRaw[], name: string) => {
+export const renderNavList = (
+  origin: CustomizeRouteRecordRaw[],
+  name: string
+): CustomizeRouteRecordRaw[] => {
   const nav = origin.find(item => item.name === name)
   if (nav && nav.children) {
-    return nav.children.filter(item => item.meta?.name)
+    return (nav.children as CustomizeRouteRecordRaw[]).filter(
+      item => item.meta?.name
+    )
   }
   return []
 }
@@ -16,7 +22,7 @@ export const SecondaryBar = defineComponent({
   name: 'SecondaryBar',
   props: {
     nav: {
-      type: Object as PropType<RouteRecordRaw[]>,
+      type: Object as PropType<CustomizeRouteRecordRaw[]>,
       required: true
     },
     size: {

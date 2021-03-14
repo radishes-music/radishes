@@ -4,12 +4,13 @@ import {
   Component,
   resolveDynamicComponent
 } from 'vue'
-import { RouteRecordRaw, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import {
   SecondaryBar,
   renderNavList
 } from '@/components-business/secondary-bar/index'
 import { navRouter } from '@/router/index'
+import { CustomizeRouteRecordRaw } from '@/interface'
 import './index.less'
 
 export const News = defineComponent({
@@ -18,7 +19,7 @@ export const News = defineComponent({
     const nav = renderNavList(navRouter, News.name)
 
     // eslint-disable-next-line
-    const handleChangeRoute = (route: RouteRecordRaw) => {}
+    const handleChangeRoute = (route: CustomizeRouteRecordRaw) => {}
 
     const Slots = {
       default: (component: { Component: Component }) => (
