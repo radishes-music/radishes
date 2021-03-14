@@ -1,3 +1,4 @@
+import 'github-markdown-css'
 import './color.less'
 import './index.less'
 import './index.css'

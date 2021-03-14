@@ -121,6 +121,7 @@
     "eslint-plugin-vue": "^7.0.0-0",
     "express": "^4.17.1",
     "file-saver": "^2.0.5",
+    "github-markdown-css": "^4.0.0",
     "http-proxy-middleware": "^1.0.6",
     "husky": "^4.3.0",
     "js-cookie": "^2.2.1",
