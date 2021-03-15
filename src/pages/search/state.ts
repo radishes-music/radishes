@@ -11,5 +11,6 @@ const initList = {
 export const state: SearchState = {
   searchTitle: '',
   songList: cloneDeep(initList),
-  artistList: cloneDeep(initList)
+  artistList: cloneDeep(initList),
+  playlist: cloneDeep(initList)
 }

@@ -16,7 +16,6 @@ export const SecondaryLayout = defineComponent({
     return () => (
       <div class="secondary">
         <Skeleton
-          class="secondary-head--skeleton"
           active
           title={false}
           avatar={{
@@ -32,7 +31,6 @@ export const SecondaryLayout = defineComponent({
           <div class="secondary-head">{slots.head && slots.head()}</div>
         </Skeleton>
         <Skeleton
-          class="secondary-body--skeleton"
           active
           title={false}
           paragraph={{

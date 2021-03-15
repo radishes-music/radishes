@@ -18,7 +18,8 @@ import {
   DownloadActions,
   SongListColumnsType,
   DownloadMutations,
-  Pagination
+  Pagination,
+  Creator
 } from '@/interface/index'
 import { useDownloadModule, useFooterModule } from '@/modules/index'
 import { useSubscribe } from '@/shared/subscribe'
@@ -105,13 +106,33 @@ const columns = [
     }
   },
   {
-    title: '',
+    title: '封面',
     width: 140,
     align: 'center',
     dataIndex: 'picUrl',
     key: 'picUrl',
     customRender: ({ text }: { text: string }) => {
       return <Image src={text} name="pic-url" />
+    }
+  },
+  {
+    title: '歌曲',
+    width: 140,
+    align: 'center',
+    dataIndex: 'count',
+    key: 'count',
+    customRender: ({ text }: { text: number }) => {
+      return <span>{text} 首</span>
+    }
+  },
+  {
+    title: '创建人',
+    width: 140,
+    align: 'center',
+    dataIndex: 'creator',
+    key: 'creator',
+    customRender: ({ text }: { text: Creator }) => {
+      return <span>by {text.nickname}</span>
     }
   },
   {

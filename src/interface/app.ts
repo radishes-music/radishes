@@ -53,6 +53,8 @@ export type SongListColumnsType =
   | 'index'
   | 'control'
   | 'picUrl'
+  | 'count'
+  | 'creator'
   | 'name'
   | 'ar'
   | 'al'

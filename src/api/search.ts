@@ -6,7 +6,7 @@ interface SearchApiResult {
     songs: SearchSuggest['songs']
     songCount: number
   }
-  [SearchType.SONG_LIST]: {
+  [SearchType.PLAY_LIST]: {
     playlists: SearchSuggest['playlists']
     playlistCount: number
   }

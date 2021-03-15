@@ -69,6 +69,29 @@ export const actions: ActionTree<SearchState, RootState> = {
       SearchMutations.SET_SEARCH_TITLE,
       `找到 ${state.artistList.total} 位歌手`
     )
+  },
+  async [SearchActions.GET_PLAYLIST_LIST]({ state, commit }, payload) {
+    state.playlist.loading = true
+    const { slice, limit, offset } = state.playlist.pagination
+    const result = await search(
+      payload,
+      SearchType.PLAY_LIST,
+      state.playlist.pagination
+    )
+    state.playlist.loading = false
+    state.playlist.data = result.playlists.slice(slice).map(playlist => {
+      return {
+        ...playlist,
+        picUrl: playlist.coverImgUrl,
+        count: playlist.trackCount,
+        index: (offset - 1) * limit
+      }
+    })
+    state.playlist.total = result.playlistCount
+    commit(
+      SearchMutations.SET_SEARCH_TITLE,
+      `找到 ${state.playlist.total} 个歌单`
+    )
   }
 }
 
@@ -87,6 +110,9 @@ export const mutations: MutationTree<SearchState> = {
       state.artistList.pagination,
       page
     )
-    console.log(state.artistList.pagination)
+  },
+  [SearchMutations.CHANGE_PLAYLIST_PAGE_OFFSET](state, page) {
+    state.playlist.pagination.offset = page
+    state.playlist.pagination.slice = calcSlice(state.playlist.pagination, page)
   }
 }

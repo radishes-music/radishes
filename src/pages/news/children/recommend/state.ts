@@ -12,6 +12,7 @@ export const state: RecommendState = {
       copywriter: '每日歌曲推荐',
       picUrl: '',
       coverImgUrl: '',
+      description: '',
       artists: []
     }
   ],

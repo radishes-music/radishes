@@ -17,6 +17,7 @@ export interface Song extends Songs {
   copywriter: string
   picUrl: string
   coverImgUrl: string
+  description: string
   specialType?: number
 }
 
@@ -40,6 +41,7 @@ export interface PlayLists extends GlobalBase {
   highQuality: boolean
   subscribed: boolean
   coverImgUrl: string
+  description: string
 }
 
 export interface SongsDetail extends GlobalBase {
