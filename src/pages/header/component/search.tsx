@@ -3,6 +3,7 @@ import { useRouter } from '@/hooks/index'
 import { SearchSuggest, HeaderActions, Songs } from '@/interface'
 import { useHeaderModule } from '@/modules/index'
 import { playMusic } from '@/shared/music-shared'
+import { Jump } from '@/shared/jump-shared'
 import debounce from 'lodash/debounce'
 import './search.less'
 
@@ -125,25 +126,20 @@ export const Search = defineComponent({
       }
     }, 200)
 
+    const jump = new Jump()
     const handleSelect = async (type: SearchType, id: unknown) => {
       switch (type) {
         case SearchType.SONGS:
           playMusic((id as Songs).id)
           break
         case SearchType.PLAYLISTS:
-          router.push({
-            path: '/list/song/' + id
-          })
+          jump.songList(id as number)
           break
         case SearchType.ARTISTS:
-          router.push({
-            path: '/artist/' + id + '/album'
-          })
+          jump.artist(id as number)
           break
         case SearchType.ALBUMS:
-          router.push({
-            path: '/list/album/' + id
-          })
+          jump.albumList(id as number)
       }
     }
 

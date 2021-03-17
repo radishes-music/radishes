@@ -2,20 +2,20 @@ import { defineComponent, onActivated } from 'vue'
 import { Grid } from '../components/grid'
 import { Artists, ArtistActions } from '@/interface/index'
 import { parentAP } from '../logic/ap'
+import { Jump } from '@/shared/jump-shared'
 
 export const Similar = defineComponent({
   name: 'ArtistSimilar',
   setup() {
-    const { state, route, router, useActions } = parentAP()
+    const jump = new Jump()
+    const { state, route, useActions } = parentAP()
 
     onActivated(() => {
       useActions(ArtistActions.SET_ACTION_ARTIST_SIMI, route.params.id)
     })
 
     const handleClick = (item: Artists) => {
-      router.push({
-        path: '/artist/' + item.id + '/album'
-      })
+      jump.albumList(item.id)
     }
 
     return () => (

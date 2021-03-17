@@ -4,12 +4,14 @@ import { MoreThen } from '@/components/more-then/index'
 import { Table } from '@/components-business/table'
 import { FormatSource, ListFormat } from '@/interface/index'
 import { noop, formatCount } from '@/utils/index'
-import { RouterLink, useRouter } from 'vue-router'
+import { RouterLink } from 'vue-router'
 import { Button } from 'ant-design-vue'
 import { DailyCard } from '@/components-business/song-list/daily'
 import { PlayAll } from '@/components-business/button'
 import { useSubscribe } from '@/shared/subscribe'
 import { warning } from '@/hooks/index'
+import { Jump } from '@/shared/jump-shared'
+import { Image } from '@/components/image'
 import dayjs from 'dayjs'
 import './index.less'
 
@@ -41,7 +43,7 @@ export const SecondaryList = defineComponent({
   },
   emits: ['playAll', 'playDbl', 'update'],
   setup(props, { emit }) {
-    const router = useRouter()
+    const jump = new Jump()
     const subscribe = useSubscribe(false)
 
     const typeMap = {
@@ -77,18 +79,14 @@ export const SecondaryList = defineComponent({
                   <strong>{props.source.name}</strong>
                 </h1>
                 <div class="a-author" v-show={props.source.author}>
-                  <div
-                    class="a-author-coverimg"
-                    style={{
-                      backgroundImage: `url("${props.source.author?.src}")`
-                    }}
-                  ></div>
+                  <Image
+                    src={props.source.author?.src}
+                    name="a-author-coverimg"
+                  ></Image>
                   <i
                     class="a-author-name"
                     onClick={() => {
-                      router.push({
-                        path: '/artist/' + props.source?.author?.id + '/album'
-                      })
+                      jump.albumList(props.source?.author?.id as number)
                     }}
                   >
                     {props.source.author?.name}

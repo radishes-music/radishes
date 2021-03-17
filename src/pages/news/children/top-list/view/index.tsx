@@ -5,7 +5,7 @@ import { PlayList, TopListActions } from '@/interface/index'
 import { getPlayList } from '@/api/index'
 import { Image } from '@/components/image/index'
 import { playMusic as music } from '@/shared/music-shared'
-import { jumpSongList } from '@/shared/list-shared'
+import { Jump } from '@/shared/jump-shared'
 import './index.less'
 
 export const TopList = defineComponent({
@@ -17,7 +17,7 @@ export const TopList = defineComponent({
 
     const cacheSongListDetail = new Map()
 
-    const toSongList = jumpSongList()
+    const jump = new Jump()
     const playMusic = async (songlistID: number, index: number) => {
       let songlist: PlayList
       if (cacheSongListDetail.has(songlistID)) {
@@ -42,7 +42,7 @@ export const TopList = defineComponent({
             <div class="toplist-expansion-contanier">
               <Image
                 src={item.coverImgUrl}
-                onClick={() => toSongList(item.id)}
+                onClick={() => jump.songList(item.id)}
                 name="toplist-expansion-contanier--coverimg"
               />
               <div class="toplist-expansion-contanier--song">
@@ -55,7 +55,7 @@ export const TopList = defineComponent({
                     <div>{song.second}</div>
                   </div>
                 ))}
-                <strong onClick={() => toSongList(item.id)}>查看全部</strong>
+                <strong onClick={() => jump.songList(item.id)}>查看全部</strong>
               </div>
             </div>
           ))}
@@ -64,7 +64,7 @@ export const TopList = defineComponent({
         <div class="toplist-shrink">
           <SongList
             songData={shrink.value}
-            onClick={item => toSongList(item.id)}
+            onClick={item => jump.songList(item.id)}
           />
         </div>
       </div>

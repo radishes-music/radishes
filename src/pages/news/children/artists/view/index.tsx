@@ -1,11 +1,11 @@
 import { defineComponent, reactive, ref, toRaw } from 'vue'
 import { Filter } from './filter'
-import { useRouter } from '@/hooks/index'
 import { useArtistSearchModule } from '@/modules'
 import { ArtistsActions, Artist } from '@/interface'
 import throttle from 'lodash/throttle'
 import merge from 'lodash/merge'
 import { Image } from '@/components/image/index'
+import { Jump } from '@/shared/jump-shared'
 import './index.less'
 
 export const Artists = defineComponent({
@@ -21,7 +21,7 @@ export const Artists = defineComponent({
       area: -1,
       initial: '-1'
     })
-    const router = useRouter()
+    const jump = new Jump()
     const { useActions, useState } = useArtistSearchModule()
 
     const state = useState()
@@ -41,9 +41,7 @@ export const Artists = defineComponent({
     }
 
     const toArtist = (artist: Artist) => {
-      router.push({
-        path: '/artist/' + artist.id + '/album'
-      })
+      jump.albumList(artist.id)
     }
 
     const scroll = () => {

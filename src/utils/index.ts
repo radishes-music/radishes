@@ -318,5 +318,5 @@ export const measureImg = (source: string) => {
 }
 
 export const overNum = (num: number) => {
-  return num > 100000 ? `${Math.floor(num / 10000)}万` : num
+  return formatCount(num)
 }

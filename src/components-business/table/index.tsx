@@ -19,7 +19,8 @@ import {
   SongListColumnsType,
   DownloadMutations,
   Pagination,
-  Creator
+  Creator,
+  Artist
 } from '@/interface/index'
 import { useDownloadModule, useFooterModule } from '@/modules/index'
 import { useSubscribe } from '@/shared/subscribe'
@@ -133,6 +134,25 @@ const columns = [
     key: 'creator',
     customRender: ({ text }: { text: Creator }) => {
       return <span>by {text.nickname}</span>
+    }
+  },
+  {
+    title: '作者',
+    width: 140,
+    align: 'center',
+    dataIndex: 'artist',
+    key: 'artist',
+    customRender: ({ text }: { text: Artist }) => {
+      let alias = text.alias.join(' / ')
+      if (alias) {
+        alias = `(${alias})`
+      }
+      return (
+        <span>
+          {text.name}
+          {alias}
+        </span>
+      )
     }
   },
   {

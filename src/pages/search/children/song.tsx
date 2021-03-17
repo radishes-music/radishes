@@ -1,9 +1,4 @@
-import {
-  defineComponent,
-  onDeactivated,
-  onActivated,
-  onBeforeUnmount
-} from 'vue'
+import { defineComponent, onActivated, onBeforeUnmount } from 'vue'
 import { Table } from '@/components-business/table/index'
 import { useEffectWords } from '../logic/index'
 import { playMusic } from '@/shared/music-shared'
@@ -45,9 +40,6 @@ export const SearchSong = defineComponent({
         SearchMutations.SET_SEARCH_TITLE,
         `找到 ${state.songList.total} 首歌曲`
       )
-    })
-    onDeactivated(() => {
-      // console.log(uneffect)
     })
     onBeforeUnmount(() => {
       uneffect && uneffect()

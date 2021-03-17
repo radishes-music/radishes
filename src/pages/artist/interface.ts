@@ -6,7 +6,6 @@ export interface Artist extends Artists {
   albumSize: number
   musicSize: number
   mvSize: number
-  picUrl: string
 }
 
 export interface Album extends Albums {

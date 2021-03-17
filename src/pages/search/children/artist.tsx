@@ -1,9 +1,4 @@
-import {
-  defineComponent,
-  onDeactivated,
-  onActivated,
-  onBeforeUnmount
-} from 'vue'
+import { defineComponent, onActivated, onBeforeUnmount } from 'vue'
 import { useEffectWords } from '../logic/index'
 import { Table } from '@/components-business/table/index'
 import {
@@ -13,7 +8,7 @@ import {
   SearchActions
 } from '@/interface'
 import { useSearchModule } from '@/modules'
-import { useRouter } from 'vue-router'
+import { Jump } from '@/shared/jump-shared'
 
 type Artists = SearchSuggest['artists']
 
@@ -33,11 +28,9 @@ export const SearchArtist = defineComponent({
       useMutations(SearchMutations.CHANGE_ARTIST_PAGE_OFFSET, page)
     }
 
-    const router = useRouter()
-    const handlePlaySingle = (song: ArrayItem<Artists>) => {
-      router.push({
-        path: '/artist/' + song.id + '/album'
-      })
+    const jump = new Jump()
+    const handleJump = (song: ArrayItem<Artists>) => {
+      jump.artist(song.id)
     }
 
     const uneffect = useEffectWords(updateList, state.artistList.pagination)
@@ -47,9 +40,6 @@ export const SearchArtist = defineComponent({
         SearchMutations.SET_SEARCH_TITLE,
         `找到 ${state.artistList.total} 位歌手`
       )
-    })
-    onDeactivated(() => {
-      // console.log(uneffect)
     })
     onBeforeUnmount(() => {
       uneffect && uneffect()
@@ -65,7 +55,7 @@ export const SearchArtist = defineComponent({
           columnsTypes={['picUrl', 'name']}
           pagination={state.artistList.pagination}
           onChange={handleChange}
-          onDblclick={handlePlaySingle}
+          onDblclick={handleJump}
         />
       </div>
     )

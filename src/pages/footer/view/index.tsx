@@ -1,5 +1,5 @@
 import { defineComponent, computed, watch } from 'vue'
-import { useRouter, useRoute } from '@/hooks/index'
+import { useRoute } from '@/hooks/index'
 import { MusicControl } from '../components/music-controller'
 import { VolumeAndHistory } from '../components/volume-history/index'
 import { useFooterModule, useLayoutModule, useMainModule } from '@/modules'
@@ -14,6 +14,7 @@ import {
   FooterMutations
 } from '@/interface'
 import classnames from 'classnames'
+import { Jump } from '@/shared/jump-shared'
 import './index.less'
 
 // Fix JSX element type "AsyncComponent" does not have any construction signature or call signature.
@@ -23,7 +24,7 @@ export const Footer = defineComponent({
   name: 'Footer',
   setup() {
     const route = useRoute()
-    const router = useRouter()
+    const jump = new Jump()
     const FooterModule = useFooterModule()
     const MainModule = useMainModule()
     const LayoutModule = useLayoutModule()
@@ -46,9 +47,7 @@ export const Footer = defineComponent({
     }
 
     const toArtist = (artist: Artists) => {
-      router.push({
-        path: '/artist/' + artist.id + '/album'
-      })
+      jump.albumList(artist.id)
     }
 
     const handleRebackSize = () => {

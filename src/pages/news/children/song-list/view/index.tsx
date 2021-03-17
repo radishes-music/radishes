@@ -4,7 +4,7 @@ import { useRoute, useRouter } from '@/hooks/index'
 import { useSongListModule } from '@/modules'
 import { SongListActions, Tags } from '@/interface'
 import { Popover, Button } from 'ant-design-vue'
-import { jumpSongList } from '@/shared/list-shared'
+import { Jump } from '@/shared/jump-shared'
 import classnames from 'classnames'
 import './index.less'
 
@@ -66,7 +66,7 @@ export const SongList = defineComponent({
       })
     }
 
-    const toSongList = jumpSongList()
+    const jump = new Jump()
 
     return () => (
       <div class="find-music-songlist">
@@ -120,7 +120,7 @@ export const SongList = defineComponent({
         </div>
         <ListComponent
           songData={songList.value}
-          onClick={item => toSongList(item.id)}
+          onClick={item => jump.songList(item.id)}
         ></ListComponent>
       </div>
     )

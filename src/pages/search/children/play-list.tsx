@@ -2,7 +2,7 @@ import { defineComponent, onActivated, onBeforeUnmount } from 'vue'
 import { useSearchModule } from '@/modules'
 import { Table } from '@/components-business/table/index'
 import { useEffectWords } from '../logic/index'
-import { jumpSongList } from '@/shared/list-shared'
+import { Jump } from '@/shared/jump-shared'
 import { SearchMutations, SearchActions, PlayLists } from '@/interface'
 
 export const SearchSongList = defineComponent({
@@ -22,9 +22,9 @@ export const SearchSongList = defineComponent({
       useMutations(SearchMutations.CHANGE_PLAYLIST_PAGE_OFFSET, page)
     }
 
-    const toSongList = jumpSongList()
-    const handlePlaySingle = (playlist: PlayLists) => {
-      toSongList(playlist.id)
+    const jump = new Jump()
+    const handleJump = (playlist: PlayLists) => {
+      jump.songList(playlist.id)
     }
 
     const uneffect = useEffectWords(updateList, state.playlist.pagination)
@@ -49,7 +49,7 @@ export const SearchSongList = defineComponent({
           columnsTypes={['picUrl', 'name', 'count', 'creator']}
           pagination={state.playlist.pagination}
           onChange={handleChange}
-          onDblclick={handlePlaySingle}
+          onDblclick={handleJump}
         />
       </div>
     )

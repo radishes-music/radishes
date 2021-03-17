@@ -12,7 +12,7 @@ import { SongList } from '@/components-business/song-list/index'
 import { useAuth } from '@/hooks/index'
 import { useRecommendModule } from '@/modules/index'
 import { playMusic } from '@/shared/music-shared'
-import { jumpSongList } from '@/shared/list-shared'
+import { Jump } from '@/shared/jump-shared'
 import './index.less'
 
 export const Recommend = defineComponent({
@@ -36,13 +36,13 @@ export const Recommend = defineComponent({
       loading.value = false
     }
 
-    const toSongList = jumpSongList()
+    const jump = new Jump()
     const bannerClick = (item: Banners) => {
       if (item.targetType === TargetType.EXTERNAL) {
         window.open(item.url, '_blank', 'nodeIntegration=no')
       }
       if (item.targetType === TargetType.LIST) {
-        toSongList(item.targetId)
+        jump.songList(item.targetId)
       }
       if (item.targetType === TargetType.MUSIC) {
         playMusic(item.targetId)
@@ -76,7 +76,7 @@ export const Recommend = defineComponent({
           <SongList
             songData={songList.value}
             loading={loading.value}
-            onClick={item => toSongList(item.id)}
+            onClick={item => jump.songList(item.id)}
           />
         </div>
       </div>
