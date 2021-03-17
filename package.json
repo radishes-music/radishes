@@ -16,7 +16,6 @@
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less}\"",
     "lint:style": "stylelint --fix \"src/**/*.{css,less}\" --cache --cache-location node_modules/.cache/stylelint/",
     "build": "cross-env NODE_ENV=production vue-cli-service build --mode browser --modern",
-    "build:storybook": "build-storybook",
     "build:electron": "rimraf dist-electron && vue-cli-service electron:build --mode electron.build --win nsis",
     "build:api": "concurrently -r \"yarn dev:api\" \"node script/server-local.js\"",
     "dev": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"yarn dev:web\"",
@@ -30,7 +29,8 @@
     "log": "conventional-changelog -p eslint -i CHANGELOG.md -s -r 0",
     "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten",
     "svgo": "svgo -f ./src/assets/svg",
-    "storybook": "start-storybook -p 6006"
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -68,10 +68,10 @@
     "@babel/core": "^7.11.6",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@storybook/addon-actions": "^6.0.22",
-    "@storybook/addon-essentials": "^6.0.22",
-    "@storybook/addon-links": "^6.0.22",
-    "@storybook/vue": "^6.0.22",
+    "@storybook/addon-actions": "^6.2.0-beta.13",
+    "@storybook/addon-essentials": "^6.2.0-beta.13",
+    "@storybook/addon-links": "^6.2.0-beta.13",
+    "@storybook/vue": "^6.2.0-beta.13",
     "@types/chai": "^4.2.11",
     "@types/classnames": "^2.2.10",
     "@types/electron-devtools-installer": "^2.2.0",
