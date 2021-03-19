@@ -55,9 +55,9 @@ const SearchSongList = () =>
     component => component.SearchSongList
   )
 
-const SearchLyrice = () =>
+const SearchLyrics = () =>
   import(/* webpackChunkName: "search" */ '@/pages/search/index').then(
-    component => component.SearchLyrice
+    component => component.SearchLyrics
   )
 
 export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
@@ -188,12 +188,12 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         }
       },
       {
-        path: 'lyrice',
-        component: SearchLyrice,
-        name: 'SearchLyrice',
+        path: 'lyrics',
+        component: SearchLyrics,
+        name: 'SearchLyrics',
         meta: {
           name: '歌词',
-          path: 'lyrice'
+          path: 'lyrics'
         }
       }
     ]

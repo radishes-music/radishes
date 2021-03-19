@@ -18,8 +18,8 @@ interface SearchApiResult {
     artists: SearchSuggest['artists']
     artistCount: number
   }
-  [SearchType.LYRICE]: {
-    songs: SearchSuggest['lyrice']
+  [SearchType.LYRICS]: {
+    songs: SearchSuggest['lyrics']
     songCount: number
   }
 }

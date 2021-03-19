@@ -24,8 +24,8 @@ import './index.less'
 
 const prefix = 'song-details'
 
-export const PlayLyrice = defineComponent({
-  name: 'PlayLyrice',
+export const PlayLyrics = defineComponent({
+  name: 'PlayLyrics',
   props: {
     visible: {
       type: Boolean as PropType<boolean>,
@@ -48,7 +48,7 @@ export const PlayLyrice = defineComponent({
 
     const { screenSize } = toRefs(LayoutModule.useState())
 
-    const lyrice = computed(() => useGetter('musicLyrics'))
+    const lyrics = computed(() => useGetter('musicLyrics'))
     const state = useState()
 
     const url = computed(() => {
@@ -56,12 +56,12 @@ export const PlayLyrice = defineComponent({
     })
 
     const index = computed(() => {
-      const len = lyrice.value.length
+      const len = lyrics.value.length
       return (
-        lyrice.value.findIndex((value, index) => {
+        lyrics.value.findIndex((value, index) => {
           return state.currentTime >= value.time && len - 1 === index
             ? true
-            : state.currentTime < lyrice.value[index + 1]?.time
+            : state.currentTime < lyrics.value[index + 1]?.time
         }) || 0
       )
     })
@@ -79,7 +79,7 @@ export const PlayLyrice = defineComponent({
           const max = maxChildrenScollWidth(lyriceContanier.value)
 
           useMutations(
-            FooterMutations.LYRICE_EMBED_MIN_WIDTH,
+            FooterMutations.LYRICS_EMBED_MIN_WIDTH,
             Math.min(max, 530)
           )
         }
@@ -93,7 +93,7 @@ export const PlayLyrice = defineComponent({
     })
 
     watch(visible, updateWidth)
-    watch(lyrice, updateWidth)
+    watch(lyrics, updateWidth)
 
     const resize = debounce(() => {
       if (visible.value && screenSize.value !== LayoutSize.SM) {
@@ -165,7 +165,7 @@ export const PlayLyrice = defineComponent({
                       <div class={`${prefix}-right--title`}>
                         {state.music?.name}
                       </div>
-                      <div ref={contanier} class={`${prefix}-right--lyrice`}>
+                      <div ref={contanier} class={`${prefix}-right--lyrics`}>
                         <ve-scroll
                           duartion={200}
                           to={index.value}
@@ -176,12 +176,12 @@ export const PlayLyrice = defineComponent({
                         >
                           <ul
                             ref={lyriceContanier}
-                            class={`${prefix}-right--lyrice-contanier`}
+                            class={`${prefix}-right--lyrics-contanier`}
                           >
-                            {lyrice.value.map((item, i) => (
+                            {lyrics.value.map((item, i) => (
                               <div
                                 class={classnams({
-                                  'lyrice-active': index.value === i
+                                  'lyrics-active': index.value === i
                                 })}
                                 data-time={item.time}
                               >
@@ -207,6 +207,6 @@ export const PlayLyrice = defineComponent({
 export const AsyncComponent = defineAsyncComponent({
   loader: async () => {
     // Parameter penetration
-    return <PlayLyrice></PlayLyrice>
+    return <PlayLyrics></PlayLyrics>
   }
 })

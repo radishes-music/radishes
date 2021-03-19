@@ -11,7 +11,7 @@ import {
   PlayMode
 } from '@/interface'
 import { asyncIpc, asyncIpcOrigin } from '@/electron/event/ipc-browser'
-import { MiddlewareView, LyriceAction } from '@/electron/event/action-types'
+import { MiddlewareView, LyricsAction } from '@/electron/event/action-types'
 import './index.less'
 
 const prefix = 'music'
@@ -43,7 +43,7 @@ export const MusicControl = defineComponent({
 
     if (isElectron()) {
       asyncIpcOrigin().then(ipcRenderer => {
-        ipcRenderer.on(LyriceAction.LYRICE_WIN_CLOSE, () => {
+        ipcRenderer.on(LyricsAction.LYRICS_WIN_CLOSE, () => {
           useMutations(FooterMutations.VISIBLE_FLASH, false)
         })
       })

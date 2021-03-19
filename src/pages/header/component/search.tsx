@@ -4,6 +4,7 @@ import { SearchSuggest, HeaderActions, Songs } from '@/interface'
 import { useHeaderModule } from '@/modules/index'
 import { playMusic } from '@/shared/music-shared'
 import { Jump } from '@/shared/jump-shared'
+import Keyword from '@/components/keyword/keyword'
 import debounce from 'lodash/debounce'
 import './search.less'
 
@@ -40,15 +41,13 @@ const Option = defineComponent({
   },
   setup(props) {
     const { value, onSelect, detail, keyword, className } = toRefs(props)
-    const html = detail?.value.replace(
-      keyword.value,
-      `<strong class="keyword">${keyword.value}</strong>`
-    )
     const handleSelect = () => {
       onSelect?.value(value?.value)
     }
     return () => (
-      <li class={className.value} onClick={handleSelect} v-html={html}></li>
+      <li class={className.value} onClick={handleSelect}>
+        <Keyword keyword={keyword.value} text={detail?.value} />
+      </li>
     )
   }
 })

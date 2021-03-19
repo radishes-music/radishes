@@ -3,7 +3,7 @@ import { ipcMain, IpcMainEvent, BrowserWindow, screen, dialog } from 'electron'
 import {
   Action,
   MiddlewareView,
-  LyriceAction,
+  LyricsAction,
   UpdateType,
   DownloadIpcType,
   ReadLocalFile,
@@ -12,11 +12,12 @@ import {
 } from '../action-types'
 import { readFileSync } from 'fs'
 import { autoUpdater } from 'electron-updater'
+import normalizeUrl from 'normalize-url'
 import log from 'electron-log'
 import store from '@/electron/store/index'
 
 export const onIpcMainEvent = (win: BrowserWindow) => {
-  let syrice: null | BrowserWindow
+  let lyrics: null | BrowserWindow
   ipcMain.on(DownloadIpcType.SET_DOWNLOAD_PATH, (event, arg) => {
     store.set('downloadPath', arg)
   })
@@ -30,25 +31,25 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
     win.restore()
   })
   ipcMain.on(Action.CLOSE_WINDOW, (event: IpcMainEvent) => {
+    lyrics && lyrics.close()
     win.close()
-    syrice && syrice.close()
   })
   ipcMain.on(UpdateType.UPDATE_WIDTH, (event: IpcMainEvent, width: number) => {
-    if (syrice) {
+    if (lyrics) {
       const screenWidth = screen.getPrimaryDisplay().workAreaSize.width
-      syrice.setSize(Math.min(width + 40, screenWidth), 100)
+      lyrics.setSize(Math.min(width + 40, screenWidth), 100)
     }
   })
   ipcMain.on(MiddlewareView.CREATE_WINDOW, (event: IpcMainEvent, arg) => {
-    if (syrice) {
-      if (syrice.isVisible()) {
-        syrice.hide()
+    if (lyrics) {
+      if (lyrics.isVisible()) {
+        lyrics.hide()
       } else {
-        syrice.show()
+        lyrics.show()
       }
     } else {
       const { width, height } = screen.getPrimaryDisplay().workAreaSize
-      syrice = new BrowserWindow({
+      lyrics = new BrowserWindow({
         width: width,
         height: 100,
         x: 0,
@@ -66,32 +67,34 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
         }
       })
       if (process.env.WEBPACK_DEV_SERVER_URL) {
-        syrice.loadURL(process.env.WEBPACK_DEV_SERVER_URL + 'lyrice')
+        lyrics.loadURL(
+          normalizeUrl(process.env.WEBPACK_DEV_SERVER_URL + '/lyrics.html')
+        )
       } else {
-        syrice.loadURL('app://./lyrice.html')
+        lyrics.loadURL('app://./lyrics.html')
       }
-      syrice.once('ready-to-show', () => {
-        if (syrice) {
-          syrice.show()
-          syrice.webContents.send(LyriceAction.LYRICE_UPDATE_RENDER, {
-            type: UpdateType.UPDATE_LYRICE,
+      lyrics.once('ready-to-show', () => {
+        if (lyrics) {
+          lyrics.show()
+          lyrics.webContents.send(LyricsAction.LYRICS_UPDATE_RENDER, {
+            type: UpdateType.UPDATE_LYRICS,
             payload: arg
           })
         }
       })
-      syrice.on('close', () => {
-        win.webContents.send(LyriceAction.LYRICE_WIN_CLOSE)
+      lyrics.on('close', () => {
+        win.webContents.send(LyricsAction.LYRICS_WIN_CLOSE)
       })
-      syrice.on('closed', () => {
-        syrice = null
+      lyrics.on('closed', () => {
+        lyrics = null
       })
     }
   })
   ipcMain.on(MiddlewareView.UPDATE_THEME_COLOR, (event, arg) => {
-    syrice && syrice.webContents.send(MiddlewareView.UPDATE_THEME_COLOR, arg)
+    lyrics && lyrics.webContents.send(MiddlewareView.UPDATE_THEME_COLOR, arg)
   })
   ipcMain.on(
-    LyriceAction.LYRICE_UPDATE,
+    LyricsAction.LYRICS_UPDATE,
     (
       event: IpcMainEvent,
       arg: {
@@ -99,7 +102,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
         payload: unknown
       }
     ) => {
-      syrice && syrice.webContents.send(LyriceAction.LYRICE_UPDATE_RENDER, arg)
+      lyrics && lyrics.webContents.send(LyricsAction.LYRICS_UPDATE_RENDER, arg)
     }
   )
   ipcMain.on(ReadLocalFile.READ_MP3_FROM_PATH, (event, arg: string) => {

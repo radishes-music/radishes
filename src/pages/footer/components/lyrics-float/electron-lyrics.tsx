@@ -1,22 +1,22 @@
 import { defineComponent, reactive } from 'vue'
-import LyriceFlash from './index'
+import LyricsFlash from './index'
 import { LayoutSize } from '@/interface'
 import { Lyrics } from '@/interface'
 import {
   MiddlewareView,
-  LyriceAction,
+  LyricsAction,
   UpdateType
 } from '@/electron/event/action-types'
 import { ErrorBoundary } from '@/components/error-boundary/index'
 import isEqual from 'lodash/isEqual'
-import './electron-lyrice.less'
+import './electron-lyrics.less'
 
 import { ipcRenderer } from 'electron'
 
 export interface PostData {
   screenSize: LayoutSize
   visibleFlash: boolean
-  lyrice: Lyrics[]
+  lyrics: Lyrics[]
   index: number
   playing: boolean
   flashMagic: {
@@ -25,12 +25,12 @@ export interface PostData {
 }
 
 export default defineComponent({
-  name: 'Lyrice',
+  name: 'Lyrics',
   setup() {
     const postData: PostData = reactive({
       screenSize: LayoutSize.SM,
       visibleFlash: true,
-      lyrice: [
+      lyrics: [
         {
           lyric: 'Radishes Music @Link',
           time: 0,
@@ -50,7 +50,7 @@ export default defineComponent({
     })
 
     ipcRenderer.on(
-      LyriceAction.LYRICE_UPDATE_RENDER,
+      LyricsAction.LYRICS_UPDATE_RENDER,
       (
         event,
         arg: {
@@ -64,12 +64,12 @@ export default defineComponent({
           case UpdateType.UPDATE_INDEX:
             postData.index = (payload < 0 ? 0 : payload) as PostData['index']
             break
-          case UpdateType.UPDATE_LYRICE:
+          case UpdateType.UPDATE_LYRICS:
             if (
-              (payload as PostData['lyrice']).length !== 0 &&
-              !isEqual(payload, postData.lyrice)
+              (payload as PostData['lyrics']).length !== 0 &&
+              !isEqual(payload, postData.lyrics)
             ) {
-              postData.lyrice = payload as PostData['lyrice']
+              postData.lyrics = payload as PostData['lyrics']
             }
             break
           case UpdateType.UPDATE_MAGIC:
@@ -86,15 +86,15 @@ export default defineComponent({
 
     return () => (
       <ErrorBoundary ref="ErrorBoundary">
-        <div class="lyrice" onClick={() => console.log('click')}>
-          <LyriceFlash
+        <div class="lyrics" onClick={() => console.log('click')}>
+          <LyricsFlash
             screenSize={postData.screenSize}
             visibleFlash={postData.visibleFlash}
-            lyrice={postData.lyrice}
+            lyrics={postData.lyrics}
             index={postData.index}
             playing={postData.playing}
             flashMagic={postData.flashMagic}
-          ></LyriceFlash>
+          ></LyricsFlash>
         </div>
       </ErrorBoundary>
     )

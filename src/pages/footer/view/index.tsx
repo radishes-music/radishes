@@ -3,8 +3,8 @@ import { useRoute } from '@/hooks/index'
 import { MusicControl } from '../components/music-controller'
 import { VolumeAndHistory } from '../components/volume-history/index'
 import { useFooterModule, useLayoutModule, useMainModule } from '@/modules'
-import { AsyncComponent } from '../components/lyrice-embed/index'
-import { BrowserLyriceFlash } from '../components/lyrice-float/browser-lyrice'
+import { AsyncComponent } from '../components/lyrics-embed/index'
+import { BrowserLyricsFlash } from '../components/lyrics-float/browser-lyrics'
 import Effect from '../components/effect/index'
 import {
   Artists,
@@ -18,7 +18,7 @@ import { Jump } from '@/shared/jump-shared'
 import './index.less'
 
 // Fix JSX element type "AsyncComponent" does not have any construction signature or call signature.
-const BrowserLyrice = AsyncComponent as any
+const BrowserLyrics = AsyncComponent as any
 
 export const Footer = defineComponent({
   name: 'Footer',
@@ -38,9 +38,9 @@ export const Footer = defineComponent({
       () => footerState.music && layoutState.screenSize !== LayoutSize.SM
     )
 
-    const unfoldLyrice = () => {
+    const unfoldLyrics = () => {
       if (canShowSongDetail.value) {
-        const visible = !footerState.visibleLyrice
+        const visible = !footerState.visibleLyrics
         MainModule.useMutations(MainMutations.IS_SHOW_COVER_CONTAINER, visible)
         FooterModule.useMutations(FooterMutations.VISIBLE_EMBED, visible)
       }
@@ -81,7 +81,7 @@ export const Footer = defineComponent({
               style={{
                 backgroundImage: `url(${footerState.music?.al.picUrl})`
               }}
-              onClick={unfoldLyrice}
+              onClick={unfoldLyrics}
             ></div>
             <div class="footer-music-des">
               <div class="footer-music-des--title">{musicDes.value.title}</div>
@@ -92,10 +92,10 @@ export const Footer = defineComponent({
               </div>
             </div>
           </div>
-          <BrowserLyrice visible={footerState.visibleLyrice} />
-          <BrowserLyriceFlash />
+          <BrowserLyrics visible={footerState.visibleLyrics} />
+          <BrowserLyricsFlash />
           {/* Failed to locate Teleport target with selector "#cover-container" */}
-          {/* {<PlayLyrice visible={visibleLyrice.value}></PlayLyrice>} */}
+          {/* {<PlayLyrics visible={visibleLyrics.value}></PlayLyrics>} */}
         </div>
         <div class="footer-right">
           <MusicControl />

@@ -8,8 +8,8 @@ import { isBrowser, isElectron } from '@/utils'
 
 const { VUE_APP_PLATFORM } = process.env
 
-export const LyriceFlash = defineComponent({
-  name: 'LyriceFlash',
+export const LyricsFlash = defineComponent({
+  name: 'LyricsFlash',
   props: {
     screenSize: {
       type: String as PropType<LayoutSize>,
@@ -19,7 +19,7 @@ export const LyriceFlash = defineComponent({
       type: Boolean as PropType<boolean>,
       required: true
     },
-    lyrice: {
+    lyrics: {
       type: Array as PropType<FooterGetter['musicLyrics']>,
       required: true
     },
@@ -44,7 +44,7 @@ export const LyriceFlash = defineComponent({
     const {
       screenSize,
       visibleFlash,
-      lyrice,
+      lyrics,
       index,
       playing,
       flashMagic
@@ -72,20 +72,20 @@ export const LyriceFlash = defineComponent({
       return (
         <TeleportToAny
           container="body"
-          class={classnames('lyrice-float-contanier', [
-            'lyrice-float-' + screenSize.value,
-            'lyrice-float-' + VUE_APP_PLATFORM
+          class={classnames('lyrics-float-contanier', [
+            'lyrics-float-' + screenSize.value,
+            'lyrics-float-' + VUE_APP_PLATFORM
           ])}
           visible={visible}
         >
-          <div ref={lyriceEl} class="lyrice-float">
-            {lyrice.value.map((item, i) => (
+          <div ref={lyriceEl} class="lyrics-float">
+            {lyrics.value.map((item, i) => (
               <div
                 data-time={item.time}
                 data-duration={item.duration}
                 class={classnames('vh-center', {
-                  'lyrice-float-active': index.value === i,
-                  'lyrice-float-pause': !playing.value && index.value === i
+                  'lyrics-float-active': index.value === i,
+                  'lyrics-float-pause': !playing.value && index.value === i
                 })}
               >
                 <div style={index.value === i ? flashMagic.value : ''}>
@@ -100,4 +100,4 @@ export const LyriceFlash = defineComponent({
   }
 })
 
-export default LyriceFlash
+export default LyricsFlash

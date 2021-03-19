@@ -52,6 +52,7 @@ export interface FormatSource extends GlobalBase {
 export type SongListColumnsType =
   | 'index'
   | 'control'
+  | 'lyrics'
   | 'picUrl'
   | 'count'
   | 'creator'

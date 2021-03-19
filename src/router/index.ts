@@ -12,7 +12,7 @@ import { baseNavRouter } from './nav'
 import { isBrowser, isElectron } from '@/utils'
 import { CustomizeRouteRecordRaw } from '@/interface'
 
-export const LYRICE_PATH = '/electron-lyrice-float'
+export const LYRICS_PATH = '/electron-lyrics-float'
 
 const renderRouter = (nav: CustomizeRouteRecordRaw[]) => {
   return nav.filter(n => {

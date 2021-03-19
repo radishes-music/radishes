@@ -1,7 +1,7 @@
 // electron creates window entry, such as lyrics
 
 import { createApp } from 'vue'
-import App from '@/pages/footer/components/lyrice-float/electron-lyrice'
+import App from '@/pages/footer/components/lyrics-float/electron-lyrics'
 import { Components } from '@/app/plugin/v-easy-components'
 import GlobalComponent from '@/components-global/index'
 import { errorHandle } from '@/components/error-boundary/index'

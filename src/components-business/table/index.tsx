@@ -20,7 +20,9 @@ import {
   DownloadMutations,
   Pagination,
   Creator,
-  Artist
+  Artist,
+  SearchSuggest,
+  ArrayItem
 } from '@/interface/index'
 import { useDownloadModule, useFooterModule } from '@/modules/index'
 import { useSubscribe } from '@/shared/subscribe'
@@ -28,7 +30,9 @@ import { getMusicUrl } from '@/shared/music-shared'
 import { instance } from '@/components-business/fly/index'
 import { TweenMap } from '@/utils/tween'
 import { Image } from '@/components/image'
+import Keyword from '@/components/keyword/keyword'
 import './index.less'
+import { useRoute } from '@/hooks'
 
 const prefix = 'table'
 
@@ -102,6 +106,36 @@ const columns = [
           >
             <icon icon="add1" className="gay" size={16} />
           </ve-button>
+        </div>
+      )
+    }
+  },
+  {
+    title: '歌词',
+    width: 200,
+    dataIndex: 'lyrics',
+    key: 'lyrics',
+    align: 'left',
+    customRender: ({
+      text
+    }: {
+      text: {
+        txt: string
+      }
+    }) => {
+      const route = useRoute()
+      const word = route.query.words as string
+      const lyrics = text.txt.split('\n')
+      const index = lyrics.findIndex(item => item.includes(word))
+      const result = lyrics.slice(index, index + 4)
+      return (
+        <div class="table-row-lyrics">
+          {result.map((item, index) => {
+            if (index === 0) {
+              return <Keyword keyword={word} text={item} />
+            }
+            return <span>{item}</span>
+          })}
         </div>
       )
     }

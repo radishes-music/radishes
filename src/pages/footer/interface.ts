@@ -1,4 +1,4 @@
-import { PostData } from './components/lyrice-float/electron-lyrice'
+import { PostData } from './components/lyrics-float/electron-lyrics'
 import { Artists, SongsDetail } from '@/interface/index'
 import { AudioEffect } from '@/shared/audio'
 
@@ -37,11 +37,11 @@ export interface FooterState {
   canplay: boolean
   audioElement: HTMLAudioElement | null
   visibleFlash: boolean
-  electronLyrice: PostData
+  electronLyrics: PostData
   duration: number
   volume: number
   lyriceEmbedMinWidth: number
-  visibleLyrice: boolean
+  visibleLyrics: boolean
 }
 
 export interface FooterGetter {
@@ -82,7 +82,7 @@ export const enum FooterMutations {
   REMOVE_STACK = 'REMOVE_STACK',
   REMOVE_HISTORY = 'REMOVE_HISTORY',
   CLEAR_STACK = 'CLEAR_STACK',
-  LYRICE_EMBED_MIN_WIDTH = 'LYRICE_EMBED_MIN_WIDTH',
+  LYRICS_EMBED_MIN_WIDTH = 'LYRICS_EMBED_MIN_WIDTH',
   SEEKBACKWARD = 'SEEKBACKWARD',
   SEEKFORWARD = 'SEEKFORWARD',
   INIT_EFFECT = 'INIT_EFFECT',

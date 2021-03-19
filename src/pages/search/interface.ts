@@ -4,8 +4,18 @@ import {
   Artists,
   PlayLists,
   Merage,
-  Pagination
+  Pagination,
+  SongsDetail
 } from '@/interface/index'
+
+type LyricsList = Merage<
+  {
+    lyrics: {
+      txt: string
+    }
+  },
+  Songs
+>
 
 export interface SearchSuggest {
   albums: Albums[]
@@ -13,12 +23,7 @@ export interface SearchSuggest {
   songs: Merage<{ album: Albums }, Songs>[]
   order: string[]
   playlists: PlayLists[]
-  lyrice: Merage<
-    {
-      txt: string
-    },
-    Songs
-  >[]
+  lyrics: LyricsList[]
 }
 
 export const enum SearchType {
@@ -26,7 +31,7 @@ export const enum SearchType {
   ALBUM = 10,
   ARTIST = 100,
   PLAY_LIST = 1000,
-  LYRICE = 1006
+  LYRICS = 1006
 }
 
 export type list<T> = {
@@ -41,19 +46,22 @@ export interface SearchState {
   songList: list<Songs>
   artistList: list<Artists>
   playlist: list<PlayLists>
-  album: list<Albums>
+  albumList: list<Albums>
+  lyriceList: list<LyricsList>
 }
 
 export const enum SearchActions {
   GET_SONG_LIST = 'GET_SONG_LIST',
   GET_ARTIST_LIST = 'GET_ARTIST_LIST',
   GET_PLAYLIST_LIST = 'GET_PLAYLIST_LIST',
-  GET_ALBUM_LIST = 'GET_ALBUM_LIST'
+  GET_ALBUM_LIST = 'GET_ALBUM_LIST',
+  GET_LYRICS_LIST = 'GET_LYRICS_LIST'
 }
 export const enum SearchMutations {
   SET_SEARCH_TITLE = 'SET_SEARCH_TITLE',
   CHANGE_SONG_PAGE_OFFSET = 'CHANGE_SONG_PAGE_OFFSET',
   CHANGE_ARTIST_PAGE_OFFSET = 'CHANGE_ARTIST_PAGE_OFFSET',
   CHANGE_PLAYLIST_PAGE_OFFSET = 'CHANGE_PLAYLIST_PAGE_OFFSET',
-  CHANGE_ALBUM_PAGE_OFFSET = 'CHANGE_ALBUM_PAGE_OFFSET'
+  CHANGE_ALBUM_PAGE_OFFSET = 'CHANGE_ALBUM_PAGE_OFFSET',
+  CHANGE_LYRICS_PAGE_OFFSET = 'CHANGE_LYRICS_PAGE_OFFSET'
 }

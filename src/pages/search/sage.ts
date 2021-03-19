@@ -94,15 +94,15 @@ export const actions: ActionTree<SearchState, RootState> = {
     )
   },
   async [SearchActions.GET_ALBUM_LIST]({ state, commit }, payload) {
-    state.album.loading = true
-    const { slice, limit, offset } = state.album.pagination
+    state.albumList.loading = true
+    const { slice, limit, offset } = state.albumList.pagination
     const result = await search(
       payload,
       SearchType.ALBUM,
-      state.album.pagination
+      state.albumList.pagination
     )
-    state.album.loading = false
-    state.album.data = result.albums.slice(slice).map(album => {
+    state.albumList.loading = false
+    state.albumList.data = result.albums.slice(slice).map(album => {
       return {
         ...album,
         picUrl: album.picUrl || album.blurPicUrl,
@@ -110,8 +110,35 @@ export const actions: ActionTree<SearchState, RootState> = {
         index: (offset - 1) * limit
       }
     })
-    state.album.total = result.albumCount
-    commit(SearchMutations.SET_SEARCH_TITLE, `找到 ${state.album.total} 张专辑`)
+    state.albumList.total = result.albumCount
+    commit(
+      SearchMutations.SET_SEARCH_TITLE,
+      `找到 ${state.albumList.total} 张专辑`
+    )
+  },
+  async [SearchActions.GET_LYRICS_LIST]({ state, commit }, payload) {
+    state.lyriceList.loading = true
+    const { slice, limit, offset } = state.lyriceList.pagination
+    const result = await search(
+      payload,
+      SearchType.LYRICS,
+      state.lyriceList.pagination
+    )
+    state.lyriceList.loading = false
+    state.lyriceList.data = result.songs.slice(slice).map(lyrics => {
+      return {
+        ...lyrics,
+        dt: lyrics.duration,
+        al: lyrics.album,
+        ar: lyrics.artists,
+        index: (offset - 1) * limit
+      }
+    })
+    state.lyriceList.total = result.songCount
+    commit(
+      SearchMutations.SET_SEARCH_TITLE,
+      `找到 ${state.lyriceList.total} 首歌词`
+    )
   }
 }
 
@@ -136,7 +163,17 @@ export const mutations: MutationTree<SearchState> = {
     state.playlist.pagination.slice = calcSlice(state.playlist.pagination, page)
   },
   [SearchMutations.CHANGE_ALBUM_PAGE_OFFSET](state, page) {
-    state.album.pagination.offset = page
-    state.album.pagination.slice = calcSlice(state.album.pagination, page)
+    state.albumList.pagination.offset = page
+    state.albumList.pagination.slice = calcSlice(
+      state.albumList.pagination,
+      page
+    )
+  },
+  [SearchMutations.CHANGE_LYRICS_PAGE_OFFSET](state, page) {
+    state.lyriceList.pagination.offset = page
+    state.lyriceList.pagination.slice = calcSlice(
+      state.lyriceList.pagination,
+      page
+    )
   }
 }

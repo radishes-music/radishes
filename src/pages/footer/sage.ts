@@ -195,7 +195,7 @@ export const actions: ActionTree<FooterState, RootState> = {
 }
 
 export const mutations: MutationTree<FooterState> = {
-  [FooterMutations.LYRICE_EMBED_MIN_WIDTH](state, width: number) {
+  [FooterMutations.LYRICS_EMBED_MIN_WIDTH](state, width: number) {
     state.lyriceEmbedMinWidth = width
   },
   [FooterMutations.CLEAR_STACK](state) {
@@ -283,7 +283,7 @@ export const mutations: MutationTree<FooterState> = {
     state.visibleFlash = visible
   },
   [FooterMutations.VISIBLE_EMBED](state, visible: boolean) {
-    state.visibleLyrice = visible
+    state.visibleLyrics = visible
   },
   [FooterMutations.SEEKBACKWARD](state) {
     if (state.audioElement) {

@@ -9,7 +9,7 @@ import { ipcRenderer, remote, BrowserWindow } from 'electron'
 import {
   Action,
   MiddlewareView,
-  LyriceAction,
+  LyricsAction,
   UpdateType,
   DownloadIpcType,
   ReadLocalFile,
@@ -24,7 +24,7 @@ type ActionType =
   | Action
   | DownloadIpcType
   | MiddlewareView
-  | LyriceAction
+  | LyricsAction
   | UpdateType
   | ReadLocalFile
   | Dialog

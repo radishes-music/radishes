@@ -2,11 +2,12 @@ import { defineComponent, onActivated, onBeforeUnmount } from 'vue'
 import { useSearchModule } from '@/modules'
 import { Table } from '@/components-business/table/index'
 import { useEffectWords } from '../logic/index'
-import { SearchMutations, SearchActions, Albums } from '@/interface'
 import { Jump } from '@/shared/jump-shared'
+import { playMusic } from '@/shared/music-shared'
+import { SearchMutations, SearchActions, SongsDetail } from '@/interface'
 
-export const SearchAlbum = defineComponent({
-  name: 'SearchAlbum',
+export const SearchLyrics = defineComponent({
+  name: 'SearchLyrics',
   setup() {
     const { useMutations, useActions, useState } = useSearchModule()
 
@@ -14,25 +15,25 @@ export const SearchAlbum = defineComponent({
 
     const updateList = async (words: string) => {
       if (words) {
-        useActions(SearchActions.GET_ALBUM_LIST, words)
+        useActions(SearchActions.GET_LYRICS_LIST, words)
       }
     }
 
     const handleChange = (page: number) => {
-      useMutations(SearchMutations.CHANGE_ALBUM_PAGE_OFFSET, page)
+      useMutations(SearchMutations.CHANGE_LYRICS_PAGE_OFFSET, page)
     }
 
     const jump = new Jump()
-    const handleJump = (album: Albums) => {
-      jump.albumList(album.id)
+    const handleJump = (song: SongsDetail) => {
+      playMusic(song.id)
     }
 
-    const uneffect = useEffectWords(updateList, state.albumList.pagination)
+    const uneffect = useEffectWords(updateList, state.lyriceList.pagination)
 
     onActivated(() => {
       useMutations(
         SearchMutations.SET_SEARCH_TITLE,
-        `找到 ${state.albumList.total} 张专辑`
+        `找到 ${state.lyriceList.total} 首歌词`
       )
     })
     onBeforeUnmount(() => {
@@ -40,14 +41,13 @@ export const SearchAlbum = defineComponent({
     })
 
     return () => (
-      <div class="search-album">
+      <div class="search-lyrics">
         <Table
-          showHeader={false}
-          list={state.albumList.data}
-          total={state.albumList.total}
-          loading={state.albumList.loading}
-          columnsTypes={['picUrl', 'name', 'artist']}
-          pagination={state.albumList.pagination}
+          list={state.lyriceList.data}
+          total={state.lyriceList.total}
+          loading={state.lyriceList.loading}
+          columnsTypes={['lyrics', 'name', 'ar', 'al', 'dt']}
+          pagination={state.lyriceList.pagination}
           onChange={handleChange}
           onDblclick={handleJump}
         />

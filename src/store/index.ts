@@ -134,7 +134,7 @@ plugins.push(
       'Footer.music',
       'Footer.musicLyricsOrigin',
       'Footer.currentTime',
-      'Footer.visibleLyrice',
+      'Footer.visibleLyrics',
       'Setting',
       'Download',
       'LocalMusic'

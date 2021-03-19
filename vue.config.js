@@ -13,7 +13,7 @@ module.exports = {
       entry: 'src/main.ts',
       template: 'public/index.html'
     },
-    lyrice: {
+    lyrics: {
       entry: 'src/electron/pages/index.ts',
       template: 'public/index.html'
     }

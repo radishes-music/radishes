@@ -17,13 +17,13 @@ export const state = {
   canplay: false,
   audioElement: null,
   visibleFlash: false,
-  visibleLyrice: false,
+  visibleLyrics: false,
   duration: 0,
   lyriceEmbedMinWidth: 0,
-  electronLyrice: {
+  electronLyrics: {
     screenSize: LayoutSize.SM,
     visibleFlash: true,
-    lyrice: [],
+    lyrics: [],
     index: 0,
     playing: true,
     flashMagic: {
