@@ -1,3 +1,67 @@
+# [2.0.0-alpha.3](https://github.com/Linkontoask/radishes/compare/v2.0.0-alpha.2...v2.0.0-alpha.3) (2021-03-19)
+
+
+### build
+
+* 2.0.0-alpha.3 ([cef0840](https://github.com/Linkontoask/radishes/commit/cef084054bd1e438c36d6aac3f651103e33e2e35))
+
+### chore
+
+* judgment platform method functionalization ([9d9acad](https://github.com/Linkontoask/radishes/commit/9d9acad8b7532b8e63361dd3a80a8fe55a2a8c08))
+* upgrade plugin-jsx ([d73a92c](https://github.com/Linkontoask/radishes/commit/d73a92c5afd73e0315cc678fbb2a080927f8e0d2))
+* upgrade storybook (Experimental) ([0f5130c](https://github.com/Linkontoask/radishes/commit/0f5130c13ff5cc2560c18f5e37020569e06e008c))
+* upgrade vue ([d3f4544](https://github.com/Linkontoask/radishes/commit/d3f45445eb8c66038c65adccd8989189062be1b1))
+
+### docs
+
+* upgrade changelog ([a27e54f](https://github.com/Linkontoask/radishes/commit/a27e54f28fc0746f06feebdb19c5fc45f6308f7c))
+
+### feat
+
+* search interface title correction ([28d3a2f](https://github.com/Linkontoask/radishes/commit/28d3a2f86550574768991abc1b12879c7d9dfaea))
+* support album search ([3c66425](https://github.com/Linkontoask/radishes/commit/3c66425aa91fc576c4dff87749f3e494b00cf403))
+* support lyrics search ([8634ed1](https://github.com/Linkontoask/radishes/commit/8634ed1bb8609d4657150425ab5824d11458b77d))
+* support playlist search ([372b3e5](https://github.com/Linkontoask/radishes/commit/372b3e5ba2477b7435b4bb7fa06e9c0ff946a243))
+* support random play ([2d486e3](https://github.com/Linkontoask/radishes/commit/2d486e3f7bd5397c020e88a48db3d9d87774fef7))
+* support search all songs ([888136f](https://github.com/Linkontoask/radishes/commit/888136fd723679a170d54ffb35de8ca1ed462a67))
+* the controller filters the data of the same url ([ad396ca](https://github.com/Linkontoask/radishes/commit/ad396ca89d3c62eb7a06a390bdf800e38c8958a5))
+* the window page controller adds the maximum number of stacks and vitality ([4b594c9](https://github.com/Linkontoask/radishes/commit/4b594c9b514ad352823248700e372519e2fc3881))
+* update profile & upload avatar ([e57cb8f](https://github.com/Linkontoask/radishes/commit/e57cb8ff5d0a8ead2cff5391890f63a5df38fae3))
+* userInfo-view & playlist-layout-one ([eb68c26](https://github.com/Linkontoask/radishes/commit/eb68c263c9a79d73f8730d866d6680500a5eea95))
+
+### feature
+
+* auth float box. ([54fd723](https://github.com/Linkontoask/radishes/commit/54fd723e319df184e73ceef8fa15ebf78c35dca4))
+
+### fix
+
+* fix the display of the last few data of the pager ([caaa1fe](https://github.com/Linkontoask/radishes/commit/caaa1fe3f493288e7dcf288d445e782a370bcf27))
+
+### fixed
+
+* followView layout display error ([5402c19](https://github.com/Linkontoask/radishes/commit/5402c19baff387016ccfb0e5404453aa08f4d19a))
+
+### refactor
+
+* antd style by theme(--base-color) ([96446fa](https://github.com/Linkontoask/radishes/commit/96446fa5f1d77554ffb399f0359f5bca32e341cb))
+* change fileName ([7b6f6a1](https://github.com/Linkontoask/radishes/commit/7b6f6a11483e67e5a5324ab02229e49ef18e927f))
+
+### style
+
+* added scrolling effects in the settings interface ([3badf6b](https://github.com/Linkontoask/radishes/commit/3badf6bb90684abecf5681415cb9681a2a8b95d5))
+* disable all any type checking ([cb7859e](https://github.com/Linkontoask/radishes/commit/cb7859e6e81012fe6563bfd3df03e13cb9549b86))
+* invert the array in the controller ([9508495](https://github.com/Linkontoask/radishes/commit/9508495956814459898b394a010aca06b8a18c57))
+* less formatter. ([7db6fb8](https://github.com/Linkontoask/radishes/commit/7db6fb86abf89ccf7c15e2eb498bd79ec550e2bb))
+* md style ([bd578b1](https://github.com/Linkontoask/radishes/commit/bd578b1050ac46cd1e1ae5f554e1ec56188c2d1f))
+* modify the weight of non-essential rules ([b673947](https://github.com/Linkontoask/radishes/commit/b67394765ff250e29ef08017de10e76f27ce906d))
+* remove none less files ([e7c8fd2](https://github.com/Linkontoask/radishes/commit/e7c8fd2f64be654c3ec89ba0b8d7f4bef04d8338))
+* rename nav.tsx ([54a446c](https://github.com/Linkontoask/radishes/commit/54a446c97cf553b47fb60debdc9d65e83e01c61f))
+* rewrite routing type derivation ([573c723](https://github.com/Linkontoask/radishes/commit/573c723c5215108a607255a049db9cd24a42c3e6))
+* theme change ([bffc9d6](https://github.com/Linkontoask/radishes/commit/bffc9d661d4353f8b2b5e6ff03e0639759b5cc33))
+* typescript ignore any ([b6ef1e8](https://github.com/Linkontoask/radishes/commit/b6ef1e8d92718aa8e7b9331736243fa7a8e04581))
+
+
+
 # [2.0.0-alpha.2](https://github.com/Linkontoask/radishes/compare/v2.0.0-alpha.1...v2.0.0-alpha.2) (2021-02-05)
 
 
