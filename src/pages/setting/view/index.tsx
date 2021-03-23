@@ -15,7 +15,7 @@ import Effect from './effect'
 import Upgrade from './upgrade'
 import classnames from 'classnames'
 import debounce from 'lodash/debounce'
-import { TweenMap } from '@/utils/tween'
+import { TweenMap } from 'v-easy-components/src/utils/tween'
 import { scrollAnmation } from '@/utils/index'
 import './index.less'
 

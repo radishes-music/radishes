@@ -47,15 +47,14 @@ module.exports = {
     ]
   },
   chainWebpack: config => {
-    if (process.env.ANALYZER === 'analyzer') {
-      config
-        .plugin('webpack-bundle-analyzer')
-        .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
-    }
+    config
+      .when(process.env.ANALYZER === 'analyzer')
+      .plugin('webpack-bundle-analyzer')
+      .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
 
     // https://github.com/vuejs/vue-cli/issues/1729#issuecomment-402217659
     config.plugin('html-index').tap(args => {
-      args[0].title = 'music'
+      args[0].title = 'radishes music'
       return args
     })
 
