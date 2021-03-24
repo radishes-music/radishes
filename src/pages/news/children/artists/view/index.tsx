@@ -41,7 +41,7 @@ export const Artists = defineComponent({
     }
 
     const toArtist = (artist: Artist) => {
-      jump.albumList(artist.id)
+      jump.artist(artist.id)
     }
 
     const scroll = () => {
