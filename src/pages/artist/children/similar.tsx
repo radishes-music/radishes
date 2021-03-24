@@ -15,7 +15,7 @@ export const Similar = defineComponent({
     })
 
     const handleClick = (item: Artists) => {
-      jump.albumList(item.id)
+      jump.artist(item.id)
     }
 
     return () => (

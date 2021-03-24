@@ -47,7 +47,7 @@ export const Footer = defineComponent({
     }
 
     const toArtist = (artist: Artists) => {
-      jump.albumList(artist.id)
+      jump.artist(artist.id)
     }
 
     const handleRebackSize = () => {

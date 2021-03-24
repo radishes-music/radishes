@@ -47,10 +47,11 @@ module.exports = {
     ]
   },
   chainWebpack: config => {
-    config
-      .when(process.env.ANALYZER === 'analyzer')
-      .plugin('webpack-bundle-analyzer')
-      .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+    config.when(process.env.ANALYZER === 'analyzer', config =>
+      config
+        .plugin('webpack-bundle-analyzer')
+        .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+    )
 
     // https://github.com/vuejs/vue-cli/issues/1729#issuecomment-402217659
     config.plugin('html-index').tap(args => {

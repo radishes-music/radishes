@@ -86,7 +86,7 @@ export const SecondaryList = defineComponent({
                   <i
                     class="a-author-name"
                     onClick={() => {
-                      jump.albumList(props.source?.author?.id as number)
+                      jump.artist(props.source?.author?.id as number)
                     }}
                   >
                     {props.source.author?.name}

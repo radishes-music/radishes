@@ -7,7 +7,7 @@ import { Jump } from '@/shared/jump-shared'
 export const Albume = defineComponent({
   name: 'ArtistAlbume',
   setup() {
-    const { state, router } = parentAP()
+    const { state } = parentAP()
 
     // Directly coming from search will not trigger the activated event
     const jump = new Jump()
