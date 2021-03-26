@@ -31,6 +31,9 @@ export const Cloud = defineComponent({
       if ('error' === e.file.status) {
         useMutations(CloudMutations.REMOVE_UNSHIFT_CLOUD_LIST)
       }
+      if ('done' === e.file.status) {
+        useActions(CloudActions.CLOUD_LIST_ACTION)
+      }
     }
 
     const handlePlaySingle = (song: CloudList) => {
@@ -46,9 +49,6 @@ export const Cloud = defineComponent({
             <div class="cloud-head">
               <PlayAll onClick={handlePlayAll} />
               <Upload
-                headers={{
-                  'Content-Type': 'multipart/form-data'
-                }}
                 accept="audio/*"
                 name="songFile"
                 action="/api/cloud"
