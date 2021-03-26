@@ -9,7 +9,7 @@ export const userDetail = (uid: string) =>
     params: { uid }
   })
 
-userDetail('1407747620').then(console.log)
+// userDetail('1407747620').then(console.log)
 
 // TODO 获取用户听歌记录
 export enum ListenRecordType {
@@ -35,7 +35,7 @@ export const userPlaylist = (uid: string, offset = 0, limit = 20) =>
     params: { uid, offset, limit, cookie: 1 }
   })
 
-userPlaylist('263917831').then(console.log)
+// userPlaylist('263917831').then(console.log)
 
 // TODO 歌单详情
 export const userPlaylistDetail = (id: string) =>
@@ -51,7 +51,7 @@ export const userAudio = (uid: string) =>
     }
   })
 
-userAudio('1407747620').then(console.log)
+// userAudio('1407747620').then(console.log)
 
 // TODO 用户关注列表[可分页]
 export const userFollows = (uid: string, offset = 0, limit = 40) =>

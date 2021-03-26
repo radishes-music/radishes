@@ -200,9 +200,10 @@ const columns = [
     dataIndex: 'ar',
     key: 'ar',
     ellipsis: true,
+    width: 100,
     customRender: ({ text }: { text: ListFormat['ar'] }) => {
       if (typeof text === 'string' || typeof text === 'undefined') {
-        return <div>{text}</div>
+        return <div>{text || '未知歌手'}</div>
       }
       return <div>{text.map(ar => ar.name).join(' / ')}</div>
     }
@@ -212,9 +213,10 @@ const columns = [
     dataIndex: 'al',
     key: 'al',
     ellipsis: true,
+    width: 100,
     customRender: ({ text }: { text: ListFormat['al'] }) => {
       if (typeof text === 'string' || typeof text === 'undefined') {
-        return <div>{text}</div>
+        return <div>{text || '未知专辑'}</div>
       }
       return <div>{text.name}</div>
     }
@@ -232,7 +234,7 @@ const columns = [
     title: '大小',
     dataIndex: 'size',
     key: 'size',
-    width: 120,
+    width: 80,
     customRender: ({ text }: { text: number }) => <div>{formatSize(text)}</div>
   },
   {

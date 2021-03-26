@@ -18,6 +18,7 @@ import Download, { DownloadNameSpaced } from '@/pages/download/module'
 import LocalMusic, { LocalMusicNameSpaced } from '@/pages/music/module'
 import Setting, { SettingNameSpaced } from '@/pages/setting/module'
 import Search, { SearchNameSpaced } from '@/pages/search/module'
+import Cloud, { CloudNameSpaced } from '@/pages/cloud/module'
 import Layout, { LayoutNameSpaced } from '@/layout/module'
 
 export * from '@/pages/footer/module'
@@ -30,6 +31,7 @@ export * from '@/pages/artist/module'
 export * from '@/pages/music/module'
 export * from '@/pages/setting/module'
 export * from '@/pages/search/module'
+export * from '@/pages/cloud/module'
 export * from '@/layout/module'
 
 export {
@@ -47,6 +49,7 @@ export {
   LocalMusicNameSpaced,
   SettingNameSpaced,
   SearchNameSpaced,
+  CloudNameSpaced,
   LayoutNameSpaced
 }
 
@@ -65,6 +68,7 @@ const modules = {
   [DownloadNameSpaced]: Download,
   [LocalMusicNameSpaced]: LocalMusic,
   [SettingNameSpaced]: Setting,
+  [CloudNameSpaced]: Cloud,
   [SearchNameSpaced]: Search
 }
 
