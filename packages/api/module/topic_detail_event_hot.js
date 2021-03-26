@@ -1,11 +1,8 @@
-// 发送验证码
-
 module.exports = (query, request) => {
   const data = {
-    ctcode: query.ctcode || '86',
-    cellphone: query.phone,
+    actid: query.actid,
   }
-  return request('POST', `https://music.163.com/api/sms/captcha/sent`, data, {
+  return request('POST', `https://music.163.com/api/act/event/hot`, data, {
     crypto: 'weapi',
     cookie: query.cookie,
     proxy: query.proxy,

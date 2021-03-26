@@ -1,18 +1,17 @@
-// 推荐新歌
+// 初始化名字
 
 module.exports = (query, request) => {
-  query.cookie.os = 'pc'
   const data = {
-    type: 'recommend',
-    limit: query.limit || 10,
-    areaId: query.areaId || 0,
+    id: query.id,
+    n: 100000,
+    s: query.s || 8,
   }
   return request(
     'POST',
-    `https://music.163.com/api/personalized/newsong`,
+    `https://music.163.com/api/playlist/detail/dynamic`,
     data,
     {
-      crypto: 'weapi',
+      crypto: 'api',
       cookie: query.cookie,
       proxy: query.proxy,
       realIP: query.realIP,

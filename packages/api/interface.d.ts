@@ -264,19 +264,22 @@ export function batch(
 ): Promise<Response>
 
 export function captcha_sent(
-  params: { cellphone: string; ctcode?: string } & RequestBaseConfig,
+  params: { cellphone: string; ctcode?: number | string } & RequestBaseConfig,
 ): Promise<Response>
 
 export function captcha_verify(
   params: {
-    ctcode?: string
-    cellphone: string
+    ctcode?: number | string
+    cellphone: number | string
     captcha: string
   } & RequestBaseConfig,
 ): Promise<Response>
 
 export function cellphone_existence_check(
-  params: { cellphone: string; countrycode: string } & RequestBaseConfig,
+  params: {
+    cellphone: number | string
+    countrycode: number | string
+  } & RequestBaseConfig,
 ): Promise<Response>
 
 export function check_music(
@@ -674,16 +677,16 @@ export function login(
 
 export function login_cellphone(
   params: {
-    phone: string
-    countrycode?: string
+    phone: number | string
+    countrycode?: number | string
     password: string
   } & RequestBaseConfig,
 ): Promise<Response>
 
 export function login_cellphone(
   params: {
-    phone: string
-    countrycode?: string
+    phone: number | string
+    countrycode?: number | string
     md5_password: string
   } & RequestBaseConfig,
 ): Promise<Response>
@@ -903,7 +906,7 @@ export function rebind(
     captcha: string
     phone: string
     oldcaptcha: string
-    ctcode?: string
+    ctcode?: number | string
   } & RequestBaseConfig,
 ): Promise<Response>
 
@@ -1306,4 +1309,103 @@ export function yunbei_task_finish(
     userTaskId: number | string
     depositCode?: number | string
   } & RequestBaseConfig,
+): Promise<Response>
+
+export function msg_recentcontact(params: RequestBaseConfig): Promise<Response>
+
+export function hug_comment(
+  params: {
+    uid: number | string
+    cid: number | string
+    sid: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function comment_hug_list(
+  params: {
+    page: number | string
+    cursor: number | string
+    idCursor: number | string
+    pageSize?: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function topic_sublist(
+  params: {
+    limit?: number | string
+    offset?: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function topic_sublist(
+  params: {
+    limit?: number | string
+    offset?: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function artist_new_mv(
+  params: {
+    limit?: number | string
+    startTimestamp?: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function artist_new_song(
+  params: {
+    limit?: number | string
+    startTimestamp?: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function artist_detail(
+  params: {
+    id: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function cloud(params: RequestBaseConfig): Promise<Response>
+
+export function topic_detail(
+  params: {
+    actid?: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function topic_detail_event_hot(
+  params: {
+    actid?: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function login_qr_key(params: RequestBaseConfig): Promise<Response>
+
+export function login_qr_create(
+  params: {
+    key?: number | string
+    qrimg?: boolean | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function login_qr_check(
+  params: {
+    key?: number | string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function playlist_detail_dynamic(
+  params: { id: string | number } & RequestBaseConfig,
+): Promise<Response>
+
+export function user_bindingcellphone(
+  params: {
+    phone: number | string
+    captcha: number | string
+    countrycode?: number | string
+    password?: string
+  } & RequestBaseConfig,
+): Promise<Response>
+
+export function listen_together_status(
+  params: RequestBaseConfig,
 ): Promise<Response>

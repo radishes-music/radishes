@@ -3,10 +3,12 @@
 // 从 packages/unblock 中解析网易云音乐ID的播放链接，突破灰色歌曲限制
 const match = require('@radishes/unblock')
 const crypto = require('crypto')
-const { cookieToJson } = require('../util/index')
 
 const find = (id, source) => {
-  const playSource = source.split(',')
+  const playSource =
+    typeof source === 'string'
+      ? source.split(',')
+      : ['qq', 'baidu', 'kugou', 'kuwo']
   return match(id, playSource)
     .then((url) => {
       return url.url
@@ -18,9 +20,6 @@ const find = (id, source) => {
 }
 
 module.exports = (query, request) => {
-  if (typeof query.cookie === 'string') {
-    query.cookie = cookieToJson(query.cookie)
-  }
   if (!('MUSIC_U' in query.cookie))
     query.cookie._ntes_nuid = crypto.randomBytes(16).toString('hex')
   query.cookie.os = 'pc'
@@ -41,14 +40,23 @@ module.exports = (query, request) => {
     },
   ).then(async (v) => {
     const { body } = v
-    let i = 0
-    while (i < body.data.length) {
-      if (!body.data[i].url || body.data[i].freeTrialInfo) {
-        const url = await find(body.data[i].id, query.source)
-        v.body.data[i].url = url
-      }
-      i++
+    if (Buffer.isBuffer(body)) {
+      v.body = JSON.parse(body.toString())
     }
+
+    try {
+      let i = 0
+      while (i < v.body.data.length) {
+        if (!v.body.data[i].url || v.body.data[i].freeTrialInfo) {
+          const url = await find(v.body.data[i].id, query.source)
+          v.body.data[i].url = url
+        }
+        i++
+      }
+    } catch (e) {
+      console.log(e)
+    }
+
     return v
   })
 }
