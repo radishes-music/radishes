@@ -139,8 +139,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     component: Video,
     meta: {
       name: '视频',
-      browser: true,
-      electron: true
+      browser: false,
+      electron: false
     },
     children: [
       {
