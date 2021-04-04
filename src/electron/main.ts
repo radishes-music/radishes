@@ -67,6 +67,13 @@ function createWindow() {
     createProtocol('app')
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
+    const upgrade = store.get('upgrade')
+    if (upgrade) {
+      autoUpdater.checkForUpdatesAndNotify({
+        title: 'Radishes 通知',
+        body: '发现有新版本，快更新体验吧！'
+      })
+    }
   }
 
   win.once('ready-to-show', () => {
@@ -104,26 +111,6 @@ app.on('activate', () => {
 })
 
 app.on('ready', async () => {
-  const upgrade = store.get('upgrade')
-  if (upgrade) {
-    autoUpdater.checkForUpdatesAndNotify().then(updateCheckResult => {
-      if (updateCheckResult) {
-        const version = updateCheckResult.updateInfo.version
-        console.log(version)
-      }
-    })
-
-    autoUpdater.checkForUpdates()
-  }
-
-  // session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-  //   const location = new URL(details.url)
-  //   if (location.port === '') {
-  //     details.requestHeaders['Origin'] = location.origin
-  //     details.requestHeaders['Referer'] = location.origin
-  //   }
-  //   callback({ requestHeaders: details.requestHeaders })
-  // })
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {

@@ -1,12 +1,14 @@
 import { AuthState } from './state'
 import isObject from 'lodash/isObject'
+import { Song } from '@/interface'
 export const AUTH_MUTATIONS = {
   LOGIN: 'LOGIN',
   LOGOUT: 'LOGOUT',
   SHOW_VIEW: 'SHOW_VIEW',
   HIDE_VIEW: 'HIDE_VIEW',
   UPDATE_USER: 'UPDATE_USER',
-  USER_INFO_LOADING: 'USER_INFO_LOADING'
+  USER_INFO_LOADING: 'USER_INFO_LOADING',
+  USER_PLAY_LIST: 'USER_PLAY_LIST'
 }
 
 export const mutations = {
@@ -44,6 +46,9 @@ export const mutations = {
   },
   [AUTH_MUTATIONS.USER_INFO_LOADING]: (state: AuthState, value: boolean) => {
     state.userInfoLoading = value
+  },
+  [AUTH_MUTATIONS.USER_PLAY_LIST]: (state: AuthState, value: Song[]) => {
+    state.playlist = value
   }
 }
 

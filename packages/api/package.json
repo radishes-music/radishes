@@ -20,6 +20,12 @@
   "engines": {
     "node": ">=12"
   },
+  "pkg": {
+    "scripts": "module/**/*.js",
+    "targets": [ "node12.18.1-linux-x64", "node12.18.1-win-x64", "node12.18.1-macos-x64" ],
+    "outputPath": "dist"
+  },
+  "bin": "app.js",
   "lint-staged": {
     "*.js": [
       "eslint --fix",

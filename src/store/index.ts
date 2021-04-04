@@ -126,6 +126,7 @@ plugins.push(
       'historyRoute',
       'playSource',
       'Auth.user',
+      'Auth.playlist',
       'Header.themeColor',
       'Layout',
       'Footer.musicStack',
