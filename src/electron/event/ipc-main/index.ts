@@ -8,7 +8,8 @@ import {
   DownloadIpcType,
   ReadLocalFile,
   Dialog,
-  AutoDownload
+  AutoDownload,
+  Service
 } from '../action-types'
 import { readFileSync } from 'fs'
 import { autoUpdater } from 'electron-updater'
@@ -133,5 +134,8 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
   })
   ipcMain.on(AutoDownload.UPGRADE_NOW, (e, upgrade) => {
     autoUpdater.quitAndInstall()
+  })
+  ipcMain.on(Service.GET_PORT, e => {
+    e.returnValue = store.get('servicePort')
   })
 }

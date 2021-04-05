@@ -59,7 +59,7 @@ export const useLogin = () => {
 }
 
 export const useUserPlayList = () => {
-  return store.state.Auth.playlist
+  return computed(() => store.state.Auth.playlist)
 }
 
 export const useLogout = () => {

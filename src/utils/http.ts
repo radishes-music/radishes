@@ -1,5 +1,8 @@
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { getNodeEnv, syncToAsync, on } from '@/utils/index'
+import { getNodeEnv, syncToAsync, on, isElectron } from '@/utils/index'
+import { asyncIpc } from '@/electron/event/ipc-browser'
+import { Service } from '@/electron/event/action-types'
+import { message } from 'ant-design-vue'
 import store from '@/store/index'
 
 interface HttpConfig extends AxiosRequestConfig {
@@ -23,11 +26,45 @@ const http: AxiosInstance = Axios.create({
   timeout: 20000
 })
 
-http.defaults.params = {}
+if (!isDevelopment && isElectron()) {
+  asyncIpc().then(v => {
+    const port = v.sendSyncIpcRendererEvent(Service.GET_PORT)
+    if (!port) {
+      message.warning('发生错误，请联系 linkorgs@163.com ')
+    } else {
+      http.defaults.baseURL = 'http://localhost:' + port
+    }
+  })
+}
 
+const watchPort = (): Promise<string> => {
+  return new Promise(resolve => {
+    const cb = () => {
+      if (http.defaults.baseURL?.includes('http://localhost:')) {
+        resolve(http.defaults.baseURL)
+      } else {
+        requestAnimationFrame(cb)
+      }
+    }
+    cb()
+  })
+}
+
+http.defaults.params = {}
 http.interceptors.request.use(
   config => {
     config.params.timestampAxios = Date.now()
+    if (!isDevelopment && isElectron()) {
+      if (config.url) {
+        config.url = config.url.replace(/^\/api/, '')
+      }
+      if (!config.baseURL?.includes('http://localhost:')) {
+        return watchPort().then(url => {
+          config.baseURL = url
+          return config
+        })
+      }
+    }
     return config
   },
   error => {

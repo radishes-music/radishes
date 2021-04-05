@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import classnames from 'classnames'
 import { navRouter } from '@/router/index'
@@ -14,10 +14,10 @@ export const Sidebar = defineComponent({
     const route = useRoute()
     const playlist = useUserPlayList()
     const nav = navRouter.filter(routerGroup => !routerGroup.meta?.nonav)
-    return () => {
-      return (
-        <aside class="sidebar">
-          <SidebarAuth></SidebarAuth>
+    return () => (
+      <aside class="sidebar">
+        <SidebarAuth></SidebarAuth>
+        <div class="sidebar-nav-contanier">
           {nav.map((routerGroup: CustomizeRouteRecordRaw) => (
             <div
               class={classnames('sidebar-nav', {
@@ -35,7 +35,7 @@ export const Sidebar = defineComponent({
             </div>
           ))}
 
-          {playlist?.map((item: any, index: number) => (
+          {playlist.value?.map((item: any, index: number) => (
             <div
               class={classnames('sidebar-nav', {
                 'sidebar-nav-active': route.path.includes(item.id)
@@ -52,8 +52,8 @@ export const Sidebar = defineComponent({
               </RouterLink>
             </div>
           ))}
-        </aside>
-      )
-    }
+        </div>
+      </aside>
+    )
   }
 })

@@ -51,3 +51,7 @@ export const enum AutoDownload {
   CHECK_UPGRADE = 'CHECK_UPGRADE',
   UPGRADE_NOW = 'UPGRADE_NOW'
 }
+
+export const enum Service {
+  GET_PORT = 'GET_PORT'
+}
