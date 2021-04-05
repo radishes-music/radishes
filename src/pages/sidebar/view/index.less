@@ -4,13 +4,18 @@
   padding: 10px;
   border-right: @base-border;
   &-nav {
+    &-contanier {
+      height: calc(100% - 72px);
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
     &-name {
-      display: flex;
-      align-items: center;
+      display: block;
       height: 40px;
       padding: 0 6px;
       margin: 2px 0;
       font-size: 15px;
+      line-height: 40px;
       color: var(--secondary-text);
       &:hover {
         color: var(--secondary-text-hover);

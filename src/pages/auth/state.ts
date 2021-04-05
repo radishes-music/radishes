@@ -1,3 +1,5 @@
+import { Song } from '@/interface'
+
 /* eslint-disable @typescript-eslint/camelcase,vue/require-default-prop,@typescript-eslint/ban-ts-ignore*/
 export interface AuthState {
   user: {
@@ -12,6 +14,7 @@ export interface AuthState {
   } | null
   show: boolean
   userInfoLoading: boolean
+  playlist: Song[]
 }
 
 export interface AuthGetter {
@@ -21,5 +24,6 @@ export interface AuthGetter {
 export const state = {
   user: null,
   show: false,
-  userInfoLoading: false
+  userInfoLoading: false,
+  playlist: []
 }

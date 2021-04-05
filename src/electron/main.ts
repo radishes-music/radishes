@@ -1,15 +1,15 @@
-import { app, protocol, BrowserWindow, screen } from 'electron'
+import { app, protocol, BrowserWindow, screen, globalShortcut } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
-import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import installExtension from 'electron-devtools-installer'
 import { eventInit } from '@/electron/event/index'
 import { downloadIntercept } from './event/ipc-main/download'
+import { runService } from './service/index'
 import store from '@/electron/store/index'
-
 import path from 'path'
 
 // curl -H "Accept: application/json" https://api.github.com/repos/Linkontoask/radishes/contents/package.json
-const isDevelopment = process.env.NODE_ENV !== 'production'
+const isDevelopment = process.env.VUE_APP_NODE_ENV !== 'production'
 
 let win: BrowserWindow | null
 
@@ -27,7 +27,7 @@ protocol.registerSchemesAsPrivileged([
   }
 ])
 
-function createWindow() {
+async function createWindow() {
   const { workAreaSize, scaleFactor } = screen.getPrimaryDisplay()
   const { width, height } = workAreaSize
   const [w, h] = [width * scaleFactor, height * scaleFactor]
@@ -55,18 +55,26 @@ function createWindow() {
         .ELECTRON_NODE_INTEGRATION as unknown) as boolean,
       // https://github.com/electron/electron/issues/9920
       // preload: __dirname + '/electron/preload/index.js'
-      enableRemoteModule: true
+      enableRemoteModule: true,
+      devTools: isDevelopment
     }
   })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
-    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string)
+    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string)
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     createProtocol('app')
     // Load the index.html when not in development
     win.loadURL('app://./index.html')
+    const upgrade = store.get('upgrade')
+    if (upgrade) {
+      autoUpdater.checkForUpdatesAndNotify({
+        title: 'Radishes 通知',
+        body: '发现有新版本，快更新体验吧！'
+      })
+    }
   }
 
   win.once('ready-to-show', () => {
@@ -104,35 +112,31 @@ app.on('activate', () => {
 })
 
 app.on('ready', async () => {
-  const upgrade = store.get('upgrade')
-  if (upgrade) {
-    autoUpdater.checkForUpdatesAndNotify().then(updateCheckResult => {
-      if (updateCheckResult) {
-        const version = updateCheckResult.updateInfo.version
-        console.log(version)
-      }
-    })
-
-    autoUpdater.checkForUpdates()
-  }
-
-  // session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-  //   const location = new URL(details.url)
-  //   if (location.port === '') {
-  //     details.requestHeaders['Origin'] = location.origin
-  //     details.requestHeaders['Referer'] = location.origin
-  //   }
-  //   callback({ requestHeaders: details.requestHeaders })
-  // })
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
-      await installExtension(VUEJS_DEVTOOLS)
+      await installExtension({
+        id: 'ljjemllljcmogpfapbkkighbhhppjdbg', // vue3 devtool id
+        electron: '>=1.2.1'
+      })
     } catch (e) {
       console.error('Vue Devtools failed to install:', e.toString())
     }
   }
-  createWindow()
+  if (!isDevelopment) {
+    globalShortcut.register('Control+Shift+I', () => {
+      return false
+    })
+  }
+
+  runService()
+    .then(service => {
+      store.set('servicePort', service.port)
+      createWindow()
+    })
+    .catch(e => {
+      console.log(e)
+    })
 })
 
 // Exit cleanly on request from parent process in development mode.

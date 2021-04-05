@@ -9,10 +9,10 @@ import {
   getUserInfoApi,
   userDetail,
   userFollows,
-  userListenRecord,
   userPlaylist
 } from '@/api/userinfo'
 import { isFunction } from 'lodash'
+import store from '@/store/index'
 
 export const useAuth = () => {
   const $store = useStore()
@@ -51,7 +51,15 @@ export const useAuthProfile = () => {
 
 export const useLogin = () => {
   const $store = useStore()
-  return (info: any) => $store.commit('Auth/LOGIN', info)
+  return async (info: any) => {
+    $store.commit('Auth/LOGIN', info)
+    const res: any = await userPlaylist(info.account.id, 0, 1e4)
+    $store.commit('Auth/USER_PLAY_LIST', res.playlist)
+  }
+}
+
+export const useUserPlayList = () => {
+  return computed(() => store.state.Auth.playlist)
 }
 
 export const useLogout = () => {
@@ -229,7 +237,6 @@ export const useLoadUserInfo = () => {
   }
 }
 
-// TODO 里面还有删除未过滤的歌单，我也是醉了...
 export const usePlaylist = (
   uid: string,
   needRecord = false,
@@ -263,6 +270,7 @@ export const usePlaylist = (
       })
     }
 
+    $store.commit('Auth/USER_PLAY_LIST', res)
     return res
   }
 }

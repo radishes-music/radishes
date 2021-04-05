@@ -22,7 +22,7 @@ module.exports = {
     progress: CI,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'http://localhost:32768',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
@@ -93,7 +93,14 @@ module.exports = {
         publish: [
           { provider: 'github', owner: 'Linkontoask', repo: 'radishes' }
         ],
-        artifactName: pkg.name + '.Setup.' + '${version}.${ext}'
+        artifactName: pkg.name + '.Setup.' + '${version}.${ext}',
+        extraFiles: [
+          {
+            from: 'public/service',
+            to: 'resources/public/service',
+            filter: ['**/*']
+          }
+        ]
       }
     }
   }

@@ -15,6 +15,15 @@
   border-bottom-width: @width;
 }
 
+.ellipsis(@n: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: @n;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
 .visible(@origin) {
   &-enter,
   &-leave {
