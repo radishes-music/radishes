@@ -16,7 +16,12 @@ import { on, off, maxChildrenScollWidth } from '@/utils/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
 import { useFooterModule, useLayoutModule, useDownloadModule } from '@/modules'
 import { Image } from '@/components/image'
-import { LayoutSize, FooterMutations, DownloadActions } from '@/interface'
+import {
+  LayoutSize,
+  FooterMutations,
+  DownloadActions,
+  Lyrics
+} from '@/interface'
 import { useSubscribe } from '@/shared/subscribe'
 import debounce from 'lodash/debounce'
 import classnams from 'classnames'
@@ -113,6 +118,10 @@ export const PlayLyrics = defineComponent({
       }
     }
 
+    const handleFlyTime = (item: Lyrics) => {
+      useMutations(FooterMutations.CURRENT_TIME, item.time)
+    }
+
     onMounted(() => {
       on(window, 'resize', resize)
     })
@@ -184,6 +193,7 @@ export const PlayLyrics = defineComponent({
                                   'lyrics-active': index.value === i
                                 })}
                                 data-time={item.time}
+                                onClick={() => handleFlyTime(item)}
                               >
                                 {item.lyric}
                               </div>

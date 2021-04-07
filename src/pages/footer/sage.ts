@@ -263,6 +263,7 @@ export const mutations: MutationTree<FooterState> = {
   [FooterMutations.CURRENT_TIME](state, time: number) {
     if (state.audioElement && isNumber(time)) {
       state.audioElement.currentTime = time
+      state.currentTime = time
     }
   },
   [FooterMutations.UPDATE_CURRENT_TIME](state, time: number) {
