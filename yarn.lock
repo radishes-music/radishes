@@ -5819,6 +5819,21 @@
   resolved "https://registry.npm.taobao.org/@vue/web-component-wrapper/download/@vue/web-component-wrapper-1.2.0.tgz#bb0e46f1585a7e289b4ee6067dcc5a6ae62f1dd1"
   integrity sha1-uw5G8VhafiibTuYGfcxaauYvHdE=
 
+"@vueuse/core@^4.8.1":
+  version "4.8.1"
+  resolved "https://registry.npm.taobao.org/@vueuse/core/download/@vueuse/core-4.8.1.tgz#d7a7fb2e72610d1962ecb9244bd93dacb96d921c"
+  integrity sha1-16f7LnJhDRli7LkkS9k9rLltkhw=
+  dependencies:
+    "@vueuse/shared" "4.8.1"
+    vue-demi latest
+
+"@vueuse/shared@4.8.1":
+  version "4.8.1"
+  resolved "https://registry.npm.taobao.org/@vueuse/shared/download/@vueuse/shared-4.8.1.tgz#45fd5f64bf4e8944db42a5b72fa2705cfc74608a"
+  integrity sha1-Rf1fZL9OiUTbQqW3L6JwXPx0YIo=
+  dependencies:
+    vue-demi latest
+
 "@wdio/config@6.6.3":
   version "6.6.3"
   resolved "https://registry.npm.taobao.org/@wdio/config/download/@wdio/config-6.6.3.tgz#035012ea0d1d02eb72bd181e857e893713ad9ade"
@@ -23106,6 +23121,11 @@ vue-cli-plugin-electron-builder@^2.0.0-rc.5:
     webpack-chain "^6.0.0"
     webpack-merge "^4.2.2"
     yargs "^15.3.1"
+
+vue-demi@latest:
+  version "0.7.4"
+  resolved "https://registry.npm.taobao.org/vue-demi/download/vue-demi-0.7.4.tgz#4c6be525788e1f6b3fd5d4f5f9f2148cf6645979"
+  integrity sha1-TGvlJXiOH2s/1dT1+fIUjPZkWXk=
 
 vue-docgen-api@^4.34.2:
   version "4.35.0"
