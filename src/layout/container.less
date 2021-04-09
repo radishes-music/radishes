@@ -12,6 +12,9 @@
   // transform: matrix(1, 0, 0, 1, 0, 0);
   will-change: transform;
   backface-visibility: hidden;
+  &-offline {
+    grid-template-rows: 60px 40px minmax(360px, calc(100% - 120px)) 80px;
+  }
   &-sm {
     position: absolute;
     bottom: 0;

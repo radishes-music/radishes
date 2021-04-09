@@ -15,10 +15,12 @@ import AutoDwonload from '@/components-business/auto/auto'
 import { useDrag } from '@/hooks/index'
 import { useRecommendModule, useLayoutModule } from '@/modules/index'
 import { message } from 'ant-design-vue'
+import { isBrowser, isElectron } from '@/utils'
+import { useOnline } from '@vueuse/core'
+import Offline from '@/components-business/offline/offline'
 import store from '@/store/index'
 import classnames from 'classnames'
 import './container.less'
-import { isBrowser, isElectron } from '@/utils'
 
 const { VUE_APP_PLATFORM } = process.env
 
@@ -31,6 +33,7 @@ export const Container = defineComponent({
     const container = ref()
     const target = ref()
 
+    const online = useOnline()
     const { useState } = useLayoutModule()
     const RecommendStore = useRecommendModule()
 
@@ -91,6 +94,7 @@ export const Container = defineComponent({
         class={classnames(
           [
             'container',
+            'container-' + (online.value ? 'online' : 'offline'),
             'container-' + screenSize.value,
             'container-' + VUE_APP_PLATFORM,
             'container-' + VUE_APP_PLATFORM + '-' + screenSize.value
@@ -101,6 +105,7 @@ export const Container = defineComponent({
         )}
       >
         <Header ref={target} />
+        <Offline />
         <Schedule percentage={store.state.percentage}>
           <Main />
         </Schedule>

@@ -115,7 +115,7 @@ export const getters: GetterTree<FooterState, RootState> = {
     return lyrices
   },
   musicDes(state) {
-    if (state.music) {
+    if (state.music && navigator.onLine) {
       const author = state.music.ar
       if (author.length) {
         const title = state.music.name
@@ -154,8 +154,13 @@ export const actions: ActionTree<FooterState, RootState> = {
       url = payload.url
     }
     state.musicUrl = url
-    await dispatch(FooterActions.SET_MUSIC_DEFAILT, id)
-    await dispatch(FooterActions.SET_MUSIC_LYRICS, id)
+    if (navigator.onLine) {
+      await dispatch(FooterActions.SET_MUSIC_DEFAILT, id)
+      await dispatch(FooterActions.SET_MUSIC_LYRICS, id)
+    } else {
+      // Temporarily save to pass if branch detection
+      state.music = payload as SongsDetail
+    }
     commit(FooterMutations.SET_MUSIC_URL, url)
   },
   async [FooterActions.SET_MUSIC_DEFAILT]({ state }, id: number | number[]) {
