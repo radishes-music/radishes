@@ -4,7 +4,7 @@ import { MusicControl } from '../components/music-controller'
 import { VolumeAndHistory } from '../components/volume-history/index'
 import { useFooterModule, useLayoutModule, useMainModule } from '@/modules'
 import { AsyncComponent } from '../components/lyrics-embed/index'
-import { BrowserLyricsFlash } from '../components/lyrics-float/browser-lyrics'
+import { BrowserLyricsFlash } from '../components/lyrics-desktop/browser-lyrics'
 import Effect from '../components/effect/index'
 import {
   Artists,

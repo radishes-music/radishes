@@ -18,12 +18,7 @@ export const App = app
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   {
-    scheme: 'app',
-    privileges: {
-      secure: true,
-      standard: true,
-      corsEnabled: true
-    }
+    scheme: 'app'
   }
 ])
 
@@ -53,6 +48,10 @@ async function createWindow() {
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: (process.env
         .ELECTRON_NODE_INTEGRATION as unknown) as boolean,
+      // https://github.com/electron/electron/issues/23506
+      contextIsolation: false,
+      // This may bring some security issues, but our resources come from the Internet, and the CORS policy is forbidden to play the corresponding resources
+      webSecurity: false,
       // https://github.com/electron/electron/issues/9920
       // preload: __dirname + '/electron/preload/index.js'
       enableRemoteModule: true,

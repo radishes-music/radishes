@@ -5,8 +5,8 @@ import { shade } from '@/theme/color'
 import { Popover } from 'ant-design-vue'
 import { setThemeColor } from '@/helpers'
 import { useThemeColor, useRouter } from '@/hooks'
-import './setting.less'
 import { isElectron } from '@/utils'
+import './setting.less'
 
 const setColor = (baseColor: string) => {
   const color = {

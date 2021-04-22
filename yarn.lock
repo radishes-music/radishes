@@ -4945,15 +4945,15 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.10.tgz?cache=0&sync_timestamp=1606763117372&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.10.tgz#5958a82e41863cfc71f2307b3748e3491ba03785"
   integrity sha1-WVioLkGGPPxx8jB7N0jjSRugN4U=
 
-"@types/node@^12.0.12":
-  version "12.19.3"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.19.3.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-12.19.3.tgz#a6e252973214079155f749e8bef99cc80af182fa"
-  integrity sha1-puJSlzIUB5FV90novvmcyArxgvo=
-
 "@types/node@^14.0.10":
   version "14.14.34"
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.34.tgz?cache=0&sync_timestamp=1615550662720&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.34.tgz#07935194fc049069a1c56c0c274265abeddf88da"
   integrity sha1-B5NRlPwEkGmhxWwMJ0Jlq+3fiNo=
+
+"@types/node@^14.6.2":
+  version "14.14.41"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.41.tgz?cache=0&sync_timestamp=1618543947232&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.41.tgz#d0b939d94c1d7bd53d04824af45f1139b8c45615"
+  integrity sha1-0Lk52Uwde9U9BIJK9F8RObjEVhU=
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -7764,20 +7764,9 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001154:
-  version "1.0.30001155"
-  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001155.tgz?cache=0&sync_timestamp=1604552740975&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001155.tgz#087f063d7de063fd26516b66689a69075c75431b"
-  integrity sha1-CH8GPX3gY/0mUWtmaJppB1x1Qxs=
-
-caniuse-lite@^1.0.30001125, caniuse-lite@^1.0.30001181:
-  version "1.0.30001200"
-  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001200.tgz?cache=0&sync_timestamp=1615764895581&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001200.tgz#25435af6ba907c2a9c86d21ce84950d4824e6620"
-  integrity sha1-JUNa9rqQfCqchtIc6ElQ1IJOZiA=
-
-caniuse-lite@^1.0.30001164:
-  version "1.0.30001164"
-  resolved "https://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30001164.tgz?cache=0&sync_timestamp=1606806223481&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcaniuse-lite%2Fdownload%2Fcaniuse-lite-1.0.30001164.tgz#5bbfd64ca605d43132f13cc7fdabb17c3036bfdc"
-  integrity sha1-W7/WTKYF1DEy8TzH/auxfDA2v9w=
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001125, caniuse-lite@^1.0.30001154, caniuse-lite@^1.0.30001164, caniuse-lite@^1.0.30001181:
+  version "1.0.30001214"
+  resolved "https://registry.nlark.com/caniuse-lite/download/caniuse-lite-1.0.30001214.tgz"
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -10226,13 +10215,13 @@ electron-updater@^4.3.5:
     lodash.isequal "^4.5.0"
     semver "^7.3.2"
 
-electron@^11.1.1:
-  version "11.1.1"
-  resolved "https://registry.npm.taobao.org/electron/download/electron-11.1.1.tgz#188f036f8282798398dca9513e9bb3b10213e3aa"
-  integrity sha1-GI8Db4KCeYOY3KlRPpuzsQIT46o=
+electron@^12.0.4:
+  version "12.0.5"
+  resolved "https://registry.nlark.com/electron/download/electron-12.0.5.tgz?cache=0&sync_timestamp=1618971661133&other_urls=https%3A%2F%2Fregistry.nlark.com%2Felectron%2Fdownload%2Felectron-12.0.5.tgz#005cf4375d2ee4563f5e75dc4da4ef871846a8be"
+  integrity sha1-AFz0N10u5FY/XnXcTaTvhxhGqL4=
   dependencies:
     "@electron/get" "^1.0.1"
-    "@types/node" "^12.0.12"
+    "@types/node" "^14.6.2"
     extract-zip "^1.0.3"
 
 elegant-spinner@^1.0.1:

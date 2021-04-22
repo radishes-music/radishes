@@ -87,14 +87,7 @@ export default defineComponent({
     return () => (
       <ErrorBoundary ref="ErrorBoundary">
         <div class="lyrics" onClick={() => console.log('click')}>
-          <LyricsFlash
-            screenSize={postData.screenSize}
-            visibleFlash={postData.visibleFlash}
-            lyrics={postData.lyrics}
-            index={postData.index}
-            playing={postData.playing}
-            flashMagic={postData.flashMagic}
-          ></LyricsFlash>
+          <LyricsFlash {...postData}></LyricsFlash>
         </div>
       </ErrorBoundary>
     )

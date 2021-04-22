@@ -1,4 +1,4 @@
-import { PostData } from './components/lyrics-float/electron-lyrics'
+import { PostData } from './components/lyrics-desktop/electron-lyrics'
 import { Artists, SongsDetail } from '@/interface/index'
 import { AudioEffect } from '@/shared/audio'
 
