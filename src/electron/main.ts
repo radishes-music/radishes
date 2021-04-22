@@ -7,6 +7,7 @@ import { downloadIntercept } from './event/ipc-main/download'
 import { runService } from './service/index'
 import store from '@/electron/store/index'
 import path from 'path'
+import log from './utils/log'
 
 // curl -H "Accept: application/json" https://api.github.com/repos/Linkontoask/radishes/contents/package.json
 const isDevelopment = process.env.VUE_APP_NODE_ENV !== 'production'
@@ -18,7 +19,8 @@ export const App = app
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   {
-    scheme: 'app'
+    scheme: 'app',
+    privileges: { secure: true, standard: true }
   }
 ])
 
@@ -66,17 +68,26 @@ async function createWindow() {
   } else {
     createProtocol('app')
     // Load the index.html when not in development
-    win.loadURL('app://./index.html')
+    win
+      .loadURL('app://./index.html')
+      .then(() => {
+        log.info('[main]:', 'Load index.html')
+      })
+      .catch(e => {
+        log.error('[main error]:', 'Load not index.html', e.toString())
+      })
     const upgrade = store.get('upgrade')
     if (upgrade) {
       autoUpdater.checkForUpdatesAndNotify({
         title: 'Radishes 通知',
         body: '发现有新版本，快更新体验吧！'
       })
+      log.info('[main]:', 'Check update')
     }
   }
 
   win.once('ready-to-show', () => {
+    log.info('[main]:', 'Event ready-to-show')
     win && win.show()
   })
 
@@ -95,6 +106,7 @@ async function createWindow() {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
+  log.info('[main]:', 'Event window-all-closed')
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
@@ -103,6 +115,7 @@ app.on('window-all-closed', () => {
 })
 
 app.on('activate', () => {
+  log.info('[main]:', 'Event activate')
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (win === null) {
@@ -111,6 +124,7 @@ app.on('activate', () => {
 })
 
 app.on('ready', async () => {
+  log.info('[main]:', 'Event ready')
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
@@ -118,12 +132,14 @@ app.on('ready', async () => {
         id: 'ljjemllljcmogpfapbkkighbhhppjdbg', // vue3 devtool id
         electron: '>=1.2.1'
       })
+      log.info('[main]:', 'Install extension')
     } catch (e) {
-      console.error('Vue Devtools failed to install:', e.toString())
+      log.info('[main error]:', 'Vue Devtools failed to install:', e.toString())
     }
   }
   if (!isDevelopment) {
     globalShortcut.register('Control+Shift+I', () => {
+      log.info('[main]:', 'Disabled Control+Shift+I')
       return false
     })
   }
@@ -131,10 +147,11 @@ app.on('ready', async () => {
   runService()
     .then(service => {
       store.set('servicePort', service.port)
+      log.info('[main]:', 'Service is running', service.port)
       createWindow()
     })
     .catch(e => {
-      console.log(e)
+      log.error('[main]:', 'Service is not running', e.toString())
     })
 })
 

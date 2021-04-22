@@ -1,15 +1,9 @@
-import { app } from 'electron'
 import portscanner from 'portscanner'
 import childProcess from 'child_process'
 import path from 'path'
-import log from 'electron-log'
+import log from '../utils/log'
 
-const execPath =
-  path.dirname(process.execPath) ||
-  (process.env.PORTABLE_EXECUTABLE_DIR as string)
 const PORT = [1 << 15, (1 << 16) - 1]
-
-log.transports.file.resolvePath = () => path.join(execPath, 'logs/main.log')
 
 export const findPort = () => {
   const [min, max] = PORT

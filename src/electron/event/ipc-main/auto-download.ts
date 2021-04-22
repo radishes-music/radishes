@@ -11,7 +11,7 @@ import log from 'electron-log'
 export interface AutoUpdateContent {
   [AutoDownload.VERSION]: UpdateInfo & { url: string }
   [AutoDownload.DOWNLOAD_SUCCESS]: UpdateDownloadedEvent & { url: string }
-  [AutoDownload.NOT_VERSION]: unknown
+  [AutoDownload.NOT_VERSION]: UpdateInfo
   [AutoDownload.ERROR]: string
   [AutoDownload.PROGRESS]: number
   [AutoDownload.MESSAGE]: unknown
@@ -22,13 +22,13 @@ export default (win: BrowserWindow) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   autoUpdater.logger.transports.file.level = 'info'
-  log.info('App starting...')
+  log.info('[main]:', 'App starting...')
 
   function sendStatusToWindow<T extends keyof AutoUpdateContent>(
     type: T,
     content: AutoUpdateContent[T]
   ) {
-    log.info(type, content)
+    log.info('[updater]:', type, content)
     win.webContents.send(AutoDownload.MESSAGE, type, content)
   }
 
@@ -40,7 +40,7 @@ export default (win: BrowserWindow) => {
     sendStatusToWindow(AutoDownload.VERSION, info)
   })
   autoUpdater.on('update-not-available', info => {
-    log.info('update-not-available', info)
+    log.info('[updater]:', 'update-not-available', info.version)
     sendStatusToWindow(AutoDownload.NOT_VERSION, info)
   })
   autoUpdater.on('error', err => {
