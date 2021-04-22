@@ -12,6 +12,9 @@
   height: 100%;
   padding: 0 40px;
   background-color: #fafafa;
+  .v-easy-scroll-wrap--view {
+    height: 100%;
+  }
   &-center {
     display: flex;
     align-items: center;
@@ -77,7 +80,19 @@
       width: 100%;
       overflow: hidden;
       &-contanier {
-        padding: calc(50% + 50px) 10px;
+        height: 100%;
+        padding: 0 10px;
+        .placeholder {
+          display: block;
+          height: 50%;
+          content: '';
+        }
+        &::before {
+          .placeholder();
+        }
+        &::after {
+          .placeholder();
+        }
         div {
           height: 50px;
           overflow: hidden;
