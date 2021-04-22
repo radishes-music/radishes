@@ -69,6 +69,7 @@ export const useLogout = () => {
     try {
       await http.get('/api/logout')
       $store.commit('Auth/LOGOUT')
+      $store.commit('Auth/USER_PLAY_LIST', [])
       $router.replace('/')
     } catch (e) {
       Toast(e.message)
@@ -270,7 +271,6 @@ export const usePlaylist = (
       })
     }
 
-    $store.commit('Auth/USER_PLAY_LIST', res)
     return res
   }
 }
