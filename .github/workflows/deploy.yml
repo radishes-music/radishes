@@ -178,7 +178,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build electron
-        run: yarn build:electron
+        run: yarn build:electron:linux
 
       - name: Releases to github
         run: |
