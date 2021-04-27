@@ -91,13 +91,17 @@ context('News Music Basic', () => {
     // cy.visit('/music/artists')
     cy.visit('/#/music/artists')
 
+    cy.intercept(/\/api\/artist\/album/).as('getAlbum')
     cy.get('.artists-content li:first-child').click()
     // cy.location().should(loc => {
     //   expect(loc.pathname).to.match(/artist\/\d+\/album/)
     // })
-    cy.hash().should('match', /#\/artist\/\d+\/album/)
+    cy.wait('@getAlbum').then(interception => {
+      const artist = interception.response.body.artist
 
-    cy.contains('.secondary-bar-link-active', '专辑')
+      expect(artist).to.be.ok
+      cy.contains('.secondary-bar-link-active', '专辑')
+    })
   })
 
   it('Double click to play the song', () => {
@@ -116,23 +120,20 @@ context('News Music Basic', () => {
 
     cy.wait(['@getUrl', '@getDetail', '@getLyric'], {
       requestTimeout: 20 * 1000
-    }).then(() => {
+    }).then(([interception]) => {
       // Possibly due to insufficient performance in the ci automatic test
-      cy.wait(1000).then(() => {
-        cy.get('audio')
-          .invoke('attr', 'src')
-          .then(src => {
-            expect(src).to.have.string('.mp3')
-          })
+      // pause music
+      const data = interception.response.body.data
+      if (Array.isArray(data)) {
+        expect(data[0].url).to.have.string('.mp3')
+      }
 
-        // pause music
-        const playPauesBtn = cy.get('.music-command-group button:nth-child(3)')
-        playPauesBtn.click()
-        playPauesBtn
-          .find('use')
-          .invoke('attr', 'href')
-          .then(icon => expect(icon).to.have.string('#icon-play'))
-      })
+      const playPauesBtn = cy.get('.music-command-group button:nth-child(3)')
+      playPauesBtn.click()
+      playPauesBtn
+        .find('use')
+        .invoke('attr', 'href')
+        .then(icon => expect(icon).to.have.string('#icon-play'))
     })
   })
 })
