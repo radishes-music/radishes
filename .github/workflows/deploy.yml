@@ -83,6 +83,8 @@ jobs:
 
       - name: Cypress tests
         uses: cypress-io/github-action@v2
+        env:
+          CYPRESS_ACTION: true
         with:
           install: false
           start: yarn dev:api
