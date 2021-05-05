@@ -1,5 +1,5 @@
 import { useStore } from 'vuex'
-import { on, off } from '@/utils/index'
+import { on, off, isPromise } from '@/utils/index'
 import { useRoute } from 'vue-router'
 import { watch, toRaw } from 'vue'
 import equal from 'lodash/isEqual'
@@ -21,25 +21,54 @@ interface DragOptions {
   vertical?: boolean
 }
 
-export const useInternal = (ms: number, cb: () => void): InternalHook => {
-  let t: NodeJS.Timeout
-  let running = false
-  const startInternal = () => {
-    if (running) {
-      return console.error(
-        'The timer has started, use stopInternal to stop the timer'
-      )
+export const sleep = (ms: number) => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(undefined)
+    }, ms)
+  })
+}
+
+export const animation = (cb: () => unknown, ms: number) => {
+  let id: number,
+    isStop = false
+  const invoke = async () => {
+    await sleep(ms)
+    if (!isStop) {
+      const r = cb()
+      if (r instanceof Promise) {
+        r.then(() => {
+          cancelAnimationFrame(id)
+          id = requestAnimationFrame(invoke)
+        })
+      } else {
+        cancelAnimationFrame(id)
+        id = requestAnimationFrame(invoke)
+      }
     }
-    running = true
-    t = setInterval(cb, ms)
   }
-  const stopInternal = () => {
-    running = false
-    t && clearInterval(t)
+
+  const stop = () => {
+    isStop = true
+    cancelAnimationFrame(id)
   }
+
+  const start = () => {
+    isStop = false
+    invoke()
+  }
+
   return {
-    startInternal,
-    stopInternal
+    stop,
+    start
+  }
+}
+
+export const useInternal = (ms: number, cb: () => unknown): InternalHook => {
+  const { start, stop } = animation(cb, ms)
+  return {
+    startInternal: start,
+    stopInternal: stop
   }
 }
 
