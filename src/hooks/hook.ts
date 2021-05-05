@@ -2,6 +2,7 @@ import { useStore } from 'vuex'
 import { on, off, isPromise } from '@/utils/index'
 import { useRoute } from 'vue-router'
 import { watch, toRaw } from 'vue'
+import { useIntervalFn } from '@vueuse/core'
 import equal from 'lodash/isEqual'
 import cloneDeep from 'lodash/cloneDeep'
 import store from '@/store/index'
@@ -21,51 +22,8 @@ interface DragOptions {
   vertical?: boolean
 }
 
-export const sleep = (ms: number) => {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(undefined)
-    }, ms)
-  })
-}
-
-export const animation = (cb: () => unknown, ms: number) => {
-  let id: number,
-    isStop = false
-  const invoke = async () => {
-    await sleep(ms)
-    if (!isStop) {
-      const r = cb()
-      if (r instanceof Promise) {
-        r.then(() => {
-          cancelAnimationFrame(id)
-          id = requestAnimationFrame(invoke)
-        })
-      } else {
-        cancelAnimationFrame(id)
-        id = requestAnimationFrame(invoke)
-      }
-    }
-  }
-
-  const stop = () => {
-    isStop = true
-    cancelAnimationFrame(id)
-  }
-
-  const start = () => {
-    isStop = false
-    invoke()
-  }
-
-  return {
-    stop,
-    start
-  }
-}
-
 export const useInternal = (ms: number, cb: () => unknown): InternalHook => {
-  const { start, stop } = animation(cb, ms)
+  const { start, stop } = useIntervalFn(cb, ms)
   return {
     startInternal: start,
     stopInternal: stop
