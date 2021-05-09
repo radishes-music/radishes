@@ -79,13 +79,29 @@ export const getters: GetterTree<FooterState, RootState> = {
     }
   },
   musicLyrics(state) {
+    type RegResult = RegExpMatchArray | null | string | number
+
     const allDt = state.duration
-    const tp1 = (state.musicLyricsOrigin || '').trim().split('\n')
-    const len = tp1.length
-    const lyrices = tp1
+    const lyricsArr = (state.musicLyricsOrigin || '')
+      .trim()
+      .split('\n')
+      .map(item => {
+        const time = item.match(/(\[.{8,9}\])/g)
+        let lyric: RegResult = item.match(/\](?!\[).+/)
+        if (lyric) {
+          lyric = lyric[0].slice(1).trim()
+        }
+        if (time && time.length > 1) {
+          return time.map(t => `${t}${lyric}`)
+        }
+        return item
+      })
+      .flat(1e1)
+
+    const len = lyricsArr.length
+    const lyrices = lyricsArr
       .map((item, index) => {
-        type RegResult = RegExpMatchArray | null | string | number
-        let nextTime: RegResult = tp1[index + 1]?.match(/\[.+\]/)
+        let nextTime: RegResult = lyricsArr[index + 1]?.match(/\[.+\]/)
         let time: RegResult = item.match(/\[.+\]/)
         let lyric: RegResult = item.match(/\].+/)
         if (nextTime) {
