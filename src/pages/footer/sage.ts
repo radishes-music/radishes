@@ -144,6 +144,7 @@ export const actions: ActionTree<FooterState, RootState> = {
     { state, dispatch, commit },
     payload: number | { url: string; id: number }
   ) {
+    commit(FooterMutations.SET_MUSIC_URL_LOADING, true)
     let id, url
     if (typeof payload === 'number') {
       const data = await getMusicUrl(payload)
@@ -162,6 +163,7 @@ export const actions: ActionTree<FooterState, RootState> = {
       state.music = payload as SongsDetail
     }
     commit(FooterMutations.SET_MUSIC_URL, url)
+    commit(FooterMutations.SET_MUSIC_URL_LOADING, false)
   },
   async [FooterActions.SET_MUSIC_DEFAILT]({ state }, id: number | number[]) {
     const data = await getSongDetail(id)
@@ -200,6 +202,9 @@ export const actions: ActionTree<FooterState, RootState> = {
 }
 
 export const mutations: MutationTree<FooterState> = {
+  [FooterMutations.SET_MUSIC_URL_LOADING](state, loading: boolean) {
+    state.musicUrlLoading = loading
+  },
   [FooterMutations.LYRICS_EMBED_MIN_WIDTH](state, width: number) {
     state.lyriceEmbedMinWidth = width
   },

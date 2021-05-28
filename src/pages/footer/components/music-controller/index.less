@@ -39,9 +39,18 @@
   font-size: 12px;
 }
 
+@keyframes loading {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .theme-btn-color {
   color: var(--base-color);
   svg {
     fill: #5a5a5a !important;
+  }
+  &--loading {
+    animation: loading 2s infinite linear;
   }
 }

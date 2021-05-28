@@ -1,4 +1,12 @@
-import { defineComponent, ref, toRefs, onMounted, computed, watch } from 'vue'
+import {
+  defineComponent,
+  ref,
+  toRefs,
+  onMounted,
+  computed,
+  watch,
+  watchEffect
+} from 'vue'
 import { toFixed, formatTime, sleep, isElectron } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
@@ -13,6 +21,7 @@ import {
 import { asyncIpc, asyncIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyricsAction } from '@/electron/event/action-types'
 import './index.less'
+import classNames from 'classnames'
 
 const prefix = 'music'
 
@@ -36,7 +45,8 @@ export const MusicControl = defineComponent({
       currentTime,
       visibleFlash,
       duration,
-      effect
+      effect,
+      musicUrlLoading
     } = toRefs(useState())
 
     const musicDes = computed(() => useGetter('musicDes'))
@@ -48,6 +58,16 @@ export const MusicControl = defineComponent({
         })
       })
     }
+
+    let cacheIcon = playingIcon.value
+    watchEffect(() => {
+      if (musicUrlLoading.value) {
+        cacheIcon = playingIcon.value
+        playingIcon.value = 'loading'
+      } else {
+        playingIcon.value = cacheIcon
+      }
+    })
 
     const durationTime = computed(() => {
       return formatTime(duration.value || 0, 's')
@@ -71,6 +91,8 @@ export const MusicControl = defineComponent({
     }
 
     const handlePlayPaues = async () => {
+      // loading disabled play/paues
+      if (musicUrlLoading.value) return
       // It can be called after being triggered by the user
       if (!effect.value) {
         useMutations(FooterMutations.INIT_EFFECT)
@@ -262,7 +284,9 @@ export const MusicControl = defineComponent({
             <ve-button
               type="text"
               onClick={handlePlayPaues}
-              class="theme-btn-color"
+              class={classNames('theme-btn-color', {
+                'theme-btn-color--loading': musicUrlLoading.value
+              })}
             >
               <icon
                 icon={playingIcon.value}

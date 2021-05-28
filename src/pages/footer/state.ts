@@ -8,6 +8,8 @@ export const state = {
   effect: null,
   playMode: PlayMode.TURN,
   musicUrl: '',
+  musicUrlLoading: false,
+  musicSourceLoading: true,
   musicLyricsOrigin: '',
   musciHistory: [],
   musicStack: [],

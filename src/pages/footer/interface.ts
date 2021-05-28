@@ -29,6 +29,8 @@ export interface FooterState {
   playMode: PlayMode
   music?: SongsDetail
   musicUrl: string
+  musicUrlLoading: boolean
+  musicSourceLoading: boolean
   musicLyricsOrigin: string
   musciHistory: SongsDetail[]
   musicStack: SongsDetail[]
@@ -65,6 +67,7 @@ export const enum FooterActions {
 
 export const enum FooterMutations {
   SET_MUSIC_URL = 'SET_MUSIC_SINGLE_URL',
+  SET_MUSIC_URL_LOADING = 'SET_MUSIC_URL_LOADING',
   SET_LOCAL_MUSIC_URL = 'SET_LOCAL_MUSIC_URL',
   CLEAR_LOCAL_MUSIC_URL = 'CLEAR_LOCAL_MUSIC_URL',
   PLAY_MUSIC = 'PLAY_MUSIC',

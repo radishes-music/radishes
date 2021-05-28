@@ -23,7 +23,7 @@ const baseURL = isDevelopment
 const http: AxiosInstance = Axios.create({
   withCredentials: true,
   baseURL: baseURL,
-  timeout: 20000
+  timeout: 30000
 })
 
 if (!isDevelopment && isElectron()) {
