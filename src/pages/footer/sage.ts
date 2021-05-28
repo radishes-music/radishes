@@ -113,22 +113,29 @@ export const getters: GetterTree<FooterState, RootState> = {
         if (lyric) {
           lyric = lyric[0].slice(1).trim()
         }
-        let duration = 0
-        if (nextTime && time) {
-          duration = nextTime - time
-        }
-        if (index === len - 1 && time) {
-          duration = allDt - time
-        }
+
         return {
           time: time || 0,
-          lyric: lyric,
-          duration: toFixed(duration, 3)
+          lyric: lyric
         }
       })
       .filter(item => item.time)
       .sort((a, b) => a.time - b.time)
-    return lyrices
+    return lyrices.map((item, index) => {
+      const nextTime = lyrices[index + 1]?.time,
+        time = item.time
+      let duration = 0
+      if (nextTime && time) {
+        duration = nextTime - time
+      }
+      if (index === len - 1 && time) {
+        duration = allDt - time
+      }
+      return {
+        ...item,
+        duration: toFixed(duration, 3)
+      }
+    })
   },
   musicDes(state) {
     if (state.music && navigator.onLine) {
