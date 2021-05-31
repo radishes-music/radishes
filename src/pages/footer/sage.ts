@@ -1,4 +1,4 @@
-import { toRaw } from 'vue'
+import { toRaw, h } from 'vue'
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import { isNumber, timeTos, toFixed, renderRandom } from '@/utils/index'
 import { getSongDetail, getLyric } from '@/api/index'
@@ -14,6 +14,8 @@ import { getMusicUrl, playMusic } from '@/shared/music-shared'
 import { RootState } from '@/store/index'
 import { useFooterModule } from '@/modules'
 import { AudioEffect } from '@/shared/audio'
+import { message } from 'ant-design-vue'
+import NoMusic from './components/no-music'
 import cloneDeep from 'lodash/cloneDeep'
 import remove from 'lodash/remove'
 
@@ -169,23 +171,33 @@ export const actions: ActionTree<FooterState, RootState> = {
   ) {
     commit(FooterMutations.SET_MUSIC_URL_LOADING, true)
     let id, url
-    if (typeof payload === 'number') {
-      const data = await getMusicUrl(payload)
-      id = payload
-      url = data[0].url
-    } else {
-      id = payload.id
-      url = payload.url
+    try {
+      if (typeof payload === 'number') {
+        const data = await getMusicUrl(payload)
+        id = payload
+        url = data[0].url
+      } else {
+        id = payload.id
+        url = payload.url
+      }
+    } catch (e) {
+      url = ''
     }
+
     state.musicUrl = url
-    if (navigator.onLine) {
-      await dispatch(FooterActions.SET_MUSIC_DEFAILT, id)
-      await dispatch(FooterActions.SET_MUSIC_LYRICS, id)
+    if (url) {
+      if (navigator.onLine) {
+        await dispatch(FooterActions.SET_MUSIC_DEFAILT, id)
+        await dispatch(FooterActions.SET_MUSIC_LYRICS, id)
+      } else {
+        // Temporarily save to pass if branch detection
+        state.music = payload as SongsDetail
+      }
+      commit(FooterMutations.SET_MUSIC_URL, url)
     } else {
-      // Temporarily save to pass if branch detection
-      state.music = payload as SongsDetail
+      message.warn(h(NoMusic))
     }
-    commit(FooterMutations.SET_MUSIC_URL, url)
+
     commit(FooterMutations.SET_MUSIC_URL_LOADING, false)
   },
   async [FooterActions.SET_MUSIC_DEFAILT]({ state }, id: number | number[]) {

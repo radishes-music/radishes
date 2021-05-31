@@ -38,12 +38,18 @@ export const Image = defineComponent({
         2}`
     })
 
+    const tn = (s: string) => {
+      return Math.floor(Number(s.replace(/px/, '')))
+    }
+
     const resize = debounce(() => {
       if (contanier.value) {
-        const w = getDomStyle(contanier.value, 'width') as string
-        const h = getDomStyle(contanier.value, 'height') as string
-        contanierStyle.w = Math.floor(Number(w.replace(/px/, '')))
-        contanierStyle.h = Math.floor(Number(h.replace(/px/, '')))
+        const w = tn(getDomStyle(contanier.value, 'width') as string)
+        const h = tn(getDomStyle(contanier.value, 'height') as string)
+        if (w > contanierStyle.w && h > contanierStyle.h) {
+          contanierStyle.w = w
+          contanierStyle.h = h
+        }
       }
     }, 1000)
 
