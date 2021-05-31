@@ -23,6 +23,7 @@ import {
   Lyrics
 } from '@/interface'
 import { useSubscribe } from '@/shared/subscribe'
+import { debouncedWatch } from '@vueuse/core'
 import debounce from 'lodash/debounce'
 import classnams from 'classnames'
 import './index.less'
@@ -60,16 +61,22 @@ export const PlayLyrics = defineComponent({
       return state.music?.al.picUrl
     })
 
-    const index = computed(() => {
-      const len = lyrics.value.length
-      return (
-        lyrics.value.findIndex((value, index) => {
-          return state.currentTime >= value.time && len - 1 === index
-            ? true
-            : state.currentTime < lyrics.value[index + 1]?.time
-        }) || 0
-      )
-    })
+    const index = ref(0)
+    debouncedWatch(
+      () => state.currentTime,
+      () => {
+        const len = lyrics.value.length
+        index.value =
+          lyrics.value.findIndex((value, index) => {
+            return state.currentTime >= value.time && len - 1 === index
+              ? true
+              : state.currentTime < lyrics.value[index + 1]?.time
+          }) || 0
+      },
+      {
+        debounce: 200
+      }
+    )
 
     const updateOffset = () => {
       nextTick(() => {

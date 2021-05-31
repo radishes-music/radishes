@@ -71,10 +71,10 @@ export const ProgressBar = defineComponent({
     const visibleTip = ref(false)
 
     const setIndicatorX = (x: number, w: number) => {
-      const width = toFixed((x / w) * 100, 6)
-      if (width) {
-        const format = width > 100 ? 100 : width < 0 ? 0 : width
-        if (onCurrent?.value) {
+      if (onCurrent?.value) {
+        const width = toFixed((x / w) * 100, 6)
+        if (width) {
+          const format = width > 100 ? 100 : width < 0 ? 0 : width
           onCurrent.value(format)
         }
       }

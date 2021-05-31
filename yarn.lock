@@ -5819,20 +5819,20 @@
   resolved "https://registry.npm.taobao.org/@vue/web-component-wrapper/download/@vue/web-component-wrapper-1.2.0.tgz#bb0e46f1585a7e289b4ee6067dcc5a6ae62f1dd1"
   integrity sha1-uw5G8VhafiibTuYGfcxaauYvHdE=
 
-"@vueuse/core@^4.8.1":
-  version "4.8.1"
-  resolved "https://registry.npm.taobao.org/@vueuse/core/download/@vueuse/core-4.8.1.tgz#d7a7fb2e72610d1962ecb9244bd93dacb96d921c"
-  integrity sha1-16f7LnJhDRli7LkkS9k9rLltkhw=
+"@vueuse/core@^4.9.1":
+  version "4.9.1"
+  resolved "https://registry.nlark.com/@vueuse/core/download/@vueuse/core-4.9.1.tgz#e5805222a26107b16518cdb8459569b5b7d58c90"
+  integrity sha1-5YBSIqJhB7FlGM24RZVptbfVjJA=
   dependencies:
-    "@vueuse/shared" "4.8.1"
-    vue-demi latest
+    "@vueuse/shared" "4.9.1"
+    vue-demi "*"
 
-"@vueuse/shared@4.8.1":
-  version "4.8.1"
-  resolved "https://registry.npm.taobao.org/@vueuse/shared/download/@vueuse/shared-4.8.1.tgz#45fd5f64bf4e8944db42a5b72fa2705cfc74608a"
-  integrity sha1-Rf1fZL9OiUTbQqW3L6JwXPx0YIo=
+"@vueuse/shared@4.9.1":
+  version "4.9.1"
+  resolved "https://registry.nlark.com/@vueuse/shared/download/@vueuse/shared-4.9.1.tgz#ff3fa7c35f77a1f30e7c568de9113fc42bfb4019"
+  integrity sha1-/z+nw193ofMOfFaN6RE/xCv7QBk=
   dependencies:
-    vue-demi latest
+    vue-demi "*"
 
 "@wdio/config@6.6.3":
   version "6.6.3"
@@ -23111,10 +23111,10 @@ vue-cli-plugin-electron-builder@^2.0.0-rc.5:
     webpack-merge "^4.2.2"
     yargs "^15.3.1"
 
-vue-demi@latest:
-  version "0.7.4"
-  resolved "https://registry.npm.taobao.org/vue-demi/download/vue-demi-0.7.4.tgz#4c6be525788e1f6b3fd5d4f5f9f2148cf6645979"
-  integrity sha1-TGvlJXiOH2s/1dT1+fIUjPZkWXk=
+vue-demi@*:
+  version "0.7.5"
+  resolved "https://registry.npm.taobao.org/vue-demi/download/vue-demi-0.7.5.tgz#88dee7492fc99a0f911ff03fc02c658fa2a79af8"
+  integrity sha1-iN7nSS/Jmg+RH/A/wCxlj6Knmvg=
 
 vue-docgen-api@^4.34.2:
   version "4.35.0"

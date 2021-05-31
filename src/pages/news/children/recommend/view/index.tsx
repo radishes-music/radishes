@@ -49,6 +49,12 @@ export const Recommend = defineComponent({
       }
     }
 
+    const handleVisibilityChange = () => {
+      runningSwiper.value = !document.hidden
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange, false)
+
     onActivated(() => {
       runningSwiper.value = true
     })

@@ -1,31 +1,40 @@
-# [2.0.0-alpha.3](https://github.com/Linkontoask/radishes/compare/v2.0.0-alpha.2...v2.0.0-alpha.3) (2021-03-19)
+# [2.0.0-alpha.4](https://github.com/Linkontoask/radishes/compare/v2.0.0-alpha.3...v2.0.0-alpha.4) (2021-05-06)
 
 
 ### build
 
 * 2.0.0-alpha.3 ([cef0840](https://github.com/Linkontoask/radishes/commit/cef084054bd1e438c36d6aac3f651103e33e2e35))
+* completed localized deployment ([768b16a](https://github.com/Linkontoask/radishes/commit/768b16a866bcc09577e2b7fdc0d84cddbc31dc59))
+* use local service ([6a62c34](https://github.com/Linkontoask/radishes/commit/6a62c346008ce926c76120f4007c127bc710c0de))
 
 ### chore
 
-* judgment platform method functionalization ([9d9acad](https://github.com/Linkontoask/radishes/commit/9d9acad8b7532b8e63361dd3a80a8fe55a2a8c08))
+* upgrade api ([6f175f9](https://github.com/Linkontoask/radishes/commit/6f175f90f21e871c69759cc725f487e45cf14259))
 * upgrade plugin-jsx ([d73a92c](https://github.com/Linkontoask/radishes/commit/d73a92c5afd73e0315cc678fbb2a080927f8e0d2))
 * upgrade storybook (Experimental) ([0f5130c](https://github.com/Linkontoask/radishes/commit/0f5130c13ff5cc2560c18f5e37020569e06e008c))
+* upgrade v-easy-components@2.0.0 ([de4177a](https://github.com/Linkontoask/radishes/commit/de4177a6b91bfc3bc6cd460a61eea575b96b208b))
 * upgrade vue ([d3f4544](https://github.com/Linkontoask/radishes/commit/d3f45445eb8c66038c65adccd8989189062be1b1))
+
+### ci
+
+* support multi-platform construction ([a9b277d](https://github.com/Linkontoask/radishes/commit/a9b277df8441fe318a32bee3fe23e3dcedf8979b))
+* test ERR_ELECTRON_BUILDER_CANNOT_EXECUTE ([459fd78](https://github.com/Linkontoask/radishes/commit/459fd782f7227bcf5cac29cb909d7d0e6c6e92e3))
 
 ### docs
 
-* upgrade changelog ([a27e54f](https://github.com/Linkontoask/radishes/commit/a27e54f28fc0746f06feebdb19c5fc45f6308f7c))
+* update CHANGELOG.md ([56acc43](https://github.com/Linkontoask/radishes/commit/56acc43dfb1ecc013680fccc7bde24b329ad5b02))
 
 ### feat
 
+* disable CORS using the webSecurity option ([5bb13ed](https://github.com/Linkontoask/radishes/commit/5bb13ed2eea4ef7d7950d6a4084b2736b8b50542))
 * search interface title correction ([28d3a2f](https://github.com/Linkontoask/radishes/commit/28d3a2f86550574768991abc1b12879c7d9dfaea))
 * support album search ([3c66425](https://github.com/Linkontoask/radishes/commit/3c66425aa91fc576c4dff87749f3e494b00cf403))
+* support click on the lyrics to jump to the specified location ([e775210](https://github.com/Linkontoask/radishes/commit/e7752104ce27f2b69bde06fab6e759c9cb12e7c4))
 * support lyrics search ([8634ed1](https://github.com/Linkontoask/radishes/commit/8634ed1bb8609d4657150425ab5824d11458b77d))
+* support offline detection, play local music ([592cee9](https://github.com/Linkontoask/radishes/commit/592cee984862a2220131838db7ad3fd8ecbb845d))
 * support playlist search ([372b3e5](https://github.com/Linkontoask/radishes/commit/372b3e5ba2477b7435b4bb7fa06e9c0ff946a243))
-* support random play ([2d486e3](https://github.com/Linkontoask/radishes/commit/2d486e3f7bd5397c020e88a48db3d9d87774fef7))
 * support search all songs ([888136f](https://github.com/Linkontoask/radishes/commit/888136fd723679a170d54ffb35de8ca1ed462a67))
 * the controller filters the data of the same url ([ad396ca](https://github.com/Linkontoask/radishes/commit/ad396ca89d3c62eb7a06a390bdf800e38c8958a5))
-* the window page controller adds the maximum number of stacks and vitality ([4b594c9](https://github.com/Linkontoask/radishes/commit/4b594c9b514ad352823248700e372519e2fc3881))
 * update profile & upload avatar ([e57cb8f](https://github.com/Linkontoask/radishes/commit/e57cb8ff5d0a8ead2cff5391890f63a5df38fae3))
 * userInfo-view & playlist-layout-one ([eb68c26](https://github.com/Linkontoask/radishes/commit/eb68c263c9a79d73f8730d866d6680500a5eea95))
 
@@ -35,11 +44,21 @@
 
 ### fix
 
+* _playlist$value.map is not a function ([ba73b5c](https://github.com/Linkontoask/radishes/commit/ba73b5cae741903e6a76ec1bb79ebe63122dc9f6))
 * fix the display of the last few data of the pager ([caaa1fe](https://github.com/Linkontoask/radishes/commit/caaa1fe3f493288e7dcf288d445e782a370bcf27))
+* jump error ([abbd5b9](https://github.com/Linkontoask/radishes/commit/abbd5b93565ab5889f3fe4d23af82714d88af65f))
+* jump error 1 ([bc1a3d8](https://github.com/Linkontoask/radishes/commit/bc1a3d814c00fd0801dda20db37689afd3c39d18))
+* repair interface white screen ([1094345](https://github.com/Linkontoask/radishes/commit/10943458aa9cfefeb609bdade2792cf5ae6f2f6f))
+* upload music content-type ([9007852](https://github.com/Linkontoask/radishes/commit/90078522c495aaac0867fc12ce4b4dd1618e0c82))
 
 ### fixed
 
 * followView layout display error ([5402c19](https://github.com/Linkontoask/radishes/commit/5402c19baff387016ccfb0e5404453aa08f4d19a))
+
+### perf
+
+* optimize performance experience ([b2860db](https://github.com/Linkontoask/radishes/commit/b2860dba185a246268c5c4f67fe693cf6063aa44))
+* optimize performance experience ([8aeea89](https://github.com/Linkontoask/radishes/commit/8aeea8957ef9a5d7c939aa84a955595fba9c92d2))
 
 ### refactor
 
@@ -48,17 +67,47 @@
 
 ### style
 
-* added scrolling effects in the settings interface ([3badf6b](https://github.com/Linkontoask/radishes/commit/3badf6bb90684abecf5681415cb9681a2a8b95d5))
 * disable all any type checking ([cb7859e](https://github.com/Linkontoask/radishes/commit/cb7859e6e81012fe6563bfd3df03e13cb9549b86))
 * invert the array in the controller ([9508495](https://github.com/Linkontoask/radishes/commit/9508495956814459898b394a010aca06b8a18c57))
 * less formatter. ([7db6fb8](https://github.com/Linkontoask/radishes/commit/7db6fb86abf89ccf7c15e2eb498bd79ec550e2bb))
 * md style ([bd578b1](https://github.com/Linkontoask/radishes/commit/bd578b1050ac46cd1e1ae5f554e1ec56188c2d1f))
 * modify the weight of non-essential rules ([b673947](https://github.com/Linkontoask/radishes/commit/b67394765ff250e29ef08017de10e76f27ce906d))
+* remove extra sound ([58bbf6b](https://github.com/Linkontoask/radishes/commit/58bbf6bd6f1629fb32d84613cd56797ccff1e3d6))
 * remove none less files ([e7c8fd2](https://github.com/Linkontoask/radishes/commit/e7c8fd2f64be654c3ec89ba0b8d7f4bef04d8338))
+* remove unfinished pages ([127bd34](https://github.com/Linkontoask/radishes/commit/127bd349129ed227e10a545c9e0fc8a737976940))
 * rename nav.tsx ([54a446c](https://github.com/Linkontoask/radishes/commit/54a446c97cf553b47fb60debdc9d65e83e01c61f))
 * rewrite routing type derivation ([573c723](https://github.com/Linkontoask/radishes/commit/573c723c5215108a607255a049db9cd24a42c3e6))
 * theme change ([bffc9d6](https://github.com/Linkontoask/radishes/commit/bffc9d661d4353f8b2b5e6ff03e0639759b5cc33))
 * typescript ignore any ([b6ef1e8](https://github.com/Linkontoask/radishes/commit/b6ef1e8d92718aa8e7b9331736243fa7a8e04581))
+* use pseudo-elements to fill in empty areas in the lyrics area ([00d4c6b](https://github.com/Linkontoask/radishes/commit/00d4c6b98417fc9ec2fb281253ce8b100d67654e))
+
+### test
+
+* cypress env ([0740b21](https://github.com/Linkontoask/radishes/commit/0740b21160f4ba595b75beacf3067405a2888f15))
+* cypress test ([f73e53c](https://github.com/Linkontoask/radishes/commit/f73e53c3cb7eb38cbff6b177e69f7816adcaa8cf))
+* update news.spec.js ([7adac42](https://github.com/Linkontoask/radishes/commit/7adac421f587567d6313383a5b994365817990b1))
+
+
+
+# [2.0.0-alpha.3](https://github.com/Linkontoask/radishes/compare/v2.0.0-alpha.2...v2.0.0-alpha.3) (2021-02-10)
+
+
+### chore
+
+* judgment platform method functionalization ([9d9acad](https://github.com/Linkontoask/radishes/commit/9d9acad8b7532b8e63361dd3a80a8fe55a2a8c08))
+
+### docs
+
+* upgrade changelog ([a27e54f](https://github.com/Linkontoask/radishes/commit/a27e54f28fc0746f06feebdb19c5fc45f6308f7c))
+
+### feat
+
+* support random play ([2d486e3](https://github.com/Linkontoask/radishes/commit/2d486e3f7bd5397c020e88a48db3d9d87774fef7))
+* the window page controller adds the maximum number of stacks and vitality ([4b594c9](https://github.com/Linkontoask/radishes/commit/4b594c9b514ad352823248700e372519e2fc3881))
+
+### style
+
+* added scrolling effects in the settings interface ([3badf6b](https://github.com/Linkontoask/radishes/commit/3badf6bb90684abecf5681415cb9681a2a8b95d5))
 
 
 

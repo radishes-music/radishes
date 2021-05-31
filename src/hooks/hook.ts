@@ -1,7 +1,8 @@
 import { useStore } from 'vuex'
-import { on, off } from '@/utils/index'
+import { on, off, isPromise } from '@/utils/index'
 import { useRoute } from 'vue-router'
 import { watch, toRaw } from 'vue'
+import { useIntervalFn } from '@vueuse/core'
 import equal from 'lodash/isEqual'
 import cloneDeep from 'lodash/cloneDeep'
 import store from '@/store/index'
@@ -21,25 +22,11 @@ interface DragOptions {
   vertical?: boolean
 }
 
-export const useInternal = (ms: number, cb: () => void): InternalHook => {
-  let t: NodeJS.Timeout
-  let running = false
-  const startInternal = () => {
-    if (running) {
-      return console.error(
-        'The timer has started, use stopInternal to stop the timer'
-      )
-    }
-    running = true
-    t = setInterval(cb, ms)
-  }
-  const stopInternal = () => {
-    running = false
-    t && clearInterval(t)
-  }
+export const useInternal = (ms: number, cb: () => unknown): InternalHook => {
+  const { start, stop } = useIntervalFn(cb, ms)
   return {
-    startInternal,
-    stopInternal
+    startInternal: start,
+    stopInternal: stop
   }
 }
 

@@ -64,7 +64,9 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
         acceptFirstMouse: true,
         skipTaskbar: false,
         webPreferences: {
-          nodeIntegration: true
+          nodeIntegration: true,
+          contextIsolation: false,
+          webSecurity: false
         }
       })
       if (process.env.WEBPACK_DEV_SERVER_URL) {

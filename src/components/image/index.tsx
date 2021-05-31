@@ -8,6 +8,7 @@ import {
   ref
 } from 'vue'
 import { getDomStyle, noop } from '@/utils/index'
+import debounce from 'lodash/debounce'
 
 export const Image = defineComponent({
   name: 'Image',
@@ -29,22 +30,27 @@ export const Image = defineComponent({
   setup(props, { emit }) {
     const contanier = ref()
     const contanierStyle = reactive({
-      w: 150,
-      h: 150
+      w: 1,
+      h: 1
     })
     const src = computed(() => {
-      return `${props.src}?param=${contanierStyle.w}y${contanierStyle.h}`
+      return `${props.src}?param=${contanierStyle.w * 2}y${contanierStyle.h *
+        2}`
     })
 
+    const resize = debounce(() => {
+      if (contanier.value) {
+        const w = getDomStyle(contanier.value, 'width') as string
+        const h = getDomStyle(contanier.value, 'height') as string
+        contanierStyle.w = Math.floor(Number(w.replace(/px/, '')))
+        contanierStyle.h = Math.floor(Number(h.replace(/px/, '')))
+      }
+    }, 1000)
+
+    window.addEventListener('resize', resize)
+
     onMounted(() => {
-      nextTick(() => {
-        if (contanier.value) {
-          const w = getDomStyle(contanier.value, 'width') as string
-          const h = getDomStyle(contanier.value, 'height') as string
-          contanierStyle.w = Math.floor(Number(w.replace(/px/, '')))
-          contanierStyle.h = Math.floor(Number(h.replace(/px/, '')))
-        }
-      })
+      nextTick(resize)
     })
 
     return () => (
