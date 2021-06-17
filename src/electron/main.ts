@@ -5,16 +5,14 @@ import installExtension from 'electron-devtools-installer'
 import { eventInit } from '@/electron/event/index'
 import { downloadIntercept } from './event/ipc-main/download'
 import { runService } from './service/index'
+import { errorMain, infoMain } from './utils/log'
 import store from '@/electron/store/index'
 import path from 'path'
-import log from './utils/log'
 
 // curl -H "Accept: application/json" https://api.github.com/repos/Linkontoask/radishes/contents/package.json
 const isDevelopment = process.env.VUE_APP_NODE_ENV !== 'production'
 
-let win: BrowserWindow | null
-
-export const App = app
+let win: BrowserWindow | null, loadingWin: BrowserWindow | null
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -24,16 +22,41 @@ protocol.registerSchemesAsPrivileged([
   }
 ])
 
+async function createLoadingWindow() {
+  loadingWin = new BrowserWindow({
+    width: 620,
+    height: 320,
+    frame: false,
+    resizable: false,
+    titleBarStyle: 'hidden'
+  })
+  if (process.env.WEBPACK_DEV_SERVER_URL) {
+    await loadingWin.loadURL(
+      (process.env.WEBPACK_DEV_SERVER_URL as string) + '/loading.html'
+    )
+  } else {
+    loadingWin
+      .loadFile('./loading.html')
+      .then(() => {
+        infoMain('Load loading.html')
+      })
+      .catch(e => {
+        errorMain('Load not loading.html', e.toString())
+      })
+  }
+}
+
 async function createWindow() {
   const { workAreaSize, scaleFactor } = screen.getPrimaryDisplay()
   const { width, height } = workAreaSize
-  const [w, h] = [width * scaleFactor, height * scaleFactor]
+  const [w, h] = [width / 1.6, height / 1.4]
+  infoMain(`Display w: ${w} h: ${h}`)
   // Create the browser window.
   win = new BrowserWindow({
-    width: w / 1.7,
-    height: h / 1.5,
-    minWidth: w / 2,
-    minHeight: h / 2,
+    width: w,
+    height: h,
+    minWidth: w / 1.4,
+    minHeight: h / 1.4,
     useContentSize: true,
     frame: false,
     titleBarStyle: 'hidden',
@@ -61,6 +84,7 @@ async function createWindow() {
     }
   })
 
+  infoMain('Webpack dev server url ', process.env.WEBPACK_DEV_SERVER_URL)
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string)
@@ -71,10 +95,10 @@ async function createWindow() {
     win
       .loadURL('app://./index.html')
       .then(() => {
-        log.info('[main]:', 'Load index.html')
+        infoMain('Load index.html')
       })
       .catch(e => {
-        log.error('[main error]:', 'Load not index.html', e.toString())
+        errorMain('Load not index.html', e.toString())
       })
     const upgrade = store.get('upgrade')
     if (upgrade) {
@@ -82,12 +106,13 @@ async function createWindow() {
         title: 'Radishes 通知',
         body: '发现有新版本，快更新体验吧！'
       })
-      log.info('[main]:', 'Check update')
+      infoMain('Check update')
     }
   }
 
   win.once('ready-to-show', () => {
-    log.info('[main]:', 'Event ready-to-show')
+    infoMain('Event ready-to-show')
+    loadingWin && loadingWin.close()
     win && win.show()
   })
 
@@ -97,6 +122,7 @@ async function createWindow() {
   })
 
   win.on('closed', () => {
+    infoMain('Event closed')
     win = null
   })
 
@@ -106,7 +132,7 @@ async function createWindow() {
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
-  log.info('[main]:', 'Event window-all-closed')
+  infoMain('Event window-all-closed')
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
@@ -115,7 +141,7 @@ app.on('window-all-closed', () => {
 })
 
 app.on('activate', () => {
-  log.info('[main]:', 'Event activate')
+  infoMain('Event activate')
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (win === null) {
@@ -124,7 +150,7 @@ app.on('activate', () => {
 })
 
 app.on('ready', async () => {
-  log.info('[main]:', 'Event ready')
+  infoMain('Event ready')
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
@@ -132,26 +158,28 @@ app.on('ready', async () => {
         id: 'ljjemllljcmogpfapbkkighbhhppjdbg', // vue3 devtool id
         electron: '>=1.2.1'
       })
-      log.info('[main]:', 'Install extension')
+      infoMain('Install extension')
     } catch (e) {
-      log.info('[main error]:', 'Vue Devtools failed to install:', e.toString())
+      errorMain('Vue Devtools failed to install:', e.toString())
     }
   }
   if (!isDevelopment) {
     globalShortcut.register('Control+Shift+I', () => {
-      log.info('[main]:', 'Disabled Control+Shift+I')
+      infoMain('Disabled Control+Shift+I')
       return false
     })
   }
 
+  createLoadingWindow()
+
   runService()
     .then(service => {
       store.set('servicePort', service.port)
-      log.info('[main]:', 'Service is running', service.port)
+      infoMain('Service is running', service.port)
       createWindow()
     })
     .catch(e => {
-      log.error('[main]:', 'Service is not running', e.toString())
+      errorMain('Service is not running', e.toString())
     })
 })
 

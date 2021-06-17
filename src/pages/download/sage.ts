@@ -20,11 +20,11 @@ export const actions: ActionTree<DownloadState, RootState> = {
     song.size = songBase[0].size
     const url = songBase[0].url
     commit(DownloadMutations.SET_DOWNLOAD_MUSIC, song)
-    if (isBrowser()) {
+    if (isBrowser) {
       // TODO ws protocol to be supported, download progress to be discussed
       download(url, song.name)
     }
-    if (isElectron()) {
+    if (isElectron) {
       const v = await asyncIpc()
       let al, ar, pic, arArr
       try {

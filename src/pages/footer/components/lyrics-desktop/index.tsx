@@ -51,7 +51,7 @@ export const LyricsFlash = defineComponent({
     } = toRefs(props)
 
     onMounted(() => {
-      if (isBrowser()) {
+      if (isBrowser) {
         const { start } = useDrag(
           lyriceEl.value.parentElement as HTMLElement,
           lyriceEl.value as HTMLElement,
@@ -68,7 +68,7 @@ export const LyricsFlash = defineComponent({
     })
 
     return () => {
-      const visible = isElectron() ? true : visibleFlash.value
+      const visible = isElectron ? true : visibleFlash.value
       return (
         <TeleportToAny
           container="body"

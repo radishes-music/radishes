@@ -39,7 +39,7 @@ export const DownloadSong = defineComponent({
       <div class="download-song">
         <div class="download-song-head">
           <PlayAll onClick={handlePlayAll} />
-          {isElectron() && (
+          {isElectron && (
             <div class="download-song-head--dir">
               存储目录：{state.downloadPath}
               <ve-button type="text" onClick={handleOpenExplorer}>

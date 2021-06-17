@@ -9,14 +9,17 @@ import { Platform } from '@/config/build'
 dayjs.extend(UTC)
 dayjs.extend(customParseFormat)
 
-export const isBrowser = () => process.env.VUE_APP_PLATFORM === Platform.BROWSER
+export const isBrowser = process.env.VUE_APP_PLATFORM === Platform.BROWSER
 
-export const isElectron = () =>
-  process.env.VUE_APP_PLATFORM === Platform.ELECTRON
+export const isElectron = process.env.VUE_APP_PLATFORM === Platform.ELECTRON
 
 export const isPromise = (p: unknown) => {
   return typeof p === 'object' && p instanceof Promise
 }
+
+export const isMacOS = isElectron && process.platform === 'darwin'
+
+export const isWindows = isElectron && process.platform === 'win32'
 
 export const getDomStyle = (dom: Element, css: keyof CSSStyleDeclaration) => {
   const style = window.getComputedStyle(dom)
@@ -209,7 +212,7 @@ export const noop = () => {}
 
 export const getNodeEnv = (): string => {
   let NODE_ENV = process.env.NODE_ENV as string
-  if (isElectron()) {
+  if (isElectron) {
     NODE_ENV = process.env.VUE_APP_NODE_ENV as string
   }
   return NODE_ENV

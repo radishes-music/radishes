@@ -15,7 +15,7 @@ export default defineComponent({
     const { useState, useMutations } = useSettingModule()
     const state = useState()
 
-    if (isElectron()) {
+    if (isElectron) {
       asyncIpcOrigin().then(ipc => {
         ipc.on(AutoDownload.CHECK_UPGRADE, (e, v) => {
           upgrading.value = false
@@ -57,7 +57,7 @@ export default defineComponent({
             checked-color="var(--base-color)"
             icon-size="16px"
             onChange={handleChangeUpgrade}
-            disabled={isBrowser()}
+            disabled={isBrowser}
           >
             自动更新
           </Checkbox>
@@ -71,7 +71,7 @@ export default defineComponent({
             }}
             onClick={handleCheckUpgrade}
             loading={upgrading.value}
-            disabled={isBrowser()}
+            disabled={isBrowser}
           >
             <span>检查更新</span>
           </Button>

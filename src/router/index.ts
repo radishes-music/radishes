@@ -16,10 +16,10 @@ export const LYRICS_PATH = '/electron-lyrics-float'
 
 const renderRouter = (nav: CustomizeRouteRecordRaw[]) => {
   return nav.filter(n => {
-    if (isBrowser()) {
+    if (isBrowser) {
       return n?.meta?.browser
     }
-    if (isElectron()) {
+    if (isElectron) {
       return n?.meta?.electron
     }
     return true
@@ -31,7 +31,7 @@ export const contentRouter = renderRouter(contentBaseRouter)
 
 const router = createRouter({
   // history:
-  //   isBrowser()
+  //   isBrowser
   //     ? createWebHistory(process.env.BASE_URL)
   //     : createWebHashHistory(process.env.BASE_URL),
   history: createWebHashHistory(process.env.BASE_URL),

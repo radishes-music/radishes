@@ -62,7 +62,7 @@ export const BrowserLyricsFlash = defineComponent({
       }
     })
 
-    if (isElectron()) {
+    if (isElectron) {
       watch(flashMagic, v => {
         ipcUpdateLyrics(UpdateType.UPDATE_MAGIC, v)
       })
@@ -79,7 +79,7 @@ export const BrowserLyricsFlash = defineComponent({
 
     return () => (
       <>
-        {isBrowser() && (
+        {isBrowser && (
           <LyricsFlash
             screenSize={screenSize.value}
             visibleFlash={visibleFlash.value}

@@ -1,5 +1,7 @@
 import { defineComponent } from 'vue'
 import { useRouter } from '@/hooks/index'
+import { isMacOS } from '@/utils'
+import classNames from 'classnames'
 import './logo.less'
 
 export const Logo = defineComponent({
@@ -12,7 +14,12 @@ export const Logo = defineComponent({
       })
     }
     return () => (
-      <div class="logo" onClick={home}>
+      <div
+        class={classNames('logo', {
+          'logo-macos': isMacOS
+        })}
+        onClick={home}
+      >
         <icon icon="logo-fill" size={132} height={40}></icon>
       </div>
     )

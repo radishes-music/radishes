@@ -5,7 +5,8 @@ import { shade } from '@/theme/color'
 import { Popover } from 'ant-design-vue'
 import { setThemeColor } from '@/helpers'
 import { useThemeColor, useRouter } from '@/hooks'
-import { isElectron } from '@/utils'
+import { isBrowser, isElectron, isWindows } from '@/utils'
+import classnames from 'classnames'
 import './setting.less'
 
 const setColor = (baseColor: string) => {
@@ -23,7 +24,7 @@ const setColor = (baseColor: string) => {
     document.documentElement.style.setProperty('--' + key, value)
   }
 
-  if (isElectron()) {
+  if (isElectron) {
     asyncIpc().then(event => {
       event.sendAsyncIpcRendererEvent(
         MiddlewareView.UPDATE_THEME_COLOR,
@@ -70,7 +71,11 @@ export const Setting = defineComponent({
     }
 
     return () => (
-      <div class="setting vchj">
+      <div
+        class={classnames('setting', 'vchj', {
+          'setting-windows': isWindows || isBrowser
+        })}
+      >
         <ve-button
           type="text"
           class="header-window-btn"

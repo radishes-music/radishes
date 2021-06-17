@@ -73,7 +73,7 @@ export default defineComponent({
           <ve-button
             type="text"
             onClick={handleOpenDialog}
-            disabled={isBrowser()}
+            disabled={isBrowser}
           >
             更改目录
           </ve-button>

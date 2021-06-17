@@ -51,7 +51,7 @@ export const MusicControl = defineComponent({
 
     const musicDes = computed(() => useGetter('musicDes'))
 
-    if (isElectron()) {
+    if (isElectron) {
       asyncIpcOrigin().then(ipcRenderer => {
         ipcRenderer.on(LyricsAction.LYRICS_WIN_CLOSE, () => {
           useMutations(FooterMutations.VISIBLE_FLASH, false)
@@ -133,7 +133,7 @@ export const MusicControl = defineComponent({
 
     const handleVisibleFlash = () => {
       useMutations(FooterMutations.VISIBLE_FLASH, !visibleFlash.value)
-      if (isElectron()) {
+      if (isElectron) {
         asyncIpc()
           .then(event => {
             event.sendAsyncIpcRendererEvent(

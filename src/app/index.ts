@@ -19,7 +19,7 @@ const app = createApp(App)
 errorHandle(app)
 init()
 
-if (isElectron()) {
+if (isElectron) {
   registerIPC(app)
 }
 

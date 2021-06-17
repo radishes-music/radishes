@@ -7,7 +7,7 @@ import { Setting } from '../component/setting'
 import { Search } from '../component/search'
 import { LayoutMutations, LayoutSize } from '@/interface'
 import { useLayoutModule } from '@/modules/index'
-import { isBrowser, isElectron } from '@/utils'
+import { isBrowser, isElectron, isWindows } from '@/utils'
 import './index.less'
 
 const actionToClass = {
@@ -24,10 +24,10 @@ export const Header = defineComponent({
     const state = useState()
 
     const handleWindowControl = (action: Action) => {
-      if (isBrowser()) {
+      if (isBrowser) {
         useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, actionToClass[action])
       }
-      if (isElectron()) {
+      if (isElectron) {
         asyncIpc().then(event => {
           event.sendAsyncIpcRendererEvent(action)
         })
@@ -46,7 +46,7 @@ export const Header = defineComponent({
       }
     }
 
-    if (isElectron()) {
+    if (isElectron) {
       window.addEventListener('resize', () => {
         asyncIpc().then(event => {
           const win = event.getWindow()
@@ -72,31 +72,33 @@ export const Header = defineComponent({
             onMousedown={e => e.stopPropagation()}
           >
             <Setting></Setting>
-            <div class="header-window">
-              <ve-button
-                type="text"
-                class="header-window-btn"
-                onClick={() => handleWindowControl(Action.MINIMIZE_WINDOW)}
-              >
-                <icon icon="shrink-taskbar" size={20}></icon>
-              </ve-button>
-              <ve-button
-                type="text"
-                class="header-window-btn"
-                onClick={windowsChangeSize}
-              >
-                <icon icon={windowSize.value} size={20}></icon>
-              </ve-button>
-              {isElectron() && (
+            {isWindows && (
+              <div class="header-window">
                 <ve-button
                   type="text"
                   class="header-window-btn"
-                  onClick={() => handleWindowControl(Action.CLOSE_WINDOW)}
+                  onClick={() => handleWindowControl(Action.MINIMIZE_WINDOW)}
                 >
-                  <icon icon="cross" size={22}></icon>
+                  <icon icon="shrink-taskbar" size={20}></icon>
                 </ve-button>
-              )}
-            </div>
+                <ve-button
+                  type="text"
+                  class="header-window-btn"
+                  onClick={windowsChangeSize}
+                >
+                  <icon icon={windowSize.value} size={20}></icon>
+                </ve-button>
+                {isElectron && (
+                  <ve-button
+                    type="text"
+                    class="header-window-btn"
+                    onClick={() => handleWindowControl(Action.CLOSE_WINDOW)}
+                  >
+                    <icon icon="cross" size={22}></icon>
+                  </ve-button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </header>

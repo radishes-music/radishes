@@ -7,6 +7,7 @@ import {
 import { AutoDownload } from '../action-types'
 import pgk from '../../../../package.json'
 import log from 'electron-log'
+import { infoMain } from '@/electron/utils/log'
 
 export interface AutoUpdateContent {
   [AutoDownload.VERSION]: UpdateInfo & { url: string }
@@ -22,13 +23,14 @@ export default (win: BrowserWindow) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   autoUpdater.logger.transports.file.level = 'info'
-  log.info('[main]:', 'App starting...')
+
+  infoMain('App starting...')
 
   function sendStatusToWindow<T extends keyof AutoUpdateContent>(
     type: T,
     content: AutoUpdateContent[T]
   ) {
-    log.info('[updater]:', type, content)
+    infoMain('[Updater]:', type, content)
     win.webContents.send(AutoDownload.MESSAGE, type, content)
   }
 
@@ -40,7 +42,7 @@ export default (win: BrowserWindow) => {
     sendStatusToWindow(AutoDownload.VERSION, info)
   })
   autoUpdater.on('update-not-available', info => {
-    log.info('[updater]:', 'update-not-available', info.version)
+    infoMain('Uupdater]:', 'update-not-available', info.version)
     sendStatusToWindow(AutoDownload.NOT_VERSION, info)
   })
   autoUpdater.on('error', err => {
@@ -56,7 +58,7 @@ export default (win: BrowserWindow) => {
       '/' +
       progressObj.total +
       ')'
-    log.info(logMessage)
+    infoMain(logMessage)
     sendStatusToWindow(AutoDownload.PROGRESS, progressObj.percent)
   })
   autoUpdater.on('update-downloaded', info => {

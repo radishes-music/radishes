@@ -11,7 +11,7 @@ import store from '@/store'
 import { isElectron } from '@/utils'
 
 const initStorage = async () => {
-  if (isElectron()) {
+  if (isElectron) {
     const v = await import('@/electron/utils/index')
     const downloadModule = useDownloadModule()
     const localMusicModule = useLocalMusicModule()

@@ -1,6 +1,6 @@
 {
   "name": "radishes",
-  "version": "2.0.0-alpha.5",
+  "version": "2.0.0-alpha.4",
   "private": true,
   "main": "./background.js",
   "author": "Linkontoask",
@@ -23,7 +23,7 @@
     "dev": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"yarn dev:web\"",
     "dev:web": "cross-env NODE_ENV=development vue-cli-service serve --mode browser",
     "dev:api": "lerna exec --scope @radishes/api -- yarn run dev",
-    "dev:electron": "concurrently -r \"yarn generate:theme\" \"vue-cli-service electron:serve --trace-warnings --mode electron.dev\"",
+    "dev:electron": "concurrently -r \"yarn generate:theme\" \"vue-cli-service electron:serve --mode electron.dev\"",
     "dev:analyzer": "cross-env ANALYZER=analyzer vue-cli-service serve --mode browser",
     "generate:theme": "node ./script/theme.js",
     "postinstall": "electron-builder install-app-deps",

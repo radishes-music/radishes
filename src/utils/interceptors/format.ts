@@ -19,7 +19,7 @@ export default function(http: AxiosInstance) {
 
   http.interceptors.request.use(config => {
     config.params.timestampAxios = Date.now()
-    if (!isDevelopment && isElectron()) {
+    if (!isDevelopment && isElectron) {
       if (config.url) {
         config.url = config.url.replace(/^\/api/, '')
       }

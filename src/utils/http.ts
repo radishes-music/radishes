@@ -26,7 +26,7 @@ const http: AxiosInstance = Axios.create({
   timeout: 30000
 })
 
-if (!isDevelopment && isElectron()) {
+if (!isDevelopment && isElectron) {
   asyncIpc().then(v => {
     const port = v.sendSyncIpcRendererEvent(Service.GET_PORT)
     if (!port) {

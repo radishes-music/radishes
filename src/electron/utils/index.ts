@@ -9,8 +9,8 @@ import { ICommonTagsResult } from 'music-metadata/lib/type.d'
 import { join } from 'path'
 import { v4 } from 'uuid'
 import { parseFile } from 'music-metadata'
-export * from 'fs'
 export { normalize, join } from 'path'
+export * from 'fs'
 
 type LocalSongsDetail = Pick<SongsDetail, 'al' | 'ar' | 'name'>
 
