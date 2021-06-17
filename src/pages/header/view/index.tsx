@@ -72,7 +72,7 @@ export const Header = defineComponent({
             onMousedown={e => e.stopPropagation()}
           >
             <Setting></Setting>
-            {isWindows && (
+            {(isWindows || isBrowser) && (
               <div class="header-window">
                 <ve-button
                   type="text"
