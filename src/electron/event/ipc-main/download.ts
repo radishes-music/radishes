@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { BrowserWindow, DownloadItem, ipcMain, net } from 'electron'
-import { getUserOS, join } from '@/electron/utils/index'
+import { getUserOS, join, homedir } from '@/electron/utils/index'
 import { DownloadIpcType } from '../action-types'
 import { writeFile } from 'fs'
 import { DownloadData } from '../../preload/ipc'
 import { writeBufferID3 } from '@/tag/ID3Writer'
-import throttle from 'lodash/throttle'
+
 import store from '@/electron/store/index'
+import { errorMain, infoMain } from '@/electron/utils/log'
 
 interface MainDownloadData extends DownloadData {
   win: BrowserWindow
@@ -20,26 +21,25 @@ const downloadStart = ({
     state: 'start',
     name
   })
+  infoMain('Download start.', name)
 }
 
-const downloadProgress = throttle(
-  ({
-    win,
-    receive,
-    total,
-    name
-  }: Pick<MainDownloadData, 'win' | 'receive' | 'total' | 'name'>) => {
-    const schedule = receive / total
-    win.webContents.send(DownloadIpcType.DOWNLOAD_PROGRESS, {
-      state: 'progressing',
-      name: name,
-      receive: receive,
-      total: total,
-      schedule
-    })
-  },
-  200
-)
+const downloadProgress = ({
+  win,
+  receive,
+  total,
+  name
+}: Pick<MainDownloadData, 'win' | 'receive' | 'total' | 'name'>) => {
+  const schedule = receive / total
+  win.webContents.send(DownloadIpcType.DOWNLOAD_PROGRESS, {
+    state: 'progressing',
+    name: name,
+    receive: receive,
+    total: total,
+    schedule
+  })
+  win.setProgressBar(schedule)
+}
 
 const downloadEnd = ({
   win,
@@ -52,6 +52,8 @@ const downloadEnd = ({
     name,
     error
   })
+  infoMain('Download end', name)
+  win.setProgressBar(-1)
 }
 
 const renderCover = (url: string): Promise<Buffer> => {
@@ -82,7 +84,6 @@ const nodeDownload = async (
       win,
       name
     })
-    console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
     const totalBytes = parseInt(response.headers['content-length'] as string)
     let receivedBytes = 0
     const chunks: Buffer[] = []
@@ -120,7 +121,7 @@ const nodeDownload = async (
       const newBuf = Buffer.from(renderBuffer())
       writeFile(path, newBuf, err => {
         if (err) {
-          console.log(err)
+          errorMain('Download Error:', err)
           downloadEnd({
             win,
             name,
@@ -198,19 +199,18 @@ const electronDownload = (
 }
 
 export const downloadIntercept = (win: BrowserWindow) => {
+  const home = getUserOS().homedir
+  const defaultPath = join(home, '/Downloads')
   ipcMain.on(DownloadIpcType.DOWNLOAD_TASK, async (event, arg) => {
-    const downloadPath = store.get(
-      'downloadPath',
-      join(getUserOS().homedir, '/Downloads')
-    )
+    const downloadPath = store.get('downloadPath') || defaultPath
+    infoMain('Home dir:', home)
+    infoMain('Download Default Path:', defaultPath)
+    infoMain('Download Real Path:', downloadPath)
     nodeDownload(downloadPath, win, arg)
   })
 
   win.webContents.session.on('will-download', (event, item: DownloadItem) => {
-    const downloadPath = store.get(
-      'downloadPath',
-      join(getUserOS().homedir, '/Downloads')
-    )
+    const downloadPath = store.get('downloadPath') || defaultPath
     electronDownload(downloadPath, win, item)
   })
 }

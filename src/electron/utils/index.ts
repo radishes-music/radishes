@@ -12,6 +12,8 @@ import { parseFile } from 'music-metadata'
 export { normalize, join } from 'path'
 export * from 'fs'
 
+export { homedir } from 'os'
+
 type LocalSongsDetail = Pick<SongsDetail, 'al' | 'ar' | 'name'>
 
 export const isElectron = () => {

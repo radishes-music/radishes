@@ -49,7 +49,7 @@ async function createLoadingWindow() {
 async function createWindow() {
   const { workAreaSize, scaleFactor } = screen.getPrimaryDisplay()
   const { width, height } = workAreaSize
-  const [w, h] = [width / 1.6, height / 1.4]
+  const [w, h] = [width / 2, height / 1.4]
   infoMain(`Display w: ${w} h: ${h}`)
   // Create the browser window.
   win = new BrowserWindow({
@@ -146,6 +146,8 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (win === null) {
     createWindow()
+  } else {
+    win.show()
   }
 })
 

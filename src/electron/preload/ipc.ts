@@ -2,6 +2,7 @@ import { App } from 'vue'
 import { DownloadIpcType } from '@/electron/event/action-types'
 import { suggested, success, error } from '@/hooks/index'
 import store, { RootMutations } from '@/store'
+import throttle from 'lodash/throttle'
 
 export interface DownloadData {
   state: 'progressing' | 'completed' | 'interrupted' | 'cancelled' | 'start'
@@ -33,7 +34,7 @@ export const registerIPC = (app: App) => {
             key: arg.name
           })
         } else {
-          console.log(arg.error)
+          console.error(arg.error)
           error('下载失败', {
             key: arg.name
           })
@@ -43,11 +44,11 @@ export const registerIPC = (app: App) => {
 
     v.ipcRenderer.on(
       DownloadIpcType.DOWNLOAD_PROGRESS,
-      (event, arg: DownloadData) => {
+      throttle((event, arg: DownloadData) => {
         if (arg.state === 'progressing') {
           store.commit(RootMutations.UPDATE_PERECENTAGE, arg.schedule)
         }
-      }
+      }, 200)
     )
   })
 }
