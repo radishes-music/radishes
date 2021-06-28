@@ -153,7 +153,10 @@ export default defineComponent({
           type: 'stack'
         }
       })
-      footerStore.useMutations(FooterMutations.SET_PLAYLIST_TO_STACK, stack)
+      footerStore.useMutations(
+        FooterMutations.SET_PLAYLIST_TO_STACK,
+        (stack as unknown) as SongsDetail[]
+      )
 
       const { music } = footerStore.useState()
       if (music?.id !== stack[0].id) {

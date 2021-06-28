@@ -244,7 +244,7 @@ export const actions: IActions = {
   }
 }
 
-type Mutation<Payload = never> = (state: FooterState, payload: Payload) => any
+type Mutation<Payload = any> = (state: FooterState, payload: Payload) => any
 type IMutations<T = MutationTree<FooterState>> = {
   [FooterMutations.SET_MUSIC_URL_LOADING]: Mutation<boolean>
   [FooterMutations.LYRICS_EMBED_MIN_WIDTH]: Mutation<number>
