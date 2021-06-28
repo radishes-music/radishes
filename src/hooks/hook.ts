@@ -3,6 +3,7 @@ import { on, off, isPromise } from '@/utils/index'
 import { useRoute } from 'vue-router'
 import { watch, toRaw } from 'vue'
 import { useIntervalFn } from '@vueuse/core'
+import { FormatEnum, PayloadType, IActionsReturn } from '@/interface'
 import equal from 'lodash/isEqual'
 import cloneDeep from 'lodash/cloneDeep'
 import store from '@/store/index'
@@ -111,8 +112,8 @@ export const useDrag = (
 export function uesModuleStore<
   S,
   G = Record<string, string>,
-  A = string,
-  M = string
+  A = unknown,
+  M = unknown
 >(NAMESPACED: string) {
   const useState = (): S => {
     return store.state[NAMESPACED]
@@ -120,10 +121,19 @@ export function uesModuleStore<
   const useGetter = <key extends keyof G>(value: key): G[key] => {
     return store.getters[NAMESPACED + '/' + value]
   }
-  const useActions = (type: A, payload?: unknown) => {
-    return store.dispatch(NAMESPACED + '/' + type, payload)
+  const useActions = <K extends keyof FormatEnum<A, A>>(
+    type: K,
+    payload?: PayloadType<K, A>
+  ) => {
+    return store.dispatch(NAMESPACED + '/' + type, payload) as IActionsReturn<
+      K,
+      A
+    >
   }
-  const useMutations = (type: M, payload?: unknown): void => {
+  const useMutations = <K extends keyof FormatEnum<M, M>>(
+    type: K,
+    payload?: PayloadType<K, M>
+  ): void => {
     store.commit(NAMESPACED + '/' + type, payload)
   }
 

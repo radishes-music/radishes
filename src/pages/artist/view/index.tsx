@@ -45,8 +45,8 @@ export default defineComponent({
       id => {
         if (id) {
           nav.value = formatNav(id)
-          useActions(ArtistActions.SET_ACTION_ARTIST_DETAIL, id)
-          useActions(ArtistActions.SET_ACTION_ARTIST_ALBUM, id)
+          useActions(ArtistActions.SET_ACTION_ARTIST_DETAIL, id as string)
+          useActions(ArtistActions.SET_ACTION_ARTIST_ALBUM, id as string)
         }
       },
       {

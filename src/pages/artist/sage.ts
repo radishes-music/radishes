@@ -1,4 +1,4 @@
-import { ActionTree, MutationTree } from 'vuex'
+import { ActionTree, MutationTree, ActionContext } from 'vuex'
 import { RootState } from '@/store/index'
 import {
   Artist,
@@ -13,20 +13,24 @@ import {
   getArtistSimi
 } from './api/index'
 
-export const actions: ActionTree<ArtistState, RootState> = {
-  async [ArtistActions.SET_ACTION_ARTIST_DETAIL]({ commit }, id: string) {
+type IActions<T = ActionContext<ArtistState, RootState>> = {
+  [k in ArtistActions]: (k: T, payload: string) => void
+}
+
+export const actions: IActions = {
+  async [ArtistActions.SET_ACTION_ARTIST_DETAIL]({ commit }, id) {
     const data = await getArtist(id)
     commit(ArtistMutations.SET_ARTIST_DETAIL, data)
   },
-  async [ArtistActions.SET_ACTION_ARTIST_ALBUM]({ commit }, id: string) {
+  async [ArtistActions.SET_ACTION_ARTIST_ALBUM]({ commit }, id) {
     const data = await getArtistAlbums(id)
     commit(ArtistMutations.SET_ARTIST_ALBUM, data)
   },
-  async [ArtistActions.SET_ACTION_ARTIST_DESC]({ commit }, id: string) {
+  async [ArtistActions.SET_ACTION_ARTIST_DESC]({ commit }, id) {
     const data = await getArtistDesc(id)
     commit(ArtistMutations.SET_ARTIST_DESC, data)
   },
-  async [ArtistActions.SET_ACTION_ARTIST_SIMI]({ commit }, id: string) {
+  async [ArtistActions.SET_ACTION_ARTIST_SIMI]({ commit }, id) {
     const data = await getArtistSimi(id)
     commit(ArtistMutations.SET_ARTIST_SIMI, data)
   }

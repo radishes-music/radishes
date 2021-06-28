@@ -55,7 +55,7 @@ const columns = [
     width: 102,
     key: 'control',
     align: 'center',
-    customRender: ({ text }: { text: ListFormat }) => {
+    customRender: ({ text }: { text: SongsDetail }) => {
       const add = ref()
       const { useActions } = useDownloadModule()
       const { useState, useMutations } = useFooterModule()
@@ -99,7 +99,9 @@ const columns = [
                     url: data[0].url,
                     type: 'stack'
                   }
-                  useMutations(FooterMutations.SET_PLAYLIST_TO_STACK, [music])
+                  useMutations(FooterMutations.SET_PLAYLIST_TO_STACK, [
+                    music as SongsDetail
+                  ])
                 }
               }
             }}

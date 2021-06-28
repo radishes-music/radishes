@@ -6,7 +6,7 @@ import { DownloadState, DownloadActions, DownloadMutations } from '@/interface'
 export const DownloadNameSpaced = 'Download'
 
 export const useDownloadModule = () => {
-  return uesModuleStore<DownloadState, {}, DownloadActions, DownloadMutations>(
+  return uesModuleStore<DownloadState, {}, typeof actions, DownloadMutations>(
     DownloadNameSpaced
   )
 }

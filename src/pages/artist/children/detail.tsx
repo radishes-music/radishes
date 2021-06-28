@@ -8,7 +8,10 @@ export const Desc = defineComponent({
     const { state, route, useActions } = parentAP()
 
     onActivated(() => {
-      useActions(ArtistActions.SET_ACTION_ARTIST_DESC, route.params.id)
+      useActions(
+        ArtistActions.SET_ACTION_ARTIST_DESC,
+        route.params.id as string
+      )
     })
 
     return () => (

@@ -1,5 +1,5 @@
 import { toRaw, h } from 'vue'
-import { ActionTree, MutationTree, GetterTree } from 'vuex'
+import { ActionTree, MutationTree, GetterTree, ActionContext } from 'vuex'
 import { isNumber, timeTos, toFixed, renderRandom } from '@/utils/index'
 import { getSongDetail, getLyric } from '@/api/index'
 import {
@@ -164,11 +164,18 @@ export const getters: GetterTree<FooterState, RootState> = {
   }
 }
 
-export const actions: ActionTree<FooterState, RootState> = {
-  async [FooterActions.SET_MUSIC](
-    { state, dispatch, commit },
-    payload: number | { url: string; id: number }
-  ) {
+type IActions<T = ActionContext<FooterState, RootState>> = {
+  [FooterActions.SET_MUSIC]: (
+    k: T,
+    payload: number | { url: string; id: number | string }
+  ) => Promise<boolean>
+  [FooterActions.SET_MUSIC_DEFAILT]: (k: T, payload: number | number[]) => void
+  [FooterActions.SET_MUSIC_LYRICS]: (k: T, payload: number) => void
+  [FooterActions.CUTOVER_TRACK]: (k: T, payload: Direction) => void
+}
+
+export const actions: IActions = {
+  async [FooterActions.SET_MUSIC]({ state, dispatch, commit }, payload) {
     commit(FooterMutations.SET_MUSIC_URL_LOADING, true)
     let id, url
     try {
@@ -199,14 +206,15 @@ export const actions: ActionTree<FooterState, RootState> = {
     }
 
     commit(FooterMutations.SET_MUSIC_URL_LOADING, false)
+    return true
   },
-  async [FooterActions.SET_MUSIC_DEFAILT]({ state }, id: number | number[]) {
+  async [FooterActions.SET_MUSIC_DEFAILT]({ state }, id) {
     const data = await getSongDetail(id)
     if (data.length) {
       state.music = data[0]
     }
   },
-  async [FooterActions.SET_MUSIC_LYRICS]({ state }, id: number) {
+  async [FooterActions.SET_MUSIC_LYRICS]({ state }, id) {
     try {
       const lyrics = await getLyric(id)
       state.musicLyricsOrigin = lyrics
@@ -214,7 +222,7 @@ export const actions: ActionTree<FooterState, RootState> = {
       console.warn(e)
     }
   },
-  async [FooterActions.CUTOVER_TRACK]({ state }, direction: Direction) {
+  async [FooterActions.CUTOVER_TRACK]({ state }, direction) {
     if (state.music && state.musicStack.length > 1) {
       const index = findMusicIndex(state.musicStack, state.music)
       let next
@@ -236,26 +244,51 @@ export const actions: ActionTree<FooterState, RootState> = {
   }
 }
 
-export const mutations: MutationTree<FooterState> = {
-  [FooterMutations.SET_MUSIC_URL_LOADING](state, loading: boolean) {
+type Mutation<Payload = never> = (state: FooterState, payload: Payload) => any
+type IMutations<T = MutationTree<FooterState>> = {
+  [FooterMutations.SET_MUSIC_URL_LOADING]: Mutation<boolean>
+  [FooterMutations.LYRICS_EMBED_MIN_WIDTH]: Mutation<number>
+  [FooterMutations.CLEAR_STACK]: Mutation
+  [FooterMutations.REMOVE_STACK]: Mutation<number>
+  [FooterMutations.REMOVE_HISTORY]: Mutation<number>
+  [FooterMutations.SET_DURATION]: Mutation<number>
+  [FooterMutations.SET_PLAYLIST_TO_STACK]: Mutation<SongsDetail[]>
+  [FooterMutations.SET_MUSIC_URL]: Mutation<string | SongsDetail>
+  [FooterMutations.PLAY_MUSIC]: Mutation
+  [FooterMutations.PAUES_MUSIC]: Mutation
+  [FooterMutations.PLAYING]: Mutation<boolean>
+  [FooterMutations.CURRENT_TIME]: Mutation<number>
+  [FooterMutations.UPDATE_CURRENT_TIME]: Mutation<number>
+  [FooterMutations.CAN_PLAY]: Mutation<boolean>
+  [FooterMutations.SET_VOLUME]: Mutation<number>
+  [FooterMutations.VISIBLE_FLASH]: Mutation<boolean>
+  [FooterMutations.VISIBLE_EMBED]: Mutation<boolean>
+  [FooterMutations.SEEKBACKWARD]: Mutation
+  [FooterMutations.SEEKFORWARD]: Mutation
+  [FooterMutations.INIT_EFFECT]: Mutation
+  [FooterMutations.CHANGE_PLAYMODE]: Mutation<PlayMode>
+}
+
+export const mutations: IMutations = {
+  [FooterMutations.SET_MUSIC_URL_LOADING](state, loading) {
     state.musicUrlLoading = loading
   },
-  [FooterMutations.LYRICS_EMBED_MIN_WIDTH](state, width: number) {
+  [FooterMutations.LYRICS_EMBED_MIN_WIDTH](state, width) {
     state.lyriceEmbedMinWidth = width
   },
   [FooterMutations.CLEAR_STACK](state) {
     state.musicStack = []
   },
-  [FooterMutations.REMOVE_STACK](state, id: number) {
+  [FooterMutations.REMOVE_STACK](state, id) {
     remove(state.musicStack, music => music.id === id)
   },
-  [FooterMutations.REMOVE_HISTORY](state, id: number) {
+  [FooterMutations.REMOVE_HISTORY](state, id) {
     remove(state.musciHistory, music => music.id === id)
   },
-  [FooterMutations.SET_DURATION](state, duration: number) {
+  [FooterMutations.SET_DURATION](state, duration) {
     state.duration = duration
   },
-  [FooterMutations.SET_PLAYLIST_TO_STACK](state, payload: SongsDetail[]) {
+  [FooterMutations.SET_PLAYLIST_TO_STACK](state, payload) {
     payload.forEach(item => {
       const isExist = findMusicIndex(state.musicStack, item) === -1
       if (isExist) {
@@ -263,7 +296,7 @@ export const mutations: MutationTree<FooterState> = {
       }
     })
   },
-  [FooterMutations.SET_MUSIC_URL](state, payload: string | SongsDetail) {
+  [FooterMutations.SET_MUSIC_URL](state, payload) {
     if (state.audioElement && state.music) {
       const music = toRaw(state.music)
       if (typeof payload === 'string') {
@@ -305,30 +338,30 @@ export const mutations: MutationTree<FooterState> = {
   [FooterMutations.PLAYING](state, playing) {
     state.playing = playing
   },
-  [FooterMutations.CURRENT_TIME](state, time: number) {
+  [FooterMutations.CURRENT_TIME](state, time) {
     if (state.audioElement && isNumber(time)) {
       state.audioElement.currentTime = time
       state.currentTime = time
     }
   },
-  [FooterMutations.UPDATE_CURRENT_TIME](state, time: number) {
+  [FooterMutations.UPDATE_CURRENT_TIME](state, time) {
     if (isNumber(time)) {
       state.currentTime = time
     }
   },
-  [FooterMutations.CAN_PLAY](state, can: boolean) {
+  [FooterMutations.CAN_PLAY](state, can) {
     state.canplay = can
   },
-  [FooterMutations.SET_VOLUME](state, volume: number) {
+  [FooterMutations.SET_VOLUME](state, volume) {
     if (state.audioElement) {
       state.audioElement.volume = volume
       state.volume = volume
     }
   },
-  [FooterMutations.VISIBLE_FLASH](state, visible: boolean) {
+  [FooterMutations.VISIBLE_FLASH](state, visible) {
     state.visibleFlash = visible
   },
-  [FooterMutations.VISIBLE_EMBED](state, visible: boolean) {
+  [FooterMutations.VISIBLE_EMBED](state, visible) {
     state.visibleLyrics = visible
   },
   [FooterMutations.SEEKBACKWARD](state) {
@@ -346,7 +379,7 @@ export const mutations: MutationTree<FooterState> = {
       state.effect = new AudioEffect(state.audioElement)
     }
   },
-  [FooterMutations.CHANGE_PLAYMODE](state, mode: PlayMode) {
+  [FooterMutations.CHANGE_PLAYMODE](state, mode) {
     state.playMode = mode
   }
 }

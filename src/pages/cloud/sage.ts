@@ -1,4 +1,4 @@
-import { ActionTree, MutationTree } from 'vuex'
+import { ActionTree, MutationTree, ActionContext } from 'vuex'
 import {
   CloudState,
   CloudActions,
@@ -7,6 +7,10 @@ import {
 } from '@/interface'
 import { RootState } from '@/store/index'
 import { getCloud } from './api/cloud'
+
+type IActions<T = ActionContext<CloudState, RootState>> = {
+  [CloudActions.CLOUD_LIST_ACTION]: (k: T) => void
+}
 
 export const actions: ActionTree<CloudState, RootState> = {
   async [CloudActions.CLOUD_LIST_ACTION]({ commit, state }) {

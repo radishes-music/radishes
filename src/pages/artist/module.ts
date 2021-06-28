@@ -6,7 +6,7 @@ import { ArtistState, ArtistActions, ArtistMutations } from '@/interface'
 export const ArtistNameSpaced = 'Artist'
 
 export const useArtistModule = () => {
-  return uesModuleStore<ArtistState, {}, ArtistActions, ArtistMutations>(
+  return uesModuleStore<ArtistState, {}, typeof actions, ArtistMutations>(
     ArtistNameSpaced
   )
 }

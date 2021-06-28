@@ -16,8 +16,8 @@ export const useFooterModule = () => {
   return uesModuleStore<
     FooterState,
     FooterGetter,
-    FooterActions,
-    FooterMutations
+    typeof actions,
+    typeof mutations
   >(FooterNameSpaced)
 }
 

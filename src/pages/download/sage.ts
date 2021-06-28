@@ -1,4 +1,4 @@
-import { ActionTree, MutationTree } from 'vuex'
+import { ActionTree, MutationTree, ActionContext } from 'vuex'
 import {
   SongsDetail,
   DownloadState,
@@ -14,8 +14,12 @@ import { DownloadIpcType } from '@/electron/event/action-types'
 import { getSongDetail } from '@/api/index'
 import remove from 'lodash/remove'
 
-export const actions: ActionTree<DownloadState, RootState> = {
-  async [DownloadActions.DOWNLOAD_MUSIC]({ commit }, song: SongsDetail) {
+type IActions<T = ActionContext<DownloadState, RootState>> = {
+  [DownloadActions.DOWNLOAD_MUSIC]: (k: T, payload: SongsDetail) => void
+}
+
+export const actions: IActions = {
+  async [DownloadActions.DOWNLOAD_MUSIC]({ commit }, song) {
     const songBase = await getMusicUrl(song.id)
     song.size = songBase[0].size
     const url = songBase[0].url

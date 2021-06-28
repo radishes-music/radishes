@@ -6,7 +6,7 @@ import { CloudState, CloudActions, CloudMutations } from '@/interface'
 export const CloudNameSpaced = 'Cloud'
 
 export const useCloudModule = () => {
-  return uesModuleStore<CloudState, {}, CloudActions, CloudMutations>(
+  return uesModuleStore<CloudState, {}, typeof actions, CloudMutations>(
     CloudNameSpaced
   )
 }

@@ -11,7 +11,10 @@ export const Similar = defineComponent({
     const { state, route, useActions } = parentAP()
 
     onActivated(() => {
-      useActions(ArtistActions.SET_ACTION_ARTIST_SIMI, route.params.id)
+      useActions(
+        ArtistActions.SET_ACTION_ARTIST_SIMI,
+        route.params.id as string
+      )
     })
 
     const handleClick = (item: Artists) => {
