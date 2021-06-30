@@ -113,6 +113,7 @@
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.2",
     "cross-spawn": "^7.0.3",
+    "crypto-js": "^4.0.0",
     "cypress": "^6.2.0",
     "dayjs": "^1.9.4",
     "electron": "^12.0.4",

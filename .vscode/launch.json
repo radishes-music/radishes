@@ -2,6 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "pwa-node",
+      "request": "launch",
+      "name": "I18n Render Json",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/script/render.js"
+    },
+    {
       "name": "Launch Program",
       "program": "${file}",
       "request": "launch",
