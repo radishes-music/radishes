@@ -32,7 +32,10 @@ export const SearchSongList = defineComponent({
     onActivated(() => {
       useMutations(
         SearchMutations.SET_SEARCH_TITLE,
-        `找到 ${state.playlist.total} 个歌单`
+        j18n.load(
+          'src__pages__search__children__play-list___34',
+          state.playlist.total
+        )
       )
     })
     onBeforeUnmount(() => {

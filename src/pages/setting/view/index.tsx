@@ -12,6 +12,7 @@ import Download from './download'
 import Author from './author'
 import About from './about'
 import Effect from './effect'
+import Language from './language'
 import Upgrade from './upgrade'
 import classnames from 'classnames'
 import debounce from 'lodash/debounce'
@@ -37,32 +38,37 @@ export const Setting = defineComponent({
     const markNav = [
       {
         location: 'source',
-        name: '播放源',
+        name: j18n.load('src__pages__setting__view__index___39'),
         component: <Source />
       },
       {
         location: 'download',
-        name: '下载设置',
+        name: j18n.load('src__pages__setting__view__index___44'),
         component: <Download />
       },
       {
         location: 'upgrade',
-        name: '自动更新',
+        name: j18n.load('src__pages__setting__view__index___49'),
         component: <Upgrade />
       },
       {
         location: 'effect',
-        name: '音效',
+        name: j18n.load('src__pages__setting__view__index___54'),
         component: <Effect />
       },
       {
+        location: 'language',
+        name: j18n.load('src__pages__setting__view__index___55'),
+        component: <Language />
+      },
+      {
         location: 'author',
-        name: '作者',
+        name: j18n.load('src__pages__setting__view__index___59'),
         component: <Author />
       },
       {
         location: 'about',
-        name: '关于Radishes',
+        name: j18n.load('src__pages__setting__view__index___64'),
         component: <About />
       }
     ]
@@ -152,7 +158,7 @@ export const Setting = defineComponent({
 
     return () => (
       <div class="setting-view">
-        <h1>设置</h1>
+        <h1>{j18n.load('src__pages__setting__view__index___154')}</h1>
         <div class="setting-view-route">
           <ul>
             {markNav.map(item => {

@@ -44,7 +44,9 @@ export const Cloud = defineComponent({
       <MusicLayout
         class="cloud"
         v-slots={{
-          title: () => <div>音乐云盘</div>,
+          title: () => (
+            <div>{j18n.load('src__pages__cloud__view__index___46')}</div>
+          ),
           head: () => (
             <div class="cloud-head">
               <PlayAll onClick={handlePlayAll} />
@@ -60,7 +62,7 @@ export const Cloud = defineComponent({
                   class="upload-music-btn"
                   loading={uploading.value}
                 >
-                  上传歌曲
+                  {j18n.load('src__pages__cloud__view__index___62')}
                 </Button>
               </Upload>
             </div>

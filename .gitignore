@@ -4,7 +4,7 @@ node_modules
 /dist-electron
 /cypress
 /tests/e2e/video
-
+/src/locale/en.js
 
 # local env files
 .env.local

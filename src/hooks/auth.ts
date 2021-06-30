@@ -96,10 +96,10 @@ export const useUpdateProfile = () => {
 }
 
 /*
-  TODO Profile载入
-    用户个人详情
-    我的听歌排行
-    我的歌单
+  TODO Profile{ j18n.load('src__hooks__auth___98') }
+    { j18n.load('src__hooks__auth___99') }
+    { j18n.load('src__hooks__auth___100') }
+    { j18n.load('src__hooks__auth___101') }
 * * */
 export const useLoadProfile = () => {
   const $store = useStore()
@@ -157,10 +157,10 @@ export const useUserInfoLoading = () => {
   return computed(() => !!$store.state.Auth.userInfoLoading)
 }
 /*
-  TODO Profile载入
-    用户个人详情
-    我的听歌排行
-    我的歌单
+  TODO Profile{ j18n.load('src__hooks__auth___159') }
+    { j18n.load('src__hooks__auth___160') }
+    { j18n.load('src__hooks__auth___161') }
+    { j18n.load('src__hooks__auth___162') }
 * * */
 // export const useLoadUserInfo = () => {
 //   const $store = useStore()
@@ -259,12 +259,15 @@ export const usePlaylist = (
     // res.playlist = res.playlist.filter((info: any) => info.trackCount !== 0)
 
     if (offset === 0 && isSelf) {
-      res.playlist[0].name = '我喜欢的音乐'
+      res.playlist[0].name = j18n.load('src__hooks__auth___261')
     }
     if (offset === 0 && needRecord) {
       res.playlist.unshift({
         coverImgUrl: require('@/assets/imgs/rank_me.png'),
-        name: `${isSelf ? '我的' : ''}听歌排行`,
+        name: j18n.load(
+          'src__hooks__auth___266',
+          isSelf ? j18n.load('src__hooks__auth___267') : ''
+        ),
         trackCount: listenSongs,
         record: true,
         userId: uid

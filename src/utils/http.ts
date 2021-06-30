@@ -30,7 +30,7 @@ if (!isDevelopment && isElectron) {
   asyncIpc().then(v => {
     const port = v.sendSyncIpcRendererEvent(Service.GET_PORT)
     if (!port) {
-      message.warning('发生错误，请联系 linkorgs@163.com ')
+      message.warning(j18n.load('src__utils__http___32'))
     } else {
       http.defaults.baseURL = 'http://localhost:' + port
     }

@@ -12,9 +12,9 @@ export default defineComponent({
     const basicFormat: {
       [k: string]: string
     } = {
-      [BasicEffect.D3]: '3D环绕',
-      [BasicEffect.FADE]: '淡入淡出',
-      [BasicEffect.TENDER]: '温柔'
+      [BasicEffect.D3]: j18n.load('src__pages__setting__view__effect___14'),
+      [BasicEffect.FADE]: j18n.load('src__pages__setting__view__effect___15'),
+      [BasicEffect.TENDER]: j18n.load('src__pages__setting__view__effect___16')
     }
 
     const handleChangeBasic = (basic: BasicEffect[]) => {
@@ -27,12 +27,12 @@ export default defineComponent({
 
     return () => (
       <div class="setting-view-contanier--effect" data-location="effect">
-        <h2>音效设置</h2>
+        <h2>{j18n.load('src__pages__setting__view__effect___29')}</h2>
         <div class="setting-view-description">
-          使用不同的音效会有不一样的听歌体验，比如淡入淡出可以使听歌时不那么的突兀、3D环绕可以有一种立体的感觉。
+          {j18n.load('src__pages__setting__view__effect___31')}
         </div>
         <div class="effect-basic">
-          <div>基本音效</div>
+          <div>{j18n.load('src__pages__setting__view__effect___34')}</div>
           <CheckboxGroup
             direction="horizontal"
             v-model={state.basicEffect}
@@ -53,7 +53,7 @@ export default defineComponent({
           </CheckboxGroup>
         </div>
         <div class="effect-convolver">
-          <div>混合音效</div>
+          <div>{j18n.load('src__pages__setting__view__effect___55')}</div>
           <RadioGroup
             direction="horizontal"
             v-model={state.convolver}

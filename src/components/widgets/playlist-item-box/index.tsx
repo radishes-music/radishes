@@ -74,8 +74,13 @@ export const PlaylistItemBox = defineComponent({
           </div>
           <div class="playlist-item__boxname link-text">{name}</div>
           <div class="playlist-item__boxcount">{`${
-            record ? '累积听歌' : ''
-          }${trackCount}首`}</div>
+            record
+              ? j18n.load(
+                  'src__components__widgets__playlist-item-box__index___76',
+                  trackCount
+                )
+              : ''
+          }`}</div>
         </div>
       )
     }

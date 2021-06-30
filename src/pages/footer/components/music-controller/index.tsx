@@ -275,11 +275,18 @@ export const MusicControl = defineComponent({
                 icon={playMode.value}
                 color="#333"
                 size={16}
-                aria-title="播放顺序"
+                aria-title={j18n.load(
+                  'src__pages__footer__components__music-controller__index___277'
+                )}
               ></icon>
             </ve-button>
             <ve-button type="text" class="theme-btn-color" onClick={prevMusic}>
-              <icon icon="shangyishou" aria-title="上一首"></icon>
+              <icon
+                icon="shangyishou"
+                aria-title={j18n.load(
+                  'src__pages__footer__components__music-controller__index___281'
+                )}
+              ></icon>
             </ve-button>
             <ve-button
               type="text"
@@ -291,18 +298,27 @@ export const MusicControl = defineComponent({
               <icon
                 icon={playingIcon.value}
                 size={44}
-                aria-title="播放/暂停"
+                aria-title={j18n.load(
+                  'src__pages__footer__components__music-controller__index___293'
+                )}
               ></icon>
             </ve-button>
             <ve-button type="text" class="theme-btn-color" onClick={nextMusic}>
-              <icon icon="xiayishou" aria-title="下一首"></icon>
+              <icon
+                icon="xiayishou"
+                aria-title={j18n.load(
+                  'src__pages__footer__components__music-controller__index___297'
+                )}
+              ></icon>
             </ve-button>
             <ve-button type="text">
               <icon
                 icon="lyrics"
                 color={visibleFlash.value ? 'var(--base-color)' : '#333'}
                 size={16}
-                aria-title="词"
+                aria-title={j18n.load(
+                  'src__pages__footer__components__music-controller__index___304'
+                )}
                 onClick={handleVisibleFlash}
               ></icon>
             </ve-button>

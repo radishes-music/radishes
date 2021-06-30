@@ -22,7 +22,11 @@ export const UploadBtn = defineComponent({
               state.file = file[0]
             }}
           >
-            <Button shape="round">修改头像</Button>
+            <Button shape="round">
+              {j18n.load(
+                'src__pages__userinfo__component__upload-btn__index___24'
+              )}
+            </Button>
           </UploadWrapper>
           {state.file && (
             <UploadAvatar

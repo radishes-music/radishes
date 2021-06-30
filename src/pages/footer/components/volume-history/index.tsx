@@ -57,7 +57,13 @@ export const VolumeAndHistory = defineComponent({
         <MusicHistory v-model={[visible.value, 'visible']} />
         <Tooltip
           v-slots={{
-            title: () => <span>历史记录</span>
+            title: () => (
+              <span>
+                {j18n.load(
+                  'src__pages__footer__components__volume-history__index___59'
+                )}
+              </span>
+            )
           }}
         >
           <ve-button

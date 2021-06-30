@@ -10,11 +10,11 @@ import {
 } from '@/components/widgets'
 
 /*
-  TODO  我们来看一下怎么去处理这个组件
-    歌单的总数量由外接传递
-    是否需要加载听歌排行，也是由外接传入的
-    当前的排列形式，也是有外接传入的
-    用户是否登陆也是由外接传入
+  TODO  { j18n.load('src__pages__userinfo__component__playlist__index___12') }
+    { j18n.load('src__pages__userinfo__component__playlist__index___13') }
+    { j18n.load('src__pages__userinfo__component__playlist__index___14') }
+    { j18n.load('src__pages__userinfo__component__playlist__index___15') }
+    { j18n.load('src__pages__userinfo__component__playlist__index___16') }
 * * */
 
 // TODO 目前所有信息都是以重新加载为前提
@@ -51,7 +51,14 @@ export const Playlist = defineComponent({
         <>
           {list.length > 0 && (
             <ListHeader
-              title={`${isSelf ? '我' : 'Ta'}的歌单`}
+              title={j18n.load(
+                'src__pages__userinfo__component__playlist__index___53',
+                isSelf
+                  ? j18n.load(
+                      'src__pages__userinfo__component__playlist__index___52'
+                    )
+                  : 'Ta'
+              )}
               canLayout
               count={playCount}
               layoutType={layoutType}

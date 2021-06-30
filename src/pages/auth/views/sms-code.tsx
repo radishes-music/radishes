@@ -30,17 +30,19 @@ export const SmsCode = defineComponent({
 
     const onSubmit = async () => {
       if (state.code === '') {
-        setErrorMsg('请输入验证码')
+        setErrorMsg(j18n.load('src__pages__auth__views__sms-code___32'))
       } else {
         try {
           const res = await httpReset(phone, password, state.code)
           commitLogin(res)
-          Toast('登录成功')
+          Toast(j18n.load('src__pages__auth__views__sms-code___37'))
           $router.back()
         } catch (e) {
           if (e.response?.data) {
             setErrorMsg(
-              e.response.data.msg || e.response.data.message || '请求异常'
+              e.response.data.msg ||
+                e.response.data.message ||
+                j18n.load('src__pages__auth__views__sms-code___42')
             )
           } else if (e.msg) {
             setErrorMsg(e.msg)
@@ -66,12 +68,12 @@ export const SmsCode = defineComponent({
           </div>
 
           <div class="auth-view__tipstrong">
-            为了安全，我们会向你的手机发送短信验证码
+            {j18n.load('src__pages__auth__views__sms-code___68')}
           </div>
           <div class="auth-view__smscode">
             <InputField
               bold
-              placeholder="填写验证码"
+              placeholder={j18n.load('src__pages__auth__views__sms-code___73')}
               v-model={state.code}
               v-slots={{
                 left: () => (
@@ -98,7 +100,7 @@ export const SmsCode = defineComponent({
                   class="bd-button__auth"
                   onClick={onSend}
                 >
-                  重新获取
+                  {j18n.load('src__pages__auth__views__sms-code___100')}
                 </Button>
               ) : (
                 <CountDown
@@ -128,13 +130,15 @@ export const SmsCode = defineComponent({
             class="bd-button__auth"
             onClick={onSubmit}
           >
-            完成
+            {j18n.load('src__pages__auth__views__sms-code___130')}
           </Button>
 
           <div
             class="auth-back cursor-pointer"
             onClick={() => authUtil.to(AUTH_TYPE.PHONE_LOGIN)}
-          >{`< 返回登录`}</div>
+          >
+            {j18n.load('src__pages__auth__views__sms-code___136')}
+          </div>
         </>
       )
     }

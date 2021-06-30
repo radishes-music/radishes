@@ -35,14 +35,16 @@ export const EmailLogin = defineComponent({
 
     const doLogin = () => {
       if (!state.email) {
-        setErrorMsg('请输入帐号')
+        setErrorMsg(j18n.load('src__pages__auth__views__email-login___37'))
       } else if (!state.password) {
-        setErrorMsg('请输入密码')
+        setErrorMsg(j18n.load('src__pages__auth__views__email-login___39'))
       } else {
         httpEmailLogin(state.email, state.password)
           .then((res: LoginRes) => {
             if (!res.profile) {
-              setErrorMsg('该邮箱未绑定手机号，请通过官方渠道进行该操作')
+              setErrorMsg(
+                j18n.load('src__pages__auth__views__email-login___44')
+              )
             } else {
               commitLogin(res)
               $router.back()
@@ -51,7 +53,9 @@ export const EmailLogin = defineComponent({
           .catch((e: any) => {
             if (e.response?.data) {
               setErrorMsg(
-                e.response.data.msg || e.response.data.message || '请求异常'
+                e.response.data.msg ||
+                  e.response.data.message ||
+                  j18n.load('src__pages__auth__views__email-login___53')
               )
             } else if (e.msg) {
               setErrorMsg(e.msg)
@@ -68,7 +72,7 @@ export const EmailLogin = defineComponent({
         <div class="auth-view__inputbox">
           <InputField
             bold
-            placeholder="邮箱账号"
+            placeholder={j18n.load('src__pages__auth__views__email-login___70')}
             v-slots={{
               left: () => (
                 <div style="padding-left:8px;">
@@ -81,7 +85,7 @@ export const EmailLogin = defineComponent({
             onFocus={onFocus}
           ></InputField>
           <InputField
-            placeholder="密码"
+            placeholder={j18n.load('src__pages__auth__views__email-login___83')}
             // @ts-ignore
             type="password"
             v-slots={{
@@ -97,7 +101,7 @@ export const EmailLogin = defineComponent({
                   to="https://reg.163.com/naq/findPassword#/verifyAccount"
                   external
                 >
-                  忘记密码？
+                  {j18n.load('src__pages__auth__views__email-login___99')}？
                 </Link>
               )
             }}
@@ -120,12 +124,14 @@ export const EmailLogin = defineComponent({
           onClick={doLogin}
           disabled={httpStatus.loading}
         >
-          登 录
+          {j18n.load('src__pages__auth__views__email-login___122')}
         </Button>
         <div
           class="auth-back cursor-pointer"
           onClick={() => authUtil.to(AUTH_TYPE.PHONE_LOGIN)}
-        >{`< 返回其他登录`}</div>
+        >
+          {j18n.load('src__pages__auth__views__email-login___127')}
+        </div>
       </>
     )
   }

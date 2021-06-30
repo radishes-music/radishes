@@ -44,19 +44,25 @@ export const UserStatistic = defineComponent({
         <div class="user-statistic">
           {[
             {
-              key: '动态',
+              key: j18n.load(
+                'src__pages__userinfo__component__userinfo-widget__widget__user-statistic__index___46'
+              ),
               value: eventCount,
               onClick: goEvent
             },
             null,
             {
-              key: '关注',
+              key: j18n.load(
+                'src__pages__userinfo__component__userinfo-widget__widget__user-statistic__index___52'
+              ),
               value: follows,
               onClick: goFollow
             },
             null,
             {
-              key: '粉丝',
+              key: j18n.load(
+                'src__pages__userinfo__component__userinfo-widget__widget__user-statistic__index___58'
+              ),
               value: followeds,
               onClick: goFollowed
             }

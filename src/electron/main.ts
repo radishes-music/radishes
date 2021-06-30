@@ -103,8 +103,8 @@ async function createWindow() {
     const upgrade = store.get('upgrade')
     if (upgrade) {
       autoUpdater.checkForUpdatesAndNotify({
-        title: 'Radishes 通知',
-        body: '发现有新版本，快更新体验吧！'
+        title: j18n.load('src__electron__main___105'),
+        body: j18n.load('src__electron__main___106')
       })
       infoMain('Check update')
     }

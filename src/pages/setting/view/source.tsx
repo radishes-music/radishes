@@ -13,9 +13,9 @@ export default defineComponent({
     }
     return () => (
       <div class="setting-view-contanier--source" data-location="source">
-        <h2>播放源</h2>
+        <h2>{j18n.load('src__pages__setting__view__source___15')}</h2>
         <div class="setting-view-description">
-          设置播放源是为了提高播放成功率，但是会增加等待时间，因为需要在已选择的平台上进行搜索。
+          {j18n.load('src__pages__setting__view__source___17')}
         </div>
         <CheckboxGroup
           direction="horizontal"

@@ -27,11 +27,11 @@ export const Signup = defineComponent({
 
     const onSubmit = () => {
       if (!state.phone) {
-        setErrorMsg('请输入手机号')
+        setErrorMsg(j18n.load('src__pages__auth__views__signup___29'))
       } else if (!state.password) {
-        setErrorMsg('请输入登录密码')
+        setErrorMsg(j18n.load('src__pages__auth__views__signup___31'))
       } else if (!/\d{11}/.test(state.phone)) {
-        setErrorMsg('请输入正确的手机号')
+        setErrorMsg(j18n.load('src__pages__auth__views__signup___33'))
       } else {
         httpSend(state.phone)
           .then(() => {
@@ -43,7 +43,9 @@ export const Signup = defineComponent({
           .catch((e: any) => {
             if (e.response?.data) {
               setErrorMsg(
-                e.response.data.msg || e.response.data.message || '请求异常'
+                e.response.data.msg ||
+                  e.response.data.message ||
+                  j18n.load('src__pages__auth__views__signup___45')
               )
             } else if (e.msg) {
               setErrorMsg(e.msg)
@@ -64,7 +66,7 @@ export const Signup = defineComponent({
         <div class="auth-view__inputbox">
           <InputField
             bold
-            placeholder="请输入手机号"
+            placeholder={j18n.load('src__pages__auth__views__signup___66')}
             v-slots={{
               left: () => (
                 <div class="country-code">
@@ -78,7 +80,7 @@ export const Signup = defineComponent({
             onFocus={onFocus}
           ></InputField>
           <InputField
-            placeholder="设置登陆密码"
+            placeholder={j18n.load('src__pages__auth__views__signup___80')}
             // @ts-ignore
             type="password"
             v-slots={{
@@ -94,7 +96,7 @@ export const Signup = defineComponent({
         </div>
         {!errorMsg.text ? (
           <div class="auth-view__tiptext">
-            密码8-20位，至少包含字母/数字/字符2种组合
+            {j18n.load('src__pages__auth__views__signup___96')}
           </div>
         ) : (
           <div class="auth-view__error">
@@ -109,12 +111,12 @@ export const Signup = defineComponent({
           class="bd-button__auth"
           onClick={onSubmit}
         >
-          注册
+          {j18n.load('src__pages__auth__views__signup___111')}
         </Button>
 
         <div class="signup-others">
           <div class="signup-others__label">
-            <span>其他注册方式</span>
+            <span>{j18n.load('src__pages__auth__views__signup___116')}</span>
           </div>
           <div class="others">
             <AuthLink
@@ -123,7 +125,7 @@ export const Signup = defineComponent({
                 authUtil.to(AUTH_TYPE.EMAIL_LOGIN)
               }}
             >
-              网易邮箱
+              {j18n.load('src__pages__auth__views__signup___125')}
             </AuthLink>
           </div>
         </div>
@@ -133,7 +135,9 @@ export const Signup = defineComponent({
           onClick={() => {
             authUtil.to(AUTH_TYPE.PHONE_LOGIN)
           }}
-        >{`< 返回登录`}</div>
+        >
+          {j18n.load('src__pages__auth__views__signup___135')}
+        </div>
       </>
     )
   }

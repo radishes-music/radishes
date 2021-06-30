@@ -48,7 +48,9 @@ export const UploadAvatar = defineComponent({
     const onFile = async (files: any) => {
       const [file] = files
       if (file.size > 5242880) {
-        state.error = '请选择不超过5M的图片'
+        state.error = j18n.load(
+          'src__pages__userinfo__component__upload-avatar__index___50'
+        )
         return
       }
       if (state.error) {
@@ -162,7 +164,11 @@ export const UploadAvatar = defineComponent({
                 avatarUrl: res.data.url
               })
               props.onComplete()
-              Toast('头像修改成功')
+              Toast(
+                j18n.load(
+                  'src__pages__userinfo__component__upload-avatar__index___164'
+                )
+              )
             }
           } catch (e) {
             state.loading = false
@@ -255,7 +261,11 @@ export const UploadAvatar = defineComponent({
               >
                 <Icon icon="cross" color="auto"></Icon>
               </div>
-              <div class="upload-avatar__title">上传头像</div>
+              <div class="upload-avatar__title">
+                {j18n.load(
+                  'src__pages__userinfo__component__upload-avatar__index___257'
+                )}
+              </div>
             </div>
             <div class="upload-avatar__box">
               <div class="upload-avatar__poster">
@@ -300,7 +310,11 @@ export const UploadAvatar = defineComponent({
                     }}
                   ></Image>
                 </div>
-                <div class="upload-avatar__postertext">大尺寸封面</div>
+                <div class="upload-avatar__postertext">
+                  {j18n.load(
+                    'src__pages__userinfo__component__upload-avatar__index___302'
+                  )}
+                </div>
                 <div class="upload-avatar__poster2">
                   <Image
                     src={state.image}
@@ -313,13 +327,21 @@ export const UploadAvatar = defineComponent({
                     }}
                   ></Image>
                 </div>
-                <div class="upload-avatar__postertext">小尺寸封面</div>
+                <div class="upload-avatar__postertext">
+                  {j18n.load(
+                    'src__pages__userinfo__component__upload-avatar__index___315'
+                  )}
+                </div>
               </div>
             </div>
 
             <div class="upload-avatar__submit">
               <UploadWrapper onFile={onFile}>
-                <Button shape="round">重新选择</Button>
+                <Button shape="round">
+                  {j18n.load(
+                    'src__pages__userinfo__component__upload-avatar__index___321'
+                  )}
+                </Button>
               </UploadWrapper>
 
               <Button
@@ -329,7 +351,9 @@ export const UploadAvatar = defineComponent({
                   onSave()
                 }}
               >
-                保存并关闭
+                {j18n.load(
+                  'src__pages__userinfo__component__upload-avatar__index___331'
+                )}
               </Button>
             </div>
           </div>

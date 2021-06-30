@@ -38,7 +38,10 @@ export const SearchArtist = defineComponent({
     onActivated(() => {
       useMutations(
         SearchMutations.SET_SEARCH_TITLE,
-        `找到 ${state.artistList.total} 位歌手`
+        j18n.load(
+          'src__pages__search__children__artist___40',
+          state.artistList.total
+        )
       )
     })
     onBeforeUnmount(() => {

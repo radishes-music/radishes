@@ -8,7 +8,9 @@ export const EmptyList = defineComponent({
   name: 'EmptyList',
   props: {
     text: {
-      default: '暂无数据',
+      default: j18n.load(
+        'src__pages__userinfo__component__empty-list__index___10'
+      ),
       type: String
     }
   },

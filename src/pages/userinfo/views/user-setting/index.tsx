@@ -14,10 +14,10 @@ import './index.less'
 import { updateProfile } from '@/pages/userinfo/api'
 
 /*
-  TODO 由于网易云有自己的区号标准，所以暂不支持该功能
-    - 海外
-    - 特别行政区
-    - 台湾省
+  TODO { j18n.load('src__pages__userinfo__views__user-setting__index___16') }
+    - { j18n.load('src__pages__userinfo__views__user-setting__index___17') }
+    - { j18n.load('src__pages__userinfo__views__user-setting__index___18') }
+    - { j18n.load('src__pages__userinfo__views__user-setting__index___19') }
 */
 
 export const UserSetting = defineComponent({
@@ -114,7 +114,9 @@ export const UserSetting = defineComponent({
             nickname: state.nickname,
             birthday: state.birth
           })
-          Toast('修改成功')
+          Toast(
+            j18n.load('src__pages__userinfo__views__user-setting__index___116')
+          )
         }
       } catch (e) {
         state.loading = false
@@ -127,11 +129,19 @@ export const UserSetting = defineComponent({
           <div class="user-setting__form">
             <div class="user-setting__info">
               <div class="user-setting__row">
-                <span>昵称：</span>
+                <span>
+                  {j18n.load(
+                    'src__pages__userinfo__views__user-setting__index___129'
+                  )}
+                </span>
                 <Input value={state.nickname} onChange={onNickName}></Input>
               </div>
               <div class="user-setting__row">
-                <span>介绍：</span>
+                <span>
+                  {j18n.load(
+                    'src__pages__userinfo__views__user-setting__index___133'
+                  )}
+                </span>
                 <Input.TextArea
                   value={state.desc}
                   onChange={onDesc}
@@ -139,20 +149,28 @@ export const UserSetting = defineComponent({
                 ></Input.TextArea>
               </div>
               <div class="user-setting__row">
-                <span>性别：</span>
+                <span>
+                  {j18n.load(
+                    'src__pages__userinfo__views__user-setting__index___141'
+                  )}
+                </span>
                 <div class="row">
                   <SexSelect value={state.sex} onChange={onSex}></SexSelect>
                 </div>
               </div>
               <div class="user-setting__row">
-                <span>生日：</span>
+                <span>
+                  {j18n.load(
+                    'src__pages__userinfo__views__user-setting__index___147'
+                  )}
+                </span>
                 <BirthSelect
                   defaultValue={state.birth}
                   onChange={onBirth}
                 ></BirthSelect>
               </div>
               {/*<div class="user-setting__row">*/}
-              {/*  <span>地区：</span>*/}
+              {/*  <span>{ j18n.load('src__pages__userinfo__views__user-setting__index___154') }</span>*/}
               {/*  <AreaSelect></AreaSelect>*/}
               {/*</div>*/}
             </div>
@@ -172,7 +190,9 @@ export const UserSetting = defineComponent({
               onClick={onSubmit}
               loading={state.loading}
             >
-              保存
+              {j18n.load(
+                'src__pages__userinfo__views__user-setting__index___174'
+              )}
             </Button>
             <Button
               shape="round"
@@ -180,7 +200,9 @@ export const UserSetting = defineComponent({
                 $router.back()
               }}
             >
-              取消
+              {j18n.load(
+                'src__pages__userinfo__views__user-setting__index___182'
+              )}
             </Button>
           </div>
         </div>

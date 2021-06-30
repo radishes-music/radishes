@@ -39,7 +39,8 @@ export const PhoneLogin = defineComponent({
     // TODO ->  用来判断请求的状态
     const [httpStatus, httpPhoneLogin] = useHttp(doPhoneLogin)
 
-    const checkTip = () => Toast('请先勾选同意《radishes条款》')
+    const checkTip = () =>
+      Toast(j18n.load('src__pages__auth__views__phone-login___41'))
 
     const doLogin = () => {
       if (!state.checked) {
@@ -47,21 +48,23 @@ export const PhoneLogin = defineComponent({
         return
       }
       if (!state.phone) {
-        setErrorMsg('请输入手机号')
+        setErrorMsg(j18n.load('src__pages__auth__views__phone-login___49'))
       } else if (!state.password) {
-        setErrorMsg('请输入登录密码')
+        setErrorMsg(j18n.load('src__pages__auth__views__phone-login___51'))
       } else if (!/\d{11}/.test(state.phone)) {
-        setErrorMsg('请输入正确的手机号')
+        setErrorMsg(j18n.load('src__pages__auth__views__phone-login___53'))
       } else {
         httpPhoneLogin(state.phone, state.password)
           .then((res: LoginRes) => {
             commitLogin(res)
-            Toast('登录成功')
+            Toast(j18n.load('src__pages__auth__views__phone-login___58'))
             $router.back()
           })
           .catch((e: any) => {
             if (e.response?.status === 400) {
-              setErrorMsg('该手机号尚未注册')
+              setErrorMsg(
+                j18n.load('src__pages__auth__views__phone-login___63')
+              )
             } else if (e.response?.data) {
               setErrorMsg(e.response.data.msg)
             } else if (e.msg) {
@@ -95,7 +98,7 @@ export const PhoneLogin = defineComponent({
         <div class="auth-view__inputbox">
           <InputField
             bold
-            placeholder="请输入手机号"
+            placeholder={j18n.load('src__pages__auth__views__phone-login___97')}
             v-slots={{
               left: () => (
                 <div class="country-code">
@@ -112,7 +115,9 @@ export const PhoneLogin = defineComponent({
             onFocus={onFocus}
           ></InputField>
           <InputField
-            placeholder="请输入密码"
+            placeholder={j18n.load(
+              'src__pages__auth__views__phone-login___114'
+            )}
             // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             type="password"
@@ -130,7 +135,7 @@ export const PhoneLogin = defineComponent({
                     authUtil.to(AUTH_TYPE.RESET_PWD)
                   })}
                 >
-                  重设密码
+                  {j18n.load('src__pages__auth__views__phone-login___132')}
                 </div>
               )
             }}
@@ -155,7 +160,7 @@ export const PhoneLogin = defineComponent({
           class="bd-button__auth"
           onClick={doLogin}
         >
-          登 录
+          {j18n.load('src__pages__auth__views__phone-login___157')}
         </Button>
         <div class="register vh-center">
           <Link
@@ -163,7 +168,7 @@ export const PhoneLogin = defineComponent({
               authUtil.to(AUTH_TYPE.REGISTER)
             })}
           >
-            注册
+            {j18n.load('src__pages__auth__views__phone-login___165')}
           </Link>
         </div>
 
@@ -183,7 +188,9 @@ export const PhoneLogin = defineComponent({
             vModel={state.checked}
             checked-color={themeColor}
           >
-            <span>同意</span>
+            <span>
+              {j18n.load('src__pages__auth__views__phone-login___185')}
+            </span>
           </Checkbox>
 
           <div class="vchj">
@@ -192,7 +199,8 @@ export const PhoneLogin = defineComponent({
               external
               type="light"
             >
-              《radishes条款》
+              《radishes
+              {j18n.load('src__pages__auth__views__phone-login___194')}》
             </Link>
             {/* {TERMS.map((info: any) => (
               <Link to={info.link} key={info.name} external type="light">

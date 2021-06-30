@@ -1,3 +1,4 @@
+import '@/locale/j18n'
 import { createApp } from 'vue'
 import App from './app'
 import router from '../router'

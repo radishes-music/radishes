@@ -1,21 +1,39 @@
-import { SettingState, BasicEffect } from '@/interface/index'
+import {
+  SettingState,
+  BasicEffect,
+  ConvolutionFile,
+  Language
+} from '@/interface/index'
 
 export const state: SettingState = {
   source: ['qq', 'kuwo', 'migu'],
   sourceAll: [
-    { name: 'QQ音乐', value: 'qq', disabled: true },
-    { name: '酷我音乐', value: 'kuwo', disabled: true },
-    { name: '咪咕音乐', value: 'migu', disabled: true },
-    { name: '百度音乐', value: 'baidu' },
+    {
+      name: j18n.load('src__pages__setting__state___5'),
+      value: 'qq',
+      disabled: true
+    },
+    {
+      name: j18n.load('src__pages__setting__state___6'),
+      value: 'kuwo',
+      disabled: true
+    },
+    {
+      name: j18n.load('src__pages__setting__state___7'),
+      value: 'migu',
+      disabled: true
+    },
+    { name: j18n.load('src__pages__setting__state___8'), value: 'baidu' },
     { name: 'JOOX', value: 'joox' },
-    { name: '酷狗音乐', value: 'kugou' },
-    { name: '虾米音乐', value: 'xiami' }
+    { name: j18n.load('src__pages__setting__state___10'), value: 'kugou' },
+    { name: j18n.load('src__pages__setting__state___11'), value: 'xiami' }
     // { name: 'Youtube', value: 'youtube' }
   ],
   bitRate: 3.2e5,
   basicEffect: [BasicEffect.FADE],
-  convolver: '原唱',
+  convolver: j18n.load('src__pages__setting__state___16') as ConvolutionFile,
   upgrade: true,
+  language: Language.ZH,
   convolverAll: [
     '原唱',
     'AliceInBones',

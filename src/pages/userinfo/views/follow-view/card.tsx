@@ -53,13 +53,20 @@ export const FollowCard = defineComponent({
             </div>
             <div class="follow-card__desc">{info.signature}</div>
             <div>
-              歌单：{info.playlistCount} | 粉丝：{info.followeds}
+              {j18n.load(
+                'src__pages__userinfo__views__follow-view__card___55',
+                info.playlistCount
+              )}
+              {j18n.load(
+                'src__pages__userinfo__views__follow-view__card___56',
+                info.followeds
+              )}
             </div>
           </div>
           <Button disabled round class="follow-card__btn">
             <div class="follow-card__btnc">
               <Icon icon="email" color="#333" size={16}></Icon>
-              私信
+              {j18n.load('src__pages__userinfo__views__follow-view__card___61')}
             </div>
           </Button>
         </div>

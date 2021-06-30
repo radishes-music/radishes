@@ -63,15 +63,26 @@ export const UserInfoWidget = defineComponent({
           onLoad={onLoad}
           loading={state.loading}
           finished={state.finished}
-          finishedText="没有更多了"
+          finishedText={j18n.load(
+            'src__pages__userinfo__component__userinfo-widget__index___65'
+          )}
           error={state.error}
-          errorText="请求失败，点击重新加载"
+          errorText={j18n.load(
+            'src__pages__userinfo__component__userinfo-widget__index___67'
+          )}
         >
           <UserInfo profile={profile}></UserInfo>
 
           <AudioList
             audio={audio}
-            title={`${isSelf.value ? '我' : 'Ta'}创建的电台`}
+            title={j18n.load(
+              'src__pages__userinfo__component__userinfo-widget__index___73',
+              isSelf.value
+                ? j18n.load(
+                    'src__pages__userinfo__component__playlist__index___52'
+                  )
+                : 'Ta'
+            )}
           ></AudioList>
 
           <Playlist

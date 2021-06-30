@@ -46,9 +46,9 @@ export default defineComponent({
         data-location="upgrade"
         data-platform="electron"
       >
-        <h2>自动更新</h2>
+        <h2>{j18n.load('src__pages__setting__view__upgrade___48')}</h2>
         <div class="setting-view-description">
-          勾选自动更新可以拥有最完美的体验，还会修复一些已知问题。
+          {j18n.load('src__pages__setting__view__upgrade___50')}。
         </div>
         <div class="upgrade-basic">
           <Checkbox
@@ -59,7 +59,7 @@ export default defineComponent({
             onChange={handleChangeUpgrade}
             disabled={isBrowser}
           >
-            自动更新
+            {j18n.load('src__pages__setting__view__upgrade___61')}
           </Checkbox>
         </div>
         <div class="upgrade-check">
@@ -73,9 +73,11 @@ export default defineComponent({
             loading={upgrading.value}
             disabled={isBrowser}
           >
-            <span>检查更新</span>
+            <span>{j18n.load('src__pages__setting__view__upgrade___75')}</span>
           </Button>
-          {newUpgrade.value && <p>恭喜，已经是最新版本。</p>}
+          {newUpgrade.value && (
+            <p>{j18n.load('src__pages__setting__view__upgrade___77')}</p>
+          )}
         </div>
       </div>
     )

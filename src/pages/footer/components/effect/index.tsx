@@ -17,7 +17,13 @@ export default defineComponent({
       <div class="effect-trigger" onClick={handleAudioEffect}>
         <Tooltip
           v-slots={{
-            title: () => <span>音效</span>
+            title: () => (
+              <span>
+                {j18n.load(
+                  'src__pages__footer__components__effect__index___19'
+                )}
+              </span>
+            )
           }}
         >
           <icon icon="music" color="#5a5a5a" size={18} />

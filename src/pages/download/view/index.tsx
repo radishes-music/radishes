@@ -15,7 +15,9 @@ export const Download = defineComponent({
     return () => (
       <MusicLayout
         v-slots={{
-          title: () => <div>下载管理</div>,
+          title: () => (
+            <div>{j18n.load('src__pages__download__view__index___17')}</div>
+          ),
           head: () => <SecondaryBar nav={nav} size="small" />,
           body: () => <RouterView />
         }}

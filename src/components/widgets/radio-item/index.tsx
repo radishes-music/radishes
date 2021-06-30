@@ -29,8 +29,14 @@ export const RadioItem = defineComponent({
             <div class="radio-item__tag">{info.category}</div>
           </div>
           <div class="radio-item__right">
-            <div>节目{overNum(info.programCount)}</div>
-            <div>订阅{overNum(info.subCount)}</div>
+            <div>
+              {j18n.load('src__components__widgets__radio-item__index___31')}
+              {overNum(info.programCount)}
+            </div>
+            <div>
+              {j18n.load('src__components__widgets__radio-item__index___32')}
+              {overNum(info.subCount)}
+            </div>
           </div>
         </div>
       )

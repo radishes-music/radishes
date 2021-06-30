@@ -13,11 +13,11 @@ export default defineComponent({
 
     return () => (
       <span>
-        未找到歌曲的播放链接，
+        {j18n.load('src__pages__footer__components__no-music___15')}，
         <Button type="link" style="padding: 0" onClick={handleClick}>
-          点我
+          {j18n.load('src__pages__footer__components__no-music___17')}
         </Button>
-        添加播放源试试。
+        {j18n.load('src__pages__footer__components__no-music___19')}。
       </span>
     )
   }

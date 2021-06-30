@@ -12,6 +12,7 @@ declare global {
   interface Window {
     isMobile: boolean
     webkitAudioContext: AudioContext
+    j18n: any
   }
   type ActionTypeMap =
     | 'play'

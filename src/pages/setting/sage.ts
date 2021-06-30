@@ -35,7 +35,7 @@ export const mutations: MutationTree<SettingState> = {
   [SettingMutations.SET_CONVOLVER_EFFECT](state, convolver) {
     const { useState } = useFooterModule()
     const footerState = useState()
-    if (convolver === '原唱') {
+    if (convolver === j18n.load('src__pages__setting__sage___37')) {
       footerState.effect?.clearConvolver()
     } else {
       footerState.effect?.createConvolver(convolver)
@@ -44,5 +44,8 @@ export const mutations: MutationTree<SettingState> = {
   },
   [SettingMutations.SET_UPGRADE](state, upgrade) {
     state.upgrade = upgrade
+  },
+  [SettingMutations.SET_LANGUAGE](state, language) {
+    state.language = language
   }
 }

@@ -32,7 +32,10 @@ export const SearchAlbum = defineComponent({
     onActivated(() => {
       useMutations(
         SearchMutations.SET_SEARCH_TITLE,
-        `找到 ${state.albumList.total} 张专辑`
+        j18n.load(
+          'src__pages__search__children__album___34',
+          state.albumList.total
+        )
       )
     })
     onBeforeUnmount(() => {

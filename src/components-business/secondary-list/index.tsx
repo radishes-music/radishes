@@ -47,8 +47,8 @@ export const SecondaryList = defineComponent({
     const subscribe = useSubscribe(false)
 
     const typeMap = {
-      album: '专辑',
-      song: '歌单'
+      album: j18n.load('src__components-business__secondary-list__index___49'),
+      song: j18n.load('src__components-business__secondary-list__index___50')
     }
 
     const handleSubscribe = async () => {
@@ -60,7 +60,7 @@ export const SecondaryList = defineComponent({
     }
 
     const handleDwonloadAll = () => {
-      warning('暂不支持批量下载')
+      warning(j18n.load('src__components-business__secondary-list__index___62'))
     }
 
     return () => (
@@ -93,28 +93,47 @@ export const SecondaryList = defineComponent({
                   </i>
                   <i class="a-create-time">
                     {dayjs(props.source.time).format('YYYY-MM-DD')}
-                    创建
+                    {j18n.load(
+                      'src__components-business__secondary-list__index___95'
+                    )}
                   </i>
                 </div>
                 <div class="a-command-contanier">
                   <PlayAll onClick={() => emit('playAll')} />
                   <Button shape="round" onClick={handleSubscribe}>
-                    {props.source.subscribed ? '取消收藏' : '收藏'}
+                    {props.source.subscribed
+                      ? j18n.load(
+                          'src__components-business__secondary-list__index___101____4'
+                        )
+                      : j18n.load(
+                          'src__components-business__secondary-list__index___101'
+                        )}
                   </Button>
                   <Button shape="round" onClick={handleDwonloadAll}>
-                    下载
+                    {j18n.load(
+                      'src__components-business__secondary-list__index___104'
+                    )}
                   </Button>
                 </div>
                 <div class="a-tracks-count">
                   <div v-show={!!props.source.trackCount}>
-                    歌曲：{props.source.trackCount}
+                    {j18n.load(
+                      'src__components-business__secondary-list__index___109'
+                    )}
+                    ：{props.source.trackCount}
                   </div>
                   <div v-show={!!props.source.playCount}>
-                    播放：{formatCount(props.source.playCount)}
+                    {j18n.load(
+                      'src__components-business__secondary-list__index___112'
+                    )}
+                    ：{formatCount(props.source.playCount)}
                   </div>
                 </div>
                 <div v-show={!!props.source.tags} class="a-tracks-count">
-                  标签：
+                  {j18n.load(
+                    'src__components-business__secondary-list__index___116'
+                  )}
+                  ：
                   {props.source.tags?.map(tag => (
                     <RouterLink
                       to={{
@@ -130,7 +149,11 @@ export const SecondaryList = defineComponent({
                 </div>
 
                 <div class="a-description">
-                  <div>简介：</div>
+                  <div>
+                    {j18n.load(
+                      'src__components-business__secondary-list__index___132'
+                    )}
+                  </div>
                   <MoreThen
                     equal={44}
                     rely={props.source.description}

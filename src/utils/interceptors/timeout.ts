@@ -6,7 +6,10 @@ export default function(http: AxiosInstance) {
     response => response,
     error => {
       if (error.response?.status === 408 || error.code === 'ECONNABORTED') {
-        message.error(`请求超时，请重试。url: ${error.config.url}`, 5)
+        message.error(
+          j18n.load('src__utils__interceptors__timeout___8', error.config.url),
+          5
+        )
       }
       return Promise.reject(error)
     }

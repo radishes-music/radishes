@@ -45,12 +45,12 @@ export default defineComponent({
         data-location="download"
         data-platform="electron"
       >
-        <h2>下载设置</h2>
+        <h2>{j18n.load('src__pages__setting__view__download___47')}</h2>
         <div class="setting-view-description">
-          下载设置可以帮助你选择不同的文件夹以保存下载的歌曲，还可以选择不同音质的歌曲进行下载。（目前只支持网易云的播放源）
+          {j18n.load('src__pages__setting__view__download___49')}
         </div>
         <div class="download-quality vchj">
-          下载品质：
+          {j18n.load('src__pages__setting__view__download___52')}：
           <RadioGroup
             direction="horizontal"
             v-model={state.bitRate}
@@ -69,13 +69,14 @@ export default defineComponent({
           </RadioGroup>
         </div>
         <div class="download-path">
-          下载目录：{downloadState.downloadPath}
+          {j18n.load('src__pages__setting__view__download___71')}：
+          {downloadState.downloadPath}
           <ve-button
             type="text"
             onClick={handleOpenDialog}
             disabled={isBrowser}
           >
-            更改目录
+            {j18n.load('src__pages__setting__view__download___77')}
           </ve-button>
         </div>
       </div>

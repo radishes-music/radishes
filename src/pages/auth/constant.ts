@@ -8,15 +8,15 @@ export const AUTH_TYPE: Record<string, number> = {
 
 export const TERMS = [
   {
-    name: '《服务条款》',
+    name: j18n.load('src__pages__auth__constant___10'),
     link: 'https://st.music.163.com/official-terms/service'
   },
   {
-    name: '《隐私政策》',
+    name: j18n.load('src__pages__auth__constant___14'),
     link: 'https://st.music.163.com/official-terms/privacy'
   },
   {
-    name: '《儿童隐私政策》',
+    name: j18n.load('src__pages__auth__constant___18'),
     link: 'https://st.music.163.com/official-terms/children'
   }
 ]

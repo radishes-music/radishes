@@ -115,7 +115,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
   ipcMain.on(Dialog.SHOW_DIALOG, (event, arg) => {
     dialog
       .showOpenDialog(win, {
-        title: '添加文件夹',
+        title: j18n.load('src__electron__event__ipc-main__index___117'),
         properties: ['openDirectory', 'multiSelections']
       })
       .then(v => {

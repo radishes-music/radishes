@@ -94,7 +94,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: ArtistAlbume,
         name: 'ArtistAlbume',
         meta: {
-          name: '专辑',
+          name: j18n.load('src__router__content___96'),
           canBeCollect: true
         }
       },
@@ -112,7 +112,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: ArtistDesc,
         name: 'ArtistDesc',
         meta: {
-          name: '歌手详情',
+          name: j18n.load('src__router__content___114'),
           canBeCollect: true
         }
       },
@@ -121,7 +121,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: ArtistSimilar,
         name: 'ArtistSimilar',
         meta: {
-          name: '相似歌手',
+          name: j18n.load('src__router__content___123'),
           canBeCollect: true
         }
       }
@@ -156,7 +156,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: SearchSong,
         name: 'SearchSong',
         meta: {
-          name: '歌曲',
+          name: j18n.load('src__router__content___158'),
           path: 'song'
         }
       },
@@ -165,7 +165,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: SearchArtist,
         name: 'SearchArtist',
         meta: {
-          name: '歌手',
+          name: j18n.load('src__router__content___167'),
           path: 'artist'
         }
       },
@@ -174,7 +174,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: SearchAlbum,
         name: 'SearchAlbum',
         meta: {
-          name: '专辑',
+          name: j18n.load('src__router__content___176'),
           path: 'album'
         }
       },
@@ -183,7 +183,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: SearchSongList,
         name: 'SearchSongList',
         meta: {
-          name: '歌单',
+          name: j18n.load('src__router__content___185'),
           path: 'songlist'
         }
       },
@@ -192,7 +192,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: SearchLyrics,
         name: 'SearchLyrics',
         meta: {
-          name: '歌词',
+          name: j18n.load('src__router__content___194'),
           path: 'lyrics'
         }
       }

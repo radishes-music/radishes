@@ -45,7 +45,7 @@ export const actions: ActionTree<SearchState, RootState> = {
     state.songList.total = result.songCount
     commit(
       SearchMutations.SET_SEARCH_TITLE,
-      `找到 ${state.songList.total} 首歌曲`
+      j18n.load('src__pages__search__sage___47', state.songList.total)
     )
   },
   async [SearchActions.GET_ARTIST_LIST]({ state, commit }, payload) {
@@ -67,7 +67,7 @@ export const actions: ActionTree<SearchState, RootState> = {
     state.artistList.total = result.artistCount
     commit(
       SearchMutations.SET_SEARCH_TITLE,
-      `找到 ${state.artistList.total} 位歌手`
+      j18n.load('src__pages__search__sage___69', state.artistList.total)
     )
   },
   async [SearchActions.GET_PLAYLIST_LIST]({ state, commit }, payload) {
@@ -90,7 +90,7 @@ export const actions: ActionTree<SearchState, RootState> = {
     state.playlist.total = result.playlistCount
     commit(
       SearchMutations.SET_SEARCH_TITLE,
-      `找到 ${state.playlist.total} 个歌单`
+      j18n.load('src__pages__search__sage___92', state.playlist.total)
     )
   },
   async [SearchActions.GET_ALBUM_LIST]({ state, commit }, payload) {
@@ -113,7 +113,7 @@ export const actions: ActionTree<SearchState, RootState> = {
     state.albumList.total = result.albumCount
     commit(
       SearchMutations.SET_SEARCH_TITLE,
-      `找到 ${state.albumList.total} 张专辑`
+      j18n.load('src__pages__search__sage___115', state.albumList.total)
     )
   },
   async [SearchActions.GET_LYRICS_LIST]({ state, commit }, payload) {
@@ -137,7 +137,7 @@ export const actions: ActionTree<SearchState, RootState> = {
     state.lyriceList.total = result.songCount
     commit(
       SearchMutations.SET_SEARCH_TITLE,
-      `找到 ${state.lyriceList.total} 首歌词`
+      j18n.load('src__pages__search__sage___139', state.lyriceList.total)
     )
   }
 }

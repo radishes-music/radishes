@@ -11,7 +11,9 @@ export default defineComponent({
       if (!online.value) {
         return (
           <Alert
-            message="离线只能播放本地音乐（本地客户端）哦，联网后有更优质的体验"
+            message={j18n.load(
+              'src__components-business__offline__offline___13'
+            )}
             type="warning"
           />
         )

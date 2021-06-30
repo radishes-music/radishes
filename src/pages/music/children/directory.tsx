@@ -5,7 +5,7 @@ export const LocalMusicDir = defineComponent({
   setup() {
     return () => (
       <div class="local-music-dir">
-        <div>本地目录</div>
+        <div>{j18n.load('src__pages__music__children__directory___7')}</div>
       </div>
     )
   }
