@@ -99,7 +99,7 @@ jobs:
           ./script/deploy.sh $ACCESS_TOKEN github.com/hq001/test_video.git tests/e2e
 
 
-  build:
+  lint:
     name: Yarn build
     runs-on: ubuntu-latest
     needs: install
@@ -125,35 +125,6 @@ jobs:
 
       - name: Lint
         run: yarn lint
-
-      - name: Build to host
-        env:
-          VUE_APP_CI_BASE_URL: /
-        run: yarn build
-      
-      - name: Rename dist
-        run: cp -r dist music
-      
-      - name: Copy music to host
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          source: "music/"
-          target: "/usr/sitemap"
-
-      - name: Build to github page
-        env:
-          VUE_APP_CI_BASE_URL: https://112.74.169.178
-        run: yarn build
-
-      - name: Release to github page
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          GITHUB_REPO: github.com/hq001/hq001.github.io.git
-        run: ./script/deploy.sh $ACCESS_TOKEN $GITHUB_REPO dist
 
   build-electron:
     name: Automatically release electron version

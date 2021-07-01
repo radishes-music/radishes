@@ -15,7 +15,7 @@
     "lint": "vue-cli-service lint && stylelint \"src/**/*.{css,less}\"",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less}\"",
     "lint:style": "stylelint --fix \"src/**/*.{css,less}\" --cache --cache-location node_modules/.cache/stylelint/",
-    "build": "cross-env NODE_ENV=production vue-cli-service build --mode browser --modern",
+    "build": "cross-env NODE_ENV=production vue-cli-service build --mode browser",
     "build:electron": "node script/build.js --win",
     "build:electron:linux": "node script/build.js --linux",
     "build:electron:macos": "node script/build.js --mac",

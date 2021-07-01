@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/:match*", "destination": "https://radishes-api.vercel.app/:match*" }
+  ]
+}
