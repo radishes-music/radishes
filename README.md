@@ -80,7 +80,7 @@ npx lerna bootstrap
 ### Electron
 
 目前已发布第一版，包含听歌等功能，前往 [https://github.com/Linkontoask/radishes/releases/tag/2.0.0-alpha.1](https://github.com/Linkontoask/radishes/releases/tag/2.0.0-alpha.1) 下载 windows 版本。  
-~~macOS 版本暂时无法发布（因为我没钱买 mac ）。~~已发布`mac`版本。[v2.0.0-alpha.4](https://github.com/Linkontoask/radishes/releases/tag/v2.0.0-alpha.4)
+已发布`mac`版本。[v2.0.0-alpha.4](https://github.com/Linkontoask/radishes/releases/tag/v2.0.0-alpha.4)
 在开发的同时会快速兼容 Electron 。所谓的快速就是调用很少的 API 实现 PC 端的功能，比如放大、缩小、通知、歌词、音乐拖放上传。  
 
 目前`Electron`已经支持对歌曲的标签写入与读取，专辑封面还未压缩处理。所有在`radishes`平台下载的歌曲都会自动生成歌曲的歌手、专辑、标题等内容。  
