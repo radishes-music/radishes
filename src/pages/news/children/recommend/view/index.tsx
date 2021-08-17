@@ -79,9 +79,7 @@ export const Recommend = defineComponent({
         </div>
         <div class="recommend-song">
           <h2>
-            {j18n.load(
-              'src__pages__news__children__recommend__view__index___80'
-            )}
+            {$t('src__pages__news__children__recommend__view__index___80')}
           </h2>
           <SongList
             songData={songList.value}

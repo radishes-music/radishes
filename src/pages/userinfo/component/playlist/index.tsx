@@ -10,11 +10,11 @@ import {
 } from '@/components/widgets'
 
 /*
-  TODO  { j18n.load('src__pages__userinfo__component__playlist__index___12') }
-    { j18n.load('src__pages__userinfo__component__playlist__index___13') }
-    { j18n.load('src__pages__userinfo__component__playlist__index___14') }
-    { j18n.load('src__pages__userinfo__component__playlist__index___15') }
-    { j18n.load('src__pages__userinfo__component__playlist__index___16') }
+  TODO  { $t('src__pages__userinfo__component__playlist__index___12') }
+    { $t('src__pages__userinfo__component__playlist__index___13') }
+    { $t('src__pages__userinfo__component__playlist__index___14') }
+    { $t('src__pages__userinfo__component__playlist__index___15') }
+    { $t('src__pages__userinfo__component__playlist__index___16') }
 * * */
 
 // TODO 目前所有信息都是以重新加载为前提
@@ -51,12 +51,10 @@ export const Playlist = defineComponent({
         <>
           {list.length > 0 && (
             <ListHeader
-              title={j18n.load(
+              title={$t(
                 'src__pages__userinfo__component__playlist__index___53',
                 isSelf
-                  ? j18n.load(
-                      'src__pages__userinfo__component__playlist__index___52'
-                    )
+                  ? $t('src__pages__userinfo__component__playlist__index___52')
                   : 'Ta'
               )}
               canLayout

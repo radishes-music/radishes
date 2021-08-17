@@ -18,6 +18,7 @@ module.exports = {
         style: true
       },
       'vant'
-    ]
+    ],
+    './packages/t/index.js'
   ]
 }

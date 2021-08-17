@@ -8,10 +8,8 @@ export const state: RecommendState = {
       playCount: 0,
       playcount: 0,
       trackCount: 0,
-      name: j18n.load('src__pages__news__children__recommend__state___10'),
-      copywriter: j18n.load(
-        'src__pages__news__children__recommend__state___11'
-      ),
+      name: $t('src__pages__news__children__recommend__state___10'),
+      copywriter: $t('src__pages__news__children__recommend__state___11'),
       picUrl: '',
       coverImgUrl: '',
       description: '',

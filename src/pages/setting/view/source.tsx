@@ -13,9 +13,9 @@ export default defineComponent({
     }
     return () => (
       <div class="setting-view-contanier--source" data-location="source">
-        <h2>{j18n.load('src__pages__setting__view__source___15')}</h2>
+        <h2>{$t('src__pages__setting__view__source___15')}</h2>
         <div class="setting-view-description">
-          {j18n.load('src__pages__setting__view__source___17')}
+          {$t('src__pages__setting__view__source___17')}
         </div>
         <CheckboxGroup
           direction="horizontal"

@@ -41,13 +41,13 @@ export const DownloadSong = defineComponent({
           <PlayAll onClick={handlePlayAll} />
           {isElectron && (
             <div class="download-song-head--dir">
-              {j18n.load('src__pages__download__children__song___43')}：
+              {$t('src__pages__download__children__song___43')}：
               {state.downloadPath}
               <ve-button type="text" onClick={handleOpenExplorer}>
-                {j18n.load('src__pages__download__children__song___45')}
+                {$t('src__pages__download__children__song___45')}
               </ve-button>
               <ve-button type="text" onClick={handleSettingDwonload}>
-                {j18n.load('src__pages__download__children__song___48')}
+                {$t('src__pages__download__children__song___48')}
               </ve-button>
             </div>
           )}

@@ -23,9 +23,7 @@ export const UploadBtn = defineComponent({
             }}
           >
             <Button shape="round">
-              {j18n.load(
-                'src__pages__userinfo__component__upload-btn__index___24'
-              )}
+              {$t('src__pages__userinfo__component__upload-btn__index___24')}
             </Button>
           </UploadWrapper>
           {state.file && (

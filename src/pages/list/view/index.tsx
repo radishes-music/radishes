@@ -35,8 +35,8 @@ const formatPlayListData = (item: PlayList, id: string): FormatSource => {
       id: Number(id),
       src: '',
       type: 'song',
-      name: j18n.load('src__pages__list__view__index___37'),
-      description: j18n.load('src__pages__list__view__index___38'),
+      name: $t('src__pages__list__view__index___37'),
+      description: $t('src__pages__list__view__index___38'),
       list: [
         ...item.tracks.map(o => ({
           ...o,

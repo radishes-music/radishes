@@ -59,7 +59,7 @@ export const VolumeAndHistory = defineComponent({
           v-slots={{
             title: () => (
               <span>
-                {j18n.load(
+                {$t(
                   'src__pages__footer__components__volume-history__index___59'
                 )}
               </span>

@@ -24,7 +24,7 @@ export const PlayAll = defineComponent({
           emit('click')
         }}
       >
-        {j18n.load('src__components-business__button__index___26')}
+        {$t('src__components-business__button__index___26')}
       </Button>
     )
   }

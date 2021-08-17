@@ -81,7 +81,7 @@ export const MusicHistory = defineComponent({
                     (isPlayListVisible.value = !isPlayListVisible.value)
                   }
                 >
-                  {j18n.load(
+                  {$t(
                     'src__pages__footer__components__volume-history__history___83'
                   )}
                 </Button>
@@ -91,7 +91,7 @@ export const MusicHistory = defineComponent({
                     (isPlayListVisible.value = !isPlayListVisible.value)
                   }
                 >
-                  {j18n.load(
+                  {$t(
                     'src__pages__footer__components__volume-history__history___91'
                   )}
                 </Button>

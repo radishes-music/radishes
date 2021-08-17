@@ -50,7 +50,7 @@ export const FloatBox = defineComponent({
                 <div class="sidebar-x__info">
                   {[
                     {
-                      name: j18n.load(
+                      name: $t(
                         'src__pages__auth__component__sidebar-auth__float-box___52'
                       ),
                       value: profile.value.eventCount,
@@ -59,7 +59,7 @@ export const FloatBox = defineComponent({
                       }
                     },
                     {
-                      name: j18n.load(
+                      name: $t(
                         'src__pages__auth__component__sidebar-auth__float-box___59'
                       ),
                       value: profile.value.follows,
@@ -68,7 +68,7 @@ export const FloatBox = defineComponent({
                       }
                     },
                     {
-                      name: j18n.load(
+                      name: $t(
                         'src__pages__auth__component__sidebar-auth__float-box___66'
                       ),
                       value: profile.value.followeds,
@@ -92,7 +92,7 @@ export const FloatBox = defineComponent({
                 <Row type="flex" justify="center">
                   {profile.value.pcSign ? (
                     <div class="sidebar-x__signin">
-                      {j18n.load(
+                      {$t(
                         'src__pages__auth__component__sidebar-auth__float-box___87'
                       )}
                     </div>
@@ -106,7 +106,7 @@ export const FloatBox = defineComponent({
                     >
                       <Icon icon="jinbi" color="#8c8c8c" size={16}></Icon>
                       &nbsp;
-                      {j18n.load(
+                      {$t(
                         'src__pages__auth__component__sidebar-auth__float-box___97'
                       )}
                     </div>
@@ -116,22 +116,22 @@ export const FloatBox = defineComponent({
               <div class="sidebar-hr"></div>
               <XCell
                 icon="daV"
-                title={j18n.load(
+                title={$t(
                   'src__pages__auth__component__sidebar-auth__float-box___105'
                 )}
                 externalLink="https://music.163.com/#/member"
               >
                 {profile.value.vipType == 0
-                  ? j18n.load(
+                  ? $t(
                       'src__pages__auth__component__sidebar-auth__float-box___108____6'
                     )
-                  : j18n.load(
+                  : $t(
                       'src__pages__auth__component__sidebar-auth__float-box___108'
                     )}
               </XCell>
               <XCell
                 icon="dengji"
-                title={j18n.load(
+                title={$t(
                   'src__pages__auth__component__sidebar-auth__float-box___112'
                 )}
                 externalLink="https://music.163.com/#/user/level"
@@ -140,7 +140,7 @@ export const FloatBox = defineComponent({
               </XCell>
               <XCell
                 icon="gouwuche"
-                title={j18n.load(
+                title={$t(
                   'src__pages__auth__component__sidebar-auth__float-box___119'
                 )}
                 externalLink="https://music.163.com/store/product"
@@ -149,7 +149,7 @@ export const FloatBox = defineComponent({
               {/* localPage */}
               <XCell
                 icon="chilun"
-                title={j18n.load(
+                title={$t(
                   'src__pages__auth__component__sidebar-auth__float-box___126'
                 )}
                 onClick={() => {
@@ -159,7 +159,7 @@ export const FloatBox = defineComponent({
               {/* localPage */}
               <XCell
                 icon="shouji"
-                title={j18n.load(
+                title={$t(
                   'src__pages__auth__component__sidebar-auth__float-box___132'
                 )}
               >
@@ -169,7 +169,7 @@ export const FloatBox = defineComponent({
               <XCell
                 icon="guanji"
                 onClick={doLogout}
-                title={j18n.load(
+                title={$t(
                   'src__pages__auth__component__sidebar-auth__float-box___139'
                 )}
                 needArrow={false}

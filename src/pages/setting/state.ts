@@ -9,29 +9,29 @@ export const state: SettingState = {
   source: ['qq', 'kuwo', 'migu'],
   sourceAll: [
     {
-      name: j18n.load('src__pages__setting__state___5'),
+      name: $t('src__pages__setting__state___5'),
       value: 'qq',
       disabled: true
     },
     {
-      name: j18n.load('src__pages__setting__state___6'),
+      name: $t('src__pages__setting__state___6'),
       value: 'kuwo',
       disabled: true
     },
     {
-      name: j18n.load('src__pages__setting__state___7'),
+      name: $t('src__pages__setting__state___7'),
       value: 'migu',
       disabled: true
     },
-    { name: j18n.load('src__pages__setting__state___8'), value: 'baidu' },
+    { name: $t('src__pages__setting__state___8'), value: 'baidu' },
     { name: 'JOOX', value: 'joox' },
-    { name: j18n.load('src__pages__setting__state___10'), value: 'kugou' },
-    { name: j18n.load('src__pages__setting__state___11'), value: 'xiami' }
+    { name: $t('src__pages__setting__state___10'), value: 'kugou' },
+    { name: $t('src__pages__setting__state___11'), value: 'xiami' }
     // { name: 'Youtube', value: 'youtube' }
   ],
   bitRate: 3.2e5,
   basicEffect: [BasicEffect.FADE],
-  convolver: j18n.load('src__pages__setting__state___16') as ConvolutionFile,
+  convolver: $t('src__pages__setting__state___16') as ConvolutionFile,
   upgrade: true,
   language: Language.ZH,
   convolverAll: [

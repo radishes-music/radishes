@@ -73,7 +73,7 @@ export const BirthSelect = defineComponent({
           >
             {years.map((year: number, index: number) => (
               <Select.Option value={index}>
-                {j18n.load(
+                {$t(
                   'src__pages__userinfo__views__user-setting__birth-select___74',
                   year
                 )}
@@ -87,7 +87,7 @@ export const BirthSelect = defineComponent({
           >
             {months.map((month: number, index: number) => (
               <Select.Option value={index}>
-                {j18n.load(
+                {$t(
                   'src__pages__userinfo__views__user-setting__birth-select___83',
                   month
                 )}
@@ -101,7 +101,7 @@ export const BirthSelect = defineComponent({
           >
             {days.slice(0, dayEnd.value).map((day: number, index: number) => (
               <Select.Option value={index}>
-                {j18n.load(
+                {$t(
                   'src__pages__userinfo__views__user-setting__birth-select___92',
                   day
                 )}

@@ -69,15 +69,15 @@ export default defineComponent({
                   <h1>{state.artist.name}</h1>
                   <div class="artist-detail-authoring">
                     <p>
-                      {j18n.load('src__pages__artist__view__index___70')}
+                      {$t('src__pages__artist__view__index___70')}
                       {state.artist.musicSize}
                     </p>
                     <p>
-                      {j18n.load('src__pages__artist__view__index___71')}
+                      {$t('src__pages__artist__view__index___71')}
                       {state.artist.albumSize}
                     </p>
                     <p>
-                      {j18n.load('src__pages__artist__view__index___72')}
+                      {$t('src__pages__artist__view__index___72')}
                       {state.artist.mvSize}
                     </p>
                   </div>

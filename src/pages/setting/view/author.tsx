@@ -4,7 +4,7 @@ export default defineComponent({
   setup() {
     return () => (
       <div class="setting-view-contanier--author" data-location="author">
-        <h2>{j18n.load('src__pages__setting__view__author___6')}</h2>
+        <h2>{$t('src__pages__setting__view__author___6')}</h2>
         <ul>
           <li>
             <a href="https://github.com/little-buddy" target="_blank">

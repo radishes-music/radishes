@@ -47,8 +47,8 @@ export const SecondaryList = defineComponent({
     const subscribe = useSubscribe(false)
 
     const typeMap = {
-      album: j18n.load('src__components-business__secondary-list__index___49'),
-      song: j18n.load('src__components-business__secondary-list__index___50')
+      album: $t('src__components-business__secondary-list__index___49'),
+      song: $t('src__components-business__secondary-list__index___50')
     }
 
     const handleSubscribe = async () => {
@@ -60,7 +60,7 @@ export const SecondaryList = defineComponent({
     }
 
     const handleDwonloadAll = () => {
-      warning(j18n.load('src__components-business__secondary-list__index___62'))
+      warning($t('src__components-business__secondary-list__index___62'))
     }
 
     return () => (
@@ -93,46 +93,42 @@ export const SecondaryList = defineComponent({
                   </i>
                   <i class="a-create-time">
                     {dayjs(props.source.time).format('YYYY-MM-DD')}
-                    {j18n.load(
-                      'src__components-business__secondary-list__index___95'
-                    )}
+                    {$t('src__components-business__secondary-list__index___95')}
                   </i>
                 </div>
                 <div class="a-command-contanier">
                   <PlayAll onClick={() => emit('playAll')} />
                   <Button shape="round" onClick={handleSubscribe}>
                     {props.source.subscribed
-                      ? j18n.load(
+                      ? $t(
                           'src__components-business__secondary-list__index___101____4'
                         )
-                      : j18n.load(
+                      : $t(
                           'src__components-business__secondary-list__index___101'
                         )}
                   </Button>
                   <Button shape="round" onClick={handleDwonloadAll}>
-                    {j18n.load(
+                    {$t(
                       'src__components-business__secondary-list__index___104'
                     )}
                   </Button>
                 </div>
                 <div class="a-tracks-count">
                   <div v-show={!!props.source.trackCount}>
-                    {j18n.load(
+                    {$t(
                       'src__components-business__secondary-list__index___109'
                     )}
                     ：{props.source.trackCount}
                   </div>
                   <div v-show={!!props.source.playCount}>
-                    {j18n.load(
+                    {$t(
                       'src__components-business__secondary-list__index___112'
                     )}
                     ：{formatCount(props.source.playCount)}
                   </div>
                 </div>
                 <div v-show={!!props.source.tags} class="a-tracks-count">
-                  {j18n.load(
-                    'src__components-business__secondary-list__index___116'
-                  )}
+                  {$t('src__components-business__secondary-list__index___116')}
                   ：
                   {props.source.tags?.map(tag => (
                     <RouterLink
@@ -150,7 +146,7 @@ export const SecondaryList = defineComponent({
 
                 <div class="a-description">
                   <div>
-                    {j18n.load(
+                    {$t(
                       'src__components-business__secondary-list__index___132'
                     )}
                   </div>

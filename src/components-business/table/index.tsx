@@ -113,7 +113,7 @@ const columns = [
     }
   },
   {
-    title: j18n.load('src__components-business__table__index___115'),
+    title: $t('src__components-business__table__index___115'),
     width: 200,
     dataIndex: 'lyrics',
     key: 'lyrics',
@@ -143,7 +143,7 @@ const columns = [
     }
   },
   {
-    title: j18n.load('src__components-business__table__index___145'),
+    title: $t('src__components-business__table__index___145'),
     width: 140,
     align: 'center',
     dataIndex: 'picUrl',
@@ -153,7 +153,7 @@ const columns = [
     }
   },
   {
-    title: j18n.load('src__components-business__table__index___155'),
+    title: $t('src__components-business__table__index___155'),
     width: 140,
     align: 'center',
     dataIndex: 'count',
@@ -161,13 +161,13 @@ const columns = [
     customRender: ({ text }: { text: number }) => {
       return (
         <span>
-          {text} {j18n.load('src__components-business__table__index___161')}
+          {text} {$t('src__components-business__table__index___161')}
         </span>
       )
     }
   },
   {
-    title: j18n.load('src__components-business__table__index___165'),
+    title: $t('src__components-business__table__index___165'),
     width: 140,
     align: 'center',
     dataIndex: 'creator',
@@ -177,7 +177,7 @@ const columns = [
     }
   },
   {
-    title: j18n.load('src__components-business__table__index___175'),
+    title: $t('src__components-business__table__index___175'),
     width: 140,
     align: 'center',
     dataIndex: 'artist',
@@ -196,13 +196,13 @@ const columns = [
     }
   },
   {
-    title: j18n.load('src__components-business__table__index___194'),
+    title: $t('src__components-business__table__index___194'),
     ellipsis: true,
     dataIndex: 'name',
     key: 'name'
   },
   {
-    title: j18n.load('src__components-business__table__index___200'),
+    title: $t('src__components-business__table__index___200'),
     dataIndex: 'ar',
     key: 'ar',
     ellipsis: true,
@@ -211,7 +211,7 @@ const columns = [
       if (typeof text === 'string' || typeof text === 'undefined') {
         return (
           <div>
-            {text || j18n.load('src__components-business__table__index___207')}
+            {text || $t('src__components-business__table__index___207')}
           </div>
         )
       }
@@ -219,7 +219,7 @@ const columns = [
     }
   },
   {
-    title: j18n.load('src__components-business__table__index___213'),
+    title: $t('src__components-business__table__index___213'),
     dataIndex: 'al',
     key: 'al',
     ellipsis: true,
@@ -228,7 +228,7 @@ const columns = [
       if (typeof text === 'string' || typeof text === 'undefined') {
         return (
           <div>
-            {text || j18n.load('src__components-business__table__index___220')}
+            {text || $t('src__components-business__table__index___220')}
           </div>
         )
       }
@@ -236,7 +236,7 @@ const columns = [
     }
   },
   {
-    title: j18n.load('src__components-business__table__index___226'),
+    title: $t('src__components-business__table__index___226'),
     dataIndex: 'dt',
     key: 'dt',
     width: 120,
@@ -245,14 +245,14 @@ const columns = [
     )
   },
   {
-    title: j18n.load('src__components-business__table__index___235'),
+    title: $t('src__components-business__table__index___235'),
     dataIndex: 'size',
     key: 'size',
     width: 80,
     customRender: ({ text }: { text: number }) => <div>{formatSize(text)}</div>
   },
   {
-    title: j18n.load('src__components-business__table__index___242'),
+    title: $t('src__components-business__table__index___242'),
     dataIndex: 'dlt',
     key: 'dlt',
     width: 160,

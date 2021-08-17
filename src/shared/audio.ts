@@ -119,7 +119,7 @@ export class AudioEffect implements Effect {
   public async createConvolver(payload: ConvolutionFile) {
     if (
       this.convolverFile === payload ||
-      payload === j18n.load('src__shared__audio___119')
+      payload === $t('src__shared__audio___119')
     )
       return
     this.convolver = this.context.createConvolver()
@@ -135,9 +135,7 @@ export class AudioEffect implements Effect {
   }
 
   public clearConvolver() {
-    this.convolverFile = j18n.load(
-      'src__shared__audio___133'
-    ) as ConvolutionFile
+    this.convolverFile = $t('src__shared__audio___133') as ConvolutionFile
     this.nodeRender.delete(NodeID.ConvolverNode).output()
   }
 

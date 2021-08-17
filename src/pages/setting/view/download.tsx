@@ -45,12 +45,12 @@ export default defineComponent({
         data-location="download"
         data-platform="electron"
       >
-        <h2>{j18n.load('src__pages__setting__view__download___47')}</h2>
+        <h2>{$t('src__pages__setting__view__download___47')}</h2>
         <div class="setting-view-description">
-          {j18n.load('src__pages__setting__view__download___49')}
+          {$t('src__pages__setting__view__download___49')}
         </div>
         <div class="download-quality vchj">
-          {j18n.load('src__pages__setting__view__download___52')}：
+          {$t('src__pages__setting__view__download___52')}：
           <RadioGroup
             direction="horizontal"
             v-model={state.bitRate}
@@ -69,14 +69,14 @@ export default defineComponent({
           </RadioGroup>
         </div>
         <div class="download-path">
-          {j18n.load('src__pages__setting__view__download___71')}：
+          {$t('src__pages__setting__view__download___71')}：
           {downloadState.downloadPath}
           <ve-button
             type="text"
             onClick={handleOpenDialog}
             disabled={isBrowser}
           >
-            {j18n.load('src__pages__setting__view__download___77')}
+            {$t('src__pages__setting__view__download___77')}
           </ve-button>
         </div>
       </div>

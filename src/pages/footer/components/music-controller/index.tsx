@@ -275,7 +275,7 @@ export const MusicControl = defineComponent({
                 icon={playMode.value}
                 color="#333"
                 size={16}
-                aria-title={j18n.load(
+                aria-title={$t(
                   'src__pages__footer__components__music-controller__index___277'
                 )}
               ></icon>
@@ -283,7 +283,7 @@ export const MusicControl = defineComponent({
             <ve-button type="text" class="theme-btn-color" onClick={prevMusic}>
               <icon
                 icon="shangyishou"
-                aria-title={j18n.load(
+                aria-title={$t(
                   'src__pages__footer__components__music-controller__index___281'
                 )}
               ></icon>
@@ -298,7 +298,7 @@ export const MusicControl = defineComponent({
               <icon
                 icon={playingIcon.value}
                 size={44}
-                aria-title={j18n.load(
+                aria-title={$t(
                   'src__pages__footer__components__music-controller__index___293'
                 )}
               ></icon>
@@ -306,7 +306,7 @@ export const MusicControl = defineComponent({
             <ve-button type="text" class="theme-btn-color" onClick={nextMusic}>
               <icon
                 icon="xiayishou"
-                aria-title={j18n.load(
+                aria-title={$t(
                   'src__pages__footer__components__music-controller__index___297'
                 )}
               ></icon>
@@ -316,7 +316,7 @@ export const MusicControl = defineComponent({
                 icon="lyrics"
                 color={visibleFlash.value ? 'var(--base-color)' : '#333'}
                 size={16}
-                aria-title={j18n.load(
+                aria-title={$t(
                   'src__pages__footer__components__music-controller__index___304'
                 )}
                 onClick={handleVisibleFlash}

@@ -1,0 +1,14 @@
+{
+  "name": "@radishes/t",
+  "version": "1.0.0",
+  "description": "i18n",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc index.ts",
+    "test": "jest"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "26.6.0"
+  }
+}

@@ -35,16 +35,14 @@ export const EmailLogin = defineComponent({
 
     const doLogin = () => {
       if (!state.email) {
-        setErrorMsg(j18n.load('src__pages__auth__views__email-login___37'))
+        setErrorMsg($t('src__pages__auth__views__email-login___37'))
       } else if (!state.password) {
-        setErrorMsg(j18n.load('src__pages__auth__views__email-login___39'))
+        setErrorMsg($t('src__pages__auth__views__email-login___39'))
       } else {
         httpEmailLogin(state.email, state.password)
           .then((res: LoginRes) => {
             if (!res.profile) {
-              setErrorMsg(
-                j18n.load('src__pages__auth__views__email-login___44')
-              )
+              setErrorMsg($t('src__pages__auth__views__email-login___44'))
             } else {
               commitLogin(res)
               $router.back()
@@ -55,7 +53,7 @@ export const EmailLogin = defineComponent({
               setErrorMsg(
                 e.response.data.msg ||
                   e.response.data.message ||
-                  j18n.load('src__pages__auth__views__email-login___53')
+                  $t('src__pages__auth__views__email-login___53')
               )
             } else if (e.msg) {
               setErrorMsg(e.msg)
@@ -72,7 +70,7 @@ export const EmailLogin = defineComponent({
         <div class="auth-view__inputbox">
           <InputField
             bold
-            placeholder={j18n.load('src__pages__auth__views__email-login___70')}
+            placeholder={$t('src__pages__auth__views__email-login___70')}
             v-slots={{
               left: () => (
                 <div style="padding-left:8px;">
@@ -85,7 +83,7 @@ export const EmailLogin = defineComponent({
             onFocus={onFocus}
           ></InputField>
           <InputField
-            placeholder={j18n.load('src__pages__auth__views__email-login___83')}
+            placeholder={$t('src__pages__auth__views__email-login___83')}
             // @ts-ignore
             type="password"
             v-slots={{
@@ -101,7 +99,7 @@ export const EmailLogin = defineComponent({
                   to="https://reg.163.com/naq/findPassword#/verifyAccount"
                   external
                 >
-                  {j18n.load('src__pages__auth__views__email-login___99')}？
+                  {$t('src__pages__auth__views__email-login___99')}？
                 </Link>
               )
             }}
@@ -124,13 +122,13 @@ export const EmailLogin = defineComponent({
           onClick={doLogin}
           disabled={httpStatus.loading}
         >
-          {j18n.load('src__pages__auth__views__email-login___122')}
+          {$t('src__pages__auth__views__email-login___122')}
         </Button>
         <div
           class="auth-back cursor-pointer"
           onClick={() => authUtil.to(AUTH_TYPE.PHONE_LOGIN)}
         >
-          {j18n.load('src__pages__auth__views__email-login___127')}
+          {$t('src__pages__auth__views__email-login___127')}
         </div>
       </>
     )

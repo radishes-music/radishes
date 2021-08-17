@@ -69,8 +69,8 @@ export const formatNumber = (n: number, base: number, unit: string[]) => {
 export const formatCount = (count?: number): string => {
   const unit = [
     '',
-    j18n.load('src__utils__index___69____0'),
-    j18n.load('src__utils__index___69')
+    $t('src__utils__index___69____0'),
+    $t('src__utils__index___69')
   ]
   if (count) {
     return formatNumber(count, 1e4, unit)

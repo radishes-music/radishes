@@ -46,9 +46,9 @@ export default defineComponent({
         data-location="upgrade"
         data-platform="electron"
       >
-        <h2>{j18n.load('src__pages__setting__view__upgrade___48')}</h2>
+        <h2>{$t('src__pages__setting__view__upgrade___48')}</h2>
         <div class="setting-view-description">
-          {j18n.load('src__pages__setting__view__upgrade___50')}。
+          {$t('src__pages__setting__view__upgrade___50')}。
         </div>
         <div class="upgrade-basic">
           <Checkbox
@@ -59,7 +59,7 @@ export default defineComponent({
             onChange={handleChangeUpgrade}
             disabled={isBrowser}
           >
-            {j18n.load('src__pages__setting__view__upgrade___61')}
+            {$t('src__pages__setting__view__upgrade___61')}
           </Checkbox>
         </div>
         <div class="upgrade-check">
@@ -73,10 +73,10 @@ export default defineComponent({
             loading={upgrading.value}
             disabled={isBrowser}
           >
-            <span>{j18n.load('src__pages__setting__view__upgrade___75')}</span>
+            <span>{$t('src__pages__setting__view__upgrade___75')}</span>
           </Button>
           {newUpgrade.value && (
-            <p>{j18n.load('src__pages__setting__view__upgrade___77')}</p>
+            <p>{$t('src__pages__setting__view__upgrade___77')}</p>
           )}
         </div>
       </div>

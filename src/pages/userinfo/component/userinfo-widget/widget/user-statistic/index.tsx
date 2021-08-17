@@ -44,7 +44,7 @@ export const UserStatistic = defineComponent({
         <div class="user-statistic">
           {[
             {
-              key: j18n.load(
+              key: $t(
                 'src__pages__userinfo__component__userinfo-widget__widget__user-statistic__index___46'
               ),
               value: eventCount,
@@ -52,7 +52,7 @@ export const UserStatistic = defineComponent({
             },
             null,
             {
-              key: j18n.load(
+              key: $t(
                 'src__pages__userinfo__component__userinfo-widget__widget__user-statistic__index___52'
               ),
               value: follows,
@@ -60,7 +60,7 @@ export const UserStatistic = defineComponent({
             },
             null,
             {
-              key: j18n.load(
+              key: $t(
                 'src__pages__userinfo__component__userinfo-widget__widget__user-statistic__index___58'
               ),
               value: followeds,

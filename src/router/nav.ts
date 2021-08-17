@@ -78,7 +78,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     component: News,
     name: News.name,
     meta: {
-      name: j18n.load('src__router__nav___80'),
+      name: $t('src__router__nav___80'),
       browser: true,
       electron: true
     },
@@ -92,7 +92,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         component: Recommend,
         name: 'recommend',
         meta: {
-          name: j18n.load('src__router__nav___94'),
+          name: $t('src__router__nav___94'),
           path: 'recommend',
           canBeCollect: true
         }
@@ -102,7 +102,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         component: SongList,
         name: 'songlist',
         meta: {
-          name: j18n.load('src__router__nav___104'),
+          name: $t('src__router__nav___104'),
           path: {
             name: 'songlist',
             query: {
@@ -117,7 +117,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         component: TopList,
         name: 'toplist',
         meta: {
-          name: j18n.load('src__router__nav___119'),
+          name: $t('src__router__nav___119'),
           path: 'toplist',
           canBeCollect: true
         }
@@ -127,7 +127,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         component: Artists,
         name: 'artists',
         meta: {
-          name: j18n.load('src__router__nav___129'),
+          name: $t('src__router__nav___129'),
           path: 'artists',
           canBeCollect: true
         }
@@ -138,7 +138,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     path: '/video',
     component: Video,
     meta: {
-      name: j18n.load('src__router__nav___140'),
+      name: $t('src__router__nav___140'),
       browser: false,
       electron: false
     },
@@ -161,7 +161,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     path: '/moments',
     component: Moments,
     meta: {
-      name: j18n.load('src__router__nav___163'),
+      name: $t('src__router__nav___163'),
       browser: false,
       electron: false,
       canBeCollect: true
@@ -172,8 +172,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     component: Download,
     name: Download.name,
     meta: {
-      name: j18n.load('src__router__nav___174'),
-      beforeHeader: j18n.load('src__router__nav___175'),
+      name: $t('src__router__nav___174'),
+      beforeHeader: $t('src__router__nav___175'),
       browser: true,
       electron: true
     },
@@ -186,7 +186,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         path: 'song',
         component: DownloadSong,
         meta: {
-          name: j18n.load('src__router__nav___188'),
+          name: $t('src__router__nav___188'),
           path: 'song',
           canBeCollect: true
         }
@@ -195,7 +195,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         path: 'mv',
         component: DownloadMv,
         meta: {
-          name: j18n.load('src__router__nav___197'),
+          name: $t('src__router__nav___197'),
           path: 'mv',
           canBeCollect: true
         }
@@ -207,7 +207,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     component: LocalMusic,
     name: LocalMusic.name,
     meta: {
-      name: j18n.load('src__router__nav___209'),
+      name: $t('src__router__nav___209'),
       browser: false,
       electron: true
     },
@@ -220,7 +220,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         path: 'song',
         component: LocalMusicSong,
         meta: {
-          name: j18n.load('src__router__nav___222'),
+          name: $t('src__router__nav___222'),
           path: 'song',
           canBeCollect: true
         }
@@ -229,7 +229,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         path: 'dir',
         component: LocalMusicDir,
         meta: {
-          name: j18n.load('src__router__nav___231'),
+          name: $t('src__router__nav___231'),
           path: 'dir',
           canBeCollect: true
         }
@@ -241,7 +241,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     component: Cloud,
     name: Cloud.name,
     meta: {
-      name: j18n.load('src__router__nav___243'),
+      name: $t('src__router__nav___243'),
       auth: true,
       browser: true,
       electron: true,

@@ -27,11 +27,11 @@ export const Signup = defineComponent({
 
     const onSubmit = () => {
       if (!state.phone) {
-        setErrorMsg(j18n.load('src__pages__auth__views__signup___29'))
+        setErrorMsg($t('src__pages__auth__views__signup___29'))
       } else if (!state.password) {
-        setErrorMsg(j18n.load('src__pages__auth__views__signup___31'))
+        setErrorMsg($t('src__pages__auth__views__signup___31'))
       } else if (!/\d{11}/.test(state.phone)) {
-        setErrorMsg(j18n.load('src__pages__auth__views__signup___33'))
+        setErrorMsg($t('src__pages__auth__views__signup___33'))
       } else {
         httpSend(state.phone)
           .then(() => {
@@ -45,7 +45,7 @@ export const Signup = defineComponent({
               setErrorMsg(
                 e.response.data.msg ||
                   e.response.data.message ||
-                  j18n.load('src__pages__auth__views__signup___45')
+                  $t('src__pages__auth__views__signup___45')
               )
             } else if (e.msg) {
               setErrorMsg(e.msg)
@@ -66,7 +66,7 @@ export const Signup = defineComponent({
         <div class="auth-view__inputbox">
           <InputField
             bold
-            placeholder={j18n.load('src__pages__auth__views__signup___66')}
+            placeholder={$t('src__pages__auth__views__signup___66')}
             v-slots={{
               left: () => (
                 <div class="country-code">
@@ -80,7 +80,7 @@ export const Signup = defineComponent({
             onFocus={onFocus}
           ></InputField>
           <InputField
-            placeholder={j18n.load('src__pages__auth__views__signup___80')}
+            placeholder={$t('src__pages__auth__views__signup___80')}
             // @ts-ignore
             type="password"
             v-slots={{
@@ -96,7 +96,7 @@ export const Signup = defineComponent({
         </div>
         {!errorMsg.text ? (
           <div class="auth-view__tiptext">
-            {j18n.load('src__pages__auth__views__signup___96')}
+            {$t('src__pages__auth__views__signup___96')}
           </div>
         ) : (
           <div class="auth-view__error">
@@ -111,12 +111,12 @@ export const Signup = defineComponent({
           class="bd-button__auth"
           onClick={onSubmit}
         >
-          {j18n.load('src__pages__auth__views__signup___111')}
+          {$t('src__pages__auth__views__signup___111')}
         </Button>
 
         <div class="signup-others">
           <div class="signup-others__label">
-            <span>{j18n.load('src__pages__auth__views__signup___116')}</span>
+            <span>{$t('src__pages__auth__views__signup___116')}</span>
           </div>
           <div class="others">
             <AuthLink
@@ -125,7 +125,7 @@ export const Signup = defineComponent({
                 authUtil.to(AUTH_TYPE.EMAIL_LOGIN)
               }}
             >
-              {j18n.load('src__pages__auth__views__signup___125')}
+              {$t('src__pages__auth__views__signup___125')}
             </AuthLink>
           </div>
         </div>
@@ -136,7 +136,7 @@ export const Signup = defineComponent({
             authUtil.to(AUTH_TYPE.PHONE_LOGIN)
           }}
         >
-          {j18n.load('src__pages__auth__views__signup___135')}
+          {$t('src__pages__auth__views__signup___135')}
         </div>
       </>
     )

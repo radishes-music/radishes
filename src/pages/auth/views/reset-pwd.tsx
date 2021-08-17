@@ -26,11 +26,11 @@ export const ResetPwd = defineComponent({
 
     const doReset = () => {
       if (!state.phone) {
-        setErrorMsg(j18n.load('src__pages__auth__views__reset-pwd___28'))
+        setErrorMsg($t('src__pages__auth__views__reset-pwd___28'))
       } else if (!state.password) {
-        setErrorMsg(j18n.load('src__pages__auth__views__reset-pwd___30'))
+        setErrorMsg($t('src__pages__auth__views__reset-pwd___30'))
       } else if (!/\d{11}/.test(state.phone)) {
-        setErrorMsg(j18n.load('src__pages__auth__views__reset-pwd___32'))
+        setErrorMsg($t('src__pages__auth__views__reset-pwd___32'))
       } else {
         httpSend(state.phone)
           .then(() => {
@@ -44,7 +44,7 @@ export const ResetPwd = defineComponent({
               setErrorMsg(
                 e.response.data.msg ||
                   e.response.data.message ||
-                  j18n.load('src__pages__auth__views__reset-pwd___44')
+                  $t('src__pages__auth__views__reset-pwd___44')
               )
             } else if (e.msg) {
               setErrorMsg(e.msg)
@@ -65,7 +65,7 @@ export const ResetPwd = defineComponent({
         <div class="auth-view__inputbox">
           <InputField
             bold
-            placeholder={j18n.load('src__pages__auth__views__reset-pwd___65')}
+            placeholder={$t('src__pages__auth__views__reset-pwd___65')}
             v-model={state.phone}
             v-slots={{
               left: () => (
@@ -79,7 +79,7 @@ export const ResetPwd = defineComponent({
             onFocus={onFocus}
           ></InputField>
           <InputField
-            placeholder={j18n.load('src__pages__auth__views__reset-pwd___79')}
+            placeholder={$t('src__pages__auth__views__reset-pwd___79')}
             // @ts-ignore
             type="password"
             v-model={state.password}
@@ -96,7 +96,7 @@ export const ResetPwd = defineComponent({
 
         {!errorMsg.text ? (
           <div class="auth-view__tiptext">
-            {j18n.load('src__pages__auth__views__reset-pwd___96')}
+            {$t('src__pages__auth__views__reset-pwd___96')}
           </div>
         ) : (
           <div class="auth-view__error">
@@ -111,14 +111,14 @@ export const ResetPwd = defineComponent({
           class="bd-button__auth"
           onClick={doReset}
         >
-          {j18n.load('src__pages__auth__views__reset-pwd___111')}
+          {$t('src__pages__auth__views__reset-pwd___111')}
         </Button>
 
         <div
           class="auth-back cursor-pointer"
           onClick={() => authUtil.to(AUTH_TYPE.PHONE_LOGIN)}
         >
-          {j18n.load('src__pages__auth__views__reset-pwd___117')}
+          {$t('src__pages__auth__views__reset-pwd___117')}
         </div>
       </>
     )

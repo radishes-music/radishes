@@ -18,7 +18,7 @@ export const Desc = defineComponent({
       <div class="artist-desc">
         <h2 v-show={!!state.briefDesc}>
           {state.artist.name}
-          {j18n.load('src__pages__artist__children__detail___18')}
+          {$t('src__pages__artist__children__detail___18')}
         </h2>
         <div>{state.briefDesc}</div>
         {state.introduction.map(item => (

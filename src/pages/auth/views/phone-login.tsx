@@ -40,7 +40,7 @@ export const PhoneLogin = defineComponent({
     const [httpStatus, httpPhoneLogin] = useHttp(doPhoneLogin)
 
     const checkTip = () =>
-      Toast(j18n.load('src__pages__auth__views__phone-login___41'))
+      Toast($t('src__pages__auth__views__phone-login___41'))
 
     const doLogin = () => {
       if (!state.checked) {
@@ -48,23 +48,21 @@ export const PhoneLogin = defineComponent({
         return
       }
       if (!state.phone) {
-        setErrorMsg(j18n.load('src__pages__auth__views__phone-login___49'))
+        setErrorMsg($t('src__pages__auth__views__phone-login___49'))
       } else if (!state.password) {
-        setErrorMsg(j18n.load('src__pages__auth__views__phone-login___51'))
+        setErrorMsg($t('src__pages__auth__views__phone-login___51'))
       } else if (!/\d{11}/.test(state.phone)) {
-        setErrorMsg(j18n.load('src__pages__auth__views__phone-login___53'))
+        setErrorMsg($t('src__pages__auth__views__phone-login___53'))
       } else {
         httpPhoneLogin(state.phone, state.password)
           .then((res: LoginRes) => {
             commitLogin(res)
-            Toast(j18n.load('src__pages__auth__views__phone-login___58'))
+            Toast($t('src__pages__auth__views__phone-login___58'))
             $router.back()
           })
           .catch((e: any) => {
             if (e.response?.status === 400) {
-              setErrorMsg(
-                j18n.load('src__pages__auth__views__phone-login___63')
-              )
+              setErrorMsg($t('src__pages__auth__views__phone-login___63'))
             } else if (e.response?.data) {
               setErrorMsg(e.response.data.msg)
             } else if (e.msg) {
@@ -98,7 +96,7 @@ export const PhoneLogin = defineComponent({
         <div class="auth-view__inputbox">
           <InputField
             bold
-            placeholder={j18n.load('src__pages__auth__views__phone-login___97')}
+            placeholder={$t('src__pages__auth__views__phone-login___97')}
             v-slots={{
               left: () => (
                 <div class="country-code">
@@ -115,9 +113,7 @@ export const PhoneLogin = defineComponent({
             onFocus={onFocus}
           ></InputField>
           <InputField
-            placeholder={j18n.load(
-              'src__pages__auth__views__phone-login___114'
-            )}
+            placeholder={$t('src__pages__auth__views__phone-login___114')}
             // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             type="password"
@@ -135,7 +131,7 @@ export const PhoneLogin = defineComponent({
                     authUtil.to(AUTH_TYPE.RESET_PWD)
                   })}
                 >
-                  {j18n.load('src__pages__auth__views__phone-login___132')}
+                  {$t('src__pages__auth__views__phone-login___132')}
                 </div>
               )
             }}
@@ -160,7 +156,7 @@ export const PhoneLogin = defineComponent({
           class="bd-button__auth"
           onClick={doLogin}
         >
-          {j18n.load('src__pages__auth__views__phone-login___157')}
+          {$t('src__pages__auth__views__phone-login___157')}
         </Button>
         <div class="register vh-center">
           <Link
@@ -168,7 +164,7 @@ export const PhoneLogin = defineComponent({
               authUtil.to(AUTH_TYPE.REGISTER)
             })}
           >
-            {j18n.load('src__pages__auth__views__phone-login___165')}
+            {$t('src__pages__auth__views__phone-login___165')}
           </Link>
         </div>
 
@@ -188,9 +184,7 @@ export const PhoneLogin = defineComponent({
             vModel={state.checked}
             checked-color={themeColor}
           >
-            <span>
-              {j18n.load('src__pages__auth__views__phone-login___185')}
-            </span>
+            <span>{$t('src__pages__auth__views__phone-login___185')}</span>
           </Checkbox>
 
           <div class="vchj">
@@ -200,7 +194,7 @@ export const PhoneLogin = defineComponent({
               type="light"
             >
               《radishes
-              {j18n.load('src__pages__auth__views__phone-login___194')}》
+              {$t('src__pages__auth__views__phone-login___194')}》
             </Link>
             {/* {TERMS.map((info: any) => (
               <Link to={info.link} key={info.name} external type="light">

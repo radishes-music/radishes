@@ -38,10 +38,7 @@ export const SearchArtist = defineComponent({
     onActivated(() => {
       useMutations(
         SearchMutations.SET_SEARCH_TITLE,
-        j18n.load(
-          'src__pages__search__children__artist___40',
-          state.artistList.total
-        )
+        $t('src__pages__search__children__artist___40', state.artistList.total)
       )
     })
     onBeforeUnmount(() => {

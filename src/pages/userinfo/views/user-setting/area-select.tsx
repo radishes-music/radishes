@@ -28,7 +28,7 @@ export const AreaSelect = defineComponent({
           </Select>
           <Select defaultValue={0} class="user-setting__select">
             <Select.Option value={0}>
-              {j18n.load(
+              {$t(
                 'src__pages__userinfo__views__user-setting__area-select___29'
               )}
             </Select.Option>

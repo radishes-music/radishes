@@ -75,7 +75,7 @@ export const PlaylistItemBox = defineComponent({
           <div class="playlist-item__boxname link-text">{name}</div>
           <div class="playlist-item__boxcount">{`${
             record
-              ? j18n.load(
+              ? $t(
                   'src__components__widgets__playlist-item-box__index___76',
                   trackCount
                 )

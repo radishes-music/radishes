@@ -48,8 +48,8 @@ export const MoreThen = defineComponent({
             onClick={() => (visible.value = !visible.value)}
           >
             {visible.value
-              ? j18n.load('src__components__more-then__index___49____0')
-              : j18n.load('src__components__more-then__index___49')}
+              ? $t('src__components__more-then__index___49____0')
+              : $t('src__components__more-then__index___49')}
           </ve-button>
         )}
       </div>

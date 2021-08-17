@@ -48,7 +48,7 @@ export const UploadAvatar = defineComponent({
     const onFile = async (files: any) => {
       const [file] = files
       if (file.size > 5242880) {
-        state.error = j18n.load(
+        state.error = $t(
           'src__pages__userinfo__component__upload-avatar__index___50'
         )
         return
@@ -165,7 +165,7 @@ export const UploadAvatar = defineComponent({
               })
               props.onComplete()
               Toast(
-                j18n.load(
+                $t(
                   'src__pages__userinfo__component__upload-avatar__index___164'
                 )
               )
@@ -262,7 +262,7 @@ export const UploadAvatar = defineComponent({
                 <Icon icon="cross" color="auto"></Icon>
               </div>
               <div class="upload-avatar__title">
-                {j18n.load(
+                {$t(
                   'src__pages__userinfo__component__upload-avatar__index___257'
                 )}
               </div>
@@ -311,7 +311,7 @@ export const UploadAvatar = defineComponent({
                   ></Image>
                 </div>
                 <div class="upload-avatar__postertext">
-                  {j18n.load(
+                  {$t(
                     'src__pages__userinfo__component__upload-avatar__index___302'
                   )}
                 </div>
@@ -328,7 +328,7 @@ export const UploadAvatar = defineComponent({
                   ></Image>
                 </div>
                 <div class="upload-avatar__postertext">
-                  {j18n.load(
+                  {$t(
                     'src__pages__userinfo__component__upload-avatar__index___315'
                   )}
                 </div>
@@ -338,7 +338,7 @@ export const UploadAvatar = defineComponent({
             <div class="upload-avatar__submit">
               <UploadWrapper onFile={onFile}>
                 <Button shape="round">
-                  {j18n.load(
+                  {$t(
                     'src__pages__userinfo__component__upload-avatar__index___321'
                   )}
                 </Button>
@@ -351,7 +351,7 @@ export const UploadAvatar = defineComponent({
                   onSave()
                 }}
               >
-                {j18n.load(
+                {$t(
                   'src__pages__userinfo__component__upload-avatar__index___331'
                 )}
               </Button>

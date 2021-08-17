@@ -14,10 +14,10 @@ import './index.less'
 import { updateProfile } from '@/pages/userinfo/api'
 
 /*
-  TODO { j18n.load('src__pages__userinfo__views__user-setting__index___16') }
-    - { j18n.load('src__pages__userinfo__views__user-setting__index___17') }
-    - { j18n.load('src__pages__userinfo__views__user-setting__index___18') }
-    - { j18n.load('src__pages__userinfo__views__user-setting__index___19') }
+  TODO { $t('src__pages__userinfo__views__user-setting__index___16') }
+    - { $t('src__pages__userinfo__views__user-setting__index___17') }
+    - { $t('src__pages__userinfo__views__user-setting__index___18') }
+    - { $t('src__pages__userinfo__views__user-setting__index___19') }
 */
 
 export const UserSetting = defineComponent({
@@ -114,9 +114,7 @@ export const UserSetting = defineComponent({
             nickname: state.nickname,
             birthday: state.birth
           })
-          Toast(
-            j18n.load('src__pages__userinfo__views__user-setting__index___116')
-          )
+          Toast($t('src__pages__userinfo__views__user-setting__index___116'))
         }
       } catch (e) {
         state.loading = false
@@ -130,17 +128,13 @@ export const UserSetting = defineComponent({
             <div class="user-setting__info">
               <div class="user-setting__row">
                 <span>
-                  {j18n.load(
-                    'src__pages__userinfo__views__user-setting__index___129'
-                  )}
+                  {$t('src__pages__userinfo__views__user-setting__index___129')}
                 </span>
                 <Input value={state.nickname} onChange={onNickName}></Input>
               </div>
               <div class="user-setting__row">
                 <span>
-                  {j18n.load(
-                    'src__pages__userinfo__views__user-setting__index___133'
-                  )}
+                  {$t('src__pages__userinfo__views__user-setting__index___133')}
                 </span>
                 <Input.TextArea
                   value={state.desc}
@@ -150,9 +144,7 @@ export const UserSetting = defineComponent({
               </div>
               <div class="user-setting__row">
                 <span>
-                  {j18n.load(
-                    'src__pages__userinfo__views__user-setting__index___141'
-                  )}
+                  {$t('src__pages__userinfo__views__user-setting__index___141')}
                 </span>
                 <div class="row">
                   <SexSelect value={state.sex} onChange={onSex}></SexSelect>
@@ -160,9 +152,7 @@ export const UserSetting = defineComponent({
               </div>
               <div class="user-setting__row">
                 <span>
-                  {j18n.load(
-                    'src__pages__userinfo__views__user-setting__index___147'
-                  )}
+                  {$t('src__pages__userinfo__views__user-setting__index___147')}
                 </span>
                 <BirthSelect
                   defaultValue={state.birth}
@@ -170,7 +160,7 @@ export const UserSetting = defineComponent({
                 ></BirthSelect>
               </div>
               {/*<div class="user-setting__row">*/}
-              {/*  <span>{ j18n.load('src__pages__userinfo__views__user-setting__index___154') }</span>*/}
+              {/*  <span>{ $t('src__pages__userinfo__views__user-setting__index___154') }</span>*/}
               {/*  <AreaSelect></AreaSelect>*/}
               {/*</div>*/}
             </div>
@@ -190,9 +180,7 @@ export const UserSetting = defineComponent({
               onClick={onSubmit}
               loading={state.loading}
             >
-              {j18n.load(
-                'src__pages__userinfo__views__user-setting__index___174'
-              )}
+              {$t('src__pages__userinfo__views__user-setting__index___174')}
             </Button>
             <Button
               shape="round"
@@ -200,9 +188,7 @@ export const UserSetting = defineComponent({
                 $router.back()
               }}
             >
-              {j18n.load(
-                'src__pages__userinfo__views__user-setting__index___182'
-              )}
+              {$t('src__pages__userinfo__views__user-setting__index___182')}
             </Button>
           </div>
         </div>

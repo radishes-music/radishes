@@ -47,17 +47,19 @@ export const FollowCard = defineComponent({
               <div class="follow-card__name">{info.nickname}</div>
               {info.vipType > 0 && (
                 <Tag color="#131313" text-color="#ffe3df">
-                  vip陆
+                  {$t(
+                    'src__pages__userinfo__views__follow-view__card__49_58_51_16'
+                  )}
                 </Tag>
               )}
             </div>
             <div class="follow-card__desc">{info.signature}</div>
             <div>
-              {j18n.load(
+              {$t(
                 'src__pages__userinfo__views__follow-view__card___55',
                 info.playlistCount
               )}
-              {j18n.load(
+              {$t(
                 'src__pages__userinfo__views__follow-view__card___56',
                 info.followeds
               )}
@@ -66,7 +68,7 @@ export const FollowCard = defineComponent({
           <Button disabled round class="follow-card__btn">
             <div class="follow-card__btnc">
               <Icon icon="email" color="#333" size={16}></Icon>
-              {j18n.load('src__pages__userinfo__views__follow-view__card___61')}
+              {$t('src__pages__userinfo__views__follow-view__card___61')}
             </div>
           </Button>
         </div>

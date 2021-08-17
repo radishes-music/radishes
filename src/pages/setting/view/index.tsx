@@ -38,37 +38,37 @@ export const Setting = defineComponent({
     const markNav = [
       {
         location: 'source',
-        name: j18n.load('src__pages__setting__view__index___39'),
+        name: $t('src__pages__setting__view__index___39'),
         component: <Source />
       },
       {
         location: 'download',
-        name: j18n.load('src__pages__setting__view__index___44'),
+        name: $t('src__pages__setting__view__index___44'),
         component: <Download />
       },
       {
         location: 'upgrade',
-        name: j18n.load('src__pages__setting__view__index___49'),
+        name: $t('src__pages__setting__view__index___49'),
         component: <Upgrade />
       },
       {
         location: 'effect',
-        name: j18n.load('src__pages__setting__view__index___54'),
+        name: $t('src__pages__setting__view__index___54'),
         component: <Effect />
       },
       {
         location: 'language',
-        name: j18n.load('src__pages__setting__view__index___55'),
+        name: $t('src__pages__setting__view__index___55'),
         component: <Language />
       },
       {
         location: 'author',
-        name: j18n.load('src__pages__setting__view__index___59'),
+        name: $t('src__pages__setting__view__index___59'),
         component: <Author />
       },
       {
         location: 'about',
-        name: j18n.load('src__pages__setting__view__index___64'),
+        name: $t('src__pages__setting__view__index___64'),
         component: <About />
       }
     ]
@@ -158,7 +158,7 @@ export const Setting = defineComponent({
 
     return () => (
       <div class="setting-view">
-        <h1>{j18n.load('src__pages__setting__view__index___154')}</h1>
+        <h1>{$t('src__pages__setting__view__index___154')}</h1>
         <div class="setting-view-route">
           <ul>
             {markNav.map(item => {

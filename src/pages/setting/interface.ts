@@ -1,8 +1,8 @@
 import { PlaySource, BasicEffect, ConvolutionFile } from '@/interface'
 
 export enum Language {
-  ZH = 'zh',
-  En = 'en'
+  ZH = 'zh-cn',
+  En = 'en-us'
 }
 
 export interface SettingState {

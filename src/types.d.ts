@@ -26,10 +26,7 @@ declare global {
 
   declare const MediaMetadata: MediaMetadataType
 
-  declare const j18n: {
-    load: (key: string, ...args: any[]) => string
-    currentLanguage: () => Language
-  }
+  declare const $t: (key: string, ...args: any[]) => string
   interface Window {
     isMobile: boolean
     webkitAudioContext: AudioContext

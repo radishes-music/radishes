@@ -11,9 +11,7 @@ export default defineComponent({
       if (!online.value) {
         return (
           <Alert
-            message={j18n.load(
-              'src__components-business__offline__offline___13'
-            )}
+            message={$t('src__components-business__offline__offline___13')}
             type="warning"
           />
         )

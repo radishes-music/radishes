@@ -87,17 +87,17 @@ export const LocalMusic = defineComponent({
         v-slots={{
           title: () => (
             <>
-              <div>{j18n.load('src__pages__music__view__index___89')}</div>
+              <div>{$t('src__pages__music__view__index___89')}</div>
               <ve-button
                 type="text"
                 onClick={() =>
                   (visibleDirectory.value = !visibleDirectory.value)
                 }
               >
-                {j18n.load('src__pages__music__view__index___96')}
+                {$t('src__pages__music__view__index___96')}
               </ve-button>
               <Modal
-                title={j18n.load('src__pages__music__view__index___99')}
+                title={$t('src__pages__music__view__index___99')}
                 footer={null}
                 visible={visibleDirectory.value}
                 onCancel={handleCloseModal}
@@ -106,7 +106,7 @@ export const LocalMusic = defineComponent({
               >
                 <div class="local-music-directory" ref={modalContanier}>
                   <div class="local-music-directory-description">
-                    {j18n.load('src__pages__music__view__index___108')}。
+                    {$t('src__pages__music__view__index___108')}。
                   </div>
                   <CheckboxGroup
                     v-model={checkPath.value}
@@ -129,7 +129,7 @@ export const LocalMusic = defineComponent({
                       color="var(--base-color)"
                       onClick={handleConfirm}
                     >
-                      {j18n.load('src__pages__music__view__index___131')}
+                      {$t('src__pages__music__view__index___131')}
                     </Button>
                     <Button
                       plain
@@ -139,7 +139,7 @@ export const LocalMusic = defineComponent({
                       color="var(--base-color)"
                       onClick={handleAddDirectory}
                     >
-                      {j18n.load('src__pages__music__view__index___141')}
+                      {$t('src__pages__music__view__index___141')}
                     </Button>
                   </div>
                 </div>

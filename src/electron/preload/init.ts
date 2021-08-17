@@ -38,12 +38,12 @@ const initStorage = async () => {
     const paths = [
       {
         path: userMusicPath,
-        name: j18n.load('src__electron__preload__init___40'),
+        name: $t('src__electron__preload__init___40'),
         check: true
       },
       {
         path: userDownloadPath,
-        name: j18n.load('src__electron__preload__init___45'),
+        name: $t('src__electron__preload__init___45'),
         check: true
       }
     ]

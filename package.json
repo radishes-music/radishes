@@ -6,12 +6,13 @@
   "author": "Linkontoask",
   "description": "Cross-platform copyright-free music platform",
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "npx lerna bootstrap",
     "inspect": "vue-cli-service inspect",
     "test": "lerna run test --stream",
     "test:unit": "vue-cli-service test:unit",
     "test:open": "cypress open",
     "test:run": "cypress run",
+    "test:t": "lerna exec --scope @radishes/t -- yarn run test",
     "lint": "vue-cli-service lint && stylelint \"src/**/*.{css,less}\"",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less}\"",
     "lint:style": "stylelint --fix \"src/**/*.{css,less}\" --cache --cache-location node_modules/.cache/stylelint/",
@@ -20,6 +21,7 @@
     "build:electron:linux": "node script/build.js --linux",
     "build:electron:macos": "node script/build.js --mac",
     "build:api": "lerna exec --scope @radishes/api -- yarn run build",
+    "build:t": "lerna exec --scope @radishes/t -- yarn run build",
     "dev": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"yarn dev:web\"",
     "dev:web": "cross-env NODE_ENV=development vue-cli-service serve --mode browser",
     "dev:api": "lerna exec --scope @radishes/api -- yarn run dev",
@@ -32,7 +34,8 @@
     "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten",
     "svgo": "svgo -f ./src/assets/svg",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "i18n": "code-i18n -t ts -s src/locale/zh-cn.json -d src -w"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -68,7 +71,8 @@
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.6",
+    "@babel/core": "^7.15.0",
+    "@babel/types": "^7.15.0",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@storybook/addon-actions": "^6.2.0-beta.13",
@@ -109,6 +113,7 @@
     "chai-as-promised": "^7.1.1",
     "chalk": "^4.1.0",
     "classnames": "^2.2.6",
+    "code-i18n": "^2.4.1",
     "concurrently": "^5.3.0",
     "conventional-changelog-cli": "^2.1.1",
     "cross-env": "^7.0.2",
@@ -153,12 +158,13 @@
     "stylelint-prettier": "^1.1.2",
     "svgo": "^1.3.2",
     "ts-loader": "^8.0.6",
-    "typescript": "^4.1.3",
+    "typescript": "^4.3.5",
     "url-loader": "^4.1.1",
     "uuid": "^8.3.2",
     "v-easy-components": "2.0.0",
     "vant": "^3.0.6",
     "vue-cli-plugin-electron-builder": "^2.0.0-rc.5",
+    "vue-i18n": "^9.1.7",
     "vue-loader": "^16.1.2",
     "vuex-persistedstate": "^4.0.0-beta.1",
     "webpack-bundle-analyzer": "4.3.0"

@@ -16,7 +16,7 @@ export const EditBtn = () => {
   return (
     <Button shape="round" class="user-btn" onClick={toEdit}>
       <Icon icon="qianbi" color="auto" size={20}></Icon>
-      {j18n.load(
+      {$t(
         'src__pages__userinfo__component__userinfo-widget__widget__btn__index___18'
       )}
     </Button>
@@ -28,7 +28,7 @@ export const SmsBtn = () => {
   return (
     <Button shape="round" class="user-btn">
       <Icon icon="email" color="auto" size={20}></Icon>
-      {j18n.load(
+      {$t(
         'src__pages__userinfo__component__userinfo-widget__widget__btn__index___28'
       )}
     </Button>
@@ -42,10 +42,10 @@ export const FollowBtn = ({ checked, onClick }: any) => {
     <Button shape="round" class="user-btn" onClick={onClick}>
       <Icon icon={checked ? 'tick' : 'add'} color="auto" size={20}></Icon>
       {checked
-        ? j18n.load(
+        ? $t(
             'src__pages__userinfo__component__userinfo-widget__widget__btn__index___39____2'
           )
-        : j18n.load(
+        : $t(
             'src__pages__userinfo__component__userinfo-widget__widget__btn__index___39'
           )}
     </Button>
@@ -61,7 +61,7 @@ export const MoreBtn = () => (
 // TODO 由于暂时不清楚歌手页的判断标志，所以暂时不显示该按钮
 export const SingerBtn = () => (
   <Button shape="round" class="user-btn">
-    {j18n.load(
+    {$t(
       'src__pages__userinfo__component__userinfo-widget__widget__btn__index___53'
     )}
   </Button>

@@ -21,7 +21,7 @@ export const registerIPC = (app: App) => {
         RootMutations.UPDATE_PERECENTAGE,
         Math.floor((Math.random() * 10) / 100)
       )
-      suggested(j18n.load('src__electron__preload__ipc___23'), {
+      suggested($t('src__electron__preload__ipc___23'), {
         key: arg.name
       })
     })
@@ -30,12 +30,12 @@ export const registerIPC = (app: App) => {
       DownloadIpcType.DOWNLOAD_END,
       (event, arg: Pick<DownloadData, 'name' | 'state' | 'error'>) => {
         if (arg.state === 'completed') {
-          success(j18n.load('src__electron__preload__ipc___32'), {
+          success($t('src__electron__preload__ipc___32'), {
             key: arg.name
           })
         } else {
           console.error(arg.error)
-          error(j18n.load('src__electron__preload__ipc___37'), {
+          error($t('src__electron__preload__ipc___37'), {
             key: arg.name
           })
         }

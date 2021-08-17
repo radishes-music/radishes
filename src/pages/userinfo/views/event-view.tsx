@@ -25,7 +25,7 @@ export const EventView = defineComponent({
     return () =>
       state.list.length === 0 ? (
         <EmptyList
-          text={j18n.load('src__pages__userinfo__views__event-view___26')}
+          text={$t('src__pages__userinfo__views__event-view___26')}
         ></EmptyList>
       ) : (
         <div>{JSON.stringify(state.list)}</div>

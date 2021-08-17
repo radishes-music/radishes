@@ -78,7 +78,7 @@ const Group = defineComponent({
       <>
         <div class="search-popper-title" v-show={item.value}>
           <icon icon="facebook" color="#333" size={14}></icon>
-          {j18n.load('src__pages__header__component__search___79')}
+          {$t('src__pages__header__component__search___79')}
         </div>
         <ul class="search-popper-group">
           {item.value.map(song => {
@@ -158,11 +158,11 @@ export const Search = defineComponent({
         <div class="search-popper">
           <div class="search-popper-more" onClick={handleSearchMore}>
             <strong class="keyword">{words.value}</strong>
-            {j18n.load('src__pages__header__component__search___158')}
+            {$t('src__pages__header__component__search___158')}
           </div>
           <div class="search-popper-title" v-show={state.searchSuggest.songs}>
             <icon icon="facebook" color="#333" size={14}></icon>
-            {j18n.load('src__pages__header__component__search___161')}
+            {$t('src__pages__header__component__search___161')}
           </div>
           <ul class="search-popper-group">
             {state.searchSuggest.songs?.map(song => {
@@ -180,7 +180,7 @@ export const Search = defineComponent({
           </ul>
           <div class="search-popper-title" v-show={state.searchSuggest.artists}>
             <icon icon="facebook" color="#333" size={14}></icon>
-            {j18n.load('src__pages__header__component__search___178')}
+            {$t('src__pages__header__component__search___178')}
           </div>
           <ul class="search-popper-group">
             {state.searchSuggest.artists?.map(artist => {
@@ -196,7 +196,7 @@ export const Search = defineComponent({
           </ul>
           <div class="search-popper-title" v-show={state.searchSuggest.albums}>
             <icon icon="facebook" color="#333" size={14}></icon>
-            {j18n.load('src__pages__header__component__search___193')}
+            {$t('src__pages__header__component__search___193')}
           </div>
           <ul class="search-popper-group search-popper-last">
             {state.searchSuggest.albums?.map(album => {
@@ -215,7 +215,7 @@ export const Search = defineComponent({
             v-show={state.searchSuggest.playlists}
           >
             <icon icon="facebook" color="#333" size={14}></icon>
-            {j18n.load('src__pages__header__component__search___211')}
+            {$t('src__pages__header__component__search___211')}
           </div>
           <ul class="search-popper-group search-popper-last">
             {state.searchSuggest.playlists?.map(list => {

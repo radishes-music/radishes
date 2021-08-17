@@ -30,19 +30,19 @@ export const SmsCode = defineComponent({
 
     const onSubmit = async () => {
       if (state.code === '') {
-        setErrorMsg(j18n.load('src__pages__auth__views__sms-code___32'))
+        setErrorMsg($t('src__pages__auth__views__sms-code___32'))
       } else {
         try {
           const res = await httpReset(phone, password, state.code)
           commitLogin(res)
-          Toast(j18n.load('src__pages__auth__views__sms-code___37'))
+          Toast($t('src__pages__auth__views__sms-code___37'))
           $router.back()
         } catch (e) {
           if (e.response?.data) {
             setErrorMsg(
               e.response.data.msg ||
                 e.response.data.message ||
-                j18n.load('src__pages__auth__views__sms-code___42')
+                $t('src__pages__auth__views__sms-code___42')
             )
           } else if (e.msg) {
             setErrorMsg(e.msg)
@@ -68,12 +68,12 @@ export const SmsCode = defineComponent({
           </div>
 
           <div class="auth-view__tipstrong">
-            {j18n.load('src__pages__auth__views__sms-code___68')}
+            {$t('src__pages__auth__views__sms-code___68')}
           </div>
           <div class="auth-view__smscode">
             <InputField
               bold
-              placeholder={j18n.load('src__pages__auth__views__sms-code___73')}
+              placeholder={$t('src__pages__auth__views__sms-code___73')}
               v-model={state.code}
               v-slots={{
                 left: () => (
@@ -100,7 +100,7 @@ export const SmsCode = defineComponent({
                   class="bd-button__auth"
                   onClick={onSend}
                 >
-                  {j18n.load('src__pages__auth__views__sms-code___100')}
+                  {$t('src__pages__auth__views__sms-code___100')}
                 </Button>
               ) : (
                 <CountDown
@@ -130,14 +130,14 @@ export const SmsCode = defineComponent({
             class="bd-button__auth"
             onClick={onSubmit}
           >
-            {j18n.load('src__pages__auth__views__sms-code___130')}
+            {$t('src__pages__auth__views__sms-code___130')}
           </Button>
 
           <div
             class="auth-back cursor-pointer"
             onClick={() => authUtil.to(AUTH_TYPE.PHONE_LOGIN)}
           >
-            {j18n.load('src__pages__auth__views__sms-code___136')}
+            {$t('src__pages__auth__views__sms-code___136')}
           </div>
         </>
       )

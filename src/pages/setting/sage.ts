@@ -7,6 +7,7 @@ import {
   BasicEffect
 } from '@/interface'
 import { useFooterModule } from '@/modules'
+import i18n from '@/locale/i18n'
 
 export const actions: ActionTree<SettingState, RootState> = {}
 
@@ -35,7 +36,7 @@ export const mutations: MutationTree<SettingState> = {
   [SettingMutations.SET_CONVOLVER_EFFECT](state, convolver) {
     const { useState } = useFooterModule()
     const footerState = useState()
-    if (convolver === j18n.load('src__pages__setting__sage___37')) {
+    if (convolver === $t('src__pages__setting__sage___37')) {
       footerState.effect?.clearConvolver()
     } else {
       footerState.effect?.createConvolver(convolver)
@@ -47,5 +48,7 @@ export const mutations: MutationTree<SettingState> = {
   },
   [SettingMutations.SET_LANGUAGE](state, language) {
     state.language = language
+    ;(i18n as any).locale = language
+    document.location.reload()
   }
 }

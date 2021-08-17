@@ -24,82 +24,58 @@ export const Filter = defineComponent({
     emit('change', filter)
 
     const keyMap: Record<string, string> = {
-      type: j18n.load('src__pages__news__children__artists__view__filter___26'),
-      area: j18n.load('src__pages__news__children__artists__view__filter___27'),
-      initial: j18n.load(
-        'src__pages__news__children__artists__view__filter___28'
-      )
+      type: $t('src__pages__news__children__artists__view__filter___26'),
+      area: $t('src__pages__news__children__artists__view__filter___27'),
+      initial: $t('src__pages__news__children__artists__view__filter___28')
     }
     const view: Record<string, { name: string; value: number | string }[]> = {
       area: [
         {
-          name: j18n.load(
-            'src__pages__news__children__artists__view__filter___32'
-          ),
+          name: $t('src__pages__news__children__artists__view__filter___32'),
           value: -1
         },
         {
-          name: j18n.load(
-            'src__pages__news__children__artists__view__filter___33'
-          ),
+          name: $t('src__pages__news__children__artists__view__filter___33'),
           value: 7
         },
         {
-          name: j18n.load(
-            'src__pages__news__children__artists__view__filter___34'
-          ),
+          name: $t('src__pages__news__children__artists__view__filter___34'),
           value: 96
         },
         {
-          name: j18n.load(
-            'src__pages__news__children__artists__view__filter___35'
-          ),
+          name: $t('src__pages__news__children__artists__view__filter___35'),
           value: 8
         },
         {
-          name: j18n.load(
-            'src__pages__news__children__artists__view__filter___36'
-          ),
+          name: $t('src__pages__news__children__artists__view__filter___36'),
           value: 16
         },
         {
-          name: j18n.load(
-            'src__pages__news__children__artists__view__filter___37'
-          ),
+          name: $t('src__pages__news__children__artists__view__filter___37'),
           value: 0
         }
       ],
       type: [
         {
-          name: j18n.load(
-            'src__pages__news__children__artists__view__filter___40'
-          ),
+          name: $t('src__pages__news__children__artists__view__filter___40'),
           value: -1
         },
         {
-          name: j18n.load(
-            'src__pages__news__children__artists__view__filter___41'
-          ),
+          name: $t('src__pages__news__children__artists__view__filter___41'),
           value: 1
         },
         {
-          name: j18n.load(
-            'src__pages__news__children__artists__view__filter___42'
-          ),
+          name: $t('src__pages__news__children__artists__view__filter___42'),
           value: 2
         },
         {
-          name: j18n.load(
-            'src__pages__news__children__artists__view__filter___43'
-          ),
+          name: $t('src__pages__news__children__artists__view__filter___43'),
           value: 3
         }
       ],
       initial: [
         {
-          name: j18n.load(
-            'src__pages__news__children__artists__view__filter___45'
-          ),
+          name: $t('src__pages__news__children__artists__view__filter___45'),
           value: '-1'
         }
       ].concat(

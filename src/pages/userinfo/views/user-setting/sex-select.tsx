@@ -40,15 +40,13 @@ export const SexSelect = defineComponent({
           }}
         >
           {[
-            j18n.load(
+            $t(
               'src__pages__userinfo__views__user-setting__sex-select___41____0'
             ),
-            j18n.load(
+            $t(
               'src__pages__userinfo__views__user-setting__sex-select___41____1'
             ),
-            j18n.load(
-              'src__pages__userinfo__views__user-setting__sex-select___41'
-            )
+            $t('src__pages__userinfo__views__user-setting__sex-select___41')
           ].map((text: string, index: number) => (
             <Radio value={index}>{text}</Radio>
           ))}

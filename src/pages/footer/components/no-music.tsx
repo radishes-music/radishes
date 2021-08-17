@@ -13,11 +13,11 @@ export default defineComponent({
 
     return () => (
       <span>
-        {j18n.load('src__pages__footer__components__no-music___15')}，
+        {$t('src__pages__footer__components__no-music___15')}，
         <Button type="link" style="padding: 0" onClick={handleClick}>
-          {j18n.load('src__pages__footer__components__no-music___17')}
+          {$t('src__pages__footer__components__no-music___17')}
         </Button>
-        {j18n.load('src__pages__footer__components__no-music___19')}。
+        {$t('src__pages__footer__components__no-music___19')}。
       </span>
     )
   }

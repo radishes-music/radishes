@@ -28,11 +28,11 @@ export const useSubscribe = (isSingle: boolean) => {
       //     id: -1
       //   })
       //   const modal = Modal.confirm({
-      //     title: j18n.load('src__shared__subscribe___30'),
+      //     title: $t('src__shared__subscribe___30'),
       //     icon: '',
       //     centered: true,
-      //     okText: j18n.load('src__shared__subscribe___33'),
-      //     cancelText: j18n.load('src__shared__subscribe___34'),
+      //     okText: $t('src__shared__subscribe___33'),
+      //     cancelText: $t('src__shared__subscribe___34'),
       //     onOk: () => {
       //       resolve(select.value)
       //       modal.destroy()
@@ -77,8 +77,8 @@ export const useSubscribe = (isSingle: boolean) => {
     }
     success(
       type === '1'
-        ? j18n.load('src__shared__subscribe___77____3')
-        : j18n.load('src__shared__subscribe___77')
+        ? $t('src__shared__subscribe___77____3')
+        : $t('src__shared__subscribe___77')
     )
     return true
   }

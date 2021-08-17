@@ -63,11 +63,11 @@ export const UserInfoWidget = defineComponent({
           onLoad={onLoad}
           loading={state.loading}
           finished={state.finished}
-          finishedText={j18n.load(
+          finishedText={$t(
             'src__pages__userinfo__component__userinfo-widget__index___65'
           )}
           error={state.error}
-          errorText={j18n.load(
+          errorText={$t(
             'src__pages__userinfo__component__userinfo-widget__index___67'
           )}
         >
@@ -75,12 +75,10 @@ export const UserInfoWidget = defineComponent({
 
           <AudioList
             audio={audio}
-            title={j18n.load(
+            title={$t(
               'src__pages__userinfo__component__userinfo-widget__index___73',
               isSelf.value
-                ? j18n.load(
-                    'src__pages__userinfo__component__playlist__index___52'
-                  )
+                ? $t('src__pages__userinfo__component__playlist__index___52')
                 : 'Ta'
             )}
           ></AudioList>

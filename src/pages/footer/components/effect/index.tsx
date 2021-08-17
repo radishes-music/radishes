@@ -19,9 +19,7 @@ export default defineComponent({
           v-slots={{
             title: () => (
               <span>
-                {j18n.load(
-                  'src__pages__footer__components__effect__index___19'
-                )}
+                {$t('src__pages__footer__components__effect__index___19')}
               </span>
             )
           }}

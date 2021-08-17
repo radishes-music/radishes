@@ -12,9 +12,9 @@ export default defineComponent({
     const basicFormat: {
       [k: string]: string
     } = {
-      [BasicEffect.D3]: j18n.load('src__pages__setting__view__effect___14'),
-      [BasicEffect.FADE]: j18n.load('src__pages__setting__view__effect___15'),
-      [BasicEffect.TENDER]: j18n.load('src__pages__setting__view__effect___16')
+      [BasicEffect.D3]: $t('src__pages__setting__view__effect___14'),
+      [BasicEffect.FADE]: $t('src__pages__setting__view__effect___15'),
+      [BasicEffect.TENDER]: $t('src__pages__setting__view__effect___16')
     }
 
     const handleChangeBasic = (basic: BasicEffect[]) => {
@@ -27,12 +27,12 @@ export default defineComponent({
 
     return () => (
       <div class="setting-view-contanier--effect" data-location="effect">
-        <h2>{j18n.load('src__pages__setting__view__effect___29')}</h2>
+        <h2>{$t('src__pages__setting__view__effect___29')}</h2>
         <div class="setting-view-description">
-          {j18n.load('src__pages__setting__view__effect___31')}
+          {$t('src__pages__setting__view__effect___31')}
         </div>
         <div class="effect-basic">
-          <div>{j18n.load('src__pages__setting__view__effect___34')}</div>
+          <div>{$t('src__pages__setting__view__effect___34')}</div>
           <CheckboxGroup
             direction="horizontal"
             v-model={state.basicEffect}
@@ -53,7 +53,7 @@ export default defineComponent({
           </CheckboxGroup>
         </div>
         <div class="effect-convolver">
-          <div>{j18n.load('src__pages__setting__view__effect___55')}</div>
+          <div>{$t('src__pages__setting__view__effect___55')}</div>
           <RadioGroup
             direction="horizontal"
             v-model={state.convolver}

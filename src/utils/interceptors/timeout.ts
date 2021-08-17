@@ -7,7 +7,7 @@ export default function(http: AxiosInstance) {
     error => {
       if (error.response?.status === 408 || error.code === 'ECONNABORTED') {
         message.error(
-          j18n.load('src__utils__interceptors__timeout___8', error.config.url),
+          $t('src__utils__interceptors__timeout___8', error.config.url),
           5
         )
       }

@@ -24,7 +24,7 @@ export const FansView = defineComponent({
     return () =>
       state.list.length === 0 ? (
         <EmptyList
-          text={j18n.load('src__pages__userinfo__views__fans-view___25')}
+          text={$t('src__pages__userinfo__views__fans-view___25')}
         ></EmptyList>
       ) : (
         <div>{JSON.stringify(state.list)}</div>

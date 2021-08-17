@@ -43,7 +43,7 @@ export const Sidebar = defineComponent({
             >
               {index === 0 && (
                 <header class="sidebar-nav-header">
-                  {j18n.load('src__pages__sidebar__view__index___44')}
+                  {$t('src__pages__sidebar__view__index___44')}
                 </header>
               )}
               <RouterLink

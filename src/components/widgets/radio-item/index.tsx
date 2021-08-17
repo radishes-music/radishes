@@ -30,11 +30,11 @@ export const RadioItem = defineComponent({
           </div>
           <div class="radio-item__right">
             <div>
-              {j18n.load('src__components__widgets__radio-item__index___31')}
+              {$t('src__components__widgets__radio-item__index___31')}
               {overNum(info.programCount)}
             </div>
             <div>
-              {j18n.load('src__components__widgets__radio-item__index___32')}
+              {$t('src__components__widgets__radio-item__index___32')}
               {overNum(info.subCount)}
             </div>
           </div>

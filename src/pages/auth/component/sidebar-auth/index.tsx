@@ -52,7 +52,7 @@ export const SidebarAuth = defineComponent({
     return () => {
       const text = isLogin.value
         ? profile.value.nickname
-        : j18n.load('src__pages__auth__component__sidebar-auth__index___52')
+        : $t('src__pages__auth__component__sidebar-auth__index___52')
       const head = isLogin.value ? profile.value.avatarUrl : DEFAULT_AVATAR
       return (
         <div class="sidebar-nav-login" onClick={unLoginClick}>

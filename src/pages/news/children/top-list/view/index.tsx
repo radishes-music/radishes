@@ -36,9 +36,7 @@ export const TopList = defineComponent({
 
     return () => (
       <div class="toplist">
-        <h1>
-          {j18n.load('src__pages__news__children__top-list__view__index___38')}
-        </h1>
+        <h1>{$t('src__pages__news__children__top-list__view__index___38')}</h1>
         <div class="toplist-expansion">
           {expan.value.map(item => (
             <div class="toplist-expansion-contanier">
@@ -58,17 +56,13 @@ export const TopList = defineComponent({
                   </div>
                 ))}
                 <strong onClick={() => jump.songList(item.id)}>
-                  {j18n.load(
-                    'src__pages__news__children__top-list__view__index___57'
-                  )}
+                  {$t('src__pages__news__children__top-list__view__index___57')}
                 </strong>
               </div>
             </div>
           ))}
         </div>
-        <h1>
-          {j18n.load('src__pages__news__children__top-list__view__index___62')}
-        </h1>
+        <h1>{$t('src__pages__news__children__top-list__view__index___62')}</h1>
         <div class="toplist-shrink">
           <SongList
             songData={shrink.value}

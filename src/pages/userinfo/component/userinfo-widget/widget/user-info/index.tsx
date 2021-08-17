@@ -68,19 +68,19 @@ export const UserInfo = defineComponent({
               eventCount={profile.eventCount}
               uid={profile.userId}
             ></UserStatistic>
-            {/*TODO { j18n.load('src__pages__userinfo__component__userinfo-widget__widget__user-info__index___70') }*/}
+            {/*TODO { $t('src__pages__userinfo__component__userinfo-widget__widget__user-info__index___70') }*/}
             <div>
               <span>
-                {j18n.load(
+                {$t(
                   'src__pages__userinfo__component__userinfo-widget__widget__user-info__index___72'
                 )}
               </span>
               <span style={{ color: '#777' }}>【TODO】</span>
             </div>
-            {/*TODO { j18n.load('src__pages__userinfo__component__userinfo-widget__widget__user-info__index___75') }*/}
+            {/*TODO { $t('src__pages__userinfo__component__userinfo-widget__widget__user-info__index___75') }*/}
             <div>
               <span>
-                {j18n.load(
+                {$t(
                   'src__pages__userinfo__component__userinfo-widget__widget__user-info__index___77'
                 )}
               </span>
@@ -88,7 +88,7 @@ export const UserInfo = defineComponent({
             </div>
             <OverflowText>
               <span>
-                {j18n.load(
+                {$t(
                   'src__pages__userinfo__component__userinfo-widget__widget__user-info__index___81'
                 )}
               </span>

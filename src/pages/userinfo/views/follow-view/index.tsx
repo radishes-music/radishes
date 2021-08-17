@@ -40,19 +40,15 @@ export const FollowView = defineComponent({
           onLoad={onLoad}
           loading={state.loading}
           finished={state.finished}
-          finishedText={j18n.load(
+          finishedText={$t(
             'src__pages__userinfo__views__follow-view__index___42'
           )}
           error={state.error}
-          errorText={j18n.load(
-            'src__pages__userinfo__views__follow-view__index___44'
-          )}
+          errorText={$t('src__pages__userinfo__views__follow-view__index___44')}
         >
           {state.list.length === 0 ? (
             <EmptyList
-              text={j18n.load(
-                'src__pages__userinfo__views__follow-view__index___47'
-              )}
+              text={$t('src__pages__userinfo__views__follow-view__index___47')}
             ></EmptyList>
           ) : (
             <div class="list-view">
