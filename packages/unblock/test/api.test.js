@@ -7,6 +7,6 @@ test('match id', () => {
       expect(url.includes('http')).toBe(true)
     })
     .catch(e => {
-      expect(true, '未获取到播放url').toBe(false)
+      expect(e).toBe('未获取到任何播放源')
     })
 })

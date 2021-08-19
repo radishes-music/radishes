@@ -1,5 +1,5 @@
 {
-  "name": "md2vue-loader",
+  "name": "@radishes/md2vue-loader",
   "version": "1.0.2",
   "description": "md to vue webpack loader",
   "main": "dist/index.cjs.js",
