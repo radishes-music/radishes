@@ -1,5 +1,5 @@
 import * as T from '@babel/types'
-import { PluginObj } from '@babel/core'
+import { PluginObj, Node } from '@babel/core'
 
 export default function({ types: t }: { types: typeof T }) {
   const visitor: PluginObj['visitor'] = {}
@@ -21,7 +21,7 @@ export default function({ types: t }: { types: typeof T }) {
         t.stringLiteral('@/locale/i18n')
       )
       
-      path.get('body.0').getStatementParent().insertBefore(node)
+      path.get('body')[0].getStatementParent().insertBefore(node as unknown as Node)
     }
   }
   return {
