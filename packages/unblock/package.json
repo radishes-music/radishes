@@ -1,6 +1,6 @@
 {
   "name": "@radishes/unblock",
-  "version": "0.25.3",
+  "version": "2.0.1",
   "description": "Revive unavailable songs for Netease Cloud Music",
   "main": "src/provider/match.js",
   "bin": {

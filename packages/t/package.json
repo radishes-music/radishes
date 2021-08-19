@@ -1,6 +1,6 @@
 {
   "name": "@radishes/t",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "i18n",
   "main": "index.js",
   "scripts": {
