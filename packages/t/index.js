@@ -13,7 +13,7 @@ function default_1(_a) {
             }
         });
         if (shouldImport) {
-            var node = t.importDeclaration([t.importSpecifier(t.identifier('$t'), t.stringLiteral('$t'))], t.stringLiteral('@/locale/i18n'));
+            var node = t.importDeclaration([t.importSpecifier(t.identifier('$t'), t.identifier('$t'))], t.stringLiteral('@/locale/i18n'));
             path.get('body')[0].getStatementParent().insertBefore(node);
         }
     };

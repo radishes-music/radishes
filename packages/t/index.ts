@@ -17,7 +17,7 @@ export default function({ types: t }: { types: typeof T }) {
     if (shouldImport) {
 
       const node = t.importDeclaration(
-        [t.importSpecifier(t.identifier('$t'), t.stringLiteral('$t'))],
+        [t.importSpecifier(t.identifier('$t'), t.identifier('$t'))],
         t.stringLiteral('@/locale/i18n')
       )
       
