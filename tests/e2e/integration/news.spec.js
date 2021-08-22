@@ -2,44 +2,50 @@
 
 // cy.location api 只能在 history 模式下使用，参考 router/index.ts
 context('News Music Basic', () => {
+  Cypress.on('uncaught:exception', (err, runnable) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false
+  })
+
   beforeEach(() => {
     cy.visit('/')
   })
 
   it('Automatically jump to the recommended page when music is found', () => {
-    // cy.location().should(loc => {
-    //   expect(loc.pathname).to.eq('/music/recommend')
-    // })
-    cy.hash().should('eq', '#/music/recommend')
+    cy.location().should(loc => {
+      expect(loc.pathname).to.eq('/music/recommend')
+    })
+    // cy.hash().should('eq', '#/music/recommend')
   })
 
   it('Discover music secondary routing test', () => {
     cy.get('.secondary-bar-link:nth-child(2)').click()
-    // cy.location().should(loc => {
-    //   expect(loc.pathname).to.eq('/music/songlist')
-    //   expect(loc.search).to.have.string('tag=all')
-    // })
-    cy.hash().should('match', /^#\/music\/songlist.+tag\=all/)
+    cy.location().should(loc => {
+      expect(loc.pathname).to.eq('/music/songlist')
+      expect(loc.search).to.have.string('tag=all')
+    })
+    // cy.hash().should('match', /^#\/music\/songlist.+tag\=all/)
 
     cy.get('.secondary-bar-link:nth-child(3)').click()
-    // cy.location().should(loc => {
-    //   expect(loc.pathname).to.eq('/music/toplist')
-    // })
-    cy.hash().should('have.string', '#/music/toplist')
+    cy.location().should(loc => {
+      expect(loc.pathname).to.eq('/music/toplist')
+    })
+    // cy.hash().should('have.string', '#/music/toplist')
 
     cy.get('.secondary-bar-link:nth-child(4)').click()
-    // cy.location().should(loc => {
-    //   expect(loc.pathname).to.eq('/music/artists')
-    // })
-    cy.hash().should('have.string', '#/music/artists')
+    cy.location().should(loc => {
+      expect(loc.pathname).to.eq('/music/artists')
+    })
+    // cy.hash().should('have.string', '#/music/artists')
   })
 
   it('Jump to playlist', () => {
     cy.get('.song-list-container:nth-child(2)').click()
-    // cy.location().should(loc => {
-    //   expect(loc.pathname).to.have.string('/list/song/')
-    // })
-    cy.hash().should('have.string', '#/list/song')
+    cy.location().should(loc => {
+      expect(loc.pathname).to.have.string('/list/song/')
+    })
+    // cy.hash().should('have.string', '#/list/song')
 
     // rule album
     cy.get('.bg-img img')
@@ -54,8 +60,8 @@ context('News Music Basic', () => {
   })
 
   it('Fine playlist filtering', () => {
-    // cy.visit('/music/songlist?tag=all')
-    cy.visit('/#/music/songlist?tag=all')
+    cy.visit('/music/songlist?tag=all')
+    // cy.visit('/#/music/songlist?tag=all')
     cy.get('.song-list')
       .children()
       .should('have.length.greaterThan', 0)
@@ -68,8 +74,8 @@ context('News Music Basic', () => {
   })
 
   it('Singer filter', () => {
-    // cy.visit('/music/artists')
-    cy.visit('/#/music/artists')
+    cy.visit('/music/artists')
+    // cy.visit('/#/music/artists')
     cy.get('.artists-content ul')
       .children()
       .should('have.length.greaterThan', 0)
@@ -88,14 +94,14 @@ context('News Music Basic', () => {
   })
 
   it('Singer details', () => {
-    // cy.visit('/music/artists')
-    cy.visit('/#/music/artists')
+    cy.visit('/music/artists')
+    // cy.visit('/#/music/artists')
 
     cy.intercept(/\/api\/artist\/album/).as('getAlbum')
     cy.get('.artists-content li:first-child').click()
-    // cy.location().should(loc => {
-    //   expect(loc.pathname).to.match(/artist\/\d+\/album/)
-    // })
+    cy.location().should(loc => {
+      expect(loc.pathname).to.match(/artist\/\d+\/album/)
+    })
     cy.wait('@getAlbum').then(interception => {
       const artist = interception.response.body.artist
 
@@ -105,8 +111,8 @@ context('News Music Basic', () => {
   })
 
   it('Double click to play the song', () => {
-    // cy.visit('/music/toplist')
-    cy.visit('/#/music/toplist')
+    cy.visit('/music/toplist')
+    // cy.visit('/#/music/toplist')
 
     // https://github.com/cypress-io/cypress/issues/14269
     // Found it is a cache problem
@@ -132,13 +138,6 @@ context('News Music Basic', () => {
           expect(data[0].url).to.have.string('.mp3')
         }
       }
-
-      const playPauesBtn = cy.get('.music-command-group button:nth-child(3)')
-      playPauesBtn.click()
-      playPauesBtn
-        .find('use')
-        .invoke('attr', 'href')
-        .then(icon => expect(icon).to.have.string('#icon-play'))
     })
   })
 })

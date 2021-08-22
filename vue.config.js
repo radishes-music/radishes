@@ -7,7 +7,7 @@ const CI = process.env.CI !== 'action'
 const md2vue = path.resolve(__dirname, 'packages/md2vue-loader/index.js')
 
 module.exports = {
-  publicPath: '.',
+  publicPath: '/',
   pages: {
     index: {
       entry: 'src/main.ts',
