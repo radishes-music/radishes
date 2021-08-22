@@ -7,7 +7,13 @@ import {
   watch,
   watchEffect
 } from 'vue'
-import { toFixed, formatTime, sleep, isElectron } from '@/utils/index'
+import {
+  toFixed,
+  formatTime,
+  sleep,
+  isElectron,
+  isWindows
+} from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
 import { useFooterModule, useSettingModule } from '@/modules'
@@ -311,17 +317,19 @@ export const MusicControl = defineComponent({
                 )}
               ></icon>
             </ve-button>
-            <ve-button type="text">
-              <icon
-                icon="lyrics"
-                color={visibleFlash.value ? 'var(--base-color)' : '#333'}
-                size={16}
-                aria-title={$t(
-                  'src__pages__footer__components__music-controller__index___304'
-                )}
-                onClick={handleVisibleFlash}
-              ></icon>
-            </ve-button>
+            {isWindows && (
+              <ve-button type="text">
+                <icon
+                  icon="lyrics"
+                  color={visibleFlash.value ? 'var(--base-color)' : '#333'}
+                  size={16}
+                  aria-title={$t(
+                    'src__pages__footer__components__music-controller__index___304'
+                  )}
+                  onClick={handleVisibleFlash}
+                ></icon>
+              </ve-button>
+            )}
           </div>
           <div class={`${prefix}-command-bottom`}>
             <ProgressBar

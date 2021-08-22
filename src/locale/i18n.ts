@@ -11,7 +11,7 @@ const i18n = createI18n({
     'zh-cn': zhCN,
     'en-us': enUS
   },
-  locale: language?.Setting?.language
+  locale: language?.Setting?.language || 'zh-cn'
 })
 
 export const $t = i18n.global.t
