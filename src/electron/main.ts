@@ -5,7 +5,7 @@ import installExtension from 'electron-devtools-installer'
 import { eventInit } from '@/electron/event/index'
 import { downloadIntercept } from './event/ipc-main/download'
 import { runService } from './service/index'
-import { errorMain, infoMain } from './utils/log'
+import { errorMain, infoMain, warnMain } from './utils/log'
 import store from '@/electron/store/index'
 import path from 'path'
 
@@ -90,7 +90,11 @@ async function createWindow() {
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string)
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
-    createProtocol('app')
+    try {
+      createProtocol('app')
+    } catch (e) {
+      warnMain(e)
+    }
     // Load the index.html when not in development
     win
       .loadURL('app://./index.html')

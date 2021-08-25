@@ -1,6 +1,6 @@
 {
   "name": "@radishes/api",
-  "version": "2.0.1",
+  "version": "4.0.9",
   "description": "网易云音乐 NodeJS 版 API",
   "scripts": {
     "dev": "nodemon app.js",

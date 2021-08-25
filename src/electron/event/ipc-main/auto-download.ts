@@ -7,7 +7,7 @@ import {
 import { AutoDownload } from '../action-types'
 import pgk from '../../../../package.json'
 import log from 'electron-log'
-import { infoMain } from '@/electron/utils/log'
+import { infoMain, warnMain } from '@/electron/utils/log'
 
 export interface AutoUpdateContent {
   [AutoDownload.VERSION]: UpdateInfo & { url: string }
@@ -28,10 +28,14 @@ export default (win: BrowserWindow) => {
 
   function sendStatusToWindow<T extends keyof AutoUpdateContent>(
     type: T,
-    content: AutoUpdateContent[T]
+    content?: AutoUpdateContent[T]
   ) {
     infoMain('[Updater]:', type, content)
-    win.webContents.send(AutoDownload.MESSAGE, type, content)
+    try {
+      win.webContents.send(AutoDownload.MESSAGE, type, content)
+    } catch (e) {
+      warnMain(e)
+    }
   }
 
   autoUpdater.on('update-available', info => {
@@ -43,7 +47,7 @@ export default (win: BrowserWindow) => {
   })
   autoUpdater.on('update-not-available', info => {
     infoMain('Uupdater]:', 'update-not-available', info.version)
-    sendStatusToWindow(AutoDownload.NOT_VERSION, info)
+    sendStatusToWindow(AutoDownload.NOT_VERSION)
   })
   autoUpdater.on('error', err => {
     sendStatusToWindow(AutoDownload.ERROR, 'Error in auto-updater. ' + err)
