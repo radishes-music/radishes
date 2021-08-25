@@ -100,7 +100,10 @@ module.exports = {
             to: 'resources/public/service',
             filter: ['**/*']
           }
-        ]
+        ],
+        mac: {
+          identity: null
+        }
       }
     }
   }
