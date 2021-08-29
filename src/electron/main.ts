@@ -6,13 +6,16 @@ import { eventInit } from '@/electron/event/index'
 import { downloadIntercept } from './event/ipc-main/download'
 import { runService } from './service/index'
 import { errorMain, infoMain, warnMain } from './utils/log'
+import { ThenArg } from '@/interface'
 import store from '@/electron/store/index'
 import path from 'path'
 
 // curl -H "Accept: application/json" https://api.github.com/repos/Linkontoask/radishes/contents/package.json
 const isDevelopment = process.env.VUE_APP_NODE_ENV !== 'production'
 
-let win: BrowserWindow | null, loadingWin: BrowserWindow | null
+let win: BrowserWindow | null,
+  loadingWin: BrowserWindow | null,
+  serviceInstance: ThenArg<ReturnType<typeof runService>>
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -107,10 +110,9 @@ async function createWindow() {
     const upgrade = store.get('upgrade')
     if (upgrade) {
       autoUpdater.checkForUpdatesAndNotify({
-        title: $t('src__electron__main___105'),
-        body: $t('src__electron__main___106')
+        title: 'Radishes 通知',
+        body: '发现有新版本，快更新体验吧！'
       })
-      infoMain('Check update')
     }
   }
 
@@ -137,6 +139,8 @@ async function createWindow() {
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
   infoMain('Event window-all-closed')
+  const killed = serviceInstance.service.kill('SIGINT')
+  infoMain(`service kill ${killed ? 'success' : 'fail'}`)
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
@@ -180,6 +184,7 @@ app.on('ready', async () => {
 
   runService()
     .then(service => {
+      serviceInstance = service
       store.set('servicePort', service.port)
       infoMain('Service is running', service.port)
       createWindow()
