@@ -1,10 +1,52 @@
-# [2.0.0-alpha.4](https://github.com/Linkontoask/radishes/compare/v2.0.0-alpha.3...v2.0.0-alpha.4) (2021-05-06)
+# [2.0.0-alpha.5](https://github.com/Linkontoask/radishes/compare/v2.0.0-alpha.4...v2.0.0-alpha.5) (2021-08-29)
+
+
+### build
+
+* ------5 ([36a4549](https://github.com/Linkontoask/radishes/commit/36a4549f29459c89a5951dc7186ebd969cbca60e))
+* babel t ([0824181](https://github.com/Linkontoask/radishes/commit/0824181fcd2f20fedc32e1cf172716725ceee3fa))
+* electron log ([09a6fd4](https://github.com/Linkontoask/radishes/commit/09a6fd434c5778da99251de288e9c24299e7e372))
+* igore sign for macos ([3d693fe](https://github.com/Linkontoask/radishes/commit/3d693fe04b6982f9d8047fa3e94878135d8d33a6))
+* use i18n ([d36e23c](https://github.com/Linkontoask/radishes/commit/d36e23cff353eba633b5b86193cd5528df01e3a6))
+
+### ci
+
+* auto log ([c23262f](https://github.com/Linkontoask/radishes/commit/c23262f197007cbc047061ce2cfa50019ef0ee25))
+
+### feat
+
+* add loading page ([3aa2579](https://github.com/Linkontoask/radishes/commit/3aa25791ca195085a667baead21e9a9e372b0e84))
+* add progress bar ([1dd6cd7](https://github.com/Linkontoask/radishes/commit/1dd6cd71a25825bcc8a4a1ba08b35ca05d9d4959))
+* i18n base code ([b4fc8a7](https://github.com/Linkontoask/radishes/commit/b4fc8a7c8bf3f7f91cde18e0433de37d82d82549))
+* support i18n ([65af252](https://github.com/Linkontoask/radishes/commit/65af25232396c3ce7e65e40348dacc4bf517a650))
+* use serverless ([0799d57](https://github.com/Linkontoask/radishes/commit/0799d57822837e5e77751bd9b8fea4a45efd7eaa))
+
+### fix
+
+* browser control display ([2b1ed33](https://github.com/Linkontoask/radishes/commit/2b1ed332bb4f5bcd3e7f2fdc0ca2448e2bf1ac04))
+* flash lyric update ([093faac](https://github.com/Linkontoask/radishes/commit/093faac718c65aeb5a22ed5d57f3ab3e52cfe0d2))
+
+### style
+
+* add useModuleStore type ([6877f86](https://github.com/Linkontoask/radishes/commit/6877f86561441c6619e8d572e38bebcbbbb4b335))
+* fix Type 'any' is not assignable to type 'never' ([9d9b9ea](https://github.com/Linkontoask/radishes/commit/9d9b9ea1ac2b82e9f54f52fdd95ecb3bbbda882d))
+* macos hide logo ([aa9cd2e](https://github.com/Linkontoask/radishes/commit/aa9cd2e9d8188848a307d1f5f556fbbc006997ad))
+
+### test
+
+* unblock test ([b10a6b8](https://github.com/Linkontoask/radishes/commit/b10a6b8c8097f28019e99a4b44e0ebcff8629ebf))
+* use history ([8f7995c](https://github.com/Linkontoask/radishes/commit/8f7995c78fb729bef4725234767d3b6169b434f3))
+
+
+
+# [2.0.0-alpha.4](https://github.com/Linkontoask/radishes/compare/v2.0.0-alpha.3...v2.0.0-alpha.4) (2021-06-08)
 
 
 ### build
 
 * 2.0.0-alpha.3 ([cef0840](https://github.com/Linkontoask/radishes/commit/cef084054bd1e438c36d6aac3f651103e33e2e35))
 * completed localized deployment ([768b16a](https://github.com/Linkontoask/radishes/commit/768b16a866bcc09577e2b7fdc0d84cddbc31dc59))
+* upgrade version ([53fe670](https://github.com/Linkontoask/radishes/commit/53fe670fe83a01b1df13cd244cbbc73b630e1682))
 * use local service ([6a62c34](https://github.com/Linkontoask/radishes/commit/6a62c346008ce926c76120f4007c127bc710c0de))
 
 ### chore
@@ -22,10 +64,12 @@
 
 ### docs
 
+* update CHANGELOG.md ([f8b9f57](https://github.com/Linkontoask/radishes/commit/f8b9f5718c1d5f9d8b93cbf3992fe185ca6d981d))
 * update CHANGELOG.md ([56acc43](https://github.com/Linkontoask/radishes/commit/56acc43dfb1ecc013680fccc7bde24b329ad5b02))
 
 ### feat
 
+* added song loading status ([9d1a0ca](https://github.com/Linkontoask/radishes/commit/9d1a0ca8e2f313948e8d54bbd8a0c395f1d09772))
 * disable CORS using the webSecurity option ([5bb13ed](https://github.com/Linkontoask/radishes/commit/5bb13ed2eea4ef7d7950d6a4084b2736b8b50542))
 * search interface title correction ([28d3a2f](https://github.com/Linkontoask/radishes/commit/28d3a2f86550574768991abc1b12879c7d9dfaea))
 * support album search ([3c66425](https://github.com/Linkontoask/radishes/commit/3c66425aa91fc576c4dff87749f3e494b00cf403))
@@ -45,10 +89,13 @@
 ### fix
 
 * _playlist$value.map is not a function ([ba73b5c](https://github.com/Linkontoask/radishes/commit/ba73b5cae741903e6a76ec1bb79ebe63122dc9f6))
+* 1000ms -> 30000ms timeout ([397b091](https://github.com/Linkontoask/radishes/commit/397b0914e00bb43e7fafc10ab4f95fed4865d38d))
+* desktop lyrics are not displayed problem ([4c43b0e](https://github.com/Linkontoask/radishes/commit/4c43b0e61b3fb083c810f9f5321a33f54bd4d7b1))
 * fix the display of the last few data of the pager ([caaa1fe](https://github.com/Linkontoask/radishes/commit/caaa1fe3f493288e7dcf288d445e782a370bcf27))
 * jump error ([abbd5b9](https://github.com/Linkontoask/radishes/commit/abbd5b93565ab5889f3fe4d23af82714d88af65f))
 * jump error 1 ([bc1a3d8](https://github.com/Linkontoask/radishes/commit/bc1a3d814c00fd0801dda20db37689afd3c39d18))
 * repair interface white screen ([1094345](https://github.com/Linkontoask/radishes/commit/10943458aa9cfefeb609bdade2792cf5ae6f2f6f))
+* the bug that the repeated lyrics are not fully displayed ([cdfc3d5](https://github.com/Linkontoask/radishes/commit/cdfc3d56f671859d5e0b107e040c89c7c9e48de8))
 * upload music content-type ([9007852](https://github.com/Linkontoask/radishes/commit/90078522c495aaac0867fc12ce4b4dd1618e0c82))
 
 ### fixed
@@ -72,6 +119,7 @@
 * less formatter. ([7db6fb8](https://github.com/Linkontoask/radishes/commit/7db6fb86abf89ccf7c15e2eb498bd79ec550e2bb))
 * md style ([bd578b1](https://github.com/Linkontoask/radishes/commit/bd578b1050ac46cd1e1ae5f554e1ec56188c2d1f))
 * modify the weight of non-essential rules ([b673947](https://github.com/Linkontoask/radishes/commit/b67394765ff250e29ef08017de10e76f27ce906d))
+* optimize the experience ([3c01201](https://github.com/Linkontoask/radishes/commit/3c01201089211e942b4a942c17c39dcc1da378a5))
 * remove extra sound ([58bbf6b](https://github.com/Linkontoask/radishes/commit/58bbf6bd6f1629fb32d84613cd56797ccff1e3d6))
 * remove none less files ([e7c8fd2](https://github.com/Linkontoask/radishes/commit/e7c8fd2f64be654c3ec89ba0b8d7f4bef04d8338))
 * remove unfinished pages ([127bd34](https://github.com/Linkontoask/radishes/commit/127bd349129ed227e10a545c9e0fc8a737976940))
