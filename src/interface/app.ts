@@ -1,5 +1,6 @@
 import { ComponentPublicInstance, App } from 'vue'
 import { FooterMutations, RecommendMutations } from '@/interface'
+import language from '@/locale/zh-cn.json'
 
 export interface Music extends ComponentPublicInstance {
   $app: App
@@ -66,3 +67,5 @@ export type SongListColumnsType =
   | 'dlt'
 
 export type AllMutations = FooterMutations & RecommendMutations
+
+export type LanguageKey = typeof language

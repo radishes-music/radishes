@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-// 有时间去迁移一下到axios
+
 export const useHttp = (fetchFn: Function): any => {
   const state = reactive({
     loading: false

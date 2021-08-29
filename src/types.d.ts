@@ -1,6 +1,7 @@
 import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
 import { RootState } from '@/store/index'
+import { LanguageKey } from './interface'
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -26,7 +27,11 @@ declare global {
 
   declare const MediaMetadata: MediaMetadataType
 
-  declare const $t: (key: string, ...args: any[]) => string
+  declare const $t: <T extends keyof LanguageKey>(
+    key: T,
+    ...args: any[]
+  ) => LanguageKey[T]
+
   interface Window {
     isMobile: boolean
     webkitAudioContext: AudioContext

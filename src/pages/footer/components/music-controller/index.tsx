@@ -195,7 +195,7 @@ export const MusicControl = defineComponent({
           audioElement.value.currentTime
         )
       }
-      requestAnimationFrame(timeUpdate)
+      setTimeout(timeUpdate, 0)
     }
 
     watch(
