@@ -15,7 +15,7 @@ const isDevelopment = process.env.VUE_APP_NODE_ENV !== 'production'
 
 let win: BrowserWindow | null,
   loadingWin: BrowserWindow | null,
-  serviceInstance: ThenArg<ReturnType<typeof runService>>
+  serviceInstance: ThenArg<ReturnType<typeof runService>>['service']
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -47,6 +47,10 @@ async function createLoadingWindow() {
         errorMain('Load not loading.html', e.toString())
       })
   }
+
+  loadingWin.once('closed', () => {
+    loadingWin = null
+  })
 }
 
 async function createWindow() {
@@ -136,10 +140,22 @@ async function createWindow() {
   downloadIntercept(win)
 }
 
+async function beforeRunService() {
+  try {
+    const { port, service } = await runService()
+    serviceInstance = service
+    store.set('servicePort', port)
+    infoMain('Service is running', port)
+    createWindow()
+  } catch (e) {
+    errorMain('Service is not running', e.toString())
+  }
+}
+
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
   infoMain('Event window-all-closed')
-  const killed = serviceInstance.service.kill('SIGINT')
+  const killed = serviceInstance.kill('SIGINT')
   infoMain(`service kill ${killed ? 'success' : 'fail'}`)
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
@@ -153,7 +169,7 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (win === null) {
-    createWindow()
+    beforeRunService()
   } else {
     win.show()
   }
@@ -182,16 +198,7 @@ app.on('ready', async () => {
 
   createLoadingWindow()
 
-  runService()
-    .then(service => {
-      serviceInstance = service
-      store.set('servicePort', service.port)
-      infoMain('Service is running', service.port)
-      createWindow()
-    })
-    .catch(e => {
-      errorMain('Service is not running', e.toString())
-    })
+  beforeRunService()
 })
 
 // Exit cleanly on request from parent process in development mode.
