@@ -42,7 +42,7 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "yarn lint && yarn test:t && commitlint -E HUSKY_GIT_PARAMS"
+      "commit-msg": "yarn test:t && commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "repository": {
