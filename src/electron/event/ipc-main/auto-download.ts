@@ -46,7 +46,7 @@ export default (win: BrowserWindow) => {
     sendStatusToWindow(AutoDownload.VERSION, info)
   })
   autoUpdater.on('update-not-available', info => {
-    infoMain('Uupdater]:', 'update-not-available', info.version)
+    infoMain('[Updater]:', 'update-not-available', info.version)
     sendStatusToWindow(AutoDownload.NOT_VERSION)
   })
   autoUpdater.on('error', err => {
