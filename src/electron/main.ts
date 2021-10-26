@@ -31,6 +31,7 @@ async function createLoadingWindow() {
     height: 320,
     frame: false,
     resizable: false,
+    transparent: true,
     titleBarStyle: 'hidden'
   })
   if (process.env.WEBPACK_DEV_SERVER_URL) {
