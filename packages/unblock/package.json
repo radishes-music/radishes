@@ -30,5 +30,8 @@
     "@babel/preset-env": "^7.12.7",
     "babel-jest": "^26.6.3",
     "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "js-base64": "^3.7.2"
   }
 }

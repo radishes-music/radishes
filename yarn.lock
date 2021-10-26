@@ -15145,6 +15145,11 @@ jpeg-js@^0.3.4:
   resolved "https://registry.npm.taobao.org/jpeg-js/download/jpeg-js-0.3.7.tgz#471a89d06011640592d314158608690172b1028d"
   integrity sha1-RxqJ0GARZAWS0xQVhghpAXKxAo0=
 
+js-base64@^3.7.2:
+  version "3.7.2"
+  resolved "https://registry.npmmirror.com/js-base64/download/js-base64-3.7.2.tgz?cache=0&sync_timestamp=1632308301843&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fjs-base64%2Fdownload%2Fjs-base64-3.7.2.tgz#816d11d81a8aff241603d19ce5761e13e41d7745"
+  integrity sha1-gW0R2BqK/yQWA9Gc5XYeE+Qdd0U=
+
 js-cookie@^2.2.1:
   version "2.2.1"
   resolved "https://registry.npmjs.org/js-cookie/-/js-cookie-2.2.1.tgz#69e106dc5d5806894562902aa5baec3744e9b2b8"

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase,vue/require-default-prop,@typescript-eslint/ban-ts-ignore*/
-import { defineComponent, reactive, inject } from 'vue'
+import { defineComponent, reactive, inject, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { Toast } from 'vant'
 import { Button } from '../component/button'
@@ -7,6 +7,7 @@ import { Link, AuthLink } from '../component/link'
 import { InputField } from '../component/input-field'
 import { AUTH_TYPE, PROVIDER_AUTH_UTIL } from '../constant'
 import { doPhoneLogin, LoginRes } from '../api'
+import { encode, decode } from 'js-base64'
 
 import { useLogin } from '@/hooks/auth'
 import { useHttp } from '@/hooks'
@@ -24,10 +25,21 @@ import { Checkbox } from 'vant'
 export const PhoneLogin = defineComponent({
   name: 'PhoneLogin',
   setup() {
+    const state_storage = JSON.parse(
+      decode(localStorage.getItem('info') || '') || '{}'
+    )
+
     const state = reactive({
-      checked: false,
-      phone: '',
-      password: ''
+      checked: state_storage.checked || false,
+      remember: state_storage.remember || false,
+      phone: state_storage.phone,
+      password: state_storage.password
+    })
+
+    watchEffect(() => {
+      if (state.remember) {
+        localStorage.setItem('info', encode(JSON.stringify(state)))
+      }
     })
 
     const [errorMsg, setErrorMsg, isNullMsg] = useText()
@@ -139,6 +151,16 @@ export const PhoneLogin = defineComponent({
             onFocus={onFocus}
           ></InputField>
         </div>
+
+        <Checkbox
+          icon-size="14px"
+          shape="square"
+          vModel={state.remember}
+          checked-color={themeColor}
+          style="margin-top: 10px"
+        >
+          <span>记住我</span>
+        </Checkbox>
 
         <div class="auth-view__error">
           <icon
