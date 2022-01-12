@@ -26,7 +26,7 @@
     "highlight.js": "^10.6.0",
     "html-webpack-plugin": "^3.2.0",
     "loader-utils": "^1.2.3",
-    "markdown-it": "^10.0.0",
+    "markdown-it": "^12.3.2",
     "markdown-it-anchor": "^5.2.5",
     "path": "^0.12.7",
     "schema-utils": "^2.6.1",
