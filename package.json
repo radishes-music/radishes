@@ -130,6 +130,7 @@
     "github-markdown-css": "^4.0.0",
     "http-proxy-middleware": "^1.0.6",
     "husky": "^4.3.0",
+    "js-base64": "^3.7.2",
     "js-cookie": "^2.2.1",
     "lerna": "^3.22.1",
     "less": "^3.0.4",
