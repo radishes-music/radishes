@@ -47,9 +47,7 @@ export const FollowCard = defineComponent({
               <div class="follow-card__name">{info.nickname}</div>
               {info.vipType > 0 && (
                 <Tag color="#131313" text-color="#ffe3df">
-                  {$t(
-                    'src__pages__userinfo__views__follow-view__card__49_58_51_16'
-                  )}
+                  vip陆
                 </Tag>
               )}
             </div>

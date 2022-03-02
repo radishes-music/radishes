@@ -7,7 +7,6 @@ import {
   BasicEffect
 } from '@/interface'
 import { useFooterModule } from '@/modules'
-import i18n from '@/locale/i18n'
 
 export const actions: ActionTree<SettingState, RootState> = {}
 
