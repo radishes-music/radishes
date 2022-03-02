@@ -94,7 +94,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: ArtistAlbume,
         name: 'ArtistAlbume',
         meta: {
-          name: $t('src__router__content___96'),
+          name: '专辑',
           canBeCollect: true
         }
       },
@@ -112,7 +112,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: ArtistDesc,
         name: 'ArtistDesc',
         meta: {
-          name: $t('src__router__content___114'),
+          name: '歌手详情',
           canBeCollect: true
         }
       },
@@ -121,7 +121,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: ArtistSimilar,
         name: 'ArtistSimilar',
         meta: {
-          name: $t('src__router__content___123'),
+          name: '相似歌手',
           canBeCollect: true
         }
       }
@@ -156,7 +156,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: SearchSong,
         name: 'SearchSong',
         meta: {
-          name: $t('src__router__content___158'),
+          name: '歌曲',
           path: 'song'
         }
       },
@@ -165,7 +165,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: SearchArtist,
         name: 'SearchArtist',
         meta: {
-          name: $t('src__router__content___167'),
+          name: '歌手',
           path: 'artist'
         }
       },
@@ -174,7 +174,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: SearchAlbum,
         name: 'SearchAlbum',
         meta: {
-          name: $t('src__router__content___176'),
+          name: '专辑',
           path: 'album'
         }
       },
@@ -183,7 +183,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: SearchSongList,
         name: 'SearchSongList',
         meta: {
-          name: $t('src__router__content___185'),
+          name: '歌单',
           path: 'songlist'
         }
       },
@@ -192,7 +192,7 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         component: SearchLyrics,
         name: 'SearchLyrics',
         meta: {
-          name: $t('src__router__content___194'),
+          name: '歌词',
           path: 'lyrics'
         }
       }

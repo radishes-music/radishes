@@ -78,9 +78,7 @@ export const Recommend = defineComponent({
           ></Swiper>
         </div>
         <div class="recommend-song">
-          <h2>
-            {$t('src__pages__news__children__recommend__view__index___80')}
-          </h2>
+          <h2>推荐歌单</h2>
           <SongList
             songData={songList.value}
             loading={loading.value}

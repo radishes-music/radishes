@@ -281,18 +281,11 @@ export const MusicControl = defineComponent({
                 icon={playMode.value}
                 color="#333"
                 size={16}
-                aria-title={$t(
-                  'src__pages__footer__components__music-controller__index___277'
-                )}
+                aria-title="播放顺序"
               ></icon>
             </ve-button>
             <ve-button type="text" class="theme-btn-color" onClick={prevMusic}>
-              <icon
-                icon="shangyishou"
-                aria-title={$t(
-                  'src__pages__footer__components__music-controller__index___281'
-                )}
-              ></icon>
+              <icon icon="shangyishou" aria-title="上一首"></icon>
             </ve-button>
             <ve-button
               type="text"
@@ -304,32 +297,21 @@ export const MusicControl = defineComponent({
               <icon
                 icon={playingIcon.value}
                 size={44}
-                aria-title={$t(
-                  'src__pages__footer__components__music-controller__index___293'
-                )}
+                aria-title="播放/暂停"
               ></icon>
             </ve-button>
             <ve-button type="text" class="theme-btn-color" onClick={nextMusic}>
+              <icon icon="xiayishou" aria-title="下一首"></icon>
+            </ve-button>
+            <ve-button type="text">
               <icon
-                icon="xiayishou"
-                aria-title={$t(
-                  'src__pages__footer__components__music-controller__index___297'
-                )}
+                icon="lyrics"
+                color={visibleFlash.value ? 'var(--base-color)' : '#333'}
+                size={16}
+                aria-title="词"
+                onClick={handleVisibleFlash}
               ></icon>
             </ve-button>
-            {isWindows && (
-              <ve-button type="text">
-                <icon
-                  icon="lyrics"
-                  color={visibleFlash.value ? 'var(--base-color)' : '#333'}
-                  size={16}
-                  aria-title={$t(
-                    'src__pages__footer__components__music-controller__index___304'
-                  )}
-                  onClick={handleVisibleFlash}
-                ></icon>
-              </ve-button>
-            )}
           </div>
           <div class={`${prefix}-command-bottom`}>
             <ProgressBar

@@ -30,19 +30,17 @@ export const SmsCode = defineComponent({
 
     const onSubmit = async () => {
       if (state.code === '') {
-        setErrorMsg($t('src__pages__auth__views__sms-code___32'))
+        setErrorMsg('请输入验证码')
       } else {
         try {
           const res = await httpReset(phone, password, state.code)
           commitLogin(res)
-          Toast($t('src__pages__auth__views__sms-code___37'))
+          Toast('登录成功')
           $router.back()
         } catch (e) {
           if (e.response?.data) {
             setErrorMsg(
-              e.response.data.msg ||
-                e.response.data.message ||
-                $t('src__pages__auth__views__sms-code___42')
+              e.response.data.msg || e.response.data.message || '请求异常'
             )
           } else if (e.msg) {
             setErrorMsg(e.msg)
@@ -68,12 +66,12 @@ export const SmsCode = defineComponent({
           </div>
 
           <div class="auth-view__tipstrong">
-            {$t('src__pages__auth__views__sms-code___68')}
+            为了安全，我们会向你的手机发送短信验证码
           </div>
           <div class="auth-view__smscode">
             <InputField
               bold
-              placeholder={$t('src__pages__auth__views__sms-code___73')}
+              placeholder="填写验证码"
               v-model={state.code}
               v-slots={{
                 left: () => (
@@ -100,7 +98,7 @@ export const SmsCode = defineComponent({
                   class="bd-button__auth"
                   onClick={onSend}
                 >
-                  {$t('src__pages__auth__views__sms-code___100')}
+                  重新获取
                 </Button>
               ) : (
                 <CountDown
@@ -130,15 +128,13 @@ export const SmsCode = defineComponent({
             class="bd-button__auth"
             onClick={onSubmit}
           >
-            {$t('src__pages__auth__views__sms-code___130')}
+            完成
           </Button>
 
           <div
             class="auth-back cursor-pointer"
             onClick={() => authUtil.to(AUTH_TYPE.PHONE_LOGIN)}
-          >
-            {$t('src__pages__auth__views__sms-code___136')}
-          </div>
+          >{`< 返回登录`}</div>
         </>
       )
     }

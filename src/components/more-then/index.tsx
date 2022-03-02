@@ -47,9 +47,7 @@ export const MoreThen = defineComponent({
             type="text"
             onClick={() => (visible.value = !visible.value)}
           >
-            {visible.value
-              ? $t('src__components__more-then__index___49____0')
-              : $t('src__components__more-then__index___49')}
+            {visible.value ? '隐藏' : '显示更多'}
           </ve-button>
         )}
       </div>

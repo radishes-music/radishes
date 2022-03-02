@@ -28,11 +28,11 @@ export const useSubscribe = (isSingle: boolean) => {
       //     id: -1
       //   })
       //   const modal = Modal.confirm({
-      //     title: $t('src__shared__subscribe___30'),
+      //     title: '添加到歌单',
       //     icon: '',
       //     centered: true,
-      //     okText: $t('src__shared__subscribe___33'),
-      //     cancelText: $t('src__shared__subscribe___34'),
+      //     okText: '确定',
+      //     cancelText: '取消',
       //     onOk: () => {
       //       resolve(select.value)
       //       modal.destroy()
@@ -75,11 +75,7 @@ export const useSubscribe = (isSingle: boolean) => {
     } else {
       await subscribePlaylist(type, id)
     }
-    success(
-      type === '1'
-        ? $t('src__shared__subscribe___77____3')
-        : $t('src__shared__subscribe___77')
-    )
+    success(type === '1' ? '收藏成功' : '取消收藏成功')
     return true
   }
 }

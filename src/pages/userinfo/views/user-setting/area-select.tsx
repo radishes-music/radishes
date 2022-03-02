@@ -27,11 +27,7 @@ export const AreaSelect = defineComponent({
             ))}
           </Select>
           <Select defaultValue={0} class="user-setting__select">
-            <Select.Option value={0}>
-              {$t(
-                'src__pages__userinfo__views__user-setting__area-select___29'
-              )}
-            </Select.Option>
+            <Select.Option value={0}>市选择</Select.Option>
           </Select>
         </div>
       )

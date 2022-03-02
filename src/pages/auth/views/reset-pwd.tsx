@@ -26,11 +26,11 @@ export const ResetPwd = defineComponent({
 
     const doReset = () => {
       if (!state.phone) {
-        setErrorMsg($t('src__pages__auth__views__reset-pwd___28'))
+        setErrorMsg('请输入手机号')
       } else if (!state.password) {
-        setErrorMsg($t('src__pages__auth__views__reset-pwd___30'))
+        setErrorMsg('请输入登录密码')
       } else if (!/\d{11}/.test(state.phone)) {
-        setErrorMsg($t('src__pages__auth__views__reset-pwd___32'))
+        setErrorMsg('请输入正确的手机号')
       } else {
         httpSend(state.phone)
           .then(() => {
@@ -42,9 +42,7 @@ export const ResetPwd = defineComponent({
           .catch((e: any) => {
             if (e.response?.data) {
               setErrorMsg(
-                e.response.data.msg ||
-                  e.response.data.message ||
-                  $t('src__pages__auth__views__reset-pwd___44')
+                e.response.data.msg || e.response.data.message || '请求异常'
               )
             } else if (e.msg) {
               setErrorMsg(e.msg)
@@ -65,7 +63,7 @@ export const ResetPwd = defineComponent({
         <div class="auth-view__inputbox">
           <InputField
             bold
-            placeholder={$t('src__pages__auth__views__reset-pwd___65')}
+            placeholder="请输入手机号"
             v-model={state.phone}
             v-slots={{
               left: () => (
@@ -79,7 +77,7 @@ export const ResetPwd = defineComponent({
             onFocus={onFocus}
           ></InputField>
           <InputField
-            placeholder={$t('src__pages__auth__views__reset-pwd___79')}
+            placeholder="设置登陆密码"
             // @ts-ignore
             type="password"
             v-model={state.password}
@@ -96,7 +94,7 @@ export const ResetPwd = defineComponent({
 
         {!errorMsg.text ? (
           <div class="auth-view__tiptext">
-            {$t('src__pages__auth__views__reset-pwd___96')}
+            密码8-20位，至少包含字母/数字/字符2种组合
           </div>
         ) : (
           <div class="auth-view__error">
@@ -111,15 +109,13 @@ export const ResetPwd = defineComponent({
           class="bd-button__auth"
           onClick={doReset}
         >
-          {$t('src__pages__auth__views__reset-pwd___111')}
+          下一步
         </Button>
 
         <div
           class="auth-back cursor-pointer"
           onClick={() => authUtil.to(AUTH_TYPE.PHONE_LOGIN)}
-        >
-          {$t('src__pages__auth__views__reset-pwd___117')}
-        </div>
+        >{`< 返回登录`}</div>
       </>
     )
   }

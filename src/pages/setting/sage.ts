@@ -45,10 +45,5 @@ export const mutations: MutationTree<SettingState> = {
   },
   [SettingMutations.SET_UPGRADE](state, upgrade) {
     state.upgrade = upgrade
-  },
-  [SettingMutations.SET_LANGUAGE](state, language) {
-    state.language = language
-    ;(i18n as any).locale = language
-    document.location.reload()
   }
 }

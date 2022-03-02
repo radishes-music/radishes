@@ -5,7 +5,7 @@ export const LocalMusicDir = defineComponent({
   setup() {
     return () => (
       <div class="local-music-dir">
-        <div>{$t('src__pages__music__children__directory___7')}</div>
+        <div>本地目录</div>
       </div>
     )
   }

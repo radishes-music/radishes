@@ -68,30 +68,18 @@ export const UserInfo = defineComponent({
               eventCount={profile.eventCount}
               uid={profile.userId}
             ></UserStatistic>
-            {/*TODO { $t('src__pages__userinfo__component__userinfo-widget__widget__user-info__index___70') }*/}
+            {/*TODO 需要了解网易云地区标准*/}
             <div>
-              <span>
-                {$t(
-                  'src__pages__userinfo__component__userinfo-widget__widget__user-info__index___72'
-                )}
-              </span>
+              <span>所在地区：</span>
               <span style={{ color: '#777' }}>【TODO】</span>
             </div>
-            {/*TODO { $t('src__pages__userinfo__component__userinfo-widget__widget__user-info__index___75') }*/}
+            {/*TODO 不支持*/}
             <div>
-              <span>
-                {$t(
-                  'src__pages__userinfo__component__userinfo-widget__widget__user-info__index___77'
-                )}
-              </span>
+              <span>社交网络：</span>
               <span style={{ color: '#777' }}>【TODO】</span>
             </div>
             <OverflowText>
-              <span>
-                {$t(
-                  'src__pages__userinfo__component__userinfo-widget__widget__user-info__index___81'
-                )}
-              </span>
+              <span>个人介绍：</span>
               <span style={{ color: '#777' }}>{profile.signature}</span>
             </OverflowText>
           </div>

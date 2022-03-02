@@ -35,14 +35,14 @@ export const EmailLogin = defineComponent({
 
     const doLogin = () => {
       if (!state.email) {
-        setErrorMsg($t('src__pages__auth__views__email-login___37'))
+        setErrorMsg('请输入帐号')
       } else if (!state.password) {
-        setErrorMsg($t('src__pages__auth__views__email-login___39'))
+        setErrorMsg('请输入密码')
       } else {
         httpEmailLogin(state.email, state.password)
           .then((res: LoginRes) => {
             if (!res.profile) {
-              setErrorMsg($t('src__pages__auth__views__email-login___44'))
+              setErrorMsg('该邮箱未绑定手机号，请通过官方渠道进行该操作')
             } else {
               commitLogin(res)
               $router.back()
@@ -51,9 +51,7 @@ export const EmailLogin = defineComponent({
           .catch((e: any) => {
             if (e.response?.data) {
               setErrorMsg(
-                e.response.data.msg ||
-                  e.response.data.message ||
-                  $t('src__pages__auth__views__email-login___53')
+                e.response.data.msg || e.response.data.message || '请求异常'
               )
             } else if (e.msg) {
               setErrorMsg(e.msg)
@@ -70,7 +68,7 @@ export const EmailLogin = defineComponent({
         <div class="auth-view__inputbox">
           <InputField
             bold
-            placeholder={$t('src__pages__auth__views__email-login___70')}
+            placeholder="邮箱账号"
             v-slots={{
               left: () => (
                 <div style="padding-left:8px;">
@@ -83,7 +81,7 @@ export const EmailLogin = defineComponent({
             onFocus={onFocus}
           ></InputField>
           <InputField
-            placeholder={$t('src__pages__auth__views__email-login___83')}
+            placeholder="密码"
             // @ts-ignore
             type="password"
             v-slots={{
@@ -99,7 +97,7 @@ export const EmailLogin = defineComponent({
                   to="https://reg.163.com/naq/findPassword#/verifyAccount"
                   external
                 >
-                  {$t('src__pages__auth__views__email-login___99')}？
+                  忘记密码？
                 </Link>
               )
             }}
@@ -122,14 +120,12 @@ export const EmailLogin = defineComponent({
           onClick={doLogin}
           disabled={httpStatus.loading}
         >
-          {$t('src__pages__auth__views__email-login___122')}
+          登 录
         </Button>
         <div
           class="auth-back cursor-pointer"
           onClick={() => authUtil.to(AUTH_TYPE.PHONE_LOGIN)}
-        >
-          {$t('src__pages__auth__views__email-login___127')}
-        </div>
+        >{`< 返回其他登录`}</div>
       </>
     )
   }

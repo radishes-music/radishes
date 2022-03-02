@@ -14,10 +14,10 @@ import './index.less'
 import { updateProfile } from '@/pages/userinfo/api'
 
 /*
-  TODO { $t('src__pages__userinfo__views__user-setting__index___16') }
-    - { $t('src__pages__userinfo__views__user-setting__index___17') }
-    - { $t('src__pages__userinfo__views__user-setting__index___18') }
-    - { $t('src__pages__userinfo__views__user-setting__index___19') }
+  TODO 由于网易云有自己的区号标准，所以暂不支持该功能
+    - 海外
+    - 特别行政区
+    - 台湾省
 */
 
 export const UserSetting = defineComponent({
@@ -114,7 +114,7 @@ export const UserSetting = defineComponent({
             nickname: state.nickname,
             birthday: state.birth
           })
-          Toast($t('src__pages__userinfo__views__user-setting__index___116'))
+          Toast('修改成功')
         }
       } catch (e) {
         state.loading = false
@@ -127,15 +127,11 @@ export const UserSetting = defineComponent({
           <div class="user-setting__form">
             <div class="user-setting__info">
               <div class="user-setting__row">
-                <span>
-                  {$t('src__pages__userinfo__views__user-setting__index___129')}
-                </span>
+                <span>昵称：</span>
                 <Input value={state.nickname} onChange={onNickName}></Input>
               </div>
               <div class="user-setting__row">
-                <span>
-                  {$t('src__pages__userinfo__views__user-setting__index___133')}
-                </span>
+                <span>介绍：</span>
                 <Input.TextArea
                   value={state.desc}
                   onChange={onDesc}
@@ -143,24 +139,20 @@ export const UserSetting = defineComponent({
                 ></Input.TextArea>
               </div>
               <div class="user-setting__row">
-                <span>
-                  {$t('src__pages__userinfo__views__user-setting__index___141')}
-                </span>
+                <span>性别：</span>
                 <div class="row">
                   <SexSelect value={state.sex} onChange={onSex}></SexSelect>
                 </div>
               </div>
               <div class="user-setting__row">
-                <span>
-                  {$t('src__pages__userinfo__views__user-setting__index___147')}
-                </span>
+                <span>生日：</span>
                 <BirthSelect
                   defaultValue={state.birth}
                   onChange={onBirth}
                 ></BirthSelect>
               </div>
               {/*<div class="user-setting__row">*/}
-              {/*  <span>{ $t('src__pages__userinfo__views__user-setting__index___154') }</span>*/}
+              {/*  <span>地区：</span>*/}
               {/*  <AreaSelect></AreaSelect>*/}
               {/*</div>*/}
             </div>
@@ -180,7 +172,7 @@ export const UserSetting = defineComponent({
               onClick={onSubmit}
               loading={state.loading}
             >
-              {$t('src__pages__userinfo__views__user-setting__index___174')}
+              保存
             </Button>
             <Button
               shape="round"
@@ -188,7 +180,7 @@ export const UserSetting = defineComponent({
                 $router.back()
               }}
             >
-              {$t('src__pages__userinfo__views__user-setting__index___182')}
+              取消
             </Button>
           </div>
         </div>

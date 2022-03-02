@@ -23,9 +23,7 @@ export const FansView = defineComponent({
 
     return () =>
       state.list.length === 0 ? (
-        <EmptyList
-          text={$t('src__pages__userinfo__views__fans-view___25')}
-        ></EmptyList>
+        <EmptyList text="暂无粉丝"></EmptyList>
       ) : (
         <div>{JSON.stringify(state.list)}</div>
       )

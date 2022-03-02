@@ -72,12 +72,7 @@ export const BirthSelect = defineComponent({
             onChange={onYearChange}
           >
             {years.map((year: number, index: number) => (
-              <Select.Option value={index}>
-                {$t(
-                  'src__pages__userinfo__views__user-setting__birth-select___74',
-                  year
-                )}
-              </Select.Option>
+              <Select.Option value={index}>{year}年</Select.Option>
             ))}
           </Select>
           <Select
@@ -86,12 +81,7 @@ export const BirthSelect = defineComponent({
             onChange={onMonthChange}
           >
             {months.map((month: number, index: number) => (
-              <Select.Option value={index}>
-                {$t(
-                  'src__pages__userinfo__views__user-setting__birth-select___83',
-                  month
-                )}
-              </Select.Option>
+              <Select.Option value={index}>{month}月</Select.Option>
             ))}
           </Select>
           <Select
@@ -100,12 +90,7 @@ export const BirthSelect = defineComponent({
             onChange={onDayChange}
           >
             {days.slice(0, dayEnd.value).map((day: number, index: number) => (
-              <Select.Option value={index}>
-                {$t(
-                  'src__pages__userinfo__views__user-setting__birth-select___92',
-                  day
-                )}
-              </Select.Option>
+              <Select.Option value={index}>{day}日</Select.Option>
             ))}
           </Select>
         </div>

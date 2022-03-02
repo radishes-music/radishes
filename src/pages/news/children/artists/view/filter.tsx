@@ -24,61 +24,26 @@ export const Filter = defineComponent({
     emit('change', filter)
 
     const keyMap: Record<string, string> = {
-      type: $t('src__pages__news__children__artists__view__filter___26'),
-      area: $t('src__pages__news__children__artists__view__filter___27'),
-      initial: $t('src__pages__news__children__artists__view__filter___28')
+      type: '分类',
+      area: '语种',
+      initial: '筛选'
     }
     const view: Record<string, { name: string; value: number | string }[]> = {
       area: [
-        {
-          name: $t('src__pages__news__children__artists__view__filter___32'),
-          value: -1
-        },
-        {
-          name: $t('src__pages__news__children__artists__view__filter___33'),
-          value: 7
-        },
-        {
-          name: $t('src__pages__news__children__artists__view__filter___34'),
-          value: 96
-        },
-        {
-          name: $t('src__pages__news__children__artists__view__filter___35'),
-          value: 8
-        },
-        {
-          name: $t('src__pages__news__children__artists__view__filter___36'),
-          value: 16
-        },
-        {
-          name: $t('src__pages__news__children__artists__view__filter___37'),
-          value: 0
-        }
+        { name: '全部', value: -1 },
+        { name: '华语', value: 7 },
+        { name: '欧美', value: 96 },
+        { name: '日本', value: 8 },
+        { name: '韩国', value: 16 },
+        { name: '其他', value: 0 }
       ],
       type: [
-        {
-          name: $t('src__pages__news__children__artists__view__filter___40'),
-          value: -1
-        },
-        {
-          name: $t('src__pages__news__children__artists__view__filter___41'),
-          value: 1
-        },
-        {
-          name: $t('src__pages__news__children__artists__view__filter___42'),
-          value: 2
-        },
-        {
-          name: $t('src__pages__news__children__artists__view__filter___43'),
-          value: 3
-        }
+        { name: '全部', value: -1 },
+        { name: '男歌手', value: 1 },
+        { name: '女歌手', value: 2 },
+        { name: '乐队', value: 3 }
       ],
-      initial: [
-        {
-          name: $t('src__pages__news__children__artists__view__filter___45'),
-          value: '-1'
-        }
-      ].concat(
+      initial: [{ name: '热门', value: '-1' }].concat(
         Array(26)
           .fill(0)
           .map((_, index) => String.fromCharCode(index + 97))

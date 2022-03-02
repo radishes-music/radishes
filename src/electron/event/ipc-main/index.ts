@@ -115,7 +115,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
   ipcMain.on(Dialog.SHOW_DIALOG, (event, arg) => {
     dialog
       .showOpenDialog(win, {
-        title: '选择文件夹',
+        title: '添加文件夹',
         properties: ['openDirectory', 'multiSelections']
       })
       .then(v => {

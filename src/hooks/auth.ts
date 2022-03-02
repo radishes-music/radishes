@@ -96,10 +96,10 @@ export const useUpdateProfile = () => {
 }
 
 /*
-  TODO Profile{ $t('src__hooks__auth___98') }
-    { $t('src__hooks__auth___99') }
-    { $t('src__hooks__auth___100') }
-    { $t('src__hooks__auth___101') }
+  TODO Profile载入
+    用户个人详情
+    我的听歌排行
+    我的歌单
 * * */
 export const useLoadProfile = () => {
   const $store = useStore()
@@ -157,10 +157,10 @@ export const useUserInfoLoading = () => {
   return computed(() => !!$store.state.Auth.userInfoLoading)
 }
 /*
-  TODO Profile{ $t('src__hooks__auth___159') }
-    { $t('src__hooks__auth___160') }
-    { $t('src__hooks__auth___161') }
-    { $t('src__hooks__auth___162') }
+  TODO Profile载入
+    用户个人详情
+    我的听歌排行
+    我的歌单
 * * */
 // export const useLoadUserInfo = () => {
 //   const $store = useStore()
@@ -259,15 +259,12 @@ export const usePlaylist = (
     // res.playlist = res.playlist.filter((info: any) => info.trackCount !== 0)
 
     if (offset === 0 && isSelf) {
-      res.playlist[0].name = $t('src__hooks__auth___261')
+      res.playlist[0].name = '我喜欢的音乐'
     }
     if (offset === 0 && needRecord) {
       res.playlist.unshift({
         coverImgUrl: require('@/assets/imgs/rank_me.png'),
-        name: $t(
-          'src__hooks__auth___266',
-          isSelf ? $t('src__hooks__auth___267') : ''
-        ),
+        name: `${isSelf ? '我的' : ''}听歌排行`,
         trackCount: listenSongs,
         record: true,
         userId: uid

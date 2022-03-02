@@ -22,9 +22,7 @@ export const UploadBtn = defineComponent({
               state.file = file[0]
             }}
           >
-            <Button shape="round">
-              {$t('src__pages__userinfo__component__upload-btn__index___24')}
-            </Button>
+            <Button shape="round">修改头像</Button>
           </UploadWrapper>
           {state.file && (
             <UploadAvatar

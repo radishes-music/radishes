@@ -50,27 +50,21 @@ export const FloatBox = defineComponent({
                 <div class="sidebar-x__info">
                   {[
                     {
-                      name: $t(
-                        'src__pages__auth__component__sidebar-auth__float-box___52'
-                      ),
+                      name: '动态',
                       value: profile.value.eventCount,
                       onClick: () => {
                         $router.push('/eventView')
                       }
                     },
                     {
-                      name: $t(
-                        'src__pages__auth__component__sidebar-auth__float-box___59'
-                      ),
+                      name: '关注',
                       value: profile.value.follows,
                       onClick: () => {
                         $router.push('/followList')
                       }
                     },
                     {
-                      name: $t(
-                        'src__pages__auth__component__sidebar-auth__float-box___66'
-                      ),
+                      name: '粉丝',
                       value: profile.value.followeds,
                       onClick: () => {
                         $router.push('/fansView')
@@ -91,11 +85,7 @@ export const FloatBox = defineComponent({
                 </div>
                 <Row type="flex" justify="center">
                   {profile.value.pcSign ? (
-                    <div class="sidebar-x__signin">
-                      {$t(
-                        'src__pages__auth__component__sidebar-auth__float-box___87'
-                      )}
-                    </div>
+                    <div class="sidebar-x__signin">已签到</div>
                   ) : (
                     <div
                       class="sidebar-x__unsignin"
@@ -105,10 +95,7 @@ export const FloatBox = defineComponent({
                       }}
                     >
                       <Icon icon="jinbi" color="#8c8c8c" size={16}></Icon>
-                      &nbsp;
-                      {$t(
-                        'src__pages__auth__component__sidebar-auth__float-box___97'
-                      )}
+                      &nbsp;签到
                     </div>
                   )}
                 </Row>
@@ -116,62 +103,41 @@ export const FloatBox = defineComponent({
               <div class="sidebar-hr"></div>
               <XCell
                 icon="daV"
-                title={$t(
-                  'src__pages__auth__component__sidebar-auth__float-box___105'
-                )}
+                title="会员中心"
                 externalLink="https://music.163.com/#/member"
               >
-                {profile.value.vipType == 0
-                  ? $t(
-                      'src__pages__auth__component__sidebar-auth__float-box___108____6'
-                    )
-                  : $t(
-                      'src__pages__auth__component__sidebar-auth__float-box___108'
-                    )}
+                {profile.value.vipType == 0 ? '未订购' : '待确认'}
               </XCell>
               <XCell
                 icon="dengji"
-                title={$t(
-                  'src__pages__auth__component__sidebar-auth__float-box___112'
-                )}
+                title="等级"
                 externalLink="https://music.163.com/#/user/level"
               >
                 Lv. {profile.value.level}
               </XCell>
               <XCell
                 icon="gouwuche"
-                title={$t(
-                  'src__pages__auth__component__sidebar-auth__float-box___119'
-                )}
+                title="商城"
                 externalLink="https://music.163.com/store/product"
               ></XCell>
               <div class="sidebar-hr"></div>
               {/* localPage */}
               <XCell
                 icon="chilun"
-                title={$t(
-                  'src__pages__auth__component__sidebar-auth__float-box___126'
-                )}
+                title="个人信息设置"
                 onClick={() => {
                   $router.push('/userSetting')
                 }}
               ></XCell>
               {/* localPage */}
-              <XCell
-                icon="shouji"
-                title={$t(
-                  'src__pages__auth__component__sidebar-auth__float-box___132'
-                )}
-              >
+              <XCell icon="shouji" title="绑定社交账号">
                 <Icon icon="weibo" color="#afafaf" size={18}></Icon>
               </XCell>
               <div class="sidebar-hr"></div>
               <XCell
                 icon="guanji"
                 onClick={doLogout}
-                title={$t(
-                  'src__pages__auth__component__sidebar-auth__float-box___139'
-                )}
+                title="退出登录"
                 needArrow={false}
               ></XCell>
             </>

@@ -40,16 +40,12 @@ export const FollowView = defineComponent({
           onLoad={onLoad}
           loading={state.loading}
           finished={state.finished}
-          finishedText={$t(
-            'src__pages__userinfo__views__follow-view__index___42'
-          )}
+          finishedText="没有更多了"
           error={state.error}
-          errorText={$t('src__pages__userinfo__views__follow-view__index___44')}
+          errorText="请求失败，点击重新加载"
         >
           {state.list.length === 0 ? (
-            <EmptyList
-              text={$t('src__pages__userinfo__views__follow-view__index___47')}
-            ></EmptyList>
+            <EmptyList text="暂无关注"></EmptyList>
           ) : (
             <div class="list-view">
               {state.list.map((info: any) => (

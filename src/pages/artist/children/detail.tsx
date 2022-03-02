@@ -16,10 +16,7 @@ export const Desc = defineComponent({
 
     return () => (
       <div class="artist-desc">
-        <h2 v-show={!!state.briefDesc}>
-          {state.artist.name}
-          {$t('src__pages__artist__children__detail___18')}
-        </h2>
+        <h2 v-show={!!state.briefDesc}>{state.artist.name}简介</h2>
         <div>{state.briefDesc}</div>
         {state.introduction.map(item => (
           <>

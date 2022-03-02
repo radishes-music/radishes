@@ -27,11 +27,11 @@ export const Signup = defineComponent({
 
     const onSubmit = () => {
       if (!state.phone) {
-        setErrorMsg($t('src__pages__auth__views__signup___29'))
+        setErrorMsg('请输入手机号')
       } else if (!state.password) {
-        setErrorMsg($t('src__pages__auth__views__signup___31'))
+        setErrorMsg('请输入登录密码')
       } else if (!/\d{11}/.test(state.phone)) {
-        setErrorMsg($t('src__pages__auth__views__signup___33'))
+        setErrorMsg('请输入正确的手机号')
       } else {
         httpSend(state.phone)
           .then(() => {
@@ -43,9 +43,7 @@ export const Signup = defineComponent({
           .catch((e: any) => {
             if (e.response?.data) {
               setErrorMsg(
-                e.response.data.msg ||
-                  e.response.data.message ||
-                  $t('src__pages__auth__views__signup___45')
+                e.response.data.msg || e.response.data.message || '请求异常'
               )
             } else if (e.msg) {
               setErrorMsg(e.msg)
@@ -66,7 +64,7 @@ export const Signup = defineComponent({
         <div class="auth-view__inputbox">
           <InputField
             bold
-            placeholder={$t('src__pages__auth__views__signup___66')}
+            placeholder="请输入手机号"
             v-slots={{
               left: () => (
                 <div class="country-code">
@@ -80,7 +78,7 @@ export const Signup = defineComponent({
             onFocus={onFocus}
           ></InputField>
           <InputField
-            placeholder={$t('src__pages__auth__views__signup___80')}
+            placeholder="设置登陆密码"
             // @ts-ignore
             type="password"
             v-slots={{
@@ -96,7 +94,7 @@ export const Signup = defineComponent({
         </div>
         {!errorMsg.text ? (
           <div class="auth-view__tiptext">
-            {$t('src__pages__auth__views__signup___96')}
+            密码8-20位，至少包含字母/数字/字符2种组合
           </div>
         ) : (
           <div class="auth-view__error">
@@ -111,12 +109,12 @@ export const Signup = defineComponent({
           class="bd-button__auth"
           onClick={onSubmit}
         >
-          {$t('src__pages__auth__views__signup___111')}
+          注册
         </Button>
 
         <div class="signup-others">
           <div class="signup-others__label">
-            <span>{$t('src__pages__auth__views__signup___116')}</span>
+            <span>其他注册方式</span>
           </div>
           <div class="others">
             <AuthLink
@@ -125,7 +123,7 @@ export const Signup = defineComponent({
                 authUtil.to(AUTH_TYPE.EMAIL_LOGIN)
               }}
             >
-              {$t('src__pages__auth__views__signup___125')}
+              网易邮箱
             </AuthLink>
           </div>
         </div>
@@ -135,9 +133,7 @@ export const Signup = defineComponent({
           onClick={() => {
             authUtil.to(AUTH_TYPE.PHONE_LOGIN)
           }}
-        >
-          {$t('src__pages__auth__views__signup___135')}
-        </div>
+        >{`< 返回登录`}</div>
       </>
     )
   }

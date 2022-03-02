@@ -42,9 +42,7 @@ export const Sidebar = defineComponent({
               })}
             >
               {index === 0 && (
-                <header class="sidebar-nav-header">
-                  {$t('src__pages__sidebar__view__index___44')}
-                </header>
+                <header class="sidebar-nav-header">我的歌单</header>
               )}
               <RouterLink
                 class="sidebar-nav-name ellipsis"

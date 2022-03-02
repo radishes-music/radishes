@@ -24,9 +24,7 @@ export const EventView = defineComponent({
 
     return () =>
       state.list.length === 0 ? (
-        <EmptyList
-          text={$t('src__pages__userinfo__views__event-view___26')}
-        ></EmptyList>
+        <EmptyList text="暂无动态"></EmptyList>
       ) : (
         <div>{JSON.stringify(state.list)}</div>
       )

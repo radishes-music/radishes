@@ -117,11 +117,7 @@ export class AudioEffect implements Effect {
   }
 
   public async createConvolver(payload: ConvolutionFile) {
-    if (
-      this.convolverFile === payload ||
-      payload === $t('src__shared__audio___119')
-    )
-      return
+    if (this.convolverFile === payload || payload === '原唱') return
     this.convolver = this.context.createConvolver()
     this.convolverFile = payload
     const decodeBuffer = await this.getBuffer(
@@ -135,7 +131,7 @@ export class AudioEffect implements Effect {
   }
 
   public clearConvolver() {
-    this.convolverFile = $t('src__shared__audio___133') as ConvolutionFile
+    this.convolverFile = '原唱'
     this.nodeRender.delete(NodeID.ConvolverNode).output()
   }
 

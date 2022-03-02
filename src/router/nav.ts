@@ -78,7 +78,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     component: News,
     name: News.name,
     meta: {
-      name: $t('src__router__nav___80'),
+      name: '发现音乐',
       browser: true,
       electron: true
     },
@@ -92,7 +92,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         component: Recommend,
         name: 'recommend',
         meta: {
-          name: $t('src__router__nav___94'),
+          name: '个性推荐',
           path: 'recommend',
           canBeCollect: true
         }
@@ -102,7 +102,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         component: SongList,
         name: 'songlist',
         meta: {
-          name: $t('src__router__nav___104'),
+          name: '精品歌单',
           path: {
             name: 'songlist',
             query: {
@@ -117,7 +117,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         component: TopList,
         name: 'toplist',
         meta: {
-          name: $t('src__router__nav___119'),
+          name: '排行榜',
           path: 'toplist',
           canBeCollect: true
         }
@@ -127,7 +127,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         component: Artists,
         name: 'artists',
         meta: {
-          name: $t('src__router__nav___129'),
+          name: '歌手',
           path: 'artists',
           canBeCollect: true
         }
@@ -138,7 +138,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     path: '/video',
     component: Video,
     meta: {
-      name: $t('src__router__nav___140'),
+      name: '视频',
       browser: false,
       electron: false
     },
@@ -161,7 +161,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     path: '/moments',
     component: Moments,
     meta: {
-      name: $t('src__router__nav___163'),
+      name: '朋友',
       browser: false,
       electron: false,
       canBeCollect: true
@@ -172,8 +172,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     component: Download,
     name: Download.name,
     meta: {
-      name: $t('src__router__nav___174'),
-      beforeHeader: $t('src__router__nav___175'),
+      name: '下载管理',
+      beforeHeader: '我的音乐',
       browser: true,
       electron: true
     },
@@ -186,7 +186,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         path: 'song',
         component: DownloadSong,
         meta: {
-          name: $t('src__router__nav___188'),
+          name: '已下载单曲',
           path: 'song',
           canBeCollect: true
         }
@@ -195,7 +195,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         path: 'mv',
         component: DownloadMv,
         meta: {
-          name: $t('src__router__nav___197'),
+          name: '已下载MV',
           path: 'mv',
           canBeCollect: true
         }
@@ -207,7 +207,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     component: LocalMusic,
     name: LocalMusic.name,
     meta: {
-      name: $t('src__router__nav___209'),
+      name: '本地音乐',
       browser: false,
       electron: true
     },
@@ -220,7 +220,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         path: 'song',
         component: LocalMusicSong,
         meta: {
-          name: $t('src__router__nav___222'),
+          name: '歌曲',
           path: 'song',
           canBeCollect: true
         }
@@ -229,7 +229,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         path: 'dir',
         component: LocalMusicDir,
         meta: {
-          name: $t('src__router__nav___231'),
+          name: '文件夹',
           path: 'dir',
           canBeCollect: true
         }
@@ -241,7 +241,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     component: Cloud,
     name: Cloud.name,
     meta: {
-      name: $t('src__router__nav___243'),
+      name: '我的音乐云盘',
       auth: true,
       browser: true,
       electron: true,

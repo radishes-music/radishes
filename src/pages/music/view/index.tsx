@@ -87,17 +87,17 @@ export const LocalMusic = defineComponent({
         v-slots={{
           title: () => (
             <>
-              <div>{$t('src__pages__music__view__index___89')}</div>
+              <div>本地音乐</div>
               <ve-button
                 type="text"
                 onClick={() =>
                   (visibleDirectory.value = !visibleDirectory.value)
                 }
               >
-                {$t('src__pages__music__view__index___96')}
+                选择目录
               </ve-button>
               <Modal
-                title={$t('src__pages__music__view__index___99')}
+                title="选择目录"
                 footer={null}
                 visible={visibleDirectory.value}
                 onCancel={handleCloseModal}
@@ -106,7 +106,7 @@ export const LocalMusic = defineComponent({
               >
                 <div class="local-music-directory" ref={modalContanier}>
                   <div class="local-music-directory-description">
-                    {$t('src__pages__music__view__index___108')}。
+                    将自动扫描您勾选的目录，文件增删实时同步。
                   </div>
                   <CheckboxGroup
                     v-model={checkPath.value}
@@ -129,7 +129,7 @@ export const LocalMusic = defineComponent({
                       color="var(--base-color)"
                       onClick={handleConfirm}
                     >
-                      {$t('src__pages__music__view__index___131')}
+                      确认
                     </Button>
                     <Button
                       plain
@@ -139,7 +139,7 @@ export const LocalMusic = defineComponent({
                       color="var(--base-color)"
                       onClick={handleAddDirectory}
                     >
-                      {$t('src__pages__music__view__index___141')}
+                      添加文件夹
                     </Button>
                   </div>
                 </div>

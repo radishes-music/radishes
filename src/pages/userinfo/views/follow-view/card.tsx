@@ -55,20 +55,13 @@ export const FollowCard = defineComponent({
             </div>
             <div class="follow-card__desc">{info.signature}</div>
             <div>
-              {$t(
-                'src__pages__userinfo__views__follow-view__card___55',
-                info.playlistCount
-              )}
-              {$t(
-                'src__pages__userinfo__views__follow-view__card___56',
-                info.followeds
-              )}
+              歌单：{info.playlistCount} | 粉丝：{info.followeds}
             </div>
           </div>
           <Button disabled round class="follow-card__btn">
             <div class="follow-card__btnc">
               <Icon icon="email" color="#333" size={16}></Icon>
-              {$t('src__pages__userinfo__views__follow-view__card___61')}
+              私信
             </div>
           </Button>
         </div>

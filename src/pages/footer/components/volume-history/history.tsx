@@ -81,9 +81,7 @@ export const MusicHistory = defineComponent({
                     (isPlayListVisible.value = !isPlayListVisible.value)
                   }
                 >
-                  {$t(
-                    'src__pages__footer__components__volume-history__history___83'
-                  )}
+                  播放列表
                 </Button>
                 <Button
                   type={!isPlayListVisible.value ? 'primary' : 'default'}
@@ -91,9 +89,7 @@ export const MusicHistory = defineComponent({
                     (isPlayListVisible.value = !isPlayListVisible.value)
                   }
                 >
-                  {$t(
-                    'src__pages__footer__components__volume-history__history___91'
-                  )}
+                  历史记录
                 </Button>
               </Button.Group>
             </div>

@@ -13,11 +13,11 @@ export default defineComponent({
 
     return () => (
       <span>
-        {$t('src__pages__footer__components__no-music___15')}，
+        未找到歌曲的播放链接，
         <Button type="link" style="padding: 0" onClick={handleClick}>
-          {$t('src__pages__footer__components__no-music___17')}
+          点我
         </Button>
-        {$t('src__pages__footer__components__no-music___19')}。
+        添加播放源试试。
       </span>
     )
   }

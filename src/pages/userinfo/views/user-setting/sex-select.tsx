@@ -39,15 +39,7 @@ export const SexSelect = defineComponent({
             emit('change', state.value)
           }}
         >
-          {[
-            $t(
-              'src__pages__userinfo__views__user-setting__sex-select___41____0'
-            ),
-            $t(
-              'src__pages__userinfo__views__user-setting__sex-select___41____1'
-            ),
-            $t('src__pages__userinfo__views__user-setting__sex-select___41')
-          ].map((text: string, index: number) => (
+          {['保密', '男', '女'].map((text: string, index: number) => (
             <Radio value={index}>{text}</Radio>
           ))}
         </Radio.Group>

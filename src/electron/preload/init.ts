@@ -38,12 +38,12 @@ const initStorage = async () => {
     const paths = [
       {
         path: userMusicPath,
-        name: $t('src__electron__preload__init___40'),
+        name: '我的音乐',
         check: true
       },
       {
         path: userDownloadPath,
-        name: $t('src__electron__preload__init___45'),
+        name: '下载',
         check: true
       }
     ]

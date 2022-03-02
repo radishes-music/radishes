@@ -36,7 +36,7 @@ export const TopList = defineComponent({
 
     return () => (
       <div class="toplist">
-        <h1>{$t('src__pages__news__children__top-list__view__index___38')}</h1>
+        <h1>官方榜</h1>
         <div class="toplist-expansion">
           {expan.value.map(item => (
             <div class="toplist-expansion-contanier">
@@ -55,14 +55,12 @@ export const TopList = defineComponent({
                     <div>{song.second}</div>
                   </div>
                 ))}
-                <strong onClick={() => jump.songList(item.id)}>
-                  {$t('src__pages__news__children__top-list__view__index___57')}
-                </strong>
+                <strong onClick={() => jump.songList(item.id)}>查看全部</strong>
               </div>
             </div>
           ))}
         </div>
-        <h1>{$t('src__pages__news__children__top-list__view__index___62')}</h1>
+        <h1>全球榜</h1>
         <div class="toplist-shrink">
           <SongList
             songData={shrink.value}

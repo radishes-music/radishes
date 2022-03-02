@@ -33,7 +33,7 @@ export const SearchLyrics = defineComponent({
     onActivated(() => {
       useMutations(
         SearchMutations.SET_SEARCH_TITLE,
-        $t('src__pages__search__children__lyrics___35', state.lyriceList.total)
+        `找到 ${state.lyriceList.total} 首歌词`
       )
     })
     onBeforeUnmount(() => {

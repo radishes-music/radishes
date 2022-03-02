@@ -80,7 +80,7 @@ export default defineComponent({
     return () => (
       <div class="auto" v-show={visible.value} ref={container}>
         <div class="auto-header" ref={target}>
-          {$t('src__components-business__auto__auto___82')}
+          有更新可用
         </div>
         <div class="auto-body">
           <ve-button
@@ -88,14 +88,13 @@ export default defineComponent({
             size="small"
             onClick={() => handleShellUrl(version.url)}
           >
-            {$t('src__components-business__auto__auto___90')}
+            更新日志
           </ve-button>
           <ve-button type="text" size="small" onClick={handleUpdater}>
-            {$t('src__components-business__auto__auto___93')}(v
-            {version.version})
+            立即更新(v{version.version})
           </ve-button>
           <ve-button type="text" size="small" onClick={handleCloseUpgradeModel}>
-            {$t('src__components-business__auto__auto___96')}
+            关闭
           </ve-button>
         </div>
       </div>

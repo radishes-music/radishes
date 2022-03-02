@@ -48,7 +48,7 @@ export const LocalMusicSong = defineComponent({
         <div class="local-music-head">
           <PlayAll onClick={handlePlayAll} />
           <Button shape="round" onClick={handleSyncMusic}>
-            {$t('src__pages__music__children__song___50')}
+            同步音乐
           </Button>
         </div>
         <div class="local-music-body">

@@ -113,7 +113,7 @@ const columns = [
     }
   },
   {
-    title: $t('src__components-business__table__index___115'),
+    title: '歌词',
     width: 200,
     dataIndex: 'lyrics',
     key: 'lyrics',
@@ -143,7 +143,7 @@ const columns = [
     }
   },
   {
-    title: $t('src__components-business__table__index___145'),
+    title: '封面',
     width: 140,
     align: 'center',
     dataIndex: 'picUrl',
@@ -153,21 +153,17 @@ const columns = [
     }
   },
   {
-    title: $t('src__components-business__table__index___155'),
+    title: '歌曲',
     width: 140,
     align: 'center',
     dataIndex: 'count',
     key: 'count',
     customRender: ({ text }: { text: number }) => {
-      return (
-        <span>
-          {text} {$t('src__components-business__table__index___161')}
-        </span>
-      )
+      return <span>{text} 首</span>
     }
   },
   {
-    title: $t('src__components-business__table__index___165'),
+    title: '创建人',
     width: 140,
     align: 'center',
     dataIndex: 'creator',
@@ -177,7 +173,7 @@ const columns = [
     }
   },
   {
-    title: $t('src__components-business__table__index___175'),
+    title: '作者',
     width: 140,
     align: 'center',
     dataIndex: 'artist',
@@ -196,47 +192,39 @@ const columns = [
     }
   },
   {
-    title: $t('src__components-business__table__index___194'),
+    title: '音乐标题',
     ellipsis: true,
     dataIndex: 'name',
     key: 'name'
   },
   {
-    title: $t('src__components-business__table__index___200'),
+    title: '歌手',
     dataIndex: 'ar',
     key: 'ar',
     ellipsis: true,
     width: 100,
     customRender: ({ text }: { text: ListFormat['ar'] }) => {
       if (typeof text === 'string' || typeof text === 'undefined') {
-        return (
-          <div>
-            {text || $t('src__components-business__table__index___207')}
-          </div>
-        )
+        return <div>{text || '未知歌手'}</div>
       }
       return <div>{text.map(ar => ar.name).join(' / ')}</div>
     }
   },
   {
-    title: $t('src__components-business__table__index___213'),
+    title: '专辑',
     dataIndex: 'al',
     key: 'al',
     ellipsis: true,
     width: 100,
     customRender: ({ text }: { text: ListFormat['al'] }) => {
       if (typeof text === 'string' || typeof text === 'undefined') {
-        return (
-          <div>
-            {text || $t('src__components-business__table__index___220')}
-          </div>
-        )
+        return <div>{text || '未知专辑'}</div>
       }
       return <div>{text.name}</div>
     }
   },
   {
-    title: $t('src__components-business__table__index___226'),
+    title: '时长',
     dataIndex: 'dt',
     key: 'dt',
     width: 120,
@@ -245,14 +233,14 @@ const columns = [
     )
   },
   {
-    title: $t('src__components-business__table__index___235'),
+    title: '大小',
     dataIndex: 'size',
     key: 'size',
     width: 80,
     customRender: ({ text }: { text: number }) => <div>{formatSize(text)}</div>
   },
   {
-    title: $t('src__components-business__table__index___242'),
+    title: '下载时间',
     dataIndex: 'dlt',
     key: 'dlt',
     width: 160,

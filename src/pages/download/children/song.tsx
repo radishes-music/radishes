@@ -41,13 +41,12 @@ export const DownloadSong = defineComponent({
           <PlayAll onClick={handlePlayAll} />
           {isElectron && (
             <div class="download-song-head--dir">
-              {$t('src__pages__download__children__song___43')}：
-              {state.downloadPath}
+              存储目录：{state.downloadPath}
               <ve-button type="text" onClick={handleOpenExplorer}>
-                {$t('src__pages__download__children__song___45')}
+                打开目录
               </ve-button>
               <ve-button type="text" onClick={handleSettingDwonload}>
-                {$t('src__pages__download__children__song___48')}
+                设置
               </ve-button>
             </div>
           )}

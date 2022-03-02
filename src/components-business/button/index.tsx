@@ -24,7 +24,7 @@ export const PlayAll = defineComponent({
           emit('click')
         }}
       >
-        {$t('src__components-business__button__index___26')}
+        播放全部
       </Button>
     )
   }

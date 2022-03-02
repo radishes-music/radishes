@@ -19,11 +19,11 @@ export const SongList = defineComponent({
     const { songList, tagsHot, tags } = toRefs(useState())
 
     const tagsViewKeyMap: Record<number, string> = {
-      0: $t('src__pages__news__children__song-list__view__index___21'),
-      1: $t('src__pages__news__children__song-list__view__index___22'),
-      2: $t('src__pages__news__children__song-list__view__index___23'),
-      3: $t('src__pages__news__children__song-list__view__index___24'),
-      4: $t('src__pages__news__children__song-list__view__index___25')
+      0: '语种',
+      1: '风格',
+      2: '场景',
+      3: '情感',
+      4: '主题'
     }
     const tagsView = computed(() => {
       const view = tags.value.reduce(
@@ -99,13 +99,7 @@ export const SongList = defineComponent({
                   })}
                 </div>
               ),
-              default: () => (
-                <Button shape="round">
-                  {$t(
-                    'src__pages__news__children__song-list__view__index___101'
-                  )}
-                </Button>
-              )
+              default: () => <Button shape="round">全部歌单</Button>
             }}
           ></Popover>
 

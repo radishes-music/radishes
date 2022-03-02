@@ -9,7 +9,7 @@ export const $404 = defineComponent({
         <icon icon="not-found" size={480} color="var(--base-color)"></icon>
         <div>
           <router-link to="/music/recommend" replace>
-            {$t('src__pages__404__view__index___11')}
+            去听会歌
           </router-link>
         </div>
       </div>

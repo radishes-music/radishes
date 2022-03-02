@@ -67,11 +67,7 @@ export const formatNumber = (n: number, base: number, unit: string[]) => {
 }
 
 export const formatCount = (count?: number): string => {
-  const unit = [
-    '',
-    $t('src__utils__index___69____0'),
-    $t('src__utils__index___69')
-  ]
+  const unit = ['', '万', '亿']
   if (count) {
     return formatNumber(count, 1e4, unit)
   }

@@ -74,13 +74,8 @@ export const PlaylistItemBox = defineComponent({
           </div>
           <div class="playlist-item__boxname link-text">{name}</div>
           <div class="playlist-item__boxcount">{`${
-            record
-              ? $t(
-                  'src__components__widgets__playlist-item-box__index___76',
-                  trackCount
-                )
-              : ''
-          }`}</div>
+            record ? '累积听歌' : ''
+          }${trackCount}首`}</div>
         </div>
       )
     }

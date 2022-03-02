@@ -80,7 +80,7 @@ export const checkPhone = (phone: string) =>
 
 // TODO 要获取一个签到状态来控制签到按钮状态
 /*
-  0 { $t('src__pages__auth__api___82') }
+  0 安卓端
   1 web/PC 端
 */
 export const doSignin = () =>

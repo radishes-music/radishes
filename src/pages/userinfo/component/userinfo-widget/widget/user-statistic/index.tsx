@@ -44,25 +44,19 @@ export const UserStatistic = defineComponent({
         <div class="user-statistic">
           {[
             {
-              key: $t(
-                'src__pages__userinfo__component__userinfo-widget__widget__user-statistic__index___46'
-              ),
+              key: '动态',
               value: eventCount,
               onClick: goEvent
             },
             null,
             {
-              key: $t(
-                'src__pages__userinfo__component__userinfo-widget__widget__user-statistic__index___52'
-              ),
+              key: '关注',
               value: follows,
               onClick: goFollow
             },
             null,
             {
-              key: $t(
-                'src__pages__userinfo__component__userinfo-widget__widget__user-statistic__index___58'
-              ),
+              key: '粉丝',
               value: followeds,
               onClick: goFollowed
             }

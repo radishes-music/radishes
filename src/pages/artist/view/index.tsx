@@ -68,18 +68,9 @@ export default defineComponent({
                 <div class="artist-detail">
                   <h1>{state.artist.name}</h1>
                   <div class="artist-detail-authoring">
-                    <p>
-                      {$t('src__pages__artist__view__index___70')}
-                      {state.artist.musicSize}
-                    </p>
-                    <p>
-                      {$t('src__pages__artist__view__index___71')}
-                      {state.artist.albumSize}
-                    </p>
-                    <p>
-                      {$t('src__pages__artist__view__index___72')}
-                      {state.artist.mvSize}
-                    </p>
+                    <p>单曲数: {state.artist.musicSize}</p>
+                    <p>专辑数: {state.artist.albumSize}</p>
+                    <p>MV数: {state.artist.mvSize}</p>
                   </div>
                 </div>
               </>
