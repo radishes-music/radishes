@@ -30,9 +30,7 @@
     "postuninstall": "electron-builder install-app-deps",
     "log": "conventional-changelog -p eslint -i CHANGELOG.md -s -r 0",
     "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten",
-    "svgo": "svgo -f ./src/assets/svg",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "svgo": "svgo -f ./src/assets/svg"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -69,12 +67,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-optional-chaining": "^7.16.7",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
-    "@storybook/addon-actions": "^6.2.0-beta.13",
-    "@storybook/addon-essentials": "^6.2.0-beta.13",
-    "@storybook/addon-links": "^6.2.0-beta.13",
-    "@storybook/vue": "^6.2.0-beta.13",
     "@types/chai": "^4.2.11",
     "@types/classnames": "^2.2.10",
     "@types/electron-devtools-installer": "^2.2.0",
@@ -116,7 +111,7 @@
     "cypress": "^6.2.0",
     "dayjs": "^1.9.4",
     "electron": "^12.0.4",
-    "electron-builder": "^22.9.1",
+    "electron-builder": "^23.0.2",
     "electron-devtools-installer": "^3.1.0",
     "electron-icon-builder": "^1.0.2",
     "electron-log": "^4.3.1",
