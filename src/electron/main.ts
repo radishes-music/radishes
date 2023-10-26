@@ -57,7 +57,8 @@ async function createLoadingWindow() {
 async function createWindow() {
   const { workAreaSize, scaleFactor } = screen.getPrimaryDisplay()
   const { width, height } = workAreaSize
-  const [w, h] = [width / 2, height / 1.4]
+  const w = Math.max(1046, width / 2)
+  const h = 0.686 * w
   infoMain(`Display w: ${w} h: ${h}`)
   // Create the browser window.
   win = new BrowserWindow({
