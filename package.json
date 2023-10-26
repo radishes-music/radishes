@@ -6,7 +6,7 @@
   "author": "Linkontoask",
   "description": "Cross-platform copyright-free music platform",
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "npx lerna@3.22.1 bootstrap",
     "inspect": "vue-cli-service inspect",
     "test": "lerna run test --stream",
     "test:unit": "vue-cli-service test:unit",
