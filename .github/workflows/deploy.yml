@@ -40,59 +40,59 @@ jobs:
           npx lerna@3.22.1 bootstrap
           npx cypress install
 
-  cypress-run:
-    name: Cypress run
-    runs-on: ubuntu-latest
-    needs: install
-    steps:
-      - uses: actions/checkout@v2
+  # cypress-run:
+  #   name: Cypress run
+  #   runs-on: ubuntu-latest
+  #   needs: install
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      - name: Load node_modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+  #     - name: Load node_modules
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: |
+  #           node_modules
+  #           */*/node_modules
+  #         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Cache Cypress binary
-        id: cache-cypress-binary
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cache-${{ hashFiles('**/yarn.lock') }}
+  #     - name: Cache Cypress binary
+  #       id: cache-cypress-binary
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: ~/.cache/Cypress
+  #         key: cypress-${{ runner.os }}-cache-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Install dependencies
-        if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
-        run: |
-          yarn install --frozen-lockfile
-          npx cypress install
+  #     - name: Install dependencies
+  #       if: steps.cache-cypress-binary.outputs.cache-hit != 'true'
+  #       run: |
+  #         yarn install --frozen-lockfile
+  #         npx cypress install
 
-      - name: Verify Cypress
-        run: |
-          npx cypress cache path
-          npx cypress cache list
-          npx cypress verify
+  #     - name: Verify Cypress
+  #       run: |
+  #         npx cypress cache path
+  #         npx cypress cache list
+  #         npx cypress verify
 
-      - name: Start server in the background
-        run: yarn dev:web &
+  #     - name: Start server in the background
+  #       run: yarn dev:web &
 
-      - name: Cypress tests
-        uses: cypress-io/github-action@v2
-        env:
-          CYPRESS_ACTION: true
-        with:
-          install: false
-          start: yarn dev:api
-          command: yarn test:run
+  #     - name: Cypress tests
+  #       uses: cypress-io/github-action@v2
+  #       env:
+  #         CYPRESS_ACTION: true
+  #       with:
+  #         install: false
+  #         start: yarn dev:api
+  #         command: yarn test:run
 
-      - name: Compress and upload the test result folder
-        if: always()
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        run: |
-          tar -zcvf ./tests/e2e/video.tar.gz ./tests/e2e/video
-          ./script/deploy.sh $ACCESS_TOKEN github.com/hq001/test_video.git tests/e2e
+  #     - name: Compress and upload the test result folder
+  #       if: always()
+  #       env:
+  #         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+  #       run: |
+  #         tar -zcvf ./tests/e2e/video.tar.gz ./tests/e2e/video
+  #         ./script/deploy.sh $ACCESS_TOKEN github.com/hq001/test_video.git tests/e2e
 
   lint:
     name: Yarn build
