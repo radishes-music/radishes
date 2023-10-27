@@ -2,12 +2,9 @@ name: release
 
 on:
   push:
-    branches:
-      next
+    branches: next
   pull_request:
-    branches:
-      next
-
+    branches: next
 
 jobs:
   install:
@@ -39,10 +36,9 @@ jobs:
         if: |
           steps.cache-node-modules.outputs.cache-hit != 'true' ||
           steps.cache-cypress-binary.outputs.cache-hit != 'true'
-        run: | 
-          npx lerna bootstrap
+        run: |
+          npx lerna@3.22.1 bootstrap
           npx cypress install
-
 
   cypress-run:
     name: Cypress run
@@ -97,7 +93,6 @@ jobs:
         run: |
           tar -zcvf ./tests/e2e/video.tar.gz ./tests/e2e/video
           ./script/deploy.sh $ACCESS_TOKEN github.com/hq001/test_video.git tests/e2e
-
 
   lint:
     name: Yarn build
