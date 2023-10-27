@@ -6,7 +6,7 @@
   "author": "Linkontoask",
   "description": "Cross-platform copyright-free music platform",
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "npx lerna@3.22.1 bootstrap",
     "inspect": "vue-cli-service inspect",
     "test": "lerna run test --stream",
     "test:unit": "vue-cli-service test:unit",
@@ -34,11 +34,6 @@
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "yarn test:t && commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "repository": {
     "type": "git",
@@ -110,7 +105,7 @@
     "cross-spawn": "^7.0.3",
     "cypress": "^6.2.0",
     "dayjs": "^1.9.4",
-    "electron": "^12.0.4",
+    "electron": "12.2.3",
     "electron-builder": "^23.0.2",
     "electron-devtools-installer": "^3.1.0",
     "electron-icon-builder": "^1.0.2",
@@ -139,7 +134,7 @@
     "prettier": "^1.19.1",
     "react-is": "^16.13.1",
     "scriptjs": "^2.5.9",
-    "spectron": "^12.0.0",
+    "spectron": "^14.0.0",
     "stylelint": "^13.7.2",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-recess-order": "^2.3.0",
