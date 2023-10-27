@@ -69,9 +69,9 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
           webSecurity: false
         }
       })
-      if (process.env.WEBPACK_DEV_SERVER_URL) {
+      if (import.meta.env.WEBPACK_DEV_SERVER_URL) {
         lyrics.loadURL(
-          normalizeUrl(process.env.WEBPACK_DEV_SERVER_URL + '/lyrics.html')
+          normalizeUrl(import.meta.env.WEBPACK_DEV_SERVER_URL + '/lyrics.html')
         )
       } else {
         lyrics.loadURL('app://./lyrics.html')

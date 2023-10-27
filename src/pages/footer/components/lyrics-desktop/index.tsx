@@ -6,7 +6,7 @@ import classnames from 'classnames'
 import './index.less'
 import { isBrowser, isElectron } from '@/utils'
 
-const { VUE_APP_PLATFORM } = process.env
+const { VUE_APP_PLATFORM } = import.meta.env
 
 export const LyricsFlash = defineComponent({
   name: 'LyricsFlash',

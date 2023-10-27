@@ -22,7 +22,7 @@ import store from '@/store/index'
 import classnames from 'classnames'
 import './container.less'
 
-const { VUE_APP_PLATFORM } = process.env
+const { VUE_APP_PLATFORM } = import.meta.env
 
 export const Container = defineComponent({
   name: 'Container',

@@ -10,6 +10,7 @@ export default defineComponent({
   name: 'APP',
   setup() {
     return () => (
+      // @ts-expect-error
       <ErrorBoundary ref="ErrorBoundary">
         <Container />
       </ErrorBoundary>

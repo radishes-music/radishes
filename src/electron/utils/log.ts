@@ -3,7 +3,7 @@ import path from 'path'
 
 const execPath =
   path.dirname(process.execPath) ||
-  (process.env.PORTABLE_EXECUTABLE_DIR as string)
+  (import.meta.env.PORTABLE_EXECUTABLE_DIR as string)
 
 export enum LogInfoType {
   MAIN = '[Main]',

@@ -47,7 +47,7 @@ export const isElectron = () => {
 }
 
 export const getAppPath = () => {
-  return __dirname || process.env.PORTABLE_EXECUTABLE_DIR
+  return __dirname || import.meta.env.PORTABLE_EXECUTABLE_DIR
 }
 
 export const getUserOS = () => {

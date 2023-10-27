@@ -12,7 +12,7 @@ interface HttpConfig extends AxiosRequestConfig {
 
 // https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/guide.html#serve-command
 // The electron build process is in development mode
-const { VUE_APP_BUILD_BASE_URL, VUE_APP_CI_BASE_URL } = process.env
+const { VUE_APP_BUILD_BASE_URL, VUE_APP_CI_BASE_URL } = import.meta.env
 
 const isDevelopment = getNodeEnv() === 'development'
 

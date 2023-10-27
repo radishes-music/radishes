@@ -4,23 +4,21 @@ module.exports = {
     node: true
   },
   extends: [
-    'plugin:vue/vue3-essential',
-    'plugin:vue/vue3-strongly-recommended',
-
-    'eslint:recommended',
+    'plugin:vue/vue3-recommended',
     '@vue/typescript/recommended',
-    '@vue/prettier',
-    '@vue/prettier/@typescript-eslint',
-    'plugin:vue/vue3-recommended'
+    'plugin:security/recommended',
+    'prettier'
+    // './.eslintrc-auto-import.json'
   ],
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 2021,
     ecmaFeatures: {
       jsx: true
     }
   },
   rules: {
-    'no-console': 'off',
+    'no-var': 'error',
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
@@ -55,5 +53,11 @@ module.exports = {
         mocha: true
       }
     }
-  ]
+  ],
+  globals: {
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+    withDefaults: 'readonly'
+  }
 }

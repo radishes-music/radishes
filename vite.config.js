@@ -1,0 +1,79 @@
+import path from 'node:path'
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import vitePluginMd2Vue from 'vite-plugin-md2vue'
+import usePluginImport from 'vite-plugin-importer'
+
+import pkg from './package.json'
+
+const resolvePath = depPath => path.resolve(__dirname, depPath)
+
+export default defineConfig({
+  define: {
+    VERSION: `'${pkg.version}'`,
+    GIT_URL: JSON.stringify(pkg.repository.url)
+  },
+  esbuild: {
+    jsxFactory: 'h',
+    jsxFragment: 'Fragment',
+    jsxInject: `import {h} from 'vue'`,
+    include: 'vue'
+  },
+  build: {
+    rollupOptions: {
+      input: 'index.html'
+    }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:32768',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, '')
+      }
+    }
+  },
+  css: {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true
+      }
+    }
+  },
+  plugins: [
+    vue(),
+    vitePluginMd2Vue(),
+    vueJsx(),
+    usePluginImport({
+      libraryName: 'ant-design-vue',
+      libraryDirectory: 'es',
+      style: 'css'
+    }),
+    usePluginImport({
+      libraryName: 'vant',
+      libraryDirectory: 'es',
+      style: name => `${name}/style/less`
+    })
+  ],
+  resolve: {
+    alias: {
+      '@': resolvePath('./src'),
+      '@/pages': resolvePath('./src/pages'),
+      '@/utils': resolvePath('./src/utils'),
+      '@/theme': resolvePath('./src/theme'),
+      '@/interface': resolvePath('./src/interface'),
+      '@/components-global': resolvePath('./src/components-global'),
+      '@/components': resolvePath('./src/components'),
+      '@/electron': resolvePath('./src/electron'),
+      '@/hooks': resolvePath('./src/hooks'),
+      '@/layout': resolvePath('./src/layout'),
+      '@/store': resolvePath('./src/store'),
+      '@/helpers': resolvePath('./src/helpers'),
+      '@/modules': resolvePath('./src/modules'),
+      root: resolvePath('./src/../'),
+      '~@': resolvePath('./src'),
+      '~@vant': resolvePath('./node_modules/@vant')
+    }
+  }
+})

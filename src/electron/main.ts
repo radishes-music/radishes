@@ -11,7 +11,7 @@ import store from '@/electron/store/index'
 import path from 'path'
 
 // curl -H "Accept: application/json" https://api.github.com/repos/Linkontoask/radishes/contents/package.json
-const isDevelopment = process.env.VUE_APP_NODE_ENV !== 'production'
+const isDevelopment = import.meta.env.VUE_APP_NODE_ENV !== 'production'
 
 let win: BrowserWindow | null,
   loadingWin: BrowserWindow | null,
@@ -34,9 +34,9 @@ async function createLoadingWindow() {
     transparent: true,
     titleBarStyle: 'hidden'
   })
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
+  if (import.meta.env.WEBPACK_DEV_SERVER_URL) {
     await loadingWin.loadURL(
-      (process.env.WEBPACK_DEV_SERVER_URL as string) + '/loading.html'
+      (import.meta.env.WEBPACK_DEV_SERVER_URL as string) + '/loading.html'
     )
   } else {
     loadingWin
@@ -73,14 +73,14 @@ async function createWindow() {
     resizable: true,
     icon: path.join(
       __dirname,
-      process.env.VUE_APP_NODE_ENV === 'development'
+      import.meta.env.VUE_APP_NODE_ENV === 'development'
         ? '../build/icons/1024x1024.png'
         : 'build/icons/1024x1024.png'
     ),
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: (process.env
+      nodeIntegration: (import.meta.env
         .ELECTRON_NODE_INTEGRATION as unknown) as boolean,
       // https://github.com/electron/electron/issues/23506
       contextIsolation: false,
@@ -93,11 +93,11 @@ async function createWindow() {
     }
   })
 
-  infoMain('Webpack dev server url ', process.env.WEBPACK_DEV_SERVER_URL)
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
+  infoMain('Webpack dev server url ', import.meta.env.WEBPACK_DEV_SERVER_URL)
+  if (import.meta.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
-    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string)
-    if (!process.env.IS_TEST) win.webContents.openDevTools()
+    await win.loadURL(import.meta.env.WEBPACK_DEV_SERVER_URL as string)
+    if (!import.meta.env.IS_TEST) win.webContents.openDevTools()
   } else {
     try {
       createProtocol('app')
@@ -179,7 +179,7 @@ app.on('activate', () => {
 
 app.on('ready', async () => {
   infoMain('Event ready')
-  if (isDevelopment && !process.env.IS_TEST) {
+  if (isDevelopment && !import.meta.env.IS_TEST) {
     // Install Vue Devtools
     try {
       await installExtension({
