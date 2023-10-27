@@ -8648,10 +8648,10 @@ electron-updater@^4.3.5:
     lodash.isequal "^4.5.0"
     semver "^7.3.2"
 
-electron@^12.0.4:
-  version "12.0.5"
-  resolved "https://registry.nlark.com/electron/download/electron-12.0.5.tgz?cache=0&sync_timestamp=1618971661133&other_urls=https%3A%2F%2Fregistry.nlark.com%2Felectron%2Fdownload%2Felectron-12.0.5.tgz#005cf4375d2ee4563f5e75dc4da4ef871846a8be"
-  integrity sha1-AFz0N10u5FY/XnXcTaTvhxhGqL4=
+electron@12.2.3:
+  version "12.2.3"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-12.2.3.tgz#d426a7861e3c722f92c32153f11f7bbedf65b000"
+  integrity sha512-B27c7eqx1bC5kea6An8oVhk1pShNC4VGqWarHMhD47MDtmg54KepHO5AbAvmKKZK/jWN7NTC7wyCYTDElJNtQA==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^14.6.2"
