@@ -35,11 +35,6 @@
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "yarn test && commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Linkontoask/radishes.git"
