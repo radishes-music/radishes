@@ -13,14 +13,7 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
-    "types": [
-      "vite/client",
-      "node",
-      "webpack-env",
-      "mocha",
-      "chai",
-      "electron"
-    ],
+    "types": ["vite/client", "node", "mocha", "chai", "electron"],
     "paths": {
       "@/*": ["./src/*"],
       "root/*": ["./*"]
