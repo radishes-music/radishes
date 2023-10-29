@@ -31,7 +31,7 @@
     "log": "conventional-changelog -p eslint -i CHANGELOG.md -s -r 0",
     "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten",
     "svgo": "svgo -f ./src/assets/svg",
-    "serve": "vite dev"
+    "serve": "vite --mode browser"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

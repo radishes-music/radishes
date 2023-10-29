@@ -10,6 +10,7 @@ import pkg from './package.json'
 const resolvePath = depPath => path.resolve(__dirname, depPath)
 
 export default defineConfig({
+  envPrefix: 'VUE_APP_',
   define: {
     VERSION: `'${pkg.version}'`,
     GIT_URL: JSON.stringify(pkg.repository.url)
