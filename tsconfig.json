@@ -12,6 +12,7 @@
     "importHelpers": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
+    "allowJs": true,
     "baseUrl": ".",
     "types": ["vite/client", "node", "mocha", "chai", "electron"],
     "paths": {

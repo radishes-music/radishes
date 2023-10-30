@@ -13,7 +13,7 @@ export default defineConfig({
   envPrefix: 'VUE_APP_',
   define: {
     VERSION: `'${pkg.version}'`,
-    GIT_URL: JSON.stringify(pkg.repository.url)
+    GIT_URL: `'${pkg.repository.url}'`
   },
   esbuild: {
     jsxFactory: 'h',
@@ -24,9 +24,15 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: 'index.html'
+    },
+    commonjsOptions:{
+      exclude: ['node_modules/js-base64']
     }
   },
   server: {
+    open: true,
+    host: true,
+    port: 3000,
     proxy: {
       '/api': {
         target: 'http://localhost:32768',

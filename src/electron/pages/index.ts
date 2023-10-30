@@ -12,6 +12,7 @@ import '@/theme/index'
 
 const app = createApp(App)
   .use(store)
+  // @ts-expect-error
   .use(Components)
   .use(GlobalComponent)
 
