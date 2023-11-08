@@ -75,7 +75,7 @@ export const LocalMusic = defineComponent({
     }
 
     const handleConfirm = async () => {
-      const v = await import('@/electron/utils/index')
+      const v = await import('@/electron/utils/common')
       const songs = await v.readPathMusic(checkPath.value)
 
       useMutations(LocalMusicMutations.SET_LOCAL_MUSIC, songs)

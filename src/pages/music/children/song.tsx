@@ -30,7 +30,7 @@ export const LocalMusicSong = defineComponent({
       playMusic(music)
     }
     const handleSyncMusic = async () => {
-      const v = await import('@/electron/utils/index')
+      const v = await import('@/electron/utils/common')
       const songs = await v.readPathMusic(
         state.localPath.map(item => item.path)
       )
