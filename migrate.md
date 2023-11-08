@@ -13,13 +13,9 @@
 corepack enable
 # then will auto use @3
 yarn
-# deprecated yarn.lock, recommend use .yarn folder
 ```
 
 ### error
 
-```
-use vite build with run rollup will confuse conflict with
-js-base64 -> var VERSION
-so rename VERSION -> __APP_VERSION__
-```
+- use vite build with run rollup will conflict with `js-base64` -> var VERSION
+  so rename `VERSION` -> `__APP_VERSION__`
