@@ -12,8 +12,8 @@ const resolvePath = depPath => path.resolve(__dirname, depPath)
 export default defineConfig({
   envPrefix: 'VUE_APP_',
   define: {
-    VERSION: `'${pkg.version}'`,
-    GIT_URL: `'${pkg.repository.url}'`
+    __APP_VERSION__: `'${pkg.version}'`,
+    __GIT_URL__: `'${pkg.repository.url}'`
   },
   esbuild: {
     jsxFactory: 'h',
@@ -24,9 +24,6 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: 'index.html'
-    },
-    commonjsOptions:{
-      exclude: ['node_modules/js-base64']
     }
   },
   server: {

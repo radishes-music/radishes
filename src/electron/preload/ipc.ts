@@ -2,7 +2,7 @@ import { App } from 'vue'
 import { DownloadIpcType } from '@/electron/event/action-types'
 import { suggested, success, error } from '@/hooks/index'
 import store, { RootMutations } from '@/store'
-import throttle from 'lodash/throttle'
+import { throttle } from 'lodash-es'
 
 export interface DownloadData {
   state: 'progressing' | 'completed' | 'interrupted' | 'cancelled' | 'start'

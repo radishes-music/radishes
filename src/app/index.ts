@@ -7,7 +7,7 @@ import GlobalComponent from '@/components-global/index'
 import { errorHandle } from '@/components/error-boundary/index'
 import { registerIPC } from '../electron/preload/ipc'
 import { isElectron } from '@/utils/index'
-import init from '@/electron/preload/init'
+// import init from '@/electron/preload/init'
 import '@/iconfont/index'
 
 const app = createApp(App)
@@ -18,7 +18,9 @@ const app = createApp(App)
   .use(GlobalComponent)
 
 errorHandle(app)
-init()
+
+// FIXME: run with it, cant build in web
+// init()
 
 if (isElectron) {
   registerIPC(app)
