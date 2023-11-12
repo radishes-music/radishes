@@ -16,8 +16,8 @@ import { useFooterModule } from '@/modules'
 import { AudioEffect } from '@/shared/audio'
 import { message } from 'ant-design-vue'
 import NoMusic from './components/no-music'
-import cloneDeep from 'lodash/cloneDeep'
-import remove from 'lodash/remove'
+import { cloneDeep } from 'lodash-es'
+import { remove } from 'lodash-es'
 
 const dominateMediaSession = (
   title: string,

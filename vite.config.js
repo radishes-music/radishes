@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vitePluginMd2Vue from 'vite-plugin-md2vue'
 import usePluginImport from 'vite-plugin-importer'
+import { antdDayjs } from 'antd-dayjs-vite-plugin'
 
 import pkg from './package.json'
 
@@ -58,7 +59,8 @@ export default defineConfig({
       libraryName: 'vant',
       libraryDirectory: 'es',
       style: name => `${name}/style/less`
-    })
+    }),
+    antdDayjs()
   ],
   resolve: {
     alias: {

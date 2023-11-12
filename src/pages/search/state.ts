@@ -1,5 +1,5 @@
 import { SearchState } from '@/interface/index'
-import cloneDeep from 'lodash/cloneDeep'
+import { cloneDeep } from 'lodash-es'
 
 const initList = {
   data: [],

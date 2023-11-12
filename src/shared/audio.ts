@@ -1,6 +1,6 @@
 import { ConvolutionFile } from '@/interface'
 import { sleep } from '@/utils'
-import remove from 'lodash/remove'
+import { remove } from 'lodash-es'
 import axios from 'axios'
 
 export interface Effect {

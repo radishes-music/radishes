@@ -7,7 +7,7 @@ import { SongsDetail, LocalMusicMutations, LocalMusicDetail } from '@/interface'
 import { asyncIpc } from '@/electron/event/ipc-browser'
 import { ReadLocalFile } from '@/electron/event/action-types'
 import { playMusic, clearLocalMusicUrl } from '@/shared/music-shared'
-import cloneDeep from 'lodash/cloneDeep'
+import { cloneDeep } from 'lodash-es'
 
 export const LocalMusicSong = defineComponent({
   name: 'LocalMusicSong',

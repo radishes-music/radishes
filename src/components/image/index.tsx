@@ -8,7 +8,7 @@ import {
   ref
 } from 'vue'
 import { getDomStyle, noop } from '@/utils/index'
-import debounce from 'lodash/debounce'
+import { debounce } from 'lodash-es'
 
 export const Image = defineComponent({
   name: 'Image',

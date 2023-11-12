@@ -8,7 +8,7 @@ import {
   SearchType,
   Pagination
 } from '@/interface'
-import clone from 'lodash/clone'
+import { clone } from 'lodash-es'
 
 const calcSlice = (pagination: Pagination, page: number) => {
   const p = clone(pagination)

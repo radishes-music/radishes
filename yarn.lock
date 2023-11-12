@@ -6687,6 +6687,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"antd-dayjs-vite-plugin@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "antd-dayjs-vite-plugin@npm:1.2.2"
+  dependencies:
+    antd-dayjs-webpack-plugin: ^1.0.6
+  peerDependencies:
+    vite: ">=2.0.0"
+  checksum: 80b1c59a4bb332228dfd6be282e1093873aaf45ef3e4ea171badf5f54048bc9d0e11ab4f1f184022b9b4152f216f7a0103e94084a0ec0c26a281bd1e1b7f63ec
+  languageName: node
+  linkType: hard
+
+"antd-dayjs-webpack-plugin@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "antd-dayjs-webpack-plugin@npm:1.0.6"
+  peerDependencies:
+    dayjs: "*"
+  checksum: ed930b14dfc8798988730f8fa557b5ade37130189200525b36fbad2c870d675b8eb9f0fff54207ea653ebad74d45d8b42b54c42c7383ae869a3ac44e925b9cfa
+  languageName: node
+  linkType: hard
+
 "any-base@npm:^1.1.0":
   version: 1.1.0
   resolution: "any-base@npm:1.1.0"
@@ -8081,6 +8101,13 @@ __metadata:
   version: 3.1.0
   resolution: "bytes@npm:3.1.0"
   checksum: 7c3b21c5d9d44ed455460d5d36a31abc6fa2ce3807964ba60a4b03fd44454c8cf07bb0585af83bfde1c5cc2ea4bbe5897bc3d18cd15e0acf25a3615a35aba2df
+  languageName: node
+  linkType: hard
+
+"cac@npm:^6.7.14":
+  version: 6.7.14
+  resolution: "cac@npm:6.7.14"
+  checksum: 45a2496a9443abbe7f52a49b22fbe51b1905eff46e03fd5e6c98e3f85077be3f8949685a1849b1a9cd2bc3e5567dfebcf64f01ce01847baf918f1b37c839791a
   languageName: node
   linkType: hard
 
@@ -17786,17 +17813,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash-es@npm:^4.17.15":
+"lodash-es@npm:4.17.15, lodash-es@npm:^4.17.15":
   version: 4.17.15
   resolution: "lodash-es@npm:4.17.15"
   checksum: dd76e36efca24f8294cdd99563c3bcaff8061732b04af8721313fe9a87e1f8e578ff466cfbcc103d1cb4db067d7d4bd143e3be390d957e22e0cb5d195b3847ed
-  languageName: node
-  linkType: hard
-
-"lodash-es@npm:^4.17.21":
-  version: 4.17.21
-  resolution: "lodash-es@npm:4.17.21"
-  checksum: 05cbffad6e2adbb331a4e16fbd826e7faee403a1a04873b82b42c0f22090f280839f85b95393f487c1303c8a3d2a010048bf06151a6cbe03eee4d388fb0a12d2
   languageName: node
   linkType: hard
 
@@ -20055,7 +20075,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open@npm:^8.0.2":
+"open@npm:^8.0.2, open@npm:^8.4.0":
   version: 8.4.2
   resolution: "open@npm:8.4.2"
   dependencies:
@@ -21821,6 +21841,7 @@ __metadata:
     "@vue/test-utils": ^2.0.0-0
     "@vueuse/core": 4.9.1
     ant-design-vue: 2.0.1
+    antd-dayjs-vite-plugin: ^1.2.2
     axios: ^0.21.1
     chai: ^4.1.2
     chai-as-promised: ^7.1.1
@@ -21857,8 +21878,7 @@ __metadata:
     lerna: ^3.22.1
     less: ^3.0.4
     lint-staged: ^9.5.0
-    lodash: ^4.17.21
-    lodash-es: ^4.17.21
+    lodash-es: 4.17.15
     md5: ^2.3.0
     music-metadata: ^7.5.2
     normalize-url: ^5.3.0
@@ -21879,6 +21899,7 @@ __metadata:
     v-easy-components: 2.0.0
     vant: ^3.0.6
     vite: ^4.5.0
+    vite-bundle-visualizer: ^0.11.0
     vite-plugin-importer: ^0.2.5
     vite-plugin-md2vue: ^1.1.1
     vue: ^3.3.7
@@ -22893,6 +22914,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rollup-plugin-visualizer@npm:^5.9.2":
+  version: 5.9.2
+  resolution: "rollup-plugin-visualizer@npm:5.9.2"
+  dependencies:
+    open: ^8.4.0
+    picomatch: ^2.3.1
+    source-map: ^0.7.4
+    yargs: ^17.5.1
+  peerDependencies:
+    rollup: 2.x || 3.x
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  bin:
+    rollup-plugin-visualizer: dist/bin/cli.js
+  checksum: ab2adf322e3b20bffc94a8dc804f46be8840a9fcbab4f872dcc2dec205cdd7752e4d2d90cfcf00783bfb5209c5a8bb4e591984e8b61bca41fd048fb7deb0ed4e
+  languageName: node
+  linkType: hard
+
 "rollup@npm:^3.27.1":
   version: 3.29.4
   resolution: "rollup@npm:3.29.4"
@@ -23847,6 +23887,13 @@ __metadata:
   version: 0.7.3
   resolution: "source-map@npm:0.7.3"
   checksum: cd24efb3b8fa69b64bf28e3c1b1a500de77e84260c5b7f2b873f88284df17974157cc88d386ee9b6d081f08fdd8242f3fc05c953685a6ad81aad94c7393dedea
+  languageName: node
+  linkType: hard
+
+"source-map@npm:^0.7.4":
+  version: 0.7.4
+  resolution: "source-map@npm:0.7.4"
+  checksum: 01cc5a74b1f0e1d626a58d36ad6898ea820567e87f18dfc9d24a9843a351aaa2ec09b87422589906d6ff1deed29693e176194dc88bcae7c9a852dc74b311dbf5
   languageName: node
   linkType: hard
 
@@ -25166,7 +25213,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tmp@npm:^0.2.0, tmp@npm:~0.2.1":
+"tmp@npm:^0.2.0, tmp@npm:^0.2.1, tmp@npm:~0.2.1":
   version: 0.2.1
   resolution: "tmp@npm:0.2.1"
   dependencies:
@@ -26438,6 +26485,19 @@ __metadata:
     unist-util-stringify-position: ^2.0.0
     vfile-message: ^2.0.0
   checksum: 89d3410d8ccd2122064df20658d394ccfd87e84650c146365e46d549f7d343223ee79b889824de68b47e516adf18a8bfa719e193357841bb03a51a0dca9e885b
+  languageName: node
+  linkType: hard
+
+"vite-bundle-visualizer@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "vite-bundle-visualizer@npm:0.11.0"
+  dependencies:
+    cac: ^6.7.14
+    rollup-plugin-visualizer: ^5.9.2
+    tmp: ^0.2.1
+  bin:
+    vite-bundle-visualizer: bin.js
+  checksum: a075e9151d3cf30ef5785a9702955c838a580c9c4ea5f594de633b66d9ca593e83a8f1ac71ffa83a8016770e55af5e1897454651f4d4735ba42d1eaffc3e4fd2
   languageName: node
   linkType: hard
 

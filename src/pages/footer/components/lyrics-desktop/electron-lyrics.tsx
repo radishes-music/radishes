@@ -8,7 +8,7 @@ import {
   UpdateType
 } from '@/electron/event/action-types'
 import { ErrorBoundary } from '@/components/error-boundary/index'
-import isEqual from 'lodash/isEqual'
+import { isEqual } from 'lodash-es'
 import './electron-lyrics.less'
 
 import { ipcRenderer } from 'electron'
