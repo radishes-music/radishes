@@ -5,6 +5,7 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { ElectronWindowEventMap } from '@/interface/app'
 import { saveAs } from 'file-saver'
 import { Platform } from '@/config/build'
+import process from 'process'
 
 dayjs.extend(UTC)
 dayjs.extend(customParseFormat)

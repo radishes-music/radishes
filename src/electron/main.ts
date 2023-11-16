@@ -1,7 +1,7 @@
 import { app, protocol, BrowserWindow, screen, globalShortcut } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
-import installExtension from 'electron-devtools-installer'
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { eventInit } from '@/electron/event/index'
 import { downloadIntercept } from './event/ipc-main/download'
 import { runService } from './service/index'
@@ -11,7 +11,7 @@ import store from '@/electron/store/index'
 import path from 'path'
 
 // curl -H "Accept: application/json" https://api.github.com/repos/Linkontoask/radishes/contents/package.json
-const isDevelopment = process.env.VUE_APP_NODE_ENV !== 'production'
+const isDevelopment = process.env.NODE_ENV_ELECTRON_VITE !== 'production'
 
 let win: BrowserWindow | null,
   loadingWin: BrowserWindow | null,
@@ -25,6 +25,7 @@ protocol.registerSchemesAsPrivileged([
   }
 ])
 
+// loadingView
 async function createLoadingWindow() {
   loadingWin = new BrowserWindow({
     width: 620,
@@ -34,9 +35,9 @@ async function createLoadingWindow() {
     transparent: true,
     titleBarStyle: 'hidden'
   })
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
+  if (process.env.ELECTRON_RENDERER_URL) {
     await loadingWin.loadURL(
-      (process.env.WEBPACK_DEV_SERVER_URL as string) + '/loading.html'
+      (process.env.ELECTRON_RENDERER_URL as string) + '/loading.html'
     )
   } else {
     loadingWin
@@ -57,47 +58,46 @@ async function createLoadingWindow() {
 async function createWindow() {
   const { workAreaSize, scaleFactor } = screen.getPrimaryDisplay()
   const { width, height } = workAreaSize
-  const w = Math.max(1046, width / 2)
-  const h = 0.686 * w
+  const w = Math.floor(Math.max(1140, width / 2))
+  const h = Math.floor(0.686 * w)
   infoMain(`Display w: ${w} h: ${h}`)
   // Create the browser window.
   win = new BrowserWindow({
     width: w,
     height: h,
-    minWidth: w / 1.4,
-    minHeight: h / 1.4,
+    minWidth: Math.floor(w / 2),
+    // minHeight: h,
     useContentSize: true,
+    center: true,
     frame: false,
     titleBarStyle: 'hidden',
-    show: false,
     resizable: true,
     icon: path.join(
       __dirname,
-      process.env.VUE_APP_NODE_ENV === 'development'
-        ? '../build/icons/1024x1024.png'
+      isDevelopment
+        ? '../../build/icons/1024x1024.png'
         : 'build/icons/1024x1024.png'
     ),
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: (process.env
-        .ELECTRON_NODE_INTEGRATION as unknown) as boolean,
+      nodeIntegration: true,
       // https://github.com/electron/electron/issues/23506
       contextIsolation: false,
       // This may bring some security issues, but our resources come from the Internet, and the CORS policy is forbidden to play the corresponding resources
       webSecurity: false,
       // https://github.com/electron/electron/issues/9920
       // preload: __dirname + '/electron/preload/index.js'
-      enableRemoteModule: true,
+      // enableRemoteModule: true,
       devTools: isDevelopment
     }
   })
 
-  infoMain('Webpack dev server url ', process.env.WEBPACK_DEV_SERVER_URL)
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
+  infoMain('Dev server url ', process.env.ELECTRON_RENDERER_URL)
+  if (process.env.ELECTRON_RENDERER_URL) {
     // Load the url of the dev server if in development mode
-    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string)
-    if (!process.env.IS_TEST) win.webContents.openDevTools()
+    await win.loadURL(process.env.ELECTRON_RENDERER_URL as string)
+    // if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     try {
       createProtocol('app')
@@ -182,12 +182,10 @@ app.on('ready', async () => {
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
-      await installExtension({
-        id: 'ljjemllljcmogpfapbkkighbhhppjdbg', // vue3 devtool id
-        electron: '>=1.2.1'
-      })
+      await installExtension(VUEJS_DEVTOOLS)
       infoMain('Install extension')
     } catch (e) {
+      // @ts-expect-error
       errorMain('Vue Devtools failed to install:', e.toString())
     }
   }
@@ -198,7 +196,7 @@ app.on('ready', async () => {
     })
   }
 
-  createLoadingWindow()
+  // createLoadingWindow()
 
   beforeRunService()
 })

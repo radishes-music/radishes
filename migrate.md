@@ -55,6 +55,12 @@ lerna ERR! yarn install --mutex network:42424 --non-interactive exited 1 in 'rad
 Use yarn@1 to run lerna, and then use yarn@3 to manage project dependencies.😂
 ```
 
+### HMR not working
+[OFFICE](https://github.com/vitejs/vite-plugin-vue/tree/main/packages/plugin-vue-jsx#hmr-detection)
+```
+Only support component by export with called render of defineComponent
+```
+
 ### install extension error
 [ISSUE](https://github.com/MarshallOfSound/electron-devtools-installer/pull/177#issuecomment-914813869)
 ```

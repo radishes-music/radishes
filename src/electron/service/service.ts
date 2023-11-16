@@ -20,7 +20,7 @@ export const runService = () => {
     if (process.platform === 'linux') {
       filename = 'api-linux'
     }
-    const cwd = path.resolve(__dirname, '../public/service')
+    const cwd = path.resolve(__dirname, '../../public/service')
     const service = childProcess.exec(filename, {
       cwd: cwd,
       env: {

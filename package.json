@@ -2,7 +2,7 @@
   "name": "radishes",
   "version": "2.0.0-alpha.5",
   "private": true,
-  "main": "./background.js",
+  "main": "./out/main/index.js",
   "author": "Linkontoask",
   "description": "Cross-platform copyright-free music platform",
   "scripts": {
@@ -10,7 +10,7 @@
     "dev": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"yarn dev:web\"",
     "dev:web": "cross-env NODE_ENV=development vite --mode browser",
     "dev:api": "lerna exec --scope @radishes/api -- yarn run dev",
-    "dev:electron": "concurrently -r \"yarn generate:theme\" \"vue-cli-service electron:serve --mode electron.dev\"",
+    "dev:electron": "concurrently -r \"yarn generate:theme\" \"electron-vite dev --mode electron.dev\"",
     "build": "cross-env NODE_ENV=production vite build --mode browser",
     "build:electron": "node script/build.js --win",
     "build:electron:linux": "node script/build.js --linux",
@@ -60,7 +60,7 @@
     "@vueuse/core": "4.9.1",
     "ant-design-vue": "2.0.1",
     "axios": "^0.21.1",
-    "classnames": "^2.2.6",
+    "classnames": "^2.3.2",
     "dayjs": "^1.9.4",
     "github-markdown-css": "^4.0.0",
     "js-base64": "^3.7.5",
@@ -84,7 +84,6 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@rushstack/eslint-patch": "^1.5.1",
     "@types/chai": "^4.2.11",
-    "@types/classnames": "^2.2.10",
     "@types/electron-devtools-installer": "^2.2.0",
     "@types/file-saver": "^2.0.1",
     "@types/js-cookie": "^2.2.6",
@@ -120,6 +119,7 @@
     "electron-log": "^5.0.0",
     "electron-store": "^8.1.0",
     "electron-updater": "^6.1.4",
+    "electron-vite": "^1.0.28",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.29.0",
@@ -138,6 +138,7 @@
     "normalize-url": "^5.3.0",
     "portscanner": "^2.2.0",
     "prettier": "^1.19.1",
+    "process": "^0.11.10",
     "scriptjs": "^2.5.9",
     "spectron": "^14.0.0",
     "stylelint": "^13.7.2",
@@ -150,6 +151,7 @@
     "vite": "^4.5.0",
     "vite-bundle-visualizer": "^0.11.0",
     "vite-plugin-importer": "^0.2.5",
-    "vite-plugin-md2vue": "^1.1.1"
+    "vite-plugin-md2vue": "^1.1.1",
+    "vue-cli-plugin-electron-builder": "^2.1.1"
   }
 }
