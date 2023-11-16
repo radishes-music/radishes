@@ -12,13 +12,13 @@ import { isElectron } from '@/utils'
 
 const initStorage = async () => {
   if (isElectron) {
-    const v = await import('@/electron/utils/index')
+    const v = await import('@/electron/utils/common')
     const downloadModule = useDownloadModule()
     const localMusicModule = useLocalMusicModule()
     const downloadState = store.state.Download
     const localMusicState = store.state.LocalMusic
 
-    const os = v.getUserOS()
+    const os = (await import('os')).userInfo()
     const userDownloadPath = v.join(os.homedir + '/Downloads')
     if (!downloadState.downloadPath) {
       downloadModule.useMutations(

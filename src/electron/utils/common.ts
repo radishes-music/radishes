@@ -5,6 +5,8 @@ import { v4 } from 'uuid'
 import { parseFile } from 'music-metadata'
 import { ICommonTagsResult } from 'music-metadata/lib/type.d'
 
+export { join }
+
 export const isElectron = () => {
   if (
     typeof window !== 'undefined' &&
