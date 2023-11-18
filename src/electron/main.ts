@@ -14,9 +14,11 @@ import path from 'path'
 // curl -H "Accept: application/json" https://api.github.com/repos/Linkontoask/radishes/contents/package.json
 const isDevelopment = process.env.NODE_ENV_ELECTRON_VITE !== 'production'
 
-let win: BrowserWindow,
-  loadingWin: BrowserWindow,
+let win: BrowserWindow | null,
+  // loadingWin: BrowserWindow,
   serviceInstance: ThenArg<ReturnType<typeof runService>>['service']
+
+let appQuitting = false
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -26,34 +28,34 @@ protocol.registerSchemesAsPrivileged([
   },
 ])
 // loadingView
-async function createLoadingWindow() {
-  loadingWin = new BrowserWindow({
-    width: 620,
-    height: 320,
-    frame: false,
-    resizable: false,
-    transparent: true,
-    titleBarStyle: 'hidden',
-  })
-  if (process.env.ELECTRON_RENDERER_URL) {
-    await loadingWin.loadURL(
-      (process.env.ELECTRON_RENDERER_URL as string) + '/loading.html',
-    )
-  } else {
-    loadingWin
-      .loadFile('./loading.html')
-      .then(() => {
-        infoMain('Load loading.html')
-      })
-      .catch((e) => {
-        errorMain('Load not loading.html', e.toString())
-      })
-  }
+// async function createLoadingWindow() {
+//   loadingWin = new BrowserWindow({
+//     width: 620,
+//     height: 320,
+//     frame: false,
+//     resizable: false,
+//     transparent: true,
+//     titleBarStyle: 'hidden',
+//   })
+//   if (process.env.ELECTRON_RENDERER_URL) {
+//     await loadingWin.loadURL(
+//       (process.env.ELECTRON_RENDERER_URL as string) + '/loading.html',
+//     )
+//   } else {
+//     loadingWin
+//       .loadFile('./loading.html')
+//       .then(() => {
+//         infoMain('Load loading.html')
+//       })
+//       .catch((e) => {
+//         errorMain('Load not loading.html', e.toString())
+//       })
+//   }
 
-  loadingWin.once('closed', () => {
-    loadingWin = null
-  })
-}
+//   loadingWin.once('closed', () => {
+//     loadingWin = null
+//   })
+// }
 
 require('@electron/remote/main').initialize()
 async function createWindow() {
@@ -76,15 +78,11 @@ async function createWindow() {
     hasShadow: false,
     webPreferences: {
       sandbox: false,
-      // Use pluginOptions.nodeIntegration, leave this alone
-      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: false,
-      // https://github.com/electron/electron/issues/23506
-      // contextIsolation: false,
       // This may bring some security issues, but our resources come from the Internet, and the CORS policy is forbidden to play the corresponding resources
       // webSecurity: false,
       // https://github.com/electron/electron/issues/9920
-      preload: path.join(__dirname, '../preload/index.js'),
+      preload: 'file://' + path.join(__dirname, '../preload/index.js'),
       // @ts-expect-error
       enableRemoteModule: true,
       devTools: true,
@@ -129,13 +127,25 @@ async function createWindow() {
 
   win.once('ready-to-show', () => {
     infoMain('Event ready-to-show')
-    loadingWin && loadingWin.close()
+    // loadingWin && loadingWin.close()
     win && win.show()
   })
 
   // https://github.com/electron/electron/issues/26726
   win.on('system-context-menu', (e) => {
     e.preventDefault()
+  })
+
+  win.on('close', (event) => {
+    infoMain('close')
+    if (process.platform === 'darwin') {
+      if (appQuitting) {
+        win = null
+      } else if (win !== null) {
+        event.preventDefault()
+        win.hide()
+      }
+    }
   })
 
   win.on('closed', () => {
@@ -145,6 +155,15 @@ async function createWindow() {
 
   eventInit(win)
   downloadIntercept(win)
+
+  app.on('activate', () => {
+    infoMain('Event activate')
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (process.platform === 'darwin' && win !== null) {
+      win.show()
+    }
+  })
 }
 
 async function beforeRunService() {
@@ -171,18 +190,12 @@ app.on('window-all-closed', () => {
   }
 })
 
-app.on('activate', () => {
-  infoMain('Event activate')
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (win === null) {
-    beforeRunService()
-  } else {
-    win.show()
-  }
+app.on('before-quit', () => {
+  infoMain('BefreoQuit')
+  appQuitting = true
 })
 
-app.on('ready', async () => {
+app.whenReady().then(async () => {
   infoMain('Event ready')
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
@@ -203,6 +216,7 @@ app.on('ready', async () => {
 
   // createLoadingWindow()
 
+  infoMain('run beforeRunService')
   beforeRunService()
 })
 
