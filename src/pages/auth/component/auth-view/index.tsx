@@ -13,15 +13,14 @@ export const AuthView = defineComponent({
           hideAuth()
         },
         {
-          once: true
-        }
+          once: true,
+        },
       )
     })
 
     // TODO 怎么操作呢??
     return () => {
       return (
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         <MaskView class="vh-center">
           <div class="auth-view">
@@ -37,5 +36,5 @@ export const AuthView = defineComponent({
         </MaskView>
       )
     }
-  }
+  },
 })

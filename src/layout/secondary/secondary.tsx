@@ -7,8 +7,8 @@ export const SecondaryLayout = defineComponent({
   props: {
     src: {
       type: String as PropType<string>,
-      default: ''
-    }
+      default: '',
+    },
   },
   setup(props, { slots }) {
     const loading = inject('loading', ref(false))
@@ -20,11 +20,11 @@ export const SecondaryLayout = defineComponent({
           title={false}
           avatar={{
             shape: 'square',
-            size: 'large'
+            size: 'large',
           }}
           paragraph={{
             rows: 5,
-            width: [500, 200, 300, 100, 300]
+            width: [500, 200, 300, 100, 300],
           }}
           loading={loading.value}
         >
@@ -35,7 +35,7 @@ export const SecondaryLayout = defineComponent({
           title={false}
           paragraph={{
             rows: 10,
-            width: '100%'
+            width: '100%',
           }}
           loading={loading.value}
         >
@@ -43,5 +43,5 @@ export const SecondaryLayout = defineComponent({
         </Skeleton>
       </div>
     )
-  }
+  },
 })

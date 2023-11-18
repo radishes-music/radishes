@@ -14,7 +14,7 @@ export const SidebarAuth = defineComponent({
   name: 'SidebarAuth',
   setup() {
     const state = reactive({
-      show: false
+      show: false,
     })
     const { isLogin, profile } = useAuth()
     const $router = useRouter()
@@ -76,5 +76,5 @@ export const SidebarAuth = defineComponent({
         </div>
       )
     }
-  }
+  },
 })

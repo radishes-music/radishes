@@ -5,7 +5,7 @@ import {
   SearchSuggest,
   SearchMutations,
   ArrayItem,
-  SearchActions
+  SearchActions,
 } from '@/interface'
 import { useSearchModule } from '@/modules'
 import { Jump } from '@/shared/jump-shared'
@@ -38,7 +38,7 @@ export const SearchArtist = defineComponent({
     onActivated(() => {
       useMutations(
         SearchMutations.SET_SEARCH_TITLE,
-        `找到 ${state.artistList.total} 位歌手`
+        `找到 ${state.artistList.total} 位歌手`,
       )
     })
     onBeforeUnmount(() => {
@@ -59,5 +59,5 @@ export const SearchArtist = defineComponent({
         />
       </div>
     )
-  }
+  },
 })

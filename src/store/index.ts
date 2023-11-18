@@ -14,7 +14,7 @@ export const enum RootMutations {
   BACK_HISTORY_ROUTE = 'BACK_HISTORY_ROUTE',
   FORWARD_HISTORY_ROUTE = 'FORWARD_HISTORY_ROUTE',
   CAN_BE_COLLECT = 'CAN_BE_COLLECT',
-  UPDATE_PERECENTAGE = 'UPDATE_PERECENTAGE'
+  UPDATE_PERECENTAGE = 'UPDATE_PERECENTAGE',
 }
 
 export interface CustomRouter {
@@ -44,7 +44,7 @@ function removeExpired(route: CustomRouter[]) {
   const routeTp = uniqBy(clone(route.reverse()), 'url')
     .reverse()
     .slice(-1 * (heap - 1))
-  each(routeTp, value => {
+  each(routeTp, (value) => {
     if (value && Date.now() - value.life > life) {
       pull(routeTp, value)
     }
@@ -58,7 +58,7 @@ function customRouterBase(state: RootState, originKey: string, route: string) {
   if (last?.url !== route) {
     state.historyRoute[originKey].push({
       life: Date.now(),
-      url: route
+      url: route,
     })
     state.historyRoute[originKey] = removeExpired(origin)
   }
@@ -77,9 +77,9 @@ const state: RootState = {
     canBeCollect: false,
     needRoute: '',
     before: [],
-    after: []
+    after: [],
   },
-  percentage: 0
+  percentage: 0,
 }
 
 const mutations: MutationTree<RootState> = {
@@ -101,7 +101,7 @@ const mutations: MutationTree<RootState> = {
   },
   [RootMutations.UPDATE_PERECENTAGE](state, percentage: number) {
     state.percentage = toFixed(percentage * 100, 2)
-  }
+  },
 }
 
 const plugins = []
@@ -112,10 +112,10 @@ if (getNodeEnv() === 'development') {
       filter(mutation) {
         return [
           FooterMutations.CURRENT_TIME,
-          FooterMutations.SET_VOLUME
+          FooterMutations.SET_VOLUME,
         ].includes(mutation.type as AllMutations)
-      }
-    })
+      },
+    }),
   )
 }
 
@@ -139,9 +139,9 @@ plugins.push(
       'Footer.playMode',
       'Setting',
       'Download',
-      'LocalMusic'
-    ]
-  })
+      'LocalMusic',
+    ],
+  }),
 )
 
 export default createStore<RootState>({
@@ -149,5 +149,5 @@ export default createStore<RootState>({
   mutations,
   actions: {},
   modules,
-  plugins
+  plugins,
 })

@@ -73,9 +73,9 @@ export const Cloud = defineComponent({
                 onDblclick={handlePlaySingle}
               />
             </div>
-          )
+          ),
         }}
       />
     )
-  }
+  },
 })

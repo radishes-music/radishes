@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import Md5 from 'md5'
 import http from '@/utils/http'
 
@@ -17,19 +16,19 @@ export interface LoginRes {
 export const getUserDetail = (uid: string) =>
   http.get('/api/user/detail', {
     params: {
-      uid
-    }
+      uid,
+    },
   })
 
 export const doPhoneLogin = async (
   phone: string,
-  password: string
+  password: string,
 ): Promise<LoginRes> => {
   const res: LoginRes = await http.get('/api/login/cellphone', {
     params: {
       phone: phone,
-      md5_password: Md5(password)
-    }
+      md5_password: Md5(password),
+    },
   })
 
   const info: any = await getUserDetail(res.profile.userId)
@@ -42,20 +41,20 @@ export const doPhoneLogin = async (
 
 export const doEmailLogin = (
   email: string,
-  password: string
+  password: string,
 ): Promise<LoginRes> =>
   http.get('/api/login', {
     params: {
       email,
-      md5_password: Md5(password)
-    }
+      md5_password: Md5(password),
+    },
   })
 
 export const sendMsgCode = (phone: string) =>
   http.get('/api/captcha/sent', {
     params: {
-      phone
-    }
+      phone,
+    },
   })
 
 const registerAreset = (phone: string, password: string, code: string) =>
@@ -64,8 +63,8 @@ const registerAreset = (phone: string, password: string, code: string) =>
       captcha: code,
       phone,
       password,
-      nickname: ''
-    }
+      nickname: '',
+    },
   })
 
 export const register = registerAreset
@@ -74,8 +73,8 @@ export const resetPwd = registerAreset
 export const checkPhone = (phone: string) =>
   http.get('/api/cellphone/existence/check', {
     params: {
-      phone
-    }
+      phone,
+    },
   })
 
 // TODO 要获取一个签到状态来控制签到按钮状态
@@ -86,8 +85,8 @@ export const checkPhone = (phone: string) =>
 export const doSignin = () =>
   http.get('/api/daily_signin', {
     params: {
-      type: 1
-    }
+      type: 1,
+    },
   })
 
 // TODO 退出登录

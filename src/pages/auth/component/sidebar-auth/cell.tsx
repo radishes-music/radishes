@@ -7,26 +7,26 @@ export default defineComponent({
   props: {
     icon: {
       type: String,
-      default: ''
+      default: '',
     },
     onClick: {
       type: Function,
       default: () => {
         /*  */
-      }
+      },
     },
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     externalLink: {
       type: String,
-      default: ''
+      default: '',
     },
     needArrow: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   setup($props) {
     const onClick = (e: MouseEvent) => {
@@ -37,7 +37,7 @@ export default defineComponent({
       }
     }
 
-    return function(this: any) {
+    return function (this: any) {
       return (
         <div class="x-cell" onClick={onClick}>
           <div class="x-cell__left">
@@ -57,5 +57,5 @@ export default defineComponent({
         </div>
       )
     }
-  }
+  },
 })

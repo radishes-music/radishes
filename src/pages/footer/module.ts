@@ -5,7 +5,7 @@ import {
   FooterState,
   FooterGetter,
   FooterActions,
-  FooterMutations
+  FooterMutations,
 } from '@/interface'
 
 export { findMusicIndex } from './sage'
@@ -26,5 +26,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 }

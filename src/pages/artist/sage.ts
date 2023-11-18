@@ -4,13 +4,13 @@ import {
   Artist,
   ArtistState,
   ArtistActions,
-  ArtistMutations
+  ArtistMutations,
 } from '@/interface'
 import {
   getArtist,
   getArtistAlbums,
   getArtistDesc,
-  getArtistSimi
+  getArtistSimi,
 } from './api/index'
 
 type IActions<T = ActionContext<ArtistState, RootState>> = {
@@ -33,7 +33,7 @@ export const actions: IActions = {
   async [ArtistActions.SET_ACTION_ARTIST_SIMI]({ commit }, id) {
     const data = await getArtistSimi(id)
     commit(ArtistMutations.SET_ARTIST_SIMI, data)
-  }
+  },
 }
 export const mutations: MutationTree<ArtistState> = {
   [ArtistMutations.SET_ARTIST_DETAIL](state, artist: Artist) {
@@ -48,5 +48,5 @@ export const mutations: MutationTree<ArtistState> = {
   },
   [ArtistMutations.SET_ARTIST_SIMI](state, simi) {
     state.simi = simi
-  }
+  },
 }

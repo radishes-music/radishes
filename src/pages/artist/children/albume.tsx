@@ -20,5 +20,5 @@ export const Albume = defineComponent({
         <Grid source={state.album} onClick={handleClick} />
       </div>
     )
-  }
+  },
 })

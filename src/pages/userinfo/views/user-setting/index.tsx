@@ -28,15 +28,8 @@ export const UserSetting = defineComponent({
     const authProfile: any = useAuthProfile()
     const updateProfileAction = useUpdateProfile()
 
-    const {
-      nickname,
-      signature,
-      gender,
-      birthday,
-      avatarUrl,
-      city,
-      province
-    } = authProfile.value
+    const { nickname, signature, gender, birthday, avatarUrl, city, province } =
+      authProfile.value
 
     const state: any = reactive({
       nickname,
@@ -44,7 +37,7 @@ export const UserSetting = defineComponent({
       sex: gender,
       birth: birthday,
       avatar: avatarUrl,
-      loading: false
+      loading: false,
     })
 
     const canSubmit = computed(() => {
@@ -55,7 +48,7 @@ export const UserSetting = defineComponent({
         birthday,
         avatarUrl,
         city,
-        province
+        province,
       } = authProfile.value
 
       return (
@@ -71,11 +64,11 @@ export const UserSetting = defineComponent({
       { key: 'signature', value: 'desc' },
       { key: 'gender', value: 'sex' },
       { key: 'birthday', value: 'birth' },
-      { key: 'avatarUrl', value: 'avatar' }
+      { key: 'avatarUrl', value: 'avatar' },
     ].forEach(({ key, value }: any) => {
       watch(
         () => authProfile.value[key],
-        v => (state[value] = v)
+        (v) => (state[value] = v),
       )
     })
 
@@ -104,7 +97,7 @@ export const UserSetting = defineComponent({
           city,
           province,
           nickname: state.nickname,
-          birthday: state.birth
+          birthday: state.birth,
         })
         state.loading = false
         if (res.code === 200) {
@@ -112,7 +105,7 @@ export const UserSetting = defineComponent({
             gender: state.sex,
             signature: state.desc,
             nickname: state.nickname,
-            birthday: state.birth
+            birthday: state.birth,
           })
           Toast('修改成功')
         }
@@ -186,5 +179,5 @@ export const UserSetting = defineComponent({
         </div>
       )
     }
-  }
+  },
 })

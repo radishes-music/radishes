@@ -13,9 +13,9 @@ export const state: RecommendState = {
       picUrl: '',
       coverImgUrl: '',
       description: '',
-      artists: []
-    }
+      artists: [],
+    },
   ],
   banners: [],
-  runningSwiper: true
+  runningSwiper: true,
 }

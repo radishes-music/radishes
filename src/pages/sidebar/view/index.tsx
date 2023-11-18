@@ -13,7 +13,7 @@ export const Sidebar = defineComponent({
   setup() {
     const route = useRoute()
     const playlist = useUserPlayList()
-    const nav = navRouter.filter(routerGroup => !routerGroup.meta?.nonav)
+    const nav = navRouter.filter((routerGroup) => !routerGroup.meta?.nonav)
     return () => (
       <aside class="sidebar">
         <SidebarAuth></SidebarAuth>
@@ -21,7 +21,7 @@ export const Sidebar = defineComponent({
           {nav.map((routerGroup: CustomizeRouteRecordRaw) => (
             <div
               class={classnames('sidebar-nav', {
-                'sidebar-nav-active': route.path.includes(routerGroup.path)
+                'sidebar-nav-active': route.path.includes(routerGroup.path),
               })}
             >
               {routerGroup.meta?.beforeHeader && (
@@ -38,7 +38,7 @@ export const Sidebar = defineComponent({
           {playlist.value?.map((item: any, index: number) => (
             <div
               class={classnames('sidebar-nav', {
-                'sidebar-nav-active': route.path.includes(item.id)
+                'sidebar-nav-active': route.path.includes(item.id),
               })}
             >
               {index === 0 && (
@@ -55,5 +55,5 @@ export const Sidebar = defineComponent({
         </div>
       </aside>
     )
-  }
+  },
 })

@@ -11,7 +11,7 @@ import {
   useLogout,
   useRouter,
   useSignin,
-  useUserInfoLoading
+  useUserInfoLoading,
 } from '@/hooks'
 import { Loading } from '@/components/loading'
 
@@ -34,7 +34,7 @@ export const FloatBox = defineComponent({
       loadUserInfo(profile.value.userId)
     })
 
-    return function(this: any) {
+    return function (this: any) {
       return (
         <div
           class="sidebar-profile"
@@ -54,22 +54,22 @@ export const FloatBox = defineComponent({
                       value: profile.value.eventCount,
                       onClick: () => {
                         $router.push('/eventView')
-                      }
+                      },
                     },
                     {
                       name: '关注',
                       value: profile.value.follows,
                       onClick: () => {
                         $router.push('/followList')
-                      }
+                      },
                     },
                     {
                       name: '粉丝',
                       value: profile.value.followeds,
                       onClick: () => {
                         $router.push('/fansView')
-                      }
-                    }
+                      },
+                    },
                   ].map((item, index) => {
                     return (
                       <div
@@ -89,7 +89,7 @@ export const FloatBox = defineComponent({
                   ) : (
                     <div
                       class="sidebar-x__unsignin"
-                      onClick={e => {
+                      onClick={(e) => {
                         e.stopPropagation()
                         doSingin()
                       }}
@@ -145,5 +145,5 @@ export const FloatBox = defineComponent({
         </div>
       )
     }
-  }
+  },
 })

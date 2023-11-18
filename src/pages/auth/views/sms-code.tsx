@@ -17,7 +17,7 @@ export const SmsCode = defineComponent({
 
     const state = reactive({
       code: '',
-      time: 60000
+      time: 60000,
     })
 
     const [httpSendStatus, httpSend] = useHttp(sendMsgCode)
@@ -40,7 +40,7 @@ export const SmsCode = defineComponent({
         } catch (e) {
           if (e.response?.data) {
             setErrorMsg(
-              e.response.data.msg || e.response.data.message || '请求异常'
+              e.response.data.msg || e.response.data.message || '请求异常',
             )
           } else if (e.msg) {
             setErrorMsg(e.msg)
@@ -58,7 +58,7 @@ export const SmsCode = defineComponent({
       setErrorMsg('')
     }
 
-    return function() {
+    return function () {
       return (
         <>
           <div class="vh-center auth-view__icon">
@@ -79,14 +79,13 @@ export const SmsCode = defineComponent({
                     style={{
                       paddingLeft: '6px',
                       paddingTop: '2px',
-                      marginRight: '-4px'
+                      marginRight: '-4px',
                     }}
                   >
                     <icon icon="miyue" size={16} color="#777"></icon>
                   </div>
-                )
+                ),
               }}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
               // @ts-ignore
               onFocus={onFocus}
             ></InputField>
@@ -138,5 +137,5 @@ export const SmsCode = defineComponent({
         </>
       )
     }
-  }
+  },
 })

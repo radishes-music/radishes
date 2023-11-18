@@ -4,7 +4,7 @@ import { uesModuleStore } from '@/hooks/index'
 import {
   LocalMusicState,
   LocalMusicActions,
-  LocalMusicMutations
+  LocalMusicMutations,
 } from '@/interface'
 
 export const LocalMusicNameSpaced = 'LocalMusic'
@@ -22,5 +22,5 @@ export default {
   namespaced: true,
   state,
   actions,
-  mutations
+  mutations,
 }

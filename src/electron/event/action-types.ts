@@ -2,7 +2,7 @@ export const enum Action {
   MINIMIZE_WINDOW = 'MINIMIZE_WINDOW',
   MAXIMIZE_WINDOW = 'MAXIMIZE_WINDOW',
   RESTORE_WINDOW = 'RESTORE_WINDOW',
-  CLOSE_WINDOW = 'CLOSE_WINDOW'
+  CLOSE_WINDOW = 'CLOSE_WINDOW',
 }
 
 export const enum DownloadIpcType {
@@ -10,18 +10,18 @@ export const enum DownloadIpcType {
   DOWNLOAD_PROGRESS = 'DOWNLOAD_PROGRESS',
   DOWNLOAD_START = 'DOWNLOAD_START',
   DOWNLOAD_END = 'DOWNLOAD_END',
-  DOWNLOAD_TASK = 'DOWNLOAD_TASK'
+  DOWNLOAD_TASK = 'DOWNLOAD_TASK',
 }
 
 export const enum MiddlewareView {
   CREATE_WINDOW = 'CREATE_WINDOW',
-  UPDATE_THEME_COLOR = 'UPDATE_THEME_COLOR'
+  UPDATE_THEME_COLOR = 'UPDATE_THEME_COLOR',
 }
 
 export const enum LyricsAction {
   LYRICS_UPDATE = 'LYRICS_UPDATE',
   LYRICS_UPDATE_RENDER = 'LYRICS_UPDATE_RENDER',
-  LYRICS_WIN_CLOSE = 'LYRICS_WIN_CLOSE'
+  LYRICS_WIN_CLOSE = 'LYRICS_WIN_CLOSE',
 }
 
 export const enum UpdateType {
@@ -29,15 +29,15 @@ export const enum UpdateType {
   UPDATE_LYRICS = 'UPDATE_LYRICS',
   UPDATE_PLAYING = 'UPDATE_PLAYING',
   UPDATE_MAGIC = 'UPDATE_MAGIC',
-  UPDATE_WIDTH = 'UPDATE_WIDTH'
+  UPDATE_WIDTH = 'UPDATE_WIDTH',
 }
 
 export const enum ReadLocalFile {
-  READ_MP3_FROM_PATH = 'READ_MP3_FROM_PATH'
+  READ_MP3_FROM_PATH = 'READ_MP3_FROM_PATH',
 }
 
 export const enum Dialog {
-  SHOW_DIALOG = 'SHOW_DIALOG'
+  SHOW_DIALOG = 'SHOW_DIALOG',
 }
 
 export const enum AutoDownload {
@@ -49,9 +49,9 @@ export const enum AutoDownload {
   DOWNLOAD_SUCCESS = 'DOWNLOAD_SUCCESS',
   IS_UPGRADE = 'IS_UPGRADE',
   CHECK_UPGRADE = 'CHECK_UPGRADE',
-  UPGRADE_NOW = 'UPGRADE_NOW'
+  UPGRADE_NOW = 'UPGRADE_NOW',
 }
 
 export const enum Service {
-  GET_PORT = 'GET_PORT'
+  GET_PORT = 'GET_PORT',
 }

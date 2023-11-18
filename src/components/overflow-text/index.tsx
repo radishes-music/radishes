@@ -11,10 +11,10 @@ export const OverflowText = defineComponent({
   name: 'OverflowText',
   setup() {
     const state = reactive({
-      show: false
+      show: false,
     })
 
-    return function(this: any) {
+    return function (this: any) {
       return (
         <div class="overflow-text">
           <div class={`overflow-text__value ${state.show ? 'switchOn' : ''}`}>
@@ -35,5 +35,5 @@ export const OverflowText = defineComponent({
         </div>
       )
     }
-  }
+  },
 })

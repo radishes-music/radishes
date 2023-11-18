@@ -2,10 +2,10 @@ export const state = {
   playlist: {
     tracks: [],
     tags: [],
-    description: ''
+    description: '',
   },
   albumList: {
     song: [],
-    album: {}
-  }
+    album: {},
+  },
 }

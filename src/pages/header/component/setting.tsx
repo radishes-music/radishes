@@ -17,7 +17,7 @@ const setColor = (baseColor: string) => {
     'normal-theme-text': shade(baseColor, 0.1),
     'primary-theme-text': baseColor.toLocaleLowerCase(),
     'base-color-background': shade(baseColor, 0.4),
-    'secondary-theme-text': shade(baseColor, 0.2)
+    'secondary-theme-text': shade(baseColor, 0.2),
   }
 
   for (const [key, value] of Object.entries(color)) {
@@ -25,10 +25,10 @@ const setColor = (baseColor: string) => {
   }
 
   if (isElectron) {
-    asyncIpc().then(event => {
+    asyncIpc().then((event) => {
       event.sendAsyncIpcRendererEvent(
         MiddlewareView.UPDATE_THEME_COLOR,
-        baseColor
+        baseColor,
       )
     })
   }
@@ -61,19 +61,19 @@ export const Setting = defineComponent({
           onChange={clickHandler}
         ></ve-color-picker>
       ),
-      default: () => <icon icon="skin"></icon>
+      default: () => <icon icon="skin"></icon>,
     }
 
     const handleOpenSetting = () => {
       router.push({
-        path: '/setting/source'
+        path: '/setting/source',
       })
     }
 
     return () => (
       <div
         class={classnames('setting', 'vchj', {
-          'setting-windows': isWindows || isBrowser
+          'setting-windows': isWindows || isBrowser,
         })}
       >
         <ve-button
@@ -92,5 +92,5 @@ export const Setting = defineComponent({
         </ve-button>
       </div>
     )
-  }
+  },
 })

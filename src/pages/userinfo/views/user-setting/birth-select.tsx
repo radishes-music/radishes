@@ -20,7 +20,7 @@ export const BirthSelect = defineComponent({
     const state = reactive({
       year: date.getFullYear() - 1920,
       month: date.getMonth(),
-      day: date.getDate() - 1
+      day: date.getDate() - 1,
     })
 
     const onChange = (y: number, m: number, d: number) => {
@@ -57,8 +57,8 @@ export const BirthSelect = defineComponent({
             ? 29
             : 28
           : big.includes(month)
-          ? 31
-          : 30
+            ? 31
+            : 30
 
       return end
     })
@@ -96,7 +96,7 @@ export const BirthSelect = defineComponent({
         </div>
       )
     }
-  }
+  },
 })
 
 BirthSelect.YEAR = years

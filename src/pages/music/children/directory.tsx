@@ -8,5 +8,5 @@ export const LocalMusicDir = defineComponent({
         <div>本地目录</div>
       </div>
     )
-  }
+  },
 })

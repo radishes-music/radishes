@@ -12,24 +12,24 @@ const handleSpawn = (command, argv) => {
   return new Promise((resolve, reject) => {
     const childProcess = spawn(command, argv, {
       cwd: root,
-      stdio: 'inherit'
+      stdio: 'inherit',
     })
-      .on('exit', code => {
+      .on('exit', (code) => {
         if (code === 0) {
           resolve(childProcess)
         } else {
           console.log('exit:', chalk.red(code))
         }
       })
-      .on('error', e => {
+      .on('error', (e) => {
         reject(e, childProcess)
       })
   })
 }
 
-const removeDir = dir => {
+const removeDir = (dir) => {
   return new Promise((resolve, reject) => {
-    rimraf(path.join(root, dir), err => {
+    rimraf(path.join(root, dir), (err) => {
       if (err) {
         reject(err)
       } else {
@@ -50,7 +50,9 @@ const buildService = () => {
   }
 
   const serviceFilenames = fs.readdirSync(serviceRoot)
-  const historyVersion = serviceFilenames.find(name => /^(\d|\.)+$/.test(name))
+  const historyVersion = serviceFilenames.find((name) =>
+    /^(\d|\.)+$/.test(name),
+  )
 
   console.log(historyVersion, apiVersion)
   if (historyVersion !== apiVersion) {

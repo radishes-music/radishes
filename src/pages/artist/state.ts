@@ -3,5 +3,5 @@ export const state = {
   album: [],
   introduction: [],
   briefDesc: '',
-  simi: []
+  simi: [],
 }

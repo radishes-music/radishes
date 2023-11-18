@@ -8,8 +8,8 @@ export const PlayAll = defineComponent({
   props: {
     onClick: {
       type: Function as PropType<() => void>,
-      default: noop
-    }
+      default: noop,
+    },
   },
   emits: ['click'],
   setup(props, { emit }) {
@@ -18,7 +18,7 @@ export const PlayAll = defineComponent({
         class="play-all"
         shape="round"
         v-slots={{
-          icon: () => <icon icon="play-copy" size={18} />
+          icon: () => <icon icon="play-copy" size={18} />,
         }}
         onClick={() => {
           emit('click')
@@ -27,5 +27,5 @@ export const PlayAll = defineComponent({
         播放全部
       </Button>
     )
-  }
+  },
 })

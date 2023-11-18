@@ -10,14 +10,14 @@ export const Dialog = defineComponent({
   name: 'Dialog',
   setup(props, { slots }) {
     return () => <Modal {...props}>{slots.default && slots.default()}</Modal>
-  }
+  },
 })
 
-export const instance = function(content: VNodeTypes, config: Config) {
+export const instance = function (content: VNodeTypes, config: Config) {
   const app = createApp({
     setup() {
       return () => <Dialog {...config}>{content}</Dialog>
-    }
+    },
   })
   create(app)
 }

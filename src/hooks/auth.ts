@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
@@ -9,7 +8,7 @@ import {
   getUserInfoApi,
   userDetail,
   userFollows,
-  userPlaylist
+  userPlaylist,
 } from '@/api/userinfo'
 import { isFunction } from 'lodash-es'
 import store from '@/store/index'
@@ -20,11 +19,11 @@ export const useAuth = () => {
   const isLogin = computed(() => !!$store.state.Auth.user)
 
   const profile = computed(() =>
-    isLogin.value ? $store.state.Auth.user.profile : null
+    isLogin.value ? $store.state.Auth.user.profile : null,
   )
 
   const account = computed(() =>
-    isLogin.value ? $store.state.Auth.user.account : null
+    isLogin.value ? $store.state.Auth.user.account : null,
   )
 
   const isShow = computed(() => $store.state.Auth.show)
@@ -33,7 +32,7 @@ export const useAuth = () => {
     isLogin,
     profile,
     account,
-    isShow
+    isShow,
   }
 }
 
@@ -43,7 +42,7 @@ export const useAuthProfile = () => {
   const isLogin = computed(() => !!$store.state.Auth.user)
 
   const profile = computed(() =>
-    isLogin.value ? $store.state.Auth.user.profile : null
+    isLogin.value ? $store.state.Auth.user.profile : null,
   )
 
   return profile
@@ -87,7 +86,7 @@ export const useUpdateProfile = () => {
     try {
       $store.commit('Auth/UPDATE_USER', {
         key: 'profile',
-        value
+        value,
       })
     } catch (e) {
       Toast(e.message)
@@ -117,8 +116,8 @@ export const useLoadProfile = () => {
           ...res.profile,
           level: res.level,
           pcSign: res.pcSign,
-          listenSongs: res.listenSongs
-        }
+          listenSongs: res.listenSongs,
+        },
       })
     } catch (e) {
       Toast(e.message)
@@ -138,13 +137,13 @@ export const useSignin = () => {
       await doSignin()
       $store.commit('Auth/UPDATE_USER', {
         key: 'profile',
-        value: { pcSign: true }
+        value: { pcSign: true },
       })
     } catch (e) {
       if (e?.response.data.code === -2) {
         $store.commit('Auth/UPDATE_USER', {
           key: 'profile',
-          value: { pcSign: true }
+          value: { pcSign: true },
         })
       }
     }
@@ -209,9 +208,9 @@ export const useMyPlaylist = () => {
   return computed(() => ({
     listenRecord: {
       total: $store.state.Auth.user.profile.listenSongs,
-      list: $store.state.Auth.user.profile.listenRecord
+      list: $store.state.Auth.user.profile.listenRecord,
     },
-    playlist: $store.state.Auth.user.profile.playlist
+    playlist: $store.state.Auth.user.profile.playlist,
   }))
 }
 
@@ -228,7 +227,7 @@ export const useLoadUserInfo = () => {
       $store.commit('Auth/USER_INFO_LOADING', true)
       const res: any = await getUserInfoApi(
         uid,
-        uid == $store.state.Auth.user.profile.userId
+        uid == $store.state.Auth.user.profile.userId,
       )
       $store.commit('Auth/USER_INFO_LOADING', false)
       return res
@@ -241,7 +240,7 @@ export const useLoadUserInfo = () => {
 export const usePlaylist = (
   uid: string,
   needRecord = false,
-  listenSongs = 0
+  listenSongs = 0,
 ) => {
   const $store = useStore()
 
@@ -253,7 +252,7 @@ export const usePlaylist = (
     const res: any = await userPlaylist(
       uid,
       offset > 0 ? offset - 1 : offset,
-      offset > 0 ? 20 : offset === 0 && needRecord ? 18 : 19
+      offset > 0 ? 20 : offset === 0 && needRecord ? 18 : 19,
     )
 
     // res.playlist = res.playlist.filter((info: any) => info.trackCount !== 0)
@@ -267,7 +266,7 @@ export const usePlaylist = (
         name: `${isSelf ? '我的' : ''}听歌排行`,
         trackCount: listenSongs,
         record: true,
-        userId: uid
+        userId: uid,
       })
     }
 
@@ -280,7 +279,8 @@ export const useIsSelf = (uid: any) => {
 
   return computed(
     () =>
-      (isFunction(uid) ? uid() : uid) == $store.state.Auth.user?.profile?.userId
+      (isFunction(uid) ? uid() : uid) ==
+      $store.state.Auth.user?.profile?.userId,
   )
 }
 

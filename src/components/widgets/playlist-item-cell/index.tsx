@@ -6,8 +6,8 @@ import { defineComponent } from 'vue'
 export const PlaylistItemCell = defineComponent({
   name: 'PlaylistItemCell',
   setup() {
-    return function() {
+    return function () {
       return <div>PlaylistItemCell</div>
     }
-  }
+  },
 })

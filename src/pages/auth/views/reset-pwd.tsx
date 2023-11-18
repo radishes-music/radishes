@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase,vue/require-default-prop,@typescript-eslint/ban-ts-ignore*/
 import { defineComponent, reactive, inject } from 'vue'
 import { Button } from '../component/button'
 import '../component/auth-view/index.less'
@@ -15,7 +14,7 @@ export const ResetPwd = defineComponent({
   setup() {
     const state = reactive({
       phone: '',
-      password: ''
+      password: '',
     })
 
     const authUtil: any = inject('authUtil')
@@ -36,13 +35,13 @@ export const ResetPwd = defineComponent({
           .then(() => {
             authUtil.to(AUTH_TYPE.SMS_CODE, {
               phone: state.phone,
-              password: state.password
+              password: state.password,
             })
           })
           .catch((e: any) => {
             if (e.response?.data) {
               setErrorMsg(
-                e.response.data.msg || e.response.data.message || '请求异常'
+                e.response.data.msg || e.response.data.message || '请求异常',
               )
             } else if (e.msg) {
               setErrorMsg(e.msg)
@@ -71,7 +70,7 @@ export const ResetPwd = defineComponent({
                   <icon icon="shouji" size={18} color={inputColor}></icon>
                   <div class="country-code__num">+86</div>
                 </div>
-              )
+              ),
             }}
             // @ts-ignore
             onFocus={onFocus}
@@ -86,7 +85,7 @@ export const ResetPwd = defineComponent({
                 <div style="padding-left:8px;">
                   <icon icon="suodakaimima" size={18} color={inputColor}></icon>
                 </div>
-              )
+              ),
             }}
             onFocus={onFocus}
           ></InputField>
@@ -118,5 +117,5 @@ export const ResetPwd = defineComponent({
         >{`< 返回登录`}</div>
       </>
     )
-  }
+  },
 })

@@ -11,7 +11,7 @@ import {
   LayoutSize,
   LayoutMutations,
   MainMutations,
-  FooterMutations
+  FooterMutations,
 } from '@/interface'
 import classnames from 'classnames'
 import { Jump } from '@/shared/jump-shared'
@@ -35,7 +35,7 @@ export const Footer = defineComponent({
     const musicDes = computed(() => FooterModule.useGetter('musicDes'))
 
     const canShowSongDetail = computed(
-      () => footerState.music && layoutState.screenSize !== LayoutSize.SM
+      () => footerState.music && layoutState.screenSize !== LayoutSize.SM,
     )
 
     const unfoldLyrics = () => {
@@ -53,7 +53,7 @@ export const Footer = defineComponent({
     const handleRebackSize = () => {
       LayoutModule.useMutations(
         LayoutMutations.CHANGE_WINDOW_SIZE,
-        layoutState.rebackSize
+        layoutState.rebackSize,
       )
     }
 
@@ -67,7 +67,7 @@ export const Footer = defineComponent({
           MainModule.useMutations(MainMutations.IS_SHOW_COVER_CONTAINER, false)
           FooterModule.useMutations(FooterMutations.VISIBLE_EMBED, false)
         }
-      }
+      },
     )
 
     return () => (
@@ -76,17 +76,17 @@ export const Footer = defineComponent({
           <div class="footer-music-thumbnail">
             <div
               class={classnames('music-pic', {
-                'music-pic-active': canShowSongDetail.value
+                'music-pic-active': canShowSongDetail.value,
               })}
               style={{
-                backgroundImage: `url(${footerState.music?.al.picUrl})`
+                backgroundImage: `url(${footerState.music?.al.picUrl})`,
               }}
               onClick={unfoldLyrics}
             ></div>
             <div class="footer-music-des">
               <div class="footer-music-des--title">{musicDes.value.title}</div>
               <div class="footer-music-des--author">
-                {musicDes.value.author.map(artist => (
+                {musicDes.value.author.map((artist) => (
                   <div onClick={() => toArtist(artist)}>{artist.name}</div>
                 ))}
               </div>
@@ -109,5 +109,5 @@ export const Footer = defineComponent({
         </div>
       </footer>
     )
-  }
+  },
 })

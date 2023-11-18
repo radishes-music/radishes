@@ -7,7 +7,7 @@ const themePath = path.resolve(__dirname, '../src/theme')
 
 console.log(
   'Start monitoring',
-  chalk.blue(path.resolve(themePath, 'color.less'))
+  chalk.blue(path.resolve(themePath, 'color.less')),
 )
 
 fs.watchFile(path.resolve(themePath, 'color.less'), (curr, prev) => {
@@ -20,7 +20,7 @@ fs.watchFile(path.resolve(themePath, 'color.less'), (curr, prev) => {
         return console.error(err)
       }
 
-      const contentLess = theme.split('\n').filter(n => !!n)
+      const contentLess = theme.split('\n').filter((n) => !!n)
       let content = ''
       for (let i = 0; i < contentLess.length; i++) {
         const line = contentLess[i]
@@ -63,12 +63,12 @@ fs.watchFile(path.resolve(themePath, 'color.less'), (curr, prev) => {
 :root {
 ${content}}\n`
 
-      fs.writeFile(path.resolve(themePath, 'index.css'), output, err => {
+      fs.writeFile(path.resolve(themePath, 'index.css'), output, (err) => {
         if (err) {
           console.log(err)
         }
         console.log(chalk.green('[Theme]: File updated successfully'))
       })
-    }
+    },
   )
 })

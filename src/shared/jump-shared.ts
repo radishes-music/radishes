@@ -17,19 +17,19 @@ export class Jump {
       return this.viewLogin(true)
     }
     this.router.push({
-      path: '/list/song/' + id
+      path: '/list/song/' + id,
     })
   }
 
   public albumList(id: number) {
     this.router.push({
-      path: '/list/album/' + id
+      path: '/list/album/' + id,
     })
   }
 
   public artist(id: number) {
     this.router.push({
-      path: '/artist/' + id + '/album'
+      path: '/artist/' + id + '/album',
     })
   }
 }

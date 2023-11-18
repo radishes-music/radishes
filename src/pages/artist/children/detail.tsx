@@ -10,7 +10,7 @@ export const Desc = defineComponent({
     onActivated(() => {
       useActions(
         ArtistActions.SET_ACTION_ARTIST_DESC,
-        route.params.id as string
+        route.params.id as string,
       )
     })
 
@@ -18,7 +18,7 @@ export const Desc = defineComponent({
       <div class="artist-desc">
         <h2 v-show={!!state.briefDesc}>{state.artist.name}简介</h2>
         <div>{state.briefDesc}</div>
-        {state.introduction.map(item => (
+        {state.introduction.map((item) => (
           <>
             <h2>{item.ti}</h2>
             <div
@@ -30,5 +30,5 @@ export const Desc = defineComponent({
         ))}
       </div>
     )
-  }
+  },
 })

@@ -7,12 +7,12 @@ interface HttpConfig extends AxiosRequestConfig {
   auths?: boolean
 }
 
-export default function(http: AxiosInstance) {
+export default function (http: AxiosInstance) {
   http.interceptors.response.use(
-    response => {
+    (response) => {
       return response
     },
-    error => {
+    (error) => {
       const config = error.response?.config as HttpConfig
       if (error.response) {
         if (error.response.status === 301 && config?.auths) {
@@ -20,20 +20,20 @@ export default function(http: AxiosInstance) {
             store.commit('Auth/LOGOUT')
           }
           store.commit('Auth/SHOW_VIEW')
-          return syncToAsync(resolve => {
+          return syncToAsync((resolve) => {
             on(
               window,
               'popstate',
               () => {
                 http.request(config).then(resolve)
               },
-              { once: true }
+              { once: true },
             )
           })
         }
       }
 
       return Promise.reject(error)
-    }
+    },
   )
 }

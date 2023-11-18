@@ -9,7 +9,7 @@ export const EventView = defineComponent({
   name: 'EventView',
   setup() {
     const state = reactive({
-      list: []
+      list: [],
     })
 
     const getEventList = useGetEventList()
@@ -28,5 +28,5 @@ export const EventView = defineComponent({
       ) : (
         <div>{JSON.stringify(state.list)}</div>
       )
-  }
+  },
 })

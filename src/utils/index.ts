@@ -29,7 +29,7 @@ export const getDomStyle = (dom: Element, css: keyof CSSStyleDeclaration) => {
 
 export const hasOwnProperty = <X extends {}, Y extends PropertyKey>(
   obj: X,
-  prop: Y
+  prop: Y,
 ): obj is X & Record<Y, unknown> => {
   return Object.prototype.hasOwnProperty.call(obj, prop)
 }
@@ -39,10 +39,7 @@ export const isNumber = (n: unknown) => {
 }
 
 export const formatTime = (time: number, unit: OpUnitType): string => {
-  return dayjs
-    .utc(new Date(0))
-    .add(time, unit)
-    .format('mm:ss')
+  return dayjs.utc(new Date(0)).add(time, unit).format('mm:ss')
 }
 
 export const formatTimeToStandard = (time: number) => {
@@ -83,7 +80,7 @@ export const formatSize = (size: number) => {
 export const timeTos = (time: string): number => {
   return (
     dayjs(time, ['mm:ss.SSS', 'mm:ss.SS']).diff(
-      dayjs('00:00.000', 'mm:ss.SSS')
+      dayjs('00:00.000', 'mm:ss.SSS'),
     ) / 1000
   )
 }
@@ -93,7 +90,7 @@ export const download = (url: string, filename: string) => {
 }
 
 export const sleep = (n: number) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve(true)
     }, n)
@@ -101,7 +98,7 @@ export const sleep = (n: number) => {
 }
 
 export const syncToAsync = <Value = unknown>(
-  fn: (resolve: (value: Value) => void) => void
+  fn: (resolve: (value: Value) => void) => void,
 ): Promise<Value> => {
   return new Promise((resolve, reject) => {
     try {
@@ -157,7 +154,7 @@ export const create = (appFunction: App<Element>) => {
   appFunction.mixin({
     unmounted() {
       appFunction.unmount()
-    }
+    },
   })
   appFunction.mount(div)
 }
@@ -166,25 +163,25 @@ export function on<T extends keyof ElectronWindowEventMap>(
   container: Window,
   type: T,
   listener: (ev: ElectronWindowEventMap[T]) => void,
-  config?: AddEventListenerOptions | boolean
+  config?: AddEventListenerOptions | boolean,
 ): void
 export function on<T extends keyof WindowEventMap>(
   container: Window,
   type: T,
   listener: (ev: WindowEventMap[T]) => void,
-  config?: AddEventListenerOptions | boolean
+  config?: AddEventListenerOptions | boolean,
 ): void
 export function on<T extends keyof HTMLElementEventMap>(
   container: HTMLElement,
   type: T,
   listener: (ev: HTMLElementEventMap[T]) => void,
-  config?: AddEventListenerOptions | boolean
+  config?: AddEventListenerOptions | boolean,
 ): void
 export function on(
   container: any,
   type: any,
   listener: any,
-  config: any
+  config: any,
 ): void {
   container?.addEventListener(type, listener, config)
 }
@@ -192,17 +189,17 @@ export function on(
 export function off<T extends keyof ElectronWindowEventMap>(
   container: Window,
   type: T,
-  listener: (ev: ElectronWindowEventMap[T]) => void
+  listener: (ev: ElectronWindowEventMap[T]) => void,
 ): void
 export function off<T extends keyof WindowEventMap>(
   container: Window,
   type: T,
-  listener: (ev: WindowEventMap[T]) => void
+  listener: (ev: WindowEventMap[T]) => void,
 ): void
 export function off<T extends keyof HTMLElementEventMap>(
   container: HTMLElement,
   type: T,
-  listener: (ev: HTMLElementEventMap[T]) => void
+  listener: (ev: HTMLElementEventMap[T]) => void,
 ): void
 export function off(container: any, type: any, listener: (ev: any) => void) {
   container?.removeEventListener(type, listener)
@@ -234,7 +231,7 @@ export const formatVersion = (version: string) => {
       return {
         major: Number(major),
         minor: Number(minor),
-        patch: Number(patch)
+        patch: Number(patch),
       }
     }
   } else {
@@ -248,7 +245,7 @@ export const formatVersion = (version: string) => {
     minor: Number(minor),
     patch: Number(patch),
     status,
-    statusV: Number(statusV)
+    statusV: Number(statusV),
   }
 }
 
@@ -285,7 +282,7 @@ export const scrollAnmation = (
     tween: (...args: number[]) => number
     duration: number
     cb: (n: number) => void
-  }
+  },
 ) => {
   let start = 0
   const step = () => {
@@ -319,7 +316,7 @@ export const measureImg = (source: string) => {
     img.onload = () => {
       resolve({ w: img.width, h: img.height })
     }
-    img.onerror = e => {
+    img.onerror = (e) => {
       reject(e)
     }
   })

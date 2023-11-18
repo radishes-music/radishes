@@ -14,7 +14,7 @@ export default defineComponent({
     } = {
       [BasicEffect.D3]: '3D环绕',
       [BasicEffect.FADE]: '淡入淡出',
-      [BasicEffect.TENDER]: '温柔'
+      [BasicEffect.TENDER]: '温柔',
     }
 
     const handleChangeBasic = (basic: BasicEffect[]) => {
@@ -38,7 +38,7 @@ export default defineComponent({
             v-model={state.basicEffect}
             onChange={handleChangeBasic}
           >
-            {Object.keys(basicFormat).map(key => {
+            {Object.keys(basicFormat).map((key) => {
               return (
                 <Checkbox
                   shape="square"
@@ -59,7 +59,7 @@ export default defineComponent({
             v-model={state.convolver}
             onChange={handleChangeConvolver}
           >
-            {state.convolverAll.map(mixing => (
+            {state.convolverAll.map((mixing) => (
               <Radio
                 name={mixing}
                 shape="square"
@@ -73,5 +73,5 @@ export default defineComponent({
         </div>
       </div>
     )
-  }
+  },
 })

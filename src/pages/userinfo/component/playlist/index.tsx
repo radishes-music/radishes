@@ -6,7 +6,7 @@ import './index.less'
 import {
   ListHeader,
   PlaylistContainer,
-  PlaylistItemBox
+  PlaylistItemBox,
 } from '@/components/widgets'
 
 /*
@@ -23,24 +23,24 @@ export const Playlist = defineComponent({
   props: {
     layoutType: {
       type: Number,
-      default: 0
+      default: 0,
     },
     list: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     userId: {
-      type: [String, Number]
+      type: [String, Number],
     },
     isSelf: {
-      type: Boolean
+      type: Boolean,
     },
     playCount: {
-      type: Number
-    }
+      type: Number,
+    },
   },
   setup(props) {
-    return function(this: any) {
+    return function (this: any) {
       const { playCount, isSelf, userId, list, layoutType } = props
 
       if (list.length === 0) {
@@ -70,5 +70,5 @@ export const Playlist = defineComponent({
         </>
       )
     }
-  }
+  },
 })

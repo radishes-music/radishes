@@ -1,7 +1,7 @@
 const Type = {
   CHAR: 'CHAR',
   HTML: 'HTML',
-  JSX: 'JSX'
+  JSX: 'JSX',
 }
 
 const renderKey = (filePath, rootPath) => {
@@ -37,8 +37,8 @@ const charParser = (content, regexp, line, isAttribute, type, cb) => {
     return null
   }
   const r = match
-    .filter(item => chinese.test(item))
-    .map(item => {
+    .filter((item) => chinese.test(item))
+    .map((item) => {
       const start = content.indexOf(item)
       const end = start + item.length
 
@@ -50,7 +50,7 @@ const charParser = (content, regexp, line, isAttribute, type, cb) => {
         : false
 
       // 处理模版字符串
-      const output = item.replace(/\$\{.+?\}/g, match => {
+      const output = item.replace(/\$\{.+?\}/g, (match) => {
         variable.push(match.slice(2, -1))
         return `{${i++}}`
       })
@@ -64,7 +64,7 @@ const charParser = (content, regexp, line, isAttribute, type, cb) => {
         type: Type.CHAR,
         isAttribute: attr,
         isAttributeExpression,
-        isJSXNodeExpression
+        isJSXNodeExpression,
       }
     })
   cb()
@@ -80,7 +80,7 @@ const tagParser = (content, regexp, isVue, type, line, isAttribute, cb) => {
   const end = start + output.length
   if (isVue) {
     // 处理 vue html 里的变量
-    output = output.replace(/\{\{.+?\}\}/g, match => {
+    output = output.replace(/\{\{.+?\}\}/g, (match) => {
       variable.push(match.slice(2, -2))
       return `{${i++}}`
     })
@@ -95,7 +95,7 @@ const tagParser = (content, regexp, isVue, type, line, isAttribute, cb) => {
     end,
     isVueTag: isVue,
     type: type,
-    isAttribute: isAttribute > 0
+    isAttribute: isAttribute > 0,
   }
 }
 
@@ -108,8 +108,8 @@ const renderVueExpressionCode = (source, code, start, end) => {
       }
       return null
     })
-    .filter(item => typeof item === 'number')
-    .filter(item => item < start)
+    .filter((item) => typeof item === 'number')
+    .filter((item) => item < start)
   const tagIndex = tags[tags.length - 1]
   const rewriteCode =
     source.slice(0, tagIndex) +
@@ -172,14 +172,14 @@ exports.trackNormalized = (filetrack, rootPath) => {
       return {
         [key]: output,
         key: key,
-        output
+        output,
       }
     }
     const key = `${prefixKey}___${track.line}`
     return {
       [key]: output,
       key: key,
-      output
+      output,
     }
   })
   return json.map((item, index) => {
@@ -197,7 +197,7 @@ exports.trackNormalized = (filetrack, rootPath) => {
       isVueTag,
       isAttribute,
       isAttributeExpression,
-      isJSXNodeExpression
+      isJSXNodeExpression,
     } = itemTrack
     if (Array.isArray(variable) && variable.length) {
       // filling expressions
@@ -222,7 +222,7 @@ exports.trackNormalized = (filetrack, rootPath) => {
       ...itemTrack,
       ...item,
       code: code,
-      rewriteCode: rewriteCode
+      rewriteCode: rewriteCode,
     }
   })
 }
@@ -280,7 +280,7 @@ exports.parserCore = (content, path) => {
             line,
             isAttribute,
             type,
-            tagClose
+            tagClose,
           )
         }
 
@@ -293,7 +293,7 @@ exports.parserCore = (content, path) => {
             Type.HTML,
             line,
             isAttribute,
-            tagClose
+            tagClose,
           )
         }
 
@@ -304,7 +304,7 @@ exports.parserCore = (content, path) => {
             line,
             isAttribute,
             type,
-            tagClose
+            tagClose,
           )
         }
 
@@ -316,7 +316,7 @@ exports.parserCore = (content, path) => {
             line,
             isAttribute,
             type,
-            tagClose
+            tagClose,
           )
           processed = true
           if (parser.length) {
@@ -337,7 +337,7 @@ exports.parserCore = (content, path) => {
             Type.JSX,
             line,
             isAttribute,
-            tagClose
+            tagClose,
           )
         }
 
@@ -349,14 +349,14 @@ exports.parserCore = (content, path) => {
 
         return null
       })
-      .filter(item => {
+      .filter((item) => {
         if (Array.isArray(item)) {
           return item.length > 0
         }
         return !!item
       })
       .flat()
-      .map(item => ({ ...item, filePath: path, fileType: type }))
+      .map((item) => ({ ...item, filePath: path, fileType: type }))
   }
 
   return []

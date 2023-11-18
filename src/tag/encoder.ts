@@ -3,7 +3,7 @@
 function strToCodePoints(str: string | Uint8Array) {
   return String(str)
     .split('')
-    .map(c => c.charCodeAt(0))
+    .map((c) => c.charCodeAt(0))
 }
 
 export function encodeWindows1252(str: string | Uint8Array) {

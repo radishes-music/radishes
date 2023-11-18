@@ -7,3 +7,4 @@ build/
 dist/
 node_modules/
 public/
+dist-electron/

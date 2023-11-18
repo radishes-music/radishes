@@ -7,5 +7,5 @@ export const MaskView = defineComponent({
     return () => {
       return <div class="mask-wrapper">{slots.default?.()}</div>
     }
-  }
+  },
 })

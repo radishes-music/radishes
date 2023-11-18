@@ -4,7 +4,7 @@ import { AutoUpdateContent } from '@/electron/event/ipc-main/auto-download'
 import {
   asyncIpc,
   asyncIpcOrigin,
-  asyncShell
+  asyncShell,
 } from '@/electron/event/ipc-browser'
 import { useDrag } from '@/hooks/index'
 import './auto.less'
@@ -15,7 +15,7 @@ export default defineComponent({
     const version = reactive({
       url: '',
       version: '',
-      path: ''
+      path: '',
     })
     const visible = ref(false)
     const container = ref()
@@ -31,8 +31,8 @@ export default defineComponent({
               requestAnimationFrame(() => {
                 container.value.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y}) translateZ(0)`
               })
-            }
-          }
+            },
+          },
         )
         start()
       }
@@ -41,7 +41,7 @@ export default defineComponent({
     function handleMessage<T extends keyof AutoUpdateContent>(
       e: unknown,
       type: T,
-      content: unknown
+      content: unknown,
     ) {
       // console.log(type, content)
       if (type === AutoDownload.NOT_VERSION) {
@@ -61,14 +61,14 @@ export default defineComponent({
       }
     }
 
-    asyncIpcOrigin().then(v => v.on(AutoDownload.MESSAGE, handleMessage))
+    asyncIpcOrigin().then((v) => v.on(AutoDownload.MESSAGE, handleMessage))
 
     const handleShellUrl = (url: string) => {
-      asyncShell().then(v => v.openExternal(url))
+      asyncShell().then((v) => v.openExternal(url))
     }
 
     const handleUpdater = () => {
-      asyncIpc().then(v => {
+      asyncIpc().then((v) => {
         v.sendAsyncIpcRendererEvent(AutoDownload.UPGRADE_NOW)
       })
     }
@@ -99,5 +99,5 @@ export default defineComponent({
         </div>
       </div>
     )
-  }
+  },
 })

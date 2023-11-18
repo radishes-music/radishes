@@ -5,5 +5,5 @@ export const mutations: MutationTree<LayoutState> = {
   [LayoutMutations.CHANGE_WINDOW_SIZE](state, size: LayoutSize) {
     state.rebackSize = state.screenSize
     state.screenSize = size
-  }
+  },
 }

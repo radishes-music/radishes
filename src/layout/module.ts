@@ -12,5 +12,5 @@ export const useLayoutModule = () => {
 export default {
   namespaced: true,
   state,
-  mutations
+  mutations,
 }

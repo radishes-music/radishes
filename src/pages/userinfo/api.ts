@@ -10,8 +10,8 @@ export const getEventList = (uid: string, limit = 40, lasttime = -1) =>
     params: {
       uid,
       limit,
-      lasttime
-    }
+      lasttime,
+    },
   })
 
 // TODO 用户关注列表[可分页]
@@ -20,8 +20,8 @@ export const getFollowList = (uid: string, offset = 0, limit = 40) =>
     params: {
       uid,
       offset,
-      limit
-    }
+      limit,
+    },
   })
 
 // TODO 用户粉丝列表[可分页]
@@ -30,8 +30,8 @@ export const getFansList = (uid: string, limit = 40, lasttime = -1) =>
     params: {
       uid,
       limit,
-      lasttime
-    }
+      lasttime,
+    },
   })
 
 export const uploadAvatar = (file: any) => {
@@ -39,8 +39,8 @@ export const uploadAvatar = (file: any) => {
   data.append('imgFile', file)
   return http.post(`/api/avatar/upload?imgSize=1024`, data, {
     headers: {
-      ['Content-Type']: 'multipart/form-data'
-    }
+      ['Content-Type']: 'multipart/form-data',
+    },
   })
 }
 
@@ -55,22 +55,22 @@ interface ProfileData {
 
 export const updateProfile = (params: ProfileData) =>
   http.get('/api/user/update', {
-    params
+    params,
   })
 
 export const getPlayList = (uid: string) =>
   http.get('/api/user/playlist', {
     params: {
-      uid
-    }
+      uid,
+    },
   })
 
 export const getPlayRecord = (uid: string, type = 0) =>
   http.get('/api/user/record', {
     params: {
       uid,
-      type
-    }
+      type,
+    },
   })
 
 // TODO 获取收藏的专栏
@@ -78,6 +78,6 @@ export const getTopicSublist = (limit = 20, offset = 0) =>
   http.get('/api/topic/sublist', {
     params: {
       limit,
-      offset
-    }
+      offset,
+    },
   })

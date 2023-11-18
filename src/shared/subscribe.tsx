@@ -68,7 +68,7 @@ export const useSubscribe = (isSingle: boolean) => {
       // if (selected) {
       //   await subscribeSingle(type, (selected as Song).id, [id])
       // }
-      const like = userSub.find(o => o.specialType === 5)
+      const like = userSub.find((o) => o.specialType === 5)
       if (like) {
         await subscribeSingle(type, like.id, [id])
       }

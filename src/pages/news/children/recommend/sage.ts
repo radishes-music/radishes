@@ -3,7 +3,7 @@ import {
   RecommendState,
   Banners,
   RecommendActions,
-  RecommendMutations
+  RecommendMutations,
 } from '@/interface'
 import { RootState } from '@/store/index'
 import { getSongList, getBanner, getRecommendSongList } from './api/index'
@@ -21,7 +21,7 @@ export const actions: ActionTree<RecommendState, RootState> = {
   async [RecommendActions.SET_ACTION_RECOMMEND_SONG_LIST]({ commit }) {
     const result = await getRecommendSongList()
     commit(RecommendMutations.SET_SONG_LIST, result)
-  }
+  },
 }
 
 export const mutations: MutationTree<RecommendState> = {
@@ -33,5 +33,5 @@ export const mutations: MutationTree<RecommendState> = {
   },
   [RecommendMutations.SET_SWIPER_RINNING](state, running: boolean) {
     state.runningSwiper = running
-  }
+  },
 }

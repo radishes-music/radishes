@@ -2,14 +2,14 @@ import {
   defineComponent,
   Component,
   KeepAlive,
-  resolveDynamicComponent
+  resolveDynamicComponent,
 } from 'vue'
 import { MusicLayout } from '@/layout/music/music'
 import { contentRouter } from '@/router/index'
 import { RouterView } from 'vue-router'
 import {
   SecondaryBar,
-  renderNavList
+  renderNavList,
 } from '@/components-business/secondary-bar/index'
 import './search.less'
 import { useSearchModule } from '@/modules'
@@ -34,12 +34,12 @@ export const Search = defineComponent({
                   <KeepAlive>
                     {resolveDynamicComponent(component.Component)}
                   </KeepAlive>
-                )
+                ),
               }}
             ></RouterView>
-          )
+          ),
         }}
       />
     )
-  }
+  },
 })

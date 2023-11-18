@@ -7,7 +7,7 @@ export const actions: ActionTree<ArtistsState, RootState> = {
   async [ArtistsActions.SET_ACTION_ARTISTS]({ commit }, params) {
     const data = await getArtistList(params)
     commit(ArtistsMutations.SET_ARTISTS, data)
-  }
+  },
 }
 export const mutations: MutationTree<ArtistsState> = {
   [ArtistsMutations.SET_ARTISTS](state, artists) {
@@ -17,5 +17,5 @@ export const mutations: MutationTree<ArtistsState> = {
     } else {
       state.completed = true
     }
-  }
+  },
 }

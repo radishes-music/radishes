@@ -22,7 +22,7 @@ export const UserTag = defineComponent({
         </div>
       )
     }
-  }
+  },
 })
 
 // TODO 操作行为处理...
@@ -31,11 +31,11 @@ export const SexTag = defineComponent({
   props: {
     sex: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   setup(props: any) {
-    return function() {
+    return function () {
       if (![1, 2].includes(props.sex)) {
         return null
       }
@@ -48,15 +48,15 @@ export const SexTag = defineComponent({
         </div>
       )
     }
-  }
+  },
 })
 
 export const LevelTag = defineComponent({
   name: '',
   props: ['level'],
   setup(props: any) {
-    return function() {
+    return function () {
       return <div class="user-tag user-tag__level">Lv{props.level}</div>
     }
-  }
+  },
 })

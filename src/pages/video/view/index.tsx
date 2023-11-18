@@ -8,5 +8,5 @@ export const Video = defineComponent({
         <router-view></router-view>
       </div>
     )
-  }
+  },
 })

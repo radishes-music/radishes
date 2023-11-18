@@ -3,7 +3,7 @@ import { getMimeType, isId3v2 } from './signatures'
 import {
   uint7ArrayToUint28,
   uint28ToUint7Array,
-  uint32ToUint8Array
+  uint32ToUint8Array,
 } from './transform'
 import {
   getNumericFrameSize,
@@ -13,7 +13,7 @@ import {
   getCommentFrameSize,
   getUserStringFrameSize,
   getUrlLinkFrameSize,
-  getPrivateFrameSize
+  getPrivateFrameSize,
 } from './sizes'
 
 function invokeFrame(frame: unknown[]) {
@@ -43,7 +43,7 @@ function _setIntegerFrame(frames: unknown[], name: string, value: string) {
   frames.push({
     name,
     value: integer,
-    size: getNumericFrameSize(integer.toString().length)
+    size: getNumericFrameSize(integer.toString().length),
   })
 }
 
@@ -53,7 +53,7 @@ function _setStringFrame(frames: unknown[], name: string, value: string) {
   frames.push({
     name,
     value: stringValue,
-    size: getStringFrameSize(stringValue.length)
+    size: getStringFrameSize(stringValue.length),
   })
 }
 
@@ -62,7 +62,7 @@ function _setPictureFrame(
   pictureType: unknown,
   data: ArrayBufferLike,
   description: string,
-  useUnicodeEncoding: boolean
+  useUnicodeEncoding: boolean,
 ) {
   const mimeType = getMimeType(new Uint8Array(data))
   const descriptionString = description.toString()
@@ -84,8 +84,8 @@ function _setPictureFrame(
       data.byteLength,
       mimeType.length,
       descriptionString.length,
-      useUnicodeEncoding
-    )
+      useUnicodeEncoding,
+    ),
   })
 }
 
@@ -93,9 +93,9 @@ function _setLyricsFrame(
   frames: unknown[],
   language: string,
   description: string,
-  lyrics: string
+  lyrics: string,
 ) {
-  const languageCode = language.split('').map(c => c.charCodeAt(0))
+  const languageCode = language.split('').map((c) => c.charCodeAt(0))
   const descriptionString = description.toString()
   const lyricsString = lyrics.toString()
 
@@ -104,7 +104,7 @@ function _setLyricsFrame(
     value: lyricsString,
     language: languageCode,
     description: descriptionString,
-    size: getLyricsFrameSize(descriptionString.length, lyricsString.length)
+    size: getLyricsFrameSize(descriptionString.length, lyricsString.length),
   })
 }
 
@@ -112,9 +112,9 @@ function _setCommentFrame(
   frames: unknown[],
   language: string,
   description: string,
-  text: string
+  text: string,
 ) {
-  const languageCode = language.split('').map(c => c.charCodeAt(0))
+  const languageCode = language.split('').map((c) => c.charCodeAt(0))
   const descriptionString = description.toString()
   const textString = text.toString()
 
@@ -123,7 +123,7 @@ function _setCommentFrame(
     value: textString,
     language: languageCode,
     description: descriptionString,
-    size: getCommentFrameSize(descriptionString.length, textString.length)
+    size: getCommentFrameSize(descriptionString.length, textString.length),
   })
 }
 
@@ -134,14 +134,14 @@ function _setPrivateFrame(frames: unknown[], id: string, data: Buffer) {
     name: 'PRIV',
     value: data,
     id: identifier,
-    size: getPrivateFrameSize(identifier.length, data.byteLength)
+    size: getPrivateFrameSize(identifier.length, data.byteLength),
   })
 }
 
 function _setUserStringFrame(
   frames: unknown[],
   description: string,
-  value: string
+  value: string,
 ) {
   const descriptionString = description.toString()
   const valueString = value.toString()
@@ -150,7 +150,7 @@ function _setUserStringFrame(
     name: 'TXXX',
     description: descriptionString,
     value: valueString,
-    size: getUserStringFrameSize(descriptionString.length, valueString.length)
+    size: getUserStringFrameSize(descriptionString.length, valueString.length),
   })
 }
 
@@ -160,7 +160,7 @@ function _setUrlLinkFrame(frames: unknown[], name: string, url: string) {
   frames.push({
     name,
     value: urlString,
-    size: getUrlLinkFrameSize(urlString.length)
+    size: getUrlLinkFrameSize(urlString.length),
   })
 }
 
@@ -176,7 +176,7 @@ function renderBuffer(
     mimeType: string
   }[],
   padding: number,
-  originBuffer: Buffer
+  originBuffer: Buffer,
 ) {
   return () => {
     const BOM = [0xff, 0xfe]
@@ -200,7 +200,7 @@ function renderBuffer(
     bufferWriter.set(writeBytes, offset)
     offset += writeBytes.length
 
-    frames.forEach(frame => {
+    frames.forEach((frame) => {
       writeBytes = encodeWindows1252(frame.name) // frame name
       bufferWriter.set(writeBytes, offset)
       offset += writeBytes.length
@@ -344,7 +344,7 @@ function renderBuffer(
 }
 
 function addTag(
-  invoke: (fn: (...args: any[]) => void, ...args: any[]) => void
+  invoke: (fn: (...args: any[]) => void, ...args: any[]) => void,
 ) {
   return (frameName: string, frameValue: any) => {
     switch (frameName) {
@@ -354,7 +354,7 @@ function addTag(
         // song genres
         if (!Array.isArray(frameValue)) {
           throw new Error(
-            `${frameName} frame value should be an array of strings`
+            `${frameName} frame value should be an array of strings`,
           )
         }
         const delemiter = frameName === 'TCON' ? ';' : '/'
@@ -400,19 +400,19 @@ function addTag(
           !('lyrics' in frameValue)
         ) {
           throw new Error(
-            'USLT frame value should be an object with keys description and lyrics'
+            'USLT frame value should be an object with keys description and lyrics',
           )
         }
         if (frameValue.language && !frameValue.language.match(/[a-z]{3}/i)) {
           throw new Error(
-            'Language must be coded following the ISO 639-2 standards'
+            'Language must be coded following the ISO 639-2 standards',
           )
         }
         invoke(
           _setLyricsFrame,
           frameValue.language,
           frameValue.description,
-          frameValue.lyrics
+          frameValue.lyrics,
         )
         break
       }
@@ -425,7 +425,7 @@ function addTag(
           !('description' in frameValue)
         ) {
           throw new Error(
-            'APIC frame value should be an object with keys type, data and description'
+            'APIC frame value should be an object with keys type, data and description',
           )
         }
         if (frameValue.type < 0 || frameValue.type > 20) {
@@ -436,7 +436,7 @@ function addTag(
           frameValue.type,
           frameValue.data,
           frameValue.description,
-          !!frameValue.useUnicodeEncoding
+          !!frameValue.useUnicodeEncoding,
         )
         break
       }
@@ -448,7 +448,7 @@ function addTag(
           !('value' in frameValue)
         ) {
           throw new Error(
-            'TXXX frame value should be an object with keys description and value'
+            'TXXX frame value should be an object with keys description and value',
           )
         }
         invoke(_setUserStringFrame, frameValue.description, frameValue.value)
@@ -475,19 +475,19 @@ function addTag(
           !('text' in frameValue)
         ) {
           throw new Error(
-            'COMM frame value should be an object with keys description and text'
+            'COMM frame value should be an object with keys description and text',
           )
         }
         if (frameValue.language && !frameValue.language.match(/[a-z]{3}/i)) {
           throw new Error(
-            'Language must be coded following the ISO 639-2 standards'
+            'Language must be coded following the ISO 639-2 standards',
           )
         }
         invoke(
           _setCommentFrame,
           frameValue.language,
           frameValue.description,
-          frameValue.text
+          frameValue.text,
         )
         break
       }
@@ -499,7 +499,7 @@ function addTag(
           !('data' in frameValue)
         ) {
           throw new Error(
-            'PRIV frame value should be an object with keys id and data'
+            'PRIV frame value should be an object with keys id and data',
           )
         }
         invoke(_setPrivateFrame, frameValue.id, frameValue.data)
@@ -530,6 +530,6 @@ export function writeBufferID3(buf: Buffer) {
 
   return {
     addTag: addTag(invoke),
-    renderBuffer: renderBuffer(frames, padding, originBuffer)
+    renderBuffer: renderBuffer(frames, padding, originBuffer),
   }
 }

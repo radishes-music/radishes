@@ -15,5 +15,5 @@ export default defineComponent({
         <Container />
       </ErrorBoundary>
     )
-  }
+  },
 })

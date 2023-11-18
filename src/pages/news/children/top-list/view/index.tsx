@@ -38,7 +38,7 @@ export const TopList = defineComponent({
       <div class="toplist">
         <h1>官方榜</h1>
         <div class="toplist-expansion">
-          {expan.value.map(item => (
+          {expan.value.map((item) => (
             <div class="toplist-expansion-contanier">
               <Image
                 src={item.coverImgUrl}
@@ -64,10 +64,10 @@ export const TopList = defineComponent({
         <div class="toplist-shrink">
           <SongList
             songData={shrink.value}
-            onClick={item => jump.songList(item.id)}
+            onClick={(item) => jump.songList(item.id)}
           />
         </div>
       </div>
     )
-  }
+  },
 })

@@ -6,13 +6,13 @@ import { Image } from 'vant'
 import {
   LevelTag,
   SexTag,
-  UserTag
+  UserTag,
 } from '@/pages/userinfo/component/userinfo-widget/widget/user-tag/UserTag'
 import {
   EditBtn,
   FollowBtn,
   MoreBtn,
-  SmsBtn
+  SmsBtn,
 } from '@/pages/userinfo/component/userinfo-widget/widget/btn'
 import { UserStatistic } from '@/pages/userinfo/component/userinfo-widget/widget/user-statistic'
 import { OverflowText } from '@/components/overflow-text'
@@ -25,7 +25,7 @@ export const UserInfo = defineComponent({
   setup(props) {
     const isSelf = useIsSelf(() => props.profile?.userId)
 
-    return function() {
+    return function () {
       const { profile } = props
 
       return (
@@ -45,7 +45,7 @@ export const UserInfo = defineComponent({
                 {(profile.allAuthTypes || []).map(
                   (info: any, index: number) => (
                     <UserTag info={info} key={index}></UserTag>
-                  )
+                  ),
                 )}
                 <LevelTag level={profile.level}></LevelTag>
                 <SexTag sex={profile.gender}></SexTag>
@@ -86,5 +86,5 @@ export const UserInfo = defineComponent({
         </div>
       )
     }
-  }
+  },
 })

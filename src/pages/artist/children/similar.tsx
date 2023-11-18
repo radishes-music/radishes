@@ -13,7 +13,7 @@ export const Similar = defineComponent({
     onActivated(() => {
       useActions(
         ArtistActions.SET_ACTION_ARTIST_SIMI,
-        route.params.id as string
+        route.params.id as string,
       )
     })
 
@@ -26,5 +26,5 @@ export const Similar = defineComponent({
         <Grid source={state.simi} onClick={handleClick} />
       </div>
     )
-  }
+  },
 })

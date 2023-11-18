@@ -13,42 +13,36 @@ export const LyricsFlash = defineComponent({
   props: {
     screenSize: {
       type: String as PropType<LayoutSize>,
-      required: true
+      required: true,
     },
     visibleFlash: {
       type: Boolean as PropType<boolean>,
-      required: true
+      required: true,
     },
     lyrics: {
       type: Array as PropType<FooterGetter['musicLyrics']>,
-      required: true
+      required: true,
     },
     index: {
       type: Number as PropType<number>,
-      required: true
+      required: true,
     },
     playing: {
       type: Boolean as PropType<boolean>,
-      required: true
+      required: true,
     },
     flashMagic: {
       type: Object as PropType<{
         animationDuration: string
       }>,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     const lyriceEl = ref()
 
-    const {
-      screenSize,
-      visibleFlash,
-      lyrics,
-      index,
-      playing,
-      flashMagic
-    } = toRefs(props)
+    const { screenSize, visibleFlash, lyrics, index, playing, flashMagic } =
+      toRefs(props)
 
     onMounted(() => {
       if (isBrowser) {
@@ -60,8 +54,8 @@ export const LyricsFlash = defineComponent({
               requestAnimationFrame(() => {
                 lyriceEl.value.parentElement.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y}) translateZ(0)`
               })
-            }
-          }
+            },
+          },
         )
         start()
       }
@@ -74,7 +68,7 @@ export const LyricsFlash = defineComponent({
           container="body"
           class={classnames('lyrics-float-contanier', [
             'lyrics-float-' + screenSize.value,
-            'lyrics-float-' + VUE_APP_PLATFORM
+            'lyrics-float-' + VUE_APP_PLATFORM,
           ])}
           visible={visible}
         >
@@ -85,7 +79,7 @@ export const LyricsFlash = defineComponent({
                 data-duration={item.duration}
                 class={classnames('vh-center', {
                   'lyrics-float-active': index.value === i,
-                  'lyrics-float-pause': !playing.value && index.value === i
+                  'lyrics-float-pause': !playing.value && index.value === i,
                 })}
               >
                 <div style={index.value === i ? flashMagic.value : ''}>
@@ -97,7 +91,7 @@ export const LyricsFlash = defineComponent({
         </TeleportToAny>
       )
     }
-  }
+  },
 })
 
 export default LyricsFlash

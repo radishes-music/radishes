@@ -5,21 +5,21 @@ export default defineComponent({
   props: {
     text: {
       type: String as PropType<string>,
-      default: ''
+      default: '',
     },
     keyword: {
       type: String as PropType<string>,
-      default: ''
-    }
+      default: '',
+    },
   },
   setup(props) {
     return () => (
       <span
         v-html={props.text.replace(
           props.keyword,
-          `<strong class="keyword">${props.keyword}</strong>`
+          `<strong class="keyword">${props.keyword}</strong>`,
         )}
       ></span>
     )
-  }
+  },
 })

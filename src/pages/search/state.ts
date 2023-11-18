@@ -5,7 +5,7 @@ const initList = {
   data: [],
   total: 0,
   loading: false,
-  pagination: { limit: 30, offset: 1, slice: 0 }
+  pagination: { limit: 30, offset: 1, slice: 0 },
 }
 
 export const state: SearchState = {
@@ -14,5 +14,5 @@ export const state: SearchState = {
   artistList: cloneDeep(initList),
   playlist: cloneDeep(initList),
   albumList: cloneDeep(initList),
-  lyriceList: cloneDeep(initList)
+  lyriceList: cloneDeep(initList),
 }

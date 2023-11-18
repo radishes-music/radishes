@@ -2,12 +2,12 @@ import {
   defineComponent,
   KeepAlive,
   Component,
-  resolveDynamicComponent
+  resolveDynamicComponent,
 } from 'vue'
 import { RouterView } from 'vue-router'
 import {
   SecondaryBar,
-  renderNavList
+  renderNavList,
 } from '@/components-business/secondary-bar/index'
 import { navRouter } from '@/router/index'
 import { CustomizeRouteRecordRaw } from '@/interface'
@@ -24,7 +24,7 @@ export const News = defineComponent({
     const Slots = {
       default: (component: { Component: Component }) => (
         <KeepAlive>{resolveDynamicComponent(component.Component)}</KeepAlive>
-      )
+      ),
     }
     return () => (
       <div class="news">
@@ -33,5 +33,5 @@ export const News = defineComponent({
         <RouterView v-slots={Slots}></RouterView>
       </div>
     )
-  }
+  },
 })

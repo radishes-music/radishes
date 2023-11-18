@@ -11,7 +11,7 @@ export default defineComponent({
   name: 'UserInfo',
   setup() {
     const state: any = reactive({
-      res: {}
+      res: {},
     })
 
     const $route: any = useRoute()
@@ -25,15 +25,15 @@ export default defineComponent({
           return
         }
         state.res = {}
-        loadUserInfo(uid).then(res => (state.res = res))
-      }
+        loadUserInfo(uid).then((res) => (state.res = res))
+      },
     )
 
     onMounted(() => {
-      loadUserInfo($route.params.uid).then(res => (state.res = res))
+      loadUserInfo($route.params.uid).then((res) => (state.res = res))
     })
 
-    return function() {
+    return function () {
       if (userInfoLoading.value || JSON.stringify(state.res) === '{}') {
         return <Loading></Loading>
       }
@@ -46,5 +46,5 @@ export default defineComponent({
         ></UserInfoWidget>
       )
     }
-  }
+  },
 })

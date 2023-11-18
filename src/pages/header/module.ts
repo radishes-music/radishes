@@ -7,7 +7,7 @@ export const HeaderNameSpaced = 'Header'
 
 export const useHeaderModule = () => {
   return uesModuleStore<HeaderState, {}, HeaderActions, HeaderMutations>(
-    HeaderNameSpaced
+    HeaderNameSpaced,
   )
 }
 
@@ -15,5 +15,5 @@ export default {
   namespaced: true,
   state,
   actions,
-  mutations
+  mutations,
 }

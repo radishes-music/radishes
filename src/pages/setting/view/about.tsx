@@ -23,5 +23,5 @@ export default defineComponent({
         <README />
       </div>
     )
-  }
+  },
 })

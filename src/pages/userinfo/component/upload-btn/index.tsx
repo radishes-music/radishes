@@ -11,10 +11,10 @@ export const UploadBtn = defineComponent({
   name: 'UploadBtn',
   setup() {
     const state = reactive({
-      file: undefined
+      file: undefined,
     })
 
-    return function() {
+    return function () {
       return (
         <>
           <UploadWrapper
@@ -35,5 +35,5 @@ export const UploadBtn = defineComponent({
         </>
       )
     }
-  }
+  },
 })

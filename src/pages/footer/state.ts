@@ -29,7 +29,7 @@ export const state = {
     index: 0,
     playing: true,
     flashMagic: {
-      animationDuration: ''
-    }
-  }
+      animationDuration: '',
+    },
+  },
 }

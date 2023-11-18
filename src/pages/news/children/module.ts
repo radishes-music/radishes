@@ -1,5 +1,5 @@
 import Recommend, {
-  NAMESPACED as RecommendNameSpaced
+  NAMESPACED as RecommendNameSpaced,
 } from './recommend/module'
 import SongList, { NAMESPACED as SongListNameSpaced } from './song-list/module'
 import TopList, { NAMESPACED as TopListNameSpaced } from './top-list/module'
@@ -17,7 +17,7 @@ import {
   SongListMutations,
   TopListState,
   TopListActions,
-  TopListMutations
+  TopListMutations,
 } from '@/interface'
 
 export const useRecommendModule = () => {
@@ -31,19 +31,19 @@ export const useRecommendModule = () => {
 
 export const useArtistSearchModule = () => {
   return uesModuleStore<ArtistsState, {}, ArtistsActions, ArtistsMutations>(
-    ArtistsNameSpaced
+    ArtistsNameSpaced,
   )
 }
 
 export const useSongListModule = () => {
   return uesModuleStore<SongListState, {}, SongListActions, SongListMutations>(
-    SongListNameSpaced
+    SongListNameSpaced,
   )
 }
 
 export const useTopListModule = () => {
   return uesModuleStore<TopListState, {}, TopListActions, TopListMutations>(
-    TopListNameSpaced
+    TopListNameSpaced,
   )
 }
 
@@ -55,5 +55,5 @@ export {
   TopList,
   TopListNameSpaced,
   Artists,
-  ArtistsNameSpaced
+  ArtistsNameSpaced,
 }

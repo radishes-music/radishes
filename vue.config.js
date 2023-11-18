@@ -11,12 +11,12 @@ module.exports = {
   pages: {
     index: {
       entry: 'src/main.ts',
-      template: 'public/index.html'
+      template: 'public/index.html',
     },
     lyrics: {
       entry: 'src/electron/pages/index.ts',
-      template: 'public/index.html'
-    }
+      template: 'public/index.html',
+    },
   },
   devServer: {
     progress: CI,
@@ -25,36 +25,36 @@ module.exports = {
         target: 'http://localhost:32768',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
-        }
-      }
-    }
+          '^/api': '',
+        },
+      },
+    },
   },
   css: {
     loaderOptions: {
       less: {
-        javascriptEnabled: true
-      }
-    }
+        javascriptEnabled: true,
+      },
+    },
   },
   configureWebpack: {
     plugins: [
       new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/),
       new webpack.DefinePlugin({
         VERSION: JSON.stringify(pkg.version),
-        GIT_URL: JSON.stringify(pkg.repository.url)
-      })
-    ]
+        GIT_URL: JSON.stringify(pkg.repository.url),
+      }),
+    ],
   },
-  chainWebpack: config => {
-    config.when(process.env.ANALYZER === 'analyzer', config =>
+  chainWebpack: (config) => {
+    config.when(process.env.ANALYZER === 'analyzer', (config) =>
       config
         .plugin('webpack-bundle-analyzer')
-        .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+        .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin),
     )
 
     // https://github.com/vuejs/vue-cli/issues/1729#issuecomment-402217659
-    config.plugin('html-index').tap(args => {
+    config.plugin('html-index').tap((args) => {
       args[0].title = 'radishes music'
       return args
     })
@@ -74,14 +74,14 @@ module.exports = {
       .test(/\.md$/)
       .use('md2vue-loader')
       .loader(md2vue)
-      .tap(options => {
+      .tap((options) => {
         return merge({}, options, { html: true })
       })
 
     config.resolve.extensions.add('less').add('css')
     config.resolve.alias.set('root', path.join(__dirname))
     config.target(
-      process.env.VUE_APP_PLATFORM === 'electron' ? 'electron-renderer' : 'web'
+      process.env.VUE_APP_PLATFORM === 'electron' ? 'electron-renderer' : 'web',
     )
   },
   pluginOptions: {
@@ -91,20 +91,20 @@ module.exports = {
       outputDir: 'dist-electron',
       builderOptions: {
         publish: [
-          { provider: 'github', owner: 'Linkontoask', repo: 'radishes' }
+          { provider: 'github', owner: 'Linkontoask', repo: 'radishes' },
         ],
         artifactName: pkg.name + '.Setup.' + '${version}.${ext}',
         extraFiles: [
           {
             from: 'public/service',
             to: 'resources/public/service',
-            filter: ['**/*']
-          }
+            filter: ['**/*'],
+          },
         ],
         mac: {
-          identity: null
-        }
-      }
-    }
-  }
+          identity: null,
+        },
+      },
+    },
+  },
 }

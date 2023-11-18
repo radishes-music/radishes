@@ -8,5 +8,5 @@ export const Moments = defineComponent({
         <h1>动态</h1>
       </div>
     )
-  }
+  },
 })

@@ -8,7 +8,7 @@ export const AudioList = defineComponent({
   name: 'AudioList',
   props: ['title', 'audio'],
   setup(props) {
-    return function() {
+    return function () {
       const { audio, title }: any = props
 
       if (audio.length === 0) {
@@ -26,5 +26,5 @@ export const AudioList = defineComponent({
         </div>
       )
     }
-  }
+  },
 })

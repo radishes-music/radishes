@@ -16,18 +16,18 @@ export default defineComponent({
     const bitRateAll = [
       {
         bit: 1.28e5,
-        name: '128K'
+        name: '128K',
       },
       {
         bit: 3.2e5,
-        name: '320K'
-      }
+        name: '320K',
+      },
     ]
 
     const handleOpenDialog = async () => {
       const ipc = await asyncIpc()
       const dir = ipc.sendSyncIpcRendererEvent(
-        Dialog.SHOW_DIALOG
+        Dialog.SHOW_DIALOG,
       ) as Electron.OpenDialogReturnValue
       if (!dir.canceled) {
         const path = dir.filePaths[0]
@@ -56,7 +56,7 @@ export default defineComponent({
             v-model={state.bitRate}
             onChange={handleChangeBit}
           >
-            {bitRateAll.map(item => (
+            {bitRateAll.map((item) => (
               <Radio
                 name={item.bit}
                 shape="square"
@@ -80,5 +80,5 @@ export default defineComponent({
         </div>
       </div>
     )
-  }
+  },
 })

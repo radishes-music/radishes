@@ -6,7 +6,7 @@ import {
   watch,
   ComputedRef,
   ref,
-  provide
+  provide,
 } from 'vue'
 import { useRoute } from '@/hooks/index'
 import { useSongModule, useFooterModule } from '@/modules/index'
@@ -16,7 +16,7 @@ import {
   SongsDetail,
   PlayList,
   AlbumList,
-  SongActions
+  SongActions,
 } from '@/interface/index'
 import { SecondaryList } from '@/components-business/secondary-list'
 import { playMusic } from '@/shared/music-shared'
@@ -38,11 +38,11 @@ const formatPlayListData = (item: PlayList, id: string): FormatSource => {
       name: '每日歌曲推荐',
       description: '每日歌曲推荐',
       list: [
-        ...item.tracks.map(o => ({
+        ...item.tracks.map((o) => ({
           ...o,
-          noCopyright: !isCopyright(o)
-        }))
-      ]
+          noCopyright: !isCopyright(o),
+        })),
+      ],
     }
   }
   return {
@@ -53,7 +53,7 @@ const formatPlayListData = (item: PlayList, id: string): FormatSource => {
     author: {
       src: item.creator?.avatarUrl,
       id: item.creator?.userId,
-      name: item.creator?.nickname
+      name: item.creator?.nickname,
     },
     time: item.createTime,
     trackCount: item.trackCount,
@@ -62,11 +62,11 @@ const formatPlayListData = (item: PlayList, id: string): FormatSource => {
     tags: item.tags,
     subscribed: item.subscribed,
     list: [
-      ...item.tracks.map(o => ({
+      ...item.tracks.map((o) => ({
         ...o,
-        noCopyright: !isCopyright(o)
-      }))
-    ]
+        noCopyright: !isCopyright(o),
+      })),
+    ],
   }
 }
 
@@ -79,7 +79,7 @@ const formatAlbumListData = (item: AlbumList): FormatSource => {
     author: {
       src: item.album.artist?.picUrl,
       id: item.album.artist?.id,
-      name: item.album.artist?.name
+      name: item.album.artist?.name,
     },
     time: item.album.publishTime,
     trackCount: item.album.trackCount,
@@ -87,11 +87,11 @@ const formatAlbumListData = (item: AlbumList): FormatSource => {
     description: item.album.description,
     subscribed: item.album.subscribed,
     list: [
-      ...item.song.map(o => ({
+      ...item.song.map((o) => ({
         ...o,
-        noCopyright: !isCopyright(o)
-      }))
-    ]
+        noCopyright: !isCopyright(o),
+      })),
+    ],
   }
 }
 
@@ -122,12 +122,12 @@ export default defineComponent({
 
     watch(
       () => route.params.playlist,
-      v => {
+      (v) => {
         updateList(v as string)
       },
       {
-        immediate: true
-      }
+        immediate: true,
+      },
     )
 
     const { playlist, albumList } = toRefs(useState())
@@ -147,15 +147,15 @@ export default defineComponent({
     const handlePlayAll = async () => {
       footerStore.useMutations(FooterMutations.CLEAR_STACK)
       const tracks = toRaw(rawData.value.list)
-      const stack = tracks.map(item => {
+      const stack = tracks.map((item) => {
         return {
           ...item,
-          type: 'stack'
+          type: 'stack',
         }
       })
       footerStore.useMutations(
         FooterMutations.SET_PLAYLIST_TO_STACK,
-        (stack as unknown) as SongsDetail[]
+        stack as unknown as SongsDetail[],
       )
 
       const { music } = footerStore.useState()
@@ -175,5 +175,5 @@ export default defineComponent({
         />
       </div>
     )
-  }
+  },
 })

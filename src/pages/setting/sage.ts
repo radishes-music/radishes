@@ -4,7 +4,7 @@ import {
   SettingMutations,
   SettingState,
   PlaySource,
-  BasicEffect
+  BasicEffect,
 } from '@/interface'
 import { useFooterModule } from '@/modules'
 
@@ -44,5 +44,5 @@ export const mutations: MutationTree<SettingState> = {
   },
   [SettingMutations.SET_UPGRADE](state, upgrade) {
     state.upgrade = upgrade
-  }
+  },
 }

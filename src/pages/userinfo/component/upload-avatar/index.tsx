@@ -30,7 +30,7 @@ export const UploadAvatar = defineComponent({
       scale: 0,
       top: 0,
       left: 0,
-      loading: false
+      loading: false,
     })
     const info = ref({
       ratio: 0,
@@ -42,7 +42,7 @@ export const UploadAvatar = defineComponent({
       scaleMax: 0,
       scaleMin: 0,
       topMin: 0,
-      leftMin: 0
+      leftMin: 0,
     })
 
     const onFile = async (files: any) => {
@@ -81,7 +81,7 @@ export const UploadAvatar = defineComponent({
         scaleMax: Math.min(w, h),
         scaleMin: 10,
         topMin: isVertical ? 0 : (220 - h) / 2,
-        leftMin: isVertical ? (220 - w) / 2 : 0
+        leftMin: isVertical ? (220 - w) / 2 : 0,
       }
 
       state.image = img
@@ -147,7 +147,7 @@ export const UploadAvatar = defineComponent({
           0,
           0,
           LEN,
-          LEN
+          LEN,
         )
 
         canvas.toBlob(async (file: any) => {
@@ -159,7 +159,7 @@ export const UploadAvatar = defineComponent({
               updateProfile({
                 ['avatarImgIdStr']: res.data.imgId,
                 ['avatarImgId_str']: res.data.imgId,
-                avatarUrl: res.data.url
+                avatarUrl: res.data.url,
               })
               props.onComplete()
               Toast('头像修改成功')
@@ -176,7 +176,7 @@ export const UploadAvatar = defineComponent({
       drager.value = e.target
       point.value = {
         x: e.x,
-        y: e.y
+        y: e.y,
       }
     }
 
@@ -211,16 +211,16 @@ export const UploadAvatar = defineComponent({
               scaleMax,
               isVertical
                 ? (CONST_W + imageW) / 2 - state.left
-                : (CONST_W + imageH) / 2 - state.top
+                : (CONST_W + imageH) / 2 - state.top,
             ),
-            scale + delt
-          )
+            scale + delt,
+          ),
         )
       }
 
       point.value = {
         x: e.x,
-        y: e.y
+        y: e.y,
       }
     }
 
@@ -281,7 +281,7 @@ export const UploadAvatar = defineComponent({
                     height: state.scale + 'px',
                     width: state.scale + 'px',
                     top: state.top + 'px',
-                    left: state.left + 'px'
+                    left: state.left + 'px',
                   }}
                 >
                   <div ref={scale} class="upload-avatar__posterscaler"></div>
@@ -296,7 +296,7 @@ export const UploadAvatar = defineComponent({
                     style={{
                       position: 'absolute',
                       top: -top * bigRatio + 'px',
-                      left: -left * bigRatio + 'px'
+                      left: -left * bigRatio + 'px',
                     }}
                   ></Image>
                 </div>
@@ -309,7 +309,7 @@ export const UploadAvatar = defineComponent({
                     style={{
                       position: 'absolute',
                       top: -top * smallRatio + 'px',
-                      left: -left * smallRatio + 'px'
+                      left: -left * smallRatio + 'px',
                     }}
                   ></Image>
                 </div>
@@ -341,5 +341,5 @@ export const UploadAvatar = defineComponent({
         </div>
       )
     }
-  }
+  },
 })

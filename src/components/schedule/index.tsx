@@ -6,8 +6,8 @@ export const Schedule = defineComponent({
   props: {
     percentage: {
       type: Number as PropType<number>,
-      default: 0
-    }
+      default: 0,
+    },
   },
   setup(props, { slots }) {
     const opacity = ref(0)
@@ -28,12 +28,12 @@ export const Schedule = defineComponent({
           <div
             style={{
               opacity: opacity.value,
-              width: props.percentage + '%'
+              width: props.percentage + '%',
             }}
           ></div>
         </div>
         {slots.default && slots.default()}
       </div>
     )
-  }
+  },
 })

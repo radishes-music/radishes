@@ -9,12 +9,12 @@ export const MoreThen = defineComponent({
   props: {
     equal: {
       type: Number as PropType<number>,
-      required: true
+      required: true,
     },
     rely: {
       type: String as PropType<string>,
-      default: ''
-    }
+      default: '',
+    },
   },
   setup(props, context) {
     const { equal, rely } = toRefs(props)
@@ -29,7 +29,7 @@ export const MoreThen = defineComponent({
       }
     }
 
-    watch(rely, rely => {
+    watch(rely, (rely) => {
       if (rely) {
         nextTick().then(calcHeight)
       }
@@ -52,5 +52,5 @@ export const MoreThen = defineComponent({
         )}
       </div>
     )
-  }
+  },
 })

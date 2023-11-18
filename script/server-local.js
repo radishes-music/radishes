@@ -7,8 +7,8 @@ const app = express()
 const options = {
   target: 'http://localhost:3000',
   pathRewrite: {
-    '^/api': ''
-  }
+    '^/api': '',
+  },
 }
 
 const apiProxy = createProxyMiddleware('/api', options)

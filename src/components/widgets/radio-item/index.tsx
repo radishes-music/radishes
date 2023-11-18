@@ -11,7 +11,7 @@ export const RadioItem = defineComponent({
   name: 'RadioItem',
   props: ['info'],
   setup(props) {
-    return function() {
+    return function () {
       const { info = {} } = props
 
       return (
@@ -35,5 +35,5 @@ export const RadioItem = defineComponent({
         </div>
       )
     }
-  }
+  },
 })

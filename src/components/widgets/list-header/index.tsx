@@ -10,27 +10,27 @@ export const ListHeader = defineComponent({
   name: 'ListHeader',
   props: {
     title: {
-      type: String
+      type: String,
     },
     count: {
-      type: Number
+      type: Number,
     },
     canLayout: {
       type: Boolean,
-      default: false
+      default: false,
     },
     layoutType: {
-      type: Number
+      type: Number,
     },
     onLayoutChange: {
       type: Function,
       default: () => {
         /**/
-      }
-    }
+      },
+    },
   },
   setup(props) {
-    return function() {
+    return function () {
       const { count, title, canLayout, layoutType, onLayoutChange }: any = props
 
       return (
@@ -46,7 +46,7 @@ export const ListHeader = defineComponent({
               {[
                 'liebiaoshipailie',
                 'duogongnengbiaodan_duohangwenben',
-                'pailie'
+                'pailie',
               ].map((icon: string, index) => (
                 <div
                   class={`list-header__option ${
@@ -62,5 +62,5 @@ export const ListHeader = defineComponent({
         </div>
       )
     }
-  }
+  },
 })

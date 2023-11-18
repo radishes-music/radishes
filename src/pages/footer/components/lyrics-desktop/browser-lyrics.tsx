@@ -7,10 +7,10 @@ import LyricsFlash from './index'
 import './index.less'
 
 export const ipcUpdateLyrics = (type: UpdateType, payload?: unknown) => {
-  asyncIpc().then(event => {
+  asyncIpc().then((event) => {
     event.sendAsyncIpcRendererEvent(LyricsAction.LYRICS_UPDATE, {
       type: type,
-      payload: toRaw(payload)
+      payload: toRaw(payload),
     })
   })
 }
@@ -25,7 +25,7 @@ export const BrowserLyricsFlash = defineComponent({
     const { screenSize } = toRefs(LayoutModule.useState())
 
     const lyrics = computed(() =>
-      useGetter('musicLyrics').filter(value => value.lyric)
+      useGetter('musicLyrics').filter((value) => value.lyric),
     )
 
     const index = computed(() => {
@@ -49,30 +49,30 @@ export const BrowserLyricsFlash = defineComponent({
         const d = toFixed(cur?.duration, 2)
         if (d) {
           return {
-            animationDuration: `${d}s`
+            animationDuration: `${d}s`,
           }
         } else {
           return {
-            animationDuration: ''
+            animationDuration: '',
           }
         }
       }
       return {
-        animationDuration: ''
+        animationDuration: '',
       }
     })
 
     if (isElectron) {
-      watch(flashMagic, v => {
+      watch(flashMagic, (v) => {
         ipcUpdateLyrics(UpdateType.UPDATE_MAGIC, v)
       })
-      watch(index, v => {
+      watch(index, (v) => {
         ipcUpdateLyrics(UpdateType.UPDATE_INDEX, v)
       })
-      watch(lyrics, v => {
+      watch(lyrics, (v) => {
         ipcUpdateLyrics(UpdateType.UPDATE_LYRICS, v)
       })
-      watch(playing, v => {
+      watch(playing, (v) => {
         ipcUpdateLyrics(UpdateType.UPDATE_PLAYING, v)
       })
     }
@@ -91,5 +91,5 @@ export const BrowserLyricsFlash = defineComponent({
         )}
       </>
     )
-  }
+  },
 })

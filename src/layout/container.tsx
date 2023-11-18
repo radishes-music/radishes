@@ -4,7 +4,7 @@ import {
   ref,
   toRefs,
   onMounted,
-  watch
+  watch,
 } from 'vue'
 import { RecommendMutations, LayoutSize } from '@/interface/index'
 import { Header } from '@/pages/header/view/index'
@@ -40,7 +40,7 @@ export const Container = defineComponent({
     const { screenSize } = toRefs(useState())
 
     if (isBrowser) {
-      watch(screenSize, v => {
+      watch(screenSize, (v) => {
         if (v === LayoutSize.MD) {
           startDrag.value()
         } else {
@@ -51,7 +51,7 @@ export const Container = defineComponent({
 
     onMounted(() => {
       message.config({
-        top: container.value.getBoundingClientRect().top + 80 + 'px'
+        top: container.value.getBoundingClientRect().top + 80 + 'px',
       })
       if (isBrowser) {
         const { start, stop } = useDrag(
@@ -67,17 +67,17 @@ export const Container = defineComponent({
               draging.value = true
               RecommendStore.useMutations(
                 RecommendMutations.SET_SWIPER_RINNING,
-                false
+                false,
               )
             },
             stopCB() {
               draging.value = false
               RecommendStore.useMutations(
                 RecommendMutations.SET_SWIPER_RINNING,
-                true
+                true,
               )
-            }
-          }
+            },
+          },
         )
         start()
         startDrag.value = start
@@ -97,11 +97,11 @@ export const Container = defineComponent({
             'container-' + (online.value ? 'online' : 'offline'),
             'container-' + screenSize.value,
             'container-' + VUE_APP_PLATFORM,
-            'container-' + VUE_APP_PLATFORM + '-' + screenSize.value
+            'container-' + VUE_APP_PLATFORM + '-' + screenSize.value,
           ],
           {
-            'container-draging': draging.value
-          }
+            'container-draging': draging.value,
+          },
         )}
       >
         <Header ref={target} />
@@ -113,5 +113,5 @@ export const Container = defineComponent({
         {isElectron && <AutoDwonload />}
       </div>
     )
-  }
+  },
 })

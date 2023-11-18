@@ -8,7 +8,7 @@ import {
   FooterMutations,
   Direction,
   SongsDetail,
-  PlayMode
+  PlayMode,
 } from '@/interface'
 import { getMusicUrl, playMusic } from '@/shared/music-shared'
 import { RootState } from '@/store/index'
@@ -23,7 +23,7 @@ const dominateMediaSession = (
   title: string,
   artist: string,
   album: string,
-  pic: string
+  pic: string,
 ) => {
   document.title = title + '-' + artist
 
@@ -37,9 +37,9 @@ const dominateMediaSession = (
         {
           src: pic,
           sizes: '256x256', // mediaSession will automatically adjust the picture to the appropriate size
-          type: 'image/jpeg'
-        }
-      ]
+          type: 'image/jpeg',
+        },
+      ],
     })
     navigator.mediaSession.setActionHandler('play', () => {
       useMutations(FooterMutations.PLAY_MUSIC)
@@ -67,9 +67,9 @@ const dominateMediaSession = (
 
 export const findMusicIndex = (
   contanier: SongsDetail[],
-  target: SongsDetail
+  target: SongsDetail,
 ) => {
-  return contanier.findIndex(music => music.id === target.id)
+  return contanier.findIndex((music) => music.id === target.id)
 }
 
 export const getters: GetterTree<FooterState, RootState> = {
@@ -77,7 +77,7 @@ export const getters: GetterTree<FooterState, RootState> = {
     const base = cloneDeep(toRaw(state.music)) || {}
     return {
       ...base,
-      url: state.musicUrl
+      url: state.musicUrl,
     }
   },
   musicLyrics(state) {
@@ -87,14 +87,14 @@ export const getters: GetterTree<FooterState, RootState> = {
     const lyricsArr = (state.musicLyricsOrigin || '')
       .trim()
       .split('\n')
-      .map(item => {
+      .map((item) => {
         const time = item.match(/(\[.{8,9}\])/g)
         let lyric: RegResult = item.match(/\](?!\[).+/)
         if (lyric) {
           lyric = lyric[0].slice(1).trim()
         }
         if (time && time.length > 1) {
-          return time.map(t => `${t}${lyric}`)
+          return time.map((t) => `${t}${lyric}`)
         }
         return item
       })
@@ -118,10 +118,10 @@ export const getters: GetterTree<FooterState, RootState> = {
 
         return {
           time: time || 0,
-          lyric: lyric
+          lyric: lyric,
         }
       })
-      .filter(item => item.time)
+      .filter((item) => item.time)
       .sort((a, b) => a.time - b.time)
     return lyrices.map((item, index) => {
       const nextTime = lyrices[index + 1]?.time,
@@ -135,7 +135,7 @@ export const getters: GetterTree<FooterState, RootState> = {
       }
       return {
         ...item,
-        duration: toFixed(duration, 3)
+        duration: toFixed(duration, 3),
       }
     })
   },
@@ -146,28 +146,28 @@ export const getters: GetterTree<FooterState, RootState> = {
         const title = state.music.name
         dominateMediaSession(
           title,
-          author.map(o => o.name).join(' / '),
+          author.map((o) => o.name).join(' / '),
           '',
-          state.music.al.picUrl
+          state.music.al.picUrl,
         )
         return {
           author: author,
-          title: title
+          title: title,
         }
       }
     }
 
     return {
       author: [],
-      title: ''
+      title: '',
     }
-  }
+  },
 }
 
 type IActions<T = ActionContext<FooterState, RootState>> = {
   [FooterActions.SET_MUSIC]: (
     k: T,
-    payload: number | { url: string; id: number | string }
+    payload: number | { url: string; id: number | string },
   ) => Promise<boolean>
   [FooterActions.SET_MUSIC_DEFAILT]: (k: T, payload: number | number[]) => void
   [FooterActions.SET_MUSIC_LYRICS]: (k: T, payload: number) => void
@@ -241,7 +241,7 @@ export const actions: IActions = {
 
       playMusic(nextMusic.id)
     }
-  }
+  },
 }
 
 type Mutation<Payload = any> = (state: FooterState, payload: Payload) => any
@@ -280,16 +280,16 @@ export const mutations: IMutations = {
     state.musicStack = []
   },
   [FooterMutations.REMOVE_STACK](state, id) {
-    remove(state.musicStack, music => music.id === id)
+    remove(state.musicStack, (music) => music.id === id)
   },
   [FooterMutations.REMOVE_HISTORY](state, id) {
-    remove(state.musciHistory, music => music.id === id)
+    remove(state.musciHistory, (music) => music.id === id)
   },
   [FooterMutations.SET_DURATION](state, duration) {
     state.duration = duration
   },
   [FooterMutations.SET_PLAYLIST_TO_STACK](state, payload) {
-    payload.forEach(item => {
+    payload.forEach((item) => {
       const isExist = findMusicIndex(state.musicStack, item) === -1
       if (isExist) {
         state.musicStack.push(item)
@@ -312,13 +312,13 @@ export const mutations: IMutations = {
       if (isRepeatHistory) {
         state.musciHistory.push({
           ...toRaw(music),
-          type: 'history'
+          type: 'history',
         })
       }
       if (isRepeatStack) {
         state.musicStack.push({
           ...toRaw(music),
-          type: 'stack'
+          type: 'stack',
         })
       }
     }
@@ -381,5 +381,5 @@ export const mutations: IMutations = {
   },
   [FooterMutations.CHANGE_PLAYMODE](state, mode) {
     state.playMode = mode
-  }
+  },
 }

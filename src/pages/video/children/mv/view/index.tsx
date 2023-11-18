@@ -7,5 +7,5 @@ export const Mv = defineComponent({
         <h1>MV</h1>
       </div>
     )
-  }
+  },
 })

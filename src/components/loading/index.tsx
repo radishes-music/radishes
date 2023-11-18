@@ -8,15 +8,15 @@ import './index.less'
 export const Loading = defineComponent({
   name: 'Loading',
   props: {
-    size: String
+    size: String,
   },
   setup(props) {
-    return function() {
+    return function () {
       return (
         <div class="box-view">
           <VantLoading type="spinner" {...props}></VantLoading>
         </div>
       )
     }
-  }
+  },
 })

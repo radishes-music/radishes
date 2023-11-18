@@ -2,7 +2,7 @@ import {
   createRouter,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   createWebHistory,
-  createWebHashHistory
+  createWebHashHistory,
 } from 'vue-router'
 import { hook } from './hook'
 import { baseRouter } from './base'
@@ -15,7 +15,7 @@ import { CustomizeRouteRecordRaw } from '@/interface'
 export const LYRICS_PATH = '/electron-lyrics-float'
 
 const renderRouter = (nav: CustomizeRouteRecordRaw[]) => {
-  return nav.filter(n => {
+  return nav.filter((n) => {
     if (isBrowser) {
       return n?.meta?.browser
     }
@@ -33,7 +33,7 @@ const router = createRouter({
   history: isBrowser
     ? createWebHistory(import.meta.env.BASE_URL)
     : createWebHashHistory(import.meta.env.BASE_URL),
-  routes: baseRouter.concat(navRouter, contentRouter)
+  routes: baseRouter.concat(navRouter, contentRouter),
 })
 
 hook(router)

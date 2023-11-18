@@ -23,11 +23,11 @@ const baseURL = isDevelopment
 const http: AxiosInstance = Axios.create({
   withCredentials: true,
   baseURL: baseURL,
-  timeout: 30000
+  timeout: 30000,
 })
 
 if (!isDevelopment && isElectron) {
-  asyncIpc().then(v => {
+  asyncIpc().then((v) => {
     const port = v.sendSyncIpcRendererEvent(Service.GET_PORT)
     if (!port) {
       message.warning('发生错误，请联系 linkorgs@163.com ')
@@ -44,14 +44,14 @@ use(http)
 export function get<T>(
   url: string,
   params?: unknown,
-  options?: HttpConfig
+  options?: HttpConfig,
 ): Promise<T> {
   return http
     .get(url, {
       params,
-      ...options
+      ...options,
     })
-    .catch(e => {
+    .catch((e) => {
       console.error(e)
       return e
     })
@@ -60,14 +60,14 @@ export function get<T>(
 export function post<T>(
   url: string,
   data?: unknown,
-  options?: HttpConfig
+  options?: HttpConfig,
 ): Promise<T> {
   return http
     .post(url, {
       data,
-      ...options
+      ...options,
     })
-    .catch(e => {
+    .catch((e) => {
       console.error(e)
       return e
     })

@@ -9,7 +9,7 @@ export const FansView = defineComponent({
   name: 'FansView',
   setup() {
     const state = reactive({
-      list: []
+      list: [],
     })
     const getFansList = useGetFansList()
 
@@ -27,5 +27,5 @@ export const FansView = defineComponent({
       ) : (
         <div>{JSON.stringify(state.list)}</div>
       )
-  }
+  },
 })

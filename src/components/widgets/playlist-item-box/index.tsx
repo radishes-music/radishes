@@ -12,12 +12,12 @@ import { isNumber, overNum } from '@/utils'
 export const PlaylistContainer = defineComponent({
   name: 'PlaylistContainer',
   setup() {
-    return function(this: any) {
+    return function (this: any) {
       return (
         <List class="playlist-item__container">{this.$slots.default?.()}</List>
       )
     }
-  }
+  },
 })
 
 export const PlaylistItemBox = defineComponent({
@@ -25,10 +25,10 @@ export const PlaylistItemBox = defineComponent({
   props: ['info'],
   setup(props) {
     const state = reactive({
-      show: false
+      show: false,
     })
 
-    return function() {
+    return function () {
       const { coverImgUrl, name, trackCount, playCount, isCreated, record } =
         props.info || {}
 
@@ -79,5 +79,5 @@ export const PlaylistItemBox = defineComponent({
         </div>
       )
     }
-  }
+  },
 })

@@ -38,7 +38,7 @@ export const VolumeAndHistory = defineComponent({
         <ve-button type="text">
           <icon icon="volume" color="#333" size={26}></icon>
         </ve-button>
-      )
+      ),
     }
 
     return () => (
@@ -57,7 +57,7 @@ export const VolumeAndHistory = defineComponent({
         <MusicHistory v-model={[visible.value, 'visible']} />
         <Tooltip
           v-slots={{
-            title: () => <span>历史记录</span>
+            title: () => <span>历史记录</span>,
           }}
         >
           <ve-button
@@ -73,5 +73,5 @@ export const VolumeAndHistory = defineComponent({
         </Tooltip>
       </div>
     )
-  }
+  },
 })

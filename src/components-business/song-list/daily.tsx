@@ -10,12 +10,12 @@ export const DailyCard = defineComponent({
   props: {
     src: {
       type: String as PropType<string>,
-      default: ''
+      default: '',
     },
     name: {
       type: String as PropType<string>,
-      default: ''
-    }
+      default: '',
+    },
   },
   setup(props) {
     return () => (
@@ -32,5 +32,5 @@ export const DailyCard = defineComponent({
         )}
       </>
     )
-  }
+  },
 })

@@ -18,7 +18,7 @@ enum NodeID {
   ConvolverNode,
   PannerNode,
   GainNode,
-  BiquadFilterNode
+  BiquadFilterNode,
 }
 
 type EffectNode = {
@@ -38,19 +38,19 @@ class EffectNodeRender {
   static render(node: AudioNode, id: NodeID) {
     return {
       node,
-      id
+      id,
     }
   }
 
   insert(node: EffectNode) {
-    if (!this.node.find(n => n.id === node.id)) {
+    if (!this.node.find((n) => n.id === node.id)) {
       this.node.push(node)
     }
     return this
   }
 
   delete(id: NodeID) {
-    remove(this.node, node => node.id === id)
+    remove(this.node, (node) => node.id === id)
     return this
   }
 
@@ -95,7 +95,7 @@ export class AudioEffect implements Effect {
     this.source = this.context.createMediaElementSource(this.audio)
     this.nodeRender = new EffectNodeRender(this.context)
     this.nodeRender.insert(
-      EffectNodeRender.render(this.source, NodeID.SourceNode)
+      EffectNodeRender.render(this.source, NodeID.SourceNode),
     )
   }
 
@@ -105,9 +105,9 @@ export class AudioEffect implements Effect {
       responseBuffer = await axios
         .get<ArrayBuffer>(url, {
           responseType: 'arraybuffer',
-          withCredentials: false
+          withCredentials: false,
         })
-        .then(res => res.data)
+        .then((res) => res.data)
     } else {
       responseBuffer = url
     }
@@ -121,7 +121,7 @@ export class AudioEffect implements Effect {
     this.convolver = this.context.createConvolver()
     this.convolverFile = payload
     const decodeBuffer = await this.getBuffer(
-      'audio-effect/' + payload + '.wav'
+      'audio-effect/' + payload + '.wav',
     )
     this.convolver.buffer = decodeBuffer
     this.nodeRender
@@ -145,7 +145,7 @@ export class AudioEffect implements Effect {
 
     this.nodeRender
       .insert(
-        EffectNodeRender.render(this.bigquadFilter, NodeID.BiquadFilterNode)
+        EffectNodeRender.render(this.bigquadFilter, NodeID.BiquadFilterNode),
       )
       .output()
   }

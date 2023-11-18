@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { defineComponent } from 'vue'
 import { Button as VantButton } from 'vant'
 import './index.less'
@@ -20,28 +19,28 @@ const VanButtonProps = {
   loadingType: String,
   tag: {
     type: String,
-    default: 'button'
+    default: 'button',
   },
   type: {
     type: String,
-    default: 'default'
+    default: 'default',
   },
   size: {
     type: String,
-    default: 'normal'
+    default: 'normal',
   },
   nativeType: {
     type: String,
-    default: 'button'
+    default: 'button',
   },
   loadingSize: {
     type: String,
-    default: '20px'
+    default: '20px',
   },
   iconPosition: {
     type: String,
-    default: 'left'
-  }
+    default: 'left',
+  },
 }
 
 export const Button = defineComponent({
@@ -60,5 +59,5 @@ export const Button = defineComponent({
         {slots.default?.()}
       </VantButton>
     )
-  }
+  },
 })

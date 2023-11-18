@@ -6,7 +6,7 @@ import {
   toRefs,
   onUnmounted,
   watch,
-  Transition
+  Transition,
 } from 'vue'
 import { useFooterModule } from '@/modules'
 import { Table } from '@/components-business/table'
@@ -27,8 +27,8 @@ export const MusicHistory = defineComponent({
   props: {
     visible: {
       type: Boolean as PropType<boolean>,
-      default: false
-    }
+      default: false,
+    },
   },
   emits: ['update:visible'],
   setup(props, { emit }) {
@@ -49,7 +49,7 @@ export const MusicHistory = defineComponent({
       emit('update:visible', false)
     }
 
-    const unWatch = watch(visible, v => {
+    const unWatch = watch(visible, (v) => {
       if (v) {
         on(document.documentElement, 'click', trigger)
       } else {
@@ -71,7 +71,7 @@ export const MusicHistory = defineComponent({
           <div
             v-show={visible.value}
             class={classnames(prefix, `${prefix}-${VUE_APP_PLATFORM}`)}
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
             <div class={`${prefix}-control`}>
               <Button.Group>
@@ -123,7 +123,7 @@ export const MusicHistory = defineComponent({
         </Transition>
       </TeleportToAny>
     )
-  }
+  },
 })
 
 // Fixed the to property of Teleport component could not find Element
@@ -131,5 +131,5 @@ export const AsyncComponent = defineAsyncComponent({
   loader: async () => {
     // Parameter penetration
     return <MusicHistory></MusicHistory>
-  }
+  },
 })

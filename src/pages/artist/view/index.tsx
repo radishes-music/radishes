@@ -5,7 +5,7 @@ import {
   onUnmounted,
   Component,
   resolveDynamicComponent,
-  KeepAlive
+  KeepAlive,
 } from 'vue'
 import { SecondaryLayout } from '@/layout/secondary/secondary'
 import { Image } from '@/components/image/index'
@@ -17,17 +17,17 @@ import { parentAP } from '../logic/ap'
 import './index.less'
 
 const formatNav = (id: string | string[]): CustomizeRouteRecordRaw[] => {
-  let tp = contentRouter.filter(route => route.path.includes('/artist'))
+  let tp = contentRouter.filter((route) => route.path.includes('/artist'))
   if (tp[0]) {
     if (tp[0].children) {
       tp = tp[0].children
-        .filter(route => route.path)
-        .map(route => ({
+        .filter((route) => route.path)
+        .map((route) => ({
           ...route,
           meta: {
             ...route.meta,
-            path: route.path.replace(':id', id as string)
-          }
+            path: route.path.replace(':id', id as string),
+          },
         }))
     }
   }
@@ -42,7 +42,7 @@ export default defineComponent({
 
     const unwatch = watch(
       () => route.params.id,
-      id => {
+      (id) => {
         if (id) {
           nav.value = formatNav(id)
           useActions(ArtistActions.SET_ACTION_ARTIST_DETAIL, id as string)
@@ -50,8 +50,8 @@ export default defineComponent({
         }
       },
       {
-        immediate: true
-      }
+        immediate: true,
+      },
     )
 
     onUnmounted(() => {
@@ -84,14 +84,14 @@ export default defineComponent({
                       <KeepAlive>
                         {resolveDynamicComponent(component.Component)}
                       </KeepAlive>
-                    )
+                    ),
                   }}
                 ></RouterView>
               </div>
-            )
+            ),
           }}
         />
       </div>
     )
-  }
+  },
 })

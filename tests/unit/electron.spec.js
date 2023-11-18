@@ -7,27 +7,27 @@ const spectron = __non_webpack_require__('spectron')
 chai.should()
 chai.use(chaiAsPromised)
 
-describe('Application launch', function() {
+describe('Application launch', function () {
   this.timeout(30000)
 
-  beforeEach(function() {
-    return testWithSpectron(spectron).then(instance => {
+  beforeEach(function () {
+    return testWithSpectron(spectron).then((instance) => {
       this.app = instance.app
       this.stopServe = instance.stopServe
     })
   })
 
-  beforeEach(function() {
+  beforeEach(function () {
     chaiAsPromised.transferPromiseness = this.app.transferPromiseness
   })
 
-  afterEach(function() {
+  afterEach(function () {
     if (this.app && this.app.isRunning()) {
       return this.stopServe()
     }
   })
 
-  it('opens a window', function() {
+  it('opens a window', function () {
     return this.app.client
       .getWindowCount()
       .should.eventually.have.at.least(1)
