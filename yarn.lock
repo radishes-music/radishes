@@ -2180,6 +2180,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@electron/remote@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@electron/remote@npm:2.1.0"
+  peerDependencies:
+    electron: ">= 13.0.0"
+  checksum: 7cd87a14e81c78a53c117e97c882c22d815b178d3a2d3a8d6bef5324d71d54fc6e35d728706e591d8e4f937d6468d94579a055162def3af9e694483c7bd68e25
+  languageName: node
+  linkType: hard
+
 "@electron/universal@npm:1.0.5":
   version: 1.0.5
   resolution: "@electron/universal@npm:1.0.5"
@@ -4522,7 +4531,7 @@ __metadata:
     pac-proxy-agent: ^4.0.0
     pkg: ^4.5.1
     power-assert: 1.6.1
-    prettier: 2.2.1
+    prettier: ^3.1.0
     qrcode: ^1.4.4
     tunnel: ^0.0.6
     typescript: 4.2.3
@@ -22161,21 +22170,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.2.1":
-  version: 2.2.1
-  resolution: "prettier@npm:2.2.1"
+"prettier@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "prettier@npm:3.1.0"
   bin:
-    prettier: bin-prettier.js
-  checksum: 800de2df3d37067ab24478c7f32c60ca0c57b01742133287829feeb4a70d239a7bf6bccb56196784777af591ad80fb9ba70c1a49b0fcecf9f5622a764d513edb
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^1.19.1":
-  version: 1.19.1
-  resolution: "prettier@npm:1.19.1"
-  bin:
-    prettier: ./bin-prettier.js
-  checksum: bc78219e0f8173a808f4c6c8e0a137dd8ebd4fbe013e63fe1a37a82b48612f17b8ae8e18a992adf802ee2cf7428f14f084e7c2846ca5759cf4013c6e54810e1f
+    prettier: bin/prettier.cjs
+  checksum: 44b556bd56f74d7410974fbb2418bb4e53a894d3e7b42f6f87779f69f27a6c272fa7fc27cec0118cd11730ef3246478052e002cbd87e9a253f9cd04a56aa7d9b
   languageName: node
   linkType: hard
 
@@ -22558,6 +22558,7 @@ __metadata:
   dependencies:
     "@commitlint/cli": ^11.0.0
     "@commitlint/config-conventional": ^11.0.0
+    "@electron/remote": ^2.1.0
     "@rushstack/eslint-patch": ^1.5.1
     "@types/chai": ^4.2.11
     "@types/electron-devtools-installer": ^2.2.0
@@ -22624,7 +22625,7 @@ __metadata:
     music-metadata: ^7.5.2
     normalize-url: ^5.3.0
     portscanner: ^2.2.0
-    prettier: ^1.19.1
+    prettier: ^3.1.0
     process: ^0.11.10
     react-is: ^16.13.1
     scriptjs: ^2.5.9

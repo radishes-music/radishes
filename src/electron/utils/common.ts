@@ -45,16 +45,16 @@ type LocalSongsDetail = Pick<SongsDetail, 'al' | 'ar' | 'name'>
 
 export const getMp3Tags = async (
   path: string,
-  file: string
+  file: string,
 ): Promise<LocalSongsDetail> => {
   const map: Record<string, string> = {
     album: 'al',
     artist: 'ar',
-    title: 'name'
+    title: 'name',
   }
   const stat = (await import('fs')).statSync(path)
   const tag = await parseFile(path, {
-    duration: true
+    duration: true,
   })
   const duration = tag.format.duration
   const size = stat.size
@@ -68,7 +68,7 @@ export const getMp3Tags = async (
     'year',
     'comment',
     'lyrics',
-    'picture'
+    'picture',
   ].reduce((result: any, current) => {
     let key = current
     if (map[key]) {
@@ -95,7 +95,7 @@ export const getMp3Tags = async (
     duration,
     size,
     dlt,
-    path
+    path,
   }
 }
 
@@ -105,7 +105,7 @@ export const readPathMusic = async (abPath: string[]) => {
     for (let i = 0; i < abPath.length; i++) {
       const files = (await import('fs'))
         .readdirSync(abPath[i])
-        .filter(mp3 => /\.mp3$/.test(mp3))
+        .filter((mp3) => /\.mp3$/.test(mp3))
       for (let j = 0; j < files.length; j++) {
         const file = files[j]
         const path = join(abPath[i], file)

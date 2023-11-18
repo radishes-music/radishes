@@ -12,26 +12,25 @@ import { isElectron } from '@/utils'
 
 const initStorage = async () => {
   if (isElectron) {
-    const v = await import('@/electron/utils/common')
     const downloadModule = useDownloadModule()
     const localMusicModule = useLocalMusicModule()
     const downloadState = store.state.Download
     const localMusicState = store.state.LocalMusic
 
-    const os = (await import('os')).userInfo()
-    const userDownloadPath = v.join(os.homedir + '/Downloads')
+    const os = electronAPI.os.userInfo()
+    const userDownloadPath = electronAPI.path.join(os.homedir + '/Downloads')
     if (!downloadState.downloadPath) {
       downloadModule.useMutations(
         DownloadMutations.SET_DOWNLOAD_PATH,
-        userDownloadPath
+        userDownloadPath,
       )
     }
 
-    const userMusicPath = v.join(os.homedir + '/Music')
+    const userMusicPath = electronAPI.path.join(os.homedir + '/Music')
     if (!localMusicState.normalPath) {
       localMusicModule.useMutations(
         LocalMusicMutations.SET_NORMAL_PATH,
-        userMusicPath
+        userMusicPath,
       )
     }
 
@@ -39,19 +38,21 @@ const initStorage = async () => {
       {
         path: userMusicPath,
         name: '我的音乐',
-        check: true
+        check: true,
       },
       {
         path: userDownloadPath,
         name: '下载',
-        check: true
-      }
+        check: true,
+      },
     ]
     if (!localMusicState.localPath.length) {
       localMusicModule.useMutations(LocalMusicMutations.SET_LOCAL_PATH, paths)
     }
 
-    const songs = await v.readPathMusic(paths.map(item => item.path))
+    const songs = await electronAPI.readPathMusic(
+      paths.map((item) => item.path),
+    )
 
     localMusicModule.useMutations(LocalMusicMutations.SET_LOCAL_MUSIC, songs)
   }

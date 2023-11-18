@@ -24,14 +24,12 @@ export const DownloadSong = defineComponent({
     }
 
     const handleOpenExplorer = () => {
-      import('@/electron/utils/common').then(v => {
-        v.openExplorer(state.downloadPath)
-      })
+      shell.openExternal(state.downloadPath)
     }
 
     const handleSettingDwonload = () => {
       router.push({
-        path: '/setting/download'
+        path: '/setting/download',
       })
     }
 
@@ -60,5 +58,5 @@ export const DownloadSong = defineComponent({
         </div>
       </div>
     )
-  }
+  },
 })

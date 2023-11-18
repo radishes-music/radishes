@@ -19,10 +19,12 @@ const app = createApp(App)
 
 errorHandle(app)
 
-// FIXME: run with it, cant build in web
 init()
 
 if (isElectron) {
+  console.log = electronAPI.info
+  console.warn = electronAPI.warn
+  console.error = electronAPI.error
   registerIPC(app)
 }
 

@@ -1,7 +1,7 @@
 import { defineComponent, nextTick, ref, watch } from 'vue'
 import {
   SecondaryBar,
-  renderNavList
+  renderNavList,
 } from '@/components-business/secondary-bar/index'
 import { navRouter } from '@/router/index'
 import { RouterView } from 'vue-router'
@@ -24,18 +24,17 @@ export const LocalMusic = defineComponent({
     const modalContanier = ref()
     const visibleDirectory = ref(false)
     const checkPath = ref(
-      state.localPath.filter(item => item.check).map(item => item.path)
+      state.localPath.filter((item) => item.check).map((item) => item.path),
     )
 
-    watch(visibleDirectory, visible => {
+    watch(visibleDirectory, (visible) => {
       if (visible) {
         nextTick(() => {
           if (modalContanier.value) {
             const el = modalContanier.value as HTMLElement
             const contanier = el?.parentElement?.parentElement
-            const head = contanier?.querySelector<HTMLElement>(
-              '.ant-modal-header'
-            )
+            const head =
+              contanier?.querySelector<HTMLElement>('.ant-modal-header')
             if (contanier && head) {
               const { start } = useDrag(contanier, head, {
                 moveCB(x, y) {
@@ -44,7 +43,7 @@ export const LocalMusic = defineComponent({
                       el.parentElement.parentElement.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y}) translateZ(0)`
                     }
                   })
-                }
+                },
               })
               start()
             }
@@ -56,14 +55,14 @@ export const LocalMusic = defineComponent({
     const handleAddDirectory = async () => {
       const ipc = await asyncIpc()
       const dir = ipc.sendSyncIpcRendererEvent(
-        Dialog.SHOW_DIALOG
+        Dialog.SHOW_DIALOG,
       ) as Electron.OpenDialogReturnValue
       if (!dir.canceled) {
         const path = dir.filePaths[0]
         const pathSingle = {
           name: path,
           path: path,
-          check: true
+          check: true,
         }
         checkPath.value.push(path)
         useMutations(LocalMusicMutations.SET_LOCAL_INCREMENT_PATH, pathSingle)
@@ -75,8 +74,7 @@ export const LocalMusic = defineComponent({
     }
 
     const handleConfirm = async () => {
-      const v = await import('@/electron/utils/common')
-      const songs = await v.readPathMusic(checkPath.value)
+      const songs = await electronAPI.readPathMusic(checkPath.value)
 
       useMutations(LocalMusicMutations.SET_LOCAL_MUSIC, songs)
       visibleDirectory.value = false
@@ -112,7 +110,7 @@ export const LocalMusic = defineComponent({
                     v-model={checkPath.value}
                     class="local-music-directory-group"
                   >
-                    {state.localPath.map(item => (
+                    {state.localPath.map((item) => (
                       <Checkbox
                         name={item.path}
                         shape="square"
@@ -147,9 +145,9 @@ export const LocalMusic = defineComponent({
             </>
           ),
           head: () => <SecondaryBar nav={nav} size="small" />,
-          body: () => <RouterView />
+          body: () => <RouterView />,
         }}
       />
     )
-  }
+  },
 })

@@ -1,19 +1,14 @@
-import { IpcRenderer } from '@/electron/event/ipc-renderer'
-
 export const asyncIpc = () => {
-  return import('@/electron/event/ipc-renderer').then((v: IpcRenderer) => {
-    return {
-      sendAsyncIpcRendererEvent: v.sendAsyncIpcRendererEvent,
-      sendSyncIpcRendererEvent: v.sendSyncIpcRendererEvent,
-      getWindow: v.getWindow
-    }
+  return Promise.resolve({
+    sendAsyncIpcRendererEvent: ipcRenderer.send,
+    sendSyncIpcRendererEvent: ipcRenderer.sendSync,
   })
 }
 
 export const asyncIpcOrigin = () => {
-  return import('electron').then(v => v.ipcRenderer)
+  return Promise.resolve(ipcRenderer)
 }
 
 export const asyncShell = () => {
-  return import('electron').then(v => v.shell)
+  return Promise.resolve(shell)
 }

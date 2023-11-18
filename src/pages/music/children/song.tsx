@@ -23,16 +23,15 @@ export const LocalMusicSong = defineComponent({
       const renderer = await asyncIpc()
       const buffer = renderer.sendSyncIpcRendererEvent(
         ReadLocalFile.READ_MP3_FROM_PATH,
-        music.path
+        music.path,
       )
       music.buffer = buffer as Buffer
       music.id = Number(atob(String(music.id)))
       playMusic(music)
     }
     const handleSyncMusic = async () => {
-      const v = await import('@/electron/utils/common')
-      const songs = await v.readPathMusic(
-        state.localPath.map(item => item.path)
+      const songs = await electronAPI.readPathMusic(
+        state.localPath.map((item) => item.path),
       )
 
       useMutations(LocalMusicMutations.SET_LOCAL_MUSIC, songs)
@@ -60,5 +59,5 @@ export const LocalMusicSong = defineComponent({
         </div>
       </div>
     )
-  }
+  },
 })

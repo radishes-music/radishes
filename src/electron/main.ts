@@ -1,6 +1,7 @@
-import { app, protocol, BrowserWindow, screen, globalShortcut } from 'electron'
+import { app, BrowserWindow, screen, globalShortcut, protocol } from 'electron'
+
 import { autoUpdater } from 'electron-updater'
-import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
+// import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { eventInit } from '@/electron/event/index'
 import { downloadIntercept } from './event/ipc-main/download'
@@ -13,18 +14,17 @@ import path from 'path'
 // curl -H "Accept: application/json" https://api.github.com/repos/Linkontoask/radishes/contents/package.json
 const isDevelopment = process.env.NODE_ENV_ELECTRON_VITE !== 'production'
 
-let win: BrowserWindow | null,
-  loadingWin: BrowserWindow | null,
+let win: BrowserWindow,
+  loadingWin: BrowserWindow,
   serviceInstance: ThenArg<ReturnType<typeof runService>>['service']
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   {
     scheme: 'app',
-    privileges: { secure: true, standard: true }
-  }
+    privileges: { secure: true, standard: true },
+  },
 ])
-
 // loadingView
 async function createLoadingWindow() {
   loadingWin = new BrowserWindow({
@@ -33,11 +33,11 @@ async function createLoadingWindow() {
     frame: false,
     resizable: false,
     transparent: true,
-    titleBarStyle: 'hidden'
+    titleBarStyle: 'hidden',
   })
   if (process.env.ELECTRON_RENDERER_URL) {
     await loadingWin.loadURL(
-      (process.env.ELECTRON_RENDERER_URL as string) + '/loading.html'
+      (process.env.ELECTRON_RENDERER_URL as string) + '/loading.html',
     )
   } else {
     loadingWin
@@ -45,7 +45,7 @@ async function createLoadingWindow() {
       .then(() => {
         infoMain('Load loading.html')
       })
-      .catch(e => {
+      .catch((e) => {
         errorMain('Load not loading.html', e.toString())
       })
   }
@@ -55,6 +55,7 @@ async function createLoadingWindow() {
   })
 }
 
+require('@electron/remote/main').initialize()
 async function createWindow() {
   const { workAreaSize, scaleFactor } = screen.getPrimaryDisplay()
   const { width, height } = workAreaSize
@@ -72,26 +73,26 @@ async function createWindow() {
     frame: false,
     titleBarStyle: 'hidden',
     resizable: true,
-    icon: path.join(
-      __dirname,
-      isDevelopment
-        ? '../../build/icons/1024x1024.png'
-        : 'build/icons/1024x1024.png'
-    ),
+    hasShadow: false,
     webPreferences: {
+      sandbox: false,
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: true,
+      nodeIntegration: false,
       // https://github.com/electron/electron/issues/23506
-      contextIsolation: false,
+      // contextIsolation: false,
       // This may bring some security issues, but our resources come from the Internet, and the CORS policy is forbidden to play the corresponding resources
-      webSecurity: false,
+      // webSecurity: false,
       // https://github.com/electron/electron/issues/9920
-      // preload: __dirname + '/electron/preload/index.js'
-      // enableRemoteModule: true,
-      devTools: isDevelopment
-    }
+      preload: path.join(__dirname, '../preload/index.js'),
+      // @ts-expect-error
+      enableRemoteModule: true,
+      devTools: true,
+    },
+    autoHideMenuBar: true,
   })
+
+  require('@electron/remote/main').enable(win.webContents)
 
   infoMain('Dev server url ', process.env.ELECTRON_RENDERER_URL)
   if (process.env.ELECTRON_RENDERER_URL) {
@@ -99,27 +100,31 @@ async function createWindow() {
     await win.loadURL(process.env.ELECTRON_RENDERER_URL as string)
     // if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
-    try {
-      createProtocol('app')
-    } catch (e) {
-      warnMain(e)
-    }
+    // try {
+    //   createProtocol('app')
+    // } catch (e) {
+    //   warnMain(e)
+    // }
     // Load the index.html when not in development
+    infoMain(
+      'Entry index.html path:',
+      path.join(__dirname, '../renderer/index.html'),
+    )
     win
-      .loadURL('app://./index.html')
+      .loadURL('file://' + path.join(__dirname, '../renderer/index.html'))
       .then(() => {
         infoMain('Load index.html')
       })
-      .catch(e => {
+      .catch((e) => {
         errorMain('Load not index.html', e.toString())
       })
-    const upgrade = store.get('upgrade')
-    if (upgrade) {
-      autoUpdater.checkForUpdatesAndNotify({
-        title: 'Radishes 通知',
-        body: '发现有新版本，快更新体验吧！'
-      })
-    }
+    // const upgrade = store.get('upgrade')
+    // if (upgrade) {
+    //   autoUpdater.checkForUpdatesAndNotify({
+    //     title: 'Radishes 通知',
+    //     body: '发现有新版本，快更新体验吧！'
+    //   })
+    // }
   }
 
   win.once('ready-to-show', () => {
@@ -129,7 +134,7 @@ async function createWindow() {
   })
 
   // https://github.com/electron/electron/issues/26726
-  win.on('system-context-menu', e => {
+  win.on('system-context-menu', (e) => {
     e.preventDefault()
   })
 
@@ -204,7 +209,7 @@ app.on('ready', async () => {
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {
-    process.on('message', data => {
+    process.on('message', (data) => {
       if (data === 'graceful-exit') {
         app.quit()
       }

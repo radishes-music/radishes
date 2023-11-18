@@ -14,7 +14,14 @@
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "baseUrl": ".",
-    "types": ["vite/client", "node", "mocha", "chai", "electron"],
+    "types": [
+      "vite/client",
+      "electron-vite/node",
+      "node",
+      "mocha",
+      "chai",
+      "electron"
+    ],
     "paths": {
       "@/*": ["./src/*"],
       "root/*": ["./*"]

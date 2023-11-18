@@ -9,12 +9,13 @@ import { LayoutMutations, LayoutSize } from '@/interface'
 import { useLayoutModule } from '@/modules/index'
 import { isBrowser, isElectron, isWindows } from '@/utils'
 import './index.less'
+import classnames from 'classnames'
 
 const actionToClass = {
   [Action.CLOSE_WINDOW]: '',
   [Action.MAXIMIZE_WINDOW]: 'lg',
   [Action.MINIMIZE_WINDOW]: 'sm',
-  [Action.RESTORE_WINDOW]: 'md'
+  [Action.RESTORE_WINDOW]: 'md',
 }
 
 export const Header = defineComponent({
@@ -28,7 +29,7 @@ export const Header = defineComponent({
         useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, actionToClass[action])
       }
       if (isElectron) {
-        asyncIpc().then(event => {
+        asyncIpc().then((event) => {
           event.sendAsyncIpcRendererEvent(action)
         })
       }
@@ -48,28 +49,31 @@ export const Header = defineComponent({
 
     if (isElectron) {
       window.addEventListener('resize', () => {
-        asyncIpc().then(event => {
-          const win = event.getWindow()
-          if (win) {
-            const isMax = win.isMaximized()
-            const size = isMax ? LayoutSize.LG : LayoutSize.MD
-            useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, size)
-          }
+        electronAPI.isMaximized((isMax: boolean) => {
+          const size = isMax ? LayoutSize.LG : LayoutSize.MD
+          useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, size)
         })
       })
     }
 
     return () => (
-      <header class="header">
+      <header
+        class={classnames('header', {
+          'header-electron': isElectron,
+        })}
+      >
         <Logo></Logo>
         <div class="header-right">
-          <div class="header-right-left" onMousedown={e => e.stopPropagation()}>
+          <div
+            class="header-right-left"
+            onMousedown={(e) => e.stopPropagation()}
+          >
             <PushShift></PushShift>
             <Search></Search>
           </div>
           <div
             class="header-right-right"
-            onMousedown={e => e.stopPropagation()}
+            onMousedown={(e) => e.stopPropagation()}
           >
             <Setting></Setting>
             {(isWindows || isBrowser) && (
@@ -103,5 +107,5 @@ export const Header = defineComponent({
         </div>
       </header>
     )
-  }
+  },
 })
