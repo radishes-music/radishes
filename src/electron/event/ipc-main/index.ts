@@ -9,7 +9,7 @@ import {
   ReadLocalFile,
   Dialog,
   AutoDownload,
-  Service
+  Service,
 } from '../action-types'
 import { readFileSync } from 'fs'
 import { autoUpdater } from 'electron-updater'
@@ -66,12 +66,12 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
         webPreferences: {
           nodeIntegration: true,
           contextIsolation: false,
-          webSecurity: false
-        }
+          webSecurity: false,
+        },
       })
-      if (import.meta.env.WEBPACK_DEV_SERVER_URL) {
+      if (process.env.ELECTRON_RENDERER_URL) {
         lyrics.loadURL(
-          normalizeUrl(import.meta.env.WEBPACK_DEV_SERVER_URL + '/lyrics.html')
+          normalizeUrl(process.env.ELECTRON_RENDERER_URL + '/lyrics.html'),
         )
       } else {
         lyrics.loadURL('app://./lyrics.html')
@@ -81,7 +81,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
           lyrics.show()
           lyrics.webContents.send(LyricsAction.LYRICS_UPDATE_RENDER, {
             type: UpdateType.UPDATE_LYRICS,
-            payload: arg
+            payload: arg,
           })
         }
       })
@@ -103,10 +103,10 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
       arg: {
         type: UpdateType
         payload: unknown
-      }
+      },
     ) => {
       lyrics && lyrics.webContents.send(LyricsAction.LYRICS_UPDATE_RENDER, arg)
-    }
+    },
   )
   ipcMain.on(ReadLocalFile.READ_MP3_FROM_PATH, (event, arg: string) => {
     const buffer = readFileSync(arg)
@@ -116,20 +116,20 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
     dialog
       .showOpenDialog(win, {
         title: '添加文件夹',
-        properties: ['openDirectory', 'multiSelections']
+        properties: ['openDirectory', 'multiSelections'],
       })
-      .then(v => {
+      .then((v) => {
         event.returnValue = v
       })
   })
   ipcMain.on(AutoDownload.IS_UPGRADE, (e, upgrade) => {
     store.set('upgrade', upgrade)
   })
-  ipcMain.on(AutoDownload.CHECK_UPGRADE, e => {
-    autoUpdater.checkForUpdates().then(result => {
+  ipcMain.on(AutoDownload.CHECK_UPGRADE, (e) => {
+    autoUpdater.checkForUpdates().then((result: any) => {
       win.webContents.send(AutoDownload.CHECK_UPGRADE, {
         version: result.updateInfo.version,
-        path: result.updateInfo.path
+        path: result.updateInfo.path,
       })
       log.debug('checkForUpdates', result)
     })
@@ -137,7 +137,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
   ipcMain.on(AutoDownload.UPGRADE_NOW, (e, upgrade) => {
     autoUpdater.quitAndInstall()
   })
-  ipcMain.on(Service.GET_PORT, e => {
+  ipcMain.on(Service.GET_PORT, (e) => {
     e.returnValue = store.get('servicePort')
   })
 }

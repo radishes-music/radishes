@@ -12,5 +12,3 @@ export const getAppPath = () => {
 export const getUserOS = () => {
   return userInfo()
 }
-
-export * from './common'
