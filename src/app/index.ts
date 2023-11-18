@@ -22,9 +22,9 @@ errorHandle(app)
 init()
 
 if (isElectron) {
-  console.log = electronAPI.info
-  console.warn = electronAPI.warn
-  console.error = electronAPI.error
+  // console.log = electronAPI.info
+  // console.warn = electronAPI.warn
+  // console.error = electronAPI.error
   registerIPC(app)
 }
 

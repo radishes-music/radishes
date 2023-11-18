@@ -7,7 +7,7 @@ import { isElectron } from '@/utils'
 import { ICommonTagsResult, parseFile } from 'music-metadata'
 import { v4 } from 'uuid'
 import fs from 'fs'
-import { infoMain, warnMain, errorMain } from '../utils/log'
+// import { infoMain, warnMain, errorMain } from '../utils/log'
 
 export const getMp3Tags = async (
   path: string,
@@ -111,9 +111,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   os,
   path,
   readPathMusic,
-  log: infoMain,
-  warn: warnMain,
-  error: errorMain,
+  // log: infoMain,
+  // warn: warnMain,
+  // error: errorMain,
 })
 
 contextBridge.exposeInMainWorld('os', os)

@@ -82,7 +82,7 @@ async function createWindow() {
       // This may bring some security issues, but our resources come from the Internet, and the CORS policy is forbidden to play the corresponding resources
       // webSecurity: false,
       // https://github.com/electron/electron/issues/9920
-      preload: 'file://' + path.join(__dirname, '../preload/index.js'),
+      preload: path.join(__dirname, '../preload/index.js'),
       // @ts-expect-error
       enableRemoteModule: true,
       devTools: true,
