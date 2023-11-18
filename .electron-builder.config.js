@@ -24,6 +24,7 @@ module.exports = async function () {
       'dist-electron/renderer',
       'package.json',
     ],
+    publish: [{ provider: 'github', owner: 'Linkontoask', repo: 'radishes' }],
     extraFiles: [
       {
         from: 'public/service',

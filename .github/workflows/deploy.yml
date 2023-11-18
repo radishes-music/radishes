@@ -37,8 +37,8 @@ jobs:
           steps.cache-node-modules.outputs.cache-hit != 'true' ||
           steps.cache-cypress-binary.outputs.cache-hit != 'true'
         run: |
-          npx lerna@3.22.1 bootstrap
-          npx cypress install
+          corepack enable
+          yarn
 
   # cypress-run:
   #   name: Cypress run
@@ -103,7 +103,7 @@ jobs:
 
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 16
 
       - name: Load node_modules
         id: cache-node-modules
@@ -116,21 +116,25 @@ jobs:
 
       - name: Install
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
+        run: |
+          corepack enable 
+          yarn install --frozen-lockfile
 
       - name: Lint
-        run: yarn lint
+        run: |
+          corepack enable 
+          yarn lint
 
   build-electron:
     name: Automatically release electron version
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     needs: install
     steps:
       - uses: actions/checkout@v2
 
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 16
 
       - name: Load node_modules
         id: cache-node-modules
@@ -143,10 +147,16 @@ jobs:
 
       - name: Install
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
+        run: |
+          corepack enable
+          yarn install --frozen-lockfile
 
       - name: Build electron
-        run: yarn build:electron:linux
+        run: |
+          corepack enable
+          yarn pkg
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Releases to github
         run: |
