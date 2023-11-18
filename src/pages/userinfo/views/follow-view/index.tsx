@@ -18,7 +18,7 @@ export const FollowView = defineComponent({
       loading: false,
       finished: false,
       error: false,
-      list: [],
+      list: []
     })
 
     const onLoad = async () => {
@@ -56,5 +56,5 @@ export const FollowView = defineComponent({
         </List>
       )
     }
-  },
+  }
 })

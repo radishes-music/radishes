@@ -13,8 +13,8 @@ export const AuthView = defineComponent({
           hideAuth()
         },
         {
-          once: true,
-        },
+          once: true
+        }
       )
     })
 
@@ -36,5 +36,5 @@ export const AuthView = defineComponent({
         </MaskView>
       )
     }
-  },
+  }
 })

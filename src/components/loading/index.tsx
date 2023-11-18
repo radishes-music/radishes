@@ -8,7 +8,7 @@ import './index.less'
 export const Loading = defineComponent({
   name: 'Loading',
   props: {
-    size: String,
+    size: String
   },
   setup(props) {
     return function () {
@@ -18,5 +18,5 @@ export const Loading = defineComponent({
         </div>
       )
     }
-  },
+  }
 })

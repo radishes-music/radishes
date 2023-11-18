@@ -23,7 +23,7 @@ export const SongList = defineComponent({
       1: '风格',
       2: '场景',
       3: '情感',
-      4: '主题',
+      4: '主题'
     }
     const tagsView = computed(() => {
       const view = tags.value.reduce(
@@ -32,14 +32,14 @@ export const SongList = defineComponent({
           prev[key] ? prev[key].push(curr) : (prev[key] = [curr])
           return prev
         },
-        {},
+        {}
       )
       return view
     })
 
     useActions(SongListActions.SET_ACTION_SONG_LIST, {
       limit: 30,
-      cat: route.query.tag,
+      cat: route.query.tag
     })
     useActions(SongListActions.SET_ACTION_TAGS)
     useActions(SongListActions.SET_ACTION_HOT_TAGS)
@@ -50,10 +50,10 @@ export const SongList = defineComponent({
         if (v) {
           useActions(SongListActions.SET_ACTION_SONG_LIST, {
             cat: v === 'all' ? '' : v,
-            limit: 30,
+            limit: 30
           })
         }
-      },
+      }
     )
 
     const switchPlaylist = (tag: Tags) => {
@@ -61,8 +61,8 @@ export const SongList = defineComponent({
       router.push({
         path: '/music/songlist',
         query: {
-          tag: tag.name,
-        },
+          tag: tag.name
+        }
       })
     }
 
@@ -86,7 +86,7 @@ export const SongList = defineComponent({
                           {tagsView.value[type].map((tag) => (
                             <div
                               class={classnames({
-                                'active-tag': route.query.tag === tag.name,
+                                'active-tag': route.query.tag === tag.name
                               })}
                               onClick={() => switchPlaylist(tag)}
                             >
@@ -99,7 +99,7 @@ export const SongList = defineComponent({
                   })}
                 </div>
               ),
-              default: () => <Button shape="round">全部歌单</Button>,
+              default: () => <Button shape="round">全部歌单</Button>
             }}
           ></Popover>
 
@@ -108,7 +108,7 @@ export const SongList = defineComponent({
               {tagsHot.value.map((tag) => (
                 <li
                   class={classnames({
-                    'active-tag': route.query.tag === tag.name,
+                    'active-tag': route.query.tag === tag.name
                   })}
                   onClick={() => switchPlaylist(tag)}
                 >
@@ -124,5 +124,5 @@ export const SongList = defineComponent({
         ></ListComponent>
       </div>
     )
-  },
+  }
 })

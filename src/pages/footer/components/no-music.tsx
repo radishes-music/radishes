@@ -7,7 +7,7 @@ export default defineComponent({
   setup() {
     const handleClick = () => {
       router.push({
-        path: '/setting/source',
+        path: '/setting/source'
       })
     }
 
@@ -20,5 +20,5 @@ export default defineComponent({
         添加播放源试试。
       </span>
     )
-  },
+  }
 })

@@ -10,28 +10,28 @@ export default defineComponent({
   props: {
     icon: {
       type: String as PropType<string>,
-      required: true,
+      required: true
     },
     color: {
       type: String as PropType<string>,
-      default: '#ffffff',
+      default: '#ffffff'
     },
     size: {
       type: Number as PropType<number>,
-      default: 24,
+      default: 24
     },
     // eslint-disable-next-line vue/require-default-prop
     height: {
-      type: Number as PropType<number>,
+      type: Number as PropType<number>
     },
     className: {
       type: String as PropType<string>,
-      default: '',
+      default: ''
     },
     style: {
       type: Object as PropType<Record<string, string>>,
-      default: {},
-    },
+      default: {}
+    }
   },
   setup(props) {
     const { icon, color, height, size, className, style } = toRefs(props)
@@ -43,11 +43,11 @@ export default defineComponent({
           ...style.value,
           width: size.value,
           height: height?.value || size.value,
-          fill: color.value,
+          fill: color.value
         }}
       >
         <use href={'#icon-' + icon.value}></use>
       </svg>
     )
-  },
+  }
 })

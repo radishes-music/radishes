@@ -6,7 +6,7 @@ import {
   SearchSuggest,
   ArrayItem,
   SearchMutations,
-  SearchActions,
+  SearchActions
 } from '@/interface'
 import { useSearchModule } from '@/modules'
 
@@ -38,7 +38,7 @@ export const SearchSong = defineComponent({
     onActivated(() => {
       useMutations(
         SearchMutations.SET_SEARCH_TITLE,
-        `找到 ${state.songList.total} 首歌曲`,
+        `找到 ${state.songList.total} 首歌曲`
       )
     })
     onBeforeUnmount(() => {
@@ -58,5 +58,5 @@ export const SearchSong = defineComponent({
         />
       </div>
     )
-  },
+  }
 })

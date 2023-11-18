@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 import {
   SecondaryBar,
-  renderNavList,
+  renderNavList
 } from '@/components-business/secondary-bar/index'
 import { navRouter } from '@/router/index'
 import { RouterView } from 'vue-router'
@@ -17,9 +17,9 @@ export const Download = defineComponent({
         v-slots={{
           title: () => <div>下载管理</div>,
           head: () => <SecondaryBar nav={nav} size="small" />,
-          body: () => <RouterView />,
+          body: () => <RouterView />
         }}
       />
     )
-  },
+  }
 })

@@ -9,12 +9,12 @@ export const Filter = defineComponent({
       type: Function as PropType<
         (value: Record<string, string | number>) => void
       >,
-      required: true,
+      required: true
     },
     value: {
       type: Object as PropType<Record<string, string | number>>,
-      default: {},
-    },
+      default: {}
+    }
   },
   emits: ['change', 'update:value'],
   setup(props, { emit }) {
@@ -26,7 +26,7 @@ export const Filter = defineComponent({
     const keyMap: Record<string, string> = {
       type: '分类',
       area: '语种',
-      initial: '筛选',
+      initial: '筛选'
     }
     const view: Record<string, { name: string; value: number | string }[]> = {
       area: [
@@ -35,20 +35,20 @@ export const Filter = defineComponent({
         { name: '欧美', value: 96 },
         { name: '日本', value: 8 },
         { name: '韩国', value: 16 },
-        { name: '其他', value: 0 },
+        { name: '其他', value: 0 }
       ],
       type: [
         { name: '全部', value: -1 },
         { name: '男歌手', value: 1 },
         { name: '女歌手', value: 2 },
-        { name: '乐队', value: 3 },
+        { name: '乐队', value: 3 }
       ],
       initial: [{ name: '热门', value: '-1' }].concat(
         Array(26)
           .fill(0)
           .map((_, index) => String.fromCharCode(index + 97))
-          .map((item) => ({ name: item.toLocaleUpperCase(), value: item })),
-      ),
+          .map((item) => ({ name: item.toLocaleUpperCase(), value: item }))
+      )
     }
 
     const change = (key: string, value: number | string) => {
@@ -66,7 +66,7 @@ export const Filter = defineComponent({
               {view[key].map((item) => (
                 <li
                   class={classnames({
-                    'filter-active': filter[key] === item.value,
+                    'filter-active': filter[key] === item.value
                   })}
                   onClick={() => change(key, item.value)}
                 >
@@ -78,5 +78,5 @@ export const Filter = defineComponent({
         ))}
       </div>
     )
-  },
+  }
 })

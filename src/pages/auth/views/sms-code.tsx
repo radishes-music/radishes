@@ -17,7 +17,7 @@ export const SmsCode = defineComponent({
 
     const state = reactive({
       code: '',
-      time: 60000,
+      time: 60000
     })
 
     const [httpSendStatus, httpSend] = useHttp(sendMsgCode)
@@ -40,7 +40,7 @@ export const SmsCode = defineComponent({
         } catch (e) {
           if (e.response?.data) {
             setErrorMsg(
-              e.response.data.msg || e.response.data.message || '请求异常',
+              e.response.data.msg || e.response.data.message || '请求异常'
             )
           } else if (e.msg) {
             setErrorMsg(e.msg)
@@ -79,12 +79,12 @@ export const SmsCode = defineComponent({
                     style={{
                       paddingLeft: '6px',
                       paddingTop: '2px',
-                      marginRight: '-4px',
+                      marginRight: '-4px'
                     }}
                   >
                     <icon icon="miyue" size={16} color="#777"></icon>
                   </div>
-                ),
+                )
               }}
               // @ts-ignore
               onFocus={onFocus}
@@ -137,5 +137,5 @@ export const SmsCode = defineComponent({
         </>
       )
     }
-  },
+  }
 })

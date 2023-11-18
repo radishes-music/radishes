@@ -11,7 +11,7 @@ export default defineComponent({
   name: 'UserInfo',
   setup() {
     const state: any = reactive({
-      res: {},
+      res: {}
     })
 
     const $route: any = useRoute()
@@ -26,7 +26,7 @@ export default defineComponent({
         }
         state.res = {}
         loadUserInfo(uid).then((res) => (state.res = res))
-      },
+      }
     )
 
     onMounted(() => {
@@ -46,5 +46,5 @@ export default defineComponent({
         ></UserInfoWidget>
       )
     }
-  },
+  }
 })

@@ -5,7 +5,7 @@ import { Lyrics } from '@/interface'
 import {
   MiddlewareView,
   LyricsAction,
-  UpdateType,
+  UpdateType
 } from '@/electron/event/action-types'
 import { ErrorBoundary } from '@/components/error-boundary/index'
 import { isEqual } from 'lodash-es'
@@ -32,14 +32,14 @@ export default defineComponent({
         {
           lyric: 'Radishes Music @Link',
           time: 0,
-          duration: 0,
-        },
+          duration: 0
+        }
       ],
       index: 0,
       playing: true,
       flashMagic: {
-        animationDuration: '',
-      },
+        animationDuration: ''
+      }
     })
 
     ipcRenderer.on(MiddlewareView.UPDATE_THEME_COLOR, (event, arg) => {
@@ -54,7 +54,7 @@ export default defineComponent({
         arg: {
           type: UpdateType
           payload: PostData[keyof PostData]
-        },
+        }
       ) => {
         const { type, payload } = arg
         if (payload === undefined) return
@@ -79,7 +79,7 @@ export default defineComponent({
           default:
             break
         }
-      },
+      }
     )
 
     return () => (
@@ -89,5 +89,5 @@ export default defineComponent({
         </div>
       </ErrorBoundary>
     )
-  },
+  }
 })

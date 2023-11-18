@@ -16,7 +16,7 @@ export const EmailLogin = defineComponent({
   setup() {
     const state = reactive({
       email: '',
-      password: '',
+      password: ''
     })
     const $router = useRouter()
 
@@ -50,7 +50,7 @@ export const EmailLogin = defineComponent({
           .catch((e: any) => {
             if (e.response?.data) {
               setErrorMsg(
-                e.response.data.msg || e.response.data.message || '请求异常',
+                e.response.data.msg || e.response.data.message || '请求异常'
               )
             } else if (e.msg) {
               setErrorMsg(e.msg)
@@ -73,7 +73,7 @@ export const EmailLogin = defineComponent({
                 <div style="padding-left:8px;">
                   <icon icon="xinfeng" size={18} color={inputColor}></icon>
                 </div>
-              ),
+              )
             }}
             v-model={state.email}
             // @ts-ignore
@@ -98,7 +98,7 @@ export const EmailLogin = defineComponent({
                 >
                   忘记密码？
                 </Link>
-              ),
+              )
             }}
             v-model={state.password}
             onFocus={onFocus}
@@ -127,5 +127,5 @@ export const EmailLogin = defineComponent({
         >{`< 返回其他登录`}</div>
       </>
     )
-  },
+  }
 })

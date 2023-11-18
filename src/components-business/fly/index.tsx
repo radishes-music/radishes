@@ -4,7 +4,7 @@ import {
   createApp,
   onMounted,
   ref,
-  reactive,
+  reactive
 } from 'vue'
 import Icon from '@/components-global/icon/main/index'
 import './index.less'
@@ -14,27 +14,27 @@ export const Fly = defineComponent({
   props: {
     begin: {
       type: Object as PropType<Element>,
-      default: null,
+      default: null
     },
     end: {
       type: Object as PropType<Element>,
-      default: null,
+      default: null
     },
     duartion: {
       type: Number as PropType<number>,
-      default: 0.3,
-    },
+      default: 0.3
+    }
   },
   setup(props) {
     const begin = props.begin.getBoundingClientRect()
     const end = props.end.getBoundingClientRect()
     const style = reactive<any>({
       contanier: {
-        transition: `transform ${props.duartion}s linear`,
+        transition: `transform ${props.duartion}s linear`
       },
       child: {
-        transition: `transform ${props.duartion}s cubic-bezier(0.55, 0, 0.85, 0.36)`,
-      },
+        transition: `transform ${props.duartion}s cubic-bezier(0.55, 0, 0.85, 0.36)`
+      }
     })
 
     onMounted(() => {
@@ -43,15 +43,15 @@ export const Fly = defineComponent({
           left: begin.left + begin.width / 2 - 15 + 'px',
           top: begin.top - 30 + 'px',
           transform: `translateX(${Math.abs(
-            begin.left + begin.width / 2 - (end.left + end.width / 2),
+            begin.left + begin.width / 2 - (end.left + end.width / 2)
           )}px)`,
-          transition: `transform ${props.duartion}s linear`,
+          transition: `transform ${props.duartion}s linear`
         }
         style.child = {
           transform: `translateY(${Math.abs(
-            begin.top + 30 - (end.top + end.height),
+            begin.top + 30 - (end.top + end.height)
           )}px)`,
-          transition: `transform ${props.duartion}s cubic-bezier(0.55, 0, 0.85, 0.36)`,
+          transition: `transform ${props.duartion}s cubic-bezier(0.55, 0, 0.85, 0.36)`
         }
       }, 0)
     })
@@ -63,7 +63,7 @@ export const Fly = defineComponent({
         </div>
       </div>
     )
-  },
+  }
 })
 
 interface Config {
@@ -89,7 +89,7 @@ export const instance = function (config: Config) {
         }
       })
       return () => <Fly ref={fly} {...config} />
-    },
+    }
   })
   app.mount(div)
 }

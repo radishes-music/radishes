@@ -46,25 +46,25 @@ export const UserStatistic = defineComponent({
             {
               key: '动态',
               value: eventCount,
-              onClick: goEvent,
+              onClick: goEvent
             },
             null,
             {
               key: '关注',
               value: follows,
-              onClick: goFollow,
+              onClick: goFollow
             },
             null,
             {
               key: '粉丝',
               value: followeds,
-              onClick: goFollowed,
-            },
+              onClick: goFollowed
+            }
           ].map((info: any, index: number) => (
             <Item info={info} key={index}></Item>
           ))}
         </div>
       )
     }
-  },
+  }
 })

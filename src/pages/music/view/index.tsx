@@ -1,7 +1,7 @@
 import { defineComponent, nextTick, ref, watch } from 'vue'
 import {
   SecondaryBar,
-  renderNavList,
+  renderNavList
 } from '@/components-business/secondary-bar/index'
 import { navRouter } from '@/router/index'
 import { RouterView } from 'vue-router'
@@ -24,7 +24,7 @@ export const LocalMusic = defineComponent({
     const modalContanier = ref()
     const visibleDirectory = ref(false)
     const checkPath = ref(
-      state.localPath.filter((item) => item.check).map((item) => item.path),
+      state.localPath.filter((item) => item.check).map((item) => item.path)
     )
 
     watch(visibleDirectory, (visible) => {
@@ -43,7 +43,7 @@ export const LocalMusic = defineComponent({
                       el.parentElement.parentElement.style.transform = `matrix(1, 0, 0, 1, ${x}, ${y}) translateZ(0)`
                     }
                   })
-                },
+                }
               })
               start()
             }
@@ -55,14 +55,14 @@ export const LocalMusic = defineComponent({
     const handleAddDirectory = async () => {
       const ipc = await asyncIpc()
       const dir = ipc.sendSyncIpcRendererEvent(
-        Dialog.SHOW_DIALOG,
+        Dialog.SHOW_DIALOG
       ) as Electron.OpenDialogReturnValue
       if (!dir.canceled) {
         const path = dir.filePaths[0]
         const pathSingle = {
           name: path,
           path: path,
-          check: true,
+          check: true
         }
         checkPath.value.push(path)
         useMutations(LocalMusicMutations.SET_LOCAL_INCREMENT_PATH, pathSingle)
@@ -145,9 +145,9 @@ export const LocalMusic = defineComponent({
             </>
           ),
           head: () => <SecondaryBar nav={nav} size="small" />,
-          body: () => <RouterView />,
+          body: () => <RouterView />
         }}
       />
     )
-  },
+  }
 })

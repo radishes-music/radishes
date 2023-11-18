@@ -4,7 +4,7 @@ import {
   onMounted,
   onUnmounted,
   ref,
-  watch,
+  watch
 } from 'vue'
 import { useRoute } from '@/hooks/index'
 import Source from './source'
@@ -38,33 +38,33 @@ export const Setting = defineComponent({
       {
         location: 'source',
         name: '播放源',
-        component: <Source />,
+        component: <Source />
       },
       {
         location: 'download',
         name: '下载设置',
-        component: <Download />,
+        component: <Download />
       },
       {
         location: 'upgrade',
         name: '自动更新',
-        component: <Upgrade />,
+        component: <Upgrade />
       },
       {
         location: 'effect',
         name: '音效',
-        component: <Effect />,
+        component: <Effect />
       },
       {
         location: 'author',
         name: '作者',
-        component: <Author />,
+        component: <Author />
       },
       {
         location: 'about',
         name: '关于Radishes',
-        component: <About />,
-      },
+        component: <About />
+      }
     ]
 
     const jumpTop = (top: number | string) => {
@@ -75,7 +75,7 @@ export const Setting = defineComponent({
         }
         if (typeof top === 'string') {
           const currentArea = areaFormat.value.find(
-            (item) => item.location === top,
+            (item) => item.location === top
           )
           if (currentArea) {
             to = currentArea.top + 10
@@ -89,7 +89,7 @@ export const Setting = defineComponent({
               duration: 200,
               cb: (n) => {
                 contanier.value && (contanier.value.scrollTop = n)
-              },
+              }
             })
           }
         })
@@ -106,7 +106,7 @@ export const Setting = defineComponent({
         if (loc) {
           jumpTop(loc as string)
         }
-      },
+      }
     )
 
     onUnmounted(() => {
@@ -120,13 +120,13 @@ export const Setting = defineComponent({
         for (let i = 0; i < children.length; i++) {
           const area = children[i] as HTMLElement
           const top = Math.floor(
-            area.getBoundingClientRect().top - contanierTop,
+            area.getBoundingClientRect().top - contanierTop
           )
           const location = area.dataset.location
           if (location) {
             areaFormat.value[i] = {
               location,
-              top: i === 0 ? 0 : top,
+              top: i === 0 ? 0 : top
             }
           }
         }
@@ -160,7 +160,7 @@ export const Setting = defineComponent({
                 <li
                   class={classnames('none-select', {
                     'setting-view-route--active':
-                      item.location === currentLocation.value,
+                      item.location === currentLocation.value
                   })}
                   onClick={() => handleJump(item.location)}
                 >
@@ -179,5 +179,5 @@ export const Setting = defineComponent({
         </div>
       </div>
     )
-  },
+  }
 })

@@ -19,5 +19,5 @@ export default defineComponent({
         </ul>
       </div>
     )
-  },
+  }
 })

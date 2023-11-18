@@ -10,7 +10,7 @@ export const Desc = defineComponent({
     onActivated(() => {
       useActions(
         ArtistActions.SET_ACTION_ARTIST_DESC,
-        route.params.id as string,
+        route.params.id as string
       )
     })
 
@@ -30,5 +30,5 @@ export const Desc = defineComponent({
         ))}
       </div>
     )
-  },
+  }
 })

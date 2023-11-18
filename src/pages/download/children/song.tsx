@@ -29,7 +29,7 @@ export const DownloadSong = defineComponent({
 
     const handleSettingDwonload = () => {
       router.push({
-        path: '/setting/download',
+        path: '/setting/download'
       })
     }
 
@@ -58,5 +58,5 @@ export const DownloadSong = defineComponent({
         </div>
       </div>
     )
-  },
+  }
 })

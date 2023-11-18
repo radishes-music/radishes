@@ -5,25 +5,25 @@ export const InputField = defineComponent({
   props: {
     icon: {
       type: String,
-      default: 'suodakaimima',
+      default: 'suodakaimima'
     },
     size: {
       type: Number,
-      default: 28,
+      default: 28
     },
     inputColor: {
       type: String,
-      default: 'black',
+      default: 'black'
     },
     bold: {
       type: Boolean,
-      default: false,
+      default: false
     },
     placeholder: {
       type: String,
-      default: '',
+      default: ''
     },
-    modelValue: String,
+    modelValue: String
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
@@ -46,7 +46,7 @@ export const InputField = defineComponent({
               {...this.$attrs}
               style={{
                 color: this.inputColor,
-                fontWeight: this.bold ? 'bold' : undefined,
+                fontWeight: this.bold ? 'bold' : undefined
               }}
               value={this.modelValue}
               onInput={onInput}
@@ -57,5 +57,5 @@ export const InputField = defineComponent({
         </div>
       )
     }
-  },
+  }
 })

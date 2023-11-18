@@ -25,14 +25,14 @@ export const PhoneLogin = defineComponent({
   name: 'PhoneLogin',
   setup() {
     const state_storage = JSON.parse(
-      decode(localStorage.getItem('info') || '') || '{}',
+      decode(localStorage.getItem('info') || '') || '{}'
     )
 
     const state = reactive({
       checked: state_storage.checked || false,
       remember: state_storage.remember || false,
       phone: state_storage.phone,
-      password: state_storage.password,
+      password: state_storage.password
     })
 
     watchEffect(() => {
@@ -113,7 +113,7 @@ export const PhoneLogin = defineComponent({
                   <icon icon="shouji" size={18} color={inputColor}></icon>
                   <div class="country-code__num">+86</div>
                 </div>
-              ),
+              )
             }}
             // @ts-ignore
             v-model={state.phone}
@@ -140,7 +140,7 @@ export const PhoneLogin = defineComponent({
                 >
                   重设密码
                 </div>
-              ),
+              )
             }}
             v-model={state.password}
             onFocus={onFocus}
@@ -221,5 +221,5 @@ export const PhoneLogin = defineComponent({
         </div>
       </>
     )
-  },
+  }
 })

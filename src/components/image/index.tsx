@@ -5,7 +5,7 @@ import {
   onMounted,
   PropType,
   reactive,
-  ref,
+  ref
 } from 'vue'
 import { getDomStyle, noop } from '@/utils/index'
 import { debounce } from 'lodash-es'
@@ -15,23 +15,23 @@ export const Image = defineComponent({
   props: {
     src: {
       type: String as PropType<string>,
-      default: '',
+      default: ''
     },
     name: {
       type: String as PropType<string>,
-      default: '',
+      default: ''
     },
     onClick: {
       type: Function as PropType<() => void>,
-      default: noop,
-    },
+      default: noop
+    }
   },
   emits: ['click'],
   setup(props, { emit }) {
     const contanier = ref()
     const contanierStyle = reactive({
       w: 1,
-      h: 1,
+      h: 1
     })
     const src = computed(() => {
       return `${props.src}?param=${contanierStyle.w * 2}y${
@@ -76,5 +76,5 @@ export const Image = defineComponent({
         )}
       </div>
     )
-  },
+  }
 })

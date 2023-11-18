@@ -2,7 +2,7 @@ import {
   defineComponent,
   KeepAlive,
   Component,
-  resolveDynamicComponent,
+  resolveDynamicComponent
 } from 'vue'
 import { RouterView } from 'vue-router'
 import { Sidebar } from '@/pages/sidebar/view/index'
@@ -19,7 +19,7 @@ export const Main = defineComponent({
             {resolveDynamicComponent(component.Component)}
           </KeepAlive>
         )
-      },
+      }
     }
 
     return () => (
@@ -32,5 +32,5 @@ export const Main = defineComponent({
         <AuthBox></AuthBox>
       </div>
     )
-  },
+  }
 })

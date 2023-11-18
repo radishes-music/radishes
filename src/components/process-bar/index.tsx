@@ -5,7 +5,7 @@ import {
   toRefs,
   VNode,
   watch,
-  PropType,
+  PropType
 } from 'vue'
 import classnames from 'classnames'
 import { BufferBlock, Block } from '@/components/process-bar/block'
@@ -26,32 +26,32 @@ export const ProgressBar = defineComponent({
   props: {
     canDrage: {
       type: Boolean as PropType<boolean>,
-      required: true,
+      required: true
     },
     showTooltip: {
       type: Boolean as PropType<boolean>,
-      default: true,
+      default: true
     },
     current: {
       type: Number as PropType<number>,
-      default: 0,
+      default: 0
     },
     draging: {
       type: Boolean as PropType<boolean>,
-      default: false,
+      default: false
     },
     block: {
       type: Array as PropType<Block[]>,
-      default: [],
+      default: []
     },
     onChange: {
       type: Function as PropType<(x: number, w: number) => void>,
-      default: noop,
+      default: noop
     },
     onCurrent: {
       type: Function as PropType<(v: number) => void>,
-      default: noop,
-    },
+      default: noop
+    }
   },
   emits: ['update:draging'],
   setup(props, context) {
@@ -62,7 +62,7 @@ export const ProgressBar = defineComponent({
       block,
       current,
       onCurrent,
-      showTooltip,
+      showTooltip
     } = toRefs(props)
 
     const container = ref()
@@ -118,8 +118,8 @@ export const ProgressBar = defineComponent({
             context.emit('update:draging', false)
             setAudioCurrent(x, width)
           },
-          horizontal: true,
-        },
+          horizontal: true
+        }
       )
 
       watch(
@@ -127,7 +127,7 @@ export const ProgressBar = defineComponent({
         (canDrage) => {
           if (canDrage) {
             on(indicator.value as HTMLElement, 'click', (e) =>
-              e.stopPropagation(),
+              e.stopPropagation()
             )
             on(container.value as HTMLElement, 'click', handleClick)
             start()
@@ -135,7 +135,7 @@ export const ProgressBar = defineComponent({
             stop()
           }
         },
-        { immediate: true },
+        { immediate: true }
       )
     })
 
@@ -147,7 +147,7 @@ export const ProgressBar = defineComponent({
         <div
           ref={container}
           class={classnames(`${prefix}-command`, {
-            [`${prefix}-command-active`]: draging?.value,
+            [`${prefix}-command-active`]: draging?.value
           })}
         >
           <BufferBlock block={block?.value}></BufferBlock>
@@ -164,7 +164,7 @@ export const ProgressBar = defineComponent({
                   title: () => (
                     <div class={`${prefix}-tip`}>{current.value | 0}</div>
                   ),
-                  default: () => <button ref={indicator}></button>,
+                  default: () => <button ref={indicator}></button>
                 }}
               ></Tooltip>
             ) : (
@@ -175,5 +175,5 @@ export const ProgressBar = defineComponent({
         {slot.suffix ? slot.suffix() : ''}
       </div>
     )
-  },
+  }
 })

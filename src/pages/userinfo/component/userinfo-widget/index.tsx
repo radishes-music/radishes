@@ -15,15 +15,15 @@ export const UserInfoWidget = defineComponent({
   props: {
     profile: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
     audio: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     userId: {
-      type: String,
-    },
+      type: String
+    }
   },
   setup(props: any, ...args) {
     const isSelf = useIsSelf(props.userId)
@@ -31,14 +31,14 @@ export const UserInfoWidget = defineComponent({
     const loadPlaylist = usePlaylist(
       props.userId,
       props.profile.peopleCanSeeMyPlayRecord,
-      props.profile.listenSongs,
+      props.profile.listenSongs
     )
 
     const state: any = reactive({
       loading: false,
       finished: false,
       error: false,
-      list: [],
+      list: []
     })
 
     const onLoad = async () => {
@@ -90,5 +90,5 @@ export const UserInfoWidget = defineComponent({
         </List>
       )
     }
-  },
+  }
 })

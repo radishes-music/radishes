@@ -9,5 +9,5 @@ export const PlaylistItemCell = defineComponent({
     return function () {
       return <div>PlaylistItemCell</div>
     }
-  },
+  }
 })

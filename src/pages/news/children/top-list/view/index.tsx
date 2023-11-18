@@ -69,5 +69,5 @@ export const TopList = defineComponent({
         </div>
       </div>
     )
-  },
+  }
 })

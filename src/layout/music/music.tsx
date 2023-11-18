@@ -11,5 +11,5 @@ export const MusicLayout = defineComponent({
         <div class="music-layout--body">{slots.body && slots.body()}</div>
       </div>
     )
-  },
+  }
 })

@@ -10,24 +10,24 @@ export const SexSelect = defineComponent({
   props: {
     value: {
       type: Number,
-      default: 0,
+      default: 0
     },
     onChange: {
       type: Function,
-      default: noop,
-    },
+      default: noop
+    }
   },
   emits: ['change'],
   setup(props, { emit }) {
     const state = reactive({
-      value: props.value,
+      value: props.value
     })
 
     watch(
       () => props.value,
       (v) => {
         state.value = v
-      },
+      }
     )
 
     return () => {
@@ -45,5 +45,5 @@ export const SexSelect = defineComponent({
         </Radio.Group>
       )
     }
-  },
+  }
 })

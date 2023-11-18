@@ -22,24 +22,24 @@ export const SecondaryList = defineComponent({
   props: {
     type: {
       type: String as PropType<string>,
-      default: 'song',
+      default: 'song'
     },
     source: {
       type: Object as PropType<FormatSource>,
-      default: () => ({}),
+      default: () => ({})
     },
     onPlayAll: {
       type: Function as PropType<() => void>,
-      default: noop,
+      default: noop
     },
     onPlayDbl: {
       type: Function as PropType<(item: any) => void>,
-      default: noop,
+      default: noop
     },
     onUpdate: {
       type: Function as PropType<() => void>,
-      default: noop,
-    },
+      default: noop
+    }
   },
   emits: ['playAll', 'playDbl', 'update'],
   setup(props, { emit }) {
@@ -48,13 +48,13 @@ export const SecondaryList = defineComponent({
 
     const typeMap = {
       album: '专辑',
-      song: '歌单',
+      song: '歌单'
     }
 
     const handleSubscribe = async () => {
       const isSuccess = await subscribe(
         props.source.subscribed ? '2' : '1',
-        props.source.id,
+        props.source.id
       )
       isSuccess && emit('update')
     }
@@ -120,8 +120,8 @@ export const SecondaryList = defineComponent({
                       to={{
                         name: 'songlist',
                         query: {
-                          tag: tag,
-                        },
+                          tag: tag
+                        }
                       }}
                     >
                       {tag}
@@ -141,7 +141,7 @@ export const SecondaryList = defineComponent({
                             ?.split('\n')
                             .join('<br>')}
                         ></div>
-                      ),
+                      )
                     }}
                   ></MoreThen>
                 </div>
@@ -161,9 +161,9 @@ export const SecondaryList = defineComponent({
                 }}
               />
             </div>
-          ),
+          )
         }}
       />
     )
-  },
+  }
 })

@@ -12,16 +12,16 @@ export const SongList = defineComponent({
   props: {
     songData: {
       type: Object as PropType<Song[]>,
-      required: true,
+      required: true
     },
     loading: {
       type: Boolean as PropType<boolean>,
-      default: false,
+      default: false
     },
     onClick: {
       type: Function as PropType<(song: Song) => void>,
-      required: true,
-    },
+      required: true
+    }
   },
   emits: ['click'],
   setup(props, { emit }) {
@@ -36,7 +36,7 @@ export const SongList = defineComponent({
           active
           paragraph={{
             rows: 3,
-            width: '100%',
+            width: '100%'
           }}
           loading={loading.value}
         >
@@ -62,5 +62,5 @@ export const SongList = defineComponent({
         </Skeleton>
       </div>
     )
-  },
+  }
 })

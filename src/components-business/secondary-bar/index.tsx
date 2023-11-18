@@ -7,12 +7,12 @@ const prefix = 'secondary'
 
 export const renderNavList = (
   origin: CustomizeRouteRecordRaw[],
-  name: string,
+  name: string
 ): CustomizeRouteRecordRaw[] => {
   const nav = origin.find((item) => item.name === name)
   if (nav && nav.children) {
     return (nav.children as CustomizeRouteRecordRaw[]).filter(
-      (item) => item.meta?.name,
+      (item) => item.meta?.name
     )
   }
   return []
@@ -23,12 +23,12 @@ export const SecondaryBar = defineComponent({
   props: {
     nav: {
       type: Object as PropType<CustomizeRouteRecordRaw[]>,
-      required: true,
+      required: true
     },
     size: {
       type: String as PropType<'small' | 'default'>,
-      default: 'default',
-    },
+      default: 'default'
+    }
   },
   setup(props) {
     const { nav, size } = toRefs(props)
@@ -38,7 +38,7 @@ export const SecondaryBar = defineComponent({
       if (typeof url === 'string') {
         return {
           path: url,
-          query: toRaw(route.query),
+          query: toRaw(route.query)
         }
       }
       return url
@@ -59,5 +59,5 @@ export const SecondaryBar = defineComponent({
         </ul>
       </div>
     )
-  },
+  }
 })

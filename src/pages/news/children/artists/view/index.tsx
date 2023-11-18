@@ -14,12 +14,12 @@ export const Artists = defineComponent({
     const wrap = ref<null | Element>()
     const pagination = reactive({
       offsets: 1,
-      limit: 30,
+      limit: 30
     })
     const filter = ref({
       type: -1,
       area: -1,
-      initial: '-1',
+      initial: '-1'
     })
     const jump = new Jump()
     const { useActions, useState } = useArtistSearchModule()
@@ -81,5 +81,5 @@ export const Artists = defineComponent({
         </div>
       </div>
     )
-  },
+  }
 })

@@ -6,7 +6,7 @@ import {
   toRefs,
   onUnmounted,
   watch,
-  Transition,
+  Transition
 } from 'vue'
 import { useFooterModule } from '@/modules'
 import { Table } from '@/components-business/table'
@@ -27,8 +27,8 @@ export const MusicHistory = defineComponent({
   props: {
     visible: {
       type: Boolean as PropType<boolean>,
-      default: false,
-    },
+      default: false
+    }
   },
   emits: ['update:visible'],
   setup(props, { emit }) {
@@ -123,7 +123,7 @@ export const MusicHistory = defineComponent({
         </Transition>
       </TeleportToAny>
     )
-  },
+  }
 })
 
 // Fixed the to property of Teleport component could not find Element
@@ -131,5 +131,5 @@ export const AsyncComponent = defineAsyncComponent({
   loader: async () => {
     // Parameter penetration
     return <MusicHistory></MusicHistory>
-  },
+  }
 })

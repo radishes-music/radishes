@@ -35,5 +35,5 @@ export const RadioItem = defineComponent({
         </div>
       )
     }
-  },
+  }
 })

@@ -11,8 +11,8 @@ export const BufferBlock = defineComponent({
   props: {
     block: {
       type: Array as PropType<Block[]>,
-      required: true,
-    },
+      required: true
+    }
   },
   setup(props) {
     const { block } = toRefs(props)
@@ -23,5 +23,5 @@ export const BufferBlock = defineComponent({
         ))}
       </div>
     )
-  },
+  }
 })

@@ -5,7 +5,7 @@ import './index.less'
 const RouterLinkProps = {
   to: {
     type: [String, Object],
-    default: '',
+    default: ''
   },
   activeClass: String,
   // inactiveClass: String,
@@ -13,8 +13,8 @@ const RouterLinkProps = {
   custom: Boolean,
   ariaCurrentValue: {
     type: String,
-    default: 'page',
-  },
+    default: 'page'
+  }
 }
 
 export const Link = defineComponent({
@@ -22,16 +22,16 @@ export const Link = defineComponent({
     ...RouterLinkProps,
     external: {
       type: Boolean,
-      default: false,
+      default: false
     },
     type: {
       type: String,
-      default: 'line',
+      default: 'line'
     },
     onClick: {
       type: Function,
-      default: null,
-    },
+      default: null
+    }
   },
   render() {
     const classText = `link-${this.type}`
@@ -65,7 +65,7 @@ export const Link = defineComponent({
         {this.$slots.default?.()}
       </RouterLink>
     )
-  },
+  }
 })
 
 export const AuthLink = defineComponent({
@@ -74,9 +74,9 @@ export const AuthLink = defineComponent({
       type: Function,
       default: () => {
         /*  */
-      },
+      }
     },
-    icon: String,
+    icon: String
   },
   setup(props: any, { slots }) {
     return () => (
@@ -87,7 +87,7 @@ export const AuthLink = defineComponent({
         <span>{slots.default?.()}</span>
       </div>
     )
-  },
+  }
 })
 
 AuthLink.props = { ...AuthLink.props, icon: String }

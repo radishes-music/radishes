@@ -26,5 +26,5 @@ export const AudioList = defineComponent({
         </div>
       )
     }
-  },
+  }
 })

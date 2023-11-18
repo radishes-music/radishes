@@ -10,7 +10,7 @@ import {
   nextTick,
   onMounted,
   onBeforeUnmount,
-  watch,
+  watch
 } from 'vue'
 import { on, off, maxChildrenScollWidth } from '@/utils/index'
 import { TeleportToAny } from '@/components/teleport-layout/index'
@@ -20,7 +20,7 @@ import {
   LayoutSize,
   FooterMutations,
   DownloadActions,
-  Lyrics,
+  Lyrics
 } from '@/interface'
 import { useSubscribe } from '@/shared/subscribe'
 import { debouncedWatch } from '@vueuse/core'
@@ -36,8 +36,8 @@ export const PlayLyrics = defineComponent({
     visible: {
       type: Boolean as PropType<boolean>,
       required: true,
-      default: false,
-    },
+      default: false
+    }
   },
   setup(props) {
     const { visible } = toRefs(props)
@@ -74,8 +74,8 @@ export const PlayLyrics = defineComponent({
           }) || 0
       },
       {
-        debounce: 200,
-      },
+        debounce: 200
+      }
     )
 
     const updateOffset = () => {
@@ -92,7 +92,7 @@ export const PlayLyrics = defineComponent({
 
           useMutations(
             FooterMutations.LYRICS_EMBED_MIN_WIDTH,
-            Math.min(max, 530),
+            Math.min(max, 530)
           )
         }
       })
@@ -155,7 +155,7 @@ export const PlayLyrics = defineComponent({
                       <Image
                         name={classnams(`${prefix}-left-pic`, {
                           [`${prefix}-left-pic--playing`]: state.playing,
-                          [`${prefix}-left-pic--pause`]: !state.playing,
+                          [`${prefix}-left-pic--pause`]: !state.playing
                         })}
                         src={url.value}
                       />
@@ -175,7 +175,7 @@ export const PlayLyrics = defineComponent({
                     <div
                       class={`${prefix}-right`}
                       style={{
-                        minWidth: minWidth + 'px',
+                        minWidth: minWidth + 'px'
                       }}
                     >
                       <div class={`${prefix}-right--title`}>
@@ -197,7 +197,7 @@ export const PlayLyrics = defineComponent({
                             {lyrics.value.map((item, i) => (
                               <div
                                 class={classnams({
-                                  'lyrics-active': index.value === i,
+                                  'lyrics-active': index.value === i
                                 })}
                                 data-time={item.time}
                                 onClick={() => handleFlyTime(item)}
@@ -212,12 +212,12 @@ export const PlayLyrics = defineComponent({
                   </div>
                 </div>
               </Transition>
-            ),
+            )
           }}
         ></TeleportToAny>
       )
     }
-  },
+  }
 })
 
 // Fixed the to property of Teleport component could not find Element
@@ -225,5 +225,5 @@ export const AsyncComponent = defineAsyncComponent({
   loader: async () => {
     // Parameter penetration
     return <PlayLyrics></PlayLyrics>
-  },
+  }
 })

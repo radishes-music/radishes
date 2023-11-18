@@ -31,5 +31,5 @@ export const UploadWrapper = defineComponent({
         </div>
       )
     }
-  },
+  }
 })

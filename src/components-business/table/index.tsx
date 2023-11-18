@@ -2,14 +2,14 @@ import { defineComponent, PropType, toRefs, ref, computed, watch } from 'vue'
 import {
   Table as ATable,
   Pagination as APagination,
-  Skeleton,
+  Skeleton
 } from 'ant-design-vue'
 import {
   noop,
   formatTime,
   formatTimeToStandard,
   formatSize,
-  scrollAnmation,
+  scrollAnmation
 } from '@/utils/index'
 import {
   SongsDetail,
@@ -22,7 +22,7 @@ import {
   Creator,
   Artist,
   SearchSuggest,
-  ArrayItem,
+  ArrayItem
 } from '@/interface/index'
 import { useDownloadModule, useFooterModule } from '@/modules/index'
 import { useSubscribe } from '@/shared/subscribe'
@@ -49,7 +49,7 @@ const columns = [
         i += text
       }
       return <div class="gay no-hover">{++i < 10 ? '0' + i : i}</div>
-    },
+    }
   },
   {
     width: 102,
@@ -90,17 +90,17 @@ const columns = [
                 instance({
                   begin: add.value.$el,
                   end: end,
-                  duartion: 0.8,
+                  duartion: 0.8
                 })
                 const data = await getMusicUrl(text.id)
                 if (data.length) {
                   const music = {
                     ...text,
                     url: data[0].url,
-                    type: 'stack',
+                    type: 'stack'
                   }
                   useMutations(FooterMutations.SET_PLAYLIST_TO_STACK, [
-                    music as SongsDetail,
+                    music as SongsDetail
                   ])
                 }
               }
@@ -110,7 +110,7 @@ const columns = [
           </ve-button>
         </div>
       )
-    },
+    }
   },
   {
     title: '歌词',
@@ -119,7 +119,7 @@ const columns = [
     key: 'lyrics',
     align: 'left',
     customRender: ({
-      text,
+      text
     }: {
       text: {
         txt: string
@@ -140,7 +140,7 @@ const columns = [
           })}
         </div>
       )
-    },
+    }
   },
   {
     title: '封面',
@@ -150,7 +150,7 @@ const columns = [
     key: 'picUrl',
     customRender: ({ text }: { text: string }) => {
       return <Image src={text} name="pic-url" />
-    },
+    }
   },
   {
     title: '歌曲',
@@ -160,7 +160,7 @@ const columns = [
     key: 'count',
     customRender: ({ text }: { text: number }) => {
       return <span>{text} 首</span>
-    },
+    }
   },
   {
     title: '创建人',
@@ -170,7 +170,7 @@ const columns = [
     key: 'creator',
     customRender: ({ text }: { text: Creator }) => {
       return <span>by {text.nickname}</span>
-    },
+    }
   },
   {
     title: '作者',
@@ -189,13 +189,13 @@ const columns = [
           {alias}
         </span>
       )
-    },
+    }
   },
   {
     title: '音乐标题',
     ellipsis: true,
     dataIndex: 'name',
-    key: 'name',
+    key: 'name'
   },
   {
     title: '歌手',
@@ -208,7 +208,7 @@ const columns = [
         return <div>{text || '未知歌手'}</div>
       }
       return <div>{text.map((ar) => ar.name).join(' / ')}</div>
-    },
+    }
   },
   {
     title: '专辑',
@@ -221,7 +221,7 @@ const columns = [
         return <div>{text || '未知专辑'}</div>
       }
       return <div>{text.name}</div>
-    },
+    }
   },
   {
     title: '时长',
@@ -230,14 +230,14 @@ const columns = [
     width: 120,
     customRender: ({ text }: { text: number }) => (
       <div>{formatTime(text, 'millisecond')}</div>
-    ),
+    )
   },
   {
     title: '大小',
     dataIndex: 'size',
     key: 'size',
     width: 80,
-    customRender: ({ text }: { text: number }) => <div>{formatSize(text)}</div>,
+    customRender: ({ text }: { text: number }) => <div>{formatSize(text)}</div>
   },
   {
     title: '下载时间',
@@ -246,7 +246,7 @@ const columns = [
     width: 160,
     customRender: ({ text }: { text: number }) => (
       <div>{formatTimeToStandard(text)}</div>
-    ),
+    )
   },
   {
     width: 40,
@@ -269,7 +269,7 @@ const columns = [
               if (text.type === 'download') {
                 downloadModule.useMutations(
                   DownloadMutations.REMOVE_DOWNLOAD_MUSIC,
-                  text.id,
+                  text.id
                 )
               }
             }}
@@ -278,8 +278,8 @@ const columns = [
           </ve-button>
         </div>
       )
-    },
-  },
+    }
+  }
 ]
 
 export const Table = defineComponent({
@@ -287,40 +287,40 @@ export const Table = defineComponent({
   props: {
     list: {
       type: Array as PropType<unknown[]>,
-      required: true,
+      required: true
     },
     total: {
       type: Number as PropType<number>,
-      default: 0,
+      default: 0
     },
     loading: {
       type: Boolean as PropType<boolean>,
-      default: false,
+      default: false
     },
     columnsTypes: {
       type: Array as PropType<SongListColumnsType[]>,
-      default: () => [],
+      default: () => []
     },
     showHeader: {
       type: Boolean as PropType<boolean>,
-      default: true,
+      default: true
     },
     pagination: {
       type: Object as PropType<Pagination>,
-      default: () => ({}),
+      default: () => ({})
     },
     onDblclick: {
       type: Function as PropType<(item: any) => void>,
-      default: noop,
+      default: noop
     },
     onChange: {
       type: Function as PropType<(page: number, size: number) => void>,
-      default: noop,
+      default: noop
     },
     rowClassName: {
       type: Function as PropType<(item: any) => void>,
-      default: () => 'row-music',
-    },
+      default: () => 'row-music'
+    }
   },
   emits: ['dblclick', 'change'],
   setup(props, { emit }) {
@@ -332,7 +332,7 @@ export const Table = defineComponent({
       rowClassName,
       pagination,
       total,
-      loading,
+      loading
     } = toRefs(props)
 
     const renderColumns = computed(() => {
@@ -359,7 +359,7 @@ export const Table = defineComponent({
           duration: 200,
           cb: (n) => {
             contanier.value && (scrollContanier.scrollTop = n)
-          },
+          }
         })
       }
     })
@@ -370,7 +370,7 @@ export const Table = defineComponent({
           active
           paragraph={{
             rows: 3,
-            width: '100%',
+            width: '100%'
           }}
           loading={loading.value}
         >
@@ -395,7 +395,7 @@ export const Table = defineComponent({
                   onDblclick: (e: Event) => {
                     e.preventDefault()
                     emit('dblclick', record)
-                  },
+                  }
                 }
               }}
             />
@@ -415,5 +415,5 @@ export const Table = defineComponent({
         )}
       </div>
     )
-  },
+  }
 })

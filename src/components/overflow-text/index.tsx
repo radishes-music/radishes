@@ -11,7 +11,7 @@ export const OverflowText = defineComponent({
   name: 'OverflowText',
   setup() {
     const state = reactive({
-      show: false,
+      show: false
     })
 
     return function (this: any) {
@@ -35,5 +35,5 @@ export const OverflowText = defineComponent({
         </div>
       )
     }
-  },
+  }
 })

@@ -5,7 +5,7 @@ import {
   watchEffect,
   onUnmounted,
   toRefs,
-  PropType,
+  PropType
 } from 'vue'
 import { Banners } from '@/interface/index'
 import { useInternal } from '@/hooks/index'
@@ -22,16 +22,16 @@ export const Swiper = defineComponent({
   props: {
     banners: {
       type: Object as PropType<Banners[]>,
-      required: true,
+      required: true
     },
     running: {
       type: Boolean as PropType<boolean>,
-      default: false,
+      default: false
     },
     onClick: {
       type: Function as PropType<(item: Banners) => void>,
-      default: noop,
-    },
+      default: noop
+    }
   },
   emits: ['click'],
   setup(props, { emit }) {
@@ -92,7 +92,7 @@ export const Swiper = defineComponent({
           index === current.value && spanCurrent.value,
         [`${prefix}-next`]: next,
         [`${prefix}-next-span`]: next && spanCurrent.value,
-        [`${prefix}-span-current`]: spanCurrent.value,
+        [`${prefix}-span-current`]: spanCurrent.value
       })
     }
     const nextAction = () => {
@@ -133,7 +133,7 @@ export const Swiper = defineComponent({
           {banners.value.map((item, index) => (
             <li
               class={classnames({
-                [`${prefix}-pagination-active`]: index === current.value,
+                [`${prefix}-pagination-active`]: index === current.value
               })}
               onMouseenter={() => handleChangeBanner(index)}
             ></li>
@@ -141,5 +141,5 @@ export const Swiper = defineComponent({
         </ul>
       </div>
     )
-  },
+  }
 })

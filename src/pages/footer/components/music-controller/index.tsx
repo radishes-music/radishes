@@ -5,14 +5,14 @@ import {
   onMounted,
   computed,
   watch,
-  watchEffect,
+  watchEffect
 } from 'vue'
 import {
   toFixed,
   formatTime,
   sleep,
   isElectron,
-  isWindows,
+  isWindows
 } from '@/utils/index'
 import { Block } from '@/components/process-bar/block'
 import { ProgressBar } from '@/components/process-bar/index'
@@ -22,7 +22,7 @@ import {
   FooterMutations,
   Direction,
   BasicEffect,
-  PlayMode,
+  PlayMode
 } from '@/interface'
 import { asyncIpc, asyncIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyricsAction } from '@/electron/event/action-types'
@@ -52,7 +52,7 @@ export const MusicControl = defineComponent({
       visibleFlash,
       duration,
       effect,
-      musicUrlLoading,
+      musicUrlLoading
     } = toRefs(useState())
 
     const musicDes = computed(() => useGetter('musicDes'))
@@ -86,7 +86,7 @@ export const MusicControl = defineComponent({
     const changePlayMode = () => {
       useMutations(
         FooterMutations.CHANGE_PLAYMODE,
-        playMode.value === PlayMode.RANDOM ? PlayMode.TURN : PlayMode.RANDOM,
+        playMode.value === PlayMode.RANDOM ? PlayMode.TURN : PlayMode.RANDOM
       )
     }
     const prevMusic = () => {
@@ -144,7 +144,7 @@ export const MusicControl = defineComponent({
           .then((event) => {
             event.sendAsyncIpcRendererEvent(
               MiddlewareView.CREATE_WINDOW,
-              useGetter('musicLyrics').filter((value) => value.lyric),
+              useGetter('musicLyrics').filter((value) => value.lyric)
             )
           })
           .catch((e) => {
@@ -157,7 +157,7 @@ export const MusicControl = defineComponent({
       const musicDetail = useGetter('musicDetail')
       const time = toFixed(
         (musicDetail.dt / 1000) * (indicatorX / indicatorW),
-        6,
+        6
       )
       useMutations(FooterMutations.CURRENT_TIME, time)
     }
@@ -172,8 +172,8 @@ export const MusicControl = defineComponent({
       block.value = [
         {
           left: 0,
-          width: 100,
-        },
+          width: 100
+        }
       ]
     }
 
@@ -192,7 +192,7 @@ export const MusicControl = defineComponent({
       if (audioElement.value && duration.value && !draging.value) {
         useMutations(
           FooterMutations.UPDATE_CURRENT_TIME,
-          audioElement.value.currentTime,
+          audioElement.value.currentTime
         )
       }
       setTimeout(timeUpdate, 0)
@@ -204,7 +204,7 @@ export const MusicControl = defineComponent({
         if (play) {
           timeUpdate()
         }
-      },
+      }
     )
 
     const loadstart = () => {
@@ -219,7 +219,7 @@ export const MusicControl = defineComponent({
           const end = timeRanges.end(timeRanges.length - 1)
           block.value[timeRanges.length - 1] = {
             left: (start / duration.value) * 100,
-            width: ((end - start) / duration.value) * 100,
+            width: ((end - start) / duration.value) * 100
           }
         } catch (e) {
           console.warn(e)
@@ -291,7 +291,7 @@ export const MusicControl = defineComponent({
               type="text"
               onClick={handlePlayPaues}
               class={classNames('theme-btn-color', {
-                'theme-btn-color--loading': musicUrlLoading.value,
+                'theme-btn-color--loading': musicUrlLoading.value
               })}
             >
               <icon
@@ -320,7 +320,7 @@ export const MusicControl = defineComponent({
               onCurrent={(v: number) => {
                 useMutations(
                   FooterMutations.UPDATE_CURRENT_TIME,
-                  (duration.value * v) / 100,
+                  (duration.value * v) / 100
                 )
               }}
               canDrage={canplay.value}
@@ -333,12 +333,12 @@ export const MusicControl = defineComponent({
                 ),
                 suffix: () => (
                   <div class={`${prefix}-time`}>{durationTime.value}</div>
-                ),
+                )
               }}
             ></ProgressBar>
           </div>
         </div>
       </div>
     )
-  },
+  }
 })

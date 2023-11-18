@@ -15,7 +15,7 @@ const actionToClass = {
   [Action.CLOSE_WINDOW]: '',
   [Action.MAXIMIZE_WINDOW]: 'lg',
   [Action.MINIMIZE_WINDOW]: 'sm',
-  [Action.RESTORE_WINDOW]: 'md',
+  [Action.RESTORE_WINDOW]: 'md'
 }
 
 export const Header = defineComponent({
@@ -59,7 +59,7 @@ export const Header = defineComponent({
     return () => (
       <header
         class={classnames('header', {
-          'header-electron': isElectron,
+          'header-electron': isElectron
         })}
       >
         <Logo></Logo>
@@ -107,5 +107,5 @@ export const Header = defineComponent({
         </div>
       </header>
     )
-  },
+  }
 })

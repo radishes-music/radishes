@@ -14,7 +14,7 @@ export default defineComponent({
     } = {
       [BasicEffect.D3]: '3D环绕',
       [BasicEffect.FADE]: '淡入淡出',
-      [BasicEffect.TENDER]: '温柔',
+      [BasicEffect.TENDER]: '温柔'
     }
 
     const handleChangeBasic = (basic: BasicEffect[]) => {
@@ -73,5 +73,5 @@ export default defineComponent({
         </div>
       </div>
     )
-  },
+  }
 })

@@ -5,7 +5,7 @@ import {
   nextTick,
   ref,
   reactive,
-  PropType,
+  PropType
 } from 'vue'
 import './index.less'
 
@@ -22,7 +22,7 @@ interface Methods extends Options {
   handleError: (
     this: This,
     error: boolean,
-    runtimeProps: RuntimeErrorComponentProps,
+    runtimeProps: RuntimeErrorComponentProps
   ) => void
   close: () => void
 }
@@ -39,7 +39,7 @@ export function errorHandle(app: App): void {
         const ErrorBoundary = vm.$root.$refs.ErrorBoundary as unknown as Methods
         ErrorBoundary.handleError(true, {
           title: info,
-          message: err,
+          message: err
         })
       }
     })
@@ -50,12 +50,12 @@ export const RuntimeErrorComponent = defineComponent({
   props: {
     title: {
       type: String as PropType<string>,
-      required: true,
+      required: true
     },
     message: {
       type: Object as PropType<RuntimeErrorComponentProps>,
-      required: true,
-    },
+      required: true
+    }
   },
   render(this: RuntimeErrorComponentProps & ComponentOptions) {
     const { title, message } = this.$props
@@ -76,34 +76,34 @@ export const RuntimeErrorComponent = defineComponent({
         </div>
       </div>
     )
-  },
+  }
 })
 
 export const ErrorBoundary = defineComponent<Options>({
   name: 'ErrorBoundary',
   components: {
-    RuntimeErrorComponent,
+    RuntimeErrorComponent
   },
   setup() {
     const error = ref(false)
     const runtimeProps = reactive({})
     return {
       error,
-      runtimeProps,
+      runtimeProps
     }
   },
   methods: {
     handleError(
       this: This,
       error: boolean,
-      runtimeProps: RuntimeErrorComponentProps,
+      runtimeProps: RuntimeErrorComponentProps
     ) {
       this.error = error
       this.runtimeProps = runtimeProps
     },
     close() {
       this.error = false
-    },
+    }
   } as Methods,
   render(this: This) {
     const { error, runtimeProps } = this
@@ -118,5 +118,5 @@ export const ErrorBoundary = defineComponent<Options>({
         {this.$slots.default && this.$slots.default()}
       </>
     )
-  },
+  }
 })

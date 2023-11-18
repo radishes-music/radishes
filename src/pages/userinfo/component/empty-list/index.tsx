@@ -9,12 +9,12 @@ export const EmptyList = defineComponent({
   props: {
     text: {
       default: '暂无数据',
-      type: String,
-    },
+      type: String
+    }
   },
   setup() {
     return function (this: any) {
       return <div class="empty-list">{this.text}</div>
     }
-  },
+  }
 })

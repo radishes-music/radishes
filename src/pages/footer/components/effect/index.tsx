@@ -9,7 +9,7 @@ export default defineComponent({
     const router = useRouter()
     const handleAudioEffect = () => {
       router.push({
-        path: '/setting/effect',
+        path: '/setting/effect'
       })
     }
 
@@ -17,12 +17,12 @@ export default defineComponent({
       <div class="effect-trigger" onClick={handleAudioEffect}>
         <Tooltip
           v-slots={{
-            title: () => <span>音效</span>,
+            title: () => <span>音效</span>
           }}
         >
           <icon icon="music" color="#5a5a5a" size={18} />
         </Tooltip>
       </div>
     )
-  },
+  }
 })

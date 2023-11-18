@@ -67,7 +67,7 @@ export default defineComponent({
             type="primary"
             size="small"
             v-slots={{
-              icon: () => <icon icon="upgrade" size={16} />,
+              icon: () => <icon icon="upgrade" size={16} />
             }}
             onClick={handleCheckUpgrade}
             loading={upgrading.value}
@@ -79,5 +79,5 @@ export default defineComponent({
         </div>
       </div>
     )
-  },
+  }
 })

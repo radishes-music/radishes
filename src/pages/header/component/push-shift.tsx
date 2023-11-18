@@ -6,7 +6,7 @@ import './puah-shift.less'
 
 enum COMMAND {
   FORWARD = 'FORWARD',
-  BACK = 'BACK',
+  BACK = 'BACK'
 }
 
 export const PushShift = defineComponent({
@@ -51,7 +51,7 @@ export const PushShift = defineComponent({
             setHistoryRoute(oldRoute)
           }
         }
-      },
+      }
     )
 
     const router = useRouter()
@@ -75,7 +75,7 @@ export const PushShift = defineComponent({
         router
           .replace({
             path: path[0],
-            query: query,
+            query: query
           })
           .then(() => {
             routeCanBeCollect(true)
@@ -92,7 +92,7 @@ export const PushShift = defineComponent({
           <ve-button
             disabled={!historyRoute.before.length}
             class={classnames({
-              'push-shift-disabled': !historyRoute.before.length,
+              'push-shift-disabled': !historyRoute.before.length
             })}
             onClick={back}
             type="text"
@@ -103,7 +103,7 @@ export const PushShift = defineComponent({
           <ve-button
             disabled={!historyRoute.after.length}
             class={classnames({
-              'push-shift-disabled': !historyRoute.after.length,
+              'push-shift-disabled': !historyRoute.after.length
             })}
             onClick={forward}
             type="text"
@@ -114,5 +114,5 @@ export const PushShift = defineComponent({
         </div>
       )
     }
-  },
+  }
 })

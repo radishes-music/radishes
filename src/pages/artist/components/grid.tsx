@@ -8,12 +8,12 @@ export const Grid = defineComponent({
   props: {
     source: {
       type: Array as PropType<any[]>,
-      default: () => [],
+      default: () => []
     },
     onClick: {
       type: Function as PropType<(value: any) => void>,
-      default: noop,
-    },
+      default: noop
+    }
   },
   emits: ['click'],
   setup(props, { emit }) {
@@ -33,5 +33,5 @@ export const Grid = defineComponent({
         ))}
       </ul>
     )
-  },
+  }
 })

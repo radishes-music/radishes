@@ -5,7 +5,7 @@ import {
   onUnmounted,
   Component,
   resolveDynamicComponent,
-  KeepAlive,
+  KeepAlive
 } from 'vue'
 import { SecondaryLayout } from '@/layout/secondary/secondary'
 import { Image } from '@/components/image/index'
@@ -26,8 +26,8 @@ const formatNav = (id: string | string[]): CustomizeRouteRecordRaw[] => {
           ...route,
           meta: {
             ...route.meta,
-            path: route.path.replace(':id', id as string),
-          },
+            path: route.path.replace(':id', id as string)
+          }
         }))
     }
   }
@@ -50,8 +50,8 @@ export default defineComponent({
         }
       },
       {
-        immediate: true,
-      },
+        immediate: true
+      }
     )
 
     onUnmounted(() => {
@@ -84,14 +84,14 @@ export default defineComponent({
                       <KeepAlive>
                         {resolveDynamicComponent(component.Component)}
                       </KeepAlive>
-                    ),
+                    )
                   }}
                 ></RouterView>
               </div>
-            ),
+            )
           }}
         />
       </div>
     )
-  },
+  }
 })

@@ -15,7 +15,7 @@ export const AreaSelect = defineComponent({
   setup() {
     const state = reactive({
       province: '',
-      city: '',
+      city: ''
     })
 
     return () => {
@@ -32,5 +32,5 @@ export const AreaSelect = defineComponent({
         </div>
       )
     }
-  },
+  }
 })

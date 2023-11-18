@@ -65,5 +65,5 @@ export const FollowCard = defineComponent({
         </div>
       )
     }
-  },
+  }
 })

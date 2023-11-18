@@ -14,5 +14,5 @@ export const $404 = defineComponent({
         </div>
       </div>
     )
-  },
+  }
 })

@@ -11,7 +11,7 @@ export const UploadBtn = defineComponent({
   name: 'UploadBtn',
   setup() {
     const state = reactive({
-      file: undefined,
+      file: undefined
     })
 
     return function () {
@@ -35,5 +35,5 @@ export const UploadBtn = defineComponent({
         </>
       )
     }
-  },
+  }
 })

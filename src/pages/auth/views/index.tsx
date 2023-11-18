@@ -5,7 +5,7 @@ import {
   Transition,
   provide,
   watch,
-  KeepAlive,
+  KeepAlive
 } from 'vue'
 import { useAuth } from '@/hooks/auth'
 import { PhoneLogin } from './phone-login'
@@ -25,7 +25,7 @@ export const AuthBox = defineComponent({
     const { isShow } = useAuth()
     const state = reactive({
       authType: AUTH_TYPE.PHONE_LOGIN,
-      config: null,
+      config: null
     })
 
     const Component: any = computed(() => authComponent[state.authType])
@@ -37,7 +37,7 @@ export const AuthBox = defineComponent({
       },
       getConfig: () => {
         return state.config
-      },
+      }
     })
 
     watch(
@@ -46,7 +46,7 @@ export const AuthBox = defineComponent({
         if (n) {
           state.authType = AUTH_TYPE.PHONE_LOGIN
         }
-      },
+      }
     )
 
     return () => (
@@ -62,5 +62,5 @@ export const AuthBox = defineComponent({
         ) : null}
       </Transition>
     )
-  },
+  }
 })

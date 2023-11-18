@@ -4,7 +4,7 @@ import {
   Teleport,
   PropType,
   watchEffect,
-  ref,
+  ref
 } from 'vue'
 import classnames from 'classnames'
 import './index.less'
@@ -18,16 +18,16 @@ export const TeleportToAny = defineComponent({
   props: {
     container: {
       type: String as PropType<string>,
-      default: '#cover-container',
+      default: '#cover-container'
     },
     visible: {
       type: Boolean as PropType<boolean>,
-      default: false,
+      default: false
     },
     class: {
       type: String as PropType<string>,
-      default: '',
-    },
+      default: ''
+    }
   },
   setup(props, context) {
     const slot = context.slots as unknown as Slots
@@ -46,7 +46,7 @@ export const TeleportToAny = defineComponent({
           class={
             props.class ||
             classnames('cover-container', {
-              'cover-container-show': visible.value,
+              'cover-container-show': visible.value
             })
           }
         >
@@ -54,5 +54,5 @@ export const TeleportToAny = defineComponent({
         </div>
       </Teleport>
     )
-  },
+  }
 })
