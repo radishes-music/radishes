@@ -75,7 +75,7 @@ export const Setting = defineComponent({
         }
         if (typeof top === 'string') {
           const currentArea = areaFormat.value.find(
-            (item) => item.location === top
+            item => item.location === top
           )
           if (currentArea) {
             to = currentArea.top + 10
@@ -87,7 +87,7 @@ export const Setting = defineComponent({
             scrollAnmation(from, to, {
               tween: tween,
               duration: 200,
-              cb: (n) => {
+              cb: n => {
                 contanier.value && (contanier.value.scrollTop = n)
               }
             })
@@ -102,7 +102,7 @@ export const Setting = defineComponent({
 
     const handleWatch = watch(
       () => route.params.location,
-      (loc) => {
+      loc => {
         if (loc) {
           jumpTop(loc as string)
         }
@@ -155,7 +155,7 @@ export const Setting = defineComponent({
         <h1>设置</h1>
         <div class="setting-view-route">
           <ul>
-            {markNav.map((item) => {
+            {markNav.map(item => {
               return (
                 <li
                   class={classnames('none-select', {
@@ -175,7 +175,7 @@ export const Setting = defineComponent({
           onScroll={debounce(onScroll, 10)}
           class="setting-view-contanier"
         >
-          {markNav.map((mark) => mark.component)}
+          {markNav.map(mark => mark.component)}
         </div>
       </div>
     )

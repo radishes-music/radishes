@@ -7,7 +7,7 @@ export const SettingNameSpaced = 'Setting'
 
 export const useSettingModule = () => {
   return uesModuleStore<SettingState, {}, SettingActions, SettingMutations>(
-    SettingNameSpaced,
+    SettingNameSpaced
   )
 }
 
@@ -15,5 +15,5 @@ export default {
   namespaced: true,
   state,
   actions,
-  mutations,
+  mutations
 }

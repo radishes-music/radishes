@@ -2,11 +2,11 @@ import { get } from '@/utils/http'
 import { Song, PaginationHighquality, Catlists, Tags } from '@/interface/index'
 
 export const getHighqualityPl = async (
-  pagination: PaginationHighquality,
+  pagination: PaginationHighquality
 ): Promise<Song[]> => {
   const data = await get<{ playlists: Song[] }>(
     '/api/top/playlist/highquality',
-    pagination,
+    pagination
   )
   return data.playlists
 }

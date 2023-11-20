@@ -46,7 +46,7 @@ export const SongList = defineComponent({
 
     watch(
       () => route.query.tag,
-      (v) => {
+      v => {
         if (v) {
           useActions(SongListActions.SET_ACTION_SONG_LIST, {
             cat: v === 'all' ? '' : v,
@@ -78,12 +78,12 @@ export const SongList = defineComponent({
             v-slots={{
               content: () => (
                 <div class="highquality-tags">
-                  {(Reflect.ownKeys(tagsView.value) as string[]).map((type) => {
+                  {(Reflect.ownKeys(tagsView.value) as string[]).map(type => {
                     return (
                       <div class="highquality-tags-item">
                         <div class="highquality-tags-item--type">{type}</div>
                         <div class="highquality-tags-item--tags">
-                          {tagsView.value[type].map((tag) => (
+                          {tagsView.value[type].map(tag => (
                             <div
                               class={classnames({
                                 'active-tag': route.query.tag === tag.name
@@ -105,7 +105,7 @@ export const SongList = defineComponent({
 
           <div class="find-music-songlist--hot">
             <ul>
-              {tagsHot.value.map((tag) => (
+              {tagsHot.value.map(tag => (
                 <li
                   class={classnames({
                     'active-tag': route.query.tag === tag.name
@@ -120,7 +120,7 @@ export const SongList = defineComponent({
         </div>
         <ListComponent
           songData={songList.value}
-          onClick={(item) => jump.songList(item.id)}
+          onClick={item => jump.songList(item.id)}
         ></ListComponent>
       </div>
     )

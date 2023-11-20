@@ -7,7 +7,7 @@ export const ArtistNameSpaced = 'Artist'
 
 export const useArtistModule = () => {
   return uesModuleStore<ArtistState, {}, typeof actions, ArtistMutations>(
-    ArtistNameSpaced,
+    ArtistNameSpaced
   )
 }
 
@@ -15,5 +15,5 @@ export default {
   namespaced: true,
   state,
   actions,
-  mutations,
+  mutations
 }

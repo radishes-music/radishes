@@ -38,7 +38,7 @@ export default defineComponent({
             v-model={state.basicEffect}
             onChange={handleChangeBasic}
           >
-            {Object.keys(basicFormat).map((key) => {
+            {Object.keys(basicFormat).map(key => {
               return (
                 <Checkbox
                   shape="square"
@@ -59,7 +59,7 @@ export default defineComponent({
             v-model={state.convolver}
             onChange={handleChangeConvolver}
           >
-            {state.convolverAll.map((mixing) => (
+            {state.convolverAll.map(mixing => (
               <Radio
                 name={mixing}
                 shape="square"

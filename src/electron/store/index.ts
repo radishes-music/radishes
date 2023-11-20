@@ -10,7 +10,7 @@ export interface DownloadKey {
 const initStore: DownloadKey = {
   downloadPath: '',
   upgrade: true,
-  servicePort: '',
+  servicePort: ''
 }
 
 const store = new Store<DownloadKey>()

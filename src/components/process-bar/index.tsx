@@ -124,9 +124,9 @@ export const ProgressBar = defineComponent({
 
       watch(
         canDrage,
-        (canDrage) => {
+        canDrage => {
           if (canDrage) {
-            on(indicator.value as HTMLElement, 'click', (e) =>
+            on(indicator.value as HTMLElement, 'click', e =>
               e.stopPropagation()
             )
             on(container.value as HTMLElement, 'click', handleClick)

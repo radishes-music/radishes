@@ -42,7 +42,7 @@ export const AuthBox = defineComponent({
 
     watch(
       () => isShow.value,
-      (n) => {
+      n => {
         if (n) {
           state.authType = AUTH_TYPE.PHONE_LOGIN
         }

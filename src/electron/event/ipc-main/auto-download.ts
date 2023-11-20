@@ -2,7 +2,7 @@ import { BrowserWindow } from 'electron'
 import {
   autoUpdater,
   UpdateDownloadedEvent,
-  UpdateInfo,
+  UpdateInfo
 } from 'electron-updater'
 import { AutoDownload } from '../action-types'
 import pgk from '../../../../package.json'
@@ -27,7 +27,7 @@ export default (win: BrowserWindow) => {
 
   function sendStatusToWindow<T extends keyof AutoUpdateContent>(
     type: T,
-    content?: AutoUpdateContent[T],
+    content?: AutoUpdateContent[T]
   ) {
     infoMain('[Updater]:', type, content)
     try {
@@ -37,21 +37,21 @@ export default (win: BrowserWindow) => {
     }
   }
 
-  autoUpdater.on('update-available', (info) => {
+  autoUpdater.on('update-available', info => {
     // Inject into subsequent hooks
     info.url = `${pgk.repository.url.replace(/\.git$/, '')}/releases/tag/v${
       info.version
     }`
     sendStatusToWindow(AutoDownload.VERSION, info)
   })
-  autoUpdater.on('update-not-available', (info) => {
+  autoUpdater.on('update-not-available', info => {
     infoMain('[Updater]:', 'update-not-available', info.version)
     sendStatusToWindow(AutoDownload.NOT_VERSION)
   })
-  autoUpdater.on('error', (err) => {
+  autoUpdater.on('error', err => {
     sendStatusToWindow(AutoDownload.ERROR, 'Error in auto-updater. ' + err)
   })
-  autoUpdater.on('download-progress', (progressObj) => {
+  autoUpdater.on('download-progress', progressObj => {
     let logMessage = 'Download speed: ' + progressObj.bytesPerSecond
     logMessage = logMessage + ' - Downloaded ' + progressObj.percent + '%'
     logMessage =
@@ -64,7 +64,7 @@ export default (win: BrowserWindow) => {
     infoMain(logMessage)
     sendStatusToWindow(AutoDownload.PROGRESS, progressObj.percent)
   })
-  autoUpdater.on('update-downloaded', (info) => {
+  autoUpdater.on('update-downloaded', info => {
     sendStatusToWindow(AutoDownload.DOWNLOAD_SUCCESS, info)
     // autoUpdater.quitAndInstall()
   })

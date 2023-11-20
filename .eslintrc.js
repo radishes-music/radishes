@@ -27,6 +27,7 @@ module.exports = {
     // './.eslintrc-auto-import.json'
   ],
   rules: {
+    'prettier/prettier': 2,
     'no-var': 'error',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -60,7 +61,8 @@ module.exports = {
     'no-undef': 'warn'
     // bad update...
     // https://github.com/prettier/prettier/issues/7972#issuecomment-610255024
-    // 'space-before-function-paren': 0
+    // 'space-before-function-paren': 0,
+    // '@typescript-eslint/space-before-function-paren': 0
   },
   overrides: [
     {

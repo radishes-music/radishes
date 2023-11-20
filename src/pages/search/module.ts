@@ -7,7 +7,7 @@ export const SearchNameSpaced = 'Search'
 
 export const useSearchModule = () => {
   return uesModuleStore<SearchState, {}, SearchActions, SearchMutations>(
-    SearchNameSpaced,
+    SearchNameSpaced
   )
 }
 
@@ -15,5 +15,5 @@ export default {
   namespaced: true,
   state,
   actions,
-  mutations,
+  mutations
 }

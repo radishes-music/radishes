@@ -47,7 +47,7 @@ export const Filter = defineComponent({
         Array(26)
           .fill(0)
           .map((_, index) => String.fromCharCode(index + 97))
-          .map((item) => ({ name: item.toLocaleUpperCase(), value: item }))
+          .map(item => ({ name: item.toLocaleUpperCase(), value: item }))
       )
     }
 
@@ -59,11 +59,11 @@ export const Filter = defineComponent({
 
     return () => (
       <div class="filter">
-        {(Reflect.ownKeys(view) as string[]).map((key) => (
+        {(Reflect.ownKeys(view) as string[]).map(key => (
           <div class="filter-group">
             <div>{keyMap[key]}：</div>
             <ul>
-              {view[key].map((item) => (
+              {view[key].map(item => (
                 <li
                   class={classnames({
                     'filter-active': filter[key] === item.value

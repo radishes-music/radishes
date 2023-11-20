@@ -8,14 +8,14 @@ export const getRecommend = () => {
 
 export const getBanner = async (type: number): Promise<Banners> => {
   const data = await get<{ banners: Banners }>('/api/banner', {
-    type,
+    type
   })
   return data.banners
 }
 
 export const getSongList = async (limit = 30): Promise<Song[]> => {
   const data = await get<{ result: Song[] }>('/api/personalized', {
-    limit,
+    limit
   })
   return data.result
 }
@@ -25,11 +25,11 @@ export const getRecommendSongList = async (): Promise<Song[]> => {
     '/api/recommend/resource',
     {},
     {
-      auths: true,
-    },
+      auths: true
+    }
   )
-  return data.recommend.map((item) => ({
+  return data.recommend.map(item => ({
     ...item,
-    playCount: item.playcount,
+    playCount: item.playcount
   }))
 }

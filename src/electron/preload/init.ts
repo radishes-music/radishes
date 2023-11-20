@@ -22,7 +22,7 @@ const initStorage = async () => {
     if (!downloadState.downloadPath) {
       downloadModule.useMutations(
         DownloadMutations.SET_DOWNLOAD_PATH,
-        userDownloadPath,
+        userDownloadPath
       )
     }
 
@@ -30,7 +30,7 @@ const initStorage = async () => {
     if (!localMusicState.normalPath) {
       localMusicModule.useMutations(
         LocalMusicMutations.SET_NORMAL_PATH,
-        userMusicPath,
+        userMusicPath
       )
     }
 
@@ -38,21 +38,19 @@ const initStorage = async () => {
       {
         path: userMusicPath,
         name: '我的音乐',
-        check: true,
+        check: true
       },
       {
         path: userDownloadPath,
         name: '下载',
-        check: true,
-      },
+        check: true
+      }
     ]
     if (!localMusicState.localPath.length) {
       localMusicModule.useMutations(LocalMusicMutations.SET_LOCAL_PATH, paths)
     }
 
-    const songs = await electronAPI.readPathMusic(
-      paths.map((item) => item.path),
-    )
+    const songs = await electronAPI.readPathMusic(paths.map(item => item.path))
 
     localMusicModule.useMutations(LocalMusicMutations.SET_LOCAL_MUSIC, songs)
   }

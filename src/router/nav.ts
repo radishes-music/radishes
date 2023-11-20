@@ -22,8 +22,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
       auth: true,
       nonav: true,
       browser: true,
-      electron: true,
-    },
+      electron: true
+    }
   },
   {
     path: '/followList/:uid',
@@ -34,8 +34,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
       nonav: true,
       browser: true,
       electron: true,
-      canBeCollect: true,
-    },
+      canBeCollect: true
+    }
   },
   {
     path: '/eventView/:uid',
@@ -46,8 +46,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
       nonav: true,
       browser: true,
       electron: true,
-      canBeCollect: true,
-    },
+      canBeCollect: true
+    }
   },
   {
     path: '/fansView/:uid',
@@ -58,8 +58,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
       nonav: true,
       browser: true,
       electron: true,
-      canBeCollect: true,
-    },
+      canBeCollect: true
+    }
   },
   {
     path: '/userSetting',
@@ -70,8 +70,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
       nonav: true,
       browser: true,
       electron: true,
-      canBeCollect: true,
-    },
+      canBeCollect: true
+    }
   },
   {
     path: '/music',
@@ -80,12 +80,12 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     meta: {
       name: '发现音乐',
       browser: true,
-      electron: true,
+      electron: true
     },
     children: [
       {
         path: '',
-        redirect: '/music/recommend',
+        redirect: '/music/recommend'
       },
       {
         path: 'recommend',
@@ -94,8 +94,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         meta: {
           name: '个性推荐',
           path: 'recommend',
-          canBeCollect: true,
-        },
+          canBeCollect: true
+        }
       },
       {
         path: 'songlist',
@@ -106,11 +106,11 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
           path: {
             name: 'songlist',
             query: {
-              tag: 'all',
-            },
+              tag: 'all'
+            }
           },
-          canBeCollect: true,
-        },
+          canBeCollect: true
+        }
       },
       {
         path: 'toplist',
@@ -119,8 +119,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         meta: {
           name: '排行榜',
           path: 'toplist',
-          canBeCollect: true,
-        },
+          canBeCollect: true
+        }
       },
       {
         path: 'artists',
@@ -129,10 +129,10 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         meta: {
           name: '歌手',
           path: 'artists',
-          canBeCollect: true,
-        },
-      },
-    ],
+          canBeCollect: true
+        }
+      }
+    ]
   },
   {
     path: '/video',
@@ -140,22 +140,22 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     meta: {
       name: '视频',
       browser: false,
-      electron: false,
+      electron: false
     },
     children: [
       {
         path: '',
-        redirect: '/video/mv',
+        redirect: '/video/mv'
       },
       {
         path: '/video/mv',
         component: Mv,
         meta: {
           name: 'MV',
-          canBeCollect: true,
-        },
-      },
-    ],
+          canBeCollect: true
+        }
+      }
+    ]
   },
   {
     path: '/moments',
@@ -164,8 +164,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
       name: '朋友',
       browser: false,
       electron: false,
-      canBeCollect: true,
-    },
+      canBeCollect: true
+    }
   },
   {
     path: '/download',
@@ -175,12 +175,12 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
       name: '下载管理',
       beforeHeader: '我的音乐',
       browser: true,
-      electron: true,
+      electron: true
     },
     children: [
       {
         path: '',
-        redirect: '/download/song',
+        redirect: '/download/song'
       },
       {
         path: 'song',
@@ -188,8 +188,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         meta: {
           name: '已下载单曲',
           path: 'song',
-          canBeCollect: true,
-        },
+          canBeCollect: true
+        }
       },
       {
         path: 'mv',
@@ -197,10 +197,10 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         meta: {
           name: '已下载MV',
           path: 'mv',
-          canBeCollect: true,
-        },
-      },
-    ],
+          canBeCollect: true
+        }
+      }
+    ]
   },
   {
     path: '/local-music',
@@ -209,12 +209,12 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     meta: {
       name: '本地音乐',
       browser: false,
-      electron: true,
+      electron: true
     },
     children: [
       {
         path: '',
-        redirect: '/local-music/song',
+        redirect: '/local-music/song'
       },
       {
         path: 'song',
@@ -222,8 +222,8 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         meta: {
           name: '歌曲',
           path: 'song',
-          canBeCollect: true,
-        },
+          canBeCollect: true
+        }
       },
       {
         path: 'dir',
@@ -231,10 +231,10 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
         meta: {
           name: '文件夹',
           path: 'dir',
-          canBeCollect: true,
-        },
-      },
-    ],
+          canBeCollect: true
+        }
+      }
+    ]
   },
   {
     path: '/cloud',
@@ -245,7 +245,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
       auth: true,
       browser: true,
       electron: true,
-      canBeCollect: true,
-    },
-  },
+      canBeCollect: true
+    }
+  }
 ]

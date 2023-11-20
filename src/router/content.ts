@@ -7,57 +7,57 @@ const Artist = () =>
 
 const ArtistAlbume = () =>
   import(/* webpackChunkName: "artist" */ '@/pages/artist/index').then(
-    (component) => component.Albume,
+    component => component.Albume
   )
 
 const ArtistMv = () =>
   import(/* webpackChunkName: "artist" */ '@/pages/artist/index').then(
-    (component) => component.Mv,
+    component => component.Mv
   )
 
 const ArtistDesc = () =>
   import(/* webpackChunkName: "artist" */ '@/pages/artist/index').then(
-    (component) => component.Desc,
+    component => component.Desc
   )
 
 const ArtistSimilar = () =>
   import(/* webpackChunkName: "artist" */ '@/pages/artist/index').then(
-    (component) => component.Similar,
+    component => component.Similar
   )
 
 const Setting = () =>
   import(/* webpackChunkName: "setting" */ '@/pages/setting/index').then(
-    (component) => component.Setting,
+    component => component.Setting
   )
 
 const Search = () =>
   import(/* webpackChunkName: "search" */ '@/pages/search/index').then(
-    (component) => component.Search,
+    component => component.Search
   )
 
 const SearchSong = () =>
   import(/* webpackChunkName: "search" */ '@/pages/search/index').then(
-    (component) => component.SearchSong,
+    component => component.SearchSong
   )
 
 const SearchArtist = () =>
   import(/* webpackChunkName: "search" */ '@/pages/search/index').then(
-    (component) => component.SearchArtist,
+    component => component.SearchArtist
   )
 
 const SearchAlbum = () =>
   import(/* webpackChunkName: "search" */ '@/pages/search/index').then(
-    (component) => component.SearchAlbum,
+    component => component.SearchAlbum
   )
 
 const SearchSongList = () =>
   import(/* webpackChunkName: "search" */ '@/pages/search/index').then(
-    (component) => component.SearchSongList,
+    component => component.SearchSongList
   )
 
 const SearchLyrics = () =>
   import(/* webpackChunkName: "search" */ '@/pages/search/index').then(
-    (component) => component.SearchLyrics,
+    component => component.SearchLyrics
   )
 
 export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
@@ -67,8 +67,8 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
     meta: {
       canBeCollect: true,
       browser: true,
-      electron: true,
-    },
+      electron: true
+    }
   },
   {
     path: '/artist/:id',
@@ -77,14 +77,14 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
     meta: {
       canBeCollect: true,
       browser: true,
-      electron: true,
+      electron: true
     },
     beforeEnter: (to, from, next) => {
       if (to.params.id) {
         next()
       } else {
         next({
-          path: '/',
+          path: '/'
         })
       }
     },
@@ -95,8 +95,8 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         name: 'ArtistAlbume',
         meta: {
           name: '专辑',
-          canBeCollect: true,
-        },
+          canBeCollect: true
+        }
       },
       {
         path: 'mv',
@@ -104,8 +104,8 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         name: 'ArtistMv',
         meta: {
           name: 'MV',
-          canBeCollect: true,
-        },
+          canBeCollect: true
+        }
       },
       {
         path: 'detail',
@@ -113,8 +113,8 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         name: 'ArtistDesc',
         meta: {
           name: '歌手详情',
-          canBeCollect: true,
-        },
+          canBeCollect: true
+        }
       },
       {
         path: 'similar',
@@ -122,10 +122,10 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         name: 'ArtistSimilar',
         meta: {
           name: '相似歌手',
-          canBeCollect: true,
-        },
-      },
-    ],
+          canBeCollect: true
+        }
+      }
+    ]
   },
   {
     path: '/setting/:location',
@@ -134,8 +134,8 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
     meta: {
       canBeCollect: true,
       browser: true,
-      electron: true,
-    },
+      electron: true
+    }
   },
   {
     path: '/search',
@@ -144,12 +144,12 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
     meta: {
       canBeCollect: true,
       browser: true,
-      electron: true,
+      electron: true
     },
     children: [
       {
         path: '',
-        redirect: '/search/song',
+        redirect: '/search/song'
       },
       {
         path: 'song',
@@ -157,8 +157,8 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         name: 'SearchSong',
         meta: {
           name: '歌曲',
-          path: 'song',
-        },
+          path: 'song'
+        }
       },
       {
         path: 'artist',
@@ -166,8 +166,8 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         name: 'SearchArtist',
         meta: {
           name: '歌手',
-          path: 'artist',
-        },
+          path: 'artist'
+        }
       },
       {
         path: 'album',
@@ -175,8 +175,8 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         name: 'SearchAlbum',
         meta: {
           name: '专辑',
-          path: 'album',
-        },
+          path: 'album'
+        }
       },
       {
         path: 'songlist',
@@ -184,8 +184,8 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         name: 'SearchSongList',
         meta: {
           name: '歌单',
-          path: 'songlist',
-        },
+          path: 'songlist'
+        }
       },
       {
         path: 'lyrics',
@@ -193,9 +193,9 @@ export const contentBaseRouter: CustomizeRouteRecordRaw[] = [
         name: 'SearchLyrics',
         meta: {
           name: '歌词',
-          path: 'lyrics',
-        },
-      },
-    ],
-  },
+          path: 'lyrics'
+        }
+      }
+    ]
+  }
 ]

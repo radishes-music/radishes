@@ -8,7 +8,7 @@ import { antdDayjs } from 'antd-dayjs-vite-plugin'
 
 import pkg from './package.json'
 
-const resolvePath = (depPath) => path.resolve(__dirname, depPath)
+const resolvePath = depPath => path.resolve(__dirname, depPath)
 
 export const __VITE_RESOLVE__ = {
   alias: {
@@ -27,8 +27,8 @@ export const __VITE_RESOLVE__ = {
     '@/modules': resolvePath('./src/modules'),
     root: resolvePath('./src/../'),
     '~@': resolvePath('./src'),
-    '~@vant': resolvePath('./node_modules/@vant'),
-  },
+    '~@vant': resolvePath('./node_modules/@vant')
+  }
 }
 
 export default defineConfig(({ mode }) => {
@@ -41,18 +41,18 @@ export default defineConfig(({ mode }) => {
     envPrefix: 'VUE_APP_',
     define: {
       __APP_VERSION__: `'${pkg.version}'`,
-      __GIT_URL__: `'${pkg.repository.url}'`,
+      __GIT_URL__: `'${pkg.repository.url}'`
     },
     esbuild: {
       jsxFactory: 'h',
       jsxFragment: 'Fragment',
       jsxInject: `import {h} from 'vue'`,
-      include: 'vue',
+      include: 'vue'
     },
     build: {
       rollupOptions: {
-        input: 'index.html',
-      },
+        input: 'index.html'
+      }
     },
     server: {
       open: isWeb,
@@ -62,16 +62,16 @@ export default defineConfig(({ mode }) => {
         '/api': {
           target: 'http://localhost:32768',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        },
-      },
+          rewrite: path => path.replace(/^\/api/, '')
+        }
+      }
     },
     css: {
       preprocessorOptions: {
         less: {
-          javascriptEnabled: true,
-        },
-      },
+          javascriptEnabled: true
+        }
+      }
     },
     plugins: [
       vue(),
@@ -80,15 +80,15 @@ export default defineConfig(({ mode }) => {
       usePluginImport({
         libraryName: 'ant-design-vue',
         libraryDirectory: 'es',
-        style: 'css',
+        style: 'css'
       }),
       usePluginImport({
         libraryName: 'vant',
         libraryDirectory: 'es',
-        style: (name) => `${name}/style/less`,
+        style: name => `${name}/style/less`
       }),
-      antdDayjs(),
+      antdDayjs()
     ],
-    resolve: __VITE_RESOLVE__,
+    resolve: __VITE_RESOLVE__
   }
 })

@@ -68,7 +68,7 @@ export const UserSetting = defineComponent({
     ].forEach(({ key, value }: any) => {
       watch(
         () => authProfile.value[key],
-        (v) => (state[value] = v)
+        v => (state[value] = v)
       )
     })
 

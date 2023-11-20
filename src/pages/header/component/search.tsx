@@ -80,14 +80,14 @@ const Group = defineComponent({
           <icon icon="facebook" color="#333" size={14}></icon>单曲
         </div>
         <ul class="search-popper-group">
-          {item.value.map((song) => {
+          {item.value.map(song => {
             return (
               <Option
                 value={song.id}
                 onSelect={handleSelect}
                 keyword={words.value}
                 detail={`${song.name} - ${song.artists
-                  .map((artist) => artist.name)
+                  .map(artist => artist.name)
                   .join(' ')}`}
               ></Option>
             )
@@ -162,14 +162,14 @@ export const Search = defineComponent({
             <icon icon="facebook" color="#333" size={14}></icon>单曲
           </div>
           <ul class="search-popper-group">
-            {state.searchSuggest.songs?.map((song) => {
+            {state.searchSuggest.songs?.map(song => {
               return (
                 <Option
                   value={song.id}
                   onSelect={() => handleSelect(SearchType.SONGS, song)}
                   keyword={words.value}
                   detail={`${song.name} - ${song.artists
-                    .map((artist) => artist.name)
+                    .map(artist => artist.name)
                     .join(' ')}`}
                 ></Option>
               )
@@ -179,7 +179,7 @@ export const Search = defineComponent({
             <icon icon="facebook" color="#333" size={14}></icon>歌手
           </div>
           <ul class="search-popper-group">
-            {state.searchSuggest.artists?.map((artist) => {
+            {state.searchSuggest.artists?.map(artist => {
               return (
                 <Option
                   value={artist.id}
@@ -194,7 +194,7 @@ export const Search = defineComponent({
             <icon icon="facebook" color="#333" size={14}></icon>专辑
           </div>
           <ul class="search-popper-group search-popper-last">
-            {state.searchSuggest.albums?.map((album) => {
+            {state.searchSuggest.albums?.map(album => {
               return (
                 <Option
                   value={album.id}
@@ -212,7 +212,7 @@ export const Search = defineComponent({
             <icon icon="facebook" color="#333" size={14}></icon>歌单
           </div>
           <ul class="search-popper-group search-popper-last">
-            {state.searchSuggest.playlists?.map((list) => {
+            {state.searchSuggest.playlists?.map(list => {
               return (
                 <Option
                   value={list.id}

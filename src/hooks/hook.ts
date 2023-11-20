@@ -27,25 +27,25 @@ export const useInternal = (ms: number, cb: () => unknown): InternalHook => {
   const { start, stop } = useIntervalFn(cb, ms)
   return {
     startInternal: start,
-    stopInternal: stop,
+    stopInternal: stop
   }
 }
 
 export const useDrag = (
   container: HTMLElement,
   target: HTMLElement,
-  options: DragOptions,
+  options: DragOptions
 ) => {
   const cache = {
     x: 0,
     y: 0,
     left: 0,
-    top: 0,
+    top: 0
   }
 
   let clickPosition = {
     x: 0,
-    y: 0,
+    y: 0
   }
 
   let canMove = false
@@ -55,7 +55,7 @@ export const useDrag = (
     const { clientX, clientY } = e
     clickPosition = {
       x: clientX,
-      y: clientY,
+      y: clientY
     }
     const computedStyle = window.getComputedStyle(container)
     const width = computedStyle.width.match(/\d+/)
@@ -105,7 +105,7 @@ export const useDrag = (
 
   return {
     start,
-    stop,
+    stop
   }
 }
 
@@ -113,7 +113,7 @@ export function uesModuleStore<
   S,
   G = Record<string, string>,
   A = unknown,
-  M = unknown,
+  M = unknown
 >(NAMESPACED: string) {
   const useState = (): S => {
     return store.state[NAMESPACED]
@@ -123,7 +123,7 @@ export function uesModuleStore<
   }
   const useActions = <K extends keyof FormatEnum<A, A>>(
     type: K,
-    payload?: PayloadType<K, A>,
+    payload?: PayloadType<K, A>
   ) => {
     return store.dispatch(NAMESPACED + '/' + type, payload) as IActionsReturn<
       K,
@@ -132,7 +132,7 @@ export function uesModuleStore<
   }
   const useMutations = <K extends keyof FormatEnum<M, M>>(
     type: K,
-    payload?: PayloadType<K, M>,
+    payload?: PayloadType<K, M>
   ): void => {
     store.commit(NAMESPACED + '/' + type, payload)
   }
@@ -141,7 +141,7 @@ export function uesModuleStore<
     useActions: useActions,
     useMutations: useMutations,
     useState: useState,
-    useGetter: useGetter,
+    useGetter: useGetter
   }
 }
 
@@ -153,7 +153,7 @@ export const useThemeColor = () => {
 export const useUrlParams = (
   key: string,
   cb: (...args: unknown[]) => void,
-  args: unknown,
+  args: unknown
 ) => {
   const route = useRoute()
 
@@ -165,7 +165,7 @@ export const useUrlParams = (
       }
     },
     {
-      immediate: true,
-    },
+      immediate: true
+    }
   )
 }

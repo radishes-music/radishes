@@ -6,7 +6,7 @@ const {
   renderOutputCode,
   normalizedJsonToFile,
   writeLanguageZhCn,
-  writeOutputCode,
+  writeOutputCode
 } = require('./core/index')
 
 const rootPath = path.join(__dirname, '..')
@@ -21,11 +21,11 @@ async function start() {
 
   const mergeJson = []
   const errorFile = []
-  test.map(async (json) => {
+  test.map(async json => {
     const normalized = json[json.key]
     const code = renderOutputCode(
       normalized,
-      fs.readFileSync(json.key, { encoding: 'utf8' }),
+      fs.readFileSync(json.key, { encoding: 'utf8' })
     )
     mergeJson.push(...normalized)
     try {
@@ -34,13 +34,13 @@ async function start() {
       // console.warn(e.stack);
       errorFile.push({
         name: json.key,
-        error: e.stack,
+        error: e.stack
       })
     }
   })
   const json = normalizedJsonToFile(mergeJson)
   await writeLanguageZhCn({
-    ...json,
+    ...json
   })
   if (errorFile.length) {
     await writeLanguageZhCn(errorFile, path.join(rootPath, 'script/error.json'))

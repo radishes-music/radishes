@@ -80,7 +80,7 @@ const columns = [
           <ve-button
             ref={add}
             disabled={
-              state.musicStack.findIndex((item) => item.id === text.id) !== -1
+              state.musicStack.findIndex(item => item.id === text.id) !== -1
             }
             type="text"
             onDblClick={(e: Event) => e.stopPropagation()}
@@ -128,7 +128,7 @@ const columns = [
       const route = useRoute()
       const word = route.query.words as string
       const lyrics = text.txt.split('\n')
-      const index = lyrics.findIndex((item) => item.includes(word))
+      const index = lyrics.findIndex(item => item.includes(word))
       const result = lyrics.slice(index, index + 4)
       return (
         <div class="table-row-lyrics">
@@ -207,7 +207,7 @@ const columns = [
       if (typeof text === 'string' || typeof text === 'undefined') {
         return <div>{text || '未知歌手'}</div>
       }
-      return <div>{text.map((ar) => ar.name).join(' / ')}</div>
+      return <div>{text.map(ar => ar.name).join(' / ')}</div>
     }
   },
   {
@@ -337,8 +337,8 @@ export const Table = defineComponent({
 
     const renderColumns = computed(() => {
       const col: unknown[] = []
-      columnsTypes.value.forEach((item) => {
-        const c = columns.find((c) => c.key === item)
+      columnsTypes.value.forEach(item => {
+        const c = columns.find(c => c.key === item)
         if (c) {
           col.push(c)
         }
@@ -357,7 +357,7 @@ export const Table = defineComponent({
         scrollAnmation(from, 0, {
           tween: tween,
           duration: 200,
-          cb: (n) => {
+          cb: n => {
             contanier.value && (scrollContanier.scrollTop = n)
           }
         })
@@ -384,7 +384,7 @@ export const Table = defineComponent({
               showHeader={showHeader.value}
               columns={renderColumns.value}
               dataSource={list.value}
-              customRow={(record) => {
+              customRow={record => {
                 // There is a problem with the ant design vue document, please refer to the link below
                 // https://v3.vuejs.org/guide/migration/render-function-api.html#_3-x-syntax-3
                 // https://github.com/vueComponent/ant-design-vue/blob/28aeea6f0b142ed68950a3738f7cf2c1581a7a5b/components/table/Table.tsx#L465

@@ -18,7 +18,7 @@ export const BufferBlock = defineComponent({
     const { block } = toRefs(props)
     return () => (
       <div class="buffer-block">
-        {block.value?.map((b) => (
+        {block.value?.map(b => (
           <div style={{ left: b.left + '%', width: b.width + '%' }}></div>
         ))}
       </div>

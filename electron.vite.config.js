@@ -11,12 +11,12 @@ export default defineConfig({
     build: {
       rollupOptions: {
         input: {
-          index: resolve(__dirname, 'src/electron/main.ts'),
-        },
-      },
+          index: resolve(__dirname, 'src/electron/main.ts')
+        }
+      }
     },
     resolve: __VITE_RESOLVE__,
-    plugins: [externalizeDepsPlugin()],
+    plugins: [externalizeDepsPlugin()]
   },
 
   preload: {
@@ -24,12 +24,12 @@ export default defineConfig({
     build: {
       rollupOptions: {
         input: {
-          index: resolve(__dirname, 'src/electron/preload/index.ts'),
-        },
-      },
+          index: resolve(__dirname, 'src/electron/preload/index.ts')
+        }
+      }
     },
     plugins: [externalizeDepsPlugin()],
-    resolve: __VITE_RESOLVE__,
+    resolve: __VITE_RESOLVE__
   },
-  renderer: WebViteConfig,
+  renderer: WebViteConfig
 })

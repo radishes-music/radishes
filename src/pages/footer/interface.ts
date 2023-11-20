@@ -5,17 +5,17 @@ import { AudioEffect } from '@/shared/audio'
 export const enum BasicEffect {
   D3 = '3D',
   FADE = 'FADE',
-  TENDER = 'TENDER',
+  TENDER = 'TENDER'
 }
 
 export const enum PlayMode {
   TURN = 'turn',
-  RANDOM = 'random',
+  RANDOM = 'random'
 }
 
 export const enum Direction {
   NEXT = 'NEXT',
-  PREV = 'PREV',
+  PREV = 'PREV'
 }
 
 export interface Lyrics {
@@ -62,7 +62,7 @@ export const enum FooterActions {
   SET_LOCAL_MUSIC = 'SET_LOCAL_MUSIC',
   SET_MUSIC_DEFAILT = 'SET_MUSIC_DEFAILT',
   SET_MUSIC_LYRICS = 'SET_MUSIC_LYRICS',
-  CUTOVER_TRACK = 'CUTOVER_TRACK',
+  CUTOVER_TRACK = 'CUTOVER_TRACK'
 }
 
 export const enum FooterMutations {
@@ -89,5 +89,5 @@ export const enum FooterMutations {
   SEEKBACKWARD = 'SEEKBACKWARD',
   SEEKFORWARD = 'SEEKFORWARD',
   INIT_EFFECT = 'INIT_EFFECT',
-  CHANGE_PLAYMODE = 'CHANGE_PLAYMODE',
+  CHANGE_PLAYMODE = 'CHANGE_PLAYMODE'
 }

@@ -24,5 +24,5 @@ export const state = {
   user: null,
   show: false,
   userInfoLoading: false,
-  playlist: [],
+  playlist: []
 }

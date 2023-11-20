@@ -29,7 +29,7 @@ export const Header = defineComponent({
         useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, actionToClass[action])
       }
       if (isElectron) {
-        asyncIpc().then((event) => {
+        asyncIpc().then(event => {
           event.sendAsyncIpcRendererEvent(action)
         })
       }
@@ -64,16 +64,13 @@ export const Header = defineComponent({
       >
         <Logo></Logo>
         <div class="header-right">
-          <div
-            class="header-right-left"
-            onMousedown={(e) => e.stopPropagation()}
-          >
+          <div class="header-right-left" onMousedown={e => e.stopPropagation()}>
             <PushShift></PushShift>
             <Search></Search>
           </div>
           <div
             class="header-right-right"
-            onMousedown={(e) => e.stopPropagation()}
+            onMousedown={e => e.stopPropagation()}
           >
             <Setting></Setting>
             {(isWindows || isBrowser) && (

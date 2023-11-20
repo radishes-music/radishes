@@ -115,7 +115,7 @@ export const SecondaryList = defineComponent({
                 </div>
                 <div v-show={!!props.source.tags} class="a-tracks-count">
                   标签：
-                  {props.source.tags?.map((tag) => (
+                  {props.source.tags?.map(tag => (
                     <RouterLink
                       to={{
                         name: 'songlist',
@@ -156,7 +156,7 @@ export const SecondaryList = defineComponent({
                 }
                 list={props.source.list}
                 columnsTypes={['index', 'control', 'name', 'ar', 'al', 'dt']}
-                onDblclick={(e) => {
+                onDblclick={e => {
                   emit('playDbl', e)
                 }}
               />

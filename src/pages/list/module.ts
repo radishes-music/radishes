@@ -7,7 +7,7 @@ export const SongNameSpaced = 'Song'
 
 export const useSongModule = () => {
   return uesModuleStore<SongState, {}, SongActions, SongMutations>(
-    SongNameSpaced,
+    SongNameSpaced
   )
 }
 
@@ -15,5 +15,5 @@ export default {
   namespaced: true,
   state,
   actions,
-  mutations,
+  mutations
 }

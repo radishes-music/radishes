@@ -13,7 +13,7 @@ export const Sidebar = defineComponent({
   setup() {
     const route = useRoute()
     const playlist = useUserPlayList()
-    const nav = navRouter.filter((routerGroup) => !routerGroup.meta?.nonav)
+    const nav = navRouter.filter(routerGroup => !routerGroup.meta?.nonav)
     return () => (
       <aside class="sidebar">
         <SidebarAuth></SidebarAuth>

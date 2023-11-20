@@ -6,7 +6,7 @@ export interface MessageConfig {
 }
 
 message.config({
-  duration: 2,
+  duration: 2
 })
 const messageMap = new Map()
 
@@ -18,7 +18,7 @@ export const suggested = (msg: VNodeTypes, config?: MessageConfig) => {
   const insMessage = message.loading({
     ...config,
     content: msg,
-    duration: 0,
+    duration: 0
   })
   if (config) {
     messageMap.set(config?.key, insMessage)
@@ -29,20 +29,20 @@ export const suggested = (msg: VNodeTypes, config?: MessageConfig) => {
 export const success = (msg: VNodeTypes, config?: MessageConfig) => {
   return message.success({
     ...config,
-    content: msg,
+    content: msg
   })
 }
 
 export const warning = (msg: VNodeTypes, config?: MessageConfig) => {
   return message.warning({
     ...config,
-    content: msg,
+    content: msg
   })
 }
 
 export const error = (msg: VNodeTypes, config?: MessageConfig) => {
   return message.error({
     ...config,
-    content: msg,
+    content: msg
   })
 }

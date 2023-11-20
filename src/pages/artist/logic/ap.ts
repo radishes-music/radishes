@@ -12,6 +12,6 @@ export const parentAP = () => {
     state: useState(),
     route: route,
     router: router,
-    useActions,
+    useActions
   }
 }

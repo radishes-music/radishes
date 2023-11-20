@@ -89,7 +89,7 @@ export const FloatBox = defineComponent({
                   ) : (
                     <div
                       class="sidebar-x__unsignin"
-                      onClick={(e) => {
+                      onClick={e => {
                         e.stopPropagation()
                         doSingin()
                       }}

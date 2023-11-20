@@ -49,7 +49,7 @@ export const MusicHistory = defineComponent({
       emit('update:visible', false)
     }
 
-    const unWatch = watch(visible, (v) => {
+    const unWatch = watch(visible, v => {
       if (v) {
         on(document.documentElement, 'click', trigger)
       } else {
@@ -71,7 +71,7 @@ export const MusicHistory = defineComponent({
           <div
             v-show={visible.value}
             class={classnames(prefix, `${prefix}-${VUE_APP_PLATFORM}`)}
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
           >
             <div class={`${prefix}-control`}>
               <Button.Group>

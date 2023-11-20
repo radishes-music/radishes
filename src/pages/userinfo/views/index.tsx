@@ -25,12 +25,12 @@ export default defineComponent({
           return
         }
         state.res = {}
-        loadUserInfo(uid).then((res) => (state.res = res))
+        loadUserInfo(uid).then(res => (state.res = res))
       }
     )
 
     onMounted(() => {
-      loadUserInfo($route.params.uid).then((res) => (state.res = res))
+      loadUserInfo($route.params.uid).then(res => (state.res = res))
     })
 
     return function () {

@@ -15,11 +15,11 @@ interface MainDownloadData extends DownloadData {
 
 const downloadStart = ({
   win,
-  name,
+  name
 }: Pick<MainDownloadData, 'win' | 'name'>) => {
   win.webContents.send(DownloadIpcType.DOWNLOAD_START, {
     state: 'start',
-    name,
+    name
   })
   infoMain('Download start.', name)
 }
@@ -28,7 +28,7 @@ const downloadProgress = ({
   win,
   receive,
   total,
-  name,
+  name
 }: Pick<MainDownloadData, 'win' | 'receive' | 'total' | 'name'>) => {
   const schedule = receive / total
   win.webContents.send(DownloadIpcType.DOWNLOAD_PROGRESS, {
@@ -36,7 +36,7 @@ const downloadProgress = ({
     name: name,
     receive: receive,
     total: total,
-    schedule,
+    schedule
   })
   win.setProgressBar(schedule)
 }
@@ -45,23 +45,23 @@ const downloadEnd = ({
   win,
   error,
   name,
-  state,
+  state
 }: Pick<MainDownloadData, 'win' | 'error' | 'name' | 'state'>) => {
   win.webContents.send(DownloadIpcType.DOWNLOAD_END, {
     state,
     name,
-    error,
+    error
   })
   infoMain('Download end', name)
   win.setProgressBar(-1)
 }
 
 const renderCover = (url: string): Promise<Buffer> => {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const request = net.request(url)
-    request.on('response', (response) => {
+    request.on('response', response => {
       const chunks: Buffer[] = []
-      response.on('data', (chunk) => {
+      response.on('data', chunk => {
         chunks.push(chunk)
       })
       response.on('end', () => {
@@ -76,25 +76,25 @@ const renderCover = (url: string): Promise<Buffer> => {
 const nodeDownload = async (
   downloadPath: string,
   win: BrowserWindow,
-  { name, url, suffix, al, ar, pic, arArr, id }: { [x: string]: string },
+  { name, url, suffix, al, ar, pic, arArr, id }: { [x: string]: string }
 ) => {
   const request = net.request(url)
-  request.on('response', (response) => {
+  request.on('response', response => {
     downloadStart({
       win,
-      name,
+      name
     })
     const totalBytes = parseInt(response.headers['content-length'] as string)
     let receivedBytes = 0
     const chunks: Buffer[] = []
-    response.on('data', (chunk) => {
+    response.on('data', chunk => {
       chunks.push(chunk)
       receivedBytes += chunk.length
       downloadProgress({
         win,
         name,
         receive: receivedBytes,
-        total: totalBytes,
+        total: totalBytes
       })
     })
     response.on('end', async () => {
@@ -109,7 +109,7 @@ const nodeDownload = async (
       addTag('COMM', {
         description: '',
         text: comm,
-        language: 'eng',
+        language: 'eng'
       })
       // The cover image is too large, which will cause the application to start slowly, so the display of the cover page when offline is temporarily not supported.
       // addTag('APIC', {
@@ -119,21 +119,21 @@ const nodeDownload = async (
       //   useUnicodeEncoding: false
       // })
       const newBuf = Buffer.from(renderBuffer())
-      writeFile(path, newBuf, (err) => {
+      writeFile(path, newBuf, err => {
         if (err) {
           errorMain('Download Error:', err)
           downloadEnd({
             win,
             name,
             error: err,
-            state: 'interrupted',
+            state: 'interrupted'
           })
         } else {
           downloadEnd({
             win,
             name,
             error: err,
-            state: 'completed',
+            state: 'completed'
           })
         }
       })
@@ -145,14 +145,14 @@ const nodeDownload = async (
 const electronDownload = (
   downloadPath: string,
   win: BrowserWindow,
-  item: DownloadItem,
+  item: DownloadItem
 ) => {
   const path = join(downloadPath, item.getFilename())
   item.setSavePath(path)
   const name = item.getFilename()
   downloadStart({
     name,
-    win,
+    win
   })
   const total = item.getTotalBytes()
   item.on('updated', (event, state) => {
@@ -166,7 +166,7 @@ const electronDownload = (
         win,
         receive,
         total,
-        name,
+        name
       })
       if (schedule) {
         win.setProgressBar(schedule)
@@ -176,7 +176,7 @@ const electronDownload = (
         win,
         name,
         state,
-        error: 'Dwonload Error: ' + name + state,
+        error: 'Dwonload Error: ' + name + state
       })
       console.warn('Dwonload Error:', item.getFilename(), state)
     }
@@ -185,7 +185,7 @@ const electronDownload = (
     downloadEnd({
       win,
       name,
-      state,
+      state
     })
     if (state === 'completed') {
       if (process.platform === 'darwin') {

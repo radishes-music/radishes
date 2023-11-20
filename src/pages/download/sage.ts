@@ -4,7 +4,7 @@ import {
   DownloadState,
   Downloaded,
   DownloadActions,
-  DownloadMutations,
+  DownloadMutations
 } from '@/interface'
 import { RootState } from '@/store/index'
 import { getMusicUrl } from '@/shared/music-shared'
@@ -35,8 +35,8 @@ export const actions: IActions = {
         const detail = await getSongDetail(song.id)
         if (detail.length) {
           al = detail[0].al.name
-          ar = detail[0].ar.map((r) => r.name).join(',')
-          arArr = detail[0].ar.map((r) => r.name).join(',')
+          ar = detail[0].ar.map(r => r.name).join(',')
+          arArr = detail[0].ar.map(r => r.name).join(',')
           pic = detail[0].al.picUrl
         }
       } catch (e) {
@@ -50,15 +50,15 @@ export const actions: IActions = {
         arArr,
         id: song.id,
         suffix: '.mp3',
-        url,
+        url
       })
     }
-  },
+  }
 }
 
 export const mutations: MutationTree<DownloadState> = {
   [DownloadMutations.SET_DOWNLOAD_MUSIC](state, song: Downloaded) {
-    if (state.downloaded.find((s) => s.id === song.id)) {
+    if (state.downloaded.find(s => s.id === song.id)) {
       return
     }
     song.dlt = Date.now()
@@ -66,12 +66,12 @@ export const mutations: MutationTree<DownloadState> = {
     state.downloaded.push(song)
   },
   [DownloadMutations.REMOVE_DOWNLOAD_MUSIC](state, id: number) {
-    remove(state.downloaded, (s) => s.id === id)
+    remove(state.downloaded, s => s.id === id)
   },
   [DownloadMutations.SET_DOWNLOAD_PATH](state, path: string) {
-    asyncIpc().then((v) => {
+    asyncIpc().then(v => {
       v.sendAsyncIpcRendererEvent(DownloadIpcType.SET_DOWNLOAD_PATH, path)
     })
     state.downloadPath = path
-  },
+  }
 }

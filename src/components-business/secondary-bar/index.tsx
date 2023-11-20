@@ -9,10 +9,10 @@ export const renderNavList = (
   origin: CustomizeRouteRecordRaw[],
   name: string
 ): CustomizeRouteRecordRaw[] => {
-  const nav = origin.find((item) => item.name === name)
+  const nav = origin.find(item => item.name === name)
   if (nav && nav.children) {
     return (nav.children as CustomizeRouteRecordRaw[]).filter(
-      (item) => item.meta?.name
+      item => item.meta?.name
     )
   }
   return []
@@ -47,7 +47,7 @@ export const SecondaryBar = defineComponent({
     return () => (
       <div class={`${prefix}-bar`}>
         <ul>
-          {nav.value?.map((link) => (
+          {nav.value?.map(link => (
             <RouterLink
               class={`${prefix}-bar-link ${prefix}-bar-link--${size.value}`}
               activeClass={`${prefix}-bar-link-active ${prefix}-bar-link-active--${size.value}`}

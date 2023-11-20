@@ -7,7 +7,7 @@ export const DownloadNameSpaced = 'Download'
 
 export const useDownloadModule = () => {
   return uesModuleStore<DownloadState, {}, typeof actions, DownloadMutations>(
-    DownloadNameSpaced,
+    DownloadNameSpaced
   )
 }
 
@@ -15,5 +15,5 @@ export default {
   namespaced: true,
   state,
   actions,
-  mutations,
+  mutations
 }

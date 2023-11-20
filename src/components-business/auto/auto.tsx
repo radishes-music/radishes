@@ -61,14 +61,14 @@ export default defineComponent({
       }
     }
 
-    asyncIpcOrigin().then((v) => v.on(AutoDownload.MESSAGE, handleMessage))
+    asyncIpcOrigin().then(v => v.on(AutoDownload.MESSAGE, handleMessage))
 
     const handleShellUrl = (url: string) => {
-      asyncShell().then((v) => v.openExternal(url))
+      asyncShell().then(v => v.openExternal(url))
     }
 
     const handleUpdater = () => {
-      asyncIpc().then((v) => {
+      asyncIpc().then(v => {
         v.sendAsyncIpcRendererEvent(AutoDownload.UPGRADE_NOW)
       })
     }

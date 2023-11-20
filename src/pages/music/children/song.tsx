@@ -31,7 +31,7 @@ export const LocalMusicSong = defineComponent({
     }
     const handleSyncMusic = async () => {
       const songs = await electronAPI.readPathMusic(
-        state.localPath.map((item) => item.path)
+        state.localPath.map(item => item.path)
       )
 
       useMutations(LocalMusicMutations.SET_LOCAL_MUSIC, songs)

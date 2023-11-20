@@ -71,7 +71,7 @@ export const Artists = defineComponent({
         </div>
         <div class="artists-content">
           <ul>
-            {state.artists.map((artist) => (
+            {state.artists.map(artist => (
               <li onClick={() => toArtist(artist)}>
                 <Image name="artist-pic" src={artist?.picUrl} />
                 <div class="artist-name">{artist?.name}</div>

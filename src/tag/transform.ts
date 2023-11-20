@@ -5,7 +5,7 @@ export function uint32ToUint8Array(uint32: number) {
     (uint32 >>> 24) & eightBitMask,
     (uint32 >>> 16) & eightBitMask,
     (uint32 >>> 8) & eightBitMask,
-    uint32 & eightBitMask,
+    uint32 & eightBitMask
   ]
 }
 
@@ -16,7 +16,7 @@ export function uint28ToUint7Array(uint28: number) {
     (uint28 >>> 21) & sevenBitMask,
     (uint28 >>> 14) & sevenBitMask,
     (uint28 >>> 7) & sevenBitMask,
-    uint28 & sevenBitMask,
+    uint28 & sevenBitMask
   ]
 }
 

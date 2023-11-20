@@ -27,14 +27,14 @@ interface SearchApiResult {
 export const search = async <T extends keyof SearchApiResult>(
   key: string,
   type: T,
-  pagination: Pagination,
+  pagination: Pagination
 ): Promise<SearchApiResult[T]> => {
   const songs = await get<{
     result: SearchApiResult[T]
   }>('/api/search', {
     keywords: key,
     type: type,
-    ...pagination,
+    ...pagination
   })
 
   return songs.result
@@ -42,7 +42,7 @@ export const search = async <T extends keyof SearchApiResult>(
 
 export const searchSuggest = async (key: string): Promise<SearchSuggest> => {
   const data = await get<{ result: SearchSuggest }>('/api/search/suggest', {
-    keywords: key,
+    keywords: key
   })
   return data.result
 }

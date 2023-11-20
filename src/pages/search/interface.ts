@@ -5,7 +5,7 @@ import {
   PlayLists,
   Merage,
   Pagination,
-  SongsDetail,
+  SongsDetail
 } from '@/interface/index'
 
 type LyricsList = Merage<
@@ -31,7 +31,7 @@ export const enum SearchType {
   ALBUM = 10,
   ARTIST = 100,
   PLAY_LIST = 1000,
-  LYRICS = 1006,
+  LYRICS = 1006
 }
 
 export type list<T> = {
@@ -55,7 +55,7 @@ export const enum SearchActions {
   GET_ARTIST_LIST = 'GET_ARTIST_LIST',
   GET_PLAYLIST_LIST = 'GET_PLAYLIST_LIST',
   GET_ALBUM_LIST = 'GET_ALBUM_LIST',
-  GET_LYRICS_LIST = 'GET_LYRICS_LIST',
+  GET_LYRICS_LIST = 'GET_LYRICS_LIST'
 }
 export const enum SearchMutations {
   SET_SEARCH_TITLE = 'SET_SEARCH_TITLE',
@@ -63,5 +63,5 @@ export const enum SearchMutations {
   CHANGE_ARTIST_PAGE_OFFSET = 'CHANGE_ARTIST_PAGE_OFFSET',
   CHANGE_PLAYLIST_PAGE_OFFSET = 'CHANGE_PLAYLIST_PAGE_OFFSET',
   CHANGE_ALBUM_PAGE_OFFSET = 'CHANGE_ALBUM_PAGE_OFFSET',
-  CHANGE_LYRICS_PAGE_OFFSET = 'CHANGE_LYRICS_PAGE_OFFSET',
+  CHANGE_LYRICS_PAGE_OFFSET = 'CHANGE_LYRICS_PAGE_OFFSET'
 }

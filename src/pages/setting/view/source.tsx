@@ -22,7 +22,7 @@ export default defineComponent({
           v-model={state.source}
           onChange={handleChangeCheck}
         >
-          {state.sourceAll.map((source) => {
+          {state.sourceAll.map(source => {
             return (
               <Checkbox
                 shape="square"

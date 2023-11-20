@@ -8,7 +8,7 @@ export const AUTH_MUTATIONS = {
   HIDE_VIEW: 'HIDE_VIEW',
   UPDATE_USER: 'UPDATE_USER',
   USER_INFO_LOADING: 'USER_INFO_LOADING',
-  USER_PLAY_LIST: 'USER_PLAY_LIST',
+  USER_PLAY_LIST: 'USER_PLAY_LIST'
 }
 
 export const mutations = {
@@ -49,9 +49,9 @@ export const mutations = {
   },
   [AUTH_MUTATIONS.USER_PLAY_LIST]: (state: AuthState, value: Song[]) => {
     state.playlist = value
-  },
+  }
 }
 
 export const getters = {
-  isLogin: (state: AuthState) => !!state.user,
+  isLogin: (state: AuthState) => !!state.user
 }

@@ -24,8 +24,8 @@ let appQuitting = false
 protocol.registerSchemesAsPrivileged([
   {
     scheme: 'app',
-    privileges: { secure: true, standard: true },
-  },
+    privileges: { secure: true, standard: true }
+  }
 ])
 // loadingView
 // async function createLoadingWindow() {
@@ -85,9 +85,9 @@ async function createWindow() {
       preload: path.join(__dirname, '../preload/index.js'),
       // @ts-expect-error
       enableRemoteModule: true,
-      devTools: true,
+      devTools: true
     },
-    autoHideMenuBar: true,
+    autoHideMenuBar: true
   })
 
   require('@electron/remote/main').enable(win.webContents)
@@ -106,14 +106,14 @@ async function createWindow() {
     // Load the index.html when not in development
     infoMain(
       'Entry index.html path:',
-      path.join(__dirname, '../renderer/index.html'),
+      path.join(__dirname, '../renderer/index.html')
     )
     win
       .loadURL('file://' + path.join(__dirname, '../renderer/index.html'))
       .then(() => {
         infoMain('Load index.html')
       })
-      .catch((e) => {
+      .catch(e => {
         errorMain('Load not index.html', e.toString())
       })
     // const upgrade = store.get('upgrade')
@@ -132,11 +132,11 @@ async function createWindow() {
   })
 
   // https://github.com/electron/electron/issues/26726
-  win.on('system-context-menu', (e) => {
+  win.on('system-context-menu', e => {
     e.preventDefault()
   })
 
-  win.on('close', (event) => {
+  win.on('close', event => {
     infoMain('close')
     if (process.platform === 'darwin') {
       if (appQuitting) {
@@ -223,7 +223,7 @@ app.whenReady().then(async () => {
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {
-    process.on('message', (data) => {
+    process.on('message', data => {
       if (data === 'graceful-exit') {
         app.quit()
       }

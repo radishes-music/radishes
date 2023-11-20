@@ -16,7 +16,7 @@ export default defineComponent({
     const state = useState()
 
     if (isElectron) {
-      asyncIpcOrigin().then((ipc) => {
+      asyncIpcOrigin().then(ipc => {
         ipc.on(AutoDownload.CHECK_UPGRADE, (e, v) => {
           upgrading.value = false
           if (!newsVersion(v.version, __APP_VERSION__)) {
@@ -28,14 +28,14 @@ export default defineComponent({
 
     const handleChangeUpgrade = (checked: boolean) => {
       useMutations(SettingMutations.SET_UPGRADE, checked)
-      asyncIpc().then((v) => {
+      asyncIpc().then(v => {
         v.sendAsyncIpcRendererEvent(AutoDownload.IS_UPGRADE, checked)
       })
     }
 
     const handleCheckUpgrade = () => {
       upgrading.value = true
-      asyncIpc().then((v) => {
+      asyncIpc().then(v => {
         v.sendAsyncIpcRendererEvent(AutoDownload.CHECK_UPGRADE)
       })
     }

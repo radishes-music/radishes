@@ -25,7 +25,7 @@ export const SexSelect = defineComponent({
 
     watch(
       () => props.value,
-      (v) => {
+      v => {
         state.value = v
       }
     )

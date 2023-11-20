@@ -8,15 +8,15 @@ export const baseRouter: CustomizeRouteRecordRaw[] = [
     name: $404.name,
     meta: {
       full: true,
-      canBeCollect: false, // Can be collected by a custom controller
+      canBeCollect: false // Can be collected by a custom controller
     },
-    component: $404,
+    component: $404
   },
   {
     path: '/',
     redirect: '/music',
     meta: {
-      canBeCollect: false,
-    },
-  },
+      canBeCollect: false
+    }
+  }
 ]

@@ -11,7 +11,7 @@ describe('Application launch', function () {
   this.timeout(30000)
 
   beforeEach(function () {
-    return testWithSpectron(spectron).then((instance) => {
+    return testWithSpectron(spectron).then(instance => {
       this.app = instance.app
       this.stopServe = instance.stopServe
     })

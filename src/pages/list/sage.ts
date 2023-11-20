@@ -16,9 +16,9 @@ export const actions: ActionTree<SongState, RootState> = {
   async [SongActions.SET_ACTION_RECOMMEND_SONG]({ commit }) {
     const data = await getRecommendSong()
     commit(SongMutations.SET_PLAYLIST, {
-      tracks: data,
+      tracks: data
     })
-  },
+  }
 }
 export const mutations: MutationTree<SongState> = {
   [SongMutations.SET_PLAYLIST](state, playlist: PlayList) {
@@ -27,5 +27,5 @@ export const mutations: MutationTree<SongState> = {
   [SongMutations.SET_ALBUMLIST](state, { songs, album }) {
     state.albumList.song = songs
     state.albumList.album = album
-  },
+  }
 }

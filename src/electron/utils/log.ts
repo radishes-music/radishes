@@ -8,7 +8,7 @@ const execPath =
 export enum LogInfoType {
   MAIN = '[Main]',
   MAIN_ERROR = '[Main Error]',
-  MAIN_WARN = '[Main Warn]',
+  MAIN_WARN = '[Main Warn]'
 }
 
 log.transports.file.resolvePath = () => path.join(execPath, 'logs/main.log')

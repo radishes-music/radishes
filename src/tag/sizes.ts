@@ -16,7 +16,7 @@ export function getStringFrameSize(frameSize: number) {
 
 export function getLyricsFrameSize(
   descriptionSize: number,
-  lyricsSize: number,
+  lyricsSize: number
 ) {
   const headerSize = 10
   const encodingSize = 1
@@ -42,7 +42,7 @@ export function getPictureFrameSize(
   pictureSize: number,
   mimeTypeSize: number,
   descriptionSize: number,
-  useUnicodeEncoding: boolean,
+  useUnicodeEncoding: boolean
 ) {
   const headerSize = 10
   const encodingSize = 1
@@ -94,7 +94,7 @@ export function getPrivateFrameSize(idSize: number, dataSize: number) {
 
 export function getUserStringFrameSize(
   descriptionSize: number,
-  valueSize: number,
+  valueSize: number
 ) {
   const headerSize = 10
   const encodingSize = 1

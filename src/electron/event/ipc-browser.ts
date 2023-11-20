@@ -1,7 +1,7 @@
 export const asyncIpc = () => {
   return Promise.resolve({
     sendAsyncIpcRendererEvent: ipcRenderer.send,
-    sendSyncIpcRendererEvent: ipcRenderer.sendSync,
+    sendSyncIpcRendererEvent: ipcRenderer.sendSync
   })
 }
 

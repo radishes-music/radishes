@@ -6,7 +6,7 @@ import {
   TopList,
   TopListNameSpaced,
   Artists,
-  ArtistsNameSpaced,
+  ArtistsNameSpaced
 } from '@/pages/news/children/module'
 import Header, { HeaderNameSpaced } from '@/pages/header/module'
 import Main, { MainNameSpaced } from '@/pages/main/module'
@@ -50,7 +50,7 @@ export {
   SettingNameSpaced,
   SearchNameSpaced,
   CloudNameSpaced,
-  LayoutNameSpaced,
+  LayoutNameSpaced
 }
 
 const modules = {
@@ -69,7 +69,7 @@ const modules = {
   [LocalMusicNameSpaced]: LocalMusic,
   [SettingNameSpaced]: Setting,
   [CloudNameSpaced]: Cloud,
-  [SearchNameSpaced]: Search,
+  [SearchNameSpaced]: Search
 }
 
 export default modules

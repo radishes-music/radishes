@@ -22,7 +22,7 @@ export const Grid = defineComponent({
     }
     return () => (
       <ul class="grid-contanier">
-        {props.source.map((item) => (
+        {props.source.map(item => (
           <li onClick={() => handleClick(item)}>
             <Image
               name="grid-contanier-picurl"

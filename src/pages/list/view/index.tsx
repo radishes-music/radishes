@@ -38,7 +38,7 @@ const formatPlayListData = (item: PlayList, id: string): FormatSource => {
       name: '每日歌曲推荐',
       description: '每日歌曲推荐',
       list: [
-        ...item.tracks.map((o) => ({
+        ...item.tracks.map(o => ({
           ...o,
           noCopyright: !isCopyright(o)
         }))
@@ -62,7 +62,7 @@ const formatPlayListData = (item: PlayList, id: string): FormatSource => {
     tags: item.tags,
     subscribed: item.subscribed,
     list: [
-      ...item.tracks.map((o) => ({
+      ...item.tracks.map(o => ({
         ...o,
         noCopyright: !isCopyright(o)
       }))
@@ -87,7 +87,7 @@ const formatAlbumListData = (item: AlbumList): FormatSource => {
     description: item.album.description,
     subscribed: item.album.subscribed,
     list: [
-      ...item.song.map((o) => ({
+      ...item.song.map(o => ({
         ...o,
         noCopyright: !isCopyright(o)
       }))
@@ -122,7 +122,7 @@ export default defineComponent({
 
     watch(
       () => route.params.playlist,
-      (v) => {
+      v => {
         updateList(v as string)
       },
       {
@@ -147,7 +147,7 @@ export default defineComponent({
     const handlePlayAll = async () => {
       footerStore.useMutations(FooterMutations.CLEAR_STACK)
       const tracks = toRaw(rawData.value.list)
-      const stack = tracks.map((item) => {
+      const stack = tracks.map(item => {
         return {
           ...item,
           type: 'stack'

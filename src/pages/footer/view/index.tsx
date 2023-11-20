@@ -86,7 +86,7 @@ export const Footer = defineComponent({
             <div class="footer-music-des">
               <div class="footer-music-des--title">{musicDes.value.title}</div>
               <div class="footer-music-des--author">
-                {musicDes.value.author.map((artist) => (
+                {musicDes.value.author.map(artist => (
                   <div onClick={() => toArtist(artist)}>{artist.name}</div>
                 ))}
               </div>

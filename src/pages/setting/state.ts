@@ -9,7 +9,7 @@ export const state: SettingState = {
     { name: '百度音乐', value: 'baidu' },
     { name: 'JOOX', value: 'joox' },
     { name: '酷狗音乐', value: 'kugou' },
-    { name: '虾米音乐', value: 'xiami' },
+    { name: '虾米音乐', value: 'xiami' }
     // { name: 'Youtube', value: 'youtube' }
   ],
   bitRate: 3.2e5,
@@ -58,6 +58,6 @@ export const state: SettingState = {
     'SweetChildOfGun',
     'ToolPot',
     'Very small speaker mono',
-    'WoodruffLane',
-  ],
+    'WoodruffLane'
+  ]
 }

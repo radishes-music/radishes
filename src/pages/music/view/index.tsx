@@ -24,10 +24,10 @@ export const LocalMusic = defineComponent({
     const modalContanier = ref()
     const visibleDirectory = ref(false)
     const checkPath = ref(
-      state.localPath.filter((item) => item.check).map((item) => item.path)
+      state.localPath.filter(item => item.check).map(item => item.path)
     )
 
-    watch(visibleDirectory, (visible) => {
+    watch(visibleDirectory, visible => {
       if (visible) {
         nextTick(() => {
           if (modalContanier.value) {
@@ -110,7 +110,7 @@ export const LocalMusic = defineComponent({
                     v-model={checkPath.value}
                     class="local-music-directory-group"
                   >
-                    {state.localPath.map((item) => (
+                    {state.localPath.map(item => (
                       <Checkbox
                         name={item.path}
                         shape="square"

@@ -58,7 +58,7 @@ export const MusicControl = defineComponent({
     const musicDes = computed(() => useGetter('musicDes'))
 
     if (isElectron) {
-      asyncIpcOrigin().then((ipcRenderer) => {
+      asyncIpcOrigin().then(ipcRenderer => {
         ipcRenderer.on(LyricsAction.LYRICS_WIN_CLOSE, () => {
           useMutations(FooterMutations.VISIBLE_FLASH, false)
         })
@@ -141,13 +141,13 @@ export const MusicControl = defineComponent({
       useMutations(FooterMutations.VISIBLE_FLASH, !visibleFlash.value)
       if (isElectron) {
         asyncIpc()
-          .then((event) => {
+          .then(event => {
             event.sendAsyncIpcRendererEvent(
               MiddlewareView.CREATE_WINDOW,
-              useGetter('musicLyrics').filter((value) => value.lyric)
+              useGetter('musicLyrics').filter(value => value.lyric)
             )
           })
-          .catch((e) => {
+          .catch(e => {
             console.warn(e)
           })
       }
@@ -200,7 +200,7 @@ export const MusicControl = defineComponent({
 
     watch(
       () => playing.value,
-      (play) => {
+      play => {
         if (play) {
           timeUpdate()
         }
@@ -271,7 +271,7 @@ export const MusicControl = defineComponent({
           class="audio-background"
           crossorigin="anonymous"
           aria-title={musicDes.value.title}
-          aria-author={musicDes.value.author.map((o) => o.name).join(' / ')}
+          aria-author={musicDes.value.author.map(o => o.name).join(' / ')}
           ref={audioElement}
         ></audio>
         <div class={`${prefix}-command-center`}>

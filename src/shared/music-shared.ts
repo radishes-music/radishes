@@ -15,7 +15,7 @@ export const playMusic = async (
         url: string
         id: string | number
       },
-  isStartOver = true,
+  isStartOver = true
 ) => {
   const store = useFooterModule()
   if (typeof payload === 'object' && payload.buffer) {
@@ -23,7 +23,7 @@ export const playMusic = async (
       payload.url = mapURL.get(payload.path)
     } else {
       const blob = new Blob([toArrayBuffer(payload.buffer)], {
-        type: 'audio/mpeg',
+        type: 'audio/mpeg'
       })
       payload.url = window.URL.createObjectURL(blob)
       mapURL.set(payload.path, payload.url)

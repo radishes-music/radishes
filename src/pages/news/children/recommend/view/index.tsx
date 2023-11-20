@@ -82,7 +82,7 @@ export const Recommend = defineComponent({
           <SongList
             songData={songList.value}
             loading={loading.value}
-            onClick={(item) => jump.songList(item.id)}
+            onClick={item => jump.songList(item.id)}
           />
         </div>
       </div>

@@ -18,10 +18,10 @@ export const registerIPC = (app: App) => {
   ipcRenderer.on(DownloadIpcType.DOWNLOAD_START, (event, arg) => {
     store.commit(
       RootMutations.UPDATE_PERECENTAGE,
-      Math.floor((Math.random() * 10) / 100),
+      Math.floor((Math.random() * 10) / 100)
     )
     suggested('下载中...', {
-      key: arg.name,
+      key: arg.name
     })
   })
 
@@ -30,15 +30,15 @@ export const registerIPC = (app: App) => {
     (event, arg: Pick<DownloadData, 'name' | 'state' | 'error'>) => {
       if (arg.state === 'completed') {
         success('下载完成', {
-          key: arg.name,
+          key: arg.name
         })
       } else {
         console.error(arg.error)
         error('下载失败', {
-          key: arg.name,
+          key: arg.name
         })
       }
-    },
+    }
   )
 
   ipcRenderer.on(
@@ -47,6 +47,6 @@ export const registerIPC = (app: App) => {
       if (arg.state === 'progressing') {
         store.commit(RootMutations.UPDATE_PERECENTAGE, arg.schedule)
       }
-    }, 200),
+    }, 200)
   )
 }

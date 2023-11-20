@@ -25,7 +25,7 @@ const setColor = (baseColor: string) => {
   }
 
   if (isElectron) {
-    asyncIpc().then((event) => {
+    asyncIpc().then(event => {
       event.sendAsyncIpcRendererEvent(
         MiddlewareView.UPDATE_THEME_COLOR,
         baseColor

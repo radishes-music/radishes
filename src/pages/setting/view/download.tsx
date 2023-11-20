@@ -56,7 +56,7 @@ export default defineComponent({
             v-model={state.bitRate}
             onChange={handleChangeBit}
           >
-            {bitRateAll.map((item) => (
+            {bitRateAll.map(item => (
               <Radio
                 name={item.bit}
                 shape="square"

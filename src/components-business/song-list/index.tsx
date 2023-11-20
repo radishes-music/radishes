@@ -41,7 +41,7 @@ export const SongList = defineComponent({
           loading={loading.value}
         >
           <ul>
-            {songData.value.map((song) => (
+            {songData.value.map(song => (
               <li
                 class={`${prefix}-list-container`}
                 onClick={() => clickHandle(song)}

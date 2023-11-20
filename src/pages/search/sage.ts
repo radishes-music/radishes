@@ -6,7 +6,7 @@ import {
   SearchActions,
   SearchState,
   SearchType,
-  Pagination,
+  Pagination
 } from '@/interface'
 import { clone } from 'lodash-es'
 
@@ -30,22 +30,22 @@ export const actions: ActionTree<SearchState, RootState> = {
     const result = await search(
       payload,
       SearchType.SONG,
-      state.songList.pagination,
+      state.songList.pagination
     )
     state.songList.loading = false
-    state.songList.data = result.songs.slice(slice).map((song) => {
+    state.songList.data = result.songs.slice(slice).map(song => {
       return {
         ...song,
         dt: song.duration,
         al: song.album,
         ar: song.artists,
-        index: (offset - 1) * limit,
+        index: (offset - 1) * limit
       }
     })
     state.songList.total = result.songCount
     commit(
       SearchMutations.SET_SEARCH_TITLE,
-      `找到 ${state.songList.total} 首歌曲`,
+      `找到 ${state.songList.total} 首歌曲`
     )
   },
   async [SearchActions.GET_ARTIST_LIST]({ state, commit }, payload) {
@@ -54,20 +54,20 @@ export const actions: ActionTree<SearchState, RootState> = {
     const result = await search(
       payload,
       SearchType.ARTIST,
-      state.artistList.pagination,
+      state.artistList.pagination
     )
     state.artistList.loading = false
-    state.artistList.data = result.artists.slice(slice).map((artist) => {
+    state.artistList.data = result.artists.slice(slice).map(artist => {
       return {
         ...artist,
         picUrl: artist.picUrl || artist.img1v1Url,
-        index: (offset - 1) * limit,
+        index: (offset - 1) * limit
       }
     })
     state.artistList.total = result.artistCount
     commit(
       SearchMutations.SET_SEARCH_TITLE,
-      `找到 ${state.artistList.total} 位歌手`,
+      `找到 ${state.artistList.total} 位歌手`
     )
   },
   async [SearchActions.GET_PLAYLIST_LIST]({ state, commit }, payload) {
@@ -76,21 +76,21 @@ export const actions: ActionTree<SearchState, RootState> = {
     const result = await search(
       payload,
       SearchType.PLAY_LIST,
-      state.playlist.pagination,
+      state.playlist.pagination
     )
     state.playlist.loading = false
-    state.playlist.data = result.playlists.slice(slice).map((playlist) => {
+    state.playlist.data = result.playlists.slice(slice).map(playlist => {
       return {
         ...playlist,
         picUrl: playlist.coverImgUrl,
         count: playlist.trackCount,
-        index: (offset - 1) * limit,
+        index: (offset - 1) * limit
       }
     })
     state.playlist.total = result.playlistCount
     commit(
       SearchMutations.SET_SEARCH_TITLE,
-      `找到 ${state.playlist.total} 个歌单`,
+      `找到 ${state.playlist.total} 个歌单`
     )
   },
   async [SearchActions.GET_ALBUM_LIST]({ state, commit }, payload) {
@@ -99,21 +99,21 @@ export const actions: ActionTree<SearchState, RootState> = {
     const result = await search(
       payload,
       SearchType.ALBUM,
-      state.albumList.pagination,
+      state.albumList.pagination
     )
     state.albumList.loading = false
-    state.albumList.data = result.albums.slice(slice).map((album) => {
+    state.albumList.data = result.albums.slice(slice).map(album => {
       return {
         ...album,
         picUrl: album.picUrl || album.blurPicUrl,
         count: album.size,
-        index: (offset - 1) * limit,
+        index: (offset - 1) * limit
       }
     })
     state.albumList.total = result.albumCount
     commit(
       SearchMutations.SET_SEARCH_TITLE,
-      `找到 ${state.albumList.total} 张专辑`,
+      `找到 ${state.albumList.total} 张专辑`
     )
   },
   async [SearchActions.GET_LYRICS_LIST]({ state, commit }, payload) {
@@ -122,24 +122,24 @@ export const actions: ActionTree<SearchState, RootState> = {
     const result = await search(
       payload,
       SearchType.LYRICS,
-      state.lyriceList.pagination,
+      state.lyriceList.pagination
     )
     state.lyriceList.loading = false
-    state.lyriceList.data = result.songs.slice(slice).map((lyrics) => {
+    state.lyriceList.data = result.songs.slice(slice).map(lyrics => {
       return {
         ...lyrics,
         dt: lyrics.duration,
         al: lyrics.album,
         ar: lyrics.artists,
-        index: (offset - 1) * limit,
+        index: (offset - 1) * limit
       }
     })
     state.lyriceList.total = result.songCount
     commit(
       SearchMutations.SET_SEARCH_TITLE,
-      `找到 ${state.lyriceList.total} 首歌词`,
+      `找到 ${state.lyriceList.total} 首歌词`
     )
-  },
+  }
 }
 
 export const mutations: MutationTree<SearchState> = {
@@ -155,7 +155,7 @@ export const mutations: MutationTree<SearchState> = {
     state.artistList.pagination.offset = page
     state.artistList.pagination.slice = calcSlice(
       state.artistList.pagination,
-      page,
+      page
     )
   },
   [SearchMutations.CHANGE_PLAYLIST_PAGE_OFFSET](state, page) {
@@ -166,14 +166,14 @@ export const mutations: MutationTree<SearchState> = {
     state.albumList.pagination.offset = page
     state.albumList.pagination.slice = calcSlice(
       state.albumList.pagination,
-      page,
+      page
     )
   },
   [SearchMutations.CHANGE_LYRICS_PAGE_OFFSET](state, page) {
     state.lyriceList.pagination.offset = page
     state.lyriceList.pagination.slice = calcSlice(
       state.lyriceList.pagination,
-      page,
+      page
     )
-  },
+  }
 }

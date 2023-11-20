@@ -11,7 +11,7 @@ export const findPort = () => {
 }
 
 export const runService = () => {
-  return findPort().then((n) => {
+  return findPort().then(n => {
     let filename = 'api-macos'
     const port = String(n)
     if (process.platform === 'win32') {
@@ -24,10 +24,10 @@ export const runService = () => {
     const service = childProcess.exec(filename, {
       cwd: cwd,
       env: {
-        PORT: port,
-      },
+        PORT: port
+      }
     })
-    service.on('error', (err) => {
+    service.on('error', err => {
       errorMain('cwd', cwd, '\nservice err:', err.toString())
     })
     service.on('exit', (code, signal) => {
@@ -35,7 +35,7 @@ export const runService = () => {
     })
     return {
       service,
-      port,
+      port
     }
   })
 }

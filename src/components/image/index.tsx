@@ -63,7 +63,7 @@ export const Image = defineComponent({
     return () => (
       <div
         class={`${props.name} bg-img`}
-        onClick={(e) => emit('click', e)}
+        onClick={e => emit('click', e)}
         ref={contanier}
       >
         {props.src && (

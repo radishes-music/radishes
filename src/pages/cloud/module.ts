@@ -7,7 +7,7 @@ export const CloudNameSpaced = 'Cloud'
 
 export const useCloudModule = () => {
   return uesModuleStore<CloudState, {}, typeof actions, CloudMutations>(
-    CloudNameSpaced,
+    CloudNameSpaced
   )
 }
 
@@ -15,5 +15,5 @@ export default {
   namespaced: true,
   state,
   actions,
-  mutations,
+  mutations
 }

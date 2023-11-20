@@ -40,7 +40,7 @@ export const Container = defineComponent({
     const { screenSize } = toRefs(useState())
 
     if (isBrowser) {
-      watch(screenSize, (v) => {
+      watch(screenSize, v => {
         if (v === LayoutSize.MD) {
           startDrag.value()
         } else {

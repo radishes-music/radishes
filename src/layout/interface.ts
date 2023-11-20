@@ -1,7 +1,7 @@
 export const enum LayoutSize {
   SM = 'sm',
   MD = 'md',
-  LG = 'lg',
+  LG = 'lg'
 }
 
 export interface LayoutState {
@@ -10,5 +10,5 @@ export interface LayoutState {
 }
 
 export const enum LayoutMutations {
-  CHANGE_WINDOW_SIZE = 'CHANGE_WINDOW_SIZE',
+  CHANGE_WINDOW_SIZE = 'CHANGE_WINDOW_SIZE'
 }

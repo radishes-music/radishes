@@ -29,7 +29,7 @@ export const MoreThen = defineComponent({
       }
     }
 
-    watch(rely, (rely) => {
+    watch(rely, rely => {
       if (rely) {
         nextTick().then(calcHeight)
       }

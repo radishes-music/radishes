@@ -12,5 +12,5 @@ export const useMainModule = () => {
 export default {
   namespaced: true,
   state,
-  mutations,
+  mutations
 }
