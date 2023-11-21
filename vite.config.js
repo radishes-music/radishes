@@ -5,6 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import vitePluginMd2Vue from 'vite-plugin-md2vue'
 import usePluginImport from 'vite-plugin-importer'
 import { antdDayjs } from 'antd-dayjs-vite-plugin'
+import autoprefixer from 'autoprefixer'
 
 import pkg from './package.json'
 
@@ -50,8 +51,12 @@ export default defineConfig(({ mode }) => {
       include: 'vue'
     },
     build: {
+      // outDir:'dist',
       rollupOptions: {
-        input: 'index.html'
+        input: {
+          index: resolvePath('index.html'),
+          lyrics: resolvePath('lyrics.html')
+        }
       }
     },
     server: {
@@ -67,6 +72,9 @@ export default defineConfig(({ mode }) => {
       }
     },
     css: {
+      postcss: {
+        plugins: [autoprefixer({})]
+      },
       preprocessorOptions: {
         less: {
           javascriptEnabled: true

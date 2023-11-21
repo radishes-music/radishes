@@ -16,6 +16,7 @@ import { autoUpdater } from 'electron-updater'
 import normalizeUrl from 'normalize-url'
 import log from 'electron-log'
 import store from '@/electron/store/index'
+import path from 'path'
 
 export const onIpcMainEvent = (win: BrowserWindow) => {
   let lyrics: null | BrowserWindow
@@ -63,12 +64,16 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
         alwaysOnTop: true,
         acceptFirstMouse: true,
         skipTaskbar: false,
+        useContentSize: true,
+        center: true,
         webPreferences: {
-          nodeIntegration: true,
-          contextIsolation: false,
-          webSecurity: false
+          sandbox: false,
+          nodeIntegration: false,
+          // enableRemoteModule: true,
+          preload: path.join(__dirname, '../preload/index.js')
         }
       })
+      require('@electron/remote/main').enable(lyrics.webContents)
       if (process.env.ELECTRON_RENDERER_URL) {
         lyrics.loadURL(
           normalizeUrl(process.env.ELECTRON_RENDERER_URL + '/lyrics.html')

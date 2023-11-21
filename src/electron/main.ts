@@ -95,7 +95,9 @@ async function createWindow() {
   infoMain('Dev server url ', process.env.ELECTRON_RENDERER_URL)
   if (process.env.ELECTRON_RENDERER_URL) {
     // Load the url of the dev server if in development mode
-    await win.loadURL(process.env.ELECTRON_RENDERER_URL as string)
+    await win.loadURL(
+      path.join(process.env.ELECTRON_RENDERER_URL, 'index.html')
+    )
     // if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     // try {
@@ -116,13 +118,18 @@ async function createWindow() {
       .catch(e => {
         errorMain('Load not index.html', e.toString())
       })
-    // const upgrade = store.get('upgrade')
-    // if (upgrade) {
-    //   autoUpdater.checkForUpdatesAndNotify({
-    //     title: 'Radishes 通知',
-    //     body: '发现有新版本，快更新体验吧！'
-    //   })
-    // }
+    const upgrade = store.get('upgrade')
+    if (upgrade) {
+      /**
+       * FIXME:
+       * Note: Your application must be signed for automatic updates on macOS.
+       * This is a requirement of Squirrel.Mac.
+       *  */
+      autoUpdater.checkForUpdatesAndNotify({
+        title: 'Radishes 通知',
+        body: '发现有新版本，快更新体验吧！'
+      })
+    }
   }
 
   win.once('ready-to-show', () => {

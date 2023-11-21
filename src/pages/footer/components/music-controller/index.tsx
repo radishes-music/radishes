@@ -233,8 +233,8 @@ export const MusicControl = defineComponent({
     }
 
     onMounted(() => {
-      if (music.value && music.value) {
-        useActions(FooterActions.SET_MUSIC, music.value.id)
+      if (music?.value && music?.value) {
+        useActions(FooterActions.SET_MUSIC, music?.value.id)
       }
       if (currentTime.value && currentTime.value) {
         useMutations(FooterMutations.CURRENT_TIME, currentTime.value)
