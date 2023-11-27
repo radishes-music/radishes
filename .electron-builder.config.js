@@ -37,6 +37,7 @@ module.exports = async function () {
     mac: {
       identity: null,
       icon: './build/icons/1024x1024.png',
+      darkModeSupport:true
     },
     // Specify linux target just for disabling snap compilation
     linux: {

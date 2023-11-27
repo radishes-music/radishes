@@ -17,6 +17,7 @@ import normalizeUrl from 'normalize-url'
 import log from 'electron-log'
 import store from '@/electron/store/index'
 import path from 'path'
+import { LyricsPathUrl, PreloadPath } from '@/electron/utils'
 
 export const onIpcMainEvent = (win: BrowserWindow) => {
   let lyrics: null | BrowserWindow
@@ -70,7 +71,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
           sandbox: false,
           nodeIntegration: false,
           // enableRemoteModule: true,
-          preload: path.join(__dirname, '../preload/index.js')
+          preload: PreloadPath
         }
       })
       require('@electron/remote/main').enable(lyrics.webContents)
@@ -79,7 +80,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
           normalizeUrl(process.env.ELECTRON_RENDERER_URL + '/lyrics.html')
         )
       } else {
-        lyrics.loadURL('app://./lyrics.html')
+        lyrics.loadURL(LyricsPathUrl)
       }
       lyrics.once('ready-to-show', () => {
         if (lyrics) {

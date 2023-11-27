@@ -10,6 +10,7 @@ import { errorMain, infoMain, warnMain } from './utils/log'
 import { ThenArg } from '@/interface'
 import store from '@/electron/store/index'
 import path from 'path'
+import { AppPath, resolveFile, resolveFileUrl } from './utils'
 
 // curl -H "Accept: application/json" https://api.github.com/repos/Linkontoask/radishes/contents/package.json
 const isDevelopment = process.env.NODE_ENV_ELECTRON_VITE !== 'production'
@@ -60,8 +61,8 @@ protocol.registerSchemesAsPrivileged([
 require('@electron/remote/main').initialize()
 async function createWindow() {
   const { workAreaSize, scaleFactor } = screen.getPrimaryDisplay()
-  const { width, height } = workAreaSize
-  const w = Math.floor(Math.max(1140, width / 2))
+  const { width } = workAreaSize
+  const w = Math.floor(Math.max(1048, width / 2))
   const h = Math.floor(0.686 * w)
   infoMain(`Display w: ${w} h: ${h}`)
   // Create the browser window.
@@ -79,10 +80,7 @@ async function createWindow() {
     webPreferences: {
       sandbox: false,
       nodeIntegration: false,
-      // This may bring some security issues, but our resources come from the Internet, and the CORS policy is forbidden to play the corresponding resources
-      // webSecurity: false,
-      // https://github.com/electron/electron/issues/9920
-      preload: path.join(__dirname, '../preload/index.js'),
+      preload: resolveFile('/preload/index.js'),
       // @ts-expect-error
       enableRemoteModule: true,
       devTools: true
@@ -106,12 +104,9 @@ async function createWindow() {
     //   warnMain(e)
     // }
     // Load the index.html when not in development
-    infoMain(
-      'Entry index.html path:',
-      path.join(__dirname, '../renderer/index.html')
-    )
+    infoMain('Entry index.html path:', resolveFile('/renderer/index.html'))
     win
-      .loadURL('file://' + path.join(__dirname, '../renderer/index.html'))
+      .loadURL(AppPath)
       .then(() => {
         infoMain('Load index.html')
       })
