@@ -9,6 +9,7 @@ import { registerIPC } from '../electron/preload/ipc'
 import { isElectron } from '@/utils/index'
 import init from '@/electron/preload/init'
 import '@/iconfont/index'
+import './index.css'
 
 const app = createApp(App)
   .use(store)

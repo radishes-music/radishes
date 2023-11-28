@@ -72,9 +72,6 @@ export default defineConfig(({ mode }) => {
       }
     },
     css: {
-      postcss: {
-        plugins: [autoprefixer({})]
-      },
       preprocessorOptions: {
         less: {
           javascriptEnabled: true
