@@ -2,3 +2,9 @@ packages/
 cypress/
 tests/e2e/
 src/mp3
+.yarn/
+build/
+dist/
+node_modules/
+public/
+dist-electron/

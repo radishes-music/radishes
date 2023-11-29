@@ -13,7 +13,7 @@ export const FollowCard = defineComponent({
   props: ['info'],
   setup() {
     const $router = useRouter()
-    return function(this: any) {
+    return function (this: any) {
       const { info } = this
 
       const avatarIcon = info?.avatarDetail?.identityIconUrl

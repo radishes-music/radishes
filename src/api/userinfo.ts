@@ -136,13 +136,8 @@ export const getUserInfoApi = async (uid: string, isSelf = false) => {
 
   const [detail, audios, subcount = {}]: any = res
 
-  const {
-    profile,
-    level,
-    listenSongs,
-    peopleCanSeeMyPlayRecord,
-    pcSign
-  }: any = detail
+  const { profile, level, listenSongs, peopleCanSeeMyPlayRecord, pcSign }: any =
+    detail
 
   return {
     profile: {

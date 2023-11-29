@@ -21,7 +21,6 @@ export const AuthView = defineComponent({
     // TODO 怎么操作呢??
     return () => {
       return (
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         <MaskView class="vh-center">
           <div class="auth-view">

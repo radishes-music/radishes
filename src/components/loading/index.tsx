@@ -11,7 +11,7 @@ export const Loading = defineComponent({
     size: String
   },
   setup(props) {
-    return function() {
+    return function () {
       return (
         <div class="box-view">
           <VantLoading type="spinner" {...props}></VantLoading>

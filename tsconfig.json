@@ -2,22 +2,31 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
+    "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
     "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
     "baseUrl": ".",
-    "types": ["webpack-env", "mocha", "chai", "electron"],
+    "types": [
+      "vite/client",
+      "electron-vite/node",
+      "node",
+      "mocha",
+      "chai",
+      "electron"
+    ],
     "paths": {
-      "@/*": ["src/*"],
-      "root/*": ["./*"],
+      "@/*": ["./src/*"],
+      "root/*": ["./*"]
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost", "es2019"]
+    "lib": ["esnext", "dom"]
   },
   "include": [
     "src/**/*.ts",
@@ -26,5 +35,5 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  "exclude": ["node_modules", "script"]
+  "exclude": ["node_modules", "dist", "public", "script"]
 }

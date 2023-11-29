@@ -24,7 +24,7 @@ import {
 } from '@/interface'
 import { useSubscribe } from '@/shared/subscribe'
 import { debouncedWatch } from '@vueuse/core'
-import debounce from 'lodash/debounce'
+import { debounce } from 'lodash-es'
 import classnams from 'classnames'
 import './index.less'
 

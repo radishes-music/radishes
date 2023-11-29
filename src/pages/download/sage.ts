@@ -12,7 +12,7 @@ import { download, isBrowser, isElectron } from '@/utils/index'
 import { asyncIpc } from '@/electron/event/ipc-browser'
 import { DownloadIpcType } from '@/electron/event/action-types'
 import { getSongDetail } from '@/api/index'
-import remove from 'lodash/remove'
+import { remove } from 'lodash-es'
 
 type IActions<T = ActionContext<DownloadState, RootState>> = {
   [DownloadActions.DOWNLOAD_MUSIC]: (k: T, payload: SongsDetail) => void

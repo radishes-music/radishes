@@ -14,7 +14,7 @@ export const OverflowText = defineComponent({
       show: false
     })
 
-    return function(this: any) {
+    return function (this: any) {
       return (
         <div class="overflow-text">
           <div class={`overflow-text__value ${state.show ? 'switchOn' : ''}`}>

@@ -408,7 +408,6 @@ export const Table = defineComponent({
               total={total.value}
               pageSize={pagination.value.limit}
               current={pagination.value.offset}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
               // @ts-ignore
               onChange={paginationChange}
             />

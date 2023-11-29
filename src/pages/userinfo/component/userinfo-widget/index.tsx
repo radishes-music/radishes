@@ -54,7 +54,7 @@ export const UserInfoWidget = defineComponent({
       }
     }
 
-    return function() {
+    return function () {
       const { profile, audio, userId } = props
 
       return (

@@ -3,7 +3,7 @@
  */
 import { computed, defineComponent, reactive } from 'vue'
 import { Select } from 'ant-design-vue'
-import { range } from 'lodash'
+import { range } from 'lodash-es'
 
 const years = range(1920, new Date().getFullYear() + 1)
 const months = range(1, 13)
@@ -57,8 +57,8 @@ export const BirthSelect = defineComponent({
             ? 29
             : 28
           : big.includes(month)
-          ? 31
-          : 30
+            ? 31
+            : 30
 
       return end
     })

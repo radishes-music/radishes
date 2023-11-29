@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase,vue/require-default-prop,@typescript-eslint/ban-ts-ignore*/
 import { defineComponent, reactive, inject } from 'vue'
 import { Button } from '../component/button'
 import '../component/auth-view/index.less'

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { defineComponent } from 'vue'
 import { Button as VantButton } from 'vant'
 import './index.less'

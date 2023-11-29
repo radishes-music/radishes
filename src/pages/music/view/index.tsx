@@ -33,9 +33,8 @@ export const LocalMusic = defineComponent({
           if (modalContanier.value) {
             const el = modalContanier.value as HTMLElement
             const contanier = el?.parentElement?.parentElement
-            const head = contanier?.querySelector<HTMLElement>(
-              '.ant-modal-header'
-            )
+            const head =
+              contanier?.querySelector<HTMLElement>('.ant-modal-header')
             if (contanier && head) {
               const { start } = useDrag(contanier, head, {
                 moveCB(x, y) {
@@ -75,8 +74,7 @@ export const LocalMusic = defineComponent({
     }
 
     const handleConfirm = async () => {
-      const v = await import('@/electron/utils/index')
-      const songs = await v.readPathMusic(checkPath.value)
+      const songs = await electronAPI.readPathMusic(checkPath.value)
 
       useMutations(LocalMusicMutations.SET_LOCAL_MUSIC, songs)
       visibleDirectory.value = false

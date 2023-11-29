@@ -33,7 +33,7 @@ export default defineComponent({
       loadUserInfo($route.params.uid).then(res => (state.res = res))
     })
 
-    return function() {
+    return function () {
       if (userInfoLoading.value || JSON.stringify(state.res) === '{}') {
         return <Loading></Loading>
       }

@@ -40,7 +40,7 @@ export const Playlist = defineComponent({
     }
   },
   setup(props) {
-    return function(this: any) {
+    return function (this: any) {
       const { playCount, isSelf, userId, list, layoutType } = props
 
       if (list.length === 0) {

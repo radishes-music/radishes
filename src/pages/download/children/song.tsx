@@ -24,9 +24,7 @@ export const DownloadSong = defineComponent({
     }
 
     const handleOpenExplorer = () => {
-      import('@/electron/utils/index').then(v => {
-        v.openExplorer(state.downloadPath)
-      })
+      shell.openExternal(state.downloadPath)
     }
 
     const handleSettingDwonload = () => {

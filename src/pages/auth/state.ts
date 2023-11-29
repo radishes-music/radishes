@@ -1,6 +1,5 @@
 import { Song } from '@/interface'
 
-/* eslint-disable @typescript-eslint/camelcase,vue/require-default-prop,@typescript-eslint/ban-ts-ignore*/
 export interface AuthState {
   user: {
     loginType: number

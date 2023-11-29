@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import Md5 from 'md5'
 import http from '@/utils/http'
 

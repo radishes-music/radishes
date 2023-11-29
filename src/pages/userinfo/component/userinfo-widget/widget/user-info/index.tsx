@@ -25,7 +25,7 @@ export const UserInfo = defineComponent({
   setup(props) {
     const isSelf = useIsSelf(() => props.profile?.userId)
 
-    return function() {
+    return function () {
       const { profile } = props
 
       return (

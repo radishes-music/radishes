@@ -4,8 +4,8 @@ import { useRoute } from 'vue-router'
 import { watch, toRaw } from 'vue'
 import { useIntervalFn } from '@vueuse/core'
 import { FormatEnum, PayloadType, IActionsReturn } from '@/interface'
-import equal from 'lodash/isEqual'
-import cloneDeep from 'lodash/cloneDeep'
+import { isEqual } from 'lodash-es'
+import { cloneDeep } from 'lodash-es'
 import store from '@/store/index'
 
 interface InternalHook {
@@ -160,7 +160,7 @@ export const useUrlParams = (
   return watch(
     [() => route.query[key] as string, () => cloneDeep(args)] as unknown[],
     (v, ov) => {
-      if (!equal(v, ov)) {
+      if (!isEqual(v, ov)) {
         cb(...v)
       }
     },

@@ -37,7 +37,7 @@ export const UserStatistic = defineComponent({
       $router.push(`/fansView/${props.uid}`)
     }
 
-    return function() {
+    return function () {
       const { eventCount, follows, followeds } = props
 
       return (

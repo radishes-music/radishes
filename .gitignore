@@ -4,6 +4,7 @@ node_modules
 /dist-electron
 /cypress
 /tests/e2e/video
+/out
 
 
 # local env files
@@ -31,3 +32,11 @@ pnpm-debug.log*
 /packages/api/dist
 
 .vercel
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

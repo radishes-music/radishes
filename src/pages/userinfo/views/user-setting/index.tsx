@@ -28,15 +28,8 @@ export const UserSetting = defineComponent({
     const authProfile: any = useAuthProfile()
     const updateProfileAction = useUpdateProfile()
 
-    const {
-      nickname,
-      signature,
-      gender,
-      birthday,
-      avatarUrl,
-      city,
-      province
-    } = authProfile.value
+    const { nickname, signature, gender, birthday, avatarUrl, city, province } =
+      authProfile.value
 
     const state: any = reactive({
       nickname,

@@ -2,7 +2,7 @@
  * Created by buddy on 2021/2/26.
  */
 import { defineComponent } from 'vue'
-import { isNumber } from 'lodash'
+import { isNumber } from 'lodash-es'
 import Icon from '@/components-global/icon/main'
 import './index.less'
 
@@ -30,7 +30,7 @@ export const ListHeader = defineComponent({
     }
   },
   setup(props) {
-    return function() {
+    return function () {
       const { count, title, canLayout, layoutType, onLayoutChange }: any = props
 
       return (

@@ -7,7 +7,7 @@ interface HttpConfig extends AxiosRequestConfig {
   auths?: boolean
 }
 
-export default function(http: AxiosInstance) {
+export default function (http: AxiosInstance) {
   http.interceptors.response.use(
     response => {
       return response

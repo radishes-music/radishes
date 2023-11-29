@@ -37,7 +37,7 @@ export default defineComponent({
       }
     }
 
-    return function(this: any) {
+    return function (this: any) {
       return (
         <div class="x-cell" onClick={onClick}>
           <div class="x-cell__left">

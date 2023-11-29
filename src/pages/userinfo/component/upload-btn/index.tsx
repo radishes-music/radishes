@@ -14,7 +14,7 @@ export const UploadBtn = defineComponent({
       file: undefined
     })
 
-    return function() {
+    return function () {
       return (
         <>
           <UploadWrapper

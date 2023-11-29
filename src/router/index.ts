@@ -31,8 +31,8 @@ export const contentRouter = renderRouter(contentBaseRouter)
 
 const router = createRouter({
   history: isBrowser
-    ? createWebHistory(process.env.BASE_URL)
-    : createWebHashHistory(process.env.BASE_URL),
+    ? createWebHistory(import.meta.env.BASE_URL)
+    : createWebHashHistory(import.meta.env.BASE_URL),
   routes: baseRouter.concat(navRouter, contentRouter)
 })
 

@@ -1,5 +1,5 @@
 import { AuthState } from './state'
-import isObject from 'lodash/isObject'
+import { isObject } from 'lodash-es'
 import { Song } from '@/interface'
 export const AUTH_MUTATIONS = {
   LOGIN: 'LOGIN',

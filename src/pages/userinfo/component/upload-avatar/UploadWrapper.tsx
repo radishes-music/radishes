@@ -11,7 +11,7 @@ export const UploadWrapper = defineComponent({
   setup() {
     const input = ref()
 
-    return function(this: any) {
+    return function (this: any) {
       return (
         <div
           role="button"

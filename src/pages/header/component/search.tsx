@@ -5,7 +5,7 @@ import { useHeaderModule } from '@/modules/index'
 import { playMusic } from '@/shared/music-shared'
 import { Jump } from '@/shared/jump-shared'
 import Keyword from '@/components/keyword/keyword'
-import debounce from 'lodash/debounce'
+import { debounce } from 'lodash-es'
 import './search.less'
 
 const enum SearchType {

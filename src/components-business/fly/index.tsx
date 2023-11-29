@@ -72,7 +72,7 @@ interface Config {
   duartion: number
 }
 
-export const instance = function(config: Config) {
+export const instance = function (config: Config) {
   const div = document.createElement('div')
   document.body.appendChild(div)
   const app = createApp({

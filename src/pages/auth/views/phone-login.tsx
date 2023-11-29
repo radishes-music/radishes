@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase,vue/require-default-prop,@typescript-eslint/ban-ts-ignore*/
 import { defineComponent, reactive, inject, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { Toast } from 'vant'
@@ -116,16 +115,13 @@ export const PhoneLogin = defineComponent({
                 </div>
               )
             }}
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             v-model={state.phone}
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             onFocus={onFocus}
           ></InputField>
           <InputField
             placeholder="请输入密码"
-            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
             // @ts-ignore
             type="password"
             v-slots={{

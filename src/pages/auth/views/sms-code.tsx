@@ -58,7 +58,7 @@ export const SmsCode = defineComponent({
       setErrorMsg('')
     }
 
-    return function() {
+    return function () {
       return (
         <>
           <div class="vh-center auth-view__icon">
@@ -86,7 +86,6 @@ export const SmsCode = defineComponent({
                   </div>
                 )
               }}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
               // @ts-ignore
               onFocus={onFocus}
             ></InputField>

@@ -30,7 +30,7 @@ export const TeleportToAny = defineComponent({
     }
   },
   setup(props, context) {
-    const slot = (context.slots as unknown) as Slots
+    const slot = context.slots as unknown as Slots
     const visible = ref(props.visible)
     const teleportContanier = ref<HTMLElement | null>(null)
 

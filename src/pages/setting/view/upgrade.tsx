@@ -19,7 +19,7 @@ export default defineComponent({
       asyncIpcOrigin().then(ipc => {
         ipc.on(AutoDownload.CHECK_UPGRADE, (e, v) => {
           upgrading.value = false
-          if (!newsVersion(v.version, VERSION)) {
+          if (!newsVersion(v.version, __APP_VERSION__)) {
             newUpgrade.value = true
           }
         })

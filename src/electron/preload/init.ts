@@ -12,14 +12,13 @@ import { isElectron } from '@/utils'
 
 const initStorage = async () => {
   if (isElectron) {
-    const v = await import('@/electron/utils/index')
     const downloadModule = useDownloadModule()
     const localMusicModule = useLocalMusicModule()
     const downloadState = store.state.Download
     const localMusicState = store.state.LocalMusic
 
-    const os = v.getUserOS()
-    const userDownloadPath = v.join(os.homedir + '/Downloads')
+    const os = electronAPI.os.userInfo()
+    const userDownloadPath = electronAPI.path.join(os.homedir + '/Downloads')
     if (!downloadState.downloadPath) {
       downloadModule.useMutations(
         DownloadMutations.SET_DOWNLOAD_PATH,
@@ -27,7 +26,7 @@ const initStorage = async () => {
       )
     }
 
-    const userMusicPath = v.join(os.homedir + '/Music')
+    const userMusicPath = electronAPI.path.join(os.homedir + '/Music')
     if (!localMusicState.normalPath) {
       localMusicModule.useMutations(
         LocalMusicMutations.SET_NORMAL_PATH,
@@ -51,7 +50,7 @@ const initStorage = async () => {
       localMusicModule.useMutations(LocalMusicMutations.SET_LOCAL_PATH, paths)
     }
 
-    const songs = await v.readPathMusic(paths.map(item => item.path))
+    const songs = await electronAPI.readPathMusic(paths.map(item => item.path))
 
     localMusicModule.useMutations(LocalMusicMutations.SET_LOCAL_MUSIC, songs)
   }

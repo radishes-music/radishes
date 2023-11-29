@@ -6,7 +6,7 @@ import classnames from 'classnames'
 import './index.less'
 import { isBrowser, isElectron } from '@/utils'
 
-const { VUE_APP_PLATFORM } = process.env
+const { VUE_APP_PLATFORM } = import.meta.env
 
 export const LyricsFlash = defineComponent({
   name: 'LyricsFlash',
@@ -41,14 +41,8 @@ export const LyricsFlash = defineComponent({
   setup(props) {
     const lyriceEl = ref()
 
-    const {
-      screenSize,
-      visibleFlash,
-      lyrics,
-      index,
-      playing,
-      flashMagic
-    } = toRefs(props)
+    const { screenSize, visibleFlash, lyrics, index, playing, flashMagic } =
+      toRefs(props)
 
     onMounted(() => {
       if (isBrowser) {

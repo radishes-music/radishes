@@ -36,8 +36,7 @@ export function errorHandle(app: App): void {
   app.config.errorHandler = (err, vm, info) => {
     nextTick(() => {
       if (vm && vm.$root) {
-        const ErrorBoundary = (vm.$root.$refs
-          .ErrorBoundary as unknown) as Methods
+        const ErrorBoundary = vm.$root.$refs.ErrorBoundary as unknown as Methods
         ErrorBoundary.handleError(true, {
           title: info,
           message: err

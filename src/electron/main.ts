@@ -1,7 +1,8 @@
-import { app, protocol, BrowserWindow, screen, globalShortcut } from 'electron'
+import { app, BrowserWindow, screen, globalShortcut, protocol } from 'electron'
+
 import { autoUpdater } from 'electron-updater'
-import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
-import installExtension from 'electron-devtools-installer'
+// import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { eventInit } from '@/electron/event/index'
 import { downloadIntercept } from './event/ipc-main/download'
 import { runService } from './service/index'
@@ -9,13 +10,16 @@ import { errorMain, infoMain, warnMain } from './utils/log'
 import { ThenArg } from '@/interface'
 import store from '@/electron/store/index'
 import path from 'path'
+import { AppPath, resolveFile, resolveFileUrl } from './utils'
 
 // curl -H "Accept: application/json" https://api.github.com/repos/Linkontoask/radishes/contents/package.json
-const isDevelopment = process.env.VUE_APP_NODE_ENV !== 'production'
+const isDevelopment = process.env.NODE_ENV_ELECTRON_VITE !== 'production'
 
 let win: BrowserWindow | null,
-  loadingWin: BrowserWindow | null,
+  // loadingWin: BrowserWindow,
   serviceInstance: ThenArg<ReturnType<typeof runService>>['service']
+
+let appQuitting = false
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -24,89 +28,84 @@ protocol.registerSchemesAsPrivileged([
     privileges: { secure: true, standard: true }
   }
 ])
+// loadingView
+// async function createLoadingWindow() {
+//   loadingWin = new BrowserWindow({
+//     width: 620,
+//     height: 320,
+//     frame: false,
+//     resizable: false,
+//     transparent: true,
+//     titleBarStyle: 'hidden',
+//   })
+//   if (process.env.ELECTRON_RENDERER_URL) {
+//     await loadingWin.loadURL(
+//       (process.env.ELECTRON_RENDERER_URL as string) + '/loading.html',
+//     )
+//   } else {
+//     loadingWin
+//       .loadFile('./loading.html')
+//       .then(() => {
+//         infoMain('Load loading.html')
+//       })
+//       .catch((e) => {
+//         errorMain('Load not loading.html', e.toString())
+//       })
+//   }
 
-async function createLoadingWindow() {
-  loadingWin = new BrowserWindow({
-    width: 620,
-    height: 320,
-    frame: false,
-    resizable: false,
-    transparent: true,
-    titleBarStyle: 'hidden'
-  })
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    await loadingWin.loadURL(
-      (process.env.WEBPACK_DEV_SERVER_URL as string) + '/loading.html'
-    )
-  } else {
-    loadingWin
-      .loadFile('./loading.html')
-      .then(() => {
-        infoMain('Load loading.html')
-      })
-      .catch(e => {
-        errorMain('Load not loading.html', e.toString())
-      })
-  }
+//   loadingWin.once('closed', () => {
+//     loadingWin = null
+//   })
+// }
 
-  loadingWin.once('closed', () => {
-    loadingWin = null
-  })
-}
-
+require('@electron/remote/main').initialize()
 async function createWindow() {
   const { workAreaSize, scaleFactor } = screen.getPrimaryDisplay()
-  const { width, height } = workAreaSize
-  const w = Math.max(1046, width / 2)
-  const h = 0.686 * w
+  const { width } = workAreaSize
+  const w = Math.floor(Math.max(1048, width / 2))
+  const h = Math.floor(0.686 * w)
   infoMain(`Display w: ${w} h: ${h}`)
   // Create the browser window.
   win = new BrowserWindow({
     width: w,
     height: h,
-    minWidth: w / 1.4,
-    minHeight: h / 1.4,
+    minWidth: Math.floor(w / 2),
+    // minHeight: h,
     useContentSize: true,
+    center: true,
     frame: false,
     titleBarStyle: 'hidden',
-    show: false,
     resizable: true,
-    icon: path.join(
-      __dirname,
-      process.env.VUE_APP_NODE_ENV === 'development'
-        ? '../build/icons/1024x1024.png'
-        : 'build/icons/1024x1024.png'
-    ),
+    hasShadow: false,
     webPreferences: {
-      // Use pluginOptions.nodeIntegration, leave this alone
-      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: (process.env
-        .ELECTRON_NODE_INTEGRATION as unknown) as boolean,
-      // https://github.com/electron/electron/issues/23506
-      contextIsolation: false,
-      // This may bring some security issues, but our resources come from the Internet, and the CORS policy is forbidden to play the corresponding resources
-      webSecurity: false,
-      // https://github.com/electron/electron/issues/9920
-      // preload: __dirname + '/electron/preload/index.js'
-      enableRemoteModule: true,
-      devTools: isDevelopment
-    }
+      sandbox: false,
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: resolveFile('/preload/index.js'),
+      devTools: true
+    },
+    autoHideMenuBar: true
   })
 
-  infoMain('Webpack dev server url ', process.env.WEBPACK_DEV_SERVER_URL)
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
+  require('@electron/remote/main').enable(win.webContents)
+
+  infoMain('Dev server url ', process.env.ELECTRON_RENDERER_URL)
+  if (process.env.ELECTRON_RENDERER_URL) {
     // Load the url of the dev server if in development mode
-    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string)
-    if (!process.env.IS_TEST) win.webContents.openDevTools()
+    await win.loadURL(
+      path.join(process.env.ELECTRON_RENDERER_URL, 'index.html')
+    )
+    // if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
-    try {
-      createProtocol('app')
-    } catch (e) {
-      warnMain(e)
-    }
+    // try {
+    //   createProtocol('app')
+    // } catch (e) {
+    //   warnMain(e)
+    // }
     // Load the index.html when not in development
+    infoMain('Entry index.html path:', resolveFile('/renderer/index.html'))
     win
-      .loadURL('app://./index.html')
+      .loadURL(AppPath)
       .then(() => {
         infoMain('Load index.html')
       })
@@ -115,6 +114,11 @@ async function createWindow() {
       })
     const upgrade = store.get('upgrade')
     if (upgrade) {
+      /**
+       * FIXME:
+       * Note: Your application must be signed for automatic updates on macOS.
+       * This is a requirement of Squirrel.Mac.
+       *  */
       autoUpdater.checkForUpdatesAndNotify({
         title: 'Radishes 通知',
         body: '发现有新版本，快更新体验吧！'
@@ -124,13 +128,25 @@ async function createWindow() {
 
   win.once('ready-to-show', () => {
     infoMain('Event ready-to-show')
-    loadingWin && loadingWin.close()
+    // loadingWin && loadingWin.close()
     win && win.show()
   })
 
   // https://github.com/electron/electron/issues/26726
   win.on('system-context-menu', e => {
     e.preventDefault()
+  })
+
+  win.on('close', event => {
+    infoMain('close')
+    if (process.platform === 'darwin') {
+      if (appQuitting) {
+        win = null
+      } else if (win !== null) {
+        event.preventDefault()
+        win.hide()
+      }
+    }
   })
 
   win.on('closed', () => {
@@ -140,6 +156,15 @@ async function createWindow() {
 
   eventInit(win)
   downloadIntercept(win)
+
+  app.on('activate', () => {
+    infoMain('Event activate')
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (process.platform === 'darwin' && win !== null) {
+      win.show()
+    }
+  })
 }
 
 async function beforeRunService() {
@@ -166,28 +191,20 @@ app.on('window-all-closed', () => {
   }
 })
 
-app.on('activate', () => {
-  infoMain('Event activate')
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (win === null) {
-    beforeRunService()
-  } else {
-    win.show()
-  }
+app.on('before-quit', () => {
+  infoMain('BefreoQuit')
+  appQuitting = true
 })
 
-app.on('ready', async () => {
+app.whenReady().then(async () => {
   infoMain('Event ready')
   if (isDevelopment && !process.env.IS_TEST) {
     // Install Vue Devtools
     try {
-      await installExtension({
-        id: 'ljjemllljcmogpfapbkkighbhhppjdbg', // vue3 devtool id
-        electron: '>=1.2.1'
-      })
+      await installExtension(VUEJS_DEVTOOLS)
       infoMain('Install extension')
     } catch (e) {
+      // @ts-expect-error
       errorMain('Vue Devtools failed to install:', e.toString())
     }
   }
@@ -198,8 +215,9 @@ app.on('ready', async () => {
     })
   }
 
-  createLoadingWindow()
+  // createLoadingWindow()
 
+  infoMain('run beforeRunService')
   beforeRunService()
 })
 

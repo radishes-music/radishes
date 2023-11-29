@@ -63,14 +63,9 @@ const buildService = () => {
 }
 
 const buildElectron = () => {
-  const argv = process.argv
-  const platform = argv[2]
-  return handleSpawn('vue-cli-service', [
-    'electron:build',
-    '--mode',
-    'electron.build',
-    platform
-  ])
+  // const argv = process.argv
+  // const platform = argv[2]
+  return handleSpawn('yarn', ['pkg'])
 }
 
 const run = async () => {

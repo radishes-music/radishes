@@ -8,7 +8,7 @@ import {
   ref
 } from 'vue'
 import { getDomStyle, noop } from '@/utils/index'
-import debounce from 'lodash/debounce'
+import { debounce } from 'lodash-es'
 
 export const Image = defineComponent({
   name: 'Image',
@@ -34,8 +34,9 @@ export const Image = defineComponent({
       h: 1
     })
     const src = computed(() => {
-      return `${props.src}?param=${contanierStyle.w * 2}y${contanierStyle.h *
-        2}`
+      return `${props.src}?param=${contanierStyle.w * 2}y${
+        contanierStyle.h * 2
+      }`
     })
 
     const tn = (s: string) => {

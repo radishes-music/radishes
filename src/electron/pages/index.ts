@@ -10,11 +10,8 @@ import '@/iconfont/index'
 import './index.less'
 import '@/theme/index'
 
-const app = createApp(App)
-  .use(store)
-  .use(Components)
-  .use(GlobalComponent)
+const app = createApp(App).use(store).use(Components).use(GlobalComponent)
 
-errorHandle(app)
+// errorHandle(app)
 
 app.mount('#app')

@@ -20,7 +20,6 @@ export interface AutoUpdateContent {
 
 export default (win: BrowserWindow) => {
   autoUpdater.logger = log
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   autoUpdater.logger.transports.file.level = 'info'
 

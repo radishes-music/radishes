@@ -9,6 +9,7 @@ import { LayoutMutations, LayoutSize } from '@/interface'
 import { useLayoutModule } from '@/modules/index'
 import { isBrowser, isElectron, isWindows } from '@/utils'
 import './index.less'
+import classnames from 'classnames'
 
 const actionToClass = {
   [Action.CLOSE_WINDOW]: '',
@@ -48,13 +49,9 @@ export const Header = defineComponent({
 
     if (isElectron) {
       window.addEventListener('resize', () => {
-        asyncIpc().then(event => {
-          const win = event.getWindow()
-          if (win) {
-            const isMax = win.isMaximized()
-            const size = isMax ? LayoutSize.LG : LayoutSize.MD
-            useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, size)
-          }
+        electronAPI.isMaximized((isMax: boolean) => {
+          const size = isMax ? LayoutSize.LG : LayoutSize.MD
+          useMutations(LayoutMutations.CHANGE_WINDOW_SIZE, size)
         })
       })
     }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
@@ -11,7 +10,7 @@ import {
   userFollows,
   userPlaylist
 } from '@/api/userinfo'
-import { isFunction } from 'lodash'
+import { isFunction } from 'lodash-es'
 import store from '@/store/index'
 
 export const useAuth = () => {

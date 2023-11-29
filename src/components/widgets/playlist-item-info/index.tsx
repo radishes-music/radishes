@@ -6,7 +6,7 @@ import { defineComponent } from 'vue'
 export const PlaylistItemInfo = defineComponent({
   name: 'PlaylistItemInfo',
   setup() {
-    return function() {
+    return function () {
       return <div>PlaylistItemInfo</div>
     }
   }

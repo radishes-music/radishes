@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 import { message } from 'ant-design-vue'
 
-export default function(http: AxiosInstance) {
+export default function (http: AxiosInstance) {
   http.interceptors.response.use(
     response => response,
     error => {

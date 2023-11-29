@@ -20,7 +20,7 @@ import { playMusic } from '@/shared/music-shared'
 import './history.less'
 
 const prefix = 'history-music'
-const { VUE_APP_PLATFORM } = process.env
+const { VUE_APP_PLATFORM } = import.meta.env
 
 export const MusicHistory = defineComponent({
   name: 'MusicHistory',

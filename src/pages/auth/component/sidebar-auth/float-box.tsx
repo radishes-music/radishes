@@ -34,7 +34,7 @@ export const FloatBox = defineComponent({
       loadUserInfo(profile.value.userId)
     })
 
-    return function(this: any) {
+    return function (this: any) {
       return (
         <div
           class="sidebar-profile"

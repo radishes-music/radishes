@@ -16,6 +16,8 @@ import { autoUpdater } from 'electron-updater'
 import normalizeUrl from 'normalize-url'
 import log from 'electron-log'
 import store from '@/electron/store/index'
+import path from 'path'
+import { LyricsPathUrl, PreloadPath } from '@/electron/utils'
 
 export const onIpcMainEvent = (win: BrowserWindow) => {
   let lyrics: null | BrowserWindow
@@ -63,18 +65,22 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
         alwaysOnTop: true,
         acceptFirstMouse: true,
         skipTaskbar: false,
+        useContentSize: true,
+        center: true,
         webPreferences: {
-          nodeIntegration: true,
-          contextIsolation: false,
-          webSecurity: false
+          sandbox: false,
+          nodeIntegration: false,
+          // enableRemoteModule: true,
+          preload: PreloadPath
         }
       })
-      if (process.env.WEBPACK_DEV_SERVER_URL) {
+      require('@electron/remote/main').enable(lyrics.webContents)
+      if (process.env.ELECTRON_RENDERER_URL) {
         lyrics.loadURL(
-          normalizeUrl(process.env.WEBPACK_DEV_SERVER_URL + '/lyrics.html')
+          normalizeUrl(process.env.ELECTRON_RENDERER_URL + '/lyrics.html')
         )
       } else {
-        lyrics.loadURL('app://./lyrics.html')
+        lyrics.loadURL(LyricsPathUrl)
       }
       lyrics.once('ready-to-show', () => {
         if (lyrics) {
@@ -126,7 +132,7 @@ export const onIpcMainEvent = (win: BrowserWindow) => {
     store.set('upgrade', upgrade)
   })
   ipcMain.on(AutoDownload.CHECK_UPGRADE, e => {
-    autoUpdater.checkForUpdates().then(result => {
+    autoUpdater.checkForUpdates().then((result: any) => {
       win.webContents.send(AutoDownload.CHECK_UPGRADE, {
         version: result.updateInfo.version,
         path: result.updateInfo.path

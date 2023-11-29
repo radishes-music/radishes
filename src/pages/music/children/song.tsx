@@ -7,7 +7,7 @@ import { SongsDetail, LocalMusicMutations, LocalMusicDetail } from '@/interface'
 import { asyncIpc } from '@/electron/event/ipc-browser'
 import { ReadLocalFile } from '@/electron/event/action-types'
 import { playMusic, clearLocalMusicUrl } from '@/shared/music-shared'
-import cloneDeep from 'lodash/cloneDeep'
+import { cloneDeep } from 'lodash-es'
 
 export const LocalMusicSong = defineComponent({
   name: 'LocalMusicSong',
@@ -30,8 +30,7 @@ export const LocalMusicSong = defineComponent({
       playMusic(music)
     }
     const handleSyncMusic = async () => {
-      const v = await import('@/electron/utils/index')
-      const songs = await v.readPathMusic(
+      const songs = await electronAPI.readPathMusic(
         state.localPath.map(item => item.path)
       )
 

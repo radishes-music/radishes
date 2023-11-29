@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase,vue/require-default-prop*/
 import { defineComponent } from 'vue'
 import './index.less'
 
@@ -32,7 +31,7 @@ export const InputField = defineComponent({
       emit('update:modelValue', e.target.value)
     }
 
-    return function(this: any) {
+    return function (this: any) {
       return (
         <div class="ra-inputfield">
           {this.$slots.left ? (

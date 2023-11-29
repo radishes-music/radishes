@@ -13,7 +13,7 @@ export const EmptyList = defineComponent({
     }
   },
   setup() {
-    return function(this: any) {
+    return function (this: any) {
       return <div class="empty-list">{this.text}</div>
     }
   }

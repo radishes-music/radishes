@@ -3,7 +3,7 @@ import { getNodeEnv, isElectron } from '@/utils/index'
 
 const isDevelopment = getNodeEnv() === 'development'
 
-export default function(http: AxiosInstance) {
+export default function (http: AxiosInstance) {
   const watchPort = (): Promise<string> => {
     return new Promise(resolve => {
       const cb = () => {

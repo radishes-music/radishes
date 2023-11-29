@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase,vue/require-default-prop,@typescript-eslint/ban-ts-ignore*/
 import { defineComponent } from 'vue'
 import { RouterLink, RouteLocationRaw } from 'vue-router'
 import './index.less'

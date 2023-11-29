@@ -7,7 +7,7 @@ import './index.less'
 export const ListWrapper = defineComponent({
   name: 'ListWrapper',
   setup() {
-    return function(this: any) {
+    return function (this: any) {
       return <div class="list-wrapper">{this.$slots.default?.()}</div>
     }
   }

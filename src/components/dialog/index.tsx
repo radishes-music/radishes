@@ -13,7 +13,7 @@ export const Dialog = defineComponent({
   }
 })
 
-export const instance = function(content: VNodeTypes, config: Config) {
+export const instance = function (content: VNodeTypes, config: Config) {
   const app = createApp({
     setup() {
       return () => <Dialog {...config}>{content}</Dialog>

@@ -9,9 +9,9 @@ import { Platform } from '@/config/build'
 dayjs.extend(UTC)
 dayjs.extend(customParseFormat)
 
-export const isBrowser = process.env.VUE_APP_PLATFORM === Platform.BROWSER
+export const isBrowser = import.meta.env.VUE_APP_PLATFORM === Platform.BROWSER
 
-export const isElectron = process.env.VUE_APP_PLATFORM === Platform.ELECTRON
+export const isElectron = import.meta.env.VUE_APP_PLATFORM === Platform.ELECTRON
 
 export const isPromise = (p: unknown) => {
   return typeof p === 'object' && p instanceof Promise
@@ -38,10 +38,7 @@ export const isNumber = (n: unknown) => {
 }
 
 export const formatTime = (time: number, unit: OpUnitType): string => {
-  return dayjs
-    .utc(new Date(0))
-    .add(time, unit)
-    .format('mm:ss')
+  return dayjs.utc(new Date(0)).add(time, unit).format('mm:ss')
 }
 
 export const formatTimeToStandard = (time: number) => {
@@ -211,9 +208,9 @@ export function off(container: any, type: any, listener: (ev: any) => void) {
 export const noop = () => {}
 
 export const getNodeEnv = (): string => {
-  let NODE_ENV = process.env.NODE_ENV as string
+  let NODE_ENV = import.meta.env.NODE_ENV as string
   if (isElectron) {
-    NODE_ENV = process.env.VUE_APP_NODE_ENV as string
+    NODE_ENV = import.meta.env.VUE_APP_NODE_ENV as string
   }
   return NODE_ENV
 }
