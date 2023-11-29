@@ -5,7 +5,6 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import vitePluginMd2Vue from 'vite-plugin-md2vue'
 import usePluginImport from 'vite-plugin-importer'
 import { antdDayjs } from 'antd-dayjs-vite-plugin'
-import autoprefixer from 'autoprefixer'
 
 import pkg from './package.json'
 

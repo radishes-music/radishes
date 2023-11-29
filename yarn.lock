@@ -22261,7 +22261,6 @@ __metadata:
     normalize-url: ^5.3.0
     portscanner: ^2.2.0
     prettier: ^3.1.0
-    process: ^0.11.10
     react-is: ^16.13.1
     scriptjs: ^2.5.9
     spectron: ^14.0.0

@@ -7,7 +7,6 @@
   "description": "Cross-platform copyright-free music platform",
   "scripts": {
     "bootstrap": "npx lerna@3.22.1 bootstrap",
-    "mirrori": "./mirrori.sh",
     "dev": "concurrently -r \"yarn dev:api\" \"yarn generate:theme\" \"yarn dev:web\"",
     "dev:web": "cross-env NODE_ENV=development vite --mode browser",
     "dev:api": "lerna exec --scope @radishes/api -- yarn run dev",
@@ -140,7 +139,6 @@
     "normalize-url": "^5.3.0",
     "portscanner": "^2.2.0",
     "prettier": "^3.1.0",
-    "process": "^0.11.10",
     "scriptjs": "^2.5.9",
     "spectron": "^14.0.0",
     "stylelint": "^13.7.2",

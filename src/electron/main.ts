@@ -80,9 +80,8 @@ async function createWindow() {
     webPreferences: {
       sandbox: false,
       nodeIntegration: false,
+      contextIsolation: true,
       preload: resolveFile('/preload/index.js'),
-      // @ts-expect-error
-      enableRemoteModule: true,
       devTools: true
     },
     autoHideMenuBar: true

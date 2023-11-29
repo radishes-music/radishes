@@ -57,11 +57,7 @@ export const Header = defineComponent({
     }
 
     return () => (
-      <header
-        class={classnames('header', {
-          'header-electron': isElectron
-        })}
-      >
+      <header class="header">
         <Logo></Logo>
         <div class="header-right">
           <div class="header-right-left" onMousedown={e => e.stopPropagation()}>

@@ -16,7 +16,7 @@ export const Logo = defineComponent({
     return () => (
       <div
         class={classNames('logo', {
-          'logo-macos': isMacOS
+          'mt-5': isMacOS
         })}
         onClick={home}
       >
