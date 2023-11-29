@@ -17,7 +17,7 @@
     "build:electron:linux": "node script/build.js --linux",
     "build:electron:macos": "node script/build.js --mac",
     "build:api": "lerna exec --scope @radishes/api -- yarn run build",
-    "pkg": "rm -rf dist-electron && yarn build:electron && npx electron-builder --config .electron-builder.config.js",
+    "pkg": "npx rimraf dist-electron && yarn build:electron && npx electron-builder --config .electron-builder.config.js",
     "test": "lerna run test --stream",
     "test:unit": "vue-cli-service test:unit",
     "test:open": "cypress open",
