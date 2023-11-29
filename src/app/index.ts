@@ -10,6 +10,7 @@ import { isElectron } from '@/utils/index'
 import init from '@/electron/preload/init'
 import '@/iconfont/index'
 import './index.css'
+import { setupMainEvent } from '@/electron/web/event'
 
 const app = createApp(App)
   .use(store)
@@ -27,6 +28,7 @@ if (isElectron) {
   // console.warn = electronAPI.warn
   // console.error = electronAPI.error
   registerIPC(app)
+  setupMainEvent()
 }
 
 app.mount('#app')

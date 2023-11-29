@@ -6,14 +6,15 @@ import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import { eventInit } from '@/electron/event/index'
 import { downloadIntercept } from './event/ipc-main/download'
 import { runService } from './service/index'
-import { errorMain, infoMain, warnMain } from './utils/log'
-import { ThenArg } from '@/interface'
+import { errorMain, infoMain } from './utils/log'
+import type { ThenArg } from '@/interface'
 import store from '@/electron/store/index'
 import path from 'path'
-import { AppPath, resolveFile, resolveFileUrl } from './utils'
+import { AppPath, PreloadPath, isDevelopment } from './constants'
+import setupMenu from './utils/setupMenu'
+import { setupDevtool } from './utils/setupDevtool'
 
 // curl -H "Accept: application/json" https://api.github.com/repos/Linkontoask/radishes/contents/package.json
-const isDevelopment = process.env.NODE_ENV_ELECTRON_VITE !== 'production'
 
 let win: BrowserWindow | null,
   // loadingWin: BrowserWindow,
@@ -81,11 +82,12 @@ async function createWindow() {
       sandbox: false,
       nodeIntegration: false,
       contextIsolation: true,
-      preload: resolveFile('/preload/index.js'),
-      devTools: true
+      preload: PreloadPath
     },
     autoHideMenuBar: true
   })
+  isDevelopment && setupDevtool(win!)
+  setupMenu(win!)
 
   require('@electron/remote/main').enable(win.webContents)
 
@@ -103,7 +105,7 @@ async function createWindow() {
     //   warnMain(e)
     // }
     // Load the index.html when not in development
-    infoMain('Entry index.html path:', resolveFile('/renderer/index.html'))
+    infoMain('Entry index.html path:', AppPath)
     win
       .loadURL(AppPath)
       .then(() => {
@@ -112,6 +114,7 @@ async function createWindow() {
       .catch(e => {
         errorMain('Load not index.html', e.toString())
       })
+
     const upgrade = store.get('upgrade')
     if (upgrade) {
       /**
