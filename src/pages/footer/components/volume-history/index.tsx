@@ -6,6 +6,11 @@ import { FooterMutations } from '@/interface'
 import { AsyncComponent } from './history'
 import { Tooltip } from 'ant-design-vue'
 import './index.less'
+import eventBus from '@/utils/eventBus'
+import {
+  EVENT_MUSICCONTROL_VOLDOWN_EMITTER,
+  EVENT_MUSICCONTROL_VOLUP_EMITTER
+} from '@/constants'
 
 const MusicHistory = AsyncComponent as any
 
@@ -31,6 +36,22 @@ export const VolumeAndHistory = defineComponent({
       const { volume } = useState()
       volume &&
         useMutations(FooterMutations.SET_VOLUME, volume < 0 ? 0 : volume)
+
+      eventBus.on(EVENT_MUSICCONTROL_VOLDOWN_EMITTER, () => {
+        if (current.value === 0) {
+          return
+        }
+        const x = Math.max(current.value - 25, 0)
+        updateCurrent(x)
+      })
+
+      eventBus.on(EVENT_MUSICCONTROL_VOLUP_EMITTER, () => {
+        if (current.value === 100) {
+          return
+        }
+        const x = Math.min(current.value + 25, 100)
+        updateCurrent(x)
+      })
     })
 
     const slots = {

@@ -28,6 +28,19 @@ import { asyncIpc, asyncIpcOrigin } from '@/electron/event/ipc-browser'
 import { MiddlewareView, LyricsAction } from '@/electron/event/action-types'
 import './index.less'
 import classNames from 'classnames'
+import eventBus from '@/utils/eventBus'
+import {
+  EVENT_MUSICCONTROL_LIKE_EMITTER,
+  EVENT_MUSICCONTROL_LYRICS_OPEN_OR_CLOSE_EMITTER,
+  EVENT_MUSICCONTROL_NEXT_EMITTER,
+  EVENT_MUSICCONTROL_PLAYMODE_EMITTER,
+  EVENT_MUSICCONTROL_PLAY_OR_PAUSE_EMITTER,
+  EVENT_MUSICCONTROL_PREV_EMITTER,
+  EVENT_MUSICCONTROL_VOLDOWN_EMITTER,
+  EVENT_MUSICCONTROL_VOLUP_EMITTER
+} from '@/constants'
+import { MusicControllUtils } from '@/utils/musicControl'
+import { Toast } from 'vant'
 
 const prefix = 'music'
 
@@ -154,6 +167,7 @@ export const MusicControl = defineComponent({
     }
 
     const setAudioCurrent = (indicatorX: number, indicatorW: number) => {
+      console.log(indicatorW, indicatorX)
       const musicDetail = useGetter('musicDetail')
       const time = toFixed(
         (musicDetail.dt / 1000) * (indicatorX / indicatorW),
@@ -263,6 +277,23 @@ export const MusicControl = defineComponent({
           useMutations(FooterMutations.CAN_PLAY, true)
         })
       }
+
+      eventBus.on(EVENT_MUSICCONTROL_PLAY_OR_PAUSE_EMITTER, () =>
+        handlePlayPaues()
+      )
+      eventBus.on(EVENT_MUSICCONTROL_NEXT_EMITTER, nextMusic)
+      eventBus.on(EVENT_MUSICCONTROL_PREV_EMITTER, prevMusic)
+      eventBus.on(EVENT_MUSICCONTROL_LIKE_EMITTER, () => {
+        Toast('TODO: Control Like')
+      })
+      eventBus.on(EVENT_MUSICCONTROL_LYRICS_OPEN_OR_CLOSE_EMITTER, () => {
+        handleVisibleFlash()
+      })
+      eventBus.on(EVENT_MUSICCONTROL_PLAYMODE_EMITTER, () => {
+        changePlayMode()
+      })
+
+      // FIXME: handle Menu Event
     })
 
     return () => (
@@ -289,7 +320,9 @@ export const MusicControl = defineComponent({
             </ve-button>
             <ve-button
               type="text"
-              onClick={handlePlayPaues}
+              onClick={() => {
+                MusicControllUtils.doPlayOrPause()
+              }}
               class={classNames('theme-btn-color', {
                 'theme-btn-color--loading': musicUrlLoading.value
               })}
@@ -309,7 +342,7 @@ export const MusicControl = defineComponent({
                 color={visibleFlash.value ? 'var(--base-color)' : '#333'}
                 size={16}
                 aria-title="词"
-                onClick={handleVisibleFlash}
+                onClick={() => MusicControllUtils.doOpenOrCloseLyrics()}
               ></icon>
             </ve-button>
           </div>

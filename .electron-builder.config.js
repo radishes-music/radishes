@@ -13,35 +13,36 @@ const pkg = require('./package.json')
 
 module.exports = async function () {
   return {
+    productName: pkg.name,
     directories: {
       output: 'dist-electron',
-      buildResources: 'buildResources',
+      buildResources: 'buildResources'
     },
     files: [
       'build/icons',
       'dist-electron/preload',
       'dist-electron/main',
       'dist-electron/renderer',
-      'package.json',
+      'package.json'
     ],
     publish: [{ provider: 'github', owner: 'Linkontoask', repo: 'radishes' }],
     extraFiles: [
       {
         from: 'public/service',
         to: 'resources/app/public/service',
-        filter: ['**/*'],
-      },
+        filter: ['**/*']
+      }
     ],
     asar: false,
     artifactName: pkg.name + '.Setup.' + '${version}.${ext}',
     mac: {
       identity: null,
       icon: './build/icons/1024x1024.png',
-      darkModeSupport:true
+      darkModeSupport: true
     },
     // Specify linux target just for disabling snap compilation
     linux: {
-      target: 'deb',
-    },
+      target: 'deb'
+    }
   }
 }
