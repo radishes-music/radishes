@@ -11,11 +11,14 @@ import {
   EVENT_SETUP_MENU
 } from '@/constants'
 import store from '@/store'
+import { isElectron } from '@/constants'
 
 export const MusicControllUtils = {
   doPlayOrPause() {
-    const { playing } = store.state['Footer']
-    ipcRenderer.invoke(EVENT_SETUP_MENU, { playStatus: !playing })
+    if (isElectron) {
+      const { playing } = store.state['Footer']
+      ipcRenderer.invoke(EVENT_SETUP_MENU, { playStatus: !playing })
+    }
     eventBus.emit(EVENT_MUSICCONTROL_PLAY_OR_PAUSE_EMITTER)
   },
   doPrev() {
@@ -37,8 +40,12 @@ export const MusicControllUtils = {
     // TODO: 再考虑一下
   },
   doOpenOrCloseLyrics() {
-    const { visibleFlash } = store.state['Footer']
-    ipcRenderer.invoke(EVENT_SETUP_MENU, { desktopLyricsStatus: !visibleFlash })
+    if (isElectron) {
+      const { visibleFlash } = store.state['Footer']
+      ipcRenderer.invoke(EVENT_SETUP_MENU, {
+        desktopLyricsStatus: !visibleFlash
+      })
+    }
     eventBus.emit(EVENT_MUSICCONTROL_LYRICS_OPEN_OR_CLOSE_EMITTER)
   }
 }
