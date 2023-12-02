@@ -23,6 +23,7 @@
     "test:open": "cypress open",
     "test:run": "cypress run",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx",
+    "lint:fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx --fix",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,json,tsx,css,less}\"",
     "lint:style": "stylelint --fix \"src/**/*.{css,less}\" --cache --cache-location node_modules/.cache/stylelint/",
     "generate:theme": "node ./script/theme.js",
