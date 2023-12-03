@@ -13,10 +13,11 @@ export const getSongUrl = async <T>(
   source: PlaySource[],
   br: number
 ): Promise<T> => {
-  const data = await get<{ data: T }>('/api/song/url', {
+  const data = await get<{ data: T }>('/api/song/url/v1', {
     id: Array.isArray(id) ? id.join(',') : id,
     br: br,
-    source: source?.join(',')
+    source: source?.join(','),
+    level: 'lossless'
   })
   return data.data
 }

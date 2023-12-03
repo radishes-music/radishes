@@ -1,0 +1,3 @@
+[submodule "packages/api"]
+	path = packages/api
+	url = git@github.com:little-buddy/NeteaseCloudMusicApi.git
