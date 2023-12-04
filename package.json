@@ -32,7 +32,7 @@
     "analyze": "npx vite-bundle-visualizer",
     "log": "conventional-changelog -p eslint -i CHANGELOG.md -s -r 0",
     "envinfo": "npx envinfo --system --npmPackages '{vite,@vitejs/*}' --binaries --browsers",
-    "postinstall": "electron-builder install-app-deps",
+    "postinstall": "electron-builder install-app-deps && cd packages/api && yarn install",
     "postuninstall": "electron-builder install-app-deps"
   },
   "gitHooks": {
