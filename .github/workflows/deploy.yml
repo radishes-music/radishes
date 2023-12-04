@@ -40,7 +40,7 @@ jobs:
           steps.cache-cypress-binary.outputs.cache-hit != 'true'
         run: |
           corepack enable
-          yarn
+          yarn workspaces foreach install
 
   # cypress-run:
   #   name: Cypress run
@@ -122,7 +122,7 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: |
           corepack enable 
-          yarn install --frozen-lockfile
+          yarn workspaces foreach install
 
       - name: Lint
         run: |
@@ -155,7 +155,7 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: |
           corepack enable
-          yarn install --frozen-lockfile
+          yarn workspaces foreach install
 
       - name: Build electron
         run: |
