@@ -2,6 +2,8 @@
 
 ![release](https://github.com/Linkontoask/radishes/workflows/release/badge.svg)
 
+<img src="./snapshots/home.jpg" />
+
 `Radishes`是这个项目的名称，它是由`萝卜`翻译而来。可以在这里试听和下载“灰色”歌曲哟
 
 界面表现和功能参考 windows 网易云音乐界面和 ios 的网易云音乐，会对一些功能进行移动端支持。希望能找到合适的基于 vue3 的移动端打包工具（非套壳）。
