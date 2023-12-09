@@ -5,20 +5,29 @@
 
   > ul {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 20px;
     height: 100%;
   }
   &-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 220px;
+    position: relative;
+    // min-height: 220px;
     cursor: pointer;
     user-select: none;
     .song-pic {
       position: relative;
-      flex: 1;
+      width: 0;
       height: 0;
+      padding-left: 100%;
+      padding-bottom: 100%;
+      .daily-img,
+      .bg-img {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
       &-count {
         position: absolute;
         top: 2px;

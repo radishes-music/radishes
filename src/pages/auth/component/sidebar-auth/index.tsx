@@ -53,7 +53,7 @@ export const SidebarAuth = defineComponent({
       const text = isLogin.value ? profile.value.nickname : '未登录'
       const head = isLogin.value ? profile.value.avatarUrl : DEFAULT_AVATAR
       return (
-        <div class="sidebar-nav-login" onClick={unLoginClick}>
+        <div class="sidebar-nav-login m-4" onClick={unLoginClick}>
           <div class="sidebar-nav-loginbox">
             <Image
               width="40"

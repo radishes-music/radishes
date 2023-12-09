@@ -1,11 +1,11 @@
 @import '~@/theme/index.less';
 
 .sidebar {
-  padding: 10px;
   border-right: @base-border;
   &-nav {
     &-contanier {
       height: calc(100% - 72px);
+      padding: 16px;
       overflow-x: hidden;
       overflow-y: auto;
     }
@@ -17,6 +17,7 @@
       font-size: 15px;
       line-height: 40px;
       color: var(--secondary-text);
+      transition: all 0.3s;
       &:hover {
         color: var(--secondary-text-hover);
         background-color: #f3f3f3;

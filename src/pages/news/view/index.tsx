@@ -30,7 +30,7 @@ export const News = defineComponent({
       <div class="news">
         <SecondaryBar nav={nav}></SecondaryBar>
         {/* See https://github.com/vuejs/jsx-next/issues/161 */}
-        <RouterView v-slots={Slots}></RouterView>
+        <RouterView class="px-4" v-slots={Slots}></RouterView>
       </div>
     )
   }

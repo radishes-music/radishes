@@ -45,7 +45,7 @@ export const SecondaryBar = defineComponent({
     }
 
     return () => (
-      <div class={`${prefix}-bar`}>
+      <div class={`${prefix}-bar mx-4`}>
         <ul>
           {nav.value?.map(link => (
             <RouterLink
