@@ -42,7 +42,9 @@ module.exports = async function () {
     },
     // Specify linux target just for disabling snap compilation
     linux: {
-      target: 'deb'
+      target: 'deb',
+      maintainer: 'radishes@gitub.com',
+      vendor: 'radishes@gitub.com'
     }
   }
 }

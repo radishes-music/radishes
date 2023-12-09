@@ -14,7 +14,7 @@
     "build:web": "yarn generate:theme && cross-env NODE_ENV=production vite build --mode browser",
     "build:electron": "npx rimraf dist-electron &&  npx electron-vite build --mode electron.build --outDir dist-electron",
     "build:api": "yarn workspace @radishes/api run build",
-    "pkg:win": "yarn build:electron && yarn workspace @radishes/api run buikdgwin && npx electron-builder --config .electron-builder.config.js -w --universal",
+    "pkg:win": "yarn build:electron && yarn workspace @radishes/api run buildwin && npx electron-builder --config .electron-builder.config.js -w",
     "pkg:linux": "yarn build:electron && yarn workspace @radishes/api run buildlinux && npx electron-builder --config .electron-builder.config.js -l",
     "pkg:macos": "yarn build:electron && yarn workspace @radishes/api run buildmacos && npx electron-builder --config .electron-builder.config.js -m",
     "test": "lerna run test --stream",
