@@ -1,7 +1,7 @@
 import portscanner from 'portscanner'
 import childProcess from 'child_process'
 import path from 'path'
-import { errorMain, infoMain, warnMain } from '../utils/log'
+import { errorMain, warnMain } from '../utils/log'
 
 const PORT = [1 << 15, (1 << 16) - 1]
 
@@ -12,14 +12,9 @@ export const findPort = () => {
 
 export const runService = () => {
   return findPort().then(n => {
-    let filename = 'api-macos'
+    const filename =
+      process.platform === 'win32' ? 'netease-api.exe' : 'netease-api'
     const port = String(n)
-    if (process.platform === 'win32') {
-      filename = 'api-win.exe'
-    }
-    if (process.platform === 'linux') {
-      filename = 'api-linux'
-    }
     const cwd = path.resolve(__dirname, '../../public/service')
     const service = childProcess.exec(filename, {
       cwd: cwd,

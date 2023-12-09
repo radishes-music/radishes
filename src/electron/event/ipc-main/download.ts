@@ -99,7 +99,20 @@ const nodeDownload = async (
     })
     response.on('end', async () => {
       const buffer = Buffer.concat(chunks)
-      const path = join(downloadPath, name + suffix)
+
+      let suffixName = ''
+      // eslint-disable-next-line no-useless-escape
+      const match_result = url.match(/\.[^\.]+$/)
+      if (match_result) {
+        const suffixStr = match_result[0]
+        if (['.mp3', '.flac'].includes(suffixStr)) {
+          suffixName = suffixStr
+        } else {
+          suffixName = suffix
+        }
+      }
+
+      const path = join(downloadPath, name + suffixName)
       const comm = Buffer.from(String(id)).toString('base64')
       const { renderBuffer, addTag } = writeBufferID3(buffer)
       addTag('TIT2', name)

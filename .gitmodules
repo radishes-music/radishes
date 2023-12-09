@@ -1,0 +1,4 @@
+[submodule "radishes-v2"]
+	path = packages/api
+	url = git@github.com:radishes-music/NeteaseCloudMusicApi.git
+	branch = radishes
