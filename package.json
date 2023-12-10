@@ -11,7 +11,7 @@
     "dev:web": "cross-env NODE_ENV=development vite --mode browser",
     "dev:api": "yarn workspace @radishes/api run dev",
     "dev:electron": "concurrently -r \"yarn generate:theme\" \"electron-vite dev --mode electron.dev --outDir dist-electron\"",
-    "build:web": "yarn generate:theme && cross-env NODE_ENV=production vite build --mode browser",
+    "build:web": "cross-env NODE_ENV=production vite build --mode browser",
     "build:electron": "npx rimraf dist-electron &&  npx electron-vite build --mode electron.build --outDir dist-electron",
     "build:api": "yarn workspace @radishes/api run build",
     "pkg:win": "yarn build:electron && yarn workspace @radishes/api run buildwin && npx electron-builder --config .electron-builder.config.js -w",
