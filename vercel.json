@@ -1,5 +1,12 @@
 {
   "rewrites": [
-    { "source": "/api/:match*", "destination": "https://radishes-api.vercel.app/:match*" }
+    {
+      "source": "/api/:match*",
+      "destination": "https://radishes-music-api.vercel.app/:match*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
