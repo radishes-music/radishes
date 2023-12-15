@@ -72,6 +72,10 @@ yarn bootstrap
 
 目前会利用闲暇时间进行重构，如果你也想参与进来，可以发邮件或在[这里](https://github.com/Linkontoask/radishes/issues/6)告诉我
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=radishes-music/radishes&type=Date)](https://star-history.com/#radishes-music/radishes&Date)
+
 相关链接：
 
 - [NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
