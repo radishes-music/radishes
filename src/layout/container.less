@@ -29,20 +29,22 @@
       display: none;
     }
   }
-  &-md {
-    width: @md-width !important;
-    height: @md-height !important;
-  }
   &-lg {
     transform: matrix(1, 0, 0, 1, 0, 0) !important;
   }
   &-draging {
     transition: none;
   }
-  &-electron {
-    width: 100% !important;
-    max-width: none !important;
-    height: 100%;
-    box-shadow: none;
-  }
+}
+
+.container.container-md {
+  width: @md-width;
+  height: @md-height;
+}
+
+.container.container-electron {
+  width: 100% !important;
+  max-width: none !important;
+  height: 100%;
+  box-shadow: none;
 }
