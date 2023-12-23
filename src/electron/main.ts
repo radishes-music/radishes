@@ -144,6 +144,8 @@ async function createWindow() {
     infoMain('close')
     if (process.platform === 'darwin') {
       if (appQuitting) {
+        const killed = serviceInstance.kill('SIGINT')
+        infoMain(`service kill ${killed ? 'success' : 'fail'}`)
         win = null
       } else if (win !== null) {
         event.preventDefault()
