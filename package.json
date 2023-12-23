@@ -80,6 +80,7 @@
     "vue": "^3.3.7",
     "vue-i18n": "^9.1.7",
     "vue-router": "^4.2.5",
+    "vue-skeletor": "^1.0.6",
     "vuex": "^4.1.0",
     "vuex-persistedstate": "^4.1.0"
   },

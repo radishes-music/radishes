@@ -54,7 +54,7 @@ const loadData = async () => {
   }
   await store.getRecommendSongList()
 
-  // loading.value = false
+  loading.value = false
 }
 
 const jump = new Jump()

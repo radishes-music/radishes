@@ -2,7 +2,7 @@
   <div class="recommend-song">
     <h2 class="!text-lg mb-6">最新音乐</h2>
 
-    <ul class="grid grid-cols-2 gap-x-4 gap-2">
+    <ul class="grid grid-cols-2 gap-x-4 gap-2" v-if="!state.loading">
       <li
         v-for="song in store.songs"
         :key="song.id"
@@ -32,6 +32,14 @@
         </div>
       </li>
     </ul>
+
+    <div class="grid grid-cols-2 gap-x-4 gap-2" v-else>
+      <skeletor
+        class="!h-20 !rounded"
+        v-for="(_, i) in Array(10).fill(0)"
+        :key="i"
+      />
+    </div>
   </div>
 </template>
 

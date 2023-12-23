@@ -61,7 +61,7 @@ import { formatCount } from '@/utils'
 import { Image } from '@/components/image'
 
 const props = defineProps<{
-  notitle: boolean
+  notitle?: boolean
   song: {
     name: string
     picUrl: string

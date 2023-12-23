@@ -15,6 +15,9 @@ import { setupMainEvent } from '@/electron/web/event'
 
 import PhosphorIcons from '@phosphor-icons/vue'
 
+import 'vue-skeletor/dist/vue-skeletor.css'
+import { Skeletor } from 'vue-skeletor'
+
 const app = createApp(App)
   .use(store)
   .use(pinia)
@@ -23,6 +26,7 @@ const app = createApp(App)
   .use(Components.default)
   .use(GlobalComponent)
   .use(PhosphorIcons)
+  .component(Skeletor.name, Skeletor)
 
 errorHandle(app)
 

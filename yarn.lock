@@ -20521,6 +20521,7 @@ __metadata:
     vue: ^3.3.7
     vue-i18n: ^9.1.7
     vue-router: ^4.2.5
+    vue-skeletor: ^1.0.6
     vuex: ^4.1.0
     vuex-persistedstate: ^4.1.0
   languageName: unknown
@@ -24871,6 +24872,13 @@ __metadata:
   peerDependencies:
     vue: ^3.2.0
   checksum: 2449db4f3a1b3f0ccd16a3788000e47f0e26ca7035b6adf48ebd51d189eb2bad6c39664476cfad9c2ca22988032f5190c99970718495aa2a5c5595d50c8f71b9
+  languageName: node
+  linkType: hard
+
+"vue-skeletor@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "vue-skeletor@npm:1.0.6"
+  checksum: a630c7748bb6afa3a4dc1c997c575f5a3fbec10cb8f492fb0b0380fe38fb13f14771bff056f182270c9e7a046d27f44f4130af8711b58bb8fd1990b9afd1f345
   languageName: node
   linkType: hard
 
