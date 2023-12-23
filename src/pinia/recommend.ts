@@ -36,7 +36,7 @@ export const useRecommend = defineStore<
     getRecommendBanner: any
     getRecommendSongList: any
     getDailyRecommendSongList: any
-    getRecommendSong: any
+    getRecommendNewSong: any
   }
 >('songList', {
   state: () => ({
@@ -60,8 +60,9 @@ export const useRecommend = defineStore<
       this.dailySongList = [dailyAlbum, ...list]
       console.log(this.dailySongList)
     },
-    async getRecommendSong() {
+    async getRecommendNewSong() {
       this.songs = await wrapperReFetch(getRecommendNewsong)
+      console.log(this.songs)
     }
   }
 })

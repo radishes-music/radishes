@@ -1,5 +1,5 @@
 <template>
-  <div class="find-music-recommend">
+  <div class="find-music-recommend pb-6">
     <div class="h-[230px] pt-5 overflow-hidden">
       <Swiper
         :banners="store.banners"
@@ -25,14 +25,7 @@
       />
     </div>
 
-    <div class="recommend-song">
-      <h2 class="!text-lg">最新音乐</h2>
-      <song-list
-        :songData="store.songs"
-        :loading="loading"
-        @click="songClick"
-      />
-    </div>
+    <new-song />
   </div>
 </template>
 
@@ -44,6 +37,7 @@ import { SongList } from '@/components-business/song-list/index'
 import { useAuth } from '@/hooks/index'
 import { playMusic } from '@/shared/music-shared'
 import { Jump } from '@/shared/jump-shared'
+import NewSong from '@/components-business/song-list/newsong.vue'
 
 import { useRecommend } from '@/pinia'
 
@@ -59,9 +53,8 @@ const loadData = async () => {
     await store.getDailyRecommendSongList()
   }
   await store.getRecommendSongList()
-  await store.getRecommendSong()
 
-  loading.value = false
+  // loading.value = false
 }
 
 const jump = new Jump()

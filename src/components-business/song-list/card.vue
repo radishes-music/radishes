@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="group relative transition-all duration-[300ms] hover:shadow-lg hover:-translate-y-1 overflow-hidden rounded"
+      class="group relative cursor-pointer transition-all duration-[300ms] hover:shadow-lg overflow-hidden rounded"
     >
       <div class="w-0 h-0 pt-[100%] pr-[100%] bg-black" />
       <div class="absolute w-full h-full top-0 left-0">
@@ -43,7 +43,13 @@
         {{ formatCount(song.playCount) }}
       </div>
     </div>
-    <div class="h-11 mt-1">{{ song.name }}</div>
+    <div class="h-11 mt-1" v-if="!notitle">
+      <span
+        class="hover:text-primary transition-all duration-300 cursor-pointer"
+      >
+        {{ song.name }}
+      </span>
+    </div>
   </div>
 </template>
 
@@ -55,6 +61,7 @@ import { formatCount } from '@/utils'
 import { Image } from '@/components/image'
 
 const props = defineProps<{
+  notitle: boolean
   song: {
     name: string
     picUrl: string
