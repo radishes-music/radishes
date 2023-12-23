@@ -22,7 +22,7 @@ export const DailyCard = defineComponent({
       <>
         {props.src ? (
           <Image
-            class=" transition-all duration-[400ms] ease-linear hover:scale-110"
+            class=" transition-all duration-[300ms] ease-linear hover:scale-110"
             name={props.name || 'daily-img'}
             src={props.src}
           />

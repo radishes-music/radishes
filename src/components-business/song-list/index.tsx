@@ -5,6 +5,8 @@ import { Skeleton } from 'ant-design-vue'
 import { DailyCard } from '@/components-business/song-list/daily'
 import './index.less'
 
+import Card from './card.vue'
+
 const prefix = 'song'
 
 export const SongList = defineComponent({
@@ -46,19 +48,21 @@ export const SongList = defineComponent({
                 class={`${prefix}-list-container`}
                 onClick={() => clickHandle(song)}
               >
-                <div
-                  class={`${prefix}-pic transition-all duration-500 hover:shadow-lg hover:-translate-y-1 overflow-hidden rounded`}
+                <Card song={song}></Card>
+
+                {/* <div
+                  class={`${prefix}-pic transition-all duration-[300ms] hover:shadow-lg hover:-translate-y-1 overflow-hidden rounded`}
                 >
                   <DailyCard src={song.picUrl || song.coverImgUrl} />
                   <div
                     v-show={!!song.playCount}
-                    class={`${prefix}-pic-count flex items-center !text-[12px] pt-0.5 pr-0.5`}
+                    class={`${prefix}-pic-count flex items-center !text-[12px] p-0.5 rounded bg-black`}
                   >
-                    <ph-headphones size="16" weight="duotone" class="mr-1" />
+                    <ph-headphones size="14" weight="duotone" class="mr-1" />
                     {formatCount(song.playCount)}
                   </div>
                 </div>
-                <div class={`${prefix}-title !mt-1`}>{song.name}</div>
+                <div class={`${prefix}-title !mt-1`}>{song.name}</div> */}
               </li>
             ))}
           </ul>

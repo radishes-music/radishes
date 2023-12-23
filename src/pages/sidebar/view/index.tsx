@@ -30,7 +30,7 @@ export const Sidebar = defineComponent({
                 </header>
               )}
               <RouterLink
-                class="sidebar-nav-name flex items-center pl-1 rounded"
+                class="sidebar-nav-name flex items-center pl-3 rounded"
                 to={routerGroup.path}
               >
                 {routerGroup.path === '/music' && (
@@ -59,10 +59,11 @@ export const Sidebar = defineComponent({
                 <header class="sidebar-nav-header">我的歌单</header>
               )}
               <RouterLink
-                class="sidebar-nav-name ellipsis"
+                class="sidebar-nav-name flex items-center pl-3 rounded"
                 to={`/list/song/${item.id}`}
               >
-                {item.name}
+                <ph-cassette-tape size="18" weight="duotone" class="mr-2" />
+                <span class="flex-1 ellipsis">{item.name}</span>
               </RouterLink>
             </div>
           ))}
