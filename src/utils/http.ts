@@ -46,15 +46,14 @@ export function get<T>(
   params?: unknown,
   options?: HttpConfig
 ): Promise<T> {
-  return http
-    .get(url, {
-      params,
-      ...options
-    })
-    .catch(e => {
-      console.error(e)
-      return e
-    })
+  return http.get(url, {
+    params,
+    ...options
+  })
+  // .catch(e => {
+  //   console.error(e)
+  //   return e
+  // })
 }
 
 export function post<T>(
@@ -62,15 +61,14 @@ export function post<T>(
   data?: unknown,
   options?: HttpConfig
 ): Promise<T> {
-  return http
-    .post(url, {
-      data,
-      ...options
-    })
-    .catch(e => {
-      console.error(e)
-      return e
-    })
+  return http.post(url, {
+    data,
+    ...options
+  })
+  // .catch(e => {
+  //   console.error(e)
+  //   return e
+  // })
 }
 
 export default http
