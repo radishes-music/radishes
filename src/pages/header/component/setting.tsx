@@ -90,6 +90,20 @@ export const Setting = defineComponent({
             v-slots={ColorPicker}
           ></Popover>
         </ve-button>
+        {isBrowser && (
+          <ve-button
+            type="text"
+            class="header-window-btn"
+            onClick={() => {
+              window.open(
+                'https://github.com/radishes-music/radishes',
+                '_blank'
+              )
+            }}
+          >
+            <ph-github-logo size="22" weight="duotone" class=" text-white" />
+          </ve-button>
+        )}
       </div>
     )
   }
