@@ -13,7 +13,7 @@ import { FansView } from '@/pages/userinfo/views/fans-view'
 import { UserSetting } from '@/pages/userinfo/views/user-setting'
 import { CustomizeRouteRecordRaw } from '@/interface'
 
-import Recommend from '@/pages/recommend/index.vue'
+import Recommend from '@/pages/findmusic/recommend/index.vue'
 
 export const baseNavRouter: CustomizeRouteRecordRaw[] = [
   {

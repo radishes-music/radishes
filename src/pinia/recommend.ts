@@ -1,12 +1,14 @@
+import type { NewSong, Song } from '@/interface'
 import type { Banners } from '@/pages'
+
+import { defineStore } from 'pinia'
 import {
   getBanner,
   getDailyRecommendSongList,
   getRecommendSongList,
   getRecommendNewsong
-} from '@/pages/recommend/api'
+} from '@/pages/findmusic/recommend/api'
 import { wrapperReFetch } from '@/utils'
-import { defineStore } from 'pinia'
 
 const dailyAlbum: any = {
   id: -1,
@@ -22,28 +24,28 @@ const dailyAlbum: any = {
   artists: []
 }
 
-export const useRecommend = defineStore<
+export const useRecommendStore = defineStore<
   'songList',
   {
     banners: Banners[]
-    songList: any
-    dailySongList: any
+    songList: Song[]
+    dailySongList: Song[]
     runningSwiper: boolean
-    songs: any
+    songs: NewSong[]
   },
   {},
   {
-    getRecommendBanner: any
-    getRecommendSongList: any
-    getDailyRecommendSongList: any
-    getRecommendNewSong: any
+    getRecommendBanner: () => Promise<void>
+    getRecommendSongList: () => Promise<void>
+    getDailyRecommendSongList: () => Promise<void>
+    getRecommendNewSong: () => Promise<void>
   }
 >('songList', {
   state: () => ({
     banners: [],
     songList: [],
     songs: [],
-    dailySonglist: [],
+    dailySongList: [],
     runningSwiper: false
   }),
   getters: {},
@@ -58,7 +60,6 @@ export const useRecommend = defineStore<
     async getDailyRecommendSongList() {
       const list = await wrapperReFetch<any[]>(getDailyRecommendSongList)
       this.dailySongList = [dailyAlbum, ...list]
-      console.log(this.dailySongList)
     },
     async getRecommendNewSong() {
       this.songs = await wrapperReFetch(getRecommendNewsong)

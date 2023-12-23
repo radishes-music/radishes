@@ -327,14 +327,14 @@ export const overNum = (num: number) => {
 
 export const wrapperReFetch = async <T>(
   asyncGet: (...args: any) => Promise<T>
-) => {
+): Promise<T> => {
   try {
     const res = await asyncGet()
     return res
   } catch (error) {
     return new Promise(resolve => {
       setTimeout(async () => {
-        resolve(await wrapperReFetch(asyncGet))
+        resolve(await wrapperReFetch<T>(asyncGet))
       }, 1000)
     })
   }
