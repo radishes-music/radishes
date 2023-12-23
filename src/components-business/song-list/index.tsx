@@ -46,16 +46,19 @@ export const SongList = defineComponent({
                 class={`${prefix}-list-container`}
                 onClick={() => clickHandle(song)}
               >
-                <div class={`${prefix}-pic`}>
+                <div
+                  class={`${prefix}-pic transition-all duration-500 hover:shadow-lg hover:-translate-y-1 overflow-hidden rounded`}
+                >
                   <DailyCard src={song.picUrl || song.coverImgUrl} />
                   <div
-                    v-show={song.playCount !== 0}
-                    class={`${prefix}-pic-count`}
+                    v-show={!!song.playCount}
+                    class={`${prefix}-pic-count flex items-center !text-[12px] pt-0.5 pr-0.5`}
                   >
+                    <ph-headphones size="16" weight="duotone" class="mr-1" />
                     {formatCount(song.playCount)}
                   </div>
                 </div>
-                <div class={`${prefix}-title`}>{song.name}</div>
+                <div class={`${prefix}-title !mt-1`}>{song.name}</div>
               </li>
             ))}
           </ul>

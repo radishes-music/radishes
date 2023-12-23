@@ -29,7 +29,21 @@ export const Sidebar = defineComponent({
                   {routerGroup.meta.beforeHeader}
                 </header>
               )}
-              <RouterLink class="sidebar-nav-name" to={routerGroup.path}>
+              <RouterLink
+                class="sidebar-nav-name flex items-center pl-1 rounded"
+                to={routerGroup.path}
+              >
+                {routerGroup.path === '/music' && (
+                  <ph-vinyl-record size={20} class="mr-2" weight="duotone" />
+                )}
+
+                {routerGroup.path === '/download' && (
+                  <ph-download size={20} class="mr-2" weight="duotone" />
+                )}
+
+                {routerGroup.path === '/cloud' && (
+                  <ph-soundcloud-logo size={20} class="mr-2" weight="duotone" />
+                )}
                 {routerGroup.meta?.name}
               </RouterLink>
             </div>

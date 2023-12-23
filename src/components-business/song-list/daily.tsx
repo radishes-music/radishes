@@ -21,7 +21,11 @@ export const DailyCard = defineComponent({
     return () => (
       <>
         {props.src ? (
-          <Image name={props.name || 'daily-img'} src={props.src} />
+          <Image
+            class=" transition-all duration-[400ms] ease-linear hover:scale-110"
+            name={props.name || 'daily-img'}
+            src={props.src}
+          />
         ) : (
           <div class={`${prefix}-img ${props.name}`}>
             <div class={`${prefix}-img-date`}>

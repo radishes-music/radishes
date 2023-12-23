@@ -325,8 +325,8 @@ export const overNum = (num: number) => {
   return formatCount(num)
 }
 
-export const wrapperReFetch = async (
-  asyncGet: (...args: any) => Promise<any>
+export const wrapperReFetch = async <T>(
+  asyncGet: (...args: any) => Promise<T>
 ) => {
   try {
     const res = await asyncGet()

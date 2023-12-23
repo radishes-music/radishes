@@ -1,4 +1,4 @@
-import { News, Recommend, SongList, TopList, Artists } from '@/pages/news/index'
+import { News, SongList, TopList, Artists } from '@/pages/news/index'
 // Use this method when you need to load dynamically
 // const video = () => import(/* webpackChunkName: "video" */ '@/pages/video/index')
 import { Video, Mv } from '@/pages/video/index'
@@ -12,6 +12,8 @@ import { EventView } from '@/pages/userinfo/views/event-view'
 import { FansView } from '@/pages/userinfo/views/fans-view'
 import { UserSetting } from '@/pages/userinfo/views/user-setting'
 import { CustomizeRouteRecordRaw } from '@/interface'
+
+import Recommend from '@/pages/recommend/index.vue'
 
 export const baseNavRouter: CustomizeRouteRecordRaw[] = [
   {
