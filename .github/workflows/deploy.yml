@@ -3,6 +3,7 @@ name: release
 on:
   push:
     branches: next
+    tags: 'v*'
   pull_request:
     branches: next
 
