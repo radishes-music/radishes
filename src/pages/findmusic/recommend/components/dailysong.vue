@@ -10,12 +10,10 @@
 </template>
 
 <script setup lang="ts">
-import { onActivated, onMounted, reactive, ref } from 'vue'
-import { Jump } from '@/shared/jump-shared'
+import { onMounted, reactive } from 'vue'
 import { useRecommendStore } from '@/pinia'
 import { SongList } from '@/components-business/song-list'
-
-const isMounted = ref(false)
+import { useJumpSongList, useOnActivated } from '@/hooks'
 
 const state = reactive({
   loading: true
@@ -23,9 +21,9 @@ const state = reactive({
 
 const store = useRecommendStore()
 
-const jump = new Jump()
+const jumpSongList = useJumpSongList()
 
-const songClick = (item: any) => jump.songList(item.id)
+const songClick = (item: any) => jumpSongList(item.id)
 
 const loadData = async (needLoading = true) => {
   if (needLoading) {
@@ -37,15 +35,10 @@ const loadData = async (needLoading = true) => {
   }
 }
 
-onActivated(() => {
-  if (isMounted.value) {
-    loadData(false)
-  }
-})
+useOnActivated(() => loadData(false))
 
-onMounted(async () => {
-  await loadData()
-  isMounted.value = true
+onMounted(() => {
+  loadData()
 })
 </script>
 

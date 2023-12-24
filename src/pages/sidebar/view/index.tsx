@@ -1,4 +1,4 @@
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import classnames from 'classnames'
 import { navRouter } from '@/router/index'
@@ -18,36 +18,34 @@ export const Sidebar = defineComponent({
       <aside class="sidebar">
         <SidebarAuth></SidebarAuth>
         <div class="sidebar-nav-contanier">
-          {nav.map((routerGroup: CustomizeRouteRecordRaw) => (
-            <div
-              class={classnames('sidebar-nav', {
-                'sidebar-nav-active': route.path.includes(routerGroup.path)
-              })}
-            >
-              {routerGroup.meta?.beforeHeader && (
-                <header class="sidebar-nav-header">
-                  {routerGroup.meta.beforeHeader}
-                </header>
-              )}
-              <RouterLink
-                class="sidebar-nav-name flex items-center pl-3 rounded"
-                to={routerGroup.path}
+          {nav.map((routerGroup: CustomizeRouteRecordRaw) => {
+            const Icon = routerGroup?.meta?.icon
+
+            return (
+              <div
+                class={classnames('sidebar-nav', {
+                  'sidebar-nav-active': route.path.includes(routerGroup.path)
+                })}
               >
-                {routerGroup.path === '/music' && (
-                  <ph-vinyl-record size={20} class="mr-2" weight="duotone" />
+                {routerGroup.meta?.beforeHeader && (
+                  <header class="sidebar-nav-header">
+                    {routerGroup.meta.beforeHeader}
+                  </header>
                 )}
+                <RouterLink
+                  class="sidebar-nav-name flex items-center pl-3 rounded"
+                  to={routerGroup.path}
+                >
+                  {Icon && (
+                    // @ts-expect-error
+                    <Icon size={20} class="mr-2" weight="duotone"></Icon>
+                  )}
 
-                {routerGroup.path === '/download' && (
-                  <ph-download size={20} class="mr-2" weight="duotone" />
-                )}
-
-                {routerGroup.path === '/cloud' && (
-                  <ph-soundcloud-logo size={20} class="mr-2" weight="duotone" />
-                )}
-                {routerGroup.meta?.name}
-              </RouterLink>
-            </div>
-          ))}
+                  {routerGroup.meta?.name}
+                </RouterLink>
+              </div>
+            )
+          })}
 
           {playlist.value?.map((item: any, index: number) => (
             <div

@@ -15,6 +15,13 @@ import { CustomizeRouteRecordRaw } from '@/interface'
 
 import Recommend from '@/pages/findmusic/recommend/index.vue'
 
+import {
+  PhVinylRecord,
+  PhDownload,
+  PhSoundcloudLogo,
+  PhFileAudio
+} from '@phosphor-icons/vue'
+
 export const baseNavRouter: CustomizeRouteRecordRaw[] = [
   {
     path: '/userinfo/:uid',
@@ -81,6 +88,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     name: News.name,
     meta: {
       name: '发现音乐',
+      icon: PhVinylRecord,
       browser: true,
       electron: true
     },
@@ -175,6 +183,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     name: Download.name,
     meta: {
       name: '下载管理',
+      icon: PhDownload,
       beforeHeader: '我的音乐',
       browser: true,
       electron: true
@@ -210,6 +219,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     name: LocalMusic.name,
     meta: {
       name: '本地音乐',
+      icon: PhFileAudio,
       browser: false,
       electron: true
     },
@@ -244,6 +254,7 @@ export const baseNavRouter: CustomizeRouteRecordRaw[] = [
     name: Cloud.name,
     meta: {
       name: '我的音乐云盘',
+      icon: PhSoundcloudLogo,
       auth: true,
       browser: true,
       electron: true,

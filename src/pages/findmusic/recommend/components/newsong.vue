@@ -1,7 +1,7 @@
 <template>
   <div class="recommend-song">
-    <h2 class="!text-lg mb-6">最新音乐</h2>
-    <ul class="grid grid-cols-2 gap-x-4 gap-2" v-if="!state.loading">
+    <h2 class="!text-lg">最新音乐</h2>
+    <ul class="grid grid-cols-2 gap-x-4 gap-2 pt-[10px]" v-if="!state.loading">
       <li
         v-for="song in store.songs"
         :key="song.id"
@@ -47,6 +47,7 @@ import { onMounted, reactive } from 'vue'
 import { useRecommendStore } from '@/pinia'
 import card from '@/components-business/song-list/card.vue'
 import { playMusic } from '@/shared/music-shared'
+import { useOnActivated } from '@/hooks'
 
 const state = reactive({
   loading: true
@@ -57,6 +58,10 @@ const store = useRecommendStore()
 const songClick = (id: number) => {
   playMusic(id)
 }
+
+useOnActivated(() => {
+  store.getRecommendNewSong()
+})
 
 onMounted(async () => {
   state.loading = true
