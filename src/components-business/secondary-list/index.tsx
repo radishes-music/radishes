@@ -15,7 +15,7 @@ import { Image } from '@/components/image'
 import dayjs from 'dayjs'
 import './index.less'
 
-const renderClass = (name: string) => `secondary-list-${name}`
+const renderClass = (name: string) => `secondary-list-${name} overflow-hidden`
 
 export const SecondaryList = defineComponent({
   name: 'SecondaryList',
@@ -69,10 +69,13 @@ export const SecondaryList = defineComponent({
           head: () => (
             <>
               {/* <Image src={props.source.src} name={renderClass('coverimg')} /> */}
-              <DailyCard
-                src={props.source.src}
-                name={renderClass('coverimg')}
-              />
+              <div class={renderClass('coverimg')}>
+                <DailyCard
+                  src={props.source.src}
+                  // name={}
+                />
+              </div>
+
               <div class={renderClass('des')}>
                 <h1>
                   <div>{typeMap[props.source.type]}</div>

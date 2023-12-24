@@ -29,7 +29,21 @@ export const Sidebar = defineComponent({
                   {routerGroup.meta.beforeHeader}
                 </header>
               )}
-              <RouterLink class="sidebar-nav-name" to={routerGroup.path}>
+              <RouterLink
+                class="sidebar-nav-name flex items-center pl-3 rounded"
+                to={routerGroup.path}
+              >
+                {routerGroup.path === '/music' && (
+                  <ph-vinyl-record size={20} class="mr-2" weight="duotone" />
+                )}
+
+                {routerGroup.path === '/download' && (
+                  <ph-download size={20} class="mr-2" weight="duotone" />
+                )}
+
+                {routerGroup.path === '/cloud' && (
+                  <ph-soundcloud-logo size={20} class="mr-2" weight="duotone" />
+                )}
                 {routerGroup.meta?.name}
               </RouterLink>
             </div>
@@ -45,10 +59,11 @@ export const Sidebar = defineComponent({
                 <header class="sidebar-nav-header">我的歌单</header>
               )}
               <RouterLink
-                class="sidebar-nav-name ellipsis"
+                class="sidebar-nav-name flex items-center pl-3 rounded"
                 to={`/list/song/${item.id}`}
               >
-                {item.name}
+                <ph-cassette-tape size="18" weight="duotone" class="mr-2" />
+                <span class="flex-1 ellipsis">{item.name}</span>
               </RouterLink>
             </div>
           ))}

@@ -100,7 +100,8 @@ export const Container = defineComponent({
             'container-' + VUE_APP_PLATFORM + '-' + screenSize.value
           ],
           {
-            'container-draging': draging.value
+            'container-draging': draging.value,
+            ' rounded-lg overflow-hidden': isBrowser
           }
         )}
       >

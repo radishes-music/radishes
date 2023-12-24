@@ -111,7 +111,7 @@ export const Swiper = defineComponent({
 
     return () => (
       <div
-        class={`${prefix}`}
+        class={`${prefix} relative`}
         onMouseenter={handleMouseEnter}
         onMouseleave={handleMouseLeave}
       >
@@ -122,7 +122,9 @@ export const Swiper = defineComponent({
           {banners.value.map((item, index: number) => (
             <li class={renderClass(index)} onClick={() => handleClick(item)}>
               <Image src={item.imageUrl} />
-              <i class={`${prefix}-container-title`}>{item.typeTitle}</i>
+              <i class={`${prefix}-container-title  rounded !font-normal`}>
+                {item.typeTitle}
+              </i>
             </li>
           ))}
           <div class={`${prefix}-container-right`} onClick={nextAction}>
