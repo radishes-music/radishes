@@ -17,7 +17,7 @@ import normalizeUrl from 'normalize-url'
 import log from 'electron-log'
 import store from '@/electron/store/index'
 import path from 'path'
-import { LyricsPathUrl, PreloadPath } from '@/electron/utils'
+import { LyricsPathUrl, PreloadPath } from '@/electron/constants'
 
 export const onIpcMainEvent = (win: BrowserWindow) => {
   let lyrics: null | BrowserWindow
