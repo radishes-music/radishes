@@ -47,6 +47,7 @@ export const SongList = defineComponent({
               <li
                 class={`${prefix}-list-container`}
                 onClick={() => clickHandle(song)}
+                key={song.id}
               >
                 <Card song={song}></Card>
               </li>
