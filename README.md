@@ -2,6 +2,8 @@
 
 ![release](https://github.com/Linkontoask/radishes/workflows/release/badge.svg)
 
+后续更新某些功能可能会使用 [gyron](https://github.com/gyronorg/core) 这个自研框架，它拥有极小的体积和灵活的组织能力。
+
 <img src="./snapshots/home.jpg" />
 
 `Radishes`是这个项目的名称，它是由`萝卜`翻译而来。可以在这里试听和下载“灰色”歌曲哟
