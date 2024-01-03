@@ -11,6 +11,8 @@ import { isBrowser, isElectron, isWindows } from '@/utils'
 import './index.less'
 import classnames from 'classnames'
 
+import SearchBox from '../component/search.vue'
+
 const actionToClass = {
   [Action.CLOSE_WINDOW]: '',
   [Action.MAXIMIZE_WINDOW]: 'lg',
@@ -60,9 +62,13 @@ export const Header = defineComponent({
       <header class="header">
         <Logo></Logo>
         <div class="header-right">
-          <div class="header-right-left" onMousedown={e => e.stopPropagation()}>
+          <div
+            class="header-right-left space-x-4 flex items-center"
+            onMousedown={e => e.stopPropagation()}
+          >
             <PushShift></PushShift>
-            <Search></Search>
+            {/* <Search></Search> */}
+            <SearchBox></SearchBox>
           </div>
           <div
             class="header-right-right"

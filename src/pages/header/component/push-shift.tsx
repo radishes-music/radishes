@@ -85,32 +85,47 @@ export const PushShift = defineComponent({
 
     return () => {
       const { historyRoute } = store.state
-      const forward = () => handleRouteCommand(COMMAND.FORWARD)
-      const back = () => handleRouteCommand(COMMAND.BACK)
+
+      const cantForward = !historyRoute.after.length
+      const cantBack = !historyRoute.before.length
+
+      const forward = () => {
+        if (cantForward) {
+          return
+        }
+        handleRouteCommand(COMMAND.FORWARD)
+      }
+      const back = () => {
+        if (cantBack) {
+          return
+        }
+        handleRouteCommand(COMMAND.BACK)
+      }
       return (
-        <div class="push-shift">
-          <ve-button
-            disabled={!historyRoute.before.length}
-            class={classnames({
-              'push-shift-disabled': !historyRoute.before.length
-            })}
+        <div class="push-shift space-x-4 flex items-center">
+          <div
+            class={classnames(
+              'w-5 h-5 bg-[#0000001c] rounded-full flex items-center justify-center transition-all duration-300',
+              {
+                'opacity-40': cantBack
+              }
+            )}
             onClick={back}
-            type="text"
-            circle
           >
-            <icon icon="toLeft" size={16}></icon>
-          </ve-button>
-          <ve-button
-            disabled={!historyRoute.after.length}
-            class={classnames({
-              'push-shift-disabled': !historyRoute.after.length
-            })}
+            <icon icon="toLeft" size={12}></icon>
+          </div>
+
+          <div
+            class={classnames(
+              'w-5 h-5 bg-[#0000001c] rounded-full flex items-center justify-center transition-all duration-300',
+              {
+                'opacity-40': cantForward
+              }
+            )}
             onClick={forward}
-            type="text"
-            circle
           >
-            <icon icon="toRight" size={16} color={'#fff'}></icon>
-          </ve-button>
+            <icon icon="toRight" size={12} color={'#fff'}></icon>
+          </div>
         </div>
       )
     }

@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       colors: {
         primary: 'var(--base-color)',
+        word: 'var(--secondary-text);',
         masked: 'rgba(0,0,0,0.5)',
         'masked-light': 'rgba(0,0,0,0.2)'
       }
