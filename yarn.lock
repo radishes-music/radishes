@@ -19525,6 +19525,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pinia-plugin-persistedstate@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "pinia-plugin-persistedstate@npm:3.2.1"
+  peerDependencies:
+    pinia: ^2.0.0
+  checksum: c62ba84853f803a7925c905f2ea9fd3b64a8b990165555835c380d9e5595a00d762733864f4926b0d36b34f8d5f2306a0799ba8c10ecd36cc15f657821c83747
+  languageName: node
+  linkType: hard
+
 "pinia@npm:^2.1.7":
   version: 2.1.7
   resolution: "pinia@npm:2.1.7"
@@ -20497,6 +20506,7 @@ __metadata:
     music-metadata: ^7.5.2
     normalize-url: ^5.3.0
     pinia: ^2.1.7
+    pinia-plugin-persistedstate: ^3.2.1
     portscanner: ^2.2.0
     prettier: ^3.1.0
     react-is: ^16.13.1

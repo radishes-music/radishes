@@ -105,9 +105,9 @@ export const PushShift = defineComponent({
         <div class="push-shift space-x-4 flex items-center">
           <div
             class={classnames(
-              'w-5 h-5 bg-[#0000001c] rounded-full flex items-center justify-center transition-all duration-300',
+              'w-5 h-5 bg-[#0000001c] rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer',
               {
-                'opacity-40': cantBack
+                'opacity-40 !cursor-not-allowed': cantBack
               }
             )}
             onClick={back}
@@ -117,9 +117,9 @@ export const PushShift = defineComponent({
 
           <div
             class={classnames(
-              'w-5 h-5 bg-[#0000001c] rounded-full flex items-center justify-center transition-all duration-300',
+              'w-5 h-5 bg-[#0000001c] rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer',
               {
-                'opacity-40': cantForward
+                'opacity-40 !cursor-not-allowed': cantForward
               }
             )}
             onClick={forward}

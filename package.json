@@ -72,6 +72,7 @@
     "md5": "^2.3.0",
     "music-metadata": "^7.5.2",
     "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
     "react-is": "^16.13.1",
     "typescript": "^5.2.2",
     "uuid": "^8.3.2",
