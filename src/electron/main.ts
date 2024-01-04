@@ -1,4 +1,11 @@
-import { app, BrowserWindow, screen, globalShortcut, protocol } from 'electron'
+import {
+  app,
+  BrowserWindow,
+  screen,
+  globalShortcut,
+  protocol,
+  shell
+} from 'electron'
 
 import { autoUpdater } from 'electron-updater'
 // import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
@@ -131,8 +138,15 @@ async function createWindow() {
 
   win.once('ready-to-show', () => {
     infoMain('Event ready-to-show')
-    // loadingWin && loadingWin.close()
-    win && win.show()
+    if (win) {
+      win.show()
+      win.webContents.on('will-navigate', (event, url) => {
+        if (!url.startsWith('file://')) {
+          event.preventDefault()
+          shell.openExternal(url)
+        }
+      })
+    }
   })
 
   // https://github.com/electron/electron/issues/26726
