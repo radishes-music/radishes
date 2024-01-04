@@ -33,3 +33,14 @@ export const useJumpArtist = () => {
     })
   }
 }
+
+export const useJump = () => {
+  const jumpSongList = useJumpSongList()
+  const jumpArtist = useJumpArtist()
+  const jumpAblum = useJumpAblumList()
+  return {
+    jumpAblum,
+    jumpArtist,
+    jumpSongList
+  }
+}

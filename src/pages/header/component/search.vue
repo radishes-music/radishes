@@ -26,11 +26,11 @@
     <transition name="fade">
       <div
         v-if="state.show"
-        class="absolute mt-5 bg-white shadow-lg shaodw w-[120%] max-h-96 overflow-y-scroll rounded z-10 px-4 pt-2 pb-4 cursor-default"
+        class="absolute mt-5 bg-white shadow-lg shaodw w-[120%] max-h-96 overflow-y-scroll rounded z-10 px-3 pt-2 pb-4 cursor-default"
       >
         <div v-if="!state.keyword" class="space-y-4">
           <div v-if="searchStore.hasSearchHistory">
-            <p class="font-bold text-word my-2 flex justify-between">
+            <p class="font-bold text-wordhover my-2 flex justify-between">
               搜索历史
               <ph-trash
                 class="cursor-pointer -mr-2"
@@ -53,7 +53,7 @@
             </div>
           </div>
           <div>
-            <p class="font-bold text-word mb-2">热搜歌曲</p>
+            <p class="font-bold text-wordhover mb-2">热搜歌曲</p>
             <div class="flex flex-wrap -mt-2">
               <div
                 class="rounded-full bg-[#d4d4d8] text-black text-[12px] px-2 relative flex items-center mt-2 mr-2 hover:shadow cursor-pointer"
@@ -81,36 +81,61 @@
           </div>
         </div>
 
-        <div v-else>
-          <p class="font-bold text-word mb-2">歌曲</p>
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          <p class="font-bold text-word my-2">专辑</p>
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          <p class="font-bold text-word my-2">歌手</p>
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
+        <div v-else class="space-y-2">
+          <div v-if="searchStore.searchResult.songs?.length > 0">
+            <p class="search-option-title">歌曲</p>
+            <div
+              class="search-option-text"
+              v-for="song in searchStore.searchResult.songs"
+              :key="song.id"
+              @click="goSearch(song.name + ' ' + song.artists[0].name)"
+            >
+              {{ song.name }}
 
-          <p class="font-bold text-word my-2">歌单</p>
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
-          {{ state.keyword }}<br />
+              <span class="text-[12px]"> - {{ song.artists[0].name }}</span>
+            </div>
+          </div>
+
+          <div v-if="searchStore.searchResult.artists?.length > 0">
+            <p class="search-option-title">歌手</p>
+            <div
+              class="search-option-img"
+              v-for="artist in searchStore.searchResult.artists"
+              :key="artist.id"
+              @click="jumpArtist(artist.id)"
+            >
+              <Image class="w-10 h-10 mr-4" :src="artist.picUrl"></Image>
+              {{ artist.name }}
+            </div>
+          </div>
+
+          <div v-if="searchStore.searchResult.albums?.length > 0">
+            <p class="search-option-title">专辑</p>
+            <div
+              class="search-option-text"
+              v-for="album in searchStore.searchResult.albums"
+              :key="album.id"
+              @click="jumpAblum(album.id)"
+            >
+              {{ album.name }} -
+              <span class="text-[12px]">{{ album.artist.name }}</span>
+            </div>
+          </div>
+
+          <div v-if="searchStore.searchResult.playlists?.length > 0">
+            <p class="search-option-title">歌单</p>
+            <div
+              class="search-option-img"
+              v-for="playlist in searchStore.searchResult.playlists"
+              :key="playlist.id"
+              @click="jumpSongList(playlist.id)"
+            >
+              <Image class="w-10 h-10 mr-2" :src="playlist.coverImgUrl"></Image>
+              <div class="flex-1 line-clamp-1">
+                {{ playlist.name }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </transition>
@@ -124,6 +149,8 @@ import { getSearchDefaultKeyword, getSearchHotKeywords } from '@/api/search'
 import classnames from 'classnames'
 import { useSearcStore } from '@/pinia'
 import { onClickOutside } from '@vueuse/core'
+import { Image } from '@/components/image'
+import { useJump } from '@/hooks'
 
 const router = useRouter()
 
@@ -142,6 +169,21 @@ const searchStore = useSearcStore()
 const container = ref(null)
 const isComposing = ref(false)
 
+const jump = useJump()
+
+const jumpAblum = (id: number) => {
+  state.show = false
+  jump.jumpAblum(id)
+}
+const jumpArtist = (id: number) => {
+  state.show = false
+  jump.jumpArtist(id)
+}
+const jumpSongList = (id: number) => {
+  state.show = false
+  jump.jumpSongList(id)
+}
+
 const goSearch = (words: string) => {
   state.show = false
   searchStore.addSearchHistory(words)
@@ -159,6 +201,7 @@ const onEnter = () => {
 const onChange = (e: Event) => {
   // @ts-expect-error
   state.keyword = e.target.value
+  searchStore.searchWord(state.keyword)
 }
 
 const onInput = (e: Event) => {
@@ -187,4 +230,14 @@ onClickOutside(container, () => {
 })
 </script>
 
-<style></style>
+<style scoped>
+.search-option-title {
+  @apply font-bold text-wordhover mb-2;
+}
+.search-option-text {
+  @apply text-word hover:text-wordhover flex items-center  px-2 py-1 hover:bg-[#f3f3f3] rounded cursor-pointer transition-all duration-300  line-clamp-1;
+}
+.search-option-img {
+  @apply text-word hover:text-wordhover flex items-center  p-2 hover:bg-[#f3f3f3] rounded cursor-pointer transition-all duration-300;
+}
+</style>

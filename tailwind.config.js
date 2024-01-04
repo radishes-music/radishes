@@ -9,6 +9,7 @@ module.exports = {
       colors: {
         primary: 'var(--base-color)',
         word: 'var(--secondary-text);',
+        wordhover: 'var(--secondary-text-hover)',
         masked: 'rgba(0,0,0,0.5)',
         'masked-light': 'rgba(0,0,0,0.2)'
       }

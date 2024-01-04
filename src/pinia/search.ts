@@ -1,11 +1,19 @@
 import { defineStore } from 'pinia'
 
+import { searchSuggest } from '@/api/search'
+
 const storeKey = 'radishes-music-search'
 
 export const useSearcStore = defineStore<
   typeof storeKey,
   {
     searchHistory: any[]
+    searchResult: {
+      albums: never[]
+      artists: never[]
+      songs: never[]
+      playlists: never[]
+    }
   },
   {
     hasSearchHistory: () => boolean
@@ -14,10 +22,17 @@ export const useSearcStore = defineStore<
     addSearchHistory: (keyword: string) => void
     removeSearchHistory: (keyword: string) => void
     clearSearchHistory: () => void
+    searchWord: (word: string) => Promise<void>
   }
 >(storeKey, {
   state: () => ({
-    searchHistory: []
+    searchHistory: [],
+    searchResult: {
+      albums: [],
+      artists: [],
+      songs: [],
+      playlists: []
+    }
   }),
   getters: {
     hasSearchHistory() {
@@ -44,7 +59,13 @@ export const useSearcStore = defineStore<
     },
     clearSearchHistory() {
       this.searchHistory = []
+    },
+    async searchWord(word: string) {
+      const list = await searchSuggest(word)
+      this.searchResult = list as any
     }
   },
-  persist: true
+  persist: {
+    paths: ['searchHistory']
+  }
 })
