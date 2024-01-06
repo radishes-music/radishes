@@ -14,6 +14,7 @@ export const useSearcStore = defineStore<
       songs: never[]
       playlists: never[]
     }
+    currentWord: string
   },
   {
     hasSearchHistory: () => boolean
@@ -32,7 +33,8 @@ export const useSearcStore = defineStore<
       artists: [],
       songs: [],
       playlists: []
-    }
+    },
+    currentWord: ''
   }),
   getters: {
     hasSearchHistory() {
@@ -61,7 +63,11 @@ export const useSearcStore = defineStore<
       this.searchHistory = []
     },
     async searchWord(word: string) {
+      this.currentWord = word
       const list = await searchSuggest(word)
+      if (this.currentWord !== word) {
+        return
+      }
       this.searchResult = list as any
     }
   },
