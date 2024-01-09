@@ -18,6 +18,7 @@ export const useSearcStore = defineStore<
   },
   {
     hasSearchHistory: () => boolean
+    hasSearchResult: () => boolean
   },
   {
     addSearchHistory: (keyword: string) => void
@@ -39,6 +40,14 @@ export const useSearcStore = defineStore<
   getters: {
     hasSearchHistory() {
       return this.searchHistory.length > 0
+    },
+    hasSearchResult() {
+      return (
+        this.searchResult.albums?.length > 0 ||
+        this.searchResult.artists?.length > 0 ||
+        this.searchResult.playlists?.length > 0 ||
+        this.searchResult.songs?.length > 0
+      )
     }
   },
   actions: {

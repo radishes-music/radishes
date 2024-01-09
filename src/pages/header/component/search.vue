@@ -89,7 +89,24 @@
 
         <div v-else class="space-y-2">
           <div v-if="state.loading" class="flex justify-center items-center">
-            <img class="w-14 h-14" src="/loading-list.svg" alt="" />
+            <img class="w-20 h-20" src="/loading-list.svg" alt="" />
+          </div>
+
+          <div
+            class="flex flex-col items-center justify-center h-20"
+            v-else-if="!searchStore.hasSearchResult"
+          >
+            <ph-music-note-simple
+              :size="30"
+              weight="duotone"
+              class="transform rotate-12"
+            />
+            <div class="mt-2 text-center font-bold italic">
+              NO
+              <span class="text-primary break-keep ml-1"
+                >“{{ state.keyword }}”</span
+              >
+            </div>
           </div>
 
           <div v-else>
