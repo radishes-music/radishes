@@ -4,29 +4,6 @@
 
 `Radishes`是这个项目的名称，它是由`萝卜`翻译而来。
 
-### 项目运行
-
-- 克隆项目
-
-`git clone https://github.com/Linkontoask/radishes.git`
-
-- 安装依赖
-
-```shell
-cd radishes/
-yarn bootstrap
-```
-
-- 运行项目  
-  web: `yarn dev`  
-  electron: `yarn dev:electron`
-
-- 构建项目  
-  web: `yarn build`  
-  electron:win: `yarn build:electron`  
-  electron:linux: `yarn build:electron:linux`  
-  electron:macos: `yarn build:electron:macos`
-
 相关链接：
 
 - [gyron](https://github.com/gyronorg/core)
