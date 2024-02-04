@@ -10,28 +10,58 @@
 
 界面表现和功能参考 windows 网易云音乐界面和 ios 的网易云音乐，会对一些功能进行移动端支持。希望能找到合适的基于 vue3 的移动端打包工具（非套壳）。
 
-### 项目运行
+### 🎡 项目运行
 
-- 克隆项目
+#### 克隆项目
+```
+git clone https://github.com/Linkontoask/radishes.git --recursive
+```
 
-`git clone https://github.com/Linkontoask/radishes.git`
+#### 环境配置
 
-- 安装依赖
+##### 本项目使用 `yarn > 3` 构建，新版yarn的具体使用可以移步[官网](https://v3.yarnpkg.com/getting-started/install)
 
+##### packageJson 已经指定yarn的版本，无需手动设置，只需运行下面命令
 ```shell
-cd radishes/
+# nodejs <16.10
+# npm i -g corepack\
+
+corepack enable
+```
+
+#### 安装依赖
+```shell
+yarn
 yarn bootstrap
 ```
 
-- 运行项目  
-  web: `yarn dev`  
-  electron: `yarn dev:electron`
+#### 运行项目
+##### web 调试
+```
+yarn dev
+```  
+##### electron 调试
+```
+yarn dev:electron
+```  
 
-- 构建项目  
-  web: `yarn build`  
-  electron:win: `yarn build:electron`  
-  electron:linux: `yarn build:electron:linux`  
-  electron:macos: `yarn build:electron:macos`
+#### 构建项目 
+##### web 端
+```
+yarn build
+```  
+##### win 端
+```
+yarn pkg:win
+```  
+##### macos 端
+```
+yarn pkg:macos
+```  
+##### linux 端
+```
+yarn pkg:linux
+```  
 
 ### 支持的功能
 
