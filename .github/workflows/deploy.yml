@@ -2,10 +2,9 @@ name: release
 
 on:
   push:
-    branches: next
-    tags: 'v*'
+    branches: c
   pull_request:
-    branches: next
+    branches: c
 
 jobs:
   install:
