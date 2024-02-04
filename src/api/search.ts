@@ -46,3 +46,20 @@ export const searchSuggest = async (key: string): Promise<SearchSuggest> => {
   })
   return data.result
 }
+
+export const getSearchDefaultKeyword = () =>
+  get<{ data: { realkeyword: string } }>('/api/search/default')
+
+export const getSearchHotKeywords = () =>
+  get<{
+    data: {
+      searchWord: string
+      score: number
+      content: string
+      source: string
+      iconType: number
+      iconUrl: string
+      url: string
+      alg: string
+    }[]
+  }>('/api/search/hot/detail')
