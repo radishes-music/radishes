@@ -14,7 +14,7 @@
 
 #### 克隆项目
 ```
-git clone https://github.com/Linkontoask/radishes.git --recursive
+git clone https://github.com/radishes-music/radishes.git --recursive
 ```
 
 #### 环境配置
