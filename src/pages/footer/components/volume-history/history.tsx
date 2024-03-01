@@ -12,7 +12,7 @@ import { useFooterModule } from '@/modules'
 import { Table } from '@/components-business/table'
 import { on, off } from '@/utils/index'
 import classnames from 'classnames'
-import { SongsDetail } from '@/interface'
+import { FooterMutations, SongsDetail } from '@/interface'
 import { TeleportToAny } from '@/components/teleport-layout/index'
 import { Button } from 'ant-design-vue'
 import { playMusic } from '@/shared/music-shared'
@@ -37,7 +37,7 @@ export const MusicHistory = defineComponent({
     const transition = ref(visible.value)
     const isPlayListVisible = ref(true)
 
-    const { useState } = useFooterModule()
+    const { useState, useMutations } = useFooterModule()
 
     const { musicStack, musciHistory } = toRefs(useState())
 
@@ -90,6 +90,18 @@ export const MusicHistory = defineComponent({
                   }
                 >
                   历史记录
+                </Button>
+                <Button
+                  type="link"
+                  onClick={() => {
+                    if (isPlayListVisible.value) {
+                      useMutations(FooterMutations.REMOVE_STACK)
+                    } else {
+                      useMutations(FooterMutations.REMOVE_HISTORY)
+                    }
+                  }}
+                >
+                  删除全部
                 </Button>
               </Button.Group>
             </div>

@@ -280,9 +280,17 @@ export const mutations: IMutations = {
     state.musicStack = []
   },
   [FooterMutations.REMOVE_STACK](state, id) {
+    if (!id) {
+      state.musicStack = []
+      return
+    }
     remove(state.musicStack, music => music.id === id)
   },
   [FooterMutations.REMOVE_HISTORY](state, id) {
+    if (!id) {
+      state.musciHistory = []
+      return
+    }
     remove(state.musciHistory, music => music.id === id)
   },
   [FooterMutations.SET_DURATION](state, duration) {
