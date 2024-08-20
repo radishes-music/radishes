@@ -3,7 +3,7 @@ import { Store } from 'vuex'
 import { RootState } from '@/store/index'
 import { LanguageKey } from './interface'
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   interface ComponentCustomProperties {
     $store: Store<RootState>
   }
